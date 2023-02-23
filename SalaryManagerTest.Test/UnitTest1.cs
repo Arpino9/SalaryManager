@@ -1,9 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SalaryManager.Domain.Repositories;
-using SalaryManager.Infrastructure.SQLite;
-using System;
-using System.Data.SQLite;
-using System.Linq;
 
 namespace SalaryManagerTest.Test
 {
@@ -17,8 +13,6 @@ namespace SalaryManagerTest.Test
         [TestMethod]
         public void TestMethod1()
         {
-
-
             /*try
             {
                 string sql = @"
