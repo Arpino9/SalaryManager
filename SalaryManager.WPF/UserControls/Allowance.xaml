@@ -1,0 +1,176 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SalaryManager.WPF"
+             xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" 
+             xmlns:Behavior="clr-namespace:SalaryManager.WPF.Behavior" 
+             x:Class="SalaryManager.WPF.UserControls.Allowance"
+             mc:Ignorable="d" 
+             xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:rp="clr-namespace:Reactive.Bindings.Interactivity;assembly=ReactiveProperty.NETCore"
+             d:DesignHeight="250" d:DesignWidth="300"
+             Background="{x:Static SystemColors.ControlLightBrush}">
+    <UserControl.Resources>
+        <Style x:Key="AllowanceLabel_Style" TargetType="{x:Type Label}">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="AllowanceTextBox_Style" TargetType="{x:Type TextBox}">
+            <Setter Property="Margin" Value="5" />
+        </Style>
+    </UserControl.Resources>
+
+    <UserControl.DataContext>
+        <ViewModels:ViewModel_Allowance/>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="70" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="80" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Label Content="基本給" 
+               Style="{StaticResource AllowanceLabel_Style}" />
+        <TextBox Grid.Column="1" 
+                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Text="{Binding BasicSalary, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Behavior:TextBoxIntegerOnly.IsNumeric="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
+
+        <Label Content="役職手当" 
+               Grid.Row="1" 
+               Style="{StaticResource AllowanceLabel_Style}" />
+        <TextBox Grid.Column="1" 
+                 Grid.Row="1" 
+                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Text="{Binding ExecutiveAllowance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Behavior:TextBoxIntegerOnly.IsNumeric="True" />
+
+        <Label Content="扶養手当" 
+               Grid.Row="2" 
+               Style="{StaticResource AllowanceLabel_Style}" />
+        <TextBox Grid.Column="1" 
+                 Grid.Row="2" 
+                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Text="{Binding DependencyAllowance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Behavior:TextBoxIntegerOnly.IsNumeric="True" />
+
+        <Label Content="時間外手当" 
+               Grid.Row="3" 
+               Style="{StaticResource AllowanceLabel_Style}" />
+        <TextBox Grid.Column="1" 
+                 Grid.Row="3" 
+                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Text="{Binding OvertimeAllowance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Behavior:TextBoxIntegerOnly.IsNumeric="True" />
+
+        <Label Content="休日割増" 
+               Grid.Row="4" 
+               Style="{StaticResource AllowanceLabel_Style}" />
+        <TextBox Grid.Column="1" 
+                 Grid.Row="4" 
+                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Text="{Binding DaysoffIncreased, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Behavior:TextBoxIntegerOnly.IsNumeric="True" />
+
+        <Label Content="交通費" 
+               Grid.Row="5" 
+               Style="{StaticResource AllowanceLabel_Style}" />
+        <TextBox Grid.Column="1" 
+                 Grid.Row="5" 
+                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Text="{Binding TransportationExpenses, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Behavior:TextBoxIntegerOnly.IsNumeric="True" />
+
+        <Label Content="深夜割増" 
+               Grid.Column="2" 
+               Style="{StaticResource AllowanceLabel_Style}" />
+        <TextBox Grid.Column="3" 
+                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Text="{Binding NightworkIncreased, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Behavior:TextBoxIntegerOnly.IsNumeric="True" />
+
+        <Label Content="住宅手当" 
+               Grid.Column="2" 
+               Grid.Row="1" 
+               Style="{StaticResource AllowanceLabel_Style}" />
+        <TextBox Grid.Column="3" 
+                 Grid.Row="1" 
+                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Text="{Binding HousingAllowance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Behavior:TextBoxIntegerOnly.IsNumeric="True" />
+
+        <Label Content="遅刻早退手当" 
+               Grid.Column="2" 
+               Grid.Row="2" 
+               Style="{StaticResource AllowanceLabel_Style}" />
+        <TextBox Grid.Column="3" 
+                 Grid.Row="2" 
+                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Text="{Binding LateAbsent}"
+                 Behavior:TextBoxIntegerOnly.IsNumeric="True" />
+
+        <Label Content="特別手当" 
+               Grid.Column="2" 
+               Grid.Row="3" 
+               Style="{StaticResource AllowanceLabel_Style}" />
+        <TextBox Grid.Column="3" 
+                 Grid.Row="3" 
+                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Text="{Binding SpecialAllowance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Behavior:TextBoxIntegerOnly.IsNumeric="True" />
+
+        <Label Content="在宅手当" 
+               Grid.Column="2" 
+               Grid.Row="4" 
+               Style="{StaticResource AllowanceLabel_Style}" />
+        <TextBox Grid.Column="3" 
+                 Grid.Row="4" 
+                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Behavior:TextBoxIntegerOnly.IsNumeric="True" 
+                 Text="{Binding RemoteAllowance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        
+        <Label Content="予備" 
+               Grid.Column="2" 
+               Grid.Row="5" 
+               Style="{StaticResource AllowanceLabel_Style}" />
+        <TextBox Grid.Column="3" 
+                 Grid.Row="5" 
+                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Text="{Binding SpareAllowance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Behavior:TextBoxIntegerOnly.IsNumeric="True" />
+
+        <Label Content="支給額計" 
+               Grid.Column="1"
+               Grid.Row="6" 
+               HorizontalAlignment="Center"
+               Margin="0,10,0,0" />
+        <TextBox Grid.Column="2" 
+                 Grid.Row="6"  
+                 Margin="0,10,0,0"
+                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Text="{Binding TotalSalary, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Behavior:TextBoxIntegerOnly.IsNumeric="True" 
+                 IsReadOnly="True" />
+    </Grid>
+</UserControl>

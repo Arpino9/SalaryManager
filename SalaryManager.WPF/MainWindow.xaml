@@ -1,0 +1,46 @@
+﻿<Window x:Class="SalaryManager.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SalaryManager.WPF.UserControls"
+        mc:Ignorable="d"
+        Title="給与明細管理(仮)" Height="550" Width="700"
+        Background="{x:Static SystemColors.ControlLightBrush}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="270" />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <local:Header Width="200" />
+
+        <TabControl Grid.Row="1">
+            <TabItem Header="支給額">
+                <local:Allowance />
+            </TabItem>
+            <TabItem Header="控除額">
+                <local:Deduction />
+            </TabItem>
+            <TabItem Header="勤務備考">
+                <local:WorkingReferences />
+            </TabItem>
+            <TabItem Header="副業など">
+                <local:SideBusiness />
+            </TabItem>
+        </TabControl>
+        
+        <local:OperationButtons Grid.Row="2" 
+                                Height="50" />
+
+        <local:AnnualChart Grid.Column="1" 
+                           Grid.Row="1" 
+                           Grid.RowSpan="2" />
+    </Grid>
+</Window>

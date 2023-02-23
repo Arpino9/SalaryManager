@@ -1,0 +1,114 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SalaryManager.WPF"
+             xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" x:Class="SalaryManager.WPF.UserControls.Deduction"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="300"
+             Background="{x:Static SystemColors.ControlLightBrush}">
+    <UserControl.Resources>
+        <Style x:Key="DeductionLabel_Style" TargetType="{x:Type Label}">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="DeductionTextBox_Style" TargetType="{x:Type TextBox}">
+            <Setter Property="Margin" Value="5" />
+        </Style>
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <ViewModels:ViewModel_Deduction/>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="70" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="80" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Label Content="健康保険" 
+               Style="{StaticResource DeductionLabel_Style}" />
+        <TextBox Grid.Column="1" 
+                 Style="{StaticResource DeductionTextBox_Style}" 
+                 Text="{Binding HealthInsurance, StringFormat={}{0:N0}, Mode=TwoWay}" />
+
+        <Label Content="介護保険" 
+               Grid.Row="1" 
+               Style="{StaticResource DeductionLabel_Style}" />
+        <TextBox Grid.Column="1" 
+                 Grid.Row="1" 
+                 Style="{StaticResource DeductionTextBox_Style}" 
+                 Text="{Binding NursingInsurance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Label Content="厚生年金" 
+               Grid.Row="2" 
+               Style="{StaticResource DeductionLabel_Style}" />
+        <TextBox Grid.Column="1" Grid.Row="2" 
+                 Style="{StaticResource DeductionTextBox_Style}" 
+                 Text="{Binding WelfareAnnuity, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Label Content="雇用保険" 
+               Grid.Row="3" 
+               Style="{StaticResource DeductionLabel_Style}" />
+        <TextBox Grid.Column="1" 
+                 Grid.Row="3" 
+                 Style="{StaticResource DeductionTextBox_Style}" 
+                 Text="{Binding EmploymentInsurance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Label Content="所得税" 
+               Grid.Column="2" 
+               Style="{StaticResource DeductionLabel_Style}" />
+        <TextBox Grid.Column="3" 
+                 Style="{StaticResource DeductionTextBox_Style}" 
+                 Text="{Binding IncomeTax, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Label Content="市町村税" 
+               Grid.Column="2" 
+               Grid.Row="1" 
+               Style="{StaticResource DeductionLabel_Style}" />
+        <TextBox Grid.Column="3" 
+                 Grid.Row="1" 
+                 Style="{StaticResource DeductionTextBox_Style}" 
+                 Text="{Binding MunicipalTax, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Label Content="互助会" 
+               Grid.Column="2" 
+               Grid.Row="2" 
+               Style="{StaticResource DeductionLabel_Style}" />
+        <TextBox Grid.Column="3" 
+                 Grid.Row="2" 
+                 Style="{StaticResource DeductionTextBox_Style}" 
+                 Text="{Binding FriendshipAssociation, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Label Content="年末調整他" 
+               Grid.Column="2" 
+               Grid.Row="3" 
+               Style="{StaticResource DeductionLabel_Style}" />
+        <TextBox Grid.Column="3" 
+                 Grid.Row="3" 
+                 Style="{StaticResource DeductionTextBox_Style}" 
+                 Text="{Binding YearEndTaxAdjustment, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Label Content="控除額計" 
+               Grid.Column="1"
+               Grid.Row="6" 
+               HorizontalAlignment="Center"
+               Margin="0,10,0,0" />
+        <TextBox Grid.Column="2" 
+                 Grid.Row="6"  
+                 Margin="0,10,0,0"
+                 Style="{StaticResource DeductionTextBox_Style}" 
+                 Text="{Binding TotalDeduct, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+    </Grid>
+</UserControl>
