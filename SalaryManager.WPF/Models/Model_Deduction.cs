@@ -79,25 +79,25 @@ namespace SalaryManager.WPF.Models
             }
 
             // 健康保険
-            this.ViewModel.HealthInsurance       = this.ViewModel.Entity.HealthInsurance;
+            this.ViewModel.HealthInsurance       = this.ViewModel.Entity.HealthInsurance.Value;
             // 介護保険
-            this.ViewModel.NursingInsurance      = this.ViewModel.Entity.NursingInsurance;
+            this.ViewModel.NursingInsurance      = this.ViewModel.Entity.NursingInsurance.Value;
             // 厚生年金
-            this.ViewModel.WelfareAnnuity        = this.ViewModel.Entity.WelfareAnnuity;
+            this.ViewModel.WelfareAnnuity        = this.ViewModel.Entity.WelfareAnnuity.Value;
             // 雇用保険
-            this.ViewModel.EmploymentInsurance   = this.ViewModel.Entity.EmploymentInsurance;
+            this.ViewModel.EmploymentInsurance   = this.ViewModel.Entity.EmploymentInsurance.Value;
             // 所得税
-            this.ViewModel.IncomeTax             = this.ViewModel.Entity.IncomeTax;
+            this.ViewModel.IncomeTax             = this.ViewModel.Entity.IncomeTax.Value;
             // 市町村税
-            this.ViewModel.MunicipalTax          = this.ViewModel.Entity.MunicipalTax;
+            this.ViewModel.MunicipalTax          = this.ViewModel.Entity.MunicipalTax.Value;
             // 互助会
-            this.ViewModel.FriendshipAssociation = this.ViewModel.Entity.FriendshipAssociation;
+            this.ViewModel.FriendshipAssociation = this.ViewModel.Entity.FriendshipAssociation.Value;
             // 年末調整他
             this.ViewModel.YearEndTaxAdjustment  = this.ViewModel.Entity.YearEndTaxAdjustment;
             // 備考
             this.ViewModel.Remarks               = this.ViewModel.Entity.Remarks;
             // 控除額計
-            this.ViewModel.TotalDeduct           = this.ViewModel.Entity.TotalDeduct;
+            this.ViewModel.TotalDeduct           = this.ViewModel.Entity.TotalDeduct.Value;
         }
 
         /// <summary>

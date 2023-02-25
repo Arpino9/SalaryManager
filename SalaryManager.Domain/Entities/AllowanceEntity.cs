@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SalaryManager.Domain.ValueObjects;
+using System;
 
 namespace SalaryManager.Domain.Entities
 {
@@ -45,20 +46,20 @@ namespace SalaryManager.Domain.Entities
         {
             this.ID                     = id;
             this.YearMonth              = yearMonth;
-            this.BasicSalary            = basicSalary;
-            this.ExecutiveAllowance     = executiveAllowance;
-            this.DependencyAllowance    = dependencyAllowance;
-            this.OvertimeAllowance      = overtimeAllowance;
-            this.DaysoffIncreased       = daysoffIncreased;
-            this.NightworkIncreased     = nightworkIncreased;
-            this.HousingAllowance       = housingAllowance;
+            this.BasicSalary            = new MoneyValue(basicSalary);
+            this.ExecutiveAllowance     = new MoneyValue(executiveAllowance);
+            this.DependencyAllowance    = new MoneyValue(dependencyAllowance);
+            this.OvertimeAllowance      = new MoneyValue(overtimeAllowance);
+            this.DaysoffIncreased       = new MoneyValue(daysoffIncreased);
+            this.NightworkIncreased     = new MoneyValue(nightworkIncreased);
+            this.HousingAllowance       = new MoneyValue(housingAllowance);
             this.LateAbsent             = lateAbsent;
-            this.TransportationExpenses = transportationExpenses;
-            this.SpecialAllowance       = specialAllowance;
-            this.SpareAllowance         = spareAllowance;
+            this.TransportationExpenses = new MoneyValue(transportationExpenses);
+            this.SpecialAllowance       = new MoneyValue(specialAllowance);
+            this.SpareAllowance         = new MoneyValue(spareAllowance);
             this.Remarks                = remarks;
-            this.TotalSalary            = totalSalary;
-            this.TotalDeductedSalary    = totalDeductedSalary;                
+            this.TotalSalary            = new MoneyValue(totalSalary);
+            this.TotalDeductedSalary    = new MoneyValue(totalDeductedSalary);                
         }
 
         /// <summary> ID </summary>
@@ -68,45 +69,45 @@ namespace SalaryManager.Domain.Entities
         public DateTime YearMonth { get; }
 
         /// <summary> 基本給 </summary>
-        public double BasicSalary { get; }
+        public MoneyValue BasicSalary { get; }
 
         /// <summary> 役職手当 </summary>
-        public double ExecutiveAllowance { get; }
+        public MoneyValue ExecutiveAllowance { get; }
 
         /// <summary> 扶養手当 </summary>
-        public double DependencyAllowance { get; }
+        public MoneyValue DependencyAllowance { get; }
 
         /// <summary> 時間外手当 </summary>
-        public double OvertimeAllowance { get; }
+        public MoneyValue OvertimeAllowance { get; }
 
         /// <summary> 休日割増 </summary>
-        public double DaysoffIncreased { get; }
+        public MoneyValue DaysoffIncreased { get; }
 
         /// <summary> 深夜割増 </summary>
-        public double NightworkIncreased { get; }
+        public MoneyValue NightworkIncreased { get; }
 
         /// <summary> 住宅手当 </summary>
-        public double HousingAllowance { get; }
+        public MoneyValue HousingAllowance { get; }
 
         /// <summary> 遅刻早退欠勤 </summary>
         public double LateAbsent { get; }
 
         /// <summary> 交通費 </summary>
-        public double TransportationExpenses { get; }
+        public MoneyValue TransportationExpenses { get; }
 
         /// <summary> 特別手当 </summary>
-        public double SpecialAllowance { get; }
+        public MoneyValue SpecialAllowance { get; }
 
         /// <summary> 予備 </summary>
-        public double SpareAllowance { get; }
+        public MoneyValue SpareAllowance { get; }
 
         /// <summary> 備考 </summary>
         public string Remarks { get; }
 
         /// <summary> 支給総計 </summary>
-        public double TotalSalary { get; }
+        public MoneyValue TotalSalary { get; }
 
         /// <summary> 差引支給額 </summary>
-        public double TotalDeductedSalary { get; }
+        public MoneyValue TotalDeductedSalary { get; }
     }
 }

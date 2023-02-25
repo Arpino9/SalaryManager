@@ -1,4 +1,5 @@
 ﻿using System;
+using SalaryManager.Domain.ValueObjects;
 
 namespace SalaryManager.Domain.Entities
 {
@@ -38,16 +39,16 @@ namespace SalaryManager.Domain.Entities
         {
             this.ID                    = id;
             this.YearMonth             = yearMonth;
-            this.HealthInsurance       = healthInsurance;
-            this.NursingInsurance      = nursingInsurance;
-            this.WelfareAnnuity        = welfareAnnuity;
-            this.EmploymentInsurance   = employmentInsurance;
-            this.IncomeTax             = incomeTax;
-            this.MunicipalTax          = municipalTax;
-            this.FriendshipAssociation = friendshipAssociation;
+            this.HealthInsurance       = new MoneyValue(healthInsurance);
+            this.NursingInsurance      = new MoneyValue(nursingInsurance);
+            this.WelfareAnnuity        = new MoneyValue(welfareAnnuity);
+            this.EmploymentInsurance   = new MoneyValue(employmentInsurance);
+            this.IncomeTax             = new MoneyValue(incomeTax);
+            this.MunicipalTax          = new MoneyValue(municipalTax);
+            this.FriendshipAssociation = new MoneyValue(friendshipAssociation);
             this.YearEndTaxAdjustment  = yearEndTaxAdjustment;
             this.Remarks               = remarks;
-            this.TotalDeduct           = totalDeduct;
+            this.TotalDeduct           = new MoneyValue(totalDeduct);
         }
 
         /// <summary> ID </summary>
@@ -57,25 +58,25 @@ namespace SalaryManager.Domain.Entities
         public DateTime YearMonth { get; set; }
 
         /// <summary> 健康保険 </summary>
-        public double HealthInsurance { get; }
+        public MoneyValue HealthInsurance { get; }
 
         /// <summary> 介護保険 </summary>
-        public double NursingInsurance { get; }
+        public MoneyValue NursingInsurance { get; }
 
         /// <summary> 厚生年金 </summary>
-        public double WelfareAnnuity { get; }
+        public MoneyValue WelfareAnnuity { get; }
 
         /// <summary> 雇用保険 </summary>
-        public double EmploymentInsurance { get; }
+        public MoneyValue EmploymentInsurance { get; }
 
         /// <summary> 所得税 </summary>
-        public double IncomeTax { get; }
+        public MoneyValue IncomeTax { get; }
 
         /// <summary> 市町村税 </summary>
-        public double MunicipalTax { get; }
+        public MoneyValue MunicipalTax { get; }
 
         /// <summary> 互助会 </summary>
-        public double FriendshipAssociation { get; }
+        public MoneyValue FriendshipAssociation { get; }
 
         /// <summary> 年末調整他 </summary>
         public double YearEndTaxAdjustment { get; }
@@ -84,6 +85,6 @@ namespace SalaryManager.Domain.Entities
         public string Remarks { get; }
 
         /// <summary> 控除額計 </summary>
-        public double TotalDeduct { get; }
+        public MoneyValue TotalDeduct { get; }
     }
 }

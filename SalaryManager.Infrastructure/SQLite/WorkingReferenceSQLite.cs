@@ -4,12 +4,12 @@ using SalaryManager.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SalaryManager.Infrastructure.SQLite
 {
+    /// <summary>
+    /// SQLite - 勤務備考
+    /// </summary>
     public class WorkingReferenceSQLite : IWorkingReferencesRepository
     {
         public IReadOnlyList<WorkingReferencesEntity> GetEntities()
@@ -156,10 +156,10 @@ where Id = @Id
                 new SQLiteParameter("WeekendWorktime", entity.WeekendWorktime),
                 new SQLiteParameter("MidnightWorktime", entity.MidnightWorktime),
                 new SQLiteParameter("LateAbsentH", entity.LateAbsentH),
-                new SQLiteParameter("Insurance", entity.Insurance),
+                new SQLiteParameter("Insurance", entity.Insurance.Value),
                 new SQLiteParameter("Norm", entity.Norm),
                 new SQLiteParameter("NumberOfDependent", entity.NumberOfDependent),
-                new SQLiteParameter("PaidVacation", entity.PaidVacation),
+                new SQLiteParameter("PaidVacation", entity.PaidVacation.Value),
                 new SQLiteParameter("WorkingHours", entity.WorkingHours),
                 new SQLiteParameter("WorkPlace", entity.WorkPlace),
                 new SQLiteParameter("Remarks", entity.Remarks),

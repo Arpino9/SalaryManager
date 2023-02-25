@@ -79,31 +79,31 @@ namespace SalaryManager.WPF.Models
             }
 
             // 基本給
-            this.ViewModel.BasicSalary            = this.ViewModel.Entity.BasicSalary;
+            this.ViewModel.BasicSalary            = this.ViewModel.Entity.BasicSalary.Value;
             // 役職手当
-            this.ViewModel.ExecutiveAllowance     = this.ViewModel.Entity.ExecutiveAllowance;
+            this.ViewModel.ExecutiveAllowance     = this.ViewModel.Entity.ExecutiveAllowance.Value;
             // 扶養手当
-            this.ViewModel.DependencyAllowance    = this.ViewModel.Entity.DependencyAllowance;
+            this.ViewModel.DependencyAllowance    = this.ViewModel.Entity.DependencyAllowance.Value;
             // 時間外手当
-            this.ViewModel.OvertimeAllowance      = this.ViewModel.Entity.OvertimeAllowance;
+            this.ViewModel.OvertimeAllowance      = this.ViewModel.Entity.OvertimeAllowance.Value;
             // 休日割増
-            this.ViewModel.DaysoffIncreased       = this.ViewModel.Entity.DaysoffIncreased;
+            this.ViewModel.DaysoffIncreased       = this.ViewModel.Entity.DaysoffIncreased.Value;
             // 深夜割増
-            this.ViewModel.NightworkIncreased     = this.ViewModel.Entity.NightworkIncreased;
+            this.ViewModel.NightworkIncreased     = this.ViewModel.Entity.NightworkIncreased.Value;
             // 住宅手当
-            this.ViewModel.HousingAllowance       = this.ViewModel.Entity.HousingAllowance;
+            this.ViewModel.HousingAllowance       = this.ViewModel.Entity.HousingAllowance.Value;
             // 遅刻早退欠勤
             this.ViewModel.LateAbsent             = this.ViewModel.Entity.LateAbsent;
             // 交通費
-            this.ViewModel.TransportationExpenses = this.ViewModel.Entity.TransportationExpenses;
+            this.ViewModel.TransportationExpenses = this.ViewModel.Entity.TransportationExpenses.Value;
             // 特別手当
-            this.ViewModel.SpecialAllowance       = this.ViewModel.Entity.SpecialAllowance;
+            this.ViewModel.SpecialAllowance       = this.ViewModel.Entity.SpecialAllowance.Value;
             // 予備
-            this.ViewModel.SpareAllowance         = this.ViewModel.Entity.SpareAllowance;
+            this.ViewModel.SpareAllowance         = this.ViewModel.Entity.SpareAllowance.Value;
             // 支給総計
-            this.ViewModel.TotalSalary            = this.ViewModel.Entity.TotalSalary;
+            this.ViewModel.TotalSalary            = this.ViewModel.Entity.TotalSalary.Value;
             // 差引支給額
-            this.ViewModel.TotalDeductedSalary    = this.ViewModel.Entity.TotalDeductedSalary;
+            this.ViewModel.TotalDeductedSalary    = this.ViewModel.Entity.TotalDeductedSalary.Value;
         }
 
         /// <summary>
@@ -182,6 +182,9 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 再計算
         /// </summary>
+        /// <remarks>
+        /// 支給総計を再計算する。
+        /// </remarks>
         internal void ReCaluculate()
         {
             if (this.ViewModel is null)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SalaryManager.Domain.ValueObjects;
+using System;
 
 namespace SalaryManager.Domain.Entities
 {
@@ -45,15 +46,14 @@ namespace SalaryManager.Domain.Entities
             this.WeekendWorktime   = weekendWorktime;
             this.MidnightWorktime  = midnightWorktime;
             this.LateAbsentH       = lateAbsentH;
-            this.Insurance         = insurance;
+            this.Insurance         = new MoneyValue(insurance);
             this.Norm              = norm;
             this.NumberOfDependent = numberOfDependent;
-            this.PaidVacation      = paidVacation;
+            this.PaidVacation      = new PaidVacationDaysValue(paidVacation);
             this.WorkingHours      = workingHours;
             this.WorkPlace         = workingPlace;
             this.Remarks           = remarks;
         }
-
 
         /// <summary> ID </summary>
         public int ID { get; }
@@ -74,7 +74,7 @@ namespace SalaryManager.Domain.Entities
         public double LateAbsentH { get; }
 
         /// <summary> 支給額-保険 </summary>
-        public double Insurance { get; }
+        public MoneyValue Insurance { get; }
 
         /// <summary> 標準月額千円 </summary>
         public double Norm { get; }
@@ -83,7 +83,7 @@ namespace SalaryManager.Domain.Entities
         public double NumberOfDependent { get; }
 
         /// <summary> 有給残日数 </summary>
-        public double PaidVacation { get; }
+        public PaidVacationDaysValue PaidVacation { get; }
 
         /// <summary> 勤務時間 </summary>
         public double WorkingHours { get; }

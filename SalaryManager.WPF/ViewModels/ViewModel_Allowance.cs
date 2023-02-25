@@ -50,31 +50,31 @@ namespace SalaryManager.WPF.ViewModels
             // Mouse Leave
             this.MouseLeave_Action             = new RelayCommand(() => this.MainWindow.ComparePrice(0, 0));
             // 基本給
-            this.BasicSalary_Action            = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.BasicSalary,            this.Entity_LastYear?.BasicSalary));
+            this.BasicSalary_Action            = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.BasicSalary.Value,            this.Entity_LastYear?.BasicSalary.Value));
             // 役職手当
-            this.ExecutiveAllowance_Action     = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.ExecutiveAllowance,     this.Entity_LastYear?.ExecutiveAllowance));
+            this.ExecutiveAllowance_Action     = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.ExecutiveAllowance.Value,     this.Entity_LastYear?.ExecutiveAllowance.Value));
             // 扶養手当
-            this.DependencyAllowance_Action    = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.DependencyAllowance,    this.Entity_LastYear?.DependencyAllowance));
+            this.DependencyAllowance_Action    = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.DependencyAllowance.Value,    this.Entity_LastYear?.DependencyAllowance.Value));
             // 時間外手当
-            this.OvertimeAllowance_Action      = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.OvertimeAllowance,      this.Entity_LastYear?.OvertimeAllowance));
+            this.OvertimeAllowance_Action      = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.OvertimeAllowance.Value,      this.Entity_LastYear?.OvertimeAllowance.Value));
             // 休日割増
-            this.DaysoffIncreased_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.DaysoffIncreased,       this.Entity_LastYear?.DaysoffIncreased));
+            this.DaysoffIncreased_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.DaysoffIncreased.Value,       this.Entity_LastYear?.DaysoffIncreased.Value));
             // 深夜割増
-            this.NightworkIncreased_Action     = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.NightworkIncreased,     this.Entity_LastYear?.NightworkIncreased));
+            this.NightworkIncreased_Action     = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.NightworkIncreased.Value,     this.Entity_LastYear?.NightworkIncreased.Value));
             // 住宅手当
-            this.HousingAllowance_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.HousingAllowance,       this.Entity_LastYear?.HousingAllowance));
+            this.HousingAllowance_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.HousingAllowance.Value,       this.Entity_LastYear?.HousingAllowance.Value));
             // 遅刻早退欠勤
-            this.LateAbsent_Action             = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.LateAbsent,             this.Entity_LastYear?.LateAbsent));
+            this.LateAbsent_Action             = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.LateAbsent,                   this.Entity_LastYear?.LateAbsent));
             // 交通費
-            this.TransportationExpenses_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.TransportationExpenses, this.Entity_LastYear?.TransportationExpenses));
+            this.TransportationExpenses_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.TransportationExpenses.Value, this.Entity_LastYear?.TransportationExpenses.Value));
             // 特別手当
-            this.SpecialAllowance_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.SpecialAllowance,       this.Entity_LastYear?.SpecialAllowance));
+            this.SpecialAllowance_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.SpecialAllowance.Value,       this.Entity_LastYear?.SpecialAllowance.Value));
             // 予備
-            this.SpareAllowance_Action         = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.SpareAllowance,         this.Entity_LastYear?.SpareAllowance));
+            this.SpareAllowance_Action         = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.SpareAllowance.Value,         this.Entity_LastYear?.SpareAllowance.Value));
             // 支給総計
-            this.TotalSalary_Action            = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.TotalSalary,            this.Entity_LastYear?.TotalSalary));
+            this.TotalSalary_Action            = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.TotalSalary.Value,            this.Entity_LastYear?.TotalSalary.Value));
             // 差引支給額
-            this.TotalDeductedSalary_Action    = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.TotalDeductedSalary,    this.Entity_LastYear?.TotalDeductedSalary));
+            this.TotalDeductedSalary_Action    = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.TotalDeductedSalary.Value,    this.Entity_LastYear?.TotalDeductedSalary.Value));
         }
 
         /// <summary> Model - 支給額 </summary>

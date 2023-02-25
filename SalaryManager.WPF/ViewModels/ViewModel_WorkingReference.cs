@@ -51,7 +51,7 @@ namespace SalaryManager.WPF.ViewModels
             // Mouse Leave
             this.MouseLeave_Action = new RelayCommand(() => this.MainWindow.ComparePrice(0, 0));
             // 支給額-保険
-            this.Insurance_Action  = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.Insurance, this.Entity_LastYear?.Insurance));
+            this.Insurance_Action  = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.Insurance.Value, this.Entity_LastYear?.Insurance.Value));
             // 標準月額千円
             this.Norm_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.Norm,      this.Entity_LastYear?.Norm));
         }

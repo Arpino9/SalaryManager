@@ -9,7 +9,7 @@ namespace SalaryManager.Domain.ValueObjects
     /// <remarks>
     /// 西暦と和暦の変換用。
     /// </remarks>
-    public class YearValue : ValueObject<YearValue>
+    public sealed class YearValue : ValueObject<YearValue>
     {
         /// <summary>
         /// Constructor

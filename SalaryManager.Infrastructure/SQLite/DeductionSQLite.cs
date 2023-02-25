@@ -134,16 +134,16 @@ where Id = @Id
             {
                 new SQLiteParameter("Id", entity.ID),
                 new SQLiteParameter("YearMonth", DateUtils.ConvertToSQLiteValue(entity.YearMonth)),
-                new SQLiteParameter("HealthInsurance", entity.HealthInsurance),
-                new SQLiteParameter("NursingInsurance", entity.NursingInsurance),
-                new SQLiteParameter("WelfareAnnuity", entity.WelfareAnnuity),
-                new SQLiteParameter("EmploymentInsurance", entity.EmploymentInsurance),
-                new SQLiteParameter("IncomeTax", entity.IncomeTax),
-                new SQLiteParameter("MunicipalTax", entity.MunicipalTax),
-                new SQLiteParameter("FriendshipAssociation", entity.FriendshipAssociation),
+                new SQLiteParameter("HealthInsurance", entity.HealthInsurance.Value),
+                new SQLiteParameter("NursingInsurance", entity.NursingInsurance.Value),
+                new SQLiteParameter("WelfareAnnuity", entity.WelfareAnnuity.Value),
+                new SQLiteParameter("EmploymentInsurance", entity.EmploymentInsurance.Value),
+                new SQLiteParameter("IncomeTax", entity.IncomeTax.Value),
+                new SQLiteParameter("MunicipalTax", entity.MunicipalTax.Value),
+                new SQLiteParameter("FriendshipAssociation", entity.FriendshipAssociation.Value),
                 new SQLiteParameter("YearEndTaxAdjustment", entity.YearEndTaxAdjustment),
                 new SQLiteParameter("Remarks", entity.Remarks),
-                new SQLiteParameter("TotalDeduct", entity.TotalDeduct),
+                new SQLiteParameter("TotalDeduct", entity.TotalDeduct.Value),
             };
 
             SQLiteHelper.Execute(insert, update, args.ToArray());

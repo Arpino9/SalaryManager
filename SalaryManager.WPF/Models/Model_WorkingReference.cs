@@ -46,7 +46,7 @@ namespace SalaryManager.WPF.Models
                                                          && record.YearMonth.Month == DateTime.Today.Month)
                                            .FirstOrDefault();
 
-            this.ViewModel.Entity_LastYear = records.Where(record => record.YearMonth.Year == DateTime.Today.Year - 1
+            this.ViewModel.Entity_LastYear = records.Where(record => record.YearMonth.Year  == DateTime.Today.Year - 1
                                                                   && record.YearMonth.Month == DateTime.Today.Month)
                                                     .FirstOrDefault();
 
@@ -125,13 +125,13 @@ namespace SalaryManager.WPF.Models
             // 遅刻早退欠勤H
             this.ViewModel.LateAbsentH       = this.ViewModel.Entity.LateAbsentH;
             // 支給額-保険
-            this.ViewModel.Insurance         = this.ViewModel.Entity.Insurance;
+            this.ViewModel.Insurance         = this.ViewModel.Entity.Insurance.Value;
             // 標準月額千円
             this.ViewModel.Norm              = this.ViewModel.Entity.Norm;
             // 扶養人数
             this.ViewModel.NumberOfDependent = this.ViewModel.Entity.NumberOfDependent;
             // 有給残日数
-            this.ViewModel.PaidVacation      = this.ViewModel.Entity.PaidVacation;
+            this.ViewModel.PaidVacation      = this.ViewModel.Entity.PaidVacation.Value;
             // 勤務時間
             this.ViewModel.WorkingHours      = this.ViewModel.Entity.WorkingHours;
             // 備考
