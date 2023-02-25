@@ -9,7 +9,6 @@
              x:Class="SalaryManager.WPF.UserControls.Allowance"
              mc:Ignorable="d" 
              xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:rp="clr-namespace:Reactive.Bindings.Interactivity;assembly=ReactiveProperty.NETCore"
              d:DesignHeight="250" d:DesignWidth="300"
              Background="{x:Static SystemColors.ControlLightBrush}">
     <UserControl.Resources>
@@ -52,7 +51,7 @@
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
-                    
+                    <behaviors:InvokeCommandAction Command="{Binding MySelectionChangedCommand}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
