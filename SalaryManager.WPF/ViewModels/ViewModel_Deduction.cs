@@ -33,6 +33,8 @@ namespace SalaryManager.WPF.ViewModels
         {
             try
             {
+                this.MainWindow.Deduction = this.Model;
+
                 this.Model.ViewModel = this;
                 this.Model.Initialize();
 

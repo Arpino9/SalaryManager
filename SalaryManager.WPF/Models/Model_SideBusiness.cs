@@ -130,5 +130,19 @@ namespace SalaryManager.WPF.Models
             var sideBusiness = new SideBusinessSQLite();
             sideBusiness.Save(entity);
         }
+
+        internal void Register(SQLiteTransaction transaction)
+        {
+            var entity = new SideBusinessEntity(
+                this.Header.ID,
+                this.Header.YearMonth,
+                this.ViewModel.SideBusiness,
+                this.ViewModel.Perquisite,
+                this.ViewModel.Others,
+                this.ViewModel.Remarks);
+
+            var sideBusiness = new SideBusinessSQLite();
+            sideBusiness.Save(transaction, entity);
+        }
     }
 }

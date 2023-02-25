@@ -162,6 +162,26 @@ namespace SalaryManager.WPF.Models
             deduction.Save(entity);
         }
 
+        public void Register(SQLiteTransaction transaction)
+        {
+            var entity = new DeductionEntity(
+                            this.Header.ID,
+                            this.Header.YearMonth,
+                            this.ViewModel.HealthInsurance,
+                            this.ViewModel.NursingInsurance,
+                            this.ViewModel.WelfareAnnuity,
+                            this.ViewModel.EmploymentInsurance,
+                            this.ViewModel.IncomeTax,
+                            this.ViewModel.MunicipalTax,
+                            this.ViewModel.FriendshipAssociation,
+                            this.ViewModel.YearEndTaxAdjustment,
+                            this.ViewModel.Remarks,
+                            this.ViewModel.TotalDeduct);
+
+            var deduction = new DeductionSQLite();
+            deduction.Save(transaction, entity);
+        }
+
         /// <summary>
         /// 再計算
         /// </summary>

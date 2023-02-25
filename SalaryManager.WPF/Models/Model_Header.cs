@@ -144,5 +144,22 @@ namespace SalaryManager.WPF.Models
             var header = new HeaderSQLite();
             header.Save(entity);
         }
+
+        // <summary>
+        /// 登録
+        /// </summary>
+        public void Register(SQLiteTransaction transaction)
+        {
+            var entity = new HeaderEntity(
+                 this.ViewModel.ID,
+                 this.ViewModel.YearMonth,
+                 this.ViewModel.IsDefault,
+                 this.ViewModel.CreateDate,
+                 this.ViewModel.UpdateDate
+             );
+
+            var header = new HeaderSQLite();
+            header.Save(transaction, entity);
+        }
     }
 }

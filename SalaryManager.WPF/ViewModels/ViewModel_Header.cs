@@ -34,35 +34,40 @@ namespace SalaryManager.WPF.ViewModels
 
         public ViewModel_Header()
         {
+            this.MainWindow.Header = this.Model;
+
+            this.Model.ViewModel        = this;
             this.Allowance.Header        = this;
-            this.Header.ViewModel        = this;
-            this.AnnualCharts.Header     = this;
             this.Deduction.Header        = this;
             this.WorkingReference.Header = this;
             this.SideBusiness.Header     = this;
             this.OperationButtons.Header = this;
+            this.AnnualCharts.Header     = this;
 
             // ←(戻る)
-            this._returnAction += this.Header.Return;
+            this._returnAction += this.Model.Return;
             this._returnAction += this.Allowance.Reload;
             this._returnAction += this.Deduction.Reload;
-            this._returnAction += ((Domain.Interface.IInputPayroll)this.WorkingReference).Reload;
+            this._returnAction += this.WorkingReference.Reload;
             this._returnAction += this.SideBusiness.Reload;
             this._returnAction += this.AnnualCharts.Reload;
 
             // →(進む)
-            this._proceedAction += this.Header.Proceed;
+            this._proceedAction += this.Model.Proceed;
             this._proceedAction += this.Allowance.Reload;
             this._proceedAction += this.Deduction.Reload;
-            this._proceedAction += ((Domain.Interface.IInputPayroll)this.WorkingReference).Reload;
+            this._proceedAction += this.WorkingReference.Reload;
             this._proceedAction += this.SideBusiness.Reload;
             this._proceedAction += this.AnnualCharts.Reload;
 
-            this.Header.Initialize();
+            this.Model.Initialize();
         }
 
         /// <summary> Model - ヘッダー </summary>
-        public Model_Header Header { get; set; } = Model_Header.GetInstance();
+        public Model_Header Model { get; set; } = Model_Header.GetInstance();
+
+        /// <summary> Model - メイン画面 </summary>
+        public Model_MainWindow MainWindow { get; set; } = Model_MainWindow.GetInstance();
 
         /// <summary> Model - 月収一覧 </summary>
         public Model_AnnualChart AnnualCharts { get; set; } = Model_AnnualChart.GetInstance();
@@ -123,7 +128,7 @@ namespace SalaryManager.WPF.ViewModels
                 this._year = value;
                 this.RaisePropertyChanged();
 
-                this.Header.Reload();
+                this.Model.Reload();
             }
         }
 
@@ -140,7 +145,7 @@ namespace SalaryManager.WPF.ViewModels
                 this._month = value;
                 this.RaisePropertyChanged();
 
-                this.Header.Reload();
+                this.Model.Reload();
             }
         }
 

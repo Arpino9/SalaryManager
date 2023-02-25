@@ -194,5 +194,89 @@ where Id = @Id
 
             SQLiteHelper.Execute(insert, update, args.ToArray());
         }
+
+        public void Save(
+            SQLiteTransaction transaction,
+            AllowanceEntity entity)
+        {
+            string insert = @"
+insert into Allowance
+(Id, 
+YearMonth, 
+BasicSalary, 
+ExecutiveAllowance, 
+DependencyAllowance, 
+OvertimeAllowance, 
+DaysoffIncreased, 
+NightworkIncreased, 
+HousingAllowance, 
+LateAbsent, 
+TransportationExpenses, 
+SpecialAllowance, 
+SpareAllowance, 
+Remarks, 
+TotalSalary, 
+TotalDeductedSalary)
+values
+(@Id, 
+@YearMonth, 
+@BasicSalary, 
+@ExecutiveAllowance, 
+@DependencyAllowance, 
+@OvertimeAllowance, 
+@DaysoffIncreased, 
+@NightworkIncreased, 
+@HousingAllowance,
+@LateAbsent, 
+@TransportationExpenses, 
+@SpecialAllowance, 
+@SpareAllowance, 
+@Remarks, 
+@TotalSalary, 
+@TotalDeductedSalary)
+";
+
+            string update = @"
+update Allowance
+set YearMonth              = @YearMonth, 
+    BasicSalary            = @BasicSalary, 
+    ExecutiveAllowance     = @ExecutiveAllowance, 
+    DependencyAllowance    = @DependencyAllowance, 
+    OvertimeAllowance      = @OvertimeAllowance,  
+    DaysoffIncreased       = @DaysoffIncreased,  
+    NightworkIncreased     = @NightworkIncreased,  
+    HousingAllowance       = @HousingAllowance,  
+    LateAbsent             = @LateAbsent,  
+    TransportationExpenses = @TransportationExpenses,  
+    SpecialAllowance       = @SpecialAllowance,  
+    SpareAllowance         = @SpareAllowance,  
+    Remarks                = @Remarks,  
+    TotalSalary            = @TotalSalary,  
+    TotalDeductedSalary    = @TotalDeductedSalary
+where Id = @Id
+";
+
+            var args = new List<SQLiteParameter>()
+            {
+                new SQLiteParameter("Id", entity.ID),
+                new SQLiteParameter("YearMonth", DateUtils.ConvertToSQLiteValue(entity.YearMonth)),
+                new SQLiteParameter("BasicSalary", entity.BasicSalary.Value),
+                new SQLiteParameter("ExecutiveAllowance", entity.ExecutiveAllowance.Value),
+                new SQLiteParameter("DependencyAllowance", entity.DependencyAllowance.Value),
+                new SQLiteParameter("OvertimeAllowance", entity.OvertimeAllowance.Value),
+                new SQLiteParameter("DaysoffIncreased", entity.DaysoffIncreased.Value),
+                new SQLiteParameter("NightworkIncreased", entity.NightworkIncreased.Value),
+                new SQLiteParameter("HousingAllowance", entity.HousingAllowance),
+                new SQLiteParameter("LateAbsent", entity.LateAbsent),
+                new SQLiteParameter("TransportationExpenses", entity.TransportationExpenses.Value),
+                new SQLiteParameter("SpecialAllowance", entity.SpecialAllowance.Value),
+                new SQLiteParameter("SpareAllowance", entity.SpareAllowance.Value),
+                new SQLiteParameter("Remarks", entity.Remarks),
+                new SQLiteParameter("TotalSalary", entity.TotalSalary.Value),
+                new SQLiteParameter("TotalDeductedSalary", entity.TotalDeductedSalary.Value),
+            };
+
+            transaction.Execute(insert, update, args.ToArray());
+        }
     }
 }

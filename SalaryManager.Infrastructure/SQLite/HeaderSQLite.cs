@@ -93,5 +93,35 @@ where Id = @Id
 
             SQLiteHelper.Execute(insert, update, args.ToArray());
         }
+
+        public void Save(SQLiteTransaction transaction, HeaderEntity entity)
+        {
+            string insert = @"
+insert into YearMonth
+(Id, YearMonth, IsDefault, CreateDate, UpdateDate)
+values
+(@Id, @YearMonth, @IsDefault, @CreateDate, @UpdateDate)
+";
+
+            string update = @"
+update YearMonth
+set YearMonth  = @YearMonth, 
+    IsDefault  = @IsDefault, 
+    CreateDate = @CreateDate, 
+    UpdateDate = @UpdateDate
+where Id = @Id
+";
+
+            var args = new List<SQLiteParameter>()
+            {
+                new SQLiteParameter("Id", entity.ID),
+                new SQLiteParameter("YearMonth", DateUtils.ConvertToSQLiteValue(entity.YearMonth)),
+                new SQLiteParameter("IsDefault", entity.IsDefault),
+                new SQLiteParameter("CreateDate", entity.CreateDate),
+                new SQLiteParameter("UpdateDate", entity.UpdateDate),
+            };
+
+            transaction.Execute(insert, update, args.ToArray());
+        }
     }
 }

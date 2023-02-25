@@ -37,6 +37,15 @@ namespace SalaryManager.Domain.ValueObjects
         public readonly double Value;
 
         /// <summary>
+        /// To String
+        /// </summary>
+        /// <returns>金額</returns>
+        public override string ToString()
+        {
+            return ($"有給日数：{this.Value}日");
+        }
+
+        /// <summary>
         /// Equals Core
         /// </summary>
         /// <param name="other">有給日数</param>

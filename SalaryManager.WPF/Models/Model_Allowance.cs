@@ -179,6 +179,30 @@ namespace SalaryManager.WPF.Models
             allowance.Save(entity);
         }
 
+        public void Register(SQLiteTransaction transaction)
+        {
+            var entity = new AllowanceEntity(
+                              this.Header.ID,
+                              this.Header.YearMonth,
+                              this.ViewModel.BasicSalary,
+                              this.ViewModel.ExecutiveAllowance,
+                              this.ViewModel.DependencyAllowance,
+                              this.ViewModel.OvertimeAllowance,
+                              this.ViewModel.DaysoffIncreased,
+                              this.ViewModel.NightworkIncreased,
+                              this.ViewModel.HousingAllowance,
+                              this.ViewModel.LateAbsent,
+                              this.ViewModel.TransportationExpenses,
+                              this.ViewModel.SpecialAllowance,
+                              this.ViewModel.SpareAllowance,
+                              this.ViewModel.Remarks,
+                              this.ViewModel.TotalSalary,
+                              this.ViewModel.TotalDeductedSalary);
+
+            var allowance = new AllowanceSQLite();
+            allowance.Save(transaction, entity);
+        }
+
         /// <summary>
         /// 再計算
         /// </summary>

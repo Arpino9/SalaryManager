@@ -40,6 +40,8 @@ namespace SalaryManager.WPF.ViewModels
         {
             try
             {
+                this.MainWindow.SideBusiness = this.Model;
+
                 this.Model.ViewModel = this;
                 this.Model.Initialize();
 
@@ -67,7 +69,7 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary> Model </summary>
-        private Model_SideBusiness Model { get; set; } = Model_SideBusiness.GetInstance();
+        public Model_SideBusiness Model { get; set; } = Model_SideBusiness.GetInstance();
 
         /// <summary> Model - メイン画面 </summary>
         public Model_MainWindow MainWindow { get; set; } = Model_MainWindow.GetInstance();

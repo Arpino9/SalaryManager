@@ -167,5 +167,75 @@ where Id = @Id
 
             SQLiteHelper.Execute(insert, update, args.ToArray());
         }
+
+        public void Save(SQLiteTransaction transaction, WorkingReferencesEntity entity)
+        {
+            string insert = @"
+insert into WorkingReference
+(Id, 
+YearMonth, 
+OvertimeTime, 
+WeekendWorktime, 
+MidnightWorktime, 
+LateAbsentH, 
+Insurance, 
+Norm, 
+NumberOfDependent,
+PaidVacation,
+WorkingHours,
+WorkPlace,
+Remarks)
+values
+(@Id, 
+@YearMonth, 
+@OvertimeTime, 
+@WeekendWorktime, 
+@MidnightWorktime, 
+@LateAbsentH, 
+@Insurance, 
+@Norm, 
+@NumberOfDependent,
+@PaidVacation,
+@WorkingHours,
+@WorkPlace,
+@Remarks)
+";
+
+            string update = @"
+update WorkingReference
+set YearMonth         = @YearMonth, 
+    OvertimeTime      = @OvertimeTime, 
+    WeekendWorktime   = @WeekendWorktime, 
+    MidnightWorktime  = @MidnightWorktime, 
+    LateAbsentH       = @LateAbsentH,  
+    Insurance         = @Insurance,  
+    Norm              = @Norm,  
+    NumberOfDependent = @NumberOfDependent,  
+    PaidVacation      = @PaidVacation,  
+    WorkingHours      = @WorkingHours,  
+    WorkPlace         = @WorkPlace,  
+    Remarks           = @Remarks
+where Id = @Id
+";
+
+            var args = new List<SQLiteParameter>()
+            {
+                new SQLiteParameter("Id", entity.ID),
+                new SQLiteParameter("YearMonth", DateUtils.ConvertToSQLiteValue(entity.YearMonth)),
+                new SQLiteParameter("OvertimeTime", entity.OvertimeTime),
+                new SQLiteParameter("WeekendWorktime", entity.WeekendWorktime),
+                new SQLiteParameter("MidnightWorktime", entity.MidnightWorktime),
+                new SQLiteParameter("LateAbsentH", entity.LateAbsentH),
+                new SQLiteParameter("Insurance", entity.Insurance.Value),
+                new SQLiteParameter("Norm", entity.Norm),
+                new SQLiteParameter("NumberOfDependent", entity.NumberOfDependent),
+                new SQLiteParameter("PaidVacation", entity.PaidVacation.Value),
+                new SQLiteParameter("WorkingHours", entity.WorkingHours),
+                new SQLiteParameter("WorkPlace", entity.WorkPlace),
+                new SQLiteParameter("Remarks", entity.Remarks),
+            };
+
+            transaction.Execute(insert, update, args.ToArray());
+        }
     }
 }

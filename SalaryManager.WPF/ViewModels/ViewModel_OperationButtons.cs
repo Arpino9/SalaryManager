@@ -26,11 +26,7 @@ namespace SalaryManager.WPF.ViewModels
         public ViewModel_OperationButtons()
         {
             // 登録
-            this._registerAction += this.Allowance.Register;
-            this._registerAction += this.Deduction.Register;
-            this._registerAction += this.WorkingReference.Register;
-            this._registerAction += this.SideBusiness.Register;
-            this._registerAction += this.Header.Register;
+            this._registerAction += this.MainWindow.Register;
             this._registerAction += this.AnnualChart.Fetch;
 
             // デフォルトに設定
@@ -83,6 +79,9 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         #endregion
+
+        /// <summary> Model - メイン画面 </summary>
+        public Model_MainWindow MainWindow { get; set; } = Model_MainWindow.GetInstance();
 
         /// <summary> Model - ヘッダ </summary>
         public Model_Header Header { get; set; } = Model_Header.GetInstance();

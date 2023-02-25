@@ -97,6 +97,7 @@ namespace SalaryManager.Infrastructure.SQLite
             return result;
         }
 
+        [Obsolete("Transaction版を使うこと。")]
         internal static void Execute(
         string sql,
         SQLiteParameter[] parameters
@@ -115,13 +116,13 @@ namespace SalaryManager.Infrastructure.SQLite
             }
         }
 
+        [Obsolete("Transaction版を使うこと。")]
         internal static void Execute(
             string insert,
             string update,
             SQLiteParameter[] parameters)
         {
-            using (var connection =
-            new SQLiteConnection(Shared.ConnectionString))
+            using (var connection = new SQLiteConnection(Shared.ConnectionString))
             using (var command = new SQLiteCommand(update, connection))
             {
                 connection.Open();

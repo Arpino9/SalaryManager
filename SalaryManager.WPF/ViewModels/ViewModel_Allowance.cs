@@ -31,6 +31,8 @@ namespace SalaryManager.WPF.ViewModels
         {
             try
             {
+                this.MainWindow.Allowance = this.Model;
+
                 this.Model.ViewModel = this;
                 this.Model.Initialize();
 

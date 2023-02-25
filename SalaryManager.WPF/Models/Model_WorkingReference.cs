@@ -161,5 +161,26 @@ namespace SalaryManager.WPF.Models
             var workingReference = new WorkingReferenceSQLite();
             workingReference.Save(entity);
         }
+
+        internal void Register(SQLiteTransaction transaction)
+        {
+            var entity = new WorkingReferencesEntity(
+                this.Header.ID,
+                this.Header.YearMonth,
+                this.ViewModel.OvertimeTime,
+                this.ViewModel.WeekendWorktime,
+                this.ViewModel.MidnightWorktime,
+                this.ViewModel.LateAbsentH,
+                this.ViewModel.Insurance,
+                this.ViewModel.Norm,
+                this.ViewModel.NumberOfDependent,
+                this.ViewModel.PaidVacation,
+                this.ViewModel.WorkingHours,
+                this.ViewModel.WorkingPlace,
+                this.ViewModel.Remarks);
+
+            var workingReference = new WorkingReferenceSQLite();
+            workingReference.Save(transaction, entity);
+        }
     }
 }

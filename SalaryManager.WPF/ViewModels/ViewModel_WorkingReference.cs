@@ -32,6 +32,8 @@ namespace SalaryManager.WPF.ViewModels
         {
             try
             {
+                this.MainWindow.WorkingReference = this.Model;
+
                 this.Model.ViewModel = this;
                 this.Model.Initialize();
 
