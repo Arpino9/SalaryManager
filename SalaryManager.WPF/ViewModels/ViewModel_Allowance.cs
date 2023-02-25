@@ -50,7 +50,7 @@ namespace SalaryManager.WPF.ViewModels
             // Mouse Leave
             this.MouseLeave_Action             = new RelayCommand(() => this.MainWindow.ComparePrice(0, 0));
             // 基本給
-            this.BasicSalary_Action            = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.BasicSalary,            this.Entity_LastYear?.ExecutiveAllowance));
+            this.BasicSalary_Action            = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.BasicSalary,            this.Entity_LastYear?.BasicSalary));
             // 役職手当
             this.ExecutiveAllowance_Action     = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.ExecutiveAllowance,     this.Entity_LastYear?.ExecutiveAllowance));
             // 扶養手当
