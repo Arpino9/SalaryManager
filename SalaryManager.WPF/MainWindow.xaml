@@ -1,9 +1,10 @@
-﻿<Window x:Class="SalaryManager.WPF.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SalaryManager.WPF.UserControls"
+        xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" x:Class="SalaryManager.WPF.MainWindow"
         mc:Ignorable="d"
         Title="給与明細管理(仮)" Height="550" Width="700"
         Background="{x:Static SystemColors.ControlLightBrush}">
@@ -18,6 +19,10 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
+
+        <Grid.DataContext>
+            <ViewModels:ViewModel_MainWindow/>
+        </Grid.DataContext>
 
         <local:Header Width="200" />
 
@@ -35,12 +40,16 @@
                 <local:SideBusiness />
             </TabItem>
         </TabControl>
-        
+
         <local:OperationButtons Grid.Row="2" 
                                 Height="50" />
 
         <local:AnnualChart Grid.Column="1" 
                            Grid.Row="1" 
                            Grid.RowSpan="2" />
+
+        <StatusBar Grid.Row="3" VerticalAlignment="Bottom">
+            <Label Content="{Binding PriceUpdown_Content}"/>
+        </StatusBar>
     </Grid>
 </Window>

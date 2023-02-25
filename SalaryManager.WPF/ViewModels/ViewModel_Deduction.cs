@@ -1,4 +1,6 @@
-﻿using SalaryManager.WPF.Models;
+﻿using SalaryManager.Domain.Entities;
+using SalaryManager.WPF.Converter;
+using SalaryManager.WPF.Models;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -32,8 +34,9 @@ namespace SalaryManager.WPF.ViewModels
             try
             {
                 this.Model.ViewModel = this;
-
                 this.Model.Initialize();
+
+                this.BindEvent();
             }
             catch (Exception ex)
             {
@@ -42,9 +45,52 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// Model
+        /// Bind Event
         /// </summary>
+        private void BindEvent()
+        {
+            // Mouse Leave
+            this.MouseLeave_Action            = new RelayCommand(() => this.MainWindow.ComparePrice(0, 0));
+            // 健康保険
+            this.HealthInsurance_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.HealthInsurance,       this.Entity_LastYear?.HealthInsurance));
+            // 介護保険
+            this.NursingInsurance_Action      = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.NursingInsurance,      this.Entity_LastYear?.NursingInsurance));
+            // 厚生年金
+            this.WelfareAnnuity_Action        = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.WelfareAnnuity,        this.Entity_LastYear?.WelfareAnnuity));
+            // 雇用保険
+            this.EmploymentInsurance_Action   = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.EmploymentInsurance,   this.Entity_LastYear?.EmploymentInsurance));
+            // 所得税
+            this.IncomeTax_Action             = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.IncomeTax,             this.Entity_LastYear?.IncomeTax));
+            // 市町村税
+            this.MunicipalTax_Action          = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.MunicipalTax,          this.Entity_LastYear?.MunicipalTax));
+            // 互助会
+            this.FriendshipAssociation_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.FriendshipAssociation, this.Entity_LastYear?.FriendshipAssociation));
+            // 年末調整他
+            this.YearEndTaxAdjustment_Action  = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.YearEndTaxAdjustment,  this.Entity_LastYear?.YearEndTaxAdjustment));
+            // 控除額計
+            this.TotalDeduct_Action           = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.TotalDeduct,           this.Entity_LastYear?.TotalDeduct));
+        }
+
+        /// <summary> Model </summary>
         public Model_Deduction Model { get; set; } = Model_Deduction.GetInstance();
+
+        /// <summary> Model - メイン画面 </summary>
+        public Model_MainWindow MainWindow { get; set; } = Model_MainWindow.GetInstance();
+
+        /// <summary> Entity - 控除額 </summary>
+        public DeductionEntity Entity { get; set; }
+
+        /// <summary> Entity - 控除額 (昨年度) </summary>
+        public DeductionEntity Entity_LastYear { get; set; }
+
+        #region Mouse Leave
+
+        /// <summary>
+        /// MouseLeave - Action
+        /// </summary>
+        public RelayCommand MouseLeave_Action { get; private set; }
+
+        #endregion
 
         #region 健康保険
 
@@ -62,6 +108,11 @@ namespace SalaryManager.WPF.ViewModels
                 this.RaisePropertyChanged();
             }
         }
+
+        /// <summary>
+        /// 健康保険 - Action
+        /// </summary>
+        public RelayCommand HealthInsurance_Action { get; private set; }
 
         #endregion
 
@@ -81,6 +132,11 @@ namespace SalaryManager.WPF.ViewModels
                 this.RaisePropertyChanged();
             }
         }
+
+        /// <summary>
+        /// 介護保険 - Action
+        /// </summary>
+        public RelayCommand NursingInsurance_Action { get; private set; }
 
         #endregion
 
@@ -103,6 +159,11 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
+        /// <summary>
+        /// 厚生年金 - Action
+        /// </summary>
+        public RelayCommand WelfareAnnuity_Action { get; private set; }
+
         #endregion
 
         #region 雇用保険
@@ -124,14 +185,19 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
+        /// <summary>
+        /// 雇用保険 - Action
+        /// </summary>
+        public RelayCommand EmploymentInsurance_Action { get; private set; }
+
         #endregion
 
-        #region 雇用保険
+        #region 所得税
 
         private double _incomeTax;
 
         /// <summary>
-        /// 雇用保険
+        /// 所得税
         /// </summary>
         public double IncomeTax
         {
@@ -144,6 +210,11 @@ namespace SalaryManager.WPF.ViewModels
                 this.Model.ReCaluculate();
             }
         }
+
+        /// <summary>
+        /// 所得税 - Action
+        /// </summary>
+        public RelayCommand IncomeTax_Action { get; private set; }
 
         #endregion
 
@@ -166,6 +237,11 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
+        /// <summary>
+        /// 市町村税 - Action
+        /// </summary>
+        public RelayCommand MunicipalTax_Action { get; private set; }
+
         #endregion
 
         #region 互助会
@@ -186,6 +262,11 @@ namespace SalaryManager.WPF.ViewModels
                 this.Model.ReCaluculate();
             }
         }
+
+        /// <summary>
+        /// 互助会 - Action
+        /// </summary>
+        public RelayCommand FriendshipAssociation_Action { get; private set; }
 
         #endregion
 
@@ -208,6 +289,11 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
+        /// <summary>
+        /// 年末調整他 - Action
+        /// </summary>
+        public RelayCommand YearEndTaxAdjustment_Action { get; private set; }
+
         #endregion
 
         #region 控除額計
@@ -226,6 +312,11 @@ namespace SalaryManager.WPF.ViewModels
                 this.RaisePropertyChanged();
             }
         }
+
+        /// <summary>
+        /// 年末調整他 - Action
+        /// </summary>
+        public RelayCommand TotalDeduct_Action { get; private set; }
 
         #endregion
 

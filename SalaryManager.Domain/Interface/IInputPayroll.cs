@@ -9,18 +9,18 @@
     public interface IInputPayroll
     {
         /// <summary> 初期化 </summary>
-        internal void Initialize();
+        public void Initialize();
 
         /// <summary> リロード </summary>
-        internal void Reload();
+        public void Reload();
 
         /// <summary> 再描画 </summary>
-        internal void Refresh();
+        public void Refresh();
 
         /// <summary> リセット </summary>
-        internal void Clear();
+        public void Clear();
 
         /// <summary> 登録 </summary>
-        internal void Register();
+        public void Register();
     }
 }

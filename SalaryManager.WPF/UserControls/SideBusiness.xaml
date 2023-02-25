@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:SalaryManager.WPF.UserControls" 
              xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels"
              mc:Ignorable="d" 
+             xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="200" d:DesignWidth="300"
              Background="{x:Static SystemColors.ControlLightBrush}">
     <UserControl.Resources>
@@ -41,24 +42,57 @@
         <TextBox Grid.Column="1" 
                  Style="{StaticResource AllowanceTextBox_Style}" 
                  Text="{Binding SideBusiness, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                 TextAlignment="Right" />
+                 TextAlignment="Right">
 
-        <Label Content="その他" 
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding SideBusiness_Action}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
+
+        <Label Content="臨時収入" 
                Grid.Row="1" 
                Style="{StaticResource AllowanceLabel_Style}" />
         <TextBox Grid.Column="1" 
                  Grid.Row="1" 
                  Style="{StaticResource AllowanceTextBox_Style}" 
                  Text="{Binding Perquisite, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                 TextAlignment="Right" />
+                 TextAlignment="Right">
 
-        <Label Content="臨時収入" 
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding Perquisite_Action}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
+
+        <Label Content="その他" 
                Grid.Column="2" 
                Style="{StaticResource AllowanceLabel_Style}" />
         <TextBox Grid.Column="3" 
                  Style="{StaticResource AllowanceTextBox_Style}" 
                  Text="{Binding Others, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                 TextAlignment="Right" />
+                 TextAlignment="Right">
+
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding Others_Action}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="覚え書き"
                Grid.Column="1"

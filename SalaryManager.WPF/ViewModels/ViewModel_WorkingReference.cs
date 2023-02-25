@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SalaryManager.Domain.Entities;
+using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
 
 namespace SalaryManager.WPF.ViewModels
@@ -32,6 +34,8 @@ namespace SalaryManager.WPF.ViewModels
             {
                 this.Model.ViewModel = this;
                 this.Model.Initialize();
+
+                this.BindEvent();
             }
             catch (Exception ex)
             {
@@ -40,9 +44,38 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// Model
+        /// Bind Event
         /// </summary>
+        private void BindEvent()
+        {
+            // Mouse Leave
+            this.MouseLeave_Action = new RelayCommand(() => this.MainWindow.ComparePrice(0, 0));
+            // 支給額-保険
+            this.Insurance_Action  = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.Insurance, this.Entity_LastYear?.Insurance));
+            // 標準月額千円
+            this.Norm_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.Entity?.Norm,      this.Entity_LastYear?.Norm));
+        }
+
+        /// <summary> Model </summary>
         public Model_WorkingReference Model { get; set; } = Model_WorkingReference.GetInstance();
+
+        /// <summary> Model - メイン画面 </summary>
+        public Model_MainWindow MainWindow { get; set; }  = Model_MainWindow.GetInstance();
+
+        /// <summary> Entity - 勤務備考 </summary>
+        public WorkingReferencesEntity Entity { get; set; }
+
+        /// <summary> Entity - 勤務備考 (昨年度) </summary>
+        public WorkingReferencesEntity Entity_LastYear { get; set; }
+
+        #region Mouse Leave
+
+        /// <summary>
+        /// MouseLeave - Action
+        /// </summary>
+        public RelayCommand MouseLeave_Action { get; private set; }
+
+        #endregion
 
         #region 時間外時間
 
@@ -137,6 +170,11 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
+        /// <summary>
+        /// 支給額-保険 - Action
+        /// </summary>
+        public RelayCommand Insurance_Action { get; private set; }
+
         #endregion
 
         #region 標準月額千円
@@ -155,6 +193,11 @@ namespace SalaryManager.WPF.ViewModels
                 this.RaisePropertyChanged();
             }
         }
+
+        /// <summary>
+        /// 標準月額千円 - Action
+        /// </summary>
+        public RelayCommand Norm_Action { get; private set; }
 
         #endregion
 

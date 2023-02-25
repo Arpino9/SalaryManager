@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:SalaryManager.WPF.UserControls" 
              xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels"
              mc:Ignorable="d" 
+             xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="200" d:DesignWidth="300"
              Background="{x:Static SystemColors.ControlLightBrush}">
     <UserControl.Resources>
@@ -66,7 +67,18 @@
         <Label Content="支給額-保険" Grid.Column="2" Style="{StaticResource WorkingReferenceLabel_Style}" />
         <TextBox Grid.Column="3" Style="{StaticResource WorkingReferenceTextBox_Style}" 
                  Text="{Binding Insurance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                 TextAlignment="Right" />
+                 TextAlignment="Right">
+
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding Insurance_Action}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="標準月額千円" 
                Grid.Column="2" 
@@ -76,7 +88,18 @@
                  Grid.Row="1" 
                  Style="{StaticResource WorkingReferenceTextBox_Style}" 
                  Text="{Binding Norm, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                 TextAlignment="Right"  />
+                 TextAlignment="Right">
+
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding Norm_Action}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         
         <Label Content="扶養人数" 
                Grid.Column="2" 

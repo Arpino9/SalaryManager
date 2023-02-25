@@ -35,9 +35,6 @@ namespace SalaryManager.WPF.Models
         /// <summary> ViewModel - 控除額 </summary>
         internal ViewModel_Deduction ViewModel { get; set; }
 
-        /// <summary> Entity - 控除額 </summary>
-        private DeductionEntity Entity { get; set; }
-
         /// <summary>
         /// 初期化
         /// </summary>
@@ -46,11 +43,15 @@ namespace SalaryManager.WPF.Models
             var sqlite = new DeductionSQLite();
             var records = sqlite.GetEntities();
 
-            this.Entity = records.Where(record => record.YearMonth.Year  == DateTime.Today.Year
-                                               && record.YearMonth.Month == DateTime.Today.Month)
-                                 .FirstOrDefault();
+            this.ViewModel.Entity = records.Where(record => record.YearMonth.Year  == DateTime.Today.Year
+                                                         && record.YearMonth.Month == DateTime.Today.Month)
+                                           .FirstOrDefault();
 
-            if (this.Entity is null)
+            this.ViewModel.Entity_LastYear = records.Where(record => record.YearMonth.Year  == DateTime.Today.Year - 1
+                                                                  && record.YearMonth.Month == DateTime.Today.Month)
+                                                    .FirstOrDefault();
+
+            if (this.ViewModel.Entity is null)
             {
                 // レコードなし
                 var header        = new HeaderSQLite();
@@ -58,8 +59,8 @@ namespace SalaryManager.WPF.Models
 
                 if (defaultEntity != null)
                 {
-                    this.Entity = records.Where(record => record.ID == defaultEntity.ID)
-                                         .FirstOrDefault();
+                    this.ViewModel.Entity = records.Where(record => record.ID == defaultEntity.ID)
+                                                   .FirstOrDefault();
                 }
             }
 
@@ -71,32 +72,32 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Refresh()
         {
-            if (this.Entity is null)
+            if (this.ViewModel.Entity is null)
             {
                 this.Clear();
                 return;
             }
 
             // 健康保険
-            this.ViewModel.HealthInsurance       = this.Entity.HealthInsurance;
+            this.ViewModel.HealthInsurance       = this.ViewModel.Entity.HealthInsurance;
             // 介護保険
-            this.ViewModel.NursingInsurance      = this.Entity.NursingInsurance;
+            this.ViewModel.NursingInsurance      = this.ViewModel.Entity.NursingInsurance;
             // 厚生年金
-            this.ViewModel.WelfareAnnuity        = this.Entity.WelfareAnnuity;
+            this.ViewModel.WelfareAnnuity        = this.ViewModel.Entity.WelfareAnnuity;
             // 雇用保険
-            this.ViewModel.EmploymentInsurance   = this.Entity.EmploymentInsurance;
+            this.ViewModel.EmploymentInsurance   = this.ViewModel.Entity.EmploymentInsurance;
             // 所得税
-            this.ViewModel.IncomeTax             = this.Entity.IncomeTax;
+            this.ViewModel.IncomeTax             = this.ViewModel.Entity.IncomeTax;
             // 市町村税
-            this.ViewModel.MunicipalTax          = this.Entity.MunicipalTax;
+            this.ViewModel.MunicipalTax          = this.ViewModel.Entity.MunicipalTax;
             // 互助会
-            this.ViewModel.FriendshipAssociation = this.Entity.FriendshipAssociation;
+            this.ViewModel.FriendshipAssociation = this.ViewModel.Entity.FriendshipAssociation;
             // 年末調整他
-            this.ViewModel.YearEndTaxAdjustment  = this.Entity.YearEndTaxAdjustment;
+            this.ViewModel.YearEndTaxAdjustment  = this.ViewModel.Entity.YearEndTaxAdjustment;
             // 備考
-            this.ViewModel.Remarks               = this.Entity.Remarks;
+            this.ViewModel.Remarks               = this.ViewModel.Entity.Remarks;
             // 控除額計
-            this.ViewModel.TotalDeduct           = this.Entity.TotalDeduct;
+            this.ViewModel.TotalDeduct           = this.ViewModel.Entity.TotalDeduct;
         }
 
         /// <summary>
@@ -105,8 +106,9 @@ namespace SalaryManager.WPF.Models
         public void Reload()
         {
             var deductionTable = new DeductionSQLite();
-            this.Entity = deductionTable.GetEntity(this.Header.Year, this.Header.Month);
-            
+            this.ViewModel.Entity          = deductionTable.GetEntity(this.Header.Year,     this.Header.Month);
+            this.ViewModel.Entity_LastYear = deductionTable.GetEntity(this.Header.Year - 1, this.Header.Month);
+
             this.Refresh();
         }
 

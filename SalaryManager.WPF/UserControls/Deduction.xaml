@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:SalaryManager.WPF"
              xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" x:Class="SalaryManager.WPF.UserControls.Deduction"
              mc:Ignorable="d" 
+             xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="200" d:DesignWidth="300"
              Background="{x:Static SystemColors.ControlLightBrush}">
     <UserControl.Resources>
@@ -41,7 +42,18 @@
                Style="{StaticResource DeductionLabel_Style}" />
         <TextBox Grid.Column="1" 
                  Style="{StaticResource DeductionTextBox_Style}" 
-                 Text="{Binding HealthInsurance, StringFormat={}{0:N0}, Mode=TwoWay}" />
+                 Text="{Binding HealthInsurance, StringFormat={}{0:N0}, Mode=TwoWay}">
+
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding HealthInsurance_Action}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="介護保険" 
                Grid.Row="1" 
@@ -49,14 +61,36 @@
         <TextBox Grid.Column="1" 
                  Grid.Row="1" 
                  Style="{StaticResource DeductionTextBox_Style}" 
-                 Text="{Binding NursingInsurance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                 Text="{Binding NursingInsurance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding NursingInsurance_Action}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="厚生年金" 
                Grid.Row="2" 
                Style="{StaticResource DeductionLabel_Style}" />
         <TextBox Grid.Column="1" Grid.Row="2" 
                  Style="{StaticResource DeductionTextBox_Style}" 
-                 Text="{Binding WelfareAnnuity, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                 Text="{Binding WelfareAnnuity, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding WelfareAnnuity_Action}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="雇用保険" 
                Grid.Row="3" 
@@ -64,14 +98,36 @@
         <TextBox Grid.Column="1" 
                  Grid.Row="3" 
                  Style="{StaticResource DeductionTextBox_Style}" 
-                 Text="{Binding EmploymentInsurance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                 Text="{Binding EmploymentInsurance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding EmploymentInsurance_Action}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="所得税" 
                Grid.Column="2" 
                Style="{StaticResource DeductionLabel_Style}" />
         <TextBox Grid.Column="3" 
                  Style="{StaticResource DeductionTextBox_Style}" 
-                 Text="{Binding IncomeTax, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                 Text="{Binding IncomeTax, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding IncomeTax_Action}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="市町村税" 
                Grid.Column="2" 
@@ -80,7 +136,18 @@
         <TextBox Grid.Column="3" 
                  Grid.Row="1" 
                  Style="{StaticResource DeductionTextBox_Style}" 
-                 Text="{Binding MunicipalTax, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                 Text="{Binding MunicipalTax, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding MunicipalTax_Action}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="互助会" 
                Grid.Column="2" 
@@ -89,7 +156,18 @@
         <TextBox Grid.Column="3" 
                  Grid.Row="2" 
                  Style="{StaticResource DeductionTextBox_Style}" 
-                 Text="{Binding FriendshipAssociation, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                 Text="{Binding FriendshipAssociation, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding FriendshipAssociation_Action}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="年末調整他" 
                Grid.Column="2" 
@@ -98,7 +176,18 @@
         <TextBox Grid.Column="3" 
                  Grid.Row="3" 
                  Style="{StaticResource DeductionTextBox_Style}" 
-                 Text="{Binding YearEndTaxAdjustment, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                 Text="{Binding YearEndTaxAdjustment, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding YearEndTaxAdjustment_Action}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="控除額計" 
                Grid.Column="1"
@@ -109,6 +198,17 @@
                  Grid.Row="6"  
                  Margin="0,10,0,0"
                  Style="{StaticResource DeductionTextBox_Style}" 
-                 Text="{Binding TotalDeduct, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                 Text="{Binding TotalDeduct, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding TotalDeduct_Action}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
     </Grid>
 </UserControl>

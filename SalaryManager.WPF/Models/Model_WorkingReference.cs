@@ -34,9 +34,6 @@ namespace SalaryManager.WPF.Models
         /// <summary> ViewModel - 勤務備考 </summary>
         internal ViewModel_WorkingReference ViewModel { get; set; }
 
-        /// <summary> Entity - 勤務備考 </summary>
-        private WorkingReferencesEntity Entity { get; set; }
-
         /// <summary>
         /// 初期化
         /// </summary>
@@ -45,18 +42,22 @@ namespace SalaryManager.WPF.Models
             var sqlite = new WorkingReferenceSQLite();
             var records = sqlite.GetEntities();
 
-            this.Entity = records.Where(record => record.YearMonth.Year  == DateTime.Today.Year
-                                               && record.YearMonth.Month == DateTime.Today.Month)
-                                 .FirstOrDefault();
+            this.ViewModel.Entity = records.Where(record => record.YearMonth.Year  == DateTime.Today.Year
+                                                         && record.YearMonth.Month == DateTime.Today.Month)
+                                           .FirstOrDefault();
 
-            if (this.Entity is null)
+            this.ViewModel.Entity_LastYear = records.Where(record => record.YearMonth.Year == DateTime.Today.Year - 1
+                                                                  && record.YearMonth.Month == DateTime.Today.Month)
+                                                    .FirstOrDefault();
+
+            if (this.ViewModel.Entity is null)
             {
                 var header = new HeaderSQLite();
                 var defaultEntity = header.GetDefaultEntity();
 
                 if (defaultEntity != null)
                 {
-                    this.Entity = records.Where(record => record.ID == defaultEntity.ID)
+                    this.ViewModel.Entity = records.Where(record => record.ID == defaultEntity.ID)
                                          .FirstOrDefault();
                 }
             }
@@ -70,7 +71,9 @@ namespace SalaryManager.WPF.Models
         public void Reload()
         {
             var workingReferenceTable = new WorkingReferenceSQLite();
-            this.Entity = workingReferenceTable.GetEntity(this.Header.Year, this.Header.Month);
+
+            this.ViewModel.Entity          = workingReferenceTable.GetEntity(this.Header.Year,     this.Header.Month);
+            this.ViewModel.Entity_LastYear = workingReferenceTable.GetEntity(this.Header.Year - 1, this.Header.Month);
             
             this.Refresh();
         }
@@ -107,32 +110,32 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Refresh()
         {
-            if (this.Entity is null)
+            if (this.ViewModel.Entity is null)
             {
                 this.Clear();
                 return;
             }
 
             // 時間外時間
-            this.ViewModel.OvertimeTime      = this.Entity.OvertimeTime;
+            this.ViewModel.OvertimeTime      = this.ViewModel.Entity.OvertimeTime;
             // 休出時間
-            this.ViewModel.WeekendWorktime   = this.Entity.WeekendWorktime;
+            this.ViewModel.WeekendWorktime   = this.ViewModel.Entity.WeekendWorktime;
             // 深夜時間
-            this.ViewModel.MidnightWorktime  = this.Entity.MidnightWorktime;
+            this.ViewModel.MidnightWorktime  = this.ViewModel.Entity.MidnightWorktime;
             // 遅刻早退欠勤H
-            this.ViewModel.LateAbsentH       = this.Entity.LateAbsentH;
+            this.ViewModel.LateAbsentH       = this.ViewModel.Entity.LateAbsentH;
             // 支給額-保険
-            this.ViewModel.Insurance         = this.Entity.Insurance;
+            this.ViewModel.Insurance         = this.ViewModel.Entity.Insurance;
             // 標準月額千円
-            this.ViewModel.Norm              = this.Entity.Norm;
+            this.ViewModel.Norm              = this.ViewModel.Entity.Norm;
             // 扶養人数
-            this.ViewModel.NumberOfDependent = this.Entity.NumberOfDependent;
+            this.ViewModel.NumberOfDependent = this.ViewModel.Entity.NumberOfDependent;
             // 有給残日数
-            this.ViewModel.PaidVacation      = this.Entity.PaidVacation;
+            this.ViewModel.PaidVacation      = this.ViewModel.Entity.PaidVacation;
             // 勤務時間
-            this.ViewModel.WorkingHours      = this.Entity.WorkingHours;
+            this.ViewModel.WorkingHours      = this.ViewModel.Entity.WorkingHours;
             // 備考
-            this.ViewModel.Remarks           = this.Entity.Remarks;
+            this.ViewModel.Remarks           = this.ViewModel.Entity.Remarks;
         }
 
         /// <summary>

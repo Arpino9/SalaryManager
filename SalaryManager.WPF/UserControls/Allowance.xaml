@@ -51,7 +51,11 @@
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
-                    <behaviors:InvokeCommandAction Command="{Binding MySelectionChangedCommand}" />
+                    <behaviors:InvokeCommandAction Command="{Binding BasicSalary_Action}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
@@ -63,7 +67,17 @@
                  Grid.Row="1" 
                  Style="{StaticResource AllowanceTextBox_Style}"
                  Text="{Binding ExecutiveAllowance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 Behavior:TextBoxIntegerOnly.IsNumeric="True" />
+                 Behavior:TextBoxIntegerOnly.IsNumeric="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding ExecutiveAllowance_Action}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="扶養手当" 
                Grid.Row="2" 
@@ -72,7 +86,17 @@
                  Grid.Row="2" 
                  Style="{StaticResource AllowanceTextBox_Style}"
                  Text="{Binding DependencyAllowance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 Behavior:TextBoxIntegerOnly.IsNumeric="True" />
+                 Behavior:TextBoxIntegerOnly.IsNumeric="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding ExecutiveAllowance_Action}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="時間外手当" 
                Grid.Row="3" 
@@ -81,7 +105,17 @@
                  Grid.Row="3" 
                  Style="{StaticResource AllowanceTextBox_Style}"
                  Text="{Binding OvertimeAllowance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 Behavior:TextBoxIntegerOnly.IsNumeric="True" />
+                 Behavior:TextBoxIntegerOnly.IsNumeric="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding OvertimeAllowance_Action}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="休日割増" 
                Grid.Row="4" 
@@ -90,7 +124,17 @@
                  Grid.Row="4" 
                  Style="{StaticResource AllowanceTextBox_Style}"
                  Text="{Binding DaysoffIncreased, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 Behavior:TextBoxIntegerOnly.IsNumeric="True" />
+                 Behavior:TextBoxIntegerOnly.IsNumeric="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding DaysoffIncreased_Action}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="交通費" 
                Grid.Row="5" 
@@ -99,7 +143,17 @@
                  Grid.Row="5" 
                  Style="{StaticResource AllowanceTextBox_Style}"
                  Text="{Binding TransportationExpenses, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 Behavior:TextBoxIntegerOnly.IsNumeric="True" />
+                 Behavior:TextBoxIntegerOnly.IsNumeric="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding TransportationExpenses_Action}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="深夜割増" 
                Grid.Column="2" 
@@ -107,7 +161,17 @@
         <TextBox Grid.Column="3" 
                  Style="{StaticResource AllowanceTextBox_Style}"
                  Text="{Binding NightworkIncreased, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 Behavior:TextBoxIntegerOnly.IsNumeric="True" />
+                 Behavior:TextBoxIntegerOnly.IsNumeric="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding NightworkIncreased_Action}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="住宅手当" 
                Grid.Column="2" 
@@ -117,7 +181,17 @@
                  Grid.Row="1" 
                  Style="{StaticResource AllowanceTextBox_Style}"
                  Text="{Binding HousingAllowance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 Behavior:TextBoxIntegerOnly.IsNumeric="True" />
+                 Behavior:TextBoxIntegerOnly.IsNumeric="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding HousingAllowance_Action}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="遅刻早退手当" 
                Grid.Column="2" 
@@ -127,7 +201,17 @@
                  Grid.Row="2" 
                  Style="{StaticResource AllowanceTextBox_Style}"
                  Text="{Binding LateAbsent}"
-                 Behavior:TextBoxIntegerOnly.IsNumeric="True" />
+                 Behavior:TextBoxIntegerOnly.IsNumeric="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding LateAbsent_Action}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="特別手当" 
                Grid.Column="2" 
@@ -137,7 +221,17 @@
                  Grid.Row="3" 
                  Style="{StaticResource AllowanceTextBox_Style}"
                  Text="{Binding SpecialAllowance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 Behavior:TextBoxIntegerOnly.IsNumeric="True" />
+                 Behavior:TextBoxIntegerOnly.IsNumeric="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding SpecialAllowance_Action}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="在宅手当" 
                Grid.Column="2" 
@@ -157,7 +251,17 @@
                  Grid.Row="5" 
                  Style="{StaticResource AllowanceTextBox_Style}"
                  Text="{Binding SpareAllowance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 Behavior:TextBoxIntegerOnly.IsNumeric="True" />
+                 Behavior:TextBoxIntegerOnly.IsNumeric="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding SpareAllowance_Action}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="支給額計" 
                Grid.Column="1"
@@ -170,6 +274,16 @@
                  Style="{StaticResource AllowanceTextBox_Style}"
                  Text="{Binding TotalSalary, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True" 
-                 IsReadOnly="True" />
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding TotalSalary_Action}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
     </Grid>
 </UserControl>

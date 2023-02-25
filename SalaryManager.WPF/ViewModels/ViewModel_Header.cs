@@ -46,7 +46,7 @@ namespace SalaryManager.WPF.ViewModels
             this._returnAction += this.Header.Return;
             this._returnAction += this.Allowance.Reload;
             this._returnAction += this.Deduction.Reload;
-            this._returnAction += this.WorkingReference.Reload;
+            this._returnAction += ((Domain.Interface.IInputPayroll)this.WorkingReference).Reload;
             this._returnAction += this.SideBusiness.Reload;
             this._returnAction += this.AnnualCharts.Reload;
 
@@ -54,7 +54,7 @@ namespace SalaryManager.WPF.ViewModels
             this._proceedAction += this.Header.Proceed;
             this._proceedAction += this.Allowance.Reload;
             this._proceedAction += this.Deduction.Reload;
-            this._proceedAction += this.WorkingReference.Reload;
+            this._proceedAction += ((Domain.Interface.IInputPayroll)this.WorkingReference).Reload;
             this._proceedAction += this.SideBusiness.Reload;
             this._proceedAction += this.AnnualCharts.Reload;
 
