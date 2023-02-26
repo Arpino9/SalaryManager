@@ -155,9 +155,9 @@ namespace SalaryManager.WPF.Models
         }
 
         /// <summary>
-        /// 登録
+        /// 保存
         /// </summary>
-        public void Register()
+        public void Save()
         {
             var entity = new HeaderEntity(            
                 this.ViewModel.ID,
@@ -172,10 +172,10 @@ namespace SalaryManager.WPF.Models
         }
 
         /// <summary>
-        /// 登録
+        /// 保存
         /// </summary>
         /// <param name="transaction">トランザクション</param>
-        public void Register(SQLiteTransaction transaction)
+        public void Save(SQLiteTransaction transaction)
         {
             var entity = new HeaderEntity(
                  this.ViewModel.ID,

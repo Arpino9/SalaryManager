@@ -120,14 +120,14 @@ namespace SalaryManager.WPF.Models
         }
 
         /// <summary>
-        /// 登録
+        /// 保存
         /// </summary>
         /// <remarks>
         /// 入力された勤怠情報をDB登録する。
         /// </remarks>
-        internal void Register()
+        internal void Save()
         {
-            var message = $"{this.Header.ViewModel.Year}年{this.Header.ViewModel.Month}月の給与明細を登録しますか？";
+            var message = $"{this.Header.ViewModel.Year}年{this.Header.ViewModel.Month}月の給与明細を保存しますか？";
             if (!DialogMessageUtils.ShowConfirmingMessage(message, this.MainWindow.Title))
             {
                 // キャンセル
@@ -137,15 +137,15 @@ namespace SalaryManager.WPF.Models
             using (var transaction = new SQLiteTransaction())
             {
                 // ヘッダー
-                this.Header.Register(transaction);
+                this.Header.Save(transaction);
                 // 支給額
-                this.Allowance.Register(transaction);
+                this.Allowance.Save(transaction);
                 // 控除額
-                this.Deduction.Register(transaction);
+                this.Deduction.Save(transaction);
                 // 勤務備考
-                this.WorkingReference.Register(transaction);
+                this.WorkingReference.Save(transaction);
                 // 副業
-                this.SideBusiness.Register(transaction);
+                this.SideBusiness.Save(transaction);
 
                 transaction.Commit();
             }

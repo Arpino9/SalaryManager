@@ -116,41 +116,43 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Refresh()
         {
-            if (this.ViewModel.Entity is null)
+            var entity = this.ViewModel.Entity;
+
+            if (entity is null)
             {
                 this.Clear();
                 return;
             }
 
             // 時間外時間
-            this.ViewModel.OvertimeTime      = this.ViewModel.Entity.OvertimeTime;
+            this.ViewModel.OvertimeTime      = entity.OvertimeTime;
             // 休出時間
-            this.ViewModel.WeekendWorktime   = this.ViewModel.Entity.WeekendWorktime;
+            this.ViewModel.WeekendWorktime   = entity.WeekendWorktime;
             // 深夜時間
-            this.ViewModel.MidnightWorktime  = this.ViewModel.Entity.MidnightWorktime;
+            this.ViewModel.MidnightWorktime  = entity.MidnightWorktime;
             // 遅刻早退欠勤H
-            this.ViewModel.LateAbsentH       = this.ViewModel.Entity.LateAbsentH;
+            this.ViewModel.LateAbsentH       = entity.LateAbsentH;
             // 支給額-保険
-            this.ViewModel.Insurance         = this.ViewModel.Entity.Insurance.Value;
+            this.ViewModel.Insurance         = entity.Insurance.Value;
             // 標準月額千円
-            this.ViewModel.Norm              = this.ViewModel.Entity.Norm;
+            this.ViewModel.Norm              = entity.Norm;
             // 扶養人数
-            this.ViewModel.NumberOfDependent = this.ViewModel.Entity.NumberOfDependent;
+            this.ViewModel.NumberOfDependent = entity.NumberOfDependent;
             // 有給残日数
-            this.ViewModel.PaidVacation      = this.ViewModel.Entity.PaidVacation.Value;
+            this.ViewModel.PaidVacation      = entity.PaidVacation.Value;
             // 勤務時間
-            this.ViewModel.WorkingHours      = this.ViewModel.Entity.WorkingHours;
+            this.ViewModel.WorkingHours      = entity.WorkingHours;
             // 勤務先
-            this.WorkPlace.WorkPlace         = this.ViewModel.Entity.WorkPlace;
+            this.WorkPlace.WorkPlace         = entity.WorkPlace;
             // 備考
-            this.ViewModel.Remarks           = this.ViewModel.Entity.Remarks;
+            this.ViewModel.Remarks           = entity.Remarks;
         }
 
         /// <summary>
-        /// 登録
+        /// 保存
         /// </summary>
         /// <param name="transaction">トランザクション</param>
-        public void Register(SQLiteTransaction transaction)
+        public void Save(SQLiteTransaction transaction)
         {
             var entity = new WorkingReferencesEntity(
                 this.Header.ID,

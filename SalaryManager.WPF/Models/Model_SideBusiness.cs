@@ -1,9 +1,9 @@
-﻿using SalaryManager.Domain.Entities;
+﻿using System;
+using System.Linq;
+using SalaryManager.Domain.Entities;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.WPF.ViewModels;
-using System;
-using System.Linq;
 
 namespace SalaryManager.WPF.Models
 {
@@ -101,27 +101,29 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Refresh()
         {
-            if (this.ViewModel.Entity is null)
+            var entity = this.ViewModel.Entity;
+
+            if (entity is null)
             {
                 this.Clear();
                 return;
             }
 
             // 副業
-            this.ViewModel.SideBusiness = this.ViewModel.Entity.SideBusiness;
+            this.ViewModel.SideBusiness = entity.SideBusiness;
             // 臨時収入
-            this.ViewModel.Perquisite   = this.ViewModel.Entity.Perquisite;
+            this.ViewModel.Perquisite   = entity.Perquisite;
             // その他
-            this.ViewModel.Others       = this.ViewModel.Entity.Others;
+            this.ViewModel.Others       = entity.Others;
             // 備考
-            this.ViewModel.Remarks      = this.ViewModel.Entity.Remarks;
+            this.ViewModel.Remarks      = entity.Remarks;
         }
 
         /// <summary>
-        /// 登録
+        /// 保存
         /// </summary>
         /// <param name="transaction">トランザクション</param>
-        public void Register(SQLiteTransaction transaction)
+        public void Save(SQLiteTransaction transaction)
         {
             var entity = new SideBusinessEntity(
                 this.Header.ID,

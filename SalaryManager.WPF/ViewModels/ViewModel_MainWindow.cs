@@ -23,13 +23,13 @@ namespace SalaryManager.WPF.ViewModels
 
         public ViewModel_MainWindow()
         {
-            // 登録
-            this._registerAction += this.Model.Register;
-            this._registerAction += this.AnnualChart.Reload;
+            // 保存
+            this._saveAction += this.Model.Save;
+            this._saveAction += this.AnnualChart.Reload;
 
             // デフォルトに設定
             this._setDefaultAction += this.Header.SetDefault;
-            this._setDefaultAction += this.Header.Register;
+            this._setDefaultAction += this.Header.Save;
 
             this.Model.MainWindow = this;
         }
@@ -120,24 +120,24 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
-        #region 登録
+        #region 保存
 
-        private RelayCommand _register;
+        private RelayCommand _save;
 
-        private Action _registerAction;
+        private Action _saveAction;
 
         /// <summary>
-        /// 登録ボタン
+        /// 保存ボタン
         /// </summary>
-        public RelayCommand RegisterClick
+        public RelayCommand SaveClick
         {
             get
             {
-                if (this._register == null)
+                if (this._save == null)
                 {
-                    this._register = new RelayCommand(this._registerAction);
+                    this._save = new RelayCommand(this._saveAction);
                 }
-                return this._register;
+                return this._save;
             }
         }
 

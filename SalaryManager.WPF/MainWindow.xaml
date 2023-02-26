@@ -30,7 +30,7 @@
                 <MenuItem Header="デフォルト明細に設定" Command="{Binding SetDefaultClick}" />
                 <MenuItem Header="デフォルト明細から取得" Command="{Binding GetDefaultClick}" />
             </MenuItem>
-            <MenuItem Header="登録" Command="{Binding RegisterClick}" />
+            <MenuItem Header="保存" Command="{Binding SaveClick}" />
             <MenuItem Header="閉じる">
                 <behaviors:Interaction.Triggers>
                     <behaviors:EventTrigger EventName="Click">
@@ -41,7 +41,7 @@
             </MenuItem>
         </Menu>
 
-        <local:Header Width="200" Grid.Row="1" />
+        <local:Header Width="200" Grid.Row="1" VerticalAlignment="Center" />
         <local:WorkPlace  Grid.Column="1"/>
 
         <TabControl Grid.Row="2">

@@ -77,32 +77,34 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Refresh()
         {
-            if (this.ViewModel.Entity is null)
+            var entity = this.ViewModel.Entity;
+
+            if (entity is null)
             {
                 this.Clear();
                 return;
             }
 
             // 健康保険
-            this.ViewModel.HealthInsurance       = this.ViewModel.Entity.HealthInsurance.Value;
+            this.ViewModel.HealthInsurance       = entity.HealthInsurance.Value;
             // 介護保険
-            this.ViewModel.NursingInsurance      = this.ViewModel.Entity.NursingInsurance.Value;
+            this.ViewModel.NursingInsurance      = entity.NursingInsurance.Value;
             // 厚生年金
-            this.ViewModel.WelfareAnnuity        = this.ViewModel.Entity.WelfareAnnuity.Value;
+            this.ViewModel.WelfareAnnuity        = entity.WelfareAnnuity.Value;
             // 雇用保険
-            this.ViewModel.EmploymentInsurance   = this.ViewModel.Entity.EmploymentInsurance.Value;
+            this.ViewModel.EmploymentInsurance   = entity.EmploymentInsurance.Value;
             // 所得税
-            this.ViewModel.IncomeTax             = this.ViewModel.Entity.IncomeTax.Value;
+            this.ViewModel.IncomeTax             = entity.IncomeTax.Value;
             // 市町村税
-            this.ViewModel.MunicipalTax          = this.ViewModel.Entity.MunicipalTax.Value;
+            this.ViewModel.MunicipalTax          = entity.MunicipalTax.Value;
             // 互助会
-            this.ViewModel.FriendshipAssociation = this.ViewModel.Entity.FriendshipAssociation.Value;
+            this.ViewModel.FriendshipAssociation = entity.FriendshipAssociation.Value;
             // 年末調整他
-            this.ViewModel.YearEndTaxAdjustment  = this.ViewModel.Entity.YearEndTaxAdjustment;
+            this.ViewModel.YearEndTaxAdjustment  = entity.YearEndTaxAdjustment;
             // 備考
-            this.ViewModel.Remarks               = this.ViewModel.Entity.Remarks;
+            this.ViewModel.Remarks               = entity.Remarks;
             // 控除額計
-            this.ViewModel.TotalDeduct           = this.ViewModel.Entity.TotalDeduct.Value;
+            this.ViewModel.TotalDeduct           = entity.TotalDeduct.Value;
         }
 
         /// <summary>
@@ -145,10 +147,10 @@ namespace SalaryManager.WPF.Models
         }
 
         /// <summary>
-        /// 登録
+        /// 保存
         /// </summary>
         /// <param name="transaction">トランザクション</param>
-        public void Register(SQLiteTransaction transaction)
+        public void Save(SQLiteTransaction transaction)
         {
             var entity = new DeductionEntity(
                             this.Header.ID,

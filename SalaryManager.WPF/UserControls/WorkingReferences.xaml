@@ -42,17 +42,17 @@
                Style="{StaticResource WorkingReferenceLabel_Style}" />
         <TextBox Grid.Column="1" 
                  Style="{StaticResource WorkingReferenceTextBox_Style}" 
-                 Text="{Binding OvertimeTime, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Text="{Binding OvertimeTime, StringFormat={}{0:N1}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  TextAlignment="Right" />
 
         <Label Content="休出時間" Grid.Row="1" Style="{StaticResource WorkingReferenceLabel_Style}" />
         <TextBox Grid.Column="1" Grid.Row="1" Style="{StaticResource WorkingReferenceTextBox_Style}"
-                 Text="{Binding WeekendWorktime, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Text="{Binding WeekendWorktime, StringFormat={}{0:N1}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  TextAlignment="Right" />
 
         <Label Content="深夜時間" Grid.Row="2" Style="{StaticResource WorkingReferenceLabel_Style}" />
         <TextBox Grid.Column="1" Grid.Row="2" Style="{StaticResource WorkingReferenceTextBox_Style}"
-                 Text="{Binding OvertimeTime, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Text="{Binding MidnightWorktime, StringFormat={}{0:N1}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  TextAlignment="Right" />
 
         <Label Content="遅刻早退欠勤H" 
@@ -61,7 +61,7 @@
         <TextBox Grid.Column="1" 
                  Grid.Row="3" 
                  Style="{StaticResource WorkingReferenceTextBox_Style}" 
-                 Text="{Binding LateAbsentH, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Text="{Binding LateAbsentH, StringFormat={}{0:N1}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  TextAlignment="Right" />
 
         <Label Content="支給額-保険" Grid.Column="2" Style="{StaticResource WorkingReferenceLabel_Style}" />
@@ -118,7 +118,7 @@
         <TextBox Grid.Column="3" 
                  Grid.Row="3" 
                  Style="{StaticResource WorkingReferenceTextBox_Style}" 
-                 Text="{Binding PaidVacation, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding PaidVacation, StringFormat={}{0:N1}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  TextAlignment="Right" />
 
         <Label Content="勤務時間" 
@@ -128,7 +128,7 @@
         <TextBox Grid.Column="3"
                  Grid.Row="4" 
                  Style="{StaticResource WorkingReferenceTextBox_Style}" 
-                 Text="{Binding WorkingHours, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Text="{Binding WorkingHours, StringFormat={}{0:N1}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  TextAlignment="Right" />
     </Grid>
 </UserControl>

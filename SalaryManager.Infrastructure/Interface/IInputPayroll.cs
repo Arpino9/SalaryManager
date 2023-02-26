@@ -24,7 +24,7 @@ namespace SalaryManager.Infrastructure.Interface
         /// <summary> リセット </summary>
         public void Clear();
 
-        /// <summary> 登録 </summary>
-        public void Register(SQLiteTransaction transaction);
+        /// <summary> 保存 </summary>
+        public void Save(SQLiteTransaction transaction);
     }
 }

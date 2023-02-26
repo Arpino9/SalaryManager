@@ -50,11 +50,11 @@ namespace SalaryManager.WPF.Models
 
             this.ViewModel.Entity = records.Where(record => record.YearMonth.Year  == entityDate.Year
                                                          && record.YearMonth.Month == entityDate.Month)
-                                 .FirstOrDefault();
+                                           .FirstOrDefault();
 
             this.ViewModel.Entity_LastYear = records.Where(record => record.YearMonth.Year  == entityDate.Year - 1
                                                                   && record.YearMonth.Month == entityDate.Month)
-                                 .FirstOrDefault();
+                                                    .FirstOrDefault();
 
             if (this.ViewModel.Entity is null)
             {
@@ -65,7 +65,7 @@ namespace SalaryManager.WPF.Models
                 if (defaultEntity != null)
                 {
                     this.ViewModel.Entity = records.Where(record => record.ID == defaultEntity.ID)
-                                         .FirstOrDefault();
+                                                   .FirstOrDefault();
                 }
             }
 
@@ -77,38 +77,40 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Refresh()
         {
-            if (this.ViewModel.Entity is null)
+            var entity = this.ViewModel.Entity;
+
+            if (entity is null)
             {
                 this.Clear();
                 return;
             }
 
             // 基本給
-            this.ViewModel.BasicSalary            = this.ViewModel.Entity.BasicSalary.Value;
+            this.ViewModel.BasicSalary            = entity.BasicSalary.Value;
             // 役職手当
-            this.ViewModel.ExecutiveAllowance     = this.ViewModel.Entity.ExecutiveAllowance.Value;
+            this.ViewModel.ExecutiveAllowance     = entity.ExecutiveAllowance.Value;
             // 扶養手当
-            this.ViewModel.DependencyAllowance    = this.ViewModel.Entity.DependencyAllowance.Value;
+            this.ViewModel.DependencyAllowance    = entity.DependencyAllowance.Value;
             // 時間外手当
-            this.ViewModel.OvertimeAllowance      = this.ViewModel.Entity.OvertimeAllowance.Value;
+            this.ViewModel.OvertimeAllowance      = entity.OvertimeAllowance.Value;
             // 休日割増
-            this.ViewModel.DaysoffIncreased       = this.ViewModel.Entity.DaysoffIncreased.Value;
+            this.ViewModel.DaysoffIncreased       = entity.DaysoffIncreased.Value;
             // 深夜割増
-            this.ViewModel.NightworkIncreased     = this.ViewModel.Entity.NightworkIncreased.Value;
+            this.ViewModel.NightworkIncreased     = entity.NightworkIncreased.Value;
             // 住宅手当
-            this.ViewModel.HousingAllowance       = this.ViewModel.Entity.HousingAllowance.Value;
+            this.ViewModel.HousingAllowance       = entity.HousingAllowance.Value;
             // 遅刻早退欠勤
-            this.ViewModel.LateAbsent             = this.ViewModel.Entity.LateAbsent;
+            this.ViewModel.LateAbsent             = entity.LateAbsent;
             // 交通費
-            this.ViewModel.TransportationExpenses = this.ViewModel.Entity.TransportationExpenses.Value;
+            this.ViewModel.TransportationExpenses = entity.TransportationExpenses.Value;
             // 特別手当
-            this.ViewModel.SpecialAllowance       = this.ViewModel.Entity.SpecialAllowance.Value;
+            this.ViewModel.SpecialAllowance       = entity.SpecialAllowance.Value;
             // 予備
-            this.ViewModel.SpareAllowance         = this.ViewModel.Entity.SpareAllowance.Value;
+            this.ViewModel.SpareAllowance         = entity.SpareAllowance.Value;
             // 支給総計
-            this.ViewModel.TotalSalary            = this.ViewModel.Entity.TotalSalary.Value;
+            this.ViewModel.TotalSalary            = entity.TotalSalary.Value;
             // 差引支給額
-            this.ViewModel.TotalDeductedSalary    = this.ViewModel.Entity.TotalDeductedSalary;
+            this.ViewModel.TotalDeductedSalary    = entity.TotalDeductedSalary;
             this.ChangeColor();
         }
 
@@ -160,10 +162,10 @@ namespace SalaryManager.WPF.Models
         }
 
         /// <summary>
-        /// 登録
+        /// 保存
         /// </summary>
         /// <param name="transaction">トランザクション</param>
-        public void Register(SQLiteTransaction transaction)
+        public void Save(SQLiteTransaction transaction)
         {
             var entity = new AllowanceEntity(
                               this.Header.ID,
@@ -207,6 +209,7 @@ namespace SalaryManager.WPF.Models
                                        + this.ViewModel.DaysoffIncreased
                                        + this.ViewModel.NightworkIncreased
                                        + this.ViewModel.HousingAllowance
+                                       + this.ViewModel.LateAbsent
                                        + this.ViewModel.SpecialAllowance
                                        + this.ViewModel.SpareAllowance;
 

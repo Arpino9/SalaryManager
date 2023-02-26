@@ -132,6 +132,42 @@ namespace SalaryManager.WPF.Models
                         break;
                 }
             }
+
+            this.Recalculate();
+        }
+
+        /// <summary>
+        /// 再計算
+        /// </summary>
+        internal void Recalculate()
+        {
+            // 支給額計
+            this.ViewModel.TotalSalary_Sum = this.ViewModel.TotalSalary_January
+                                           + this.ViewModel.TotalSalary_Feburary
+                                           + this.ViewModel.TotalSalary_March
+                                           + this.ViewModel.TotalSalary_April
+                                           + this.ViewModel.TotalSalary_May
+                                           + this.ViewModel.TotalSalary_June
+                                           + this.ViewModel.TotalSalary_July
+                                           + this.ViewModel.TotalSalary_August
+                                           + this.ViewModel.TotalSalary_September
+                                           + this.ViewModel.TotalSalary_October
+                                           + this.ViewModel.TotalSalary_November
+                                           + this.ViewModel.TotalSalary_December;
+
+            // 差引支給額
+            this.ViewModel.TotalDeductedSalary_Sum = this.ViewModel.TotalDeductedSalary_January
+                                                   + this.ViewModel.TotalDeductedSalary_Feburary
+                                                   + this.ViewModel.TotalDeductedSalary_March
+                                                   + this.ViewModel.TotalDeductedSalary_April
+                                                   + this.ViewModel.TotalDeductedSalary_May
+                                                   + this.ViewModel.TotalDeductedSalary_June
+                                                   + this.ViewModel.TotalDeductedSalary_July
+                                                   + this.ViewModel.TotalDeductedSalary_August
+                                                   + this.ViewModel.TotalDeductedSalary_September
+                                                   + this.ViewModel.TotalDeductedSalary_October
+                                                   + this.ViewModel.TotalDeductedSalary_November
+                                                   + this.ViewModel.TotalDeductedSalary_December;
         }
 
         /// <summary>
