@@ -1,6 +1,5 @@
 ﻿using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Helpers;
-using SalaryManager.Domain.Logics;
 using SalaryManager.Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -24,6 +23,7 @@ NightworkIncreased ,
 HousingAllowance,
 LateAbsent,
 TransportationExpenses,
+ElectricityAllowance,
 SpecialAllowance,
 SpareAllowance,
 Remarks,
@@ -47,6 +47,7 @@ FROM Allowance";
                                 Convert.ToDouble(reader["HousingAllowance"]),
                                 Convert.ToDouble(reader["LateAbsent"]),
                                 Convert.ToDouble(reader["TransportationExpenses"]),
+                                Convert.ToDouble(reader["ElectricityAllowance"]),
                                 Convert.ToDouble(reader["SpecialAllowance"]),
                                 Convert.ToDouble(reader["SpareAllowance"]),
                                 Convert.ToString(reader["Remarks"]),
@@ -75,6 +76,7 @@ NightworkIncreased ,
 HousingAllowance,
 LateAbsent,
 TransportationExpenses,
+ElectricityAllowance,
 SpecialAllowance,
 SpareAllowance,
 Remarks,
@@ -105,6 +107,7 @@ Where YearMonth = @YearMonth";
                                 Convert.ToDouble(reader["HousingAllowance"]),
                                 Convert.ToDouble(reader["LateAbsent"]),
                                 Convert.ToDouble(reader["TransportationExpenses"]),
+                                Convert.ToDouble(reader["ElectricityAllowance"]),
                                 Convert.ToDouble(reader["SpecialAllowance"]),
                                 Convert.ToDouble(reader["SpareAllowance"]),
                                 Convert.ToString(reader["Remarks"]),
@@ -112,88 +115,6 @@ Where YearMonth = @YearMonth";
                                 Convert.ToDouble(reader["TotalDeductedSalary"]));
                 },
                 null);
-        }
-
-        public void Save(AllowanceEntity entity)
-        {
-            string insert = @"
-insert into Allowance
-(Id, 
-YearMonth, 
-BasicSalary, 
-ExecutiveAllowance, 
-DependencyAllowance, 
-OvertimeAllowance, 
-DaysoffIncreased, 
-NightworkIncreased, 
-HousingAllowance, 
-LateAbsent, 
-TransportationExpenses, 
-SpecialAllowance, 
-SpareAllowance, 
-Remarks, 
-TotalSalary, 
-TotalDeductedSalary)
-values
-(@Id, 
-@YearMonth, 
-@BasicSalary, 
-@ExecutiveAllowance, 
-@DependencyAllowance, 
-@OvertimeAllowance, 
-@DaysoffIncreased, 
-@NightworkIncreased, 
-@HousingAllowance,
-@LateAbsent, 
-@TransportationExpenses, 
-@SpecialAllowance, 
-@SpareAllowance, 
-@Remarks, 
-@TotalSalary, 
-@TotalDeductedSalary)
-";
-
-            string update = @"
-update Allowance
-set YearMonth              = @YearMonth, 
-    BasicSalary            = @BasicSalary, 
-    ExecutiveAllowance     = @ExecutiveAllowance, 
-    DependencyAllowance    = @DependencyAllowance, 
-    OvertimeAllowance      = @OvertimeAllowance,  
-    DaysoffIncreased       = @DaysoffIncreased,  
-    NightworkIncreased     = @NightworkIncreased,  
-    HousingAllowance       = @HousingAllowance,  
-    LateAbsent             = @LateAbsent,  
-    TransportationExpenses = @TransportationExpenses,  
-    SpecialAllowance       = @SpecialAllowance,  
-    SpareAllowance         = @SpareAllowance,  
-    Remarks                = @Remarks,  
-    TotalSalary            = @TotalSalary,  
-    TotalDeductedSalary    = @TotalDeductedSalary
-where Id = @Id
-";
-
-            var args = new List<SQLiteParameter>()
-            {
-                new SQLiteParameter("Id", entity.ID),
-                new SQLiteParameter("YearMonth", DateHelpers.ConvertToSQLiteValue(entity.YearMonth)),
-                new SQLiteParameter("BasicSalary", entity.BasicSalary.Value),
-                new SQLiteParameter("ExecutiveAllowance", entity.ExecutiveAllowance.Value),
-                new SQLiteParameter("DependencyAllowance", entity.DependencyAllowance.Value),
-                new SQLiteParameter("OvertimeAllowance", entity.OvertimeAllowance.Value),
-                new SQLiteParameter("DaysoffIncreased", entity.DaysoffIncreased.Value),
-                new SQLiteParameter("NightworkIncreased", entity.NightworkIncreased.Value),
-                new SQLiteParameter("HousingAllowance", entity.HousingAllowance),
-                new SQLiteParameter("LateAbsent", entity.LateAbsent),
-                new SQLiteParameter("TransportationExpenses", entity.TransportationExpenses.Value),
-                new SQLiteParameter("SpecialAllowance", entity.SpecialAllowance.Value),
-                new SQLiteParameter("SpareAllowance", entity.SpareAllowance.Value),
-                new SQLiteParameter("Remarks", entity.Remarks),
-                new SQLiteParameter("TotalSalary", entity.TotalSalary.Value),
-                new SQLiteParameter("TotalDeductedSalary", entity.TotalDeductedSalary),
-            };
-
-            SQLiteHelper.Execute(insert, update, args.ToArray());
         }
 
         public void Save(
@@ -213,6 +134,7 @@ NightworkIncreased,
 HousingAllowance, 
 LateAbsent, 
 TransportationExpenses, 
+ElectricityAllowance, 
 SpecialAllowance, 
 SpareAllowance, 
 Remarks, 
@@ -230,6 +152,7 @@ values
 @HousingAllowance,
 @LateAbsent, 
 @TransportationExpenses, 
+@ElectricityAllowance, 
 @SpecialAllowance, 
 @SpareAllowance, 
 @Remarks, 
@@ -249,6 +172,7 @@ set YearMonth              = @YearMonth,
     HousingAllowance       = @HousingAllowance,  
     LateAbsent             = @LateAbsent,  
     TransportationExpenses = @TransportationExpenses,  
+    ElectricityAllowance   = @ElectricityAllowance,  
     SpecialAllowance       = @SpecialAllowance,  
     SpareAllowance         = @SpareAllowance,  
     Remarks                = @Remarks,  
@@ -270,6 +194,7 @@ where Id = @Id
                 new SQLiteParameter("HousingAllowance", entity.HousingAllowance),
                 new SQLiteParameter("LateAbsent", entity.LateAbsent),
                 new SQLiteParameter("TransportationExpenses", entity.TransportationExpenses.Value),
+                new SQLiteParameter("ElectricityAllowance", entity.ElectricityAllowance.Value),
                 new SQLiteParameter("SpecialAllowance", entity.SpecialAllowance.Value),
                 new SQLiteParameter("SpareAllowance", entity.SpareAllowance.Value),
                 new SQLiteParameter("Remarks", entity.Remarks),

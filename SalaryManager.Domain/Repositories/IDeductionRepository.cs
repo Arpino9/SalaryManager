@@ -25,11 +25,5 @@ namespace SalaryManager.Domain.Repositories
         /// <param name="month">月</param>
         /// <returns>控除額</returns>
         DeductionEntity GetEntity(int year, int month);
-
-        /// <summary>
-        /// 保存
-        /// </summary>
-        /// <param name="entity">控除額</param>
-        void Save(DeductionEntity entity);
     }
 }

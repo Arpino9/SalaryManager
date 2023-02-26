@@ -21,11 +21,5 @@ namespace SalaryManager.Domain.Repositories
         /// <param name="month">月</param>
         /// <returns>支給額</returns>
         AllowanceEntity GetEntiity(int year, int month);
-
-        /// <summary>
-        /// 保存
-        /// </summary>
-        /// <param name="entity"></param>
-        void Save(AllowanceEntity entity);
     }
 }

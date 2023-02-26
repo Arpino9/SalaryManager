@@ -3,7 +3,6 @@ using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
 using System;
 using System.ComponentModel;
-using System.Data.Entity;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
 
@@ -12,7 +11,7 @@ namespace SalaryManager.WPF.ViewModels
     /// <summary>
     /// ViewModel - 支給額
     /// </summary>
-    public sealed class ViewModel_Allowance : INotifyPropertyChanged
+    public class ViewModel_Allowance : INotifyPropertyChanged
     {
         #region Property Changed
 
@@ -74,6 +73,8 @@ namespace SalaryManager.WPF.ViewModels
             this.LateAbsent_Action             = new RelayCommand(() => this.MainWindow.ComparePrice(this.LateAbsent,             this.Entity_LastYear.LateAbsent));
             // 交通費
             this.TransportationExpenses_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.TransportationExpenses, this.Entity_LastYear.TransportationExpenses.Value));
+            // 在宅手当
+            this.ElectricityAllowance_Action   = new RelayCommand(() => this.MainWindow.ComparePrice(this.ElectricityAllowance,   this.Entity_LastYear.ElectricityAllowance.Value));
             // 特別手当
             this.SpecialAllowance_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.SpecialAllowance,       this.Entity_LastYear.SpecialAllowance.Value));
             // 予備
@@ -341,6 +342,30 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
+        #region 在宅手当
+
+        private double _electricityAllowance;
+
+        /// <summary>
+        /// 在宅手当
+        /// </summary>
+        public double ElectricityAllowance
+        {
+            get => this._electricityAllowance;
+            set
+            {
+                this._electricityAllowance = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// 在宅手当 - Action
+        /// </summary>
+        public RelayCommand ElectricityAllowance_Action { get; private set; }
+
+        #endregion
+
         #region 特別手当
 
         private double _specialAllowance;
@@ -395,10 +420,20 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 備考
 
+        private string _remarks;
+
         /// <summary>
         /// 備考
         /// </summary>
-        public string Remarks { get; internal set; }
+        public string Remarks
+        {
+            get => this._remarks;
+            set
+            {
+                this._remarks = value;
+                this.RaisePropertyChanged();
+            }
+        }
 
         #endregion
 

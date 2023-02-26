@@ -17,6 +17,7 @@
 
         <Style x:Key="DeductionTextBox_Style" TargetType="{x:Type TextBox}">
             <Setter Property="Margin" Value="5" />
+            <Setter Property="TextAlignment" Value="Right" />
         </Style>
     </UserControl.Resources>
     <UserControl.DataContext>
@@ -24,9 +25,9 @@
     </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="70" />
+            <ColumnDefinition Width="90" />
             <ColumnDefinition />
-            <ColumnDefinition Width="80" />
+            <ColumnDefinition Width="90" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 

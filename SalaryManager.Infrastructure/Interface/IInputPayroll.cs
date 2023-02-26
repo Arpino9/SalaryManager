@@ -1,5 +1,5 @@
-﻿using SalaryManager.Infrastructure.SQLite;
-using System;
+﻿using System;
+using SalaryManager.Infrastructure.SQLite;
 
 namespace SalaryManager.Infrastructure.Interface
 {

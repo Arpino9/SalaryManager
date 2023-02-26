@@ -17,6 +17,7 @@
 
         <Style x:Key="AllowanceTextBox_Style" TargetType="{x:Type TextBox}">
             <Setter Property="Margin" Value="5" />
+            <Setter Property="TextAlignment" Value="Right" />
         </Style>
     </UserControl.Resources>
     <UserControl.DataContext>
@@ -26,12 +27,11 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="90" />
             <ColumnDefinition />
-            <ColumnDefinition Width="80" />
+            <ColumnDefinition Width="90" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition />
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
@@ -41,8 +41,7 @@
         <Label Content="副業" Style="{StaticResource AllowanceLabel_Style}" />
         <TextBox Grid.Column="1" 
                  Style="{StaticResource AllowanceTextBox_Style}" 
-                 Text="{Binding SideBusiness, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                 TextAlignment="Right">
+                 Text="{Binding SideBusiness, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
 
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
@@ -61,8 +60,7 @@
         <TextBox Grid.Column="1" 
                  Grid.Row="1" 
                  Style="{StaticResource AllowanceTextBox_Style}" 
-                 Text="{Binding Perquisite, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                 TextAlignment="Right">
+                 Text="{Binding Perquisite, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
 
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
@@ -80,8 +78,7 @@
                Style="{StaticResource AllowanceLabel_Style}" />
         <TextBox Grid.Column="3" 
                  Style="{StaticResource AllowanceTextBox_Style}" 
-                 Text="{Binding Others, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                 TextAlignment="Right">
+                 Text="{Binding Others, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
 
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
@@ -94,11 +91,10 @@
             </behaviors:Interaction.Triggers>
         </TextBox>
 
-        <Label Content="覚え書き"
-               Grid.Column="1"
+        <Label Content="備考"
                Grid.Row="2"/>
-        <TextBox Grid.Column="1"
-                 Grid.ColumnSpan="2"
-                 Grid.Row="3"/>
+        <TextBox Grid.ColumnSpan="4"
+                 Grid.Row="3" 
+                 Text="{Binding Remarks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </UserControl>

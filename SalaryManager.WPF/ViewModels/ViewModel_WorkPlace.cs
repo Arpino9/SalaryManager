@@ -7,7 +7,7 @@ namespace SalaryManager.WPF.ViewModels
     /// <summary>
     /// ViewModel - 勤務先
     /// </summary>
-    public sealed class ViewModel_WorkPlace : INotifyPropertyChanged
+    public class ViewModel_WorkPlace : INotifyPropertyChanged
     {
         #region Property Changed
 

@@ -103,10 +103,14 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.LateAbsent             = entity.LateAbsent;
             // 交通費
             this.ViewModel.TransportationExpenses = entity.TransportationExpenses.Value;
+            // 在宅手当s
+            this.ViewModel.ElectricityAllowance   = entity.ElectricityAllowance.Value;
             // 特別手当
             this.ViewModel.SpecialAllowance       = entity.SpecialAllowance.Value;
             // 予備
             this.ViewModel.SpareAllowance         = entity.SpareAllowance.Value;
+            // 備考
+            this.ViewModel.Remarks                = entity.Remarks;
             // 支給総計
             this.ViewModel.TotalSalary            = entity.TotalSalary.Value;
             // 差引支給額
@@ -150,10 +154,14 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.LateAbsent             = default(double);
             // 交通費
             this.ViewModel.TransportationExpenses = default(double);
+            // 在宅手当
+            this.ViewModel.ElectricityAllowance   = default(double);
             // 特別手当
             this.ViewModel.SpecialAllowance       = default(double);
             // 予備
             this.ViewModel.SpareAllowance         = default(double);
+            // 備考
+            this.ViewModel.Remarks                = default(string);
             // 支給総計
             this.ViewModel.TotalSalary            = default(double);
             // 差引支給額
@@ -179,6 +187,7 @@ namespace SalaryManager.WPF.Models
                               this.ViewModel.HousingAllowance,
                               this.ViewModel.LateAbsent,
                               this.ViewModel.TransportationExpenses,
+                              this.ViewModel.ElectricityAllowance,
                               this.ViewModel.SpecialAllowance,
                               this.ViewModel.SpareAllowance,
                               this.ViewModel.Remarks,

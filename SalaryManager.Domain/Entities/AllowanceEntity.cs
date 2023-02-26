@@ -21,6 +21,7 @@ namespace SalaryManager.Domain.Entities
         /// <param name="housingAllowance">住宅手当</param>
         /// <param name="lateAbsent">遅刻早退欠勤</param>
         /// <param name="transportationExpenses">交通費</param>
+        /// <param name="electricityAllowance">在宅手当</param>
         /// <param name="specialAllowance">特別手当</param>
         /// <param name="spareAllowance">予備</param>
         /// <param name="remarks">備考</param>
@@ -38,6 +39,7 @@ namespace SalaryManager.Domain.Entities
             double housingAllowance,
             double lateAbsent,
             double transportationExpenses,
+            double electricityAllowance,
             double specialAllowance,
             double spareAllowance,
             string remarks,
@@ -55,6 +57,7 @@ namespace SalaryManager.Domain.Entities
             this.HousingAllowance       = new MoneyValue(housingAllowance);
             this.LateAbsent             = lateAbsent;
             this.TransportationExpenses = new MoneyValue(transportationExpenses);
+            this.ElectricityAllowance   = new MoneyValue(electricityAllowance);
             this.SpecialAllowance       = new MoneyValue(specialAllowance);
             this.SpareAllowance         = new MoneyValue(spareAllowance);
             this.Remarks                = remarks;
@@ -94,6 +97,9 @@ namespace SalaryManager.Domain.Entities
 
         /// <summary> 交通費 </summary>
         public MoneyValue TransportationExpenses { get; }
+
+        /// <summary> 交通費 </summary>
+        public MoneyValue ElectricityAllowance { get; }
 
         /// <summary> 特別手当 </summary>
         public MoneyValue SpecialAllowance { get; }

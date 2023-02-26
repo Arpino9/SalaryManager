@@ -100,58 +100,6 @@ Where YearMonth = @YearMonth";
         /// <summary>
         /// 保存
         /// </summary>
-        /// <param name="entity">エンティティ</param>
-        public void Save(DeductionEntity entity)
-        {
-            string insert = @"
-insert into Deduction
-(Id, YearMonth, HealthInsurance, NursingInsurance, WelfareAnnuity,
-EmploymentInsurance, IncomeTax, MunicipalTax, FriendshipAssociation,
-YearEndTaxAdjustment, Remarks, TotalDeduct)
-values
-(@Id, @YearMonth, @HealthInsurance, @NursingInsurance, @WelfareAnnuity,
-@EmploymentInsurance, @IncomeTax, @MunicipalTax, @FriendshipAssociation,
-@YearEndTaxAdjustment, @Remarks, @TotalDeduct)
-";
-
-            string update = @"
-update Deduction
-set YearMonth             = @YearMonth, 
-    HealthInsurance       = @HealthInsurance, 
-    NursingInsurance      = @NursingInsurance, 
-    WelfareAnnuity        = @WelfareAnnuity, 
-    EmploymentInsurance   = @EmploymentInsurance, 
-    IncomeTax             = @IncomeTax, 
-    MunicipalTax          = @MunicipalTax, 
-    FriendshipAssociation = @FriendshipAssociation, 
-    YearEndTaxAdjustment  = @YearEndTaxAdjustment, 
-    Remarks               = @Remarks, 
-    TotalDeduct           = @TotalDeduct
-where Id = @Id
-";
-
-            var args = new List<SQLiteParameter>()
-            {
-                new SQLiteParameter("Id", entity.ID),
-                new SQLiteParameter("YearMonth", DateHelpers.ConvertToSQLiteValue(entity.YearMonth)),
-                new SQLiteParameter("HealthInsurance", entity.HealthInsurance.Value),
-                new SQLiteParameter("NursingInsurance", entity.NursingInsurance.Value),
-                new SQLiteParameter("WelfareAnnuity", entity.WelfareAnnuity.Value),
-                new SQLiteParameter("EmploymentInsurance", entity.EmploymentInsurance.Value),
-                new SQLiteParameter("IncomeTax", entity.IncomeTax.Value),
-                new SQLiteParameter("MunicipalTax", entity.MunicipalTax.Value),
-                new SQLiteParameter("FriendshipAssociation", entity.FriendshipAssociation.Value),
-                new SQLiteParameter("YearEndTaxAdjustment", entity.YearEndTaxAdjustment),
-                new SQLiteParameter("Remarks", entity.Remarks),
-                new SQLiteParameter("TotalDeduct", entity.TotalDeduct.Value),
-            };
-
-            SQLiteHelper.Execute(insert, update, args.ToArray());
-        }
-
-        /// <summary>
-        /// 保存
-        /// </summary>
         /// <param name="transaction">トランザクション</param>
         /// <param name="entity">エンティティ</param>
         public void Save(SQLiteTransaction transaction, DeductionEntity entity)

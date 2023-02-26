@@ -7,7 +7,7 @@ using SalaryManager.WPF.Models;
 
 namespace SalaryManager.WPF.ViewModels
 {
-    public sealed class ViewModel_MainWindow : INotifyPropertyChanged
+    public class ViewModel_MainWindow : INotifyPropertyChanged
     {
         #region Property Changed
 
