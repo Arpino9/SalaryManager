@@ -7,8 +7,11 @@
         xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" x:Class="SalaryManager.WPF.MainWindow"
         mc:Ignorable="d"
-        Title="給与明細管理(仮)" Height="550" Width="700"
+        Title="{Binding Title, Mode=OneWay}" Height="550" Width="700"
         Background="{x:Static SystemColors.ControlLightBrush}">
+    <Window.DataContext>
+        <ViewModels:ViewModel_MainWindow/>
+    </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -21,12 +24,9 @@
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
 
-        <Grid.DataContext>
-            <ViewModels:ViewModel_MainWindow/>
-        </Grid.DataContext>
-
         <Menu>
             <MenuItem Header="編集">
+                <MenuItem Header="CSV読込" Command="{Binding ReadCSVClick}" />
                 <MenuItem Header="デフォルト明細に設定" Command="{Binding SetDefaultClick}" />
             </MenuItem>
             <MenuItem Header="登録" Command="{Binding RegisterClick}" />

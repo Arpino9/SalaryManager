@@ -1,5 +1,10 @@
-﻿using SalaryManager.Infrastructure.SQLite;
+﻿using SalaryManager.Domain;
+using SalaryManager.Domain.Logics;
+using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Windows.Media;
 
 namespace SalaryManager.WPF.Models
@@ -45,6 +50,47 @@ namespace SalaryManager.WPF.Models
         internal Model_SideBusiness SideBusiness { get; set; }
 
         /// <summary>
+        /// CSV読み込み
+        /// </summary>
+        internal void ReadCSV()
+        {
+            var confirmingMessage = $"{this.Header.ViewModel.Year}年{this.Header.ViewModel.Month}月のCSVを読み込みますか？";
+            if (!DialogMessageUtils.ShowConfirmingMessage(confirmingMessage, this.MainWindow.Title))
+            {
+                // キャンセル
+                return;
+            }
+
+            var encode = System.Text.Encoding.GetEncoding("shift_jis");
+
+            var path = $"{Shared.DirectoryCSV}\\{Shared.EmployeeID}-{this.Header.ViewModel.Year}-{this.Header.ViewModel.Month}.csv";
+            
+            try
+            {
+                var reader = new StreamReader(path, encode);
+                {
+                    string line = reader.ReadLine();
+                    string[] values = line.Split(',');
+
+                    List<string> lists = new List<string>();
+                    lists.AddRange(values);
+
+                    // 勤務先
+                    this.WorkingReference.WorkPlace.WorkPlace = values[3];
+
+                    // 有給残日数
+                    var paidVacation = Convert.ToDouble(values[17]) + Convert.ToDouble(values[25]);
+                    this.WorkingReference.ViewModel.PaidVacation = paidVacation;
+                }
+            }
+            catch(FileNotFoundException ex)
+            {
+                var message = $"「{Shared.DirectoryCSV}」に{this.Header.ViewModel.Year}年{this.Header.ViewModel.Month}月分のCSVが\n保存されていません。読み込みを中断します。";
+                DialogMessageUtils.ShowResultMessage(message, this.MainWindow.Title);
+            }
+        }
+
+        /// <summary>
         /// 金額比較
         /// </summary>
         /// <param name="thisYearPrice">今年の金額</param>
@@ -81,6 +127,13 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         internal void Register()
         {
+            var message = $"{this.Header.ViewModel.Year}年{this.Header.ViewModel.Month}月の給与明細を登録しますか？";
+            if (!DialogMessageUtils.ShowConfirmingMessage(message, this.MainWindow.Title))
+            {
+                // キャンセル
+                return;
+            }
+
             using (var transaction = new SQLiteTransaction())
             {
                 // ヘッダー

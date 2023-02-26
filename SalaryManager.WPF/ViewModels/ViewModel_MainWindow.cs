@@ -28,7 +28,7 @@ namespace SalaryManager.WPF.ViewModels
             this._registerAction += this.AnnualChart.Fetch;
 
             // デフォルトに設定
-            this._setDefaultAction += this.OperationButtons.SetDefault;
+            this._setDefaultAction += this.Header.SetDefault;
             this._setDefaultAction += this.Header.Register;
 
             this.Model.MainWindow = this;
@@ -45,6 +45,39 @@ namespace SalaryManager.WPF.ViewModels
 
         /// <summary> Model - 操作ボタン </summary>
         private Model_OperationButtons OperationButtons { get; set; } = Model_OperationButtons.GetInstance();
+
+        #region タイトル
+
+        /// <summary>
+        /// タイトル
+        /// </summary>
+        public string Title
+        {
+            get => "給与明細管理(仮)";
+        }
+
+        #endregion
+
+        #region CSV読込
+
+        private RelayCommand _readCSV;
+
+        /// <summary>
+        /// CSV読込ボタン
+        /// </summary>
+        public RelayCommand ReadCSVClick
+        {
+            get
+            {
+                if (this._readCSV == null)
+                {
+                    this._readCSV = new RelayCommand(this.Model.ReadCSV);
+                }
+                return this._readCSV;
+            }
+        }
+
+        #endregion
 
         #region デフォルトに設定
 

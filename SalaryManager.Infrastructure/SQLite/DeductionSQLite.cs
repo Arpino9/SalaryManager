@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SQLite;
 using SalaryManager.Domain.Entities;
+using SalaryManager.Domain.Helpers;
 using SalaryManager.Domain.Logics;
 using SalaryManager.Domain.Repositories;
 
@@ -133,7 +134,7 @@ where Id = @Id
             var args = new List<SQLiteParameter>()
             {
                 new SQLiteParameter("Id", entity.ID),
-                new SQLiteParameter("YearMonth", DateUtils.ConvertToSQLiteValue(entity.YearMonth)),
+                new SQLiteParameter("YearMonth", DateHelpers.ConvertToSQLiteValue(entity.YearMonth)),
                 new SQLiteParameter("HealthInsurance", entity.HealthInsurance.Value),
                 new SQLiteParameter("NursingInsurance", entity.NursingInsurance.Value),
                 new SQLiteParameter("WelfareAnnuity", entity.WelfareAnnuity.Value),
@@ -181,7 +182,7 @@ where Id = @Id
             var args = new List<SQLiteParameter>()
             {
                 new SQLiteParameter("Id", entity.ID),
-                new SQLiteParameter("YearMonth", DateUtils.ConvertToSQLiteValue(entity.YearMonth)),
+                new SQLiteParameter("YearMonth", DateHelpers.ConvertToSQLiteValue(entity.YearMonth)),
                 new SQLiteParameter("HealthInsurance", entity.HealthInsurance.Value),
                 new SQLiteParameter("NursingInsurance", entity.NursingInsurance.Value),
                 new SQLiteParameter("WelfareAnnuity", entity.WelfareAnnuity.Value),

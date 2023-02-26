@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace SalaryManager.Domain.Logics
+namespace SalaryManager.Domain.Helpers
 {
     /// <summary>
-    /// Utility - 日付
+    /// Helpers - 日付関連
     /// </summary>
-    public class DateUtils
+    public sealed class DateHelpers
     {
         /// <summary>
         /// SQLiteの値に変換
@@ -14,7 +14,7 @@ namespace SalaryManager.Domain.Logics
         /// <returns>日付</returns>
         public static string ConvertToSQLiteValue(DateTime dateTime)
         {
-            var year  = dateTime.Year;
+            var year = dateTime.Year;
             var month = dateTime.Month;
 
             var date = year + "-" + month.ToString("D2") + "-" + "01";

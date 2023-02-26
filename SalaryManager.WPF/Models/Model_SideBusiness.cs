@@ -35,9 +35,6 @@ namespace SalaryManager.WPF.Models
         /// <summary> ViewModel - 副業 </summary>
         internal ViewModel_SideBusiness ViewModel { get; set; }
 
-        /// <summary> Entity - 副業 </summary>
-        private SideBusinessEntity Entity { get; set; }
-
         /// <summary>
         /// 初期化
         /// </summary>
@@ -46,11 +43,15 @@ namespace SalaryManager.WPF.Models
             var sqlite  = new SideBusinessSQLite();
             var records = sqlite.GetEntities();
 
-            this.Entity = records.Where(record => record.YearMonth.Year == DateTime.Today.Year
-                                              && record.YearMonth.Month == DateTime.Today.Month)
-                                 .FirstOrDefault(); ;
+            this.ViewModel.Entity = records.Where(record => record.YearMonth.Year  == DateTime.Today.Year
+                                                         && record.YearMonth.Month == DateTime.Today.Month)
+                                           .FirstOrDefault();
 
-            if (this.Entity is null)
+            this.ViewModel.Entity_LastYear = records.Where(record => record.YearMonth.Year  == DateTime.Today.Year - 1
+                                                                  && record.YearMonth.Month == DateTime.Today.Month)
+                                                    .FirstOrDefault();
+
+            if (this.ViewModel.Entity is null)
             {
                 // レコードなし
                 var header = new HeaderSQLite();
@@ -58,8 +59,8 @@ namespace SalaryManager.WPF.Models
 
                 if (defaultEntity != null)
                 {
-                    this.Entity = records.Where(record => record.ID == defaultEntity.ID)
-                                         .FirstOrDefault();
+                    this.ViewModel.Entity = records.Where(record => record.ID == defaultEntity.ID)
+                                                   .FirstOrDefault();
                 }
             }
 
@@ -73,7 +74,8 @@ namespace SalaryManager.WPF.Models
         {
             // 副業
             var sideBusinessTable = new SideBusinessSQLite();
-            this.Entity = sideBusinessTable.GetEntity(this.Header.Year, this.Header.Month);
+            this.ViewModel.Entity          = sideBusinessTable.GetEntity(this.Header.Year, this.Header.Month);
+            this.ViewModel.Entity_LastYear = sideBusinessTable.GetEntity(this.Header.Year - 1, this.Header.Month);
             
             this.Refresh();
         }
@@ -98,20 +100,20 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Refresh()
         {
-            if (this.Entity is null)
+            if (this.ViewModel.Entity is null)
             {
                 this.Clear();
                 return;
             }
 
             // 副業
-            this.ViewModel.SideBusiness = this.Entity.SideBusiness;
+            this.ViewModel.SideBusiness = this.ViewModel.Entity.SideBusiness;
             // 臨時収入
-            this.ViewModel.Perquisite   = this.Entity.Perquisite;
+            this.ViewModel.Perquisite   = this.ViewModel.Entity.Perquisite;
             // その他
-            this.ViewModel.Others       = this.Entity.Others;
+            this.ViewModel.Others       = this.ViewModel.Entity.Others;
             // 備考
-            this.ViewModel.Remarks      = this.Entity.Remarks;
+            this.ViewModel.Remarks      = this.ViewModel.Entity.Remarks;
         }
 
         /// <summary>

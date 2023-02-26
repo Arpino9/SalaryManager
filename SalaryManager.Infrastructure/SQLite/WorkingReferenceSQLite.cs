@@ -1,4 +1,5 @@
 ﻿using SalaryManager.Domain.Entities;
+using SalaryManager.Domain.Helpers;
 using SalaryManager.Domain.Logics;
 using SalaryManager.Domain.Repositories;
 using System;
@@ -151,7 +152,7 @@ where Id = @Id
             var args = new List<SQLiteParameter>()
             {
                 new SQLiteParameter("Id", entity.ID),
-                new SQLiteParameter("YearMonth", DateUtils.ConvertToSQLiteValue(entity.YearMonth)),
+                new SQLiteParameter("YearMonth", DateHelpers.ConvertToSQLiteValue(entity.YearMonth)),
                 new SQLiteParameter("OvertimeTime", entity.OvertimeTime),
                 new SQLiteParameter("WeekendWorktime", entity.WeekendWorktime),
                 new SQLiteParameter("MidnightWorktime", entity.MidnightWorktime),
@@ -221,7 +222,7 @@ where Id = @Id
             var args = new List<SQLiteParameter>()
             {
                 new SQLiteParameter("Id", entity.ID),
-                new SQLiteParameter("YearMonth", DateUtils.ConvertToSQLiteValue(entity.YearMonth)),
+                new SQLiteParameter("YearMonth", DateHelpers.ConvertToSQLiteValue(entity.YearMonth)),
                 new SQLiteParameter("OvertimeTime", entity.OvertimeTime),
                 new SQLiteParameter("WeekendWorktime", entity.WeekendWorktime),
                 new SQLiteParameter("MidnightWorktime", entity.MidnightWorktime),

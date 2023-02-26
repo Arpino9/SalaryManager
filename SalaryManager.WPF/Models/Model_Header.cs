@@ -4,6 +4,7 @@ using SalaryManager.Domain.Entities;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.WPF.ViewModels;
+using SalaryManager.Domain.Logics;
 
 namespace SalaryManager.WPF.Models
 {
@@ -63,8 +64,34 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// Reload
         /// </summary>
+        /// <remarks>
+        /// ヘッダ情報が存在すれば、ヘッダ情報を更新する。
+        /// ここで「Refresh()」を呼び出すと再帰呼出になるので注意！
+        /// </remarks>
         public void Reload()
         {
+            var sqlite  = new HeaderSQLite();
+            var records = sqlite.GetEntities();
+
+            this.Entity = records.Where(x => x.YearMonth.Year  == this.ViewModel.Year
+                                          && x.YearMonth.Month == this.ViewModel.Month)
+                                 .FirstOrDefault();
+
+            if (this.Entity == null)
+            {
+                // 新規追加
+                this.ViewModel.ID         = records.Max(x => x.ID) + 1;
+                this.ViewModel.CreateDate = DateTime.Today;
+                this.ViewModel.UpdateDate = DateTime.Today;
+            }
+            else
+            {
+                // 更新
+                this.ViewModel.ID         = this.Entity.ID;
+                this.ViewModel.CreateDate = this.Entity.CreateDate;
+                this.ViewModel.UpdateDate = this.Entity.UpdateDate;
+            }
+
             this.ViewModel.YearMonth = new DateTime(this.ViewModel.Year, this.ViewModel.Month, 1);
         }
 
@@ -162,5 +189,36 @@ namespace SalaryManager.WPF.Models
             var header = new HeaderSQLite();
             header.Save(transaction, entity);
         }
+
+        #region デフォルトに設定
+
+        /// <summary>
+        /// デフォルトに設定
+        /// </summary>
+        internal void SetDefault()
+        {
+            var confirmingMessage = $"{this.ViewModel.Year}年{this.ViewModel.Month}月の給与明細をデフォルト明細として設定しますか？";
+            if (!DialogMessageUtils.ShowConfirmingMessage(confirmingMessage, this.ViewModel.Title))
+            {
+                // キャンセル
+                return;
+            }
+
+            // 前回のデフォルト設定を解除する
+            var header = new HeaderSQLite();
+            var defaultEntity = header.GetDefaultEntity();
+
+            if (defaultEntity != null)
+            {
+                defaultEntity.IsDefault = false;
+                header.Save(defaultEntity);
+            }
+
+            // 今回のデフォルト設定を登録する
+            this.ViewModel.IsDefault = true;
+        }
+
+        #endregion
+
     }
 }
