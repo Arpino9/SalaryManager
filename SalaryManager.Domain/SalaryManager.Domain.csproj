@@ -47,7 +47,6 @@
     <Compile Include="Entities\AnnualChartEntity.cs" />
     <Compile Include="Entities\HeaderEntity.cs" />
     <Compile Include="Exceptions\ExceptionBase.cs" />
-    <Compile Include="Interface\IInputPayroll.cs" />
     <Compile Include="Logics\DateUtils.cs" />
     <Compile Include="Repositories\IAnnualChartRepository.cs" />
     <Compile Include="Repositories\IHeaderRepository.cs" />

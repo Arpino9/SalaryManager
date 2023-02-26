@@ -27,6 +27,7 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary>
         /// Constructor
         /// </summary>
+        /// <exception cref="Exception">読込失敗時</exception>
         public ViewModel_Allowance()
         {
             try
@@ -40,7 +41,7 @@ namespace SalaryManager.WPF.ViewModels
             }
             catch(Exception ex)
             {
-
+                throw new Exception("支給額テーブルの読込に失敗しました。");
             } 
         }
 

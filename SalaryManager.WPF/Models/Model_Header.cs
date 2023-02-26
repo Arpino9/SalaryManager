@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using SalaryManager.Domain.Entities;
-using SalaryManager.Domain.Interface;
 using SalaryManager.Infrastructure.SQLite;
+using SalaryManager.Infrastructure.Interface;
 using SalaryManager.WPF.ViewModels;
 
 namespace SalaryManager.WPF.Models
@@ -145,9 +145,10 @@ namespace SalaryManager.WPF.Models
             header.Save(entity);
         }
 
-        // <summary>
+        /// <summary>
         /// 登録
         /// </summary>
+        /// <param name="transaction">トランザクション</param>
         public void Register(SQLiteTransaction transaction)
         {
             var entity = new HeaderEntity(

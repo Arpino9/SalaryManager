@@ -28,7 +28,7 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary>
         /// Constructure
         /// </summary>
-        /// <exception cref="NotImplementedException">とりあえず未実装例外</exception>
+        /// <exception cref="Exception">読込失敗時</exception>
         public ViewModel_Deduction()
         {
             try
@@ -42,7 +42,7 @@ namespace SalaryManager.WPF.ViewModels
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException(ex.Message);
+                throw new Exception("控除額テーブルの読込に失敗しました。");
             }
         }
 

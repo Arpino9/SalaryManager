@@ -27,7 +27,7 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary>
         /// Constructure
         /// </summary>
-        /// <exception cref="NotImplementedException">未実装</exception>
+        /// <exception cref="Exception">読込失敗時</exception>
         public ViewModel_WorkingReference()
         {
             try
@@ -41,7 +41,7 @@ namespace SalaryManager.WPF.ViewModels
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException(ex.Message);
+                throw new Exception("勤務備考テーブルの読込に失敗しました。");
             }
         }
 

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using SalaryManager.Domain.Entities;
-using SalaryManager.Domain.Interface;
 using SalaryManager.Infrastructure.SQLite;
+using SalaryManager.Infrastructure.Interface;
 using SalaryManager.WPF.ViewModels;
 
 namespace SalaryManager.WPF.Models
@@ -141,28 +141,8 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 登録
         /// </summary>
-        public void Register()
-        {
-            var entity = new WorkingReferencesEntity(
-                this.Header.ID,
-                this.Header.YearMonth,
-                this.ViewModel.OvertimeTime,
-                this.ViewModel.WeekendWorktime,
-                this.ViewModel.MidnightWorktime,
-                this.ViewModel.LateAbsentH,
-                this.ViewModel.Insurance,
-                this.ViewModel.Norm,
-                this.ViewModel.NumberOfDependent,
-                this.ViewModel.PaidVacation,
-                this.ViewModel.WorkingHours,
-                this.ViewModel.WorkingPlace,
-                this.ViewModel.Remarks);
-
-            var workingReference = new WorkingReferenceSQLite();
-            workingReference.Save(entity);
-        }
-
-        internal void Register(SQLiteTransaction transaction)
+        /// <param name="transaction">トランザクション</param>
+        public void Register(SQLiteTransaction transaction)
         {
             var entity = new WorkingReferencesEntity(
                 this.Header.ID,

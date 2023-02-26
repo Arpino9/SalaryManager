@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using SalaryManager.Domain.Entities;
-using SalaryManager.Domain.Interface;
+using SalaryManager.Infrastructure.Interface;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.ViewModels;
 
@@ -142,26 +142,7 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 登録
         /// </summary>
-        public void Register()
-        {
-            var entity = new DeductionEntity(
-                            this.Header.ID,
-                            this.Header.YearMonth,
-                            this.ViewModel.HealthInsurance,
-                            this.ViewModel.NursingInsurance,
-                            this.ViewModel.WelfareAnnuity,
-                            this.ViewModel.EmploymentInsurance,
-                            this.ViewModel.IncomeTax,
-                            this.ViewModel.MunicipalTax,
-                            this.ViewModel.FriendshipAssociation,
-                            this.ViewModel.YearEndTaxAdjustment,
-                            this.ViewModel.Remarks,
-                            this.ViewModel.TotalDeduct);
-
-            var deduction = new DeductionSQLite();
-            deduction.Save(entity);
-        }
-
+        /// <param name="transaction">トランザクション</param>
         public void Register(SQLiteTransaction transaction)
         {
             var entity = new DeductionEntity(

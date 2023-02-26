@@ -1,6 +1,4 @@
 ﻿using SalaryManager.Domain.Entities;
-using SalaryManager.Domain.Repositories;
-using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
 using System;
@@ -26,17 +24,8 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary>
         /// Constructor
         /// </summary>
+        /// <exception cref="Exception">読込失敗時</exception>
         public ViewModel_SideBusiness()
-            : this(new SideBusinessSQLite())
-        {
-
-        }
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="allowance">支給額</param>
-        public ViewModel_SideBusiness(ISideBusinessRepository allowance)
         {
             try
             {
@@ -49,7 +38,7 @@ namespace SalaryManager.WPF.ViewModels
             }
             catch (Exception ex)
             {
-
+                throw new Exception("副業テーブルの読込に失敗しました。");
             }
         }
 

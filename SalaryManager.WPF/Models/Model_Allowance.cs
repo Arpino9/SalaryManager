@@ -1,5 +1,5 @@
 ﻿using SalaryManager.Domain.Entities;
-using SalaryManager.Domain.Interface;
+using SalaryManager.Infrastructure.Interface;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.ViewModels;
 using System;
@@ -155,30 +155,7 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 登録
         /// </summary>
-        public void Register()
-        {
-            var entity = new AllowanceEntity(
-                              this.Header.ID,
-                              this.Header.YearMonth,
-                              this.ViewModel.BasicSalary,
-                              this.ViewModel.ExecutiveAllowance,
-                              this.ViewModel.DependencyAllowance,
-                              this.ViewModel.OvertimeAllowance,
-                              this.ViewModel.DaysoffIncreased,
-                              this.ViewModel.NightworkIncreased,
-                              this.ViewModel.HousingAllowance,
-                              this.ViewModel.LateAbsent,
-                              this.ViewModel.TransportationExpenses,
-                              this.ViewModel.SpecialAllowance,
-                              this.ViewModel.SpareAllowance,
-                              this.ViewModel.Remarks,
-                              this.ViewModel.TotalSalary,
-                              this.ViewModel.TotalDeductedSalary);
-
-            var allowance = new AllowanceSQLite();
-            allowance.Save(entity);
-        }
-
+        /// <param name="transaction">トランザクション</param>
         public void Register(SQLiteTransaction transaction)
         {
             var entity = new AllowanceEntity(

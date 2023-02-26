@@ -1,5 +1,4 @@
-﻿using System.Transactions;
-using SalaryManager.Infrastructure.SQLite;
+﻿using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.ViewModels;
 
 namespace SalaryManager.WPF.Models
@@ -27,29 +26,29 @@ namespace SalaryManager.WPF.Models
         #endregion
 
         /// <summary> ViewModel - メイン画面 </summary>
-        public ViewModel_MainWindow MainWindow { get; set; }
+        internal ViewModel_MainWindow MainWindow { get; set; }
 
         /// <summary> Model - ヘッダー </summary>
-        public Model_Header Header { get; set; }
+        internal Model_Header Header { get; set; }
 
         /// <summary> Model - 支給額 </summary>
-        public Model_Allowance Allowance { get; set; }
+        internal Model_Allowance Allowance { get; set; }
 
         /// <summary> Model - 控除額 </summary>
-        public Model_Deduction Deduction { get; set; }
+        internal Model_Deduction Deduction { get; set; }
 
         /// <summary> Model - 勤務備考 </summary>
-        public Model_WorkingReference WorkingReference { get; set; }
+        internal Model_WorkingReference WorkingReference { get; set; }
 
         /// <summary> Model - 副業 </summary>
-        public Model_SideBusiness SideBusiness { get; set; }
+        internal Model_SideBusiness SideBusiness { get; set; }
 
         /// <summary>
         /// 金額比較
         /// </summary>
         /// <param name="thisYearPrice">今年の金額</param>
         /// <param name="lastYearPrice">去年の金額</param>
-        public void ComparePrice(double? thisYearPrice, double? lastYearPrice)
+        internal void ComparePrice(double? thisYearPrice, double? lastYearPrice)
         {
             if (thisYearPrice is null ||
                 lastYearPrice is null)
@@ -75,7 +74,7 @@ namespace SalaryManager.WPF.Models
         /// <remarks>
         /// 入力された勤怠情報をDB登録する。
         /// </remarks>
-        public void Register()
+        internal void Register()
         {
             using (var transaction = new SQLiteTransaction())
             {

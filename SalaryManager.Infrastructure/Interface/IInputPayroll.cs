@@ -1,4 +1,6 @@
-﻿namespace SalaryManager.Domain.Interface
+﻿using SalaryManager.Infrastructure.SQLite;
+
+namespace SalaryManager.Infrastructure.Interface
 {
     /// <summary>
     /// Interface - 給与明細入力
@@ -21,6 +23,6 @@
         public void Clear();
 
         /// <summary> 登録 </summary>
-        public void Register();
+        public void Register(SQLiteTransaction transaction);
     }
 }

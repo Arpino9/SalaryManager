@@ -59,7 +59,7 @@ namespace SalaryManager.Domain.Entities
             this.SpareAllowance         = new MoneyValue(spareAllowance);
             this.Remarks                = remarks;
             this.TotalSalary            = new MoneyValue(totalSalary);
-            this.TotalDeductedSalary    = new MoneyValue(totalDeductedSalary);                
+            this.TotalDeductedSalary    = new MoneyValue(totalDeductedSalary);                           
         }
 
         /// <summary> ID </summary>

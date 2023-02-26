@@ -1,6 +1,6 @@
 ﻿using SalaryManager.Domain.Entities;
-using SalaryManager.Domain.Interface;
 using SalaryManager.Infrastructure.SQLite;
+using SalaryManager.Infrastructure.Interface;
 using SalaryManager.WPF.ViewModels;
 using System;
 using System.Linq;
@@ -117,21 +117,8 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 登録
         /// </summary>
-        public void Register()
-        {
-            var entity = new SideBusinessEntity(
-                this.Header.ID,
-                this.Header.YearMonth,
-                this.ViewModel.SideBusiness,
-                this.ViewModel.Perquisite,
-                this.ViewModel.Others,
-                this.ViewModel.Remarks);
-
-            var sideBusiness = new SideBusinessSQLite();
-            sideBusiness.Save(entity);
-        }
-
-        internal void Register(SQLiteTransaction transaction)
+        /// <param name="transaction">トランザクション</param>
+        public void Register(SQLiteTransaction transaction)
         {
             var entity = new SideBusinessEntity(
                 this.Header.ID,
