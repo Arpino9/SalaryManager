@@ -50,7 +50,7 @@
                            Grid.RowSpan="2" />
 
         <StatusBar Grid.Row="3" VerticalAlignment="Bottom">
-            <Label Content="{Binding PriceUpdown_Content}"/>
+            <Label Content="{Binding PriceUpdown_Content}" Foreground="{Binding PriceUpdown_Foreground}"/>
         </StatusBar>
     </Grid>
 </Window>

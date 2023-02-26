@@ -1,5 +1,6 @@
 ﻿using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.ViewModels;
+using System.Windows.Media;
 
 namespace SalaryManager.WPF.Models
 {
@@ -60,12 +61,23 @@ namespace SalaryManager.WPF.Models
 
             if (thisYearPrice.Value == 0)
             {
+                // 変更なし
                 this.MainWindow.PriceUpdown_Content = string.Empty;
                 return;
             }
 
             var price = thisYearPrice.Value - lastYearPrice.Value;
-            this.MainWindow.PriceUpdown_Content = price.ToString();
+
+            if (price > 0) 
+            {
+                this.MainWindow.PriceUpdown_Foreground = new SolidColorBrush(Colors.Blue);
+                this.MainWindow.PriceUpdown_Content    = $"+{price.ToString()}";
+            }
+            else
+            {
+                this.MainWindow.PriceUpdown_Foreground = new SolidColorBrush(Colors.Red);
+                this.MainWindow.PriceUpdown_Content    = price.ToString();
+            }
         }
 
         /// <summary>
