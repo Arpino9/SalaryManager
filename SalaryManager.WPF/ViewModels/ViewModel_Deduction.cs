@@ -140,6 +140,8 @@ namespace SalaryManager.WPF.ViewModels
             {
                 this._nursingInsurance = value;
                 this.RaisePropertyChanged();
+
+                this.Model.ReCaluculate();
             }
         }
 

@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using SalaryManager.WPF.ViewModels;
+using System;
+using System.Windows;
 
 namespace SalaryManager.WPF
 {

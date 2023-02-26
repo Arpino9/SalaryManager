@@ -9,7 +9,7 @@
              x:Class="SalaryManager.WPF.UserControls.Allowance"
              mc:Ignorable="d" 
              xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
-             d:DesignHeight="250" d:DesignWidth="300"
+             d:DesignHeight="300" d:DesignWidth="300"
              Background="{x:Static SystemColors.ControlLightBrush}">
     <UserControl.Resources>
         <Style x:Key="AllowanceLabel_Style" TargetType="{x:Type Label}">

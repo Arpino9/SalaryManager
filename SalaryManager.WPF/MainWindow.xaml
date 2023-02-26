@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SalaryManager.WPF.UserControls"
+        xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" x:Class="SalaryManager.WPF.MainWindow"
         mc:Ignorable="d"
         Title="給与明細管理(仮)" Height="550" Width="700"
@@ -14,20 +15,35 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
             <RowDefinition Height="50" />
-            <RowDefinition Height="270" />
             <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
 
         <Grid.DataContext>
             <ViewModels:ViewModel_MainWindow/>
         </Grid.DataContext>
 
-        <local:Header Width="200" />
+        <Menu>
+            <MenuItem Header="編集">
+                <MenuItem Header="デフォルト明細に設定" Command="{Binding SetDefaultClick}" />
+            </MenuItem>
+            <MenuItem Header="登録" Command="{Binding RegisterClick}" />
+            <MenuItem Header="閉じる">
+                <behaviors:Interaction.Triggers>
+                    <behaviors:EventTrigger EventName="Click">
+                        <behaviors:CallMethodAction MethodName="Close"
+                                TargetObject="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"/>
+                    </behaviors:EventTrigger>
+                </behaviors:Interaction.Triggers>
+            </MenuItem>
+        </Menu>
+
+        <local:Header Width="200" Grid.Row="1" />
         <local:WorkPlace  Grid.Column="1"/>
 
-        <TabControl Grid.Row="1">
+        <TabControl Grid.Row="2">
             <TabItem Header="支給額">
                 <local:Allowance />
             </TabItem>
@@ -42,15 +58,13 @@
             </TabItem>
         </TabControl>
 
-        <local:OperationButtons Grid.Row="2" 
-                                Height="50" />
-
         <local:AnnualChart Grid.Column="1" 
                            Grid.Row="1" 
                            Grid.RowSpan="2" />
 
         <StatusBar Grid.Row="3" VerticalAlignment="Bottom">
-            <Label Content="{Binding PriceUpdown_Content}" Foreground="{Binding PriceUpdown_Foreground}"/>
+            <Label Content="{Binding PriceUpdown_Content}" 
+                   Foreground="{Binding PriceUpdown_Foreground}"/>
         </StatusBar>
     </Grid>
 </Window>
