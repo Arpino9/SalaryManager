@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using SalaryManager.Domain.Entities;
-using SalaryManager.Infrastructure.SQLite;
-using SalaryManager.Infrastructure.Interface;
-using SalaryManager.WPF.ViewModels;
 using SalaryManager.Domain.Logics;
+using SalaryManager.Infrastructure.Interface;
+using SalaryManager.Infrastructure.SQLite;
+using SalaryManager.WPF.ViewModels;
 
 namespace SalaryManager.WPF.Models
 {
@@ -62,6 +62,26 @@ namespace SalaryManager.WPF.Models
         }
 
         /// <summary>
+        /// エンティティの取得
+        /// </summary>
+        /// <param name="year">取得する年</param>
+        /// <param name="month">取得する月</param>
+        private void FetchEntity(int year, int month)
+        {
+            var sqlite  = new HeaderSQLite();
+            var records = sqlite.GetEntities();
+
+            this.Entity = records.Where(x => x.YearMonth.Year  == year
+                                          && x.YearMonth.Month == month)
+                                 .FirstOrDefault();
+
+            if (this.Entity is null)
+            {
+                this.ViewModel.ID = records.Max(x => x.ID) + 1;
+            }
+        }
+
+        /// <summary>
         /// Reload
         /// </summary>
         /// <remarks>
@@ -70,17 +90,11 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         public void Reload()
         {
-            var sqlite  = new HeaderSQLite();
-            var records = sqlite.GetEntities();
+            this.FetchEntity(this.ViewModel.Year, this.ViewModel.Month);
 
-            this.Entity = records.Where(x => x.YearMonth.Year  == this.ViewModel.Year
-                                          && x.YearMonth.Month == this.ViewModel.Month)
-                                 .FirstOrDefault();
-
-            if (this.Entity == null)
+            if (this.Entity is null)
             {
                 // 新規追加
-                this.ViewModel.ID         = records.Max(x => x.ID) + 1;
                 this.ViewModel.CreateDate = DateTime.Today;
                 this.ViewModel.UpdateDate = DateTime.Today;
             }
@@ -98,19 +112,13 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 初期化
         /// </summary>
-        public void Initialize()
+        /// <param name="entityDate">取得する日付</param>
+        public void Initialize(DateTime entityDate)
         {
-            var sqlite = new HeaderSQLite();
-            var records = sqlite.GetEntities();
-
-            this.Entity = records.Where(x => x.YearMonth.Year == DateTime.Today.Year
-                                         && x.YearMonth.Month == DateTime.Today.Month)
-                                .FirstOrDefault();
-
+            this.FetchEntity(entityDate.Year, entityDate.Month);
 
             if (this.Entity is null)
             {
-                this.ViewModel.ID = records.Max(x => x.ID) + 1;
                 this.ViewModel.YearMonth = DateTime.Today;
             }
 
@@ -128,15 +136,10 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
-            // ID
-            this.ViewModel.ID    = this.Entity.ID;
-            // 年
-            this.ViewModel.Year  = this.Entity.YearMonth.Year;
-            // 月
-            this.ViewModel.Month = this.Entity.YearMonth.Month;
-            // 作成日
+            this.ViewModel.ID         = this.Entity.ID;
+            this.ViewModel.Year       = this.Entity.YearMonth.Year;
+            this.ViewModel.Month      = this.Entity.YearMonth.Month;
             this.ViewModel.CreateDate = this.Entity.CreateDate;
-            // 更新日
             this.ViewModel.UpdateDate = this.Entity.UpdateDate;
         }
 
@@ -145,13 +148,9 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Clear()
         {
-            // 年
-            this.ViewModel.Year  = this.ViewModel.YearMonth.Year;
-            // 月
-            this.ViewModel.Month = this.ViewModel.YearMonth.Month;
-            // 作成日
+            this.ViewModel.Year       = this.ViewModel.YearMonth.Year;
+            this.ViewModel.Month      = this.ViewModel.YearMonth.Month;
             this.ViewModel.CreateDate = DateTime.Today;
-            // 更新日
             this.ViewModel.UpdateDate = DateTime.Today;
         }
 

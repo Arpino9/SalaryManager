@@ -116,7 +116,6 @@ namespace SalaryManager.Infrastructure.SQLite
             }
         }
 
-        [Obsolete("Transaction版を使うこと。")]
         internal static void Execute(
             string insert,
             string update,

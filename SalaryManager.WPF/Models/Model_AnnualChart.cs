@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.ValueObjects;
 using SalaryManager.Infrastructure.SQLite;
@@ -38,11 +37,6 @@ namespace SalaryManager.WPF.Models
         /// リロード
         /// </summary>
         internal void Reload() => this.Initialize(this.Header.Year);
-
-        /// <summary>
-        /// 再取得
-        /// </summary>
-        internal void Fetch() => this.Initialize(DateTime.Today.Year);
 
         /// <summary>
         /// Initialize

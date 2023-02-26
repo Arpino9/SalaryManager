@@ -28,6 +28,7 @@
             <MenuItem Header="編集">
                 <MenuItem Header="CSV読込" Command="{Binding ReadCSVClick}" />
                 <MenuItem Header="デフォルト明細に設定" Command="{Binding SetDefaultClick}" />
+                <MenuItem Header="デフォルト明細から取得" Command="{Binding GetDefaultClick}" />
             </MenuItem>
             <MenuItem Header="登録" Command="{Binding RegisterClick}" />
             <MenuItem Header="閉じる">
@@ -45,16 +46,16 @@
 
         <TabControl Grid.Row="2">
             <TabItem Header="支給額">
-                <local:Allowance />
+                <local:Allowance Height="300" VerticalAlignment="Top" />
             </TabItem>
             <TabItem Header="控除額">
-                <local:Deduction />
+                <local:Deduction Height="200" VerticalAlignment="Top" />
             </TabItem>
             <TabItem Header="勤務備考">
-                <local:WorkingReferences />
+                <local:WorkingReferences Height="200" VerticalAlignment="Top" />
             </TabItem>
             <TabItem Header="副業など">
-                <local:SideBusiness />
+                <local:SideBusiness Height="200" VerticalAlignment="Top" />
             </TabItem>
         </TabControl>
 

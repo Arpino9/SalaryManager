@@ -42,17 +42,18 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 初期化
         /// </summary>
-        public void Initialize()
+        /// <param name="entityDate">初期化する日付</param>
+        public void Initialize(DateTime entityDate)
         {
             var sqlite = new AllowanceSQLite();
             var records = sqlite.GetEntities();
 
-            this.ViewModel.Entity = records.Where(record => record.YearMonth.Year  == DateTime.Today.Year
-                                               && record.YearMonth.Month == DateTime.Today.Month)
+            this.ViewModel.Entity = records.Where(record => record.YearMonth.Year  == entityDate.Year
+                                                         && record.YearMonth.Month == entityDate.Month)
                                  .FirstOrDefault();
 
-            this.ViewModel.Entity_LastYear = records.Where(record => record.YearMonth.Year  == DateTime.Today.Year - 1
-                                                        && record.YearMonth.Month == DateTime.Today.Month)
+            this.ViewModel.Entity_LastYear = records.Where(record => record.YearMonth.Year  == entityDate.Year - 1
+                                                                  && record.YearMonth.Month == entityDate.Month)
                                  .FirstOrDefault();
 
             if (this.ViewModel.Entity is null)

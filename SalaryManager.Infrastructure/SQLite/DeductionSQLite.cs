@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Helpers;
-using SalaryManager.Domain.Logics;
 using SalaryManager.Domain.Repositories;
 
 namespace SalaryManager.Infrastructure.SQLite
@@ -150,6 +149,11 @@ where Id = @Id
             SQLiteHelper.Execute(insert, update, args.ToArray());
         }
 
+        /// <summary>
+        /// 保存
+        /// </summary>
+        /// <param name="transaction">トランザクション</param>
+        /// <param name="entity">エンティティ</param>
         public void Save(SQLiteTransaction transaction, DeductionEntity entity)
         {
             string insert = @"

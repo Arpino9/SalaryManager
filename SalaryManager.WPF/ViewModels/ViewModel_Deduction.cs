@@ -39,13 +39,13 @@ namespace SalaryManager.WPF.ViewModels
                 this.Allowance.ViewModel_Deduction = this;
 
                 this.Model.ViewModel = this;
-                this.Model.Initialize();
+                this.Model.Initialize(DateTime.Today);
 
                 this.BindEvent();
             }
             catch (Exception ex)
             {
-                throw new Exception("控除額テーブルの読込に失敗しました。");
+                throw new Exception("控除額テーブルの読込に失敗しました。", ex);
             }
         }
 

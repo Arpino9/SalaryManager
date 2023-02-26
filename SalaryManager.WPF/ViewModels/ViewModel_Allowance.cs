@@ -3,6 +3,7 @@ using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
 using System;
 using System.ComponentModel;
+using System.Data.Entity;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
 
@@ -38,13 +39,13 @@ namespace SalaryManager.WPF.ViewModels
                 this.Model_Deduction.Allowance = this.Model;
 
                 this.Model.ViewModel = this;
-                this.Model.Initialize();
+                this.Model.Initialize(DateTime.Today);
 
                 this.BindEvent();
             }
             catch(Exception ex)
             {
-                throw new Exception("支給額テーブルの読込に失敗しました。");
+                throw new Exception("支給額テーブルの読込に失敗しました。", ex);
             } 
         }
 

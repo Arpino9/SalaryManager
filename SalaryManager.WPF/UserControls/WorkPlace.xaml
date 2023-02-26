@@ -13,7 +13,7 @@
     </UserControl.DataContext>
     <Grid>
         <StackPanel Orientation="Horizontal">
-            <Label Content="勤怠場所" />
+            <Label Content="勤務先" />
             <TextBox Text="{Binding WorkPlace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="300" />
         </StackPanel>
     </Grid>

@@ -1,4 +1,5 @@
 ﻿using SalaryManager.Infrastructure.SQLite;
+using System;
 
 namespace SalaryManager.Infrastructure.Interface
 {
@@ -11,7 +12,8 @@ namespace SalaryManager.Infrastructure.Interface
     public interface IInputPayroll
     {
         /// <summary> 初期化 </summary>
-        public void Initialize();
+        /// <param name="entityDate">初期化する日付</param>
+        public void Initialize(DateTime entityDate);
 
         /// <summary> リロード </summary>
         public void Reload();

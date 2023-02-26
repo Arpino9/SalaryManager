@@ -100,7 +100,6 @@
     <Compile Include="Models\Model_Header.cs" />
     <Compile Include="Models\Model_AnnualChart.cs" />
     <Compile Include="Models\Model_MainWindow.cs" />
-    <Compile Include="Models\Model_OperationButtons.cs" />
     <Compile Include="Models\Model_SideBusiness.cs" />
     <Compile Include="Models\Model_WorkingReference.cs" />
     <Compile Include="UserControls\AnnualChart.xaml.cs">
@@ -114,9 +113,6 @@
     </Compile>
     <Compile Include="UserControls\Header.xaml.cs">
       <DependentUpon>Header.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\OperationButtons.xaml.cs">
-      <DependentUpon>OperationButtons.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\SideBusiness.xaml.cs">
       <DependentUpon>SideBusiness.xaml</DependentUpon>
@@ -132,7 +128,6 @@
     <Compile Include="ViewModels\ViewModel_Deduction.cs" />
     <Compile Include="ViewModels\ViewModel_Header.cs" />
     <Compile Include="ViewModels\ViewModel_MainWindow.cs" />
-    <Compile Include="ViewModels\ViewModel_OperationButtons.cs" />
     <Compile Include="ViewModels\ViewModel_SideBusiness.cs" />
     <Compile Include="ViewModels\ViewModel_WorkingReference.cs" />
     <Compile Include="ViewModels\ViewModel_WorkPlace.cs" />
@@ -161,10 +156,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Header.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\OperationButtons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

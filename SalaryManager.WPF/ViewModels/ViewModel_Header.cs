@@ -36,12 +36,11 @@ namespace SalaryManager.WPF.ViewModels
         {
             this.MainWindow.Header = this.Model;
 
-            this.Model.ViewModel        = this;
+            this.Model.ViewModel         = this;
             this.Allowance.Header        = this;
             this.Deduction.Header        = this;
             this.WorkingReference.Header = this;
             this.SideBusiness.Header     = this;
-            this.OperationButtons.Header = this;
             this.AnnualCharts.Header     = this;
 
             // ←(戻る)
@@ -60,7 +59,7 @@ namespace SalaryManager.WPF.ViewModels
             this._proceedAction += this.SideBusiness.Reload;
             this._proceedAction += this.AnnualCharts.Reload;
 
-            this.Model.Initialize();
+            this.Model.Initialize(DateTime.Today);
         }
 
         /// <summary> Model - ヘッダー </summary>
@@ -83,10 +82,7 @@ namespace SalaryManager.WPF.ViewModels
 
         /// <summary> Model - 副業 </summary>
         public Model_SideBusiness SideBusiness { get; set; } = Model_SideBusiness.GetInstance();
-
-        /// <summary> Model - 操作ボタン </summary>
-        public Model_OperationButtons OperationButtons { get; set; } = Model_OperationButtons.GetInstance();
-
+        
         #region タイトル
 
         /// <summary>

@@ -32,13 +32,13 @@ namespace SalaryManager.WPF.ViewModels
                 this.MainWindow.SideBusiness = this.Model;
 
                 this.Model.ViewModel = this;
-                this.Model.Initialize();
+                this.Model.Initialize(DateTime.Today);
 
                 this.BindEvent();
             }
             catch (Exception ex)
             {
-                throw new Exception("副業テーブルの読込に失敗しました。");
+                throw new Exception("副業テーブルの読込に失敗しました。", ex);
             }
         }
 

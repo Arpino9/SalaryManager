@@ -25,7 +25,7 @@ namespace SalaryManager.WPF.ViewModels
         {
             // 登録
             this._registerAction += this.Model.Register;
-            this._registerAction += this.AnnualChart.Fetch;
+            this._registerAction += this.AnnualChart.Reload;
 
             // デフォルトに設定
             this._setDefaultAction += this.Header.SetDefault;
@@ -42,9 +42,6 @@ namespace SalaryManager.WPF.ViewModels
 
         /// <summary> Model - 月収一覧 </summary>
         private Model_AnnualChart AnnualChart { get; set; } = Model_AnnualChart.GetInstance();
-
-        /// <summary> Model - 操作ボタン </summary>
-        private Model_OperationButtons OperationButtons { get; set; } = Model_OperationButtons.GetInstance();
 
         #region タイトル
 
@@ -97,6 +94,27 @@ namespace SalaryManager.WPF.ViewModels
                     this._setDefault = new RelayCommand(this._setDefaultAction);
                 }
                 return this._setDefault;
+            }
+        }
+
+        #endregion
+
+        #region デフォルトから取得
+
+        private RelayCommand _getDefault;
+
+        /// <summary>
+        /// デフォルトに設定ボタン
+        /// </summary>
+        public RelayCommand GetDefaultClick
+        {
+            get
+            {
+                if (this._getDefault == null)
+                {
+                    this._getDefault = new RelayCommand(this.Model.GetDefault);
+                }
+                return this._getDefault;
             }
         }
 

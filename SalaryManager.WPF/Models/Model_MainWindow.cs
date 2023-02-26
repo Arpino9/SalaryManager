@@ -83,7 +83,7 @@ namespace SalaryManager.WPF.Models
                     this.WorkingReference.ViewModel.PaidVacation = paidVacation;
                 }
             }
-            catch(FileNotFoundException ex)
+            catch(FileNotFoundException _)
             {
                 var message = $"「{Shared.DirectoryCSV}」に{this.Header.ViewModel.Year}年{this.Header.ViewModel.Month}月分のCSVが\n保存されていません。読み込みを中断します。";
                 DialogMessageUtils.ShowResultMessage(message, this.MainWindow.Title);
@@ -149,6 +149,29 @@ namespace SalaryManager.WPF.Models
 
                 transaction.Commit();
             }
+        }
+
+        internal void GetDefault()
+        {
+            var header = new HeaderSQLite();
+            var defaultEntity = header.GetDefaultEntity();
+
+            if (defaultEntity == null)
+            {
+                DialogMessageUtils.ShowResultMessage("デフォルト明細が登録されていません。", this.MainWindow.Title);
+                return;
+            }
+
+            // ヘッダー
+            this.Header.Initialize(defaultEntity.YearMonth);
+            // 支給額
+            this.Allowance.Initialize(defaultEntity.YearMonth);
+            // 控除額
+            this.Deduction.Initialize(defaultEntity.YearMonth);
+            // 勤務備考
+            this.WorkingReference.Initialize(defaultEntity.YearMonth);
+            // 副業
+            this.SideBusiness.Initialize(defaultEntity.YearMonth);
         }
     }
 }
