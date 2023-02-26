@@ -25,6 +25,7 @@
         </Grid.DataContext>
 
         <local:Header Width="200" />
+        <local:WorkPlace  Grid.Column="1"/>
 
         <TabControl Grid.Row="1">
             <TabItem Header="支給額">

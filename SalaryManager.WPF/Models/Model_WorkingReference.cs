@@ -31,6 +31,9 @@ namespace SalaryManager.WPF.Models
         /// <summary> ViewModel - ヘッダ </summary>
         internal ViewModel_Header Header { get; set; }
 
+        /// <summary> ViewModel - 勤務先 </summary>
+        internal ViewModel_WorkPlace WorkPlace { get; set; }
+
         /// <summary> ViewModel - 勤務備考 </summary>
         internal ViewModel_WorkingReference ViewModel { get; set; }
 
@@ -58,7 +61,7 @@ namespace SalaryManager.WPF.Models
                 if (defaultEntity != null)
                 {
                     this.ViewModel.Entity = records.Where(record => record.ID == defaultEntity.ID)
-                                         .FirstOrDefault();
+                                                   .FirstOrDefault();
                 }
             }
 
@@ -101,6 +104,8 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.PaidVacation      = default(double);
             // 勤務時間
             this.ViewModel.WorkingHours      = default(double);
+            // 勤務先
+            this.WorkPlace.WorkPlace         = default(string);
             // 備考
             this.ViewModel.Remarks           = default(string);
         }
@@ -134,6 +139,8 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.PaidVacation      = this.ViewModel.Entity.PaidVacation.Value;
             // 勤務時間
             this.ViewModel.WorkingHours      = this.ViewModel.Entity.WorkingHours;
+            // 勤務先
+            this.WorkPlace.WorkPlace         = this.ViewModel.Entity.WorkPlace;
             // 備考
             this.ViewModel.Remarks           = this.ViewModel.Entity.Remarks;
         }
@@ -156,7 +163,7 @@ namespace SalaryManager.WPF.Models
                 this.ViewModel.NumberOfDependent,
                 this.ViewModel.PaidVacation,
                 this.ViewModel.WorkingHours,
-                this.ViewModel.WorkingPlace,
+                this.WorkPlace.WorkPlace,
                 this.ViewModel.Remarks);
 
             var workingReference = new WorkingReferenceSQLite();

@@ -89,18 +89,6 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary> Model - 月収一覧 </summary>
         private Model_AnnualChart AnnualChart { get; set; } = Model_AnnualChart.GetInstance();
 
-        /// <summary> Model - 支給額 </summary>
-        private Model_Allowance Allowance { get; set; } = Model_Allowance.GetInstance();
-
-        /// <summary> Model - 控除額 </summary>
-        private Model_Deduction Deduction { get; set; } = Model_Deduction.GetInstance();
-
-        /// <summary> Model - 勤務備考 </summary>
-        private Model_WorkingReference WorkingReference { get; set; } = Model_WorkingReference.GetInstance();
-
-        /// <summary> Model - 副業 </summary>
-        private Model_SideBusiness SideBusiness { get; set; } = Model_SideBusiness.GetInstance();
-
         /// <summary> Model - 操作ボタン </summary>
         private Model_OperationButtons OperationButtons { get; set; } = Model_OperationButtons.GetInstance();
     }

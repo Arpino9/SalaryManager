@@ -124,6 +124,9 @@
     <Compile Include="UserControls\WorkingReferences.xaml.cs">
       <DependentUpon>WorkingReferences.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\WorkPlace.xaml.cs">
+      <DependentUpon>WorkPlace.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\ViewModel_Allowance.cs" />
     <Compile Include="ViewModels\ViewModel_AnnualChart.cs" />
     <Compile Include="ViewModels\ViewModel_Deduction.cs" />
@@ -132,6 +135,7 @@
     <Compile Include="ViewModels\ViewModel_OperationButtons.cs" />
     <Compile Include="ViewModels\ViewModel_SideBusiness.cs" />
     <Compile Include="ViewModels\ViewModel_WorkingReference.cs" />
+    <Compile Include="ViewModels\ViewModel_WorkPlace.cs" />
     <Page Include="UserControls\AnnualChart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -169,6 +173,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\WorkingReferences.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\WorkPlace.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
