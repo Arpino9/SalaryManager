@@ -1,9 +1,9 @@
-﻿using SalaryManager.Domain.Entities;
-using SalaryManager.WPF.Converter;
-using SalaryManager.WPF.Models;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SalaryManager.Domain.Entities;
+using SalaryManager.WPF.Converter;
+using SalaryManager.WPF.Models;
 
 namespace SalaryManager.WPF.ViewModels
 {
@@ -50,11 +50,11 @@ namespace SalaryManager.WPF.ViewModels
             // Mouse Leave
             this.MouseLeave_Action   = new RelayCommand(() => this.MainWindow.ComparePrice(0, 0));
             // 副業
-            this.SideBusiness_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.SideBusiness, this.Entity_LastYear?.SideBusiness));
+            this.SideBusiness_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.SideBusiness, this.Entity_LastYear.SideBusiness));
             // 臨時収入
-            this.Perquisite_Action   = new RelayCommand(() => this.MainWindow.ComparePrice(this.Perquisite,   this.Entity_LastYear?.Perquisite));
+            this.Perquisite_Action   = new RelayCommand(() => this.MainWindow.ComparePrice(this.Perquisite,   this.Entity_LastYear.Perquisite));
             // その他
-            this.Others_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.Others,       this.Entity_LastYear?.Others));
+            this.Others_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.Others,       this.Entity_LastYear.Others));
         }
 
         /// <summary> Model </summary>

@@ -41,6 +41,7 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
 
         <Label Content="基本給" 
@@ -89,7 +90,7 @@
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
-                    <behaviors:InvokeCommandAction Command="{Binding ExecutiveAllowance_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding DependencyAllowance_Action}" />
                 </behaviors:EventTrigger>
 
                 <behaviors:EventTrigger EventName="MouseLeave">
@@ -274,10 +275,35 @@
                  Style="{StaticResource AllowanceTextBox_Style}"
                  Text="{Binding TotalSalary, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True" 
-                 IsReadOnly="True">
+                 IsReadOnly="True" 
+                 Foreground="{Binding TotalSalary_Foreground}">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
                     <behaviors:InvokeCommandAction Command="{Binding TotalSalary_Action}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
+
+        <Label Content="差引支給額" 
+               Grid.Column="1"
+               Grid.Row="7" 
+               HorizontalAlignment="Center"
+               Margin="0,10,0,0" />
+        <TextBox Grid.Column="2" 
+                 Grid.Row="7"  
+                 Margin="0,10,0,0"
+                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Text="{Binding TotalDeductedSalary, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Behavior:TextBoxIntegerOnly.IsNumeric="True" 
+                 IsReadOnly="True" 
+                 Foreground="{Binding TotalDeductedSalary_Foreground}">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding TotalDeductedSalary_Action}" />
                 </behaviors:EventTrigger>
 
                 <behaviors:EventTrigger EventName="MouseLeave">

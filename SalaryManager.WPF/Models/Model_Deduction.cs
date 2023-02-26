@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Windows.Media;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.Infrastructure.SQLite;
@@ -34,6 +35,9 @@ namespace SalaryManager.WPF.Models
 
         /// <summary> ViewModel - 控除額 </summary>
         internal ViewModel_Deduction ViewModel { get; set; }
+
+        /// <summary> ViewModel - 支給額 </summary>
+        internal Model_Allowance Allowance { get; set; }
 
         /// <summary>
         /// 初期化
@@ -181,6 +185,8 @@ namespace SalaryManager.WPF.Models
                                        + this.ViewModel.MunicipalTax
                                        + this.ViewModel.FriendshipAssociation
                                        + this.ViewModel.YearEndTaxAdjustment;
+
+            this.Allowance.ReCaluculate();
         }
     }
 }

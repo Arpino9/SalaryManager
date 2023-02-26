@@ -4,6 +4,7 @@ using SalaryManager.WPF.Models;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Media;
 
 namespace SalaryManager.WPF.ViewModels
 {
@@ -34,6 +35,8 @@ namespace SalaryManager.WPF.ViewModels
             {
                 this.MainWindow.Allowance = this.Model;
 
+                this.Model_Deduction.Allowance = this.Model;
+
                 this.Model.ViewModel = this;
                 this.Model.Initialize();
 
@@ -53,35 +56,38 @@ namespace SalaryManager.WPF.ViewModels
             // Mouse Leave
             this.MouseLeave_Action             = new RelayCommand(() => this.MainWindow.ComparePrice(0, 0));
             // 基本給
-            this.BasicSalary_Action            = new RelayCommand(() => this.MainWindow.ComparePrice(this.BasicSalary,            this.Entity_LastYear?.BasicSalary.Value));
+            this.BasicSalary_Action            = new RelayCommand(() => this.MainWindow.ComparePrice(this.BasicSalary,            this.Entity_LastYear.BasicSalary.Value));
             // 役職手当
-            this.ExecutiveAllowance_Action     = new RelayCommand(() => this.MainWindow.ComparePrice(this.ExecutiveAllowance,     this.Entity_LastYear?.ExecutiveAllowance.Value));
+            this.ExecutiveAllowance_Action     = new RelayCommand(() => this.MainWindow.ComparePrice(this.ExecutiveAllowance,     this.Entity_LastYear.ExecutiveAllowance.Value));
             // 扶養手当
-            this.DependencyAllowance_Action    = new RelayCommand(() => this.MainWindow.ComparePrice(this.DependencyAllowance,    this.Entity_LastYear?.DependencyAllowance.Value));
+            this.DependencyAllowance_Action    = new RelayCommand(() => this.MainWindow.ComparePrice(this.DependencyAllowance,    this.Entity_LastYear.DependencyAllowance.Value));
             // 時間外手当
-            this.OvertimeAllowance_Action      = new RelayCommand(() => this.MainWindow.ComparePrice(this.OvertimeAllowance,      this.Entity_LastYear?.OvertimeAllowance.Value));
+            this.OvertimeAllowance_Action      = new RelayCommand(() => this.MainWindow.ComparePrice(this.OvertimeAllowance,      this.Entity_LastYear.OvertimeAllowance.Value));
             // 休日割増
-            this.DaysoffIncreased_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.DaysoffIncreased,       this.Entity_LastYear?.DaysoffIncreased.Value));
+            this.DaysoffIncreased_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.DaysoffIncreased,       this.Entity_LastYear.DaysoffIncreased.Value));
             // 深夜割増
-            this.NightworkIncreased_Action     = new RelayCommand(() => this.MainWindow.ComparePrice(this.NightworkIncreased,     this.Entity_LastYear?.NightworkIncreased.Value));
+            this.NightworkIncreased_Action     = new RelayCommand(() => this.MainWindow.ComparePrice(this.NightworkIncreased,     this.Entity_LastYear.NightworkIncreased.Value));
             // 住宅手当
-            this.HousingAllowance_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.HousingAllowance,       this.Entity_LastYear?.HousingAllowance.Value));
+            this.HousingAllowance_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.HousingAllowance,       this.Entity_LastYear.HousingAllowance.Value));
             // 遅刻早退欠勤
-            this.LateAbsent_Action             = new RelayCommand(() => this.MainWindow.ComparePrice(this.LateAbsent,             this.Entity_LastYear?.LateAbsent));
+            this.LateAbsent_Action             = new RelayCommand(() => this.MainWindow.ComparePrice(this.LateAbsent,             this.Entity_LastYear.LateAbsent));
             // 交通費
-            this.TransportationExpenses_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.TransportationExpenses, this.Entity_LastYear?.TransportationExpenses.Value));
+            this.TransportationExpenses_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.TransportationExpenses, this.Entity_LastYear.TransportationExpenses.Value));
             // 特別手当
-            this.SpecialAllowance_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.SpecialAllowance,       this.Entity_LastYear?.SpecialAllowance.Value));
+            this.SpecialAllowance_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.SpecialAllowance,       this.Entity_LastYear.SpecialAllowance.Value));
             // 予備
-            this.SpareAllowance_Action         = new RelayCommand(() => this.MainWindow.ComparePrice(this.SpareAllowance,         this.Entity_LastYear?.SpareAllowance.Value));
+            this.SpareAllowance_Action         = new RelayCommand(() => this.MainWindow.ComparePrice(this.SpareAllowance,         this.Entity_LastYear.SpareAllowance.Value));
             // 支給総計
-            this.TotalSalary_Action            = new RelayCommand(() => this.MainWindow.ComparePrice(this.TotalSalary,            this.Entity_LastYear?.TotalSalary.Value));
+            this.TotalSalary_Action            = new RelayCommand(() => this.MainWindow.ComparePrice(this.TotalSalary,            this.Entity_LastYear.TotalSalary.Value));
             // 差引支給額
-            this.TotalDeductedSalary_Action    = new RelayCommand(() => this.MainWindow.ComparePrice(this.TotalDeductedSalary,    this.Entity_LastYear?.TotalDeductedSalary.Value));
+            this.TotalDeductedSalary_Action    = new RelayCommand(() => this.MainWindow.ComparePrice(this.TotalDeductedSalary,    this.Entity_LastYear.TotalDeductedSalary));
         }
 
         /// <summary> Model - 支給額 </summary>
         public Model_Allowance Model { get; set; } = Model_Allowance.GetInstance();
+
+        /// <summary> Model - 控除額 </summary>
+        public Model_Deduction Model_Deduction { get; set; } = Model_Deduction.GetInstance();
 
         /// <summary> Model - メイン画面 </summary>
         public Model_MainWindow MainWindow { get; set; } = Model_MainWindow.GetInstance();
@@ -397,6 +403,14 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 支給総計
 
+        /// <summary>
+        /// 支給総計 - Foreground
+        /// </summary>
+        public Brush TotalSalary_Foreground
+        {
+            get => new SolidColorBrush(Colors.Blue);
+        }
+
         private double _totalSalary;
 
         /// <summary>
@@ -420,6 +434,21 @@ namespace SalaryManager.WPF.ViewModels
         #endregion
 
         #region 差引支給額
+
+        private Brush _totalDeductedSalary_Foreground;
+
+        /// <summary>
+        /// 差引支給額 - Foreground
+        /// </summary>
+        public Brush TotalDeductedSalary_Foreground
+        {
+            get => _totalDeductedSalary_Foreground;
+            set
+            {
+                this._totalDeductedSalary_Foreground = value;
+                this.RaisePropertyChanged();
+            }
+        }
 
         private double _totalDeductedSalary;
 

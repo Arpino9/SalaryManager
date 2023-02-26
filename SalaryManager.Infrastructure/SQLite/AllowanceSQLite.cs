@@ -189,7 +189,7 @@ where Id = @Id
                 new SQLiteParameter("SpareAllowance", entity.SpareAllowance.Value),
                 new SQLiteParameter("Remarks", entity.Remarks),
                 new SQLiteParameter("TotalSalary", entity.TotalSalary.Value),
-                new SQLiteParameter("TotalDeductedSalary", entity.TotalDeductedSalary.Value),
+                new SQLiteParameter("TotalDeductedSalary", entity.TotalDeductedSalary),
             };
 
             SQLiteHelper.Execute(insert, update, args.ToArray());
@@ -273,7 +273,7 @@ where Id = @Id
                 new SQLiteParameter("SpareAllowance", entity.SpareAllowance.Value),
                 new SQLiteParameter("Remarks", entity.Remarks),
                 new SQLiteParameter("TotalSalary", entity.TotalSalary.Value),
-                new SQLiteParameter("TotalDeductedSalary", entity.TotalDeductedSalary.Value),
+                new SQLiteParameter("TotalDeductedSalary", entity.TotalDeductedSalary),
             };
 
             transaction.Execute(insert, update, args.ToArray());

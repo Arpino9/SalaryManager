@@ -49,34 +49,27 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         /// <param name="thisYearPrice">今年の金額</param>
         /// <param name="lastYearPrice">去年の金額</param>
-        internal void ComparePrice(double? thisYearPrice, double? lastYearPrice)
+        internal void ComparePrice(double thisYearPrice, double lastYearPrice)
         {
-            if (thisYearPrice is null ||
-                lastYearPrice is null)
-            {
-                // 未登録
-                this.MainWindow.PriceUpdown_Content = string.Empty;
-                return;
-            }
+            var difference = thisYearPrice - lastYearPrice;
 
-            if (thisYearPrice.Value == 0)
+            if (thisYearPrice == 0 || 
+                difference == 0)
             {
                 // 変更なし
                 this.MainWindow.PriceUpdown_Content = string.Empty;
                 return;
             }
 
-            var price = thisYearPrice.Value - lastYearPrice.Value;
-
-            if (price > 0) 
+            if (difference > 0) 
             {
                 this.MainWindow.PriceUpdown_Foreground = new SolidColorBrush(Colors.Blue);
-                this.MainWindow.PriceUpdown_Content    = $"+{price.ToString()}";
+                this.MainWindow.PriceUpdown_Content    = $"+{difference.ToString()}";
             }
             else
             {
                 this.MainWindow.PriceUpdown_Foreground = new SolidColorBrush(Colors.Red);
-                this.MainWindow.PriceUpdown_Content    = price.ToString();
+                this.MainWindow.PriceUpdown_Content    = difference.ToString();
             }
         }
 

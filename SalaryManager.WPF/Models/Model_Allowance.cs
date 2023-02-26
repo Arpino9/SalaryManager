@@ -4,6 +4,7 @@ using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.ViewModels;
 using System;
 using System.Linq;
+using System.Windows.Media;
 
 namespace SalaryManager.WPF.Models
 {
@@ -34,6 +35,9 @@ namespace SalaryManager.WPF.Models
 
         /// <summary> ViewModel - 支給額 </summary>
         internal ViewModel_Allowance ViewModel { get; set; }
+
+        /// <summary> ViewModel - 控除額 </summary>
+        internal ViewModel_Deduction ViewModel_Deduction { get; set; }
 
         /// <summary>
         /// 初期化
@@ -103,7 +107,8 @@ namespace SalaryManager.WPF.Models
             // 支給総計
             this.ViewModel.TotalSalary            = this.ViewModel.Entity.TotalSalary.Value;
             // 差引支給額
-            this.ViewModel.TotalDeductedSalary    = this.ViewModel.Entity.TotalDeductedSalary.Value;
+            this.ViewModel.TotalDeductedSalary    = this.ViewModel.Entity.TotalDeductedSalary;
+            this.ChangeColor();
         }
 
         /// <summary>
@@ -149,6 +154,7 @@ namespace SalaryManager.WPF.Models
             // 支給総計
             this.ViewModel.TotalSalary            = default(double);
             // 差引支給額
+            this.ViewModel.TotalDeductedSalary_Foreground = new SolidColorBrush(Colors.Black);
             this.ViewModel.TotalDeductedSalary    = default(double);
         }
 
@@ -202,6 +208,32 @@ namespace SalaryManager.WPF.Models
                                        + this.ViewModel.HousingAllowance
                                        + this.ViewModel.SpecialAllowance
                                        + this.ViewModel.SpareAllowance;
+
+            if (this.ViewModel_Deduction is null)
+            {
+                return;
+            }
+
+            this.ViewModel.TotalDeductedSalary = this.ViewModel.TotalSalary 
+                                               - this.ViewModel_Deduction.TotalDeduct;
+
+            this.ChangeColor();
+        }
+        
+        /// <summary>
+        /// 色変更
+        /// </summary>
+        internal void ChangeColor()
+        {
+            // 差引支給額
+            if (this.ViewModel.TotalDeductedSalary >= 0)
+            {
+                this.ViewModel.TotalDeductedSalary_Foreground = new SolidColorBrush(Colors.Blue);
+            }
+            else
+            {
+                this.ViewModel.TotalDeductedSalary_Foreground = new SolidColorBrush(Colors.Red);
+            }
         }
     }
 }

@@ -42,7 +42,7 @@
                Style="{StaticResource DeductionLabel_Style}" />
         <TextBox Grid.Column="1" 
                  Style="{StaticResource DeductionTextBox_Style}" 
-                 Text="{Binding HealthInsurance, StringFormat={}{0:N0}, Mode=TwoWay}">
+                 Text="{Binding HealthInsurance, Mode=TwoWay, StringFormat=\{0:N0\}, UpdateSourceTrigger=PropertyChanged}">
 
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
@@ -198,7 +198,8 @@
                  Grid.Row="6"  
                  Margin="0,10,0,0"
                  Style="{StaticResource DeductionTextBox_Style}" 
-                 Text="{Binding TotalDeduct, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                 Text="{Binding TotalDeduct, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ForceCursor="True" 
+                 Foreground="{Binding TotalDeduct_Foreground}">
 
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
