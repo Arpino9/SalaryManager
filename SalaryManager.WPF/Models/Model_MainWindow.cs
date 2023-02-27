@@ -151,6 +151,9 @@ namespace SalaryManager.WPF.Models
             }
         }
 
+        /// <summary>
+        /// デフォルト明細を取得する
+        /// </summary>
         internal void GetDefault()
         {
             var header = new HeaderSQLite();
@@ -162,8 +165,6 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
-            // ヘッダー
-            this.Header.Initialize(defaultEntity.YearMonth);
             // 支給額
             this.Allowance.Initialize(defaultEntity.YearMonth);
             // 控除額

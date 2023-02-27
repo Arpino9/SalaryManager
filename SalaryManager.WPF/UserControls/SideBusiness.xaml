@@ -18,6 +18,12 @@
         <Style x:Key="AllowanceTextBox_Style" TargetType="{x:Type TextBox}">
             <Setter Property="Margin" Value="5" />
             <Setter Property="TextAlignment" Value="Right" />
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="LightYellow"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </UserControl.Resources>
     <UserControl.DataContext>
