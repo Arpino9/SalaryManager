@@ -4,15 +4,19 @@
              xmlns:local="clr-namespace:SalaryManager.WPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <!-- 基底 -->
+        <Style TargetType="Label" x:Key="PayrollItem_Style">
+            <Setter Property="Margin" Value="5" />
+        </Style>
+        
         <!-- ラベル -->
-        <Style TargetType="Label" x:Key="PayrollItemLabel_Style">
+        <Style TargetType="Label" x:Key="PayrollItemLabel_Style" BasedOn="{StaticResource PayrollItem_Style}">
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
 
         <!-- 数値入力 -->
         <Style TargetType="TextBox" x:Key="PayrollItemNumeric_Style">
-            <Setter Property="Margin" Value="5" />
             <Setter Property="TextAlignment" Value="Right" />
 
             <Style.Triggers>
@@ -24,8 +28,6 @@
 
         <!-- 文字入力 -->
         <Style TargetType="TextBox" x:Key="PayrollItemCharacter_Style">
-            <Setter Property="Margin" Value="5" />
-
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background" Value="LightYellow"/>
