@@ -11,34 +11,6 @@
              xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="300" d:DesignWidth="300"
              Background="{x:Static SystemColors.ControlLightBrush}">
-    <UserControl.Resources>
-        <Style x:Key="AllowanceLabel_Style" TargetType="{x:Type Label}">
-            <Setter Property="HorizontalAlignment" Value="Left" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-        </Style>
-
-        <Style x:Key="AllowanceTextBox_Style" TargetType="{x:Type TextBox}">
-            <Setter Property="Margin" Value="5" />
-            <Setter Property="TextAlignment" Value="Right" />
-
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="LightYellow"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style x:Key="RemarkTextBox_Style" TargetType="{x:Type TextBox}">
-            <Setter Property="Margin" Value="5" />
-
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="LightYellow"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </UserControl.Resources>
-
     <UserControl.DataContext>
         <ViewModels:ViewModel_Allowance/>
     </UserControl.DataContext>
@@ -63,9 +35,9 @@
         </Grid.RowDefinitions>
 
         <Label Content="基本給" 
-               Style="{StaticResource AllowanceLabel_Style}" />
+               Style="{StaticResource PayrollItemLabel_Style}" />
         <TextBox Grid.Column="1" 
-                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Style="{StaticResource PayrollItemNumeric_Style}"
                  Text="{Binding BasicSalary, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
@@ -81,10 +53,10 @@
 
         <Label Content="役職手当" 
                Grid.Row="1" 
-               Style="{StaticResource AllowanceLabel_Style}" />
+               Style="{StaticResource PayrollItemLabel_Style}" />
         <TextBox Grid.Column="1" 
                  Grid.Row="1" 
-                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Style="{StaticResource PayrollItemNumeric_Style}"
                  Text="{Binding ExecutiveAllowance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
@@ -100,10 +72,10 @@
 
         <Label Content="扶養手当" 
                Grid.Row="2" 
-               Style="{StaticResource AllowanceLabel_Style}" />
+               Style="{StaticResource PayrollItemLabel_Style}" />
         <TextBox Grid.Column="1" 
                  Grid.Row="2" 
-                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Style="{StaticResource PayrollItemNumeric_Style}"
                  Text="{Binding DependencyAllowance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
@@ -119,10 +91,10 @@
 
         <Label Content="時間外手当" 
                Grid.Row="3" 
-               Style="{StaticResource AllowanceLabel_Style}" />
+               Style="{StaticResource PayrollItemLabel_Style}" />
         <TextBox Grid.Column="1" 
                  Grid.Row="3" 
-                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Style="{StaticResource PayrollItemNumeric_Style}"
                  Text="{Binding OvertimeAllowance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
@@ -138,10 +110,10 @@
 
         <Label Content="休日割増" 
                Grid.Row="4" 
-               Style="{StaticResource AllowanceLabel_Style}" />
+               Style="{StaticResource PayrollItemLabel_Style}" />
         <TextBox Grid.Column="1" 
                  Grid.Row="4" 
-                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Style="{StaticResource PayrollItemNumeric_Style}"
                  Text="{Binding DaysoffIncreased, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
@@ -157,10 +129,10 @@
 
         <Label Content="交通費" 
                Grid.Row="5" 
-               Style="{StaticResource AllowanceLabel_Style}" />
+               Style="{StaticResource PayrollItemLabel_Style}" />
         <TextBox Grid.Column="1" 
                  Grid.Row="5" 
-                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Style="{StaticResource PayrollItemNumeric_Style}"
                  Text="{Binding TransportationExpenses, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
@@ -176,9 +148,9 @@
 
         <Label Content="深夜割増" 
                Grid.Column="2" 
-               Style="{StaticResource AllowanceLabel_Style}" />
+               Style="{StaticResource PayrollItemLabel_Style}" />
         <TextBox Grid.Column="3" 
-                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Style="{StaticResource PayrollItemNumeric_Style}"
                  Text="{Binding NightworkIncreased, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
@@ -195,10 +167,10 @@
         <Label Content="住宅手当" 
                Grid.Column="2" 
                Grid.Row="1" 
-               Style="{StaticResource AllowanceLabel_Style}" />
+               Style="{StaticResource PayrollItemLabel_Style}" />
         <TextBox Grid.Column="3" 
                  Grid.Row="1" 
-                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Style="{StaticResource PayrollItemNumeric_Style}"
                  Text="{Binding HousingAllowance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
@@ -215,10 +187,10 @@
         <Label Content="遅刻早退手当" 
                Grid.Column="2" 
                Grid.Row="2" 
-               Style="{StaticResource AllowanceLabel_Style}" />
+               Style="{StaticResource PayrollItemLabel_Style}" />
         <TextBox Grid.Column="3" 
                  Grid.Row="2" 
-                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Style="{StaticResource PayrollItemNumeric_Style}"
                  Text="{Binding LateAbsent}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
@@ -235,10 +207,10 @@
         <Label Content="特別手当" 
                Grid.Column="2" 
                Grid.Row="3" 
-               Style="{StaticResource AllowanceLabel_Style}" />
+               Style="{StaticResource PayrollItemLabel_Style}" />
         <TextBox Grid.Column="3" 
                  Grid.Row="3" 
-                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Style="{StaticResource PayrollItemNumeric_Style}"
                  Text="{Binding SpecialAllowance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
@@ -255,20 +227,20 @@
         <Label Content="在宅手当" 
                Grid.Column="2" 
                Grid.Row="4" 
-               Style="{StaticResource AllowanceLabel_Style}" />
+               Style="{StaticResource PayrollItemLabel_Style}" />
         <TextBox Grid.Column="3" 
                  Grid.Row="4" 
-                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Style="{StaticResource PayrollItemNumeric_Style}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True" 
                  Text="{Binding ElectricityAllowance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         
         <Label Content="予備" 
                Grid.Column="2" 
                Grid.Row="5" 
-               Style="{StaticResource AllowanceLabel_Style}" />
+               Style="{StaticResource PayrollItemLabel_Style}" />
         <TextBox Grid.Column="3" 
                  Grid.Row="5" 
-                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Style="{StaticResource PayrollItemNumeric_Style}"
                  Text="{Binding SpareAllowance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
@@ -282,22 +254,25 @@
             </behaviors:Interaction.Triggers>
         </TextBox>
 
-        <Label Content="備考" Grid.Row="6" />
+        <Label Content="備考" 
+               Grid.Row="6"
+               Style="{StaticResource PayrollItemLabel_Style}" />
         <TextBox Grid.Column="1"
                  Grid.ColumnSpan="3"
                  Grid.Row="6" 
-                 Style="{StaticResource RemarkTextBox_Style}"
+                 Style="{StaticResource PayrollItemCharacter_Style}"
                  Text="{Binding Remarks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <Label Content="支給額計" 
                Grid.Column="1"
                Grid.Row="7" 
                HorizontalAlignment="Center"
-               Margin="0,10,0,0" />
+               Margin="0,10,0,0"
+               Style="{StaticResource PayrollItemLabel_Style}" />
         <TextBox Grid.Column="2" 
                  Grid.Row="7"  
                  Margin="0,10,0,0"
-                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Style="{StaticResource PayrollItemNumeric_Style}"
                  Text="{Binding TotalSalary, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True" 
                  IsReadOnly="True" 
@@ -317,11 +292,12 @@
                Grid.Column="1"
                Grid.Row="8" 
                HorizontalAlignment="Center"
-               Margin="0,10,0,0" />
+               Margin="0,10,0,0"
+               Style="{StaticResource PayrollItemLabel_Style}" />
         <TextBox Grid.Column="2" 
                  Grid.Row="8"  
                  Margin="0,10,0,0"
-                 Style="{StaticResource AllowanceTextBox_Style}"
+                 Style="{StaticResource PayrollItemNumeric_Style}"
                  Text="{Binding TotalDeductedSalary, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True" 
                  IsReadOnly="True" 

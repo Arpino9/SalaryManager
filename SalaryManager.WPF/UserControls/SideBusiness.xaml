@@ -9,23 +9,6 @@
              xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="200" d:DesignWidth="300"
              Background="{x:Static SystemColors.ControlLightBrush}">
-    <UserControl.Resources>
-        <Style x:Key="AllowanceLabel_Style" TargetType="{x:Type Label}">
-            <Setter Property="HorizontalAlignment" Value="Left" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-        </Style>
-
-        <Style x:Key="AllowanceTextBox_Style" TargetType="{x:Type TextBox}">
-            <Setter Property="Margin" Value="5" />
-            <Setter Property="TextAlignment" Value="Right" />
-
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="LightYellow"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </UserControl.Resources>
     <UserControl.DataContext>
         <ViewModels:ViewModel_SideBusiness/>
     </UserControl.DataContext>
@@ -44,9 +27,10 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Label Content="副業" Style="{StaticResource AllowanceLabel_Style}" />
+        <Label Content="副業" 
+               Style="{StaticResource PayrollItemLabel_Style}" />
         <TextBox Grid.Column="1" 
-                 Style="{StaticResource AllowanceTextBox_Style}" 
+                 Style="{StaticResource PayrollItemNumeric_Style}" 
                  Text="{Binding SideBusiness, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
 
             <behaviors:Interaction.Triggers>
@@ -62,10 +46,10 @@
 
         <Label Content="臨時収入" 
                Grid.Row="1" 
-               Style="{StaticResource AllowanceLabel_Style}" />
+               Style="{StaticResource PayrollItemLabel_Style}" />
         <TextBox Grid.Column="1" 
                  Grid.Row="1" 
-                 Style="{StaticResource AllowanceTextBox_Style}" 
+                 Style="{StaticResource PayrollItemNumeric_Style}" 
                  Text="{Binding Perquisite, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
 
             <behaviors:Interaction.Triggers>
@@ -81,9 +65,9 @@
 
         <Label Content="その他" 
                Grid.Column="2" 
-               Style="{StaticResource AllowanceLabel_Style}" />
+               Style="{StaticResource PayrollItemLabel_Style}" />
         <TextBox Grid.Column="3" 
-                 Style="{StaticResource AllowanceTextBox_Style}" 
+                 Style="{StaticResource PayrollItemNumeric_Style}" 
                  Text="{Binding Others, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
 
             <behaviors:Interaction.Triggers>
@@ -98,9 +82,11 @@
         </TextBox>
 
         <Label Content="備考"
-               Grid.Row="2"/>
+               Grid.Row="2" 
+               Style="{StaticResource PayrollItemLabel_Style}"/>
         <TextBox Grid.ColumnSpan="4"
                  Grid.Row="3" 
+                 Style="{StaticResource PayrollItemCharacter_Style}"
                  Text="{Binding Remarks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </UserControl>

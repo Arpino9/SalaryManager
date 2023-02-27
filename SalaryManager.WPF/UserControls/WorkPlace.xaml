@@ -23,10 +23,11 @@
     </UserControl.DataContext>
     <Grid>
         <StackPanel Orientation="Horizontal">
-            <Label Content="勤務先" />
-            <TextBox Style="{StaticResource TextBox_Style}" 
+            <Label Content="勤務先" 
+                   Style="{StaticResource PayrollItemLabel_Style}" />
+            <TextBox Style="{StaticResource PayrollItemCharacter_Style}" 
                      Text="{Binding WorkPlace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                     Width="300" />
+                     Width="240" />
         </StackPanel>
     </Grid>
 </UserControl>
