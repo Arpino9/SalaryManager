@@ -9,7 +9,7 @@ namespace SalaryManager.Infrastructure.Interface
     /// <remarks>
     /// DBから給与明細の各項目のデータを取得・追加更新を可能にする。
     /// </remarks>
-    public interface IInputPayroll
+    public interface IInputPayslip
     {
         /// <summary> 初期化 </summary>
         /// <param name="entityDate">初期化する日付</param>

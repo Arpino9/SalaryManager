@@ -174,5 +174,23 @@ namespace SalaryManager.WPF.Models
             // 副業
             this.SideBusiness.Initialize(defaultEntity.YearMonth);
         }
+
+        /// <summary>
+        /// 今月の明細を表示
+        /// </summary>
+        internal void ShowCurrentPayslip()
+        {
+            // ヘッダ
+            this.Header.ViewModel.Year  = DateTime.Today.Year;
+            this.Header.ViewModel.Month = DateTime.Today.Month;
+            // 支給額
+            this.Allowance.Initialize(DateTime.Today);
+            // 控除額
+            this.Deduction.Initialize(DateTime.Today);
+            // 勤務備考
+            this.WorkingReference.Initialize(DateTime.Today);
+            // 副業
+            this.SideBusiness.Initialize(DateTime.Today);
+        }
     }
 }

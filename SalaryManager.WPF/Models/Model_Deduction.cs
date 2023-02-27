@@ -11,7 +11,7 @@ namespace SalaryManager.WPF.Models
     /// <summary>
     /// Model - 控除額
     /// </summary>
-    public class Model_Deduction : IInputPayroll
+    public class Model_Deduction : IInputPayslip
     {
 
         #region Get Instance

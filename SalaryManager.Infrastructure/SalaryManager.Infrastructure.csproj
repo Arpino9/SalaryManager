@@ -83,7 +83,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interface\IInputPayroll.cs" />
+    <Compile Include="Interface\IInputPayslip.cs" />
     <Compile Include="SQLite\AnnualChartSQLite.cs" />
     <Compile Include="SQLite\DeductionSQLite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

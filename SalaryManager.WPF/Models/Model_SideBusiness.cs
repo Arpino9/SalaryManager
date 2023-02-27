@@ -10,7 +10,7 @@ namespace SalaryManager.WPF.Models
     /// <summary>
     /// Model - 副業
     /// </summary>
-    public class Model_SideBusiness : IInputPayroll
+    public class Model_SideBusiness : IInputPayslip
     {
 
         #region Get Instance

@@ -10,7 +10,7 @@ namespace SalaryManager.WPF.Models
     /// <summary>
     /// Model - 勤務備考
     /// </summary>
-    public class Model_WorkingReference : IInputPayroll
+    public class Model_WorkingReference : IInputPayslip
     {
         #region Get Instance
 

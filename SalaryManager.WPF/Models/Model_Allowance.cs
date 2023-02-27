@@ -11,7 +11,7 @@ namespace SalaryManager.WPF.Models
     /// <summary>
     /// Model - 支給額
     /// </summary>
-    public class Model_Allowance : IInputPayroll
+    public class Model_Allowance : IInputPayslip
     {
 
         #region Get Instance

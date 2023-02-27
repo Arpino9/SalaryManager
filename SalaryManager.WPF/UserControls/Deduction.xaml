@@ -29,9 +29,9 @@
         </Grid.RowDefinitions>
 
         <Label Content="健康保険" 
-               Style="{StaticResource PayrollItemLabel_Style}" />
+               Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="1" 
-                 Style="{StaticResource PayrollItemNumeric_Style}" 
+                 Style="{StaticResource PayslipItemNumeric_Style}" 
                  Text="{Binding HealthInsurance, Mode=TwoWay, StringFormat=\{0:N0\}, UpdateSourceTrigger=PropertyChanged}">
 
             <behaviors:Interaction.Triggers>
@@ -47,10 +47,10 @@
 
         <Label Content="介護保険" 
                Grid.Row="1" 
-               Style="{StaticResource PayrollItemLabel_Style}" />
+               Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="1" 
                  Grid.Row="1" 
-                 Style="{StaticResource PayrollItemNumeric_Style}" 
+                 Style="{StaticResource PayslipItemNumeric_Style}" 
                  Text="{Binding NursingInsurance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
             <behaviors:Interaction.Triggers>
@@ -66,9 +66,9 @@
 
         <Label Content="厚生年金" 
                Grid.Row="2" 
-               Style="{StaticResource PayrollItemLabel_Style}" />
+               Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="1" Grid.Row="2" 
-                 Style="{StaticResource PayrollItemNumeric_Style}" 
+                 Style="{StaticResource PayslipItemNumeric_Style}" 
                  Text="{Binding WelfareAnnuity, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
             <behaviors:Interaction.Triggers>
@@ -84,10 +84,10 @@
 
         <Label Content="雇用保険" 
                Grid.Row="3" 
-               Style="{StaticResource PayrollItemLabel_Style}" />
+               Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="1" 
                  Grid.Row="3" 
-                 Style="{StaticResource PayrollItemNumeric_Style}" 
+                 Style="{StaticResource PayslipItemNumeric_Style}" 
                  Text="{Binding EmploymentInsurance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
             <behaviors:Interaction.Triggers>
@@ -103,9 +103,9 @@
 
         <Label Content="所得税" 
                Grid.Column="2" 
-               Style="{StaticResource PayrollItemLabel_Style}" />
+               Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="3" 
-                 Style="{StaticResource PayrollItemNumeric_Style}" 
+                 Style="{StaticResource PayslipItemNumeric_Style}" 
                  Text="{Binding IncomeTax, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
             <behaviors:Interaction.Triggers>
@@ -122,10 +122,10 @@
         <Label Content="市町村税" 
                Grid.Column="2" 
                Grid.Row="1" 
-               Style="{StaticResource PayrollItemLabel_Style}" />
+               Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="3" 
                  Grid.Row="1" 
-                 Style="{StaticResource PayrollItemNumeric_Style}" 
+                 Style="{StaticResource PayslipItemNumeric_Style}" 
                  Text="{Binding MunicipalTax, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
             <behaviors:Interaction.Triggers>
@@ -142,10 +142,10 @@
         <Label Content="互助会" 
                Grid.Column="2" 
                Grid.Row="2" 
-               Style="{StaticResource PayrollItemLabel_Style}" />
+               Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="3" 
                  Grid.Row="2" 
-                 Style="{StaticResource PayrollItemNumeric_Style}" 
+                 Style="{StaticResource PayslipItemNumeric_Style}" 
                  Text="{Binding FriendshipAssociation, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
             <behaviors:Interaction.Triggers>
@@ -162,10 +162,10 @@
         <Label Content="年末調整他" 
                Grid.Column="2" 
                Grid.Row="3" 
-               Style="{StaticResource PayrollItemLabel_Style}" />
+               Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="3" 
                  Grid.Row="3" 
-                 Style="{StaticResource PayrollItemNumeric_Style}" 
+                 Style="{StaticResource PayslipItemNumeric_Style}" 
                  Text="{Binding YearEndTaxAdjustment, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
             <behaviors:Interaction.Triggers>
@@ -184,11 +184,11 @@
                Grid.Row="6" 
                HorizontalAlignment="Center"
                Margin="0,10,0,0"
-               Style="{StaticResource PayrollItemLabel_Style}" />
+               Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="2" 
                  Grid.Row="6"  
                  Margin="0,10,0,0"
-                 Style="{StaticResource PayrollItemNumeric_Style}" 
+                 Style="{StaticResource PayslipItemNumeric_Style}" 
                  Text="{Binding TotalDeduct, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ForceCursor="True" 
                  Foreground="{Binding TotalDeduct_Foreground}">
 

@@ -24,8 +24,8 @@
     <Grid>
         <StackPanel Orientation="Horizontal">
             <Label Content="勤務先" 
-                   Style="{StaticResource PayrollItemLabel_Style}" />
-            <TextBox Style="{StaticResource PayrollItemCharacter_Style}" 
+                   Style="{StaticResource PayslipItemLabel_Style}" />
+            <TextBox Style="{StaticResource PayslipItemCharacter_Style}" 
                      Text="{Binding WorkPlace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                      Width="240" />
         </StackPanel>

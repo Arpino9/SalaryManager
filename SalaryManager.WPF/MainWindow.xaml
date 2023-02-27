@@ -27,9 +27,15 @@
         <Menu>
             <MenuItem Header="編集">
                 <MenuItem Header="CSV読込" Command="{Binding ReadCSVClick}" />
-                <MenuItem Header="デフォルト明細に設定" Command="{Binding SetDefaultClick}" />
-                <MenuItem Header="デフォルト明細から取得" Command="{Binding GetDefaultClick}" />
+                <MenuItem Header="デフォルト明細">
+                    <MenuItem Header="設定" Command="{Binding SetDefaultClick}" />
+                    <MenuItem Header="取得" Command="{Binding GetDefaultClick}" />
+                </MenuItem>
             </MenuItem>
+            <MenuItem Header="表示">
+                <MenuItem Header="今月の明細" Command="{Binding ShowCurrentPayslip}" />
+            </MenuItem>
+
             <MenuItem Header="保存" Command="{Binding SaveClick}" />
             <MenuItem Header="閉じる">
                 <behaviors:Interaction.Triggers>
@@ -46,7 +52,7 @@
 
         <TabControl Grid.Row="2">
             <TabItem Header="支給額">
-                <local:Allowance Height="300" VerticalAlignment="Top" />
+                <local:Allowance Height="340" VerticalAlignment="Top" />
             </TabItem>
             <TabItem Header="控除額">
                 <local:Deduction Height="200" VerticalAlignment="Top" />

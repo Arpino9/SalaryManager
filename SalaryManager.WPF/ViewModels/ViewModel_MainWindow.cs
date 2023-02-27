@@ -120,6 +120,23 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
+        private RelayCommand _showCurrentPayslip;
+
+        /// <summary>
+        /// 今月の明細を表示
+        /// </summary>
+        public RelayCommand ShowCurrentPayslip
+        {
+            get
+            {
+                if (this._showCurrentPayslip == null)
+                {
+                    this._showCurrentPayslip = new RelayCommand(this.Model.ShowCurrentPayslip);
+                }
+                return this._showCurrentPayslip;
+            }
+        }
+
         #region 保存
 
         private RelayCommand _save;

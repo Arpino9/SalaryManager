@@ -28,9 +28,9 @@
         </Grid.RowDefinitions>
 
         <Label Content="副業" 
-               Style="{StaticResource PayrollItemLabel_Style}" />
+               Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="1" 
-                 Style="{StaticResource PayrollItemNumeric_Style}" 
+                 Style="{StaticResource PayslipItemNumeric_Style}" 
                  Text="{Binding SideBusiness, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
 
             <behaviors:Interaction.Triggers>
@@ -46,10 +46,10 @@
 
         <Label Content="臨時収入" 
                Grid.Row="1" 
-               Style="{StaticResource PayrollItemLabel_Style}" />
+               Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="1" 
                  Grid.Row="1" 
-                 Style="{StaticResource PayrollItemNumeric_Style}" 
+                 Style="{StaticResource PayslipItemNumeric_Style}" 
                  Text="{Binding Perquisite, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
 
             <behaviors:Interaction.Triggers>
@@ -65,9 +65,9 @@
 
         <Label Content="その他" 
                Grid.Column="2" 
-               Style="{StaticResource PayrollItemLabel_Style}" />
+               Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="3" 
-                 Style="{StaticResource PayrollItemNumeric_Style}" 
+                 Style="{StaticResource PayslipItemNumeric_Style}" 
                  Text="{Binding Others, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
 
             <behaviors:Interaction.Triggers>
@@ -83,10 +83,10 @@
 
         <Label Content="備考"
                Grid.Row="2" 
-               Style="{StaticResource PayrollItemLabel_Style}"/>
+               Style="{StaticResource PayslipItemLabel_Style}"/>
         <TextBox Grid.ColumnSpan="4"
                  Grid.Row="3" 
-                 Style="{StaticResource PayrollItemCharacter_Style}"
+                 Style="{StaticResource PayslipItemCharacter_Style}"
                  Text="{Binding Remarks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </UserControl>

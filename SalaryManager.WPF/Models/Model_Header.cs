@@ -11,7 +11,7 @@ namespace SalaryManager.WPF.Models
     /// <summary>
     /// Model - ヘッダー
     /// </summary>
-    public sealed class Model_Header : IInputPayroll
+    public sealed class Model_Header : IInputPayslip
     {
         #region Get Instance
 
