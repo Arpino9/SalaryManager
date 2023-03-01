@@ -197,7 +197,7 @@ namespace SalaryManager.WPF.Models
         internal void SetDefault()
         {
             var confirmingMessage = $"{this.ViewModel.Year}年{this.ViewModel.Month}月の給与明細をデフォルト明細として設定しますか？";
-            if (!DialogMessageUtils.ShowConfirmingMessage(confirmingMessage, this.ViewModel.Title))
+            if (!DialogMessage.ShowConfirmingMessage(confirmingMessage, this.ViewModel.Title))
             {
                 // キャンセル
                 return;

@@ -5,7 +5,7 @@ namespace SalaryManager.Domain.Logics
     /// <summary>
     /// Utility - ダイアログメッセージ
     /// </summary>
-    public sealed class DialogMessageUtils
+    public sealed class DialogMessage
     {
         /// <summary>
         /// 通常のメッセージを表示する (OKのみ)

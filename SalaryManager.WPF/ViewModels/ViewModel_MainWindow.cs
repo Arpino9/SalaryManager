@@ -159,6 +159,27 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         #endregion
+        
+        #region 保存
+
+        private RelayCommand _outputExcel;
+
+        /// <summary>
+        /// 保存ボタン
+        /// </summary>
+        public RelayCommand OutputExcel
+        {
+            get
+            {
+                if (this._outputExcel == null)
+                {
+                    this._outputExcel = new RelayCommand(this.Model.OutputExcel);
+                }
+                return this._outputExcel;
+            }
+        }
+
+        #endregion
 
         #region 金額の比較用
 

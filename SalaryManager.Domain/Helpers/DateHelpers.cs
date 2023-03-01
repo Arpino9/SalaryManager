@@ -2,6 +2,7 @@
 
 namespace SalaryManager.Domain.Helpers
 {
+    //TODO: これは値オブジェクトでいい
     /// <summary>
     /// Helpers - 日付関連
     /// </summary>

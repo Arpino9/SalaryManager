@@ -5,6 +5,7 @@ using SalaryManager.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Forms;
 using System.Windows.Media;
 
 namespace SalaryManager.WPF.Models
@@ -55,7 +56,7 @@ namespace SalaryManager.WPF.Models
         internal void ReadCSV()
         {
             var confirmingMessage = $"{this.Header.ViewModel.Year}年{this.Header.ViewModel.Month}月のCSVを読み込みますか？";
-            if (!DialogMessageUtils.ShowConfirmingMessage(confirmingMessage, this.MainWindow.Title))
+            if (!DialogMessage.ShowConfirmingMessage(confirmingMessage, this.MainWindow.Title))
             {
                 // キャンセル
                 return;
@@ -86,7 +87,7 @@ namespace SalaryManager.WPF.Models
             catch(FileNotFoundException _)
             {
                 var message = $"「{Shared.DirectoryCSV}」に{this.Header.ViewModel.Year}年{this.Header.ViewModel.Month}月分のCSVが\n保存されていません。読み込みを中断します。";
-                DialogMessageUtils.ShowResultMessage(message, this.MainWindow.Title);
+                DialogMessage.ShowResultMessage(message, this.MainWindow.Title);
             }
         }
 
@@ -128,7 +129,7 @@ namespace SalaryManager.WPF.Models
         internal void Save()
         {
             var message = $"{this.Header.ViewModel.Year}年{this.Header.ViewModel.Month}月の給与明細を保存しますか？";
-            if (!DialogMessageUtils.ShowConfirmingMessage(message, this.MainWindow.Title))
+            if (!DialogMessage.ShowConfirmingMessage(message, this.MainWindow.Title))
             {
                 // キャンセル
                 return;
@@ -161,7 +162,7 @@ namespace SalaryManager.WPF.Models
 
             if (defaultEntity == null)
             {
-                DialogMessageUtils.ShowResultMessage("デフォルト明細が登録されていません。", this.MainWindow.Title);
+                DialogMessage.ShowResultMessage("デフォルト明細が登録されていません。", this.MainWindow.Title);
                 return;
             }
 
@@ -191,6 +192,46 @@ namespace SalaryManager.WPF.Models
             this.WorkingReference.Initialize(DateTime.Today);
             // 副業
             this.SideBusiness.Initialize(DateTime.Today);
+        }
+
+        internal void OutputExcel()
+        {
+            // 元のカーソルを保持
+            Cursor preCursor = Cursor.Current;
+
+            // カーソルを待機カーソルに変更
+            Cursor.Current = Cursors.WaitCursor;
+
+            var workbook = new Excel();
+            workbook.Copy();
+            //this.lblStatus.Text = "出力中です。。。";
+
+            //Excelオブジェクトの初期化
+            /*Excel.Application ExcelApp = null;
+            Excel.Workbooks wbs = null;
+
+            //Excelシートのインスタンスを作る
+            ExcelApp = new Excel.Application();
+
+            wbs = ExcelApp.Workbooks;
+
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+                {
+                    var result = this.DatabaseTransaction.GetAllPaySlip(connection);
+                }
+            }
+            finally
+            {
+                // カーソルを元に戻す
+                Cursor.Current = preCursor;
+                this.lblStatus.Text = "出力完了！";
+
+                // 閉じる
+                //wb.Close();
+                ExcelApp.Quit();
+            }*/
         }
     }
 }
