@@ -218,7 +218,7 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// Excel出力
         /// </summary>
-        internal void OutputExcel()
+        internal async void OutputExcel()
         {
             /*// 元のカーソルを保持
             Cursor preCursor = Cursor.Current;
@@ -232,27 +232,31 @@ namespace SalaryManager.WPF.Models
             // ヘッダ
             var sqlite_Header = new HeaderSQLite();
             var header = sqlite_Header.GetEntities().OrderBy(x => x.YearMonth).ToList();
-            workbook.WriteAllHeader(header, 5);
 
             // 支給額
             var sqlite_allowance = new AllowanceSQLite();
             var allowance = sqlite_allowance.GetEntities().OrderBy(x => x.YearMonth).ToList();
-            workbook.WriteAllAllowance(allowance, 5);
 
             // 控除額
             var sqlite_deduction = new DeductionSQLite();
             var deduction = sqlite_deduction.GetEntities().OrderBy(x => x.YearMonth).ToList();
-            workbook.WriteAllDeduction(deduction, 5);
 
             // 勤務備考
             var sqlite_workingReferences = new WorkingReferenceSQLite();
             var workingReference = sqlite_workingReferences.GetEntities().OrderBy(x => x.YearMonth).ToList();
-            workbook.WriteAllWorkingReferences(workingReference, 5);
 
             // 副業
             var sqlite_SideBusiness = new SideBusinessSQLite();
             var sideBusiness = sqlite_SideBusiness.GetEntities().OrderBy(x => x.YearMonth).ToList();
-            workbook.WriteAllSideBusiness(sideBusiness, 5);
+
+            // Write
+            await System.Threading.Tasks.Task.WhenAll(
+                workbook.WriteAllHeader(header, 5),
+                workbook.WriteAllAllowance(allowance, 5),
+                workbook.WriteAllDeduction(deduction, 5),
+                workbook.WriteAllWorkingReferences(workingReference, 5),
+                workbook.WriteAllSideBusiness(sideBusiness, 5)
+            );
 
             var selector = new DirectorySelector();
             var directory = selector.Select("Excel出力先のフォルダを選択してください。");

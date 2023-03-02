@@ -3,6 +3,7 @@ using SalaryManager.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SalaryManager.Domain.Logics
 {
@@ -48,7 +49,8 @@ namespace SalaryManager.Domain.Logics
         /// </summary>
         /// <param name="entities">エンティティ</param>
         /// <param name="row">行</param>
-        public void WriteAllHeader(IReadOnlyList<HeaderEntity> entities, int row)
+        /// <returns>void</returns>
+        public async System.Threading.Tasks.Task WriteAllHeader(IReadOnlyList<HeaderEntity> entities, int row)
         {
             if (!entities.Any())
             {
@@ -62,6 +64,8 @@ namespace SalaryManager.Domain.Logics
 
                 row++;
             }
+
+            await System.Threading.Tasks.Task.CompletedTask;
         }
 
         /// <summary>
@@ -69,7 +73,8 @@ namespace SalaryManager.Domain.Logics
         /// </summary>
         /// <param name="entities">エンティティ</param>
         /// <param name="row">行</param>
-        public void WriteAllAllowance(IReadOnlyList<AllowanceEntity> entities, int row)
+        /// <returns>void</returns>
+        public async System.Threading.Tasks.Task WriteAllAllowance(IReadOnlyList<AllowanceEntity> entities, int row)
         {
             if (!entities.Any())
             {
@@ -111,6 +116,8 @@ namespace SalaryManager.Domain.Logics
 
                 row++;
             }
+
+            await System.Threading.Tasks.Task.CompletedTask;
         }
 
         /// <summary>
@@ -118,7 +125,8 @@ namespace SalaryManager.Domain.Logics
         /// </summary>
         /// <param name="entities">エンティティ</param>
         /// <param name="row">行</param>
-        public void WriteAllDeduction(IReadOnlyList<DeductionEntity> entities, int row)
+        /// <returns>void</returns>
+        public async System.Threading.Tasks.Task WriteAllDeduction(IReadOnlyList<DeductionEntity> entities, int row)
         {
             if (!entities.Any())
             {
@@ -150,6 +158,8 @@ namespace SalaryManager.Domain.Logics
 
                 row++;
             }
+
+            await System.Threading.Tasks.Task.CompletedTask;
         }
 
         /// <summary>
@@ -157,7 +167,8 @@ namespace SalaryManager.Domain.Logics
         /// </summary>
         /// <param name="entities">エンティティ</param>
         /// <param name="row">行</param>
-        public void WriteAllWorkingReferences(IReadOnlyList<WorkingReferencesEntity> entities, int row)
+        /// <returns>void</returns>
+        public async System.Threading.Tasks.Task WriteAllWorkingReferences(IReadOnlyList<WorkingReferencesEntity> entities, int row)
         {
             if (!entities.Any())
             {
@@ -191,6 +202,8 @@ namespace SalaryManager.Domain.Logics
 
                 row++;
             }
+
+            await System.Threading.Tasks.Task.CompletedTask;
         }
 
         /// <summary>
@@ -198,7 +211,7 @@ namespace SalaryManager.Domain.Logics
         /// </summary>
         /// <param name="entities">エンティティ</param>
         /// <param name="row">行</param>
-        public void WriteAllSideBusiness(IReadOnlyList<SideBusinessEntity> entities, int row)
+        public async System.Threading.Tasks.Task WriteAllSideBusiness(IReadOnlyList<SideBusinessEntity> entities, int row)
         {
             if (!entities.Any())
             {
@@ -218,6 +231,8 @@ namespace SalaryManager.Domain.Logics
 
                 row++;
             }
+
+            await System.Threading.Tasks.Task.CompletedTask;
         }
     }
 }
