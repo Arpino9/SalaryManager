@@ -1,10 +1,12 @@
 ﻿using SalaryManager.Domain;
+using SalaryManager.Domain.Helpers;
 using SalaryManager.Domain.Logics;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Media;
 
@@ -50,6 +52,9 @@ namespace SalaryManager.WPF.Models
         /// <summary> Model - 副業 </summary>
         internal Model_SideBusiness SideBusiness { get; set; }
 
+        #region CSV読込
+
+
         /// <summary>
         /// CSV読み込み
         /// </summary>
@@ -91,6 +96,8 @@ namespace SalaryManager.WPF.Models
             }
         }
 
+        #endregion
+
         /// <summary>
         /// 金額比較
         /// </summary>
@@ -119,6 +126,8 @@ namespace SalaryManager.WPF.Models
                 this.MainWindow.PriceUpdown_Content    = difference.ToString();
             }
         }
+
+        #region 保存
 
         /// <summary>
         /// 保存
@@ -152,6 +161,10 @@ namespace SalaryManager.WPF.Models
             }
         }
 
+        #endregion
+
+        #region デフォルトから取得
+
         /// <summary>
         /// デフォルト明細を取得する
         /// </summary>
@@ -176,6 +189,10 @@ namespace SalaryManager.WPF.Models
             this.SideBusiness.Initialize(defaultEntity.YearMonth);
         }
 
+        #endregion
+
+        #region 今月の明細を表示
+
         /// <summary>
         /// 今月の明細を表示
         /// </summary>
@@ -194,44 +211,56 @@ namespace SalaryManager.WPF.Models
             this.SideBusiness.Initialize(DateTime.Today);
         }
 
+        #endregion
+
+        #region Excel出力
+
+        /// <summary>
+        /// Excel出力
+        /// </summary>
         internal void OutputExcel()
         {
-            // 元のカーソルを保持
+            /*// 元のカーソルを保持
             Cursor preCursor = Cursor.Current;
 
             // カーソルを待機カーソルに変更
-            Cursor.Current = Cursors.WaitCursor;
+            Cursor.Current = Cursors.WaitCursor;*/
+
 
             var workbook = new Excel();
-            workbook.Copy();
-            //this.lblStatus.Text = "出力中です。。。";
 
-            //Excelオブジェクトの初期化
-            /*Excel.Application ExcelApp = null;
-            Excel.Workbooks wbs = null;
+            // ヘッダ
+            var sqlite_Header = new HeaderSQLite();
+            var header = sqlite_Header.GetEntities().OrderBy(x => x.YearMonth).ToList();
+            workbook.WriteAllHeader(header, 5);
 
-            //Excelシートのインスタンスを作る
-            ExcelApp = new Excel.Application();
+            // 支給額
+            var sqlite_allowance = new AllowanceSQLite();
+            var allowance = sqlite_allowance.GetEntities().OrderBy(x => x.YearMonth).ToList();
+            workbook.WriteAllAllowance(allowance, 5);
 
-            wbs = ExcelApp.Workbooks;
+            // 控除額
+            var sqlite_deduction = new DeductionSQLite();
+            var deduction = sqlite_deduction.GetEntities().OrderBy(x => x.YearMonth).ToList();
+            workbook.WriteAllDeduction(deduction, 5);
 
-            try
-            {
-                using (MySqlConnection connection = new MySqlConnection(ConnectionString))
-                {
-                    var result = this.DatabaseTransaction.GetAllPaySlip(connection);
-                }
-            }
-            finally
-            {
-                // カーソルを元に戻す
-                Cursor.Current = preCursor;
-                this.lblStatus.Text = "出力完了！";
+            // 勤務備考
+            var sqlite_workingReferences = new WorkingReferenceSQLite();
+            var workingReference = sqlite_workingReferences.GetEntities().OrderBy(x => x.YearMonth).ToList();
+            workbook.WriteAllWorkingReferences(workingReference, 5);
 
-                // 閉じる
-                //wb.Close();
-                ExcelApp.Quit();
-            }*/
+            // 副業
+            var sqlite_SideBusiness = new SideBusinessSQLite();
+            var sideBusiness = sqlite_SideBusiness.GetEntities().OrderBy(x => x.YearMonth).ToList();
+            workbook.WriteAllSideBusiness(sideBusiness, 5);
+
+            var selector = new DirectorySelector();
+            var directory = selector.Select("Excel出力先のフォルダを選択してください。");
+
+            workbook.CopyAsWorkbook(directory);
         }
+
+        #endregion
+
     }
 }

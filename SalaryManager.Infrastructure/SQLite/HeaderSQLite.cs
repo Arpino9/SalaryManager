@@ -39,6 +39,10 @@ FROM YearMonth";
                 });
         }
 
+        /// <summary>
+        /// Get - デフォルト明細
+        /// </summary>
+        /// <returns>デフォルト明細</returns>
         public HeaderEntity GetDefaultEntity()
         {
             string sql = @"

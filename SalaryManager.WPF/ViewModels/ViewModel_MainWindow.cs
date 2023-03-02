@@ -120,6 +120,8 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
+        #region 今月の明細を表示
+
         private RelayCommand _showCurrentPayslip;
 
         /// <summary>
@@ -136,6 +138,8 @@ namespace SalaryManager.WPF.ViewModels
                 return this._showCurrentPayslip;
             }
         }
+
+        #endregion
 
         #region 保存
 
@@ -159,13 +163,13 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         #endregion
-        
-        #region 保存
+
+        #region Excel出力
 
         private RelayCommand _outputExcel;
 
         /// <summary>
-        /// 保存ボタン
+        /// Excel出力ボタン
         /// </summary>
         public RelayCommand OutputExcel
         {
