@@ -15,6 +15,6 @@ namespace SalaryManager.Domain.Repositories
         /// <returns>Entity - 副業</returns>
         IReadOnlyList<HeaderEntity> GetEntities();
 
-        HeaderEntity GetDefaultEntity();
+        HeaderEntity FetchDefault();
     }
 }

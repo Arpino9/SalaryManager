@@ -43,7 +43,7 @@ FROM YearMonth";
         /// Get - デフォルト明細
         /// </summary>
         /// <returns>デフォルト明細</returns>
-        public HeaderEntity GetDefaultEntity()
+        public HeaderEntity FetchDefault()
         {
             string sql = @"
 SELECT Id, 

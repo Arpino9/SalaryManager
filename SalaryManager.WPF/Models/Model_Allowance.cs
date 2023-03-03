@@ -1,10 +1,10 @@
-﻿using SalaryManager.Domain.Entities;
+﻿using System;
+using System.Windows.Media;
+using SalaryManager.Domain.Entities;
+using SalaryManager.Domain.StaticValues;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.ViewModels;
-using System;
-using System.Linq;
-using System.Windows.Media;
 
 namespace SalaryManager.WPF.Models
 {
@@ -45,28 +45,15 @@ namespace SalaryManager.WPF.Models
         /// <param name="entityDate">初期化する日付</param>
         public void Initialize(DateTime entityDate)
         {
-            var sqlite = new AllowanceSQLite();
-            var records = sqlite.GetEntities();
+            Allowances.Create(new AllowanceSQLite());
 
-            this.ViewModel.Entity = records.Where(record => record.YearMonth.Year  == entityDate.Year
-                                                         && record.YearMonth.Month == entityDate.Month)
-                                           .FirstOrDefault();
-
-            this.ViewModel.Entity_LastYear = records.Where(record => record.YearMonth.Year  == entityDate.Year - 1
-                                                                  && record.YearMonth.Month == entityDate.Month)
-                                                    .FirstOrDefault();
+            this.ViewModel.Entity          = Allowances.Fetch(entityDate.Year, entityDate.Month);
+            this.ViewModel.Entity_LastYear = Allowances.Fetch(entityDate.Year, entityDate.Month - 1);
 
             if (this.ViewModel.Entity is null)
             {
-                // レコードなし
-                var header = new HeaderSQLite();
-                var defaultEntity = header.GetDefaultEntity();
-
-                if (defaultEntity != null)
-                {
-                    this.ViewModel.Entity = records.Where(record => record.ID == defaultEntity.ID)
-                                                   .FirstOrDefault();
-                }
+                // デフォルト明細
+                this.ViewModel.Entity = Allowances.FetchDefault();
             }
 
             this.Refresh();
@@ -115,6 +102,7 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.TotalSalary            = entity.TotalSalary.Value;
             // 差引支給額
             this.ViewModel.TotalDeductedSalary    = entity.TotalDeductedSalary;
+
             this.ChangeColor();
         }
 
@@ -123,10 +111,10 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Reload()
         {
-            var allowanceTable = new AllowanceSQLite();
+            Allowances.Create(new AllowanceSQLite());
 
-            this.ViewModel.Entity          = allowanceTable.GetEntiity(this.Header.Year,     this.Header.Month);
-            this.ViewModel.Entity_LastYear = allowanceTable.GetEntiity(this.Header.Year - 1, this.Header.Month);
+            this.ViewModel.Entity          = Allowances.Fetch(this.Header.Year,     this.Header.Month);
+            this.ViewModel.Entity_LastYear = Allowances.Fetch(this.Header.Year - 1, this.Header.Month);
 
             this.Refresh();
         }

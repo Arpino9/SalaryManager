@@ -205,7 +205,7 @@ namespace SalaryManager.WPF.Models
 
             // 前回のデフォルト設定を解除する
             var header = new HeaderSQLite();
-            var defaultEntity = header.GetDefaultEntity();
+            var defaultEntity = header.FetchDefault();
 
             if (defaultEntity != null)
             {

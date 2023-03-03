@@ -20,6 +20,12 @@ namespace SalaryManager.Domain.Repositories
         /// <param name="year">年</param>
         /// <param name="month">月</param>
         /// <returns>支給額</returns>
-        AllowanceEntity GetEntiity(int year, int month);
+        AllowanceEntity GetEntity(int year, int month);
+
+        /// <summary>
+        /// Get - デフォルト明細
+        /// </summary>
+        /// <returns></returns>
+        AllowanceEntity GetDefault();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using SalaryManager.Domain;
 using SalaryManager.Domain.Helpers;
 using SalaryManager.Domain.Logics;
+using SalaryManager.Domain.StaticValues;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.ViewModels;
 using System;
@@ -171,7 +172,7 @@ namespace SalaryManager.WPF.Models
         internal void GetDefault()
         {
             var header = new HeaderSQLite();
-            var defaultEntity = header.GetDefaultEntity();
+            var defaultEntity = header.FetchDefault();
 
             if (defaultEntity == null)
             {
@@ -226,36 +227,22 @@ namespace SalaryManager.WPF.Models
             // カーソルを待機カーソルに変更
             Cursor.Current = Cursors.WaitCursor;*/
 
-
             var workbook = new Excel();
 
-            // ヘッダ
-            var sqlite_Header = new HeaderSQLite();
-            var header = sqlite_Header.GetEntities().OrderBy(x => x.YearMonth).ToList();
-
-            // 支給額
-            var sqlite_allowance = new AllowanceSQLite();
-            var allowance = sqlite_allowance.GetEntities().OrderBy(x => x.YearMonth).ToList();
-
-            // 控除額
-            var sqlite_deduction = new DeductionSQLite();
-            var deduction = sqlite_deduction.GetEntities().OrderBy(x => x.YearMonth).ToList();
-
-            // 勤務備考
-            var sqlite_workingReferences = new WorkingReferenceSQLite();
-            var workingReference = sqlite_workingReferences.GetEntities().OrderBy(x => x.YearMonth).ToList();
-
-            // 副業
-            var sqlite_SideBusiness = new SideBusinessSQLite();
-            var sideBusiness = sqlite_SideBusiness.GetEntities().OrderBy(x => x.YearMonth).ToList();
+            // Create Records
+            Headers.Create(new HeaderSQLite());
+            Allowances.Create(new AllowanceSQLite());
+            Deductions.Create(new DeductionSQLite());
+            WorkingReferences.Create(new WorkingReferenceSQLite());
+            SideBusinesses.Create(new SideBusinessSQLite());
 
             // Write
             await System.Threading.Tasks.Task.WhenAll(
-                workbook.WriteAllHeader(header, 5),
-                workbook.WriteAllAllowance(allowance, 5),
-                workbook.WriteAllDeduction(deduction, 5),
-                workbook.WriteAllWorkingReferences(workingReference, 5),
-                workbook.WriteAllSideBusiness(sideBusiness, 5)
+                workbook.WriteAllHeader(Headers.FetchByDescending()),
+                workbook.WriteAllAllowance(Allowances.FetchByDescending()),
+                workbook.WriteAllDeduction(Deductions.FetchByDescending()),
+                workbook.WriteAllWorkingReferences(WorkingReferences.FetchByDescending()),
+                workbook.WriteAllSideBusiness(SideBusinesses.FetchByDescending())
             );
 
             var selector = new DirectorySelector();

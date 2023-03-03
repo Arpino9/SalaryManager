@@ -25,5 +25,7 @@ namespace SalaryManager.Domain.Repositories
         /// <param name="month">月</param>
         /// <returns>勤務備考</returns>
         WorkingReferencesEntity GetEntity(int year, int month);
+
+        WorkingReferencesEntity GetDefault();
     }
 }

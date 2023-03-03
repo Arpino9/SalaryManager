@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Linq;
-using System.Windows.Media;
 using SalaryManager.Domain.Entities;
+using SalaryManager.Domain.StaticValues;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.ViewModels;
@@ -45,28 +44,15 @@ namespace SalaryManager.WPF.Models
         /// <param name="entityDate">取得する日付</param>
         public void Initialize(DateTime entityDate)
         {
-            var sqlite = new DeductionSQLite();
-            var records = sqlite.GetEntities();
+            Deductions.Create(new DeductionSQLite());
 
-            this.ViewModel.Entity = records.Where(record => record.YearMonth.Year  == entityDate.Year
-                                                         && record.YearMonth.Month == entityDate.Month)
-                                           .FirstOrDefault();
-
-            this.ViewModel.Entity_LastYear = records.Where(record => record.YearMonth.Year  == entityDate.Year - 1
-                                                                  && record.YearMonth.Month == entityDate.Month)
-                                                    .FirstOrDefault();
+            this.ViewModel.Entity          = Deductions.Fetch(entityDate.Year, entityDate.Month);
+            this.ViewModel.Entity_LastYear = Deductions.Fetch(entityDate.Year, entityDate.Month - 1);
 
             if (this.ViewModel.Entity is null)
             {
-                // レコードなし
-                var header        = new HeaderSQLite();
-                var defaultEntity = header.GetDefaultEntity();
-
-                if (defaultEntity != null)
-                {
-                    this.ViewModel.Entity = records.Where(record => record.ID == defaultEntity.ID)
-                                                   .FirstOrDefault();
-                }
+                // デフォルト明細
+                this.ViewModel.Entity = Deductions.FetchDefault();
             }
 
             this.Refresh();
@@ -112,9 +98,10 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Reload()
         {
-            var deductionTable = new DeductionSQLite();
-            this.ViewModel.Entity          = deductionTable.GetEntity(this.Header.Year,     this.Header.Month);
-            this.ViewModel.Entity_LastYear = deductionTable.GetEntity(this.Header.Year - 1, this.Header.Month);
+            Deductions.Create(new DeductionSQLite());
+
+            this.ViewModel.Entity          = Deductions.Fetch(this.Header.Year,     this.Header.Month);
+            this.ViewModel.Entity_LastYear = Deductions.Fetch(this.Header.Year - 1, this.Header.Month);
 
             this.Refresh();
         }

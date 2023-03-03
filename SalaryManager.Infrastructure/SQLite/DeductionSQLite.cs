@@ -98,6 +98,50 @@ Where YearMonth = @YearMonth";
         }
 
         /// <summary>
+        /// Get - 控除額(デフォルト)
+        /// </summary>
+        /// <returns>控除額</returns>
+        public DeductionEntity GetDefault()
+        {
+            string sql = @"
+SELECT D.Id, 
+D.YearMonth, 
+D.HealthInsurance, 
+D.NursingInsurance, 
+D.WelfareAnnuity, 
+D.EmploymentInsurance, 
+D.IncomeTax, 
+D.MunicipalTax,
+D.FriendshipAssociation,
+D.YearEndTaxAdjustment,
+D.Remarks,
+D.TotalDeduct
+FROM Deduction D
+INNER JOIN YearMonth YM ON D.YearMonth = YM.YearMonth
+WHERE YM.IsDefault = True";
+
+            return SQLiteHelper.QuerySingle<DeductionEntity>(
+                sql,
+                reader =>
+                {
+                    return new DeductionEntity(
+                                Convert.ToInt32(reader["Id"]),
+                                Convert.ToDateTime(reader["YearMonth"]),
+                                Convert.ToDouble(reader["HealthInsurance"]),
+                                Convert.ToDouble(reader["NursingInsurance"]),
+                                Convert.ToDouble(reader["WelfareAnnuity"]),
+                                Convert.ToDouble(reader["EmploymentInsurance"]),
+                                Convert.ToDouble(reader["IncomeTax"]),
+                                Convert.ToDouble(reader["MunicipalTax"]),
+                                Convert.ToDouble(reader["FriendshipAssociation"]),
+                                Convert.ToDouble(reader["YearEndTaxAdjustment"]),
+                                Convert.ToString(reader["Remarks"]),
+                                Convert.ToDouble(reader["TotalDeduct"]));
+                },
+                null);
+        }
+
+        /// <summary>
         /// 保存
         /// </summary>
         /// <param name="transaction">トランザクション</param>

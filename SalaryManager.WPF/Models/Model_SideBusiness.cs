@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Linq;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.WPF.ViewModels;
+using SalaryManager.Domain.StaticValues;
 
 namespace SalaryManager.WPF.Models
 {
@@ -41,28 +41,15 @@ namespace SalaryManager.WPF.Models
         /// <param name="entityDate">取得する日付</param>
         public void Initialize(DateTime entityDate)
         {
-            var sqlite  = new SideBusinessSQLite();
-            var records = sqlite.GetEntities();
+            SideBusinesses.Create(new SideBusinessSQLite());
 
-            this.ViewModel.Entity = records.Where(record => record.YearMonth.Year  == entityDate.Year
-                                                         && record.YearMonth.Month == entityDate.Month)
-                                           .FirstOrDefault();
-
-            this.ViewModel.Entity_LastYear = records.Where(record => record.YearMonth.Year  == entityDate.Year - 1
-                                                                  && record.YearMonth.Month == entityDate.Month)
-                                                    .FirstOrDefault();
+            this.ViewModel.Entity          = SideBusinesses.Fetch(entityDate.Year, entityDate.Month);
+            this.ViewModel.Entity_LastYear = SideBusinesses.Fetch(entityDate.Year, entityDate.Month - 1);
 
             if (this.ViewModel.Entity is null)
             {
-                // レコードなし
-                var header = new HeaderSQLite();
-                var defaultEntity = header.GetDefaultEntity();
-
-                if (defaultEntity != null)
-                {
-                    this.ViewModel.Entity = records.Where(record => record.ID == defaultEntity.ID)
-                                                   .FirstOrDefault();
-                }
+                // デフォルト明細
+                this.ViewModel.Entity = SideBusinesses.FetchDefault();
             }
 
             this.Refresh();

@@ -23,6 +23,9 @@ namespace SalaryManager.Domain.Logics
         /// <summary> Worksheet </summary>
         public IXLWorksheet Worksheet => this.Workbook.Worksheet("Sheet1");
 
+        /// <summary> デフォルト行 </summary>
+        public static readonly int DefaultRow = 5;
+
         /// <summary> 拡張子 </summary>
         public static readonly string FileExtension = "xlsx";
 
@@ -48,14 +51,15 @@ namespace SalaryManager.Domain.Logics
         /// Write - ヘッダ
         /// </summary>
         /// <param name="entities">エンティティ</param>
-        /// <param name="row">行</param>
         /// <returns>void</returns>
-        public async System.Threading.Tasks.Task WriteAllHeader(IReadOnlyList<HeaderEntity> entities, int row)
+        public async Task WriteAllHeader(IReadOnlyList<HeaderEntity> entities)
         {
             if (!entities.Any())
             {
                 return;
             }
+
+            var row = Excel.DefaultRow;
 
             foreach (var entity in entities)
             {
@@ -65,21 +69,22 @@ namespace SalaryManager.Domain.Logics
                 row++;
             }
 
-            await System.Threading.Tasks.Task.CompletedTask;
+            await Task.CompletedTask;
         }
 
         /// <summary>
         /// Write - 支給額
         /// </summary>
         /// <param name="entities">エンティティ</param>
-        /// <param name="row">行</param>
         /// <returns>void</returns>
-        public async System.Threading.Tasks.Task WriteAllAllowance(IReadOnlyList<AllowanceEntity> entities, int row)
+        public async Task WriteAllAllowance(IReadOnlyList<AllowanceEntity> entities)
         {
             if (!entities.Any())
             {
                 return;
             }
+
+            var row = Excel.DefaultRow;
 
             foreach (var entity in entities ) 
             {
@@ -117,21 +122,22 @@ namespace SalaryManager.Domain.Logics
                 row++;
             }
 
-            await System.Threading.Tasks.Task.CompletedTask;
+            await Task.CompletedTask;
         }
 
         /// <summary>
         /// Write - 控除額
         /// </summary>
         /// <param name="entities">エンティティ</param>
-        /// <param name="row">行</param>
         /// <returns>void</returns>
-        public async System.Threading.Tasks.Task WriteAllDeduction(IReadOnlyList<DeductionEntity> entities, int row)
+        public async Task WriteAllDeduction(IReadOnlyList<DeductionEntity> entities)
         {
             if (!entities.Any())
             {
                 return;
             }
+
+            var row = Excel.DefaultRow;
 
             foreach (var entity in entities)
             {
@@ -159,21 +165,22 @@ namespace SalaryManager.Domain.Logics
                 row++;
             }
 
-            await System.Threading.Tasks.Task.CompletedTask;
+            await Task.CompletedTask;
         }
 
         /// <summary>
         /// Write - 勤務備考
         /// </summary>
         /// <param name="entities">エンティティ</param>
-        /// <param name="row">行</param>
         /// <returns>void</returns>
-        public async System.Threading.Tasks.Task WriteAllWorkingReferences(IReadOnlyList<WorkingReferencesEntity> entities, int row)
+        public async Task WriteAllWorkingReferences(IReadOnlyList<WorkingReferencesEntity> entities)
         {
             if (!entities.Any())
             {
                 return;
             }
+
+            var row = Excel.DefaultRow;
 
             foreach (var entity in entities)
             {
@@ -203,20 +210,22 @@ namespace SalaryManager.Domain.Logics
                 row++;
             }
 
-            await System.Threading.Tasks.Task.CompletedTask;
+            await Task.CompletedTask;
         }
 
         /// <summary>
         /// Write - 副業
         /// </summary>
         /// <param name="entities">エンティティ</param>
-        /// <param name="row">行</param>
-        public async System.Threading.Tasks.Task WriteAllSideBusiness(IReadOnlyList<SideBusinessEntity> entities, int row)
+        /// <returns>void</returns>
+        public async Task WriteAllSideBusiness(IReadOnlyList<SideBusinessEntity> entities)
         {
             if (!entities.Any())
             {
                 return;
             }
+
+            var row = Excel.DefaultRow;
 
             foreach (var entity in entities)
             {
@@ -232,7 +241,7 @@ namespace SalaryManager.Domain.Logics
                 row++;
             }
 
-            await System.Threading.Tasks.Task.CompletedTask;
+            await Task.CompletedTask;
         }
     }
 }

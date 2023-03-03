@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Linq;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.WPF.ViewModels;
+using SalaryManager.Domain.StaticValues;
 
 namespace SalaryManager.WPF.Models
 {
@@ -43,27 +43,15 @@ namespace SalaryManager.WPF.Models
         /// <param name="entityDate">取得する日付</param>
         public void Initialize(DateTime entityDate)
         {
-            var sqlite = new WorkingReferenceSQLite();
-            var records = sqlite.GetEntities();
+            WorkingReferences.Create(new WorkingReferenceSQLite());
 
-            this.ViewModel.Entity = records.Where(record => record.YearMonth.Year  == entityDate.Year
-                                                         && record.YearMonth.Month == entityDate.Month)
-                                           .FirstOrDefault();
-
-            this.ViewModel.Entity_LastYear = records.Where(record => record.YearMonth.Year  == entityDate.Year - 1
-                                                                  && record.YearMonth.Month == entityDate.Month)
-                                                    .FirstOrDefault();
+            this.ViewModel.Entity          = WorkingReferences.Fetch(entityDate.Year, entityDate.Month);
+            this.ViewModel.Entity_LastYear = WorkingReferences.Fetch(entityDate.Year, entityDate.Month - 1);
 
             if (this.ViewModel.Entity is null)
             {
-                var header = new HeaderSQLite();
-                var defaultEntity = header.GetDefaultEntity();
-
-                if (defaultEntity != null)
-                {
-                    this.ViewModel.Entity = records.Where(record => record.ID == defaultEntity.ID)
-                                                   .FirstOrDefault();
-                }
+                // デフォルト明細
+                this.ViewModel.Entity = WorkingReferences.FetchDefault();
             }
 
             this.Refresh();
@@ -74,10 +62,10 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Reload()
         {
-            var workingReferenceTable = new WorkingReferenceSQLite();
+            WorkingReferences.Create(new WorkingReferenceSQLite());
 
-            this.ViewModel.Entity          = workingReferenceTable.GetEntity(this.Header.Year,     this.Header.Month);
-            this.ViewModel.Entity_LastYear = workingReferenceTable.GetEntity(this.Header.Year - 1, this.Header.Month);
+            this.ViewModel.Entity          = WorkingReferences.Fetch(this.Header.Year,     this.Header.Month);
+            this.ViewModel.Entity_LastYear = WorkingReferences.Fetch(this.Header.Year - 1, this.Header.Month);
             
             this.Refresh();
         }

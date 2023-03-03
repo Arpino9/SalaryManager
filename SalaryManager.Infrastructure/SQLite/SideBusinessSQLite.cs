@@ -1,16 +1,15 @@
-﻿using SalaryManager.Domain.Entities;
-using SalaryManager.Domain.Helpers;
-using SalaryManager.Domain.Logics;
-using SalaryManager.Domain.Repositories;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SalaryManager.Domain.Entities;
+using SalaryManager.Domain.Helpers;
+using SalaryManager.Domain.Repositories;
 
 namespace SalaryManager.Infrastructure.SQLite
 {
+    /// <summary>
+    /// SQLite - 副業
+    /// </summary>
     public class SideBusinessSQLite : ISideBusinessRepository
     {
         public IReadOnlyList<SideBusinessEntity> GetEntities()
@@ -58,6 +57,38 @@ Where YearMonth = @YearMonth";
             return SQLiteHelper.QuerySingle<SideBusinessEntity>(
                 sql,
                 args.ToArray(),
+                reader =>
+                {
+                    return new SideBusinessEntity(
+                                Convert.ToInt32(reader["Id"]),
+                                Convert.ToDateTime(reader["YearMonth"]),
+                                Convert.ToDouble(reader["SideBusiness"]),
+                                Convert.ToDouble(reader["Perquisite"]),
+                                Convert.ToDouble(reader["Others"]),
+                                Convert.ToString(reader["Remarks"]));
+                },
+                null);
+        }
+
+        /// <summary>
+        /// Get - 勤務備考(デフォルト)
+        /// </summary>
+        /// <returns>勤務備考</returns>
+        public SideBusinessEntity GetDefault()
+        {
+            string sql = @"
+SELECT S.Id, 
+S.YearMonth, 
+S.SideBusiness, 
+S.Perquisite, 
+S.Others, 
+S.Remarks
+FROM SideBusiness S
+INNER JOIN YearMonth YM ON S.YearMonth = YM.YearMonth
+WHERE YM.IsDefault = True";
+
+            return SQLiteHelper.QuerySingle<SideBusinessEntity>(
+                sql,
                 reader =>
                 {
                     return new SideBusinessEntity(

@@ -7,6 +7,9 @@ using System.Data.SQLite;
 
 namespace SalaryManager.Infrastructure.SQLite
 {
+    /// <summary>
+    /// SQLite - 支給額
+    /// </summary>
     public class AllowanceSQLite : IAllowanceRepository
     {
         public IReadOnlyList<AllowanceEntity> GetEntities()
@@ -62,7 +65,7 @@ FROM Allowance";
         /// <param name="year">年</param>
         /// <param name="month">月</param>
         /// <returns>支給額</returns>
-        public AllowanceEntity GetEntiity(int year, int month)
+        public AllowanceEntity GetEntity(int year, int month)
         {
             string sql = @"
 SELECT Id, 
@@ -93,6 +96,60 @@ Where YearMonth = @YearMonth";
             return SQLiteHelper.QuerySingle<AllowanceEntity>(
                 sql,
                 args.ToArray(),
+                reader =>
+                {
+                    return new AllowanceEntity(
+                                Convert.ToInt32(reader["Id"]),
+                                Convert.ToDateTime(reader["YearMonth"]),
+                                Convert.ToDouble(reader["BasicSalary"]),
+                                Convert.ToDouble(reader["ExecutiveAllowance"]),
+                                Convert.ToDouble(reader["DependencyAllowance"]),
+                                Convert.ToDouble(reader["OvertimeAllowance"]),
+                                Convert.ToDouble(reader["DaysoffIncreased"]),
+                                Convert.ToDouble(reader["NightworkIncreased"]),
+                                Convert.ToDouble(reader["HousingAllowance"]),
+                                Convert.ToDouble(reader["LateAbsent"]),
+                                Convert.ToDouble(reader["TransportationExpenses"]),
+                                Convert.ToDouble(reader["ElectricityAllowance"]),
+                                Convert.ToDouble(reader["SpecialAllowance"]),
+                                Convert.ToDouble(reader["SpareAllowance"]),
+                                Convert.ToString(reader["Remarks"]),
+                                Convert.ToDouble(reader["TotalSalary"]),
+                                Convert.ToDouble(reader["TotalDeductedSalary"]));
+                },
+                null);
+        }
+
+        /// <summary>
+        /// Get - 支給額(デフォルト)
+        /// </summary>
+        /// <returns>支給額</returns>
+        public AllowanceEntity GetDefault()
+        {
+            string sql = @"
+SELECT A.Id, 
+A.YearMonth, 
+A.BasicSalary, 
+A.ExecutiveAllowance, 
+A.DependencyAllowance, 
+A.OvertimeAllowance, 
+A.DaysoffIncreased, 
+A.NightworkIncreased ,
+A.HousingAllowance,
+A.LateAbsent,
+A.TransportationExpenses,
+A.ElectricityAllowance,
+A.SpecialAllowance,
+A.SpareAllowance,
+A.Remarks,
+A.TotalSalary,
+A.TotalDeductedSalary
+FROM Allowance A
+INNER JOIN YearMonth YM ON A.YearMonth = YM.YearMonth
+WHERE YM.IsDefault = True";
+
+            return SQLiteHelper.QuerySingle<AllowanceEntity>(
+                sql,
                 reader =>
                 {
                     return new AllowanceEntity(

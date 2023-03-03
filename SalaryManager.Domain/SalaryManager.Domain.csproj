@@ -93,6 +93,11 @@
     <Compile Include="Repositories\IDeductionRepository.cs" />
     <Compile Include="Repositories\ISideBusinessRepository.cs" />
     <Compile Include="Repositories\IWorkingReferencesRepository.cs" />
+    <Compile Include="StaticValues\Allowances.cs" />
+    <Compile Include="StaticValues\Deductions.cs" />
+    <Compile Include="StaticValues\Headers.cs" />
+    <Compile Include="StaticValues\SideBusinesses.cs" />
+    <Compile Include="StaticValues\WorkingReferences.cs" />
     <Compile Include="ValueObjects\MoneyValue.cs" />
     <Compile Include="ValueObjects\PaidVacationDaysValue.cs" />
     <Compile Include="ValueObjects\ValueObject.cs" />
