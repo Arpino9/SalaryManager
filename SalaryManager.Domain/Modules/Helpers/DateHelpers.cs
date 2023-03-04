@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SalaryManager.Domain.Helpers
+namespace SalaryManager.Domain.Modules.Helpers
 {
     //TODO: これは値オブジェクトでいい
     /// <summary>

@@ -4,6 +4,7 @@ using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.WPF.ViewModels;
 using SalaryManager.Domain.StaticValues;
+using SalaryManager.Domain.Modules.Logics;
 
 namespace SalaryManager.WPF.Models
 {
@@ -60,12 +61,15 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Reload()
         {
-            // 副業
-            var sideBusinessTable = new SideBusinessSQLite();
-            this.ViewModel.Entity          = sideBusinessTable.GetEntity(this.Header.Year, this.Header.Month);
-            this.ViewModel.Entity_LastYear = sideBusinessTable.GetEntity(this.Header.Year - 1, this.Header.Month);
+            using (var cursor = new CursorWaiting())
+            {
+                SideBusinesses.Create(new SideBusinessSQLite());
+
+                this.ViewModel.Entity          = SideBusinesses.Fetch(this.Header.Year, this.Header.Month);
+                this.ViewModel.Entity_LastYear = SideBusinesses.Fetch(this.Header.Year - 1, this.Header.Month);
             
-            this.Refresh();
+                this.Refresh();
+            }   
         }
 
         /// <summary>

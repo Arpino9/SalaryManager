@@ -1,14 +1,12 @@
 ﻿using SalaryManager.Domain;
-using SalaryManager.Domain.Helpers;
-using SalaryManager.Domain.Logics;
+using SalaryManager.Domain.Modules.Logics;
+using SalaryManager.Domain.Modules.Helpers;
 using SalaryManager.Domain.StaticValues;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Windows.Forms;
 using System.Windows.Media;
 
 namespace SalaryManager.WPF.Models
@@ -54,7 +52,6 @@ namespace SalaryManager.WPF.Models
         internal Model_SideBusiness SideBusiness { get; set; }
 
         #region CSV読込
-
 
         /// <summary>
         /// CSV読み込み
@@ -169,25 +166,31 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// デフォルト明細を取得する
         /// </summary>
-        internal void GetDefault()
+        internal void FetchDefault()
         {
-            var header = new HeaderSQLite();
-            var defaultEntity = header.FetchDefault();
+            Headers.Create(new HeaderSQLite());
 
-            if (defaultEntity == null)
+            if (Headers.FetchDefault() == null)
             {
                 DialogMessage.ShowResultMessage("デフォルト明細が登録されていません。", this.MainWindow.Title);
                 return;
             }
 
             // 支給額
-            this.Allowance.Initialize(defaultEntity.YearMonth);
+            this.Allowance.ViewModel.Entity = Allowances.FetchDefault();
+            this.Allowance.Refresh();
+
             // 控除額
-            this.Deduction.Initialize(defaultEntity.YearMonth);
+            this.Deduction.ViewModel.Entity = Deductions.FetchDefault();
+            this.Deduction.Refresh();
+
             // 勤務備考
-            this.WorkingReference.Initialize(defaultEntity.YearMonth);
+            this.WorkingReference.ViewModel.Entity = WorkingReferences.FetchDefault();
+            this.WorkingReference.Refresh();
+
             // 副業
-            this.SideBusiness.Initialize(defaultEntity.YearMonth);
+            this.SideBusiness.ViewModel.Entity = SideBusinesses.FetchDefault();
+            this.SideBusiness.Refresh();
         }
 
         #endregion
@@ -221,29 +224,28 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal async void OutputExcel()
         {
-            /*// 元のカーソルを保持
-            Cursor preCursor = Cursor.Current;
-
-            // カーソルを待機カーソルに変更
-            Cursor.Current = Cursors.WaitCursor;*/
-
             var workbook = new Excel();
 
-            // Create Records
-            Headers.Create(new HeaderSQLite());
-            Allowances.Create(new AllowanceSQLite());
-            Deductions.Create(new DeductionSQLite());
-            WorkingReferences.Create(new WorkingReferenceSQLite());
-            SideBusinesses.Create(new SideBusinessSQLite());
+            using (var cursor = new CursorWaiting())
+            {
+                // Create Records
+                Headers.Create(new HeaderSQLite());
+                Allowances.Create(new AllowanceSQLite());
+                Deductions.Create(new DeductionSQLite());
+                WorkingReferences.Create(new WorkingReferenceSQLite());
+                SideBusinesses.Create(new SideBusinessSQLite());
 
-            // Write
-            await System.Threading.Tasks.Task.WhenAll(
-                workbook.WriteAllHeader(Headers.FetchByDescending()),
-                workbook.WriteAllAllowance(Allowances.FetchByDescending()),
-                workbook.WriteAllDeduction(Deductions.FetchByDescending()),
-                workbook.WriteAllWorkingReferences(WorkingReferences.FetchByDescending()),
-                workbook.WriteAllSideBusiness(SideBusinesses.FetchByDescending())
-            );
+                // Write Records
+                await System.Threading.Tasks.Task.WhenAll(
+                    workbook.WriteAllHeader(Headers.FetchByDescending()),
+                    workbook.WriteAllAllowance(Allowances.FetchByDescending()),
+                    workbook.WriteAllDeduction(Deductions.FetchByDescending()),
+                    workbook.WriteAllWorkingReferences(WorkingReferences.FetchByDescending()),
+                    workbook.WriteAllSideBusiness(SideBusinesses.FetchByDescending())
+                );
+            }
+
+            workbook.Adjust();
 
             var selector = new DirectorySelector();
             var directory = selector.Select("Excel出力先のフォルダを選択してください。");

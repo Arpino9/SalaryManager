@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace SalaryManager.Domain.Helpers
+namespace SalaryManager.Domain.Modules.Helpers
 {
     /// <summary>
     /// ディレクトリ選択

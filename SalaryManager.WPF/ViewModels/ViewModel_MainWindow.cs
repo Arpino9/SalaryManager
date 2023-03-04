@@ -112,7 +112,7 @@ namespace SalaryManager.WPF.ViewModels
             {
                 if (this._getDefault == null)
                 {
-                    this._getDefault = new RelayCommand(this.Model.GetDefault);
+                    this._getDefault = new RelayCommand(this.Model.FetchDefault);
                 }
                 return this._getDefault;
             }

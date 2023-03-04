@@ -1,11 +1,13 @@
 ﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Drawing.Diagrams;
+using DocumentFormat.OpenXml.Spreadsheet;
 using SalaryManager.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SalaryManager.Domain.Logics
+namespace SalaryManager.Domain.Modules.Logics
 {
     /// <summary>
     /// Utility - Excel
@@ -242,6 +244,13 @@ namespace SalaryManager.Domain.Logics
             }
 
             await Task.CompletedTask;
+        }
+
+        public void Adjust()
+        {
+            var headers = StaticValues.Headers.FetchByDescending();
+
+            var a = headers.Count;
         }
     }
 }

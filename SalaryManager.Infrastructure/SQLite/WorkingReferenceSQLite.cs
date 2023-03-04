@@ -1,6 +1,6 @@
 ﻿using SalaryManager.Domain.Entities;
-using SalaryManager.Domain.Helpers;
-using SalaryManager.Domain.Logics;
+using SalaryManager.Domain.Modules.Helpers;
+using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Domain.Repositories;
 using System;
 using System.Collections.Generic;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Media;
 using SalaryManager.Domain.Entities;
+using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Domain.StaticValues;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.Infrastructure.SQLite;
@@ -111,12 +112,15 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Reload()
         {
-            Allowances.Create(new AllowanceSQLite());
+            using (var cursor = new CursorWaiting())
+            {
+                Allowances.Create(new AllowanceSQLite());
 
-            this.ViewModel.Entity          = Allowances.Fetch(this.Header.Year,     this.Header.Month);
-            this.ViewModel.Entity_LastYear = Allowances.Fetch(this.Header.Year - 1, this.Header.Month);
+                this.ViewModel.Entity          = Allowances.Fetch(this.Header.Year, this.Header.Month);
+                this.ViewModel.Entity_LastYear = Allowances.Fetch(this.Header.Year - 1, this.Header.Month);
 
-            this.Refresh();
+                this.Refresh();
+            }
         }
 
         /// <summary>

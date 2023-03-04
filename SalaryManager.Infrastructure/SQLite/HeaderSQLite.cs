@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SQLite;
 using SalaryManager.Domain.Entities;
-using SalaryManager.Domain.Helpers;
+using SalaryManager.Domain.Modules.Helpers;
 using SalaryManager.Domain.Repositories;
 
 namespace SalaryManager.Infrastructure.SQLite

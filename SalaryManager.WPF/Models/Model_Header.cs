@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using SalaryManager.Domain.Entities;
-using SalaryManager.Domain.Logics;
+using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.ViewModels;

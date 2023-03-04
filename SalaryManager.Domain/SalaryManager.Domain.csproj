@@ -77,10 +77,11 @@
     <Compile Include="Entities\AnnualChartEntity.cs" />
     <Compile Include="Entities\HeaderEntity.cs" />
     <Compile Include="Exceptions\ExceptionBase.cs" />
-    <Compile Include="Helpers\DateHelpers.cs" />
-    <Compile Include="Helpers\DirectorySelector.cs" />
-    <Compile Include="Logics\DialogMessage.cs" />
-    <Compile Include="Logics\Excel.cs" />
+    <Compile Include="Modules\Helpers\DateHelpers.cs" />
+    <Compile Include="Modules\Helpers\DirectorySelector.cs" />
+    <Compile Include="Modules\Logics\CursorWaiting.cs" />
+    <Compile Include="Modules\Logics\DialogMessage.cs" />
+    <Compile Include="Modules\Logics\Excel.cs" />
     <Compile Include="Repositories\IAnnualChartRepository.cs" />
     <Compile Include="Repositories\IHeaderRepository.cs" />
     <Compile Include="Shared.cs" />
