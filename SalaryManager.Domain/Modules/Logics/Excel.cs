@@ -266,6 +266,7 @@ namespace SalaryManager.Domain.Modules.Logics
         /// <summary>
         /// スタイルの設定
         /// </summary>
+        /// <returns>void</returns>
         public async Task SetStyle()
         {
             var date = StaticValues.Headers.FetchByDescending();

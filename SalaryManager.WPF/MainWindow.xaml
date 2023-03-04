@@ -88,13 +88,13 @@
                 <local:Allowance Height="340" VerticalAlignment="Top" />
             </TabItem>
             <TabItem Header="控除額">
-                <local:Deduction Height="200" VerticalAlignment="Top" />
+                <local:Deduction Height="250" VerticalAlignment="Top" />
             </TabItem>
             <TabItem Header="勤務備考">
-                <local:WorkingReferences Height="200" VerticalAlignment="Top" />
+                <local:WorkingReferences Height="250" VerticalAlignment="Top" />
             </TabItem>
             <TabItem Header="副業など">
-                <local:SideBusiness Height="200" VerticalAlignment="Top" />
+                <local:SideBusiness Height="150" VerticalAlignment="Top" />
             </TabItem>
         </TabControl>
 
