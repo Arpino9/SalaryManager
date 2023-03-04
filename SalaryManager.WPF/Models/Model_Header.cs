@@ -81,11 +81,6 @@ namespace SalaryManager.WPF.Models
             }
         }
 
-        public void Year_TextChanged()
-        {
-            this.Reload();
-        }
-
         /// <summary>
         /// Reload
         /// </summary>

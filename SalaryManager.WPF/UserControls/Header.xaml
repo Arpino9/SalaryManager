@@ -39,7 +39,13 @@
 
         <TextBox Grid.Column="3" 
                  Text="{Binding Month, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                 TextAlignment="Right" />
+                 TextAlignment="Right">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="TextChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding Month_TextChanged}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <Label Content="月" 
                Grid.Column="4" />
 

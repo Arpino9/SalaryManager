@@ -67,6 +67,14 @@ namespace SalaryManager.WPF.ViewModels
             this._yearAction += this.AnnualCharts.Reload;
             this.Year_TextChanged = new RelayCommand(_yearAction);
 
+            // 月
+            this._monthAction += this.Allowance.Reload;
+            this._monthAction += this.Deduction.Reload;
+            this._monthAction += this.WorkingReference.Reload;
+            this._monthAction += this.SideBusiness.Reload;
+            this._monthAction += this.AnnualCharts.Reload;
+            this.Month_TextChanged = new RelayCommand(_monthAction);
+
             this.Model.Initialize(DateTime.Today);
         }
 
@@ -129,6 +137,11 @@ namespace SalaryManager.WPF.ViewModels
             get => this._year;
             set
             {
+                if (value.ToString().Length != 4)
+                {
+                    return;
+                }
+
                 this._year = value;
                 this.RaisePropertyChanged();
 
@@ -139,7 +152,7 @@ namespace SalaryManager.WPF.ViewModels
         private Action _yearAction;
 
         /// <summary>
-        /// 年 - Action
+        /// 年 - TextChanged
         /// </summary>
         public RelayCommand Year_TextChanged { get; private set; }
 
@@ -153,17 +166,31 @@ namespace SalaryManager.WPF.ViewModels
             get => this._month;
             set
             {
-                this._month = value;
+                if (value < 1)
+                {
+                    this._month = 1;
+                } 
+                else if (value > 12)
+                {
+                    this._month = 12;
+                }
+                else
+                {
+                    this._month = value;
+                }
+                
                 this.RaisePropertyChanged();
 
                 this.Model.Reload();
             }
         }
 
+        private Action _monthAction;
+
         /// <summary>
-        /// 月 - Action
+        /// 月 - TextChanged
         /// </summary>
-        public RelayCommand Month_Action { get; private set; }
+        public RelayCommand Month_TextChanged { get; private set; }
 
         #endregion
 
