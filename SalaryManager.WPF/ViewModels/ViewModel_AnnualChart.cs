@@ -49,7 +49,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _totalSalary_January;
 
         /// <summary>
-        /// 支給額計 - 1月
+        /// 1月 - 支給額計
         /// </summary>
         public int TotalSalary_January
         {
@@ -64,7 +64,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _totalDeductedSalary_January;
 
         /// <summary>
-        /// 差引支給額 - 1月
+        /// 1月 - 差引支給額
         /// </summary>
         public int TotalDeductedSalary_January
         {
@@ -76,6 +76,21 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
+        private int _totalSideBusiness_January;
+
+        /// <summary>
+        /// 1月 = 副業額
+        /// </summary>
+        public int TotalSideBusiness_January
+        {
+            get => this._totalSideBusiness_January;
+            set
+            {
+                this._totalSideBusiness_January = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
         #region 2月
@@ -83,7 +98,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _totalSalary_Feburary;
 
         /// <summary>
-        /// 支給額計 - 2月
+        /// 2月 - 支給額計
         /// </summary>
         public int TotalSalary_Feburary
         {
@@ -98,7 +113,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _totalDeductedSalary_Feburary;
 
         /// <summary>
-        /// 差引支給額 - 2月
+        /// 2月 - 差引支給額
         /// </summary>
         public int TotalDeductedSalary_Feburary
         {
@@ -110,6 +125,21 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
+        private int _totalSideBusiness_Feburary;
+
+        /// <summary>
+        /// 2月 = 副業額
+        /// </summary>
+        public int TotalSideBusiness_Feburary
+        {
+            get => this._totalSideBusiness_Feburary;
+            set
+            {
+                this._totalSideBusiness_Feburary = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
         #region 3月
@@ -117,7 +147,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _totalSalary_March;
 
         /// <summary>
-        /// 支給額計 - 3月
+        /// 3月 - 支給額計
         /// </summary>
         public int TotalSalary_March
         {
@@ -132,7 +162,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _totalDeductedSalary_March;
 
         /// <summary>
-        /// 差引支給額 - 3月
+        /// 3月 - 差引支給額
         /// </summary>
         public int TotalDeductedSalary_March
         {
@@ -144,6 +174,21 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
+        private int _totalSideBusiness_March;
+
+        /// <summary>
+        /// 3月 = 副業額
+        /// </summary>
+        public int TotalSideBusiness_March
+        {
+            get => this._totalSideBusiness_March;
+            set
+            {
+                this._totalSideBusiness_March = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
         #region 4月
@@ -151,7 +196,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _totalSalary_April;
 
         /// <summary>
-        /// 支給額計 - 4月
+        /// 4月 - 支給額計
         /// </summary>
         public int TotalSalary_April
         {
@@ -166,7 +211,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _totalDeductedSalary_April;
 
         /// <summary>
-        /// 差引支給額 - 4月
+        /// 4月 - 差引支給額
         /// </summary>
         public int TotalDeductedSalary_April
         {
@@ -178,6 +223,21 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
+        private int _totalSideBusiness_April;
+
+        /// <summary>
+        /// 4月 = 副業額
+        /// </summary>
+        public int TotalSideBusiness_April
+        {
+            get => this._totalSideBusiness_April;
+            set
+            {
+                this._totalSideBusiness_April = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
         #region 5月
@@ -185,7 +245,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _totalSalary_May;
 
         /// <summary>
-        /// 支給額計 - 5月
+        /// 5月 - 支給額計
         /// </summary>
         public int TotalSalary_May
         {
@@ -200,7 +260,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _totalDeductedSalary_May;
 
         /// <summary>
-        /// 差引支給額 - 5月
+        /// 5月 - 差引支給額
         /// </summary>
         public int TotalDeductedSalary_May
         {
@@ -212,6 +272,21 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
+        private int _totalSideBusiness_May;
+
+        /// <summary>
+        /// 5月 = 副業額
+        /// </summary>
+        public int TotalSideBusiness_May
+        {
+            get => this._totalSideBusiness_May;
+            set
+            {
+                this._totalSideBusiness_May = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
         #region 6月
@@ -219,7 +294,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _totalSalary_June;
 
         /// <summary>
-        /// 支給額計 - 6月
+        /// 6月 - 支給額計
         /// </summary>
         public int TotalSalary_June
         {
@@ -234,7 +309,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _totalDeductedSalary_June;
 
         /// <summary>
-        /// 差引支給額 - 6月
+        /// 6月 - 差引支給額
         /// </summary>
         public int TotalDeductedSalary_June
         {
@@ -246,6 +321,21 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
+        private int _totalSideBusiness_June;
+
+        /// <summary>
+        /// 6月 = 副業額
+        /// </summary>
+        public int TotalSideBusiness_June
+        {
+            get => this._totalSideBusiness_June;
+            set
+            {
+                this._totalSideBusiness_June = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
         #region 7月
@@ -253,7 +343,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _totalSalary_July;
 
         /// <summary>
-        /// 支給額計 - 7月
+        /// 7月 - 支給額計
         /// </summary>
         public int TotalSalary_July
         {
@@ -268,7 +358,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _totalDeductedSalary_July;
 
         /// <summary>
-        /// 差引支給額 - 7月
+        /// 7月 - 差引支給額
         /// </summary>
         public int TotalDeductedSalary_July
         {
@@ -280,6 +370,21 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
+        private int _totalSideBusiness_July;
+
+        /// <summary>
+        /// 7月 = 副業額
+        /// </summary>
+        public int TotalSideBusiness_July
+        {
+            get => this._totalSideBusiness_July;
+            set
+            {
+                this._totalSideBusiness_July = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
         #region 8月
@@ -287,7 +392,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _totalSalary_August;
 
         /// <summary>
-        /// 支給額計 - 8月
+        /// 8月 - 支給額計
         /// </summary>
         public int TotalSalary_August
         {
@@ -302,7 +407,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _totalDeductedSalary_August;
 
         /// <summary>
-        /// 差引支給額 - 8月
+        /// 8月 - 差引支給額
         /// </summary>
         public int TotalDeductedSalary_August
         {
@@ -314,6 +419,21 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
+        private int _totalSideBusiness_August;
+
+        /// <summary>
+        /// 8月 = 副業額
+        /// </summary>
+        public int TotalSideBusiness_August
+        {
+            get => this._totalSideBusiness_August;
+            set
+            {
+                this._totalSideBusiness_August = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
         #region 9月
@@ -321,7 +441,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _totalSalary_September;
 
         /// <summary>
-        /// 支給額計 - 9月
+        /// 9月 - 支給額計
         /// </summary>
         public int TotalSalary_September
         {
@@ -336,7 +456,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _totalDeductedSalary_September;
 
         /// <summary>
-        /// 差引支給額 - 9月
+        /// 9月 - 差引支給額
         /// </summary>
         public int TotalDeductedSalary_September
         {
@@ -348,6 +468,21 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
+        private int _totalSideBusiness_September;
+
+        /// <summary>
+        /// 9月 = 副業額
+        /// </summary>
+        public int TotalSideBusiness_September
+        {
+            get => this._totalSideBusiness_September;
+            set
+            {
+                this._totalSideBusiness_September = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
         #region 10月
@@ -355,7 +490,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _totalSalary_October;
 
         /// <summary>
-        /// 支給額計 - 10月
+        /// 10月 - 支給額計
         /// </summary>
         public int TotalSalary_October
         {
@@ -370,7 +505,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _totalDeductedSalary_October;
 
         /// <summary>
-        /// 差引支給額 - 10月
+        /// 10月 - 差引支給額
         /// </summary>
         public int TotalDeductedSalary_October
         {
@@ -382,6 +517,21 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
+        private int _totalSideBusiness_October;
+
+        /// <summary>
+        /// 10月 = 副業額
+        /// </summary>
+        public int TotalSideBusiness_October
+        {
+            get => this._totalSideBusiness_October;
+            set
+            {
+                this._totalSideBusiness_October = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
         #region 11月
@@ -389,7 +539,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _totalSalary_November;
 
         /// <summary>
-        /// 支給額計 - 11月
+        /// 11月 - 支給額計
         /// </summary>
         public int TotalSalary_November
         {
@@ -404,7 +554,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _totalDeductedSalary_November;
 
         /// <summary>
-        /// 差引支給額 - 11月
+        /// 11月 - 差引支給額
         /// </summary>
         public int TotalDeductedSalary_November
         {
@@ -416,6 +566,21 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
+        private int _totalSideBusiness_November;
+
+        /// <summary>
+        /// 11月 = 副業額
+        /// </summary>
+        public int TotalSideBusiness_November
+        {
+            get => this._totalSideBusiness_November;
+            set
+            {
+                this._totalSideBusiness_November = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
         #region 12月
@@ -423,7 +588,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _totalSalary_December;
 
         /// <summary>
-        /// 支給額計 - 12月
+        /// 12月 - 支給額計
         /// </summary>
         public int TotalSalary_December
         {
@@ -438,7 +603,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _totalDeductedSalary_December;
 
         /// <summary>
-        /// 差引支給額 - 12月
+        /// 12月 - 差引支給額
         /// </summary>
         public int TotalDeductedSalary_December
         {
@@ -450,6 +615,21 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
+        private int _totalSideBusiness_December;
+
+        /// <summary>
+        /// 12月 = 副業額
+        /// </summary>
+        public int TotalSideBusiness_December
+        {
+            get => this._totalSideBusiness_December;
+            set
+            {
+                this._totalSideBusiness_December = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
         #region 合計
@@ -457,7 +637,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _totalSalary_Sum;
 
         /// <summary>
-        /// 支給額計 - 合計
+        /// 合計 - 支給額計
         /// </summary>
         public int TotalSalary_Sum
         {
@@ -472,7 +652,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _totalDeductedSalary_Sum;
 
         /// <summary>
-        /// 差引支給額 - 合計
+        /// 合計 - 差引支給額
         /// </summary>
         public int TotalDeductedSalary_Sum
         {
@@ -480,6 +660,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._totalDeductedSalary_Sum = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private int _totalSideBusiness_Sum;
+
+        /// <summary>
+        /// 合計 = 副業額
+        /// </summary>
+        public int TotalSideBusiness_Sum
+        {
+            get => this._totalSideBusiness_Sum;
+            set
+            {
+                this._totalSideBusiness_Sum = value;
                 this.RaisePropertyChanged();
             }
         }

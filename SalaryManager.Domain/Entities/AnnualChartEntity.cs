@@ -14,16 +14,19 @@ namespace SalaryManager.Domain.Entities
         /// <param name="yearMonth">年月</param>
         /// <param name="totalSalary">支給額計</param>
         /// <param name="totalDeductedSalary">差引支給額</param>
+        /// <param name="totalSideBusiness">副業額</param>
         public AnnualChartEntity(
             int id,
             DateTime yearMonth,
             int totalSalary,
-            int totalDeductedSalary)
+            int totalDeductedSalary,
+            int totalSideBusiness)
         {
             this.Id                   = id;
             this.YearMonth            = yearMonth;
             this.TotalSalary          = totalSalary;
             this.TotalDeducetedSalary = totalDeductedSalary;
+            this.TotalSideBusiness    = totalSideBusiness;
         }
 
         /// <summary> ID </summary>
@@ -37,5 +40,8 @@ namespace SalaryManager.Domain.Entities
 
         /// <summary> 差引支給額 </summary>
         public int TotalDeducetedSalary { get; }
+
+        /// <summary> 副業額 </summary>
+        public int TotalSideBusiness { get; }
     }
 }

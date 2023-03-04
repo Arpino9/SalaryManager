@@ -95,6 +95,7 @@
     <Compile Include="Repositories\ISideBusinessRepository.cs" />
     <Compile Include="Repositories\IWorkingReferencesRepository.cs" />
     <Compile Include="StaticValues\Allowances.cs" />
+    <Compile Include="StaticValues\AnnualCharts.cs" />
     <Compile Include="StaticValues\Deductions.cs" />
     <Compile Include="StaticValues\Headers.cs" />
     <Compile Include="StaticValues\SideBusinesses.cs" />

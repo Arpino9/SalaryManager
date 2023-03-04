@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using SalaryManager.Domain.Entities;
+﻿using SalaryManager.Domain.Entities;
+using SalaryManager.Domain.StaticValues;
 using SalaryManager.Domain.ValueObjects;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.ViewModels;
@@ -47,15 +47,11 @@ namespace SalaryManager.WPF.Models
             // 対象日付
             this.ViewModel.TargetDate = new YearValue(this.Header.Year, this.Header.Month).YearWithJapaneseCalendar;
 
-            var chart = new AnnualChartSQLite();
-
-            var annualCharts = chart.GetEntities()
-                                    .Where(x => x.YearMonth.Year == fetchingYear)
-                                    .ToList().AsReadOnly();
-
             this.Clear();
 
-            foreach (AnnualChartEntity annualChart in annualCharts)
+            AnnualCharts.Create(new AnnualChartSQLite());
+
+            foreach (AnnualChartEntity annualChart in AnnualCharts.Fetch(fetchingYear))
             {
                 switch (annualChart.YearMonth.Month)
                 {
@@ -63,72 +59,84 @@ namespace SalaryManager.WPF.Models
                     case 1:
                         this.ViewModel.TotalSalary_January         = annualChart.TotalSalary;
                         this.ViewModel.TotalDeductedSalary_January = annualChart.TotalDeducetedSalary;
+                        this.ViewModel.TotalSideBusiness_January   = annualChart.TotalSideBusiness;
                         break;
 
                     // 2月
                     case 2:
                         this.ViewModel.TotalSalary_Feburary         = annualChart.TotalSalary;
                         this.ViewModel.TotalDeductedSalary_Feburary = annualChart.TotalDeducetedSalary;
+                        this.ViewModel.TotalSideBusiness_Feburary   = annualChart.TotalSideBusiness;
                         break;
 
                     // 3月
                     case 3:
                         this.ViewModel.TotalSalary_March         = annualChart.TotalSalary;
                         this.ViewModel.TotalDeductedSalary_March = annualChart.TotalDeducetedSalary;
+                        this.ViewModel.TotalSideBusiness_March   = annualChart.TotalSideBusiness;
                         break;
 
                     // 4月
                     case 4:
                         this.ViewModel.TotalSalary_April         = annualChart.TotalSalary;
                         this.ViewModel.TotalDeductedSalary_April = annualChart.TotalDeducetedSalary;
+                        this.ViewModel.TotalSideBusiness_April   = annualChart.TotalSideBusiness;
                         break;
 
                     // 5月
                     case 5:
                         this.ViewModel.TotalSalary_May         = annualChart.TotalSalary;
                         this.ViewModel.TotalDeductedSalary_May = annualChart.TotalDeducetedSalary;
+                        this.ViewModel.TotalSideBusiness_May   = annualChart.TotalSideBusiness;
                         break;
 
                     // 6月
                     case 6:
                         this.ViewModel.TotalSalary_June         = annualChart.TotalSalary;
                         this.ViewModel.TotalDeductedSalary_June = annualChart.TotalDeducetedSalary;
+                        this.ViewModel.TotalSideBusiness_June   = annualChart.TotalSideBusiness;
                         break;
 
                     // 7月
                     case 7:
                         this.ViewModel.TotalSalary_July         = annualChart.TotalSalary;
                         this.ViewModel.TotalDeductedSalary_July = annualChart.TotalDeducetedSalary;
+                        this.ViewModel.TotalSideBusiness_July   = annualChart.TotalSideBusiness;
                         break;
 
                     // 8月
                     case 8:
                         this.ViewModel.TotalSalary_August         = annualChart.TotalSalary;
                         this.ViewModel.TotalDeductedSalary_August = annualChart.TotalDeducetedSalary;
+                        this.ViewModel.TotalSideBusiness_August   = annualChart.TotalSideBusiness;
                         break;
 
                     // 9月
                     case 9:
                         this.ViewModel.TotalSalary_September         = annualChart.TotalSalary;
                         this.ViewModel.TotalDeductedSalary_September = annualChart.TotalDeducetedSalary;
+                        this.ViewModel.TotalSideBusiness_September   = annualChart.TotalSideBusiness;
                         break;
 
                     // 10月
                     case 10:
                         this.ViewModel.TotalSalary_October         = annualChart.TotalSalary;
                         this.ViewModel.TotalDeductedSalary_October = annualChart.TotalDeducetedSalary;
+                        this.ViewModel.TotalSideBusiness_October   = annualChart.TotalSideBusiness;
                         break;
 
                     // 11月
                     case 11:
                         this.ViewModel.TotalSalary_November         = annualChart.TotalSalary;
                         this.ViewModel.TotalDeductedSalary_November = annualChart.TotalDeducetedSalary;
+                        this.ViewModel.TotalSideBusiness_November   = annualChart.TotalSideBusiness;
                         break;
 
                     // 12月
                     case 12:
                         this.ViewModel.TotalSalary_December         = annualChart.TotalSalary;
                         this.ViewModel.TotalDeductedSalary_December = annualChart.TotalDeducetedSalary;
+                        this.ViewModel.TotalSideBusiness_December   = annualChart.TotalSideBusiness;
                         break;
                 }
             }
@@ -168,6 +176,20 @@ namespace SalaryManager.WPF.Models
                                                    + this.ViewModel.TotalDeductedSalary_October
                                                    + this.ViewModel.TotalDeductedSalary_November
                                                    + this.ViewModel.TotalDeductedSalary_December;
+
+            // 副業
+            this.ViewModel.TotalSideBusiness_Sum = this.ViewModel.TotalSideBusiness_January
+                                                 + this.ViewModel.TotalSideBusiness_Feburary
+                                                 + this.ViewModel.TotalSideBusiness_March
+                                                 + this.ViewModel.TotalSideBusiness_April
+                                                 + this.ViewModel.TotalSideBusiness_May
+                                                 + this.ViewModel.TotalSideBusiness_June
+                                                 + this.ViewModel.TotalSideBusiness_July
+                                                 + this.ViewModel.TotalSideBusiness_August
+                                                 + this.ViewModel.TotalSideBusiness_September
+                                                 + this.ViewModel.TotalSideBusiness_October
+                                                 + this.ViewModel.TotalSideBusiness_November
+                                                 + this.ViewModel.TotalSideBusiness_December;
         }
 
         /// <summary>
@@ -202,6 +224,20 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.TotalDeductedSalary_October   = default(int);
             this.ViewModel.TotalDeductedSalary_November  = default(int);
             this.ViewModel.TotalDeductedSalary_December  = default(int);
+
+            // 副業
+            this.ViewModel.TotalSideBusiness_January   = default(int);
+            this.ViewModel.TotalSideBusiness_Feburary  = default(int);
+            this.ViewModel.TotalSideBusiness_March     = default(int);
+            this.ViewModel.TotalSideBusiness_April     = default(int);
+            this.ViewModel.TotalSideBusiness_May       = default(int);
+            this.ViewModel.TotalSideBusiness_June      = default(int);
+            this.ViewModel.TotalSideBusiness_July      = default(int);
+            this.ViewModel.TotalSideBusiness_August    = default(int);
+            this.ViewModel.TotalSideBusiness_September = default(int);
+            this.ViewModel.TotalSideBusiness_October   = default(int);
+            this.ViewModel.TotalSideBusiness_November  = default(int);
+            this.ViewModel.TotalSideBusiness_December  = default(int);
         }
     }
 }
