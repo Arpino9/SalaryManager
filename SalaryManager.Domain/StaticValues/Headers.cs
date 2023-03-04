@@ -38,7 +38,7 @@ namespace SalaryManager.Domain.StaticValues
         /// <returns>副業額</returns>
         public static HeaderEntity Fetch(int year, int month)
         {
-            return _entities.Find(x => x.YearMonth.Yearv == year
+            return _entities.Find(x => x.YearMonth.Year  == year
                                     && x.YearMonth.Month == month);
         }
 

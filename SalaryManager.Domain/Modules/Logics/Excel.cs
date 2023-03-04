@@ -1,9 +1,8 @@
 ﻿using ClosedXML.Excel;
-using DocumentFormat.OpenXml.Drawing.Diagrams;
-using DocumentFormat.OpenXml.Spreadsheet;
 using SalaryManager.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,10 +21,16 @@ namespace SalaryManager.Domain.Modules.Logics
         /// <summary> Workbook </summary>
         public XLWorkbook Workbook { get; } = new XLWorkbook(Shared.PathOutputPayslip);
 
-        /// <summary> Worksheet </summary>
-        public IXLWorksheet Worksheet => this.Workbook.Worksheet("Sheet1");
+        /// <summary> Worksheet - 給与明細 </summary>
+        public IXLWorksheet Worksheet_Payslip => this.Workbook.Worksheet("給与明細");
+        
+        /// <summary> Worksheet - 収支推移 </summary>
+        public IXLWorksheet Worksheet_Budget => this.Workbook.Worksheet("収支推移");
 
+        /// <summary> デフォルト列 </summary>
+        public static readonly int DefaultColumn = 2;
         /// <summary> デフォルト行 </summary>
+        /// <remarks> Excelのヘッダ行 </remarks>
         public static readonly int DefaultRow = 5;
 
         /// <summary> 拡張子 </summary>
@@ -46,7 +51,14 @@ namespace SalaryManager.Domain.Modules.Logics
             var month = DateTime.Today.ToString("MM");
             var day   = DateTime.Today.ToString("dd");
 
-            this.Workbook.SaveAs($@"{directory}\Payslips_{year}{month}{day}.{Excel.FileExtension}");
+            try
+            {
+                this.Workbook.SaveAs($@"{directory}\Payslips_{year}{month}{day}.{Excel.FileExtension}");
+            }
+            catch(IOException ex)
+            {
+                DialogMessage.ShowErrorMessage("更新先のExcelが開いたままです。Excelを閉じて再度出力してください。", "Excel出力エラー");
+            }            
         }
 
         /// <summary>
@@ -66,7 +78,8 @@ namespace SalaryManager.Domain.Modules.Logics
             foreach (var entity in entities)
             {
                 // 年月
-                this.Worksheet.Cell(row, 3).Value = entity.YearMonth;
+                this.Worksheet_Budget.Cell(row - 1, 2).Value = entity.YearMonth;
+                this.Worksheet_Payslip.Cell(row,    3).Value = entity.YearMonth;
 
                 row++;
             }
@@ -91,35 +104,37 @@ namespace SalaryManager.Domain.Modules.Logics
             foreach (var entity in entities ) 
             {
                 // 基本給
-                this.Worksheet.Cell(row, 4).Value = entity.BasicSalary.Value;
+                this.Worksheet_Payslip.Cell(row, 4).Value = entity.BasicSalary;
                 // 役職手当
-                this.Worksheet.Cell(row, 5).Value = entity.ExecutiveAllowance.Value;
+                this.Worksheet_Payslip.Cell(row, 5).Value = entity.ExecutiveAllowance;
                 // 扶養手当
-                this.Worksheet.Cell(row, 6).Value = entity.DependencyAllowance.Value;
+                this.Worksheet_Payslip.Cell(row, 6).Value = entity.DependencyAllowance;
                 // 時間外手当
-                this.Worksheet.Cell(row, 7).Value = entity.OvertimeAllowance.Value;
+                this.Worksheet_Payslip.Cell(row, 7).Value = entity.OvertimeAllowance;
                 // 休日割増
-                this.Worksheet.Cell(row, 8).Value = entity.DaysoffIncreased.Value;
+                this.Worksheet_Payslip.Cell(row, 8).Value = entity.DaysoffIncreased;
                 // 深夜割増
-                this.Worksheet.Cell(row, 9).Value = entity.NightworkIncreased.Value;
+                this.Worksheet_Payslip.Cell(row, 9).Value = entity.NightworkIncreased;
                 // 住宅手当
-                this.Worksheet.Cell(row, 10).Value = entity.HousingAllowance.Value;
+                this.Worksheet_Payslip.Cell(row, 10).Value = entity.HousingAllowance;
                 // 遅刻早退欠勤
-                this.Worksheet.Cell(row, 11).Value = entity.LateAbsent;
+                this.Worksheet_Payslip.Cell(row, 11).Value = entity.LateAbsent;
                 // 交通費
-                this.Worksheet.Cell(row, 12).Value = entity.TransportationExpenses.Value;
+                this.Worksheet_Payslip.Cell(row, 12).Value = entity.TransportationExpenses;
                 // 在宅手当
-                this.Worksheet.Cell(row, 13).Value = entity.ElectricityAllowance.Value;
+                this.Worksheet_Payslip.Cell(row, 13).Value = entity.ElectricityAllowance;
                 // 特別手当
-                this.Worksheet.Cell(row, 14).Value = entity.SpecialAllowance.Value;
+                this.Worksheet_Payslip.Cell(row, 14).Value = entity.SpecialAllowance;
                 // 予備
-                this.Worksheet.Cell(row, 15).Value = entity.SpareAllowance.Value;
+                this.Worksheet_Payslip.Cell(row, 15).Value = entity.SpareAllowance;
                 // 備考
-                this.Worksheet.Cell(row, 16).Value = entity.Remarks;
+                this.Worksheet_Payslip.Cell(row, 16).Value = entity.Remarks;
                 // 支給総計
-                this.Worksheet.Cell(row, 40).Value = entity.TotalSalary;
+                this.Worksheet_Budget.Cell(row - 1, 4).Value = entity.TotalSalary;
+                this.Worksheet_Payslip.Cell(row,   40).Value = entity.TotalSalary;
                 // 差引支給額
-                this.Worksheet.Cell(row, 43).Value = entity.TotalDeductedSalary;
+                this.Worksheet_Budget.Cell(row - 1, 6).Value = entity.TotalDeductedSalary;
+                this.Worksheet_Payslip.Cell(row,   43).Value = entity.TotalDeductedSalary;
 
                 row++;
             }
@@ -144,25 +159,26 @@ namespace SalaryManager.Domain.Modules.Logics
             foreach (var entity in entities)
             {
                 // 健康保険
-                this.Worksheet.Cell(row, 17).Value = entity.HealthInsurance.Value;
+                this.Worksheet_Payslip.Cell(row, 17).Value = entity.HealthInsurance;
                 // 介護保険
-                this.Worksheet.Cell(row, 18).Value = entity.NursingInsurance.Value;
+                this.Worksheet_Payslip.Cell(row, 18).Value = entity.NursingInsurance;
                 // 厚生年金
-                this.Worksheet.Cell(row, 19).Value = entity.WelfareAnnuity.Value;
+                this.Worksheet_Payslip.Cell(row, 19).Value = entity.WelfareAnnuity;
                 // 雇用保険
-                this.Worksheet.Cell(row, 20).Value = entity.EmploymentInsurance.Value;
+                this.Worksheet_Payslip.Cell(row, 20).Value = entity.EmploymentInsurance;
                 // 所得税
-                this.Worksheet.Cell(row, 21).Value = entity.IncomeTax.Value;
+                this.Worksheet_Payslip.Cell(row, 21).Value = entity.IncomeTax;
                 // 市町村税
-                this.Worksheet.Cell(row, 22).Value = entity.MunicipalTax.Value;
+                this.Worksheet_Payslip.Cell(row, 22).Value = entity.MunicipalTax;
                 // 互助会
-                this.Worksheet.Cell(row, 23).Value = entity.FriendshipAssociation.Value;
+                this.Worksheet_Payslip.Cell(row, 23).Value = entity.FriendshipAssociation;
                 // 年末調整他
-                this.Worksheet.Cell(row, 24).Value = entity.YearEndTaxAdjustment;
+                this.Worksheet_Payslip.Cell(row, 24).Value = entity.YearEndTaxAdjustment;
                 // 備考
-                this.Worksheet.Cell(row, 25).Value = entity.Remarks;
+                this.Worksheet_Payslip.Cell(row, 25).Value = entity.Remarks;
                 // 控除額計
-                this.Worksheet.Cell(row, 41).Value = entity.TotalDeduct;
+                this.Worksheet_Budget.Cell(row - 1, 5).Value = entity.TotalDeduct;
+                this.Worksheet_Payslip.Cell(row,   41).Value = entity.TotalDeduct;
 
                 row++;
             }
@@ -187,27 +203,28 @@ namespace SalaryManager.Domain.Modules.Logics
             foreach (var entity in entities)
             {
                 // 時間外時間
-                this.Worksheet.Cell(row, 26).Value = entity.OvertimeTime;
+                this.Worksheet_Payslip.Cell(row, 26).Value = entity.OvertimeTime;
                 // 休出時間
-                this.Worksheet.Cell(row, 27).Value = entity.WeekendWorktime;
+                this.Worksheet_Payslip.Cell(row, 27).Value = entity.WeekendWorktime;
                 // 深夜時間
-                this.Worksheet.Cell(row, 28).Value = entity.MidnightWorktime;
+                this.Worksheet_Payslip.Cell(row, 28).Value = entity.MidnightWorktime;
                 // 遅刻早退欠勤H
-                this.Worksheet.Cell(row, 29).Value = entity.LateAbsentH;
+                this.Worksheet_Payslip.Cell(row, 29).Value = entity.LateAbsentH;
                 // 支給額-保険
-                this.Worksheet.Cell(row, 30).Value = entity.Insurance.Value;
+                this.Worksheet_Payslip.Cell(row, 30).Value = entity.Insurance;
                 // 標準月額千円
-                this.Worksheet.Cell(row, 31).Value = entity.Norm;
+                this.Worksheet_Payslip.Cell(row, 31).Value = entity.Norm;
                 // 扶養人数
-                this.Worksheet.Cell(row, 32).Value = entity.NumberOfDependent;
+                this.Worksheet_Payslip.Cell(row, 32).Value = entity.NumberOfDependent;
                 // 有給残日数
-                this.Worksheet.Cell(row, 33).Value = entity.PaidVacation.Value;
+                this.Worksheet_Payslip.Cell(row, 33).Value = entity.PaidVacation.Value;
                 // 勤務時間
-                this.Worksheet.Cell(row, 34).Value = entity.WorkingHours;
+                this.Worksheet_Payslip.Cell(row, 34).Value = entity.WorkingHours;
                 // 勤務時間
-                this.Worksheet.Cell(row, 35).Value = entity.Remarks;
+                this.Worksheet_Payslip.Cell(row, 35).Value = entity.Remarks;
                 // 勤務先
-                this.Worksheet.Cell(row, 2).Value  = entity.WorkPlace;
+                this.Worksheet_Budget.Cell(row - 1, 3).Value = entity.WorkPlace;
+                this.Worksheet_Payslip.Cell(row,    2).Value = entity.WorkPlace;
 
                 row++;
             }
@@ -232,13 +249,13 @@ namespace SalaryManager.Domain.Modules.Logics
             foreach (var entity in entities)
             {
                 // 副業収入
-                this.Worksheet.Cell(row, 36).Value = entity.SideBusiness;
+                this.Worksheet_Payslip.Cell(row, 36).Value = entity.SideBusiness;
                 // 臨時収入
-                this.Worksheet.Cell(row, 37).Value = entity.Perquisite;
+                this.Worksheet_Payslip.Cell(row, 37).Value = entity.Perquisite;
                 // その他
-                this.Worksheet.Cell(row, 38).Value = entity.Others;
+                this.Worksheet_Payslip.Cell(row, 38).Value = entity.Others;
                 // 備考
-                this.Worksheet.Cell(row, 39).Value = entity.Remarks;
+                this.Worksheet_Payslip.Cell(row, 39).Value = entity.Remarks;
 
                 row++;
             }
@@ -246,11 +263,34 @@ namespace SalaryManager.Domain.Modules.Logics
             await Task.CompletedTask;
         }
 
-        public void Adjust()
+        /// <summary>
+        /// スタイルの設定
+        /// </summary>
+        public async Task SetStyle()
         {
-            var headers = StaticValues.Headers.FetchByDescending();
+            var date = StaticValues.Headers.FetchByDescending();
 
-            var a = headers.Count;
+            // 罫線
+            var style_Payslip = this.Worksheet_Payslip.Range(Excel.DefaultRow, Excel.DefaultColumn, date.Count + Excel.DefaultRow - 1, 43).Style;
+            style_Payslip.Border.InsideBorder  = XLBorderStyleValues.Thin;
+            style_Payslip.Border.OutsideBorder = XLBorderStyleValues.Thin;
+
+            var style_Budget = this.Worksheet_Budget.Range(Excel.DefaultRow - 1, Excel.DefaultColumn, date.Count + Excel.DefaultRow - 2, 7).Style;
+            style_Budget.Border.InsideBorder  = XLBorderStyleValues.Thin;
+            style_Budget.Border.OutsideBorder = XLBorderStyleValues.Thin;
+
+            // 行間の自動調整
+            for (var column = Excel.DefaultColumn; column < 43; column++)
+            {
+                this.Worksheet_Payslip.Column(column).AdjustToContents();
+                this.Worksheet_Budget.Column(column).AdjustToContents();
+            }
+
+            // 揃え方向
+            style_Payslip.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Right);
+            style_Budget.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Right);
+
+            await Task.CompletedTask;
         }
     }
 }

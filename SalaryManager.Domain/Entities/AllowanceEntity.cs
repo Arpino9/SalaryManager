@@ -62,7 +62,7 @@ namespace SalaryManager.Domain.Entities
             this.SpareAllowance         = new MoneyValue(spareAllowance);
             this.Remarks                = remarks;
             this.TotalSalary            = new MoneyValue(totalSalary);
-            this.TotalDeductedSalary    = totalDeductedSalary;                           
+            this.TotalDeductedSalary    = new MoneyValue(totalDeductedSalary);                           
         }
 
         /// <summary> ID </summary>
@@ -114,6 +114,6 @@ namespace SalaryManager.Domain.Entities
         public MoneyValue TotalSalary { get; }
 
         /// <summary> 差引支給額 </summary>
-        public double TotalDeductedSalary { get; }
+        public MoneyValue TotalDeductedSalary { get; }
     }
 }

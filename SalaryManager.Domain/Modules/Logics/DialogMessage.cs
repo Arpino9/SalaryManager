@@ -18,6 +18,16 @@ namespace SalaryManager.Domain.Modules.Logics
         }
 
         /// <summary>
+        /// エラーメッセージを表示する
+        /// </summary>
+        /// <param name="message">メッセージ</param>
+        /// <param name="title">タイトル</param>
+        public static void ShowErrorMessage(string message, string title)
+        {
+            MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        /// <summary>
         /// 確認メッセージを表示する (Yes / No)
         /// </summary>
         /// <param name="message">メッセージ</param>

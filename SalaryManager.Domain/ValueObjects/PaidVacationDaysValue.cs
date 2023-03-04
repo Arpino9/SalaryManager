@@ -37,6 +37,17 @@ namespace SalaryManager.Domain.ValueObjects
         public readonly double Value;
 
         /// <summary>
+        /// Text
+        /// </summary>
+        public string Text
+        {
+            get
+            {
+                return ($"{this.Value.ToString()}日");
+            }
+        }
+
+        /// <summary>
         /// To String
         /// </summary>
         /// <returns>金額</returns>

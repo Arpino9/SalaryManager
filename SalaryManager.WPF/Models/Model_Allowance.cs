@@ -102,7 +102,7 @@ namespace SalaryManager.WPF.Models
             // 支給総計
             this.ViewModel.TotalSalary            = entity.TotalSalary.Value;
             // 差引支給額
-            this.ViewModel.TotalDeductedSalary    = entity.TotalDeductedSalary;
+            this.ViewModel.TotalDeductedSalary    = entity.TotalDeductedSalary.Value;
 
             this.ChangeColor();
         }

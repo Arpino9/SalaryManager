@@ -241,11 +241,10 @@ namespace SalaryManager.WPF.Models
                     workbook.WriteAllAllowance(Allowances.FetchByDescending()),
                     workbook.WriteAllDeduction(Deductions.FetchByDescending()),
                     workbook.WriteAllWorkingReferences(WorkingReferences.FetchByDescending()),
-                    workbook.WriteAllSideBusiness(SideBusinesses.FetchByDescending())
+                    workbook.WriteAllSideBusiness(SideBusinesses.FetchByDescending()),
+                    workbook.SetStyle()
                 );
             }
-
-            workbook.Adjust();
 
             var selector = new DirectorySelector();
             var directory = selector.Select("Excel出力先のフォルダを選択してください。");

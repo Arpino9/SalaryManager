@@ -82,7 +82,7 @@ namespace SalaryManager.WPF.ViewModels
             // 支給総計
             this.TotalSalary_Action            = new RelayCommand(() => this.MainWindow.ComparePrice(this.TotalSalary,            this.Entity_LastYear.TotalSalary.Value));
             // 差引支給額
-            this.TotalDeductedSalary_Action    = new RelayCommand(() => this.MainWindow.ComparePrice(this.TotalDeductedSalary,    this.Entity_LastYear.TotalDeductedSalary));
+            this.TotalDeductedSalary_Action    = new RelayCommand(() => this.MainWindow.ComparePrice(this.TotalDeductedSalary,    this.Entity_LastYear.TotalDeductedSalary.Value));
         }
 
         /// <summary> Model - 支給額 </summary>
