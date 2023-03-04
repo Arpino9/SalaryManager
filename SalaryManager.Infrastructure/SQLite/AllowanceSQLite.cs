@@ -15,24 +15,53 @@ namespace SalaryManager.Infrastructure.SQLite
         public IReadOnlyList<AllowanceEntity> GetEntities()
         {
             string sql = @"
-SELECT Id, 
-YearMonth, 
-BasicSalary, 
-ExecutiveAllowance, 
-DependencyAllowance, 
-OvertimeAllowance, 
-DaysoffIncreased, 
-NightworkIncreased ,
-HousingAllowance,
-LateAbsent,
-TransportationExpenses,
-ElectricityAllowance,
-SpecialAllowance,
-SpareAllowance,
-Remarks,
-TotalSalary,
-TotalDeductedSalary
-FROM Allowance";
+SELECT A.Id, 
+A.YearMonth, 
+A.BasicSalary, 
+A.ExecutiveAllowance, 
+A.DependencyAllowance, 
+A.OvertimeAllowance, 
+A.DaysoffIncreased, 
+A.NightworkIncreased ,
+A.HousingAllowance,
+A.LateAbsent,
+A.TransportationExpenses,
+A.ElectricityAllowance,
+A.SpecialAllowance,
+A.SpareAllowance,
+A.Remarks,
+A.BasicSalary
++ A.ExecutiveAllowance
++ A.DependencyAllowance
++ A.OvertimeAllowance
++ A.DaysoffIncreased
++ A.NightworkIncreased
++ A.HousingAllowance
++ A.LateAbsent
++ A.SpecialAllowance
++ A.SpareAllowance AS TotalSalary,
+A.BasicSalary
++ A.ExecutiveAllowance
++ A.DependencyAllowance
++ A.OvertimeAllowance
++ A.DaysoffIncreased
++ A.NightworkIncreased
++ A.HousingAllowance
++ A.LateAbsent
++ A.SpecialAllowance
++ A.SpareAllowance
+- (
+D.HealthInsurance
++ D.NursingInsurance
++ D.WelfareAnnuity
++ D.EmploymentInsurance
++ D.IncomeTax
++ D.MunicipalTax
++ D.FriendshipAssociation
++ D.YearEndTaxAdjustment
+) AS TotalDeductedSalary
+FROM Allowance A
+INNER JOIN Deduction D ON A.YearMonth = D.YearMonth";
 
             return SQLiteHelper.Query(
                 sql,
@@ -68,24 +97,33 @@ FROM Allowance";
         public AllowanceEntity GetEntity(int year, int month)
         {
             string sql = @"
-SELECT Id, 
-YearMonth, 
-BasicSalary, 
-ExecutiveAllowance, 
-DependencyAllowance, 
-OvertimeAllowance, 
-DaysoffIncreased, 
-NightworkIncreased ,
-HousingAllowance,
-LateAbsent,
-TransportationExpenses,
-ElectricityAllowance,
-SpecialAllowance,
-SpareAllowance,
-Remarks,
-TotalSalary,
-TotalDeductedSalary
-FROM Allowance
+SELECT A.Id, 
+A.YearMonth, 
+A.BasicSalary, 
+A.ExecutiveAllowance, 
+A.DependencyAllowance, 
+A.OvertimeAllowance, 
+A.DaysoffIncreased, 
+A.NightworkIncreased ,
+A.HousingAllowance,
+A.LateAbsent,
+A.TransportationExpenses,
+A.ElectricityAllowance,
+A.SpecialAllowance,
+A.SpareAllowance,
+A.Remarks,
++ A.ExecutiveAllowance
++ A.DependencyAllowance
++ A.OvertimeAllowance
++ A.DaysoffIncreased
++ A.NightworkIncreased
++ A.HousingAllowance
++ A.LateAbsent
++ A.SpecialAllowance
++ A.SpareAllowance AS TotalSalary,
+A.TotalSalary - D.TotalDeduct AS TotalDeductedSalary
+FROM Allowance A
+INNER JOIN Deduction D ON A.YearMonth = D.YearMonth
 Where YearMonth = @YearMonth";
 
             var args = new List<SQLiteParameter>()
@@ -142,10 +180,20 @@ A.ElectricityAllowance,
 A.SpecialAllowance,
 A.SpareAllowance,
 A.Remarks,
-A.TotalSalary,
-A.TotalDeductedSalary
+A.BasicSalary
++ A.ExecutiveAllowance
++ A.DependencyAllowance
++ A.OvertimeAllowance
++ A.DaysoffIncreased
++ A.NightworkIncreased
++ A.HousingAllowance
++ A.LateAbsent
++ A.SpecialAllowance
++ A.SpareAllowance AS TotalSalary,
+A.TotalSalary - D.TotalDeduct AS TotalDeductedSalary
 FROM Allowance A
 INNER JOIN YearMonth YM ON A.YearMonth = YM.YearMonth
+INNER JOIN Deduction D ON A.YearMonth = D.YearMonth
 WHERE YM.IsDefault = True";
 
             return SQLiteHelper.QuerySingle<AllowanceEntity>(
@@ -194,9 +242,7 @@ TransportationExpenses,
 ElectricityAllowance, 
 SpecialAllowance, 
 SpareAllowance, 
-Remarks, 
-TotalSalary, 
-TotalDeductedSalary)
+Remarks)
 values
 (@Id, 
 @YearMonth, 
@@ -212,9 +258,7 @@ values
 @ElectricityAllowance, 
 @SpecialAllowance, 
 @SpareAllowance, 
-@Remarks, 
-@TotalSalary, 
-@TotalDeductedSalary)
+@Remarks)
 ";
 
             string update = @"
@@ -232,9 +276,7 @@ set YearMonth              = @YearMonth,
     ElectricityAllowance   = @ElectricityAllowance,  
     SpecialAllowance       = @SpecialAllowance,  
     SpareAllowance         = @SpareAllowance,  
-    Remarks                = @Remarks,  
-    TotalSalary            = @TotalSalary,  
-    TotalDeductedSalary    = @TotalDeductedSalary
+    Remarks                = @Remarks
 where Id = @Id
 ";
 
@@ -255,8 +297,6 @@ where Id = @Id
                 new SQLiteParameter("SpecialAllowance", entity.SpecialAllowance.Value),
                 new SQLiteParameter("SpareAllowance", entity.SpareAllowance.Value),
                 new SQLiteParameter("Remarks", entity.Remarks),
-                new SQLiteParameter("TotalSalary", entity.TotalSalary.Value),
-                new SQLiteParameter("TotalDeductedSalary", entity.TotalDeductedSalary.Value),
             };
 
             transaction.Execute(insert, update, args.ToArray());

@@ -101,8 +101,14 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         /// <param name="thisYearPrice">今年の金額</param>
         /// <param name="lastYearPrice">去年の金額</param>
-        internal void ComparePrice(double thisYearPrice, double lastYearPrice)
+        internal void ComparePrice(double? thisYearPrice, double? lastYearPrice)
         {
+            if (thisYearPrice is null ||
+                lastYearPrice is null) 
+            { 
+                return; 
+            }
+
             var difference = thisYearPrice - lastYearPrice;
 
             if (thisYearPrice == 0 || 

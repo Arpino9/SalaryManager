@@ -29,7 +29,14 @@ MunicipalTax,
 FriendshipAssociation,
 YearEndTaxAdjustment,
 Remarks,
-TotalDeduct
+HealthInsurance
++ NursingInsurance
++ WelfareAnnuity
++ EmploymentInsurance
++ IncomeTax
++ MunicipalTax
++ FriendshipAssociation
++ YearEndTaxAdjustment AS TotalDeduct
 FROM Deduction";
 
             return SQLiteHelper.Query(
@@ -66,7 +73,14 @@ MunicipalTax,
 FriendshipAssociation,
 YearEndTaxAdjustment,
 Remarks,
-TotalDeduct
+HealthInsurance
++ NursingInsurance
++ WelfareAnnuity
++ EmploymentInsurance
++ IncomeTax
++ MunicipalTax
++ FriendshipAssociation
++ YearEndTaxAdjustment AS TotalDeduct
 FROM Deduction
 Where YearMonth = @YearMonth";
 
@@ -115,7 +129,14 @@ D.MunicipalTax,
 D.FriendshipAssociation,
 D.YearEndTaxAdjustment,
 D.Remarks,
-D.TotalDeduct
+D.HealthInsurance
++ D.NursingInsurance
++ D.WelfareAnnuity
++ D.EmploymentInsurance
++ D.IncomeTax
++ D.MunicipalTax
++ D.FriendshipAssociation
++ D.YearEndTaxAdjustment AS TotalDeduct
 FROM Deduction D
 INNER JOIN YearMonth YM ON D.YearMonth = YM.YearMonth
 WHERE YM.IsDefault = True";
@@ -152,11 +173,11 @@ WHERE YM.IsDefault = True";
 insert into Deduction
 (Id, YearMonth, HealthInsurance, NursingInsurance, WelfareAnnuity,
 EmploymentInsurance, IncomeTax, MunicipalTax, FriendshipAssociation,
-YearEndTaxAdjustment, Remarks, TotalDeduct)
+YearEndTaxAdjustment, Remarks)
 values
 (@Id, @YearMonth, @HealthInsurance, @NursingInsurance, @WelfareAnnuity,
 @EmploymentInsurance, @IncomeTax, @MunicipalTax, @FriendshipAssociation,
-@YearEndTaxAdjustment, @Remarks, @TotalDeduct)
+@YearEndTaxAdjustment, @Remarks)
 ";
 
             string update = @"
@@ -170,8 +191,7 @@ set YearMonth             = @YearMonth,
     MunicipalTax          = @MunicipalTax, 
     FriendshipAssociation = @FriendshipAssociation, 
     YearEndTaxAdjustment  = @YearEndTaxAdjustment, 
-    Remarks               = @Remarks, 
-    TotalDeduct           = @TotalDeduct
+    Remarks               = @Remarks
 where Id = @Id
 ";
 
@@ -188,7 +208,6 @@ where Id = @Id
                 new SQLiteParameter("FriendshipAssociation", entity.FriendshipAssociation.Value),
                 new SQLiteParameter("YearEndTaxAdjustment", entity.YearEndTaxAdjustment),
                 new SQLiteParameter("Remarks", entity.Remarks),
-                new SQLiteParameter("TotalDeduct", entity.TotalDeduct.Value),
             };
 
             transaction.Execute(insert, update, args.ToArray());

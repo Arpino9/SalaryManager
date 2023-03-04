@@ -45,7 +45,18 @@ namespace SalaryManager.WPF.Models
         internal void Initialize(int fetchingYear)
         {
             // 対象日付
-            this.ViewModel.TargetDate = new YearValue(this.Header.Year, this.Header.Month).YearWithJapaneseCalendar;
+            if (this.Header.Year.ToString().Length != 4)
+            {
+                return;
+            }
+
+            var yearValue = new YearValue(this.Header.Year, this.Header.Month);
+            this.ViewModel.TargetDate = yearValue?.YearWithJapaneseCalendar;
+
+            if (this.ViewModel.TargetDate is null)
+            {
+                return;
+            }
 
             this.Clear();
 

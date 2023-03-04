@@ -4,7 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SalaryManager.WPF.UserControls"
-             xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" x:Class="SalaryManager.WPF.UserControls.Header"
+             xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" 
+             xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+             x:Class="SalaryManager.WPF.UserControls.Header"
              mc:Ignorable="d" 
              d:DesignHeight="25" d:DesignWidth="200"
              Background="{x:Static SystemColors.ControlLightBrush}">
@@ -25,7 +27,13 @@
                 Command="{Binding ReturnClick, Mode=OneWay}" />
         <TextBox Grid.Column="1" 
                  Grid.Row="1" Text="{Binding Year, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                 TextAlignment="Right" />
+                 TextAlignment="Right">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="TextChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding Year_TextChanged}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <Label Content="年"
                Grid.Column="2" />
 

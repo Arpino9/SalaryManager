@@ -57,23 +57,23 @@ namespace SalaryManager.WPF.ViewModels
             // Mouse Leave
             this.MouseLeave_Action            = new RelayCommand(() => this.MainWindow.ComparePrice(0, 0));
             // 健康保険
-            this.HealthInsurance_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.HealthInsurance,       this.Entity_LastYear.HealthInsurance.Value));
+            this.HealthInsurance_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.HealthInsurance,       this.Entity_LastYear?.HealthInsurance.Value));
             // 介護保険
-            this.NursingInsurance_Action      = new RelayCommand(() => this.MainWindow.ComparePrice(this.NursingInsurance,      this.Entity_LastYear.NursingInsurance.Value));
+            this.NursingInsurance_Action      = new RelayCommand(() => this.MainWindow.ComparePrice(this.NursingInsurance,      this.Entity_LastYear?.NursingInsurance.Value));
             // 厚生年金
-            this.WelfareAnnuity_Action        = new RelayCommand(() => this.MainWindow.ComparePrice(this.WelfareAnnuity,        this.Entity_LastYear.WelfareAnnuity.Value));
+            this.WelfareAnnuity_Action        = new RelayCommand(() => this.MainWindow.ComparePrice(this.WelfareAnnuity,        this.Entity_LastYear?.WelfareAnnuity.Value));
             // 雇用保険
-            this.EmploymentInsurance_Action   = new RelayCommand(() => this.MainWindow.ComparePrice(this.EmploymentInsurance,   this.Entity_LastYear.EmploymentInsurance.Value));
+            this.EmploymentInsurance_Action   = new RelayCommand(() => this.MainWindow.ComparePrice(this.EmploymentInsurance,   this.Entity_LastYear?.EmploymentInsurance.Value));
             // 所得税
-            this.IncomeTax_Action             = new RelayCommand(() => this.MainWindow.ComparePrice(this.IncomeTax,             this.Entity_LastYear.IncomeTax.Value));
+            this.IncomeTax_Action             = new RelayCommand(() => this.MainWindow.ComparePrice(this.IncomeTax,             this.Entity_LastYear?.IncomeTax.Value));
             // 市町村税
-            this.MunicipalTax_Action          = new RelayCommand(() => this.MainWindow.ComparePrice(this.MunicipalTax,          this.Entity_LastYear.MunicipalTax.Value));
+            this.MunicipalTax_Action          = new RelayCommand(() => this.MainWindow.ComparePrice(this.MunicipalTax,          this.Entity_LastYear?.MunicipalTax.Value));
             // 互助会
-            this.FriendshipAssociation_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.FriendshipAssociation, this.Entity_LastYear.FriendshipAssociation.Value));
+            this.FriendshipAssociation_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.FriendshipAssociation, this.Entity_LastYear?.FriendshipAssociation.Value));
             // 年末調整他
-            this.YearEndTaxAdjustment_Action  = new RelayCommand(() => this.MainWindow.ComparePrice(this.YearEndTaxAdjustment,  this.Entity_LastYear.YearEndTaxAdjustment));
+            this.YearEndTaxAdjustment_Action  = new RelayCommand(() => this.MainWindow.ComparePrice(this.YearEndTaxAdjustment,  this.Entity_LastYear?.YearEndTaxAdjustment));
             // 控除額計
-            this.TotalDeduct_Action           = new RelayCommand(() => this.MainWindow.ComparePrice(this.TotalDeduct,           this.Entity_LastYear.TotalDeduct.Value));
+            this.TotalDeduct_Action           = new RelayCommand(() => this.MainWindow.ComparePrice(this.TotalDeduct,           this.Entity_LastYear?.TotalDeduct.Value));
         }
 
         /// <summary> Model - 控除額 </summary>

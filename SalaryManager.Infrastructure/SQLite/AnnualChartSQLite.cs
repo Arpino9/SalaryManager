@@ -15,11 +15,42 @@ namespace SalaryManager.Infrastructure.SQLite
             string sql = @"
 SELECT A.Id, 
 A.YearMonth, 
-A.TotalSalary,
-A.TotalDeductedSalary,
-S.SideBusiness + S.Perquisite + S.Others AS TotalSideBusiness
+A.BasicSalary
++ A.ExecutiveAllowance
++ A.DependencyAllowance
++ A.OvertimeAllowance
++ A.DaysoffIncreased
++ A.NightworkIncreased
++ A.HousingAllowance
++ A.LateAbsent
++ A.SpecialAllowance
++ A.SpareAllowance AS TotalSalary,
+A.BasicSalary
++ A.ExecutiveAllowance
++ A.DependencyAllowance
++ A.OvertimeAllowance
++ A.DaysoffIncreased
++ A.NightworkIncreased
++ A.HousingAllowance
++ A.LateAbsent
++ A.SpecialAllowance
++ A.SpareAllowance
+- (
+D.HealthInsurance
++ D.NursingInsurance
++ D.WelfareAnnuity
++ D.EmploymentInsurance
++ D.IncomeTax
++ D.MunicipalTax
++ D.FriendshipAssociation
++ D.YearEndTaxAdjustment
+) AS TotalDeductedSalary,
+S.SideBusiness 
++ S.Perquisite 
++ S.Others AS TotalSideBusiness
 FROM Allowance A
-INNER JOIN SideBusiness S ON A.YearMonth = S.YearMonth";
+INNER JOIN SideBusiness S ON A.YearMonth = S.YearMonth
+INNER JOIN Deduction    D ON A.YearMonth = D.YearMonth";
 
             return SQLiteHelper.Query(
                 sql,

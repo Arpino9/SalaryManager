@@ -59,6 +59,14 @@ namespace SalaryManager.WPF.ViewModels
             this._proceedAction += this.SideBusiness.Reload;
             this._proceedAction += this.AnnualCharts.Reload;
 
+            // 年
+            this._yearAction += this.Allowance.Reload;
+            this._yearAction += this.Deduction.Reload;
+            this._yearAction += this.WorkingReference.Reload;
+            this._yearAction += this.SideBusiness.Reload;
+            this._yearAction += this.AnnualCharts.Reload;
+            this.Year_TextChanged = new RelayCommand(_yearAction);
+
             this.Model.Initialize(DateTime.Today);
         }
 
@@ -128,6 +136,13 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
+        private Action _yearAction;
+
+        /// <summary>
+        /// 年 - Action
+        /// </summary>
+        public RelayCommand Year_TextChanged { get; private set; }
+
         private int _month = DateTime.Now.Month;
 
         /// <summary>
@@ -144,6 +159,11 @@ namespace SalaryManager.WPF.ViewModels
                 this.Model.Reload();
             }
         }
+
+        /// <summary>
+        /// 月 - Action
+        /// </summary>
+        public RelayCommand Month_Action { get; private set; }
 
         #endregion
 

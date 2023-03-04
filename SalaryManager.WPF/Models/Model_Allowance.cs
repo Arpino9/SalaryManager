@@ -116,7 +116,7 @@ namespace SalaryManager.WPF.Models
             {
                 Allowances.Create(new AllowanceSQLite());
 
-                this.ViewModel.Entity          = Allowances.Fetch(this.Header.Year, this.Header.Month);
+                this.ViewModel.Entity          = Allowances.Fetch(this.Header.Year,     this.Header.Month);
                 this.ViewModel.Entity_LastYear = Allowances.Fetch(this.Header.Year - 1, this.Header.Month);
 
                 this.Refresh();
