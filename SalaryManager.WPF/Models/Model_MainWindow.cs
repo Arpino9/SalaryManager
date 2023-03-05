@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Media;
+using SalaryManager.WPF.UserControls;
+using WorkingReferences = SalaryManager.Domain.StaticValues.WorkingReferences;
 
 namespace SalaryManager.WPF.Models
 {
@@ -256,6 +258,19 @@ namespace SalaryManager.WPF.Models
             var directory = selector.Select("Excel出力先のフォルダを選択してください。");
 
             workbook.CopyAsWorkbook(directory);
+        }
+
+        #endregion
+
+        #region 経歴入力
+
+        /// <summary>
+        /// 経歴管理画面を開く
+        /// </summary>
+        internal void ShowCareerManager()
+        {
+            var career = new CareerInput();
+            career.Show();
         }
 
         #endregion

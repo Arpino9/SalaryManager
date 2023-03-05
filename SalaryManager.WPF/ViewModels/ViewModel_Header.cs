@@ -9,6 +9,8 @@ namespace SalaryManager.WPF.ViewModels
 {
     public class ViewModel_Header : INotifyPropertyChanged
     {
+        #region Property Changed
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void RaisePropertyChanged(
@@ -17,6 +19,8 @@ namespace SalaryManager.WPF.ViewModels
             var d = PropertyChanged;
             d?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        #endregion
 
         public ReactiveProperty<string> OutputText { get; } = new ReactiveProperty<string>("TextBoxに入力した文字をここに表示します\r\nボタンを押すと文字をすべて消去します");
 
@@ -43,6 +47,16 @@ namespace SalaryManager.WPF.ViewModels
             this.SideBusiness.Header     = this;
             this.AnnualCharts.Header     = this;
 
+            this.BindEvents();
+
+            this.Model.Initialize(DateTime.Today);
+        }
+
+        /// <summary>
+        /// Bind Events
+        /// </summary>
+        private void BindEvents()
+        {
             // ←(戻る)
             this._returnAction += this.Model.Return;
             this._returnAction += this.Allowance.Reload;
@@ -74,8 +88,6 @@ namespace SalaryManager.WPF.ViewModels
             this._monthAction += this.SideBusiness.Reload;
             this._monthAction += this.AnnualCharts.Reload;
             this.Month_TextChanged = new RelayCommand(_monthAction);
-
-            this.Model.Initialize(DateTime.Today);
         }
 
         /// <summary> Model - ヘッダー </summary>

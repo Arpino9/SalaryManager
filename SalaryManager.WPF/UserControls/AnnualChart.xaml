@@ -44,7 +44,7 @@
         </Grid.RowDefinitions>
 
         <Label Content="{Binding TargetDate}" 
-               Grid.ColumnSpan="3"
+               Grid.ColumnSpan="4"
                HorizontalAlignment="Center"/>
 
         <Label Content="支給額計"

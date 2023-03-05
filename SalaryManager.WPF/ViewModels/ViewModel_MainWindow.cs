@@ -120,6 +120,27 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
+        #region 経歴管理画面を開く
+
+        private RelayCommand _showCareerManager;
+
+        /// <summary>
+        /// 経歴管理画面を開く
+        /// </summary>
+        public RelayCommand ShowCareerManager
+        {
+            get
+            {
+                if (this._showCareerManager == null)
+                {
+                    this._showCareerManager = new RelayCommand(this.Model.ShowCareerManager);
+                }
+                return this._showCareerManager;
+            }
+        }
+
+        #endregion
+
         #region 今月の明細を表示
 
         private RelayCommand _showCurrentPayslip;

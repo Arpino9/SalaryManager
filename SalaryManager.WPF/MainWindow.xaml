@@ -8,7 +8,9 @@
         xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" x:Class="SalaryManager.WPF.MainWindow"
         mc:Ignorable="d"
         Title="{Binding Title, Mode=OneWay}" Height="550" Width="700"
-        Background="{x:Static SystemColors.ControlLightBrush}">
+        Background="{x:Static SystemColors.ControlLightBrush}"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
     <Window.DataContext>
         <ViewModels:ViewModel_MainWindow/>
     </Window.DataContext>
@@ -35,6 +37,14 @@
                     <MenuItem Header="取得" Command="{Binding GetDefaultClick}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="登録されているデフォルト明細を表示します。"/>
+                        </ToolTipService.ToolTip>
+                    </MenuItem>
+                </MenuItem>
+
+                <MenuItem Header="経歴">
+                    <MenuItem Header="経歴入力" Command="{Binding ShowCareerManager}">
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="経歴入力・変更画面を開きます。"/>
                         </ToolTipService.ToolTip>
                     </MenuItem>
                 </MenuItem>
