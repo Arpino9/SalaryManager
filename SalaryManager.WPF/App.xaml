@@ -22,6 +22,17 @@
             </Style.Triggers>
         </Style>
 
+        <Style TargetType="TextBox" x:Key="AnnualChartItemNumeric_Style">
+            <Setter Property="Margin" Value="3" />
+            <Setter Property="TextAlignment" Value="Right" />
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="LightYellow"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
         <!-- 文字入力 -->
         <Style TargetType="TextBox" x:Key="PayslipItemCharacter_Style">
             <Setter Property="Margin" Value="5" />

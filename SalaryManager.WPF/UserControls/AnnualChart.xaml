@@ -66,17 +66,17 @@
                Grid.Row="2" />
         <TextBox Grid.Column="1" 
                  Grid.Row="2" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSalary_January, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
         <TextBox Grid.Column="2" 
                  Grid.Row="2" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalDeductedSalary_January, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
         <TextBox Grid.Column="3" 
                  Grid.Row="2" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSideBusiness_January, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
 
@@ -84,17 +84,17 @@
                Grid.Row="3" />
         <TextBox Grid.Column="1" 
                  Grid.Row="3" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSalary_Feburary, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
         <TextBox Grid.Column="2" 
                  Grid.Row="3" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalDeductedSalary_Feburary, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
         <TextBox Grid.Column="3" 
                  Grid.Row="3" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSideBusiness_Feburary, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
 
@@ -102,17 +102,17 @@
                Grid.Row="4" />
         <TextBox Grid.Column="1" 
                  Grid.Row="4" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSalary_March, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
         <TextBox Grid.Column="2" 
                  Grid.Row="4" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalDeductedSalary_March, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
         <TextBox Grid.Column="3" 
                  Grid.Row="4" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSideBusiness_March, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
 
@@ -120,17 +120,17 @@
                Grid.Row="5" />
         <TextBox Grid.Column="1" 
                  Grid.Row="5" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSalary_April, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
         <TextBox Grid.Column="2" 
                  Grid.Row="5" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalDeductedSalary_April, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
         <TextBox Grid.Column="3" 
                  Grid.Row="5" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSideBusiness_April, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
 
@@ -138,17 +138,17 @@
                Grid.Row="6" />
         <TextBox Grid.Column="1" 
                  Grid.Row="6" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSalary_May, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
         <TextBox Grid.Column="2" 
                  Grid.Row="6" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalDeductedSalary_May, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
         <TextBox Grid.Column="3" 
                  Grid.Row="6" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSideBusiness_May, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
 
@@ -156,17 +156,17 @@
                Grid.Row="7" />
         <TextBox Grid.Column="1" 
                  Grid.Row="7" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSalary_June, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
         <TextBox Grid.Column="2" 
                  Grid.Row="7" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalDeductedSalary_June, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
         <TextBox Grid.Column="3" 
                  Grid.Row="7" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSideBusiness_June, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
 
@@ -174,17 +174,17 @@
                Grid.Row="8" />
         <TextBox Grid.Column="1" 
                  Grid.Row="8" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSalary_July, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
         <TextBox Grid.Column="2" 
                  Grid.Row="8" 
-                 Style="{StaticResource Value_Style}" 
+                 Style="{StaticResource AnnualChartItemNumeric_Style}" 
                  Text="{Binding TotalDeductedSalary_July, StringFormat={}{0:N0}}" 
                  IsReadOnly="True" />
         <TextBox Grid.Column="3" 
                  Grid.Row="8" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSideBusiness_July, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
 
@@ -192,17 +192,17 @@
                Grid.Row="9" />
         <TextBox Grid.Column="1" 
                  Grid.Row="9" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSalary_August, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
         <TextBox Grid.Column="2" 
                  Grid.Row="9" 
-                 Style="{StaticResource Value_Style}" 
+                 Style="{StaticResource AnnualChartItemNumeric_Style}" 
                  Text="{Binding TotalDeductedSalary_August, StringFormat={}{0:N0}}" 
                  IsReadOnly="True" />
         <TextBox Grid.Column="3" 
                  Grid.Row="9" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSideBusiness_August, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
 
@@ -210,17 +210,17 @@
                Grid.Row="10" />
         <TextBox Grid.Column="1" 
                  Grid.Row="10" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSalary_September, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
         <TextBox Grid.Column="2" 
                  Grid.Row="10" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalDeductedSalary_September, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
         <TextBox Grid.Column="3" 
                  Grid.Row="10" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSideBusiness_September, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
 
@@ -228,17 +228,17 @@
                Grid.Row="11" />
         <TextBox Grid.Column="1" 
                  Grid.Row="11" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSalary_October, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
         <TextBox Grid.Column="2" 
                  Grid.Row="11" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalDeductedSalary_October, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
         <TextBox Grid.Column="3" 
                  Grid.Row="11" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSideBusiness_October, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
 
@@ -246,17 +246,17 @@
                Grid.Row="12" />
         <TextBox Grid.Column="1" 
                  Grid.Row="12" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSalary_November, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
         <TextBox Grid.Column="2" 
                  Grid.Row="12" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalDeductedSalary_November, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
         <TextBox Grid.Column="3" 
                  Grid.Row="12" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSideBusiness_November, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
 
@@ -264,17 +264,17 @@
                Grid.Row="13" />
         <TextBox Grid.Column="1" 
                  Grid.Row="13" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSalary_December, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
         <TextBox Grid.Column="2" 
                  Grid.Row="13" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalDeductedSalary_December, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
         <TextBox Grid.Column="3" 
                  Grid.Row="13" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSideBusiness_December, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
 
@@ -282,17 +282,17 @@
                Grid.Row="14" />
         <TextBox Grid.Column="1" 
                  Grid.Row="14" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSalary_Sum, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
         <TextBox Grid.Column="2" 
                  Grid.Row="14" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalDeductedSalary_Sum, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
         <TextBox Grid.Column="3" 
                  Grid.Row="14" 
-                 Style="{StaticResource Value_Style}"
+                 Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSideBusiness_Sum, StringFormat={}{0:N0}}" 
                  IsReadOnly="True"/>
     </Grid>

@@ -95,16 +95,32 @@
 
         <TabControl Grid.Row="2">
             <TabItem Header="支給額">
-                <local:Allowance Height="340" VerticalAlignment="Top" />
+                <local:Allowance Height="340" VerticalAlignment="Top" >
+                    <local:Allowance.Background>
+                        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlLightBrush}}"/>
+                    </local:Allowance.Background>
+                </local:Allowance>
             </TabItem>
             <TabItem Header="控除額">
-                <local:Deduction Height="250" VerticalAlignment="Top" />
+                <local:Deduction Height="250" VerticalAlignment="Top" >
+                    <local:Deduction.Background>
+                        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlLightBrush}}"/>
+                    </local:Deduction.Background>
+                </local:Deduction>
             </TabItem>
             <TabItem Header="勤務備考">
-                <local:WorkingReferences Height="250" VerticalAlignment="Top" />
+                <local:WorkingReferences Height="250" VerticalAlignment="Top" >
+                    <local:WorkingReferences.Background>
+                        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlLightBrush}}"/>
+                    </local:WorkingReferences.Background>
+                </local:WorkingReferences>
             </TabItem>
             <TabItem Header="副業など">
-                <local:SideBusiness Height="150" VerticalAlignment="Top" />
+                <local:SideBusiness Height="150" VerticalAlignment="Top" >
+                    <local:SideBusiness.Background>
+                        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlLightBrush}}"/>
+                    </local:SideBusiness.Background>
+                </local:SideBusiness>
             </TabItem>
         </TabControl>
 

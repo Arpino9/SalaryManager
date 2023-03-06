@@ -91,7 +91,7 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.LateAbsent             = entity.LateAbsent;
             // 交通費
             this.ViewModel.TransportationExpenses = entity.TransportationExpenses.Value;
-            // 在宅手当s
+            // 在宅手当
             this.ViewModel.ElectricityAllowance   = entity.ElectricityAllowance.Value;
             // 特別手当
             this.ViewModel.SpecialAllowance       = entity.SpecialAllowance.Value;
@@ -99,12 +99,8 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.SpareAllowance         = entity.SpareAllowance.Value;
             // 備考
             this.ViewModel.Remarks                = entity.Remarks;
-            // 支給総計
-            this.ViewModel.TotalSalary            = entity.TotalSalary.Value;
-            // 差引支給額
-            this.ViewModel.TotalDeductedSalary    = entity.TotalDeductedSalary.Value;
-
-            this.ChangeColor();
+            // 支給総計、差引支給額
+            this.ReCaluculate();
         }
 
         /// <summary>

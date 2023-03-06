@@ -22,20 +22,6 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
-        public ReactiveProperty<string> OutputText { get; } = new ReactiveProperty<string>("TextBoxに入力した文字をここに表示します\r\nボタンを押すと文字をすべて消去します");
-
-        private static ViewModel_Header model = null;
-
-        public static ViewModel_Header GetInstance()
-        {
-            if (model == null)
-            {
-                model = new ViewModel_Header();
-            }
-
-            return model;
-        }
-
         public ViewModel_Header()
         {
             this.MainWindow.Header = this.Model;
