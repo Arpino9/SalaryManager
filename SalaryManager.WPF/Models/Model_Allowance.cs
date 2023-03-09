@@ -163,7 +163,7 @@ namespace SalaryManager.WPF.Models
         /// <param name="transaction">トランザクション</param>
         public void Save(SQLiteTransaction transaction)
         {
-            var entity = new AllowanceEntity(
+            var entity = new AllowanceValueEntity(
                               this.Header.ID,
                               this.Header.YearMonth,
                               this.ViewModel.BasicSalary,

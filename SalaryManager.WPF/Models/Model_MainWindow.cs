@@ -269,7 +269,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void ShowCareerManager()
         {
-            var career = new CareerInput();
+            var career = new Career();
             career.Show();
         }
 

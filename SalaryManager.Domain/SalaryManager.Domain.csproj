@@ -74,9 +74,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\AllowanceExistenceEntity.cs" />
     <Compile Include="Entities\AnnualChartEntity.cs" />
+    <Compile Include="Entities\CareerEntity.cs" />
     <Compile Include="Entities\HeaderEntity.cs" />
     <Compile Include="Exceptions\ExceptionBase.cs" />
+    <Compile Include="Modules\Helpers\ListUtil.cs" />
     <Compile Include="Modules\Helpers\DateHelpers.cs" />
     <Compile Include="Modules\Helpers\DirectorySelector.cs" />
     <Compile Include="Modules\Logics\CursorWaiting.cs" />
@@ -85,7 +88,7 @@
     <Compile Include="Repositories\IAnnualChartRepository.cs" />
     <Compile Include="Repositories\IHeaderRepository.cs" />
     <Compile Include="Shared.cs" />
-    <Compile Include="Entities\AllowanceEntity.cs" />
+    <Compile Include="Entities\AllowanceValueEntity.cs" />
     <Compile Include="Entities\DeductionEntity.cs" />
     <Compile Include="Entities\SideBusinessEntity.cs" />
     <Compile Include="Entities\WorkingReferencesEntity.cs" />
@@ -100,9 +103,11 @@
     <Compile Include="StaticValues\Headers.cs" />
     <Compile Include="StaticValues\SideBusinesses.cs" />
     <Compile Include="StaticValues\WorkingReferences.cs" />
+    <Compile Include="ValueObjects\AlternativeValue.cs" />
     <Compile Include="ValueObjects\MoneyValue.cs" />
     <Compile Include="ValueObjects\PaidVacationDaysValue.cs" />
     <Compile Include="ValueObjects\ValueObject.cs" />
+    <Compile Include="ValueObjects\WorkingDateValue.cs" />
     <Compile Include="ValueObjects\YearValue.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -102,6 +102,7 @@
     <Compile Include="Converter\IntToStringConverter.cs" />
     <Compile Include="Converter\RelayCommand.cs" />
     <Compile Include="Models\Model_Allowance.cs" />
+    <Compile Include="Models\Model_Career.cs" />
     <Compile Include="Models\Model_Deduction.cs" />
     <Compile Include="Models\Model_Header.cs" />
     <Compile Include="Models\Model_AnnualChart.cs" />
@@ -111,8 +112,8 @@
     <Compile Include="UserControls\AnnualChart.xaml.cs">
       <DependentUpon>AnnualChart.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\CareerInput.xaml.cs">
-      <DependentUpon>CareerInput.xaml</DependentUpon>
+    <Compile Include="UserControls\Career.xaml.cs">
+      <DependentUpon>Career.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Deduction.xaml.cs">
       <DependentUpon>Deduction.xaml</DependentUpon>
@@ -134,6 +135,7 @@
     </Compile>
     <Compile Include="ViewModels\ViewModel_Allowance.cs" />
     <Compile Include="ViewModels\ViewModel_AnnualChart.cs" />
+    <Compile Include="ViewModels\ViewModel_Career.cs" />
     <Compile Include="ViewModels\ViewModel_Deduction.cs" />
     <Compile Include="ViewModels\ViewModel_Header.cs" />
     <Compile Include="ViewModels\ViewModel_MainWindow.cs" />
@@ -144,7 +146,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\CareerInput.xaml">
+    <Page Include="UserControls\Career.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

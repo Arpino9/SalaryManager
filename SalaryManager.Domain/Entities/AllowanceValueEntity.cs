@@ -6,7 +6,7 @@ namespace SalaryManager.Domain.Entities
     /// <summary>
     /// Entity - 支給額
     /// </summary>
-    public sealed class AllowanceEntity
+    public sealed class AllowanceValueEntity
     {
         /// <summary>
         /// Constructor
@@ -27,7 +27,7 @@ namespace SalaryManager.Domain.Entities
         /// <param name="remarks">備考</param>
         /// <param name="totalSalary">支給総計</param>
         /// <param name="totalDeductedSalary">差引支給額</param>
-        public AllowanceEntity(
+        public AllowanceValueEntity(
             int id,
             DateTime yearMonth, 
             double basicSalary, 
@@ -66,7 +66,7 @@ namespace SalaryManager.Domain.Entities
         }
 
         /// <summary> ID </summary>
-        public int ID { get; set; }
+        public int ID { get; }
 
         /// <summary> 年月 </summary>
         public DateTime YearMonth { get; }
@@ -115,5 +115,6 @@ namespace SalaryManager.Domain.Entities
 
         /// <summary> 差引支給額 </summary>
         public MoneyValue TotalDeductedSalary { get; }
+
     }
 }

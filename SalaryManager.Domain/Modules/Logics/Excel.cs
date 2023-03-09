@@ -92,7 +92,7 @@ namespace SalaryManager.Domain.Modules.Logics
         /// </summary>
         /// <param name="entities">エンティティ</param>
         /// <returns>void</returns>
-        public async Task WriteAllAllowance(IReadOnlyList<AllowanceEntity> entities)
+        public async Task WriteAllAllowance(IReadOnlyList<AllowanceValueEntity> entities)
         {
             if (!entities.Any())
             {

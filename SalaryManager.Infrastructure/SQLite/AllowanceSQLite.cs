@@ -12,7 +12,7 @@ namespace SalaryManager.Infrastructure.SQLite
     /// </summary>
     public class AllowanceSQLite : IAllowanceRepository
     {
-        public IReadOnlyList<AllowanceEntity> GetEntities()
+        public IReadOnlyList<AllowanceValueEntity> GetEntities()
         {
             string sql = @"
 SELECT A.Id, 
@@ -67,7 +67,7 @@ INNER JOIN Deduction D ON A.YearMonth = D.YearMonth";
                 sql,
                 reader =>
                 {
-                    return new AllowanceEntity(
+                    return new AllowanceValueEntity(
                                 Convert.ToInt32(reader["Id"]),
                                 Convert.ToDateTime(reader["YearMonth"]),
                                 Convert.ToDouble(reader["BasicSalary"]),
@@ -94,7 +94,7 @@ INNER JOIN Deduction D ON A.YearMonth = D.YearMonth";
         /// <param name="year">年</param>
         /// <param name="month">月</param>
         /// <returns>支給額</returns>
-        public AllowanceEntity GetEntity(int year, int month)
+        public AllowanceValueEntity GetEntity(int year, int month)
         {
             string sql = @"
 SELECT A.Id, 
@@ -131,12 +131,12 @@ Where YearMonth = @YearMonth";
                 new SQLiteParameter("YearMonth", year + "-" + month.ToString("D2") + "-" + "01"),
             };
 
-            return SQLiteHelper.QuerySingle<AllowanceEntity>(
+            return SQLiteHelper.QuerySingle<AllowanceValueEntity>(
                 sql,
                 args.ToArray(),
                 reader =>
                 {
-                    return new AllowanceEntity(
+                    return new AllowanceValueEntity(
                                 Convert.ToInt32(reader["Id"]),
                                 Convert.ToDateTime(reader["YearMonth"]),
                                 Convert.ToDouble(reader["BasicSalary"]),
@@ -162,7 +162,7 @@ Where YearMonth = @YearMonth";
         /// Get - 支給額(デフォルト)
         /// </summary>
         /// <returns>支給額</returns>
-        public AllowanceEntity GetDefault()
+        public AllowanceValueEntity GetDefault()
         {
             string sql = @"
 SELECT A.Id, 
@@ -196,11 +196,11 @@ INNER JOIN YearMonth YM ON A.YearMonth = YM.YearMonth
 INNER JOIN Deduction D ON A.YearMonth = D.YearMonth
 WHERE YM.IsDefault = True";
 
-            return SQLiteHelper.QuerySingle<AllowanceEntity>(
+            return SQLiteHelper.QuerySingle<AllowanceValueEntity>(
                 sql,
                 reader =>
                 {
-                    return new AllowanceEntity(
+                    return new AllowanceValueEntity(
                                 Convert.ToInt32(reader["Id"]),
                                 Convert.ToDateTime(reader["YearMonth"]),
                                 Convert.ToDouble(reader["BasicSalary"]),
@@ -224,7 +224,7 @@ WHERE YM.IsDefault = True";
 
         public void Save(
             SQLiteTransaction transaction,
-            AllowanceEntity entity)
+            AllowanceValueEntity entity)
         {
             string insert = @"
 insert into Allowance

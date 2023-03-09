@@ -12,7 +12,7 @@ namespace SalaryManager.Domain.Repositories
         /// Get - 支給額
         /// </summary>
         /// <returns>Entity - 支給額</returns>
-        IReadOnlyList<AllowanceEntity> GetEntities();
+        IReadOnlyList<AllowanceValueEntity> GetEntities();
 
         /// <summary>
         /// Get - 支給額
@@ -20,12 +20,12 @@ namespace SalaryManager.Domain.Repositories
         /// <param name="year">年</param>
         /// <param name="month">月</param>
         /// <returns>支給額</returns>
-        AllowanceEntity GetEntity(int year, int month);
+        AllowanceValueEntity GetEntity(int year, int month);
 
         /// <summary>
         /// Get - デフォルト明細
         /// </summary>
         /// <returns></returns>
-        AllowanceEntity GetDefault();
+        AllowanceValueEntity GetDefault();
     }
 }

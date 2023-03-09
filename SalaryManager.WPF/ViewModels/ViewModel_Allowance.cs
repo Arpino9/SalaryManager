@@ -95,10 +95,10 @@ namespace SalaryManager.WPF.ViewModels
         public Model_MainWindow MainWindow { get; set; } = Model_MainWindow.GetInstance();
 
         /// <summary> Entity - 支給額 </summary>
-        public AllowanceEntity Entity { get; set; }
+        public AllowanceValueEntity Entity { get; set; }
 
         /// <summary> Entity - 支給額 (昨年度) </summary>
-        public AllowanceEntity Entity_LastYear { get; set; }
+        public AllowanceValueEntity Entity_LastYear { get; set; }
 
         #region Mouse Leave
 

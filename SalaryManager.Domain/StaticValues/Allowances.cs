@@ -11,9 +11,9 @@ namespace SalaryManager.Domain.StaticValues
     /// </summary>
     public static class Allowances
     {
-        private static List<AllowanceEntity> _entities = new List<AllowanceEntity>();
+        private static List<AllowanceValueEntity> _entities = new List<AllowanceValueEntity>();
 
-        private static AllowanceEntity _default;
+        private static AllowanceValueEntity _default;
 
         /// <summary>
         /// Create
@@ -39,7 +39,7 @@ namespace SalaryManager.Domain.StaticValues
         /// <param name="year">年</param>
         /// <param name="month">月</param>
         /// <returns>支給額</returns>
-        public static AllowanceEntity Fetch(int year, int month) 
+        public static AllowanceValueEntity Fetch(int year, int month) 
         {
             return _entities.Find(x => x.YearMonth.Year  == year
                                     && x.YearMonth.Month == month);
@@ -49,7 +49,7 @@ namespace SalaryManager.Domain.StaticValues
         /// 昇順で取得する
         /// </summary>
         /// <returns>支給額</returns>
-        public static IReadOnlyList<AllowanceEntity> FetchByAscending()
+        public static IReadOnlyList<AllowanceValueEntity> FetchByAscending()
         {
             return _entities.OrderBy(x => x.YearMonth).ToList().AsReadOnly();
         }
@@ -58,7 +58,7 @@ namespace SalaryManager.Domain.StaticValues
         /// 降順で取得する
         /// </summary>
         /// <returns>支給額</returns>
-        public static IReadOnlyList<AllowanceEntity> FetchByDescending()
+        public static IReadOnlyList<AllowanceValueEntity> FetchByDescending()
         {
             return _entities.OrderByDescending(x => x.YearMonth).ToList().AsReadOnly(); 
         }
@@ -67,7 +67,7 @@ namespace SalaryManager.Domain.StaticValues
         /// デフォルト明細を取得する
         /// </summary>
         /// <returns>デフォルト明細</returns>
-        public static AllowanceEntity FetchDefault()
+        public static AllowanceValueEntity FetchDefault()
         {
             return _default;
         }

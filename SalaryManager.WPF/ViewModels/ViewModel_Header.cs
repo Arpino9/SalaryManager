@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Reactive.Bindings;
 using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
 
@@ -251,23 +250,23 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 戻るボタン
 
-        private RelayCommand _ReturnCommand;
+        private RelayCommand _return_Command;
 
         private Action _returnAction;
 
         /// <summary>
         /// 戻るボタン
         /// </summary>
-        public RelayCommand ReturnClick
+        public RelayCommand Return_Command
         {
             get
             {
-                if (this._ReturnCommand == null)
+                if (this._return_Command == null)
                 {
-                    this._ReturnCommand = new RelayCommand(this._returnAction);
+                    this._return_Command = new RelayCommand(this._returnAction);
 
                 }
-                return this._ReturnCommand;
+                return this._return_Command;
             }
         }
 
@@ -275,22 +274,22 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 進むボタン
 
-        private RelayCommand _ProceedCommand;
+        private RelayCommand _proceed_Command;
 
         private Action _proceedAction;
 
         /// <summary>
         /// 戻るボタン
         /// </summary>
-        public RelayCommand ProceedClick
+        public RelayCommand Proceed_Command
         {
             get
             {
-                if (this._ProceedCommand == null)
+                if (this._proceed_Command == null)
                 {
-                    this._ProceedCommand = new RelayCommand(this._proceedAction);
+                    this._proceed_Command = new RelayCommand(this._proceedAction);
                 }
-                return this._ProceedCommand;
+                return this._proceed_Command;
             }
         }
 
