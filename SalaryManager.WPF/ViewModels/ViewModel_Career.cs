@@ -37,6 +37,9 @@ namespace SalaryManager.WPF.ViewModels
 
             _companyNameAction += this.Model.CompanyName_TextChanged;
             this.CompanyName_TextChanged = new RelayCommand(_companyNameAction);
+
+            _careersAction += this.Model.Careers_SelectionChanged;
+            this.Careers_SelectionChanged = new RelayCommand(_careersAction);
         }
 
         public Model_Career Model { get; set; } = Model_Career.GetInstance();
@@ -86,6 +89,13 @@ namespace SalaryManager.WPF.ViewModels
                 this.RaisePropertyChanged();
             }
         }
+
+        /// <summary>
+        /// 職歴一覧 - SelectionChanged
+        /// </summary>
+        public RelayCommand Careers_SelectionChanged { get; private set; }
+
+        private Action _careersAction;
 
         #endregion
 
@@ -571,6 +581,42 @@ namespace SalaryManager.WPF.ViewModels
                     this._add = new RelayCommand(this.Model.Add);
                 }
                 return this._add;
+            }
+        }
+
+        #endregion
+
+        #region 更新
+
+        private bool _update_IsEnabled;
+
+        /// <summary>
+        /// 更新 - IsEnabled
+        /// </summary>
+        public bool Update_IsEnabled
+        {
+            get => this._update_IsEnabled;
+            set
+            {
+                this._update_IsEnabled = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private RelayCommand _update;
+
+        /// <summary>
+        /// 更新ボタン
+        /// </summary>
+        public RelayCommand Update_Command
+        {
+            get
+            {
+                if (this._update == null)
+                {
+                    this._update = new RelayCommand(this.Model.Update);
+                }
+                return this._update;
             }
         }
 

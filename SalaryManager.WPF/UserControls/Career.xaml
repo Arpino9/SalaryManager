@@ -19,14 +19,19 @@
         </Grid.RowDefinitions>
 
         <ListView ItemsSource="{Binding Careers_ItemSource}"
-                  SelectedIndex="{Binding Careers_SelectedIndex}" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                  SelectedIndex="{Binding Careers_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="SelectionChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding Careers_SelectionChanged}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding WorkingStatus}">
                         <GridViewColumnHeader Content="雇用形態"/>
                     </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding CompanyName}">
+                    <GridViewColumn DisplayMemberBinding="{Binding CompanyName.Text}">
                         <GridViewColumnHeader Content="会社名" />
                     </GridViewColumn>
 
@@ -216,12 +221,16 @@
 
             <Button Content="追加" 
                     Grid.Row="7" 
-                    Grid.ColumnSpan="2" 
                     Command="{Binding Add_Command}"
                     IsEnabled="{Binding Add_IsEnabled}"/>
+            <Button Content="更新" 
+                    Grid.Row="7"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    Command="{Binding Update_Command}"
+                    IsEnabled="{Binding Update_IsEnabled}"/>
             <Button Content="削除" 
-                    Grid.Column="2" 
-                    Grid.ColumnSpan="2" 
+                    Grid.Column="3" 
                     Grid.Row="7" 
                     Command="{Binding Remove_Command}" 
                     IsEnabled="{Binding Remove_IsEnabled}"/>

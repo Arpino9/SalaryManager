@@ -3,16 +3,17 @@ using System.Linq;
 using System.Collections.ObjectModel;
 using SalaryManager.Domain.Entities;
 using SalaryManager.WPF.ViewModels;
+using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Domain.StaticValues;
 using SalaryManager.Infrastructure.SQLite;
-using SalaryManager.Domain.Modules.Logics;
+using SalaryManager.Infrastructure.Interface;
 
 namespace SalaryManager.WPF.Models
 {
     /// <summary>
     /// Model - 職歴
     /// </summary>
-    public class Model_Career
+    public class Model_Career : IMaster
     {
         #region Get Instance
 
@@ -83,40 +84,45 @@ namespace SalaryManager.WPF.Models
         }
 
         /// <summary>
-        /// 就業中か - Checked
+        /// Enable - 操作ボタン
         /// </summary>
-        public void IsWorking_Checked()
+        /// <remarks>
+        /// 追加ボタンは「会社名」に値があれば押下可能。
+        /// </remarks>
+        private void EnableControlButton()
         {
-            this.ViewModel.WorkingEndDate_IsEnabled = this.ViewModel.IsWorking ? false : true;
+            var hasCareer = this.ViewModel.Careers_ItemSource.Any();
+
+            // 更新ボタン
+            this.ViewModel.Update_IsEnabled = hasCareer;
+            // 削除ボタン
+            this.ViewModel.Remove_IsEnabled = hasCareer;
+            // 保存ボタン
+            this.ViewModel.Save_IsEnabled   = hasCareer;
         }
 
         /// <summary>
-        /// 会社名 - TextChanged
+        /// 経歴 - SelectionChanged
         /// </summary>
-        public void CompanyName_TextChanged()
+        public void Careers_SelectionChanged()
         {
-            var inputted = !string.IsNullOrEmpty(this.ViewModel.CompanyName_Text);
+            if (this.ViewModel.Careers_SelectedIndex == -1)
+            {
+                return;
+            }
 
-            this.ViewModel.Add_IsEnabled = inputted;
-        }
-
-        /// <summary>
-        /// 再描画 - 入力用フォーム
-        /// </summary>
-        private void Reflesh_InputForm()
-        {
-            this.IsWorking_Checked();
+            this.EnableControlButton();
 
             if (!this.ViewModel.Careers_ItemSource.Any())
             {
                 return;
             }
 
-            var entity = this.ViewModel.Careers_ItemSource.First();
+            var entity = this.ViewModel.Careers_ItemSource[this.ViewModel.Careers_SelectedIndex];
             // 雇用形態
             this.ViewModel.WorkingStatus_Text = entity.WorkingStatus;
             // 会社名
-            this.ViewModel.CompanyName_Text   = entity.CompanyName;
+            this.ViewModel.CompanyName_Text   = entity.CompanyName.Text;
             // 勤務開始日
             this.ViewModel.WorkingStartDate   = entity.WorkingStartDate.Value;
             // 勤務終了日
@@ -124,7 +130,7 @@ namespace SalaryManager.WPF.Models
             // 就業中か
             this.ViewModel.IsWorking          = entity.WorkingEndDate.IsWorking;
             // 備考
-            this.ViewModel.Remarks = entity.Remarks;
+            this.ViewModel.Remarks            = entity.Remarks;
 
             var allowance = entity.AllowanceExistence;
             // 皆勤手当
@@ -155,6 +161,34 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.ExecutiveAllowance_IsChecked         = allowance.Executive.Value;
             // 特別手当
             this.ViewModel.SpecialAllowance_IsChecked           = allowance.Special.Value;
+        }
+
+        /// <summary>
+        /// 就業中か - Checked
+        /// </summary>
+        public void IsWorking_Checked()
+        {
+            this.ViewModel.WorkingEndDate_IsEnabled = this.ViewModel.IsWorking ? false : true;
+        }
+
+        /// <summary>
+        /// 会社名 - TextChanged
+        /// </summary>
+        public void CompanyName_TextChanged()
+        {
+            var inputted = !string.IsNullOrEmpty(this.ViewModel.CompanyName_Text);
+
+            this.ViewModel.Add_IsEnabled = inputted;
+        }
+
+        /// <summary>
+        /// 再描画 - 入力用フォーム
+        /// </summary>
+        private void Reflesh_InputForm()
+        {
+            this.IsWorking_Checked();
+
+            this.Careers_SelectionChanged();
 
             // 追加ボタン
             this.ViewModel.Add_IsEnabled    = true;
@@ -187,7 +221,7 @@ namespace SalaryManager.WPF.Models
             // 雇用形態
             this.ViewModel.WorkingStatus_Text = this.ViewModel.WorkingStatus_ItemSource.First();
             // 会社名
-            this.ViewModel.CompanyName_Text        = default(string);
+            this.ViewModel.CompanyName_Text   = default(string);
             // 勤務開始日
             this.ViewModel.WorkingStartDate   = DateTime.Now;
             // 勤務終了日
@@ -241,24 +275,34 @@ namespace SalaryManager.WPF.Models
         {
             this.ViewModel.Remove_IsEnabled = true;
 
-            var workingEndDate = this.ViewModel.IsWorking ? DateTime.MaxValue : this.ViewModel.WorkingEndDate;
-            
-            this.ViewModel.Careers_ItemSource.Add(
-                new CareerEntity(
-                    this.ViewModel.Entities.Count + 1,
-                    this.ViewModel.WorkingStatus_Text,
-                    this.ViewModel.CompanyName_Text, 
-                    this.ViewModel.EmployeeNumber,
-                    this.ViewModel.WorkingStartDate, 
-                    workingEndDate,
-                    this.CreateAllowanceExistenceEntity(),
-                    this.ViewModel.Remarks));
+            var entity = this.CreateEntity(this.ViewModel.Entities.Count + 1);
+            this.ViewModel.Careers_ItemSource.Add(entity);
 
             // 並び変え
             this.ViewModel.Careers_ItemSource = new ObservableCollection<CareerEntity>(this.ViewModel.Careers_ItemSource.OrderByDescending(x => x.WorkingStartDate.ToString()));
 
             // 保存ボタン
             this.ViewModel.Save_IsEnabled = true;
+        }
+
+        /// <summary>
+        /// Create Entity
+        /// </summary>
+        /// <param name="id">ID</param>
+        /// <returns>職歴</returns>
+        private CareerEntity CreateEntity(int id)
+        {
+            var workingEndDate = this.ViewModel.IsWorking ? DateTime.MaxValue : this.ViewModel.WorkingEndDate;
+
+            return new CareerEntity(
+                id,
+                this.ViewModel.WorkingStatus_Text,
+                this.ViewModel.CompanyName_Text,
+                this.ViewModel.EmployeeNumber,
+                this.ViewModel.WorkingStartDate,
+                workingEndDate,
+                this.CreateAllowanceExistenceEntity(),
+                this.ViewModel.Remarks);
         }
 
         /// <summary>
@@ -285,6 +329,15 @@ namespace SalaryManager.WPF.Models
         }
 
         /// <summary>
+        /// 更新
+        /// </summary>
+        public void Update()
+        {
+            var entity = this.CreateEntity(this.ViewModel.Careers_SelectedIndex + 1);
+            this.ViewModel.Careers_ItemSource[this.ViewModel.Careers_SelectedIndex] = entity;
+        }
+
+        /// <summary>
         /// 削除
         /// </summary>
         public void Remove()
@@ -297,12 +350,7 @@ namespace SalaryManager.WPF.Models
 
             this.ViewModel.Careers_ItemSource.RemoveAt(this.ViewModel.Careers_SelectedIndex);
 
-            var hasCareer = this.ViewModel.Careers_ItemSource.Any();
-
-            // 削除ボタン
-            this.ViewModel.Remove_IsEnabled = hasCareer;
-            // 保存ボタン
-            this.ViewModel.Save_IsEnabled   = hasCareer;
+            this.EnableControlButton();
         }
 
         /// <summary>

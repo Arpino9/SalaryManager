@@ -106,6 +106,7 @@
     <Compile Include="StaticValues\SideBusinesses.cs" />
     <Compile Include="StaticValues\WorkingReferences.cs" />
     <Compile Include="ValueObjects\AlternativeValue.cs" />
+    <Compile Include="ValueObjects\CompanyValue.cs" />
     <Compile Include="ValueObjects\MoneyValue.cs" />
     <Compile Include="ValueObjects\PaidVacationDaysValue.cs" />
     <Compile Include="ValueObjects\ValueObject.cs" />

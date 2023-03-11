@@ -12,7 +12,7 @@
         public static readonly AlternativeValue Invalid = new AlternativeValue(false);
 
         /// <summary>
-        /// Value Object - 二者択一
+        /// Constructor
         /// </summary>
         /// <param name="value">値</param>
         public AlternativeValue(bool value)

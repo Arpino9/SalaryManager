@@ -31,7 +31,7 @@ namespace SalaryManager.Domain.Entities
         {
             this.ID                 = id;
             this.WorkingStatus      = workingStatus;
-            this.CompanyName        = companyName;
+            this.CompanyName        = new CompanyValue(companyName);
             this.EmployeeNumber     = employeeNumber;
             this.WorkingStartDate   = new WorkingDateValue(workingStartDate);
             this.WorkingEndDate     = new WorkingDateValue(workingEndDate);
@@ -45,7 +45,7 @@ namespace SalaryManager.Domain.Entities
         public string WorkingStatus { get; }
 
         /// <summary> 会社名 </summary>
-        public string CompanyName { get; }
+        public CompanyValue CompanyName { get; }
 
         /// <summary> 社員番号 </summary>
         public string EmployeeNumber { get; }
