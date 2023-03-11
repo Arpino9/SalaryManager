@@ -49,7 +49,7 @@ namespace SalaryManager.Domain.ValueObjects
 
         public override string ToString()
         {
-            return (this.IsWorking || this == Working ? "就業中" : this.Value.ToString("yyyy/MM/dd"));
+            return (this.IsWorking ? "就業中" : this.Value.ToString("yyyy/MM/dd"));
         }
 
         protected override bool EqualsCore(WorkingDateValue other)

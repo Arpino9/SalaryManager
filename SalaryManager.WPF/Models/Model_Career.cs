@@ -8,6 +8,7 @@ using SalaryManager.Domain.StaticValues;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.Infrastructure.Interface;
 using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Vml.Office;
 
 namespace SalaryManager.WPF.Models
 {
@@ -133,7 +134,7 @@ namespace SalaryManager.WPF.Models
             // 勤務開始日
             this.ViewModel.WorkingStartDate   = entity.WorkingStartDate.Value;
             // 勤務終了日
-            this.ViewModel.WorkingEndDate     = entity.WorkingEndDate.Value;
+            this.ViewModel.WorkingEndDate     = entity.WorkingEndDate.IsWorking ? DateTime.Today : entity.WorkingEndDate.Value;
             // 就業中か
             this.ViewModel.IsWorking          = entity.WorkingEndDate.IsWorking;
             // 備考
@@ -176,6 +177,11 @@ namespace SalaryManager.WPF.Models
         public void IsWorking_Checked()
         {
             this.ViewModel.WorkingEndDate_IsEnabled = this.ViewModel.IsWorking ? false : true;
+
+            if (this.ViewModel.IsWorking)
+            {
+                this.ViewModel.WorkingEndDate = DateTime.Today;
+            }            
         }
 
         /// <summary>
@@ -279,6 +285,12 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Add()
         {
+            if (!DialogMessage.ShowConfirmingMessage($"入力された職歴を追加しますか？", this.ViewModel.Title))
+            {
+                // キャンセル
+                return;
+            }
+
             using (var cursor = new CursorWaiting())
             {
                 this.ViewModel.Remove_IsEnabled = true;
@@ -340,6 +352,12 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Update()
         {
+            if (!DialogMessage.ShowConfirmingMessage($"選択中の職歴を更新しますか？", this.ViewModel.Title))
+            {
+                // キャンセル
+                return;
+            }
+
             using (var cursor = new CursorWaiting())
             {
                 var id = this.ViewModel.Careers_ItemSource[this.ViewModel.Careers_SelectedIndex].ID;
@@ -362,7 +380,7 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
-            if (!DialogMessage.ShowConfirmingMessage($"この職歴を削除しますか？", this.ViewModel.Title))
+            if (!DialogMessage.ShowConfirmingMessage($"選択中の職歴を削除しますか？", this.ViewModel.Title))
             {
                 // キャンセル
                 return;
