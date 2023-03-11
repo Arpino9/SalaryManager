@@ -7,6 +7,7 @@ using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Domain.StaticValues;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.Infrastructure.Interface;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace SalaryManager.WPF.Models
 {
@@ -42,13 +43,18 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 初期化
         /// </summary>
+        /// <remarks>
+        /// 未選択状態、かつ新規登録が可能な状態にする。
+        /// </remarks>
         public void Initialize()
         {
             Careers.Create(new CareerSQLite());
-
             this.ViewModel.Entities = Careers.FetchByDescending();
 
-            this.Refresh();
+            this.Reflesh_ListView();
+
+            this.ViewModel.Careers_SelectedIndex = -1;
+            this.Clear_InputForm();
         }
 
         /// <summary>
@@ -73,7 +79,7 @@ namespace SalaryManager.WPF.Models
 
             if (!entities.Any())
             {
-                this.Clear();
+                this.Clear_InputForm();
                 return;
             }
 
@@ -91,14 +97,13 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         private void EnableControlButton()
         {
-            var hasCareer = this.ViewModel.Careers_ItemSource.Any();
+            var selected = this.ViewModel.Careers_ItemSource.Any() 
+                        && this.ViewModel.Careers_SelectedIndex >= 0;
 
             // 更新ボタン
-            this.ViewModel.Update_IsEnabled = hasCareer;
+            this.ViewModel.Update_IsEnabled = selected;
             // 削除ボタン
-            this.ViewModel.Remove_IsEnabled = hasCareer;
-            // 保存ボタン
-            this.ViewModel.Save_IsEnabled   = hasCareer;
+            this.ViewModel.Remove_IsEnabled = selected;
         }
 
         /// <summary>
@@ -174,7 +179,7 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 会社名 - TextChanged
         /// </summary>
-        public void CompanyName_TextChanged()
+        public void EnableAddButton()
         {
             var inputted = !string.IsNullOrEmpty(this.ViewModel.CompanyName_Text);
 
@@ -191,11 +196,9 @@ namespace SalaryManager.WPF.Models
             this.Careers_SelectionChanged();
 
             // 追加ボタン
-            this.ViewModel.Add_IsEnabled    = true;
-            // 削除ボタン
-            this.ViewModel.Remove_IsEnabled = true;
-            // 保存ボタン
-            this.ViewModel.Save_IsEnabled   = true;
+            this.EnableAddButton();
+            // 更新、削除ボタン
+            this.EnableControlButton();
         }
 
         /// <summary>
@@ -216,7 +219,7 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// クリア
         /// </summary>
-        public void Clear()
+        public void Clear_InputForm()
         {
             // 雇用形態
             this.ViewModel.WorkingStatus_Text = this.ViewModel.WorkingStatus_ItemSource.First();
@@ -226,6 +229,7 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.WorkingStartDate   = DateTime.Now;
             // 勤務終了日
             this.ViewModel.WorkingEndDate     = DateTime.Now;
+            this.IsWorking_Checked();
             // 社員番号
             this.ViewModel.EmployeeNumber     = default(string);
             // 備考
@@ -262,10 +266,10 @@ namespace SalaryManager.WPF.Models
 
             // 追加ボタン
             this.ViewModel.Add_IsEnabled    = false;
+            // 更新ボタン
+            this.ViewModel.Update_IsEnabled = false;
             // 削除ボタン
             this.ViewModel.Remove_IsEnabled = false;
-            // 保存ボタン
-            this.ViewModel.Save_IsEnabled   = false;
         }
 
         /// <summary>
@@ -273,16 +277,17 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Add()
         {
-            this.ViewModel.Remove_IsEnabled = true;
+            using (var cursor = new CursorWaiting())
+            {
+                this.ViewModel.Remove_IsEnabled = true;
 
-            var entity = this.CreateEntity(this.ViewModel.Entities.Count + 1);
-            this.ViewModel.Careers_ItemSource.Add(entity);
+                var entity = this.CreateEntity(this.ViewModel.Entities.Count + 1);
+                this.ViewModel.Careers_ItemSource.Add(entity);
+                this.Save();
 
-            // 並び変え
-            this.ViewModel.Careers_ItemSource = new ObservableCollection<CareerEntity>(this.ViewModel.Careers_ItemSource.OrderByDescending(x => x.WorkingStartDate.ToString()));
-
-            // 保存ボタン
-            this.ViewModel.Save_IsEnabled = true;
+                // 並び変え
+                this.ViewModel.Careers_ItemSource = new ObservableCollection<CareerEntity>(this.ViewModel.Careers_ItemSource.OrderByDescending(x => x.WorkingStartDate.ToString()));
+            }   
         }
 
         /// <summary>
@@ -333,8 +338,13 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Update()
         {
-            var entity = this.CreateEntity(this.ViewModel.Careers_SelectedIndex + 1);
-            this.ViewModel.Careers_ItemSource[this.ViewModel.Careers_SelectedIndex] = entity;
+            using (var cursor = new CursorWaiting())
+            {
+                var entity = this.CreateEntity(this.ViewModel.Careers_SelectedIndex + 1);
+                this.ViewModel.Careers_ItemSource[this.ViewModel.Careers_SelectedIndex] = entity;
+
+                this.Save();
+            }   
         }
 
         /// <summary>
@@ -348,17 +358,7 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
-            this.ViewModel.Careers_ItemSource.RemoveAt(this.ViewModel.Careers_SelectedIndex);
-
-            this.EnableControlButton();
-        }
-
-        /// <summary>
-        /// 保存
-        /// </summary>
-        public void Save()
-        {
-            if (!DialogMessage.ShowConfirmingMessage($"保存しますか？", this.ViewModel.Title))
+            if (!DialogMessage.ShowConfirmingMessage($"この職歴を削除しますか？", this.ViewModel.Title))
             {
                 // キャンセル
                 return;
@@ -366,14 +366,36 @@ namespace SalaryManager.WPF.Models
 
             using (var cursor = new CursorWaiting())
             {
-                foreach (var entity in this.ViewModel.Careers_ItemSource)
-                {
-                    var career = new CareerSQLite();
-                    career.Save(entity);
-                }
+                this.Delete();
+
+                this.ViewModel.Careers_ItemSource.RemoveAt(this.ViewModel.Careers_SelectedIndex);
 
                 this.Reload();
+                this.EnableControlButton();
+            }   
+        }
+
+        /// <summary>
+        /// 保存
+        /// </summary>
+        public void Save()
+        {
+            foreach (var entity in this.ViewModel.Careers_ItemSource)
+            {
+                var career = new CareerSQLite();
+                career.Save(entity);
             }
+
+            this.Reload();
+        }
+
+        /// <summary>
+        /// 削除
+        /// </summary>
+        public void Delete()
+        {
+            var career = new CareerSQLite();
+            career.Delete(this.ViewModel.Careers_SelectedIndex + 1);
         }
     }
 }

@@ -37,7 +37,8 @@
         <TextBox Grid.Column="1"
                  IsReadOnly="True"
                  Style="{StaticResource PayslipItemCharacter_Style}"
-                 Text="{Binding CompanyName}"/>
+                 Text="{Binding CompanyName}"
+                 Foreground="{Binding CompanyName_Foreground}"/>
 
         <Label Content="勤務先" 
                Grid.Row="1"

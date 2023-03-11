@@ -65,7 +65,7 @@ namespace SalaryManager.Domain.StaticValues
         /// <returns>職歴</returns>
         public static IReadOnlyList<CareerEntity> FetchByAscending()
         {
-            return _entities.OrderBy(x => x.WorkingStartDate).ToList().AsReadOnly();
+            return _entities.OrderBy(x => x.WorkingStartDate.Value).ToList().AsReadOnly();
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace SalaryManager.Domain.StaticValues
         /// <returns>職歴</returns>
         public static IReadOnlyList<CareerEntity> FetchByDescending()
         {
-            return _entities.OrderByDescending(x => x.WorkingStartDate).ToList().AsReadOnly();
+            return _entities.OrderByDescending(x => x.WorkingStartDate.Value).ToList().AsReadOnly();
         }
     }
 }

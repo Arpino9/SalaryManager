@@ -6,6 +6,7 @@ using SalaryManager.WPF.ViewModels;
 using SalaryManager.Domain.StaticValues;
 using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Domain.ValueObjects;
+using System.Windows.Media;
 
 namespace SalaryManager.WPF.Models
 {
@@ -101,6 +102,7 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.WorkingHours      = default(double);
             // 所属会社名
             this.WorkPlace.CompanyName       = CompanyValue.Undefined.ToString();
+            this.WorkPlace.CompanyName_Foreground = new SolidColorBrush(Colors.Gray);
             // 勤務先
             this.WorkPlace.WorkPlace         = default(string);
             // 備考
@@ -143,8 +145,18 @@ namespace SalaryManager.WPF.Models
             // 備考
             this.ViewModel.Remarks           = entity.Remarks;
 
+            // 所属会社名
             var company = Careers.Fetch(new DateTime(this.Header.Year, this.Header.Month, 1));
             this.WorkPlace.CompanyName = company.ToString();
+
+            if (company == CompanyValue.Undefined)
+            {
+                this.WorkPlace.CompanyName_Foreground = new SolidColorBrush(Colors.Gray);
+            }
+            else
+            {
+                this.WorkPlace.CompanyName_Foreground = new SolidColorBrush(Colors.Black);
+            }
         }
 
         /// <summary>

@@ -20,5 +20,17 @@ namespace SalaryManager.Domain.Repositories
         /// <param name="id">ID</param>
         /// <returns>職歴</returns>
         CareerEntity GetEntity(int id);
+
+        /// <summary>
+        /// 保存
+        /// </summary>
+        /// <param name="entity">職歴</param>
+        public void Save(CareerEntity entity);
+
+        /// <summary>
+        /// 削除
+        /// </summary>
+        /// <param name="id">ID</param>
+        public void Delete(int id);
     }
 }

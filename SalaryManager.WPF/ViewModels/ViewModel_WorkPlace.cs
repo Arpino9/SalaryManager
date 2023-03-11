@@ -1,6 +1,7 @@
 ﻿using SalaryManager.WPF.Models;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Media;
 
 namespace SalaryManager.WPF.ViewModels
 {
@@ -30,6 +31,21 @@ namespace SalaryManager.WPF.ViewModels
         public Model_WorkingReference Model { get; set; } = Model_WorkingReference.GetInstance();
 
         #region 所属会社名
+
+        private Brush _companyName_Foreground;
+
+        /// <summary>
+        /// 所属会社名 - Foreground
+        /// </summary>
+        public Brush CompanyName_Foreground
+        {
+            get => _companyName_Foreground;
+            set
+            {
+                this._companyName_Foreground = value;
+                this.RaisePropertyChanged();
+            }
+        }
 
         private string _companyName;
 

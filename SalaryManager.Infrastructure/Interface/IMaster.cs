@@ -15,7 +15,7 @@
         public void Reload();
 
         /// <summary> クリア </summary>
-        public void Clear();
+        public void Clear_InputForm();
 
         /// <summary> 保存 </summary>
         public void Save();

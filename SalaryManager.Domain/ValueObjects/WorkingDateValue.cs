@@ -19,6 +19,9 @@ namespace SalaryManager.Domain.ValueObjects
         /// <summary> 値 </summary>
         public readonly DateTime Value;
 
+        /// <summary> 就業中 </summary>
+        public static readonly WorkingDateValue Working = new WorkingDateValue(new DateTime(9999, 12, 1));
+
         /// <summary>
         /// 就業中か
         /// </summary>
@@ -32,7 +35,7 @@ namespace SalaryManager.Domain.ValueObjects
 
         public override string ToString()
         {
-            return (this.IsWorking ? "就業中" : this.Value.ToString("yyyy/MM/dd"));
+            return (this.IsWorking || this == Working ? "就業中" : this.Value.ToString("yyyy/MM/dd"));
         }
 
         protected override bool EqualsCore(WorkingDateValue other)

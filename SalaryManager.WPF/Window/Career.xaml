@@ -123,7 +123,6 @@
                 <RowDefinition Height="60" />
                 <RowDefinition />
                 <RowDefinition />
-                <RowDefinition />
             </Grid.RowDefinitions>
 
             <Label Content="雇用形態" 
@@ -235,11 +234,6 @@
                     Grid.Row="7" 
                     Command="{Binding Remove_Command}" 
                     IsEnabled="{Binding Remove_IsEnabled}"/>
-            <Button Content="保存" 
-                    Grid.Row="8" 
-                    Grid.ColumnSpan="4" 
-                    Command="{Binding Save_Command}"
-                    IsEnabled="{Binding Save_IsEnabled}"/>
         </Grid>
     </Grid>
 </Window>

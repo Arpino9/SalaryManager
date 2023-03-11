@@ -4,6 +4,7 @@ using SalaryManager.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using static System.Data.Entity.Infrastructure.Design.Executor;
 
 namespace SalaryManager.Infrastructure.SQLite
 {
@@ -242,5 +243,20 @@ where ID = @ID
             SQLiteHelper.Execute(insert, update, args.ToArray());
         }
 
+        public void Delete(
+            int id)
+        {
+            string delete = @"
+Delete From Career
+where ID = @ID
+";
+
+            var args = new List<SQLiteParameter>()
+            {
+                new SQLiteParameter("ID", id),
+            };
+
+            SQLiteHelper.Execute(delete, args.ToArray());
+        }
     }
 }

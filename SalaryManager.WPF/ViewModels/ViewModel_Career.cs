@@ -35,7 +35,7 @@ namespace SalaryManager.WPF.ViewModels
             _isWorkingAction += this.Model.IsWorking_Checked;
             this.Isworking_Checked = new RelayCommand(_isWorkingAction);
 
-            _companyNameAction += this.Model.CompanyName_TextChanged;
+            _companyNameAction += this.Model.EnableAddButton;
             this.CompanyName_TextChanged = new RelayCommand(_companyNameAction);
 
             _careersAction += this.Model.Careers_SelectionChanged;
@@ -658,40 +658,5 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
-        #region 保存
-
-        private bool _save_IsEnabled;
-
-        /// <summary>
-        /// 保存 - IsEnabled
-        /// </summary>
-        public bool Save_IsEnabled
-        {
-            get => this._save_IsEnabled;
-            set
-            {
-                this._save_IsEnabled = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private RelayCommand _save_Command;
-
-        /// <summary>
-        /// 保存 - Command
-        /// </summary>
-        public RelayCommand Save_Command
-        {
-            get
-            {
-                if (this._save_Command == null)
-                {
-                    this._save_Command = new RelayCommand(this.Model.Save);
-                }
-                return this._save_Command;
-            }
-        }
-
-        #endregion
     }
 }
