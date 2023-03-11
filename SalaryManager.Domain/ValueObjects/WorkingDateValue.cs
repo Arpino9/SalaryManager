@@ -19,8 +19,22 @@ namespace SalaryManager.Domain.ValueObjects
         /// <summary> 値 </summary>
         public readonly DateTime Value;
 
+        /// <summary> 不明 </summary>
+        public static readonly WorkingDateValue Unknown = new WorkingDateValue(DateTime.MinValue);
+
         /// <summary> 就業中 </summary>
-        public static readonly WorkingDateValue Working = new WorkingDateValue(new DateTime(9999, 12, 1));
+        public static readonly WorkingDateValue Working = new WorkingDateValue(DateTime.MaxValue);
+
+        /// <summary>
+        /// 不明か
+        /// </summary>
+        public bool IsUnknown
+        {
+            get
+            {
+                return (this.Value.ToString("yyyy/MM/dd") == WorkingDateValue.Unknown.Value.ToString("yyyy/MM/dd"));
+            }
+        }
 
         /// <summary>
         /// 就業中か
@@ -29,7 +43,7 @@ namespace SalaryManager.Domain.ValueObjects
         {
             get
             {
-                return (this.Value == DateTime.MaxValue);
+                return (this.Value.ToString("yyyy/MM/dd") == WorkingDateValue.Working.Value.ToString("yyyy/MM/dd"));
             }
         }
 

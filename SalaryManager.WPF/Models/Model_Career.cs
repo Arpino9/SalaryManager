@@ -128,6 +128,8 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.WorkingStatus_Text = entity.WorkingStatus;
             // 会社名
             this.ViewModel.CompanyName_Text   = entity.CompanyName.Text;
+            // 社員番号
+            this.ViewModel.EmployeeNumber     = entity.EmployeeNumber;
             // 勤務開始日
             this.ViewModel.WorkingStartDate   = entity.WorkingStartDate.Value;
             // 勤務終了日
@@ -340,7 +342,9 @@ namespace SalaryManager.WPF.Models
         {
             using (var cursor = new CursorWaiting())
             {
-                var entity = this.CreateEntity(this.ViewModel.Careers_SelectedIndex + 1);
+                var id = this.ViewModel.Careers_ItemSource[this.ViewModel.Careers_SelectedIndex].ID;
+
+                var entity = this.CreateEntity(id);
                 this.ViewModel.Careers_ItemSource[this.ViewModel.Careers_SelectedIndex] = entity;
 
                 this.Save();

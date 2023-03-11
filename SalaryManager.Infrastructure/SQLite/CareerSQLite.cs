@@ -150,6 +150,7 @@ Where ID = @ID";
 insert into Career
 (ID,
 CompanyName, 
+EmployeeNumber, 
 WorkingStatus, 
 WorkingStartDate, 
 WorkingEndDate, 
@@ -171,6 +172,7 @@ Remarks)
 values
 (@ID, 
 @CompanyName, 
+@EmployeeNumber, 
 @WorkingStatus, 
 @WorkingStartDate, 
 @WorkingEndDate, 
@@ -195,6 +197,7 @@ values
 update Career
 set ID                = @ID, 
     CompanyName       = @CompanyName, 
+    EmployeeNumber    = @EmployeeNumber, 
     WorkingStatus     = @WorkingStatus, 
     WorkingStartDate  = @WorkingStartDate, 
     WorkingEndDate    = @WorkingEndDate, 
@@ -216,13 +219,17 @@ set ID                = @ID,
 where ID = @ID
 ";
 
+            var startDate  = entity.WorkingStartDate.Value;
+            var endDate    = entity.WorkingEndDate.Value;
+
             var args = new List<SQLiteParameter>()
             {
                 new SQLiteParameter("ID",                entity.ID),
                 new SQLiteParameter("CompanyName",       entity.CompanyName),
+                new SQLiteParameter("EmployeeNumber",    entity.EmployeeNumber),
                 new SQLiteParameter("WorkingStatus",     entity.WorkingStatus),
-                new SQLiteParameter("WorkingStartDate",  DateHelpers.ConvertToSQLiteValue(entity.WorkingStartDate.Value)),
-                new SQLiteParameter("WorkingEndDate",    DateHelpers.ConvertToSQLiteValue(entity.WorkingEndDate.Value)),
+                new SQLiteParameter("WorkingStartDate",  DateHelpers.ConvertToSQLiteValue(startDate.Year, startDate.Month, startDate.Day)),
+                new SQLiteParameter("WorkingEndDate",    DateHelpers.ConvertToSQLiteValue(endDate.Year,   endDate.Month,   endDate.Day)),
                 new SQLiteParameter("PerfectAttendance", entity.AllowanceExistence.PerfectAttendance.Value),
                 new SQLiteParameter("Education",         entity.AllowanceExistence.Education.Value),
                 new SQLiteParameter("Electricity",       entity.AllowanceExistence.Electricity.Value),

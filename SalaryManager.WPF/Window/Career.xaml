@@ -187,12 +187,13 @@
                      Grid.Row="4" 
                      Grid.ColumnSpan="3" 
                      Text="{Binding EmployeeNumber}" />
-            
+
             <Label Content="手当" 
                    Grid.Row="5" 
                    Background="AliceBlue"/>
             <ScrollViewer Grid.Column="1" 
-                          Grid.Row="5">
+                          Grid.Row="5"
+                          Width="150">
                 <StackPanel>
                     <CheckBox Content="皆勤手当" IsChecked="{Binding PerfectAttendanceAllowance_IsChecked}" />
                     <CheckBox Content="教育手当" IsChecked="{Binding EducationAllowance_IsChecked}" />
