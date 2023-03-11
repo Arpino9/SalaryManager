@@ -25,10 +25,14 @@ namespace SalaryManager.WPF.ViewModels
         public ViewModel_WorkPlace()
         {
             this.Model.WorkPlace = this;
+            this.MainWindow.WorkPlace = this;
         }
 
         /// <summary> Model </summary>
         public Model_WorkingReference Model { get; set; } = Model_WorkingReference.GetInstance();
+
+        /// <summary> メイン画面 </summary>
+        public Model_MainWindow MainWindow { get; set; } = Model_MainWindow.GetInstance();
 
         #region 所属会社名
 

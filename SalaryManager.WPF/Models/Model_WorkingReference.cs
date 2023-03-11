@@ -101,7 +101,7 @@ namespace SalaryManager.WPF.Models
             // 勤務時間
             this.ViewModel.WorkingHours      = default(double);
             // 所属会社名
-            this.WorkPlace.CompanyName       = CompanyValue.Undefined.ToString();
+            this.WorkPlace.CompanyName       = CompanyValue.Undefined.DisplayValue;
             this.WorkPlace.CompanyName_Foreground = new SolidColorBrush(Colors.Gray);
             // 勤務先
             this.WorkPlace.WorkPlace         = default(string);
@@ -146,8 +146,8 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.Remarks           = entity.Remarks;
 
             // 所属会社名
-            var company = Careers.Fetch(new DateTime(this.Header.Year, this.Header.Month, 1));
-            this.WorkPlace.CompanyName = company.ToString();
+            var company = Careers.FetchCompany(new DateTime(this.Header.Year, this.Header.Month, 1));
+            this.WorkPlace.CompanyName = company.DisplayValue;
 
             if (company == CompanyValue.Undefined)
             {

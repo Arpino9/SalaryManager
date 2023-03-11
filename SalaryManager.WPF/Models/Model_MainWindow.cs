@@ -10,6 +10,7 @@ using System.IO;
 using System.Windows.Media;
 using WorkingReferences = SalaryManager.Domain.StaticValues.WorkingReferences;
 using SalaryManager.WPF.Window;
+using SalaryManager.Domain.ValueObjects;
 
 namespace SalaryManager.WPF.Models
 {
@@ -35,8 +36,11 @@ namespace SalaryManager.WPF.Models
 
         #endregion
 
-        /// <summary> ViewModel - メイン画面 </summary>
+        /// <summary> ViewModel - メイdン画面 </summary>
         internal ViewModel_MainWindow MainWindow { get; set; }
+
+        /// <summary> ViewModel - 勤務先 </summary>
+        internal ViewModel_WorkPlace WorkPlace { get; set; }
 
         /// <summary> Model - ヘッダー </summary>
         internal Model_Header Header { get; set; }
@@ -67,9 +71,17 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
-            var encode = System.Text.Encoding.GetEncoding("shift_jis");
+            var employeeID = Careers.FetchEmployeeNumber(new CompanyValue(this.WorkPlace.CompanyName));
 
-            var path = $"{Shared.DirectoryCSV}\\{Shared.EmployeeID}-{this.Header.ViewModel.Year}-{this.Header.ViewModel.Month}.csv";
+            if (string.IsNullOrEmpty(employeeID)) 
+            {
+                // 社員番号が登録されていない
+                return;
+            }
+
+            var encode = System.Text.Encoding.GetEncoding("shift_jis");
+;
+            var path = $"{Shared.DirectoryCSV}\\{employeeID}-{this.Header.ViewModel.Year}-{this.Header.ViewModel.Month}.csv";
             
             try
             {
@@ -103,6 +115,9 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         /// <param name="thisYearPrice">今年の金額</param>
         /// <param name="lastYearPrice">去年の金額</param>
+        /// <remarks>
+        /// 引数は登録されていないとnullになる。
+        /// </remarks>
         internal void ComparePrice(double? thisYearPrice, double? lastYearPrice)
         {
             if (thisYearPrice is null ||

@@ -1,7 +1,7 @@
 ﻿namespace SalaryManager.Domain.ValueObjects
 {
     /// <summary>
-    /// Value Object - 会社名
+    /// Value Object - 会社
     /// </summary>
     public class CompanyValue : ValueObject<CompanyValue>
     {
@@ -14,9 +14,7 @@
             this.Text = value;
         }
 
-        /// <summary>
-        /// Text 
-        /// </summary>
+        /// <summary> Text </summary>
         public string Text { get; }
 
         /// <summary> 未登録 </summary>
@@ -50,9 +48,15 @@
             }
         }
 
-        public override string ToString()
+        /// <summary>
+        /// 表示用
+        /// </summary>
+        public string DisplayValue
         {
-            return (this == CompanyValue.Undefined ? "<未登録>" : this.Text);
+            get
+            {
+                return (this == CompanyValue.Undefined ? "<未登録>" : this.Text);
+            }
         }
 
         protected override bool EqualsCore(CompanyValue other)

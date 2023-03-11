@@ -16,7 +16,7 @@ namespace SalaryManager.Domain.StaticValues
         private static SideBusinessEntity _default;
 
         /// <summary>
-        /// Create
+        /// テーブル取得
         /// </summary>
         /// <param name="repository">Repository</param>
         /// <remarks>

@@ -190,7 +190,7 @@ namespace SalaryManager.WPF.Models
         /// 再計算
         /// </summary>
         /// <remarks>
-        /// 支給総計を再計算する。
+        /// 該当項目の変更時に、支給総計と差引支給額を再計算する。
         /// </remarks>
         internal void ReCaluculate()
         {
@@ -222,11 +222,13 @@ namespace SalaryManager.WPF.Models
         }
         
         /// <summary>
-        /// 色変更
+        /// 文字色変更
         /// </summary>
+        /// <remarks>
+        /// 差引支給額の値の正負によって、文字色を変更する。
+        /// </remarks>
         internal void ChangeColor()
         {
-            // 差引支給額
             if (this.ViewModel.TotalDeductedSalary >= 0)
             {
                 this.ViewModel.TotalDeductedSalary_Foreground = new SolidColorBrush(Colors.Blue);

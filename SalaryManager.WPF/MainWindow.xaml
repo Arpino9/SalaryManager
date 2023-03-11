@@ -29,29 +29,32 @@
 
         <Menu>
             <MenuItem Header="編集">
-                <MenuItem Header="デフォルト明細">
-                    <MenuItem Header="設定" Command="{Binding SetDefaultClick}">
-                        <ToolTipService.ToolTip>
-                            <ToolTip Content="現在表示されている明細をデフォルト明細として設定します。"/>
-                        </ToolTipService.ToolTip>
-                    </MenuItem>
-                    <MenuItem Header="取得" Command="{Binding GetDefaultClick}">
-                        <ToolTipService.ToolTip>
-                            <ToolTip Content="登録されているデフォルト明細を表示します。"/>
-                        </ToolTipService.ToolTip>
-                    </MenuItem>
+                <MenuItem Header="デフォルト明細" Command="{Binding GetDefaultClick}">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="選択された給与明細をデフォルト明細に登録します。"/>
+                    </ToolTipService.ToolTip>
                 </MenuItem>
 
-                <MenuItem Header="経歴">
-                    <MenuItem Header="経歴入力" Command="{Binding ShowCareerManager}">
-                        <ToolTipService.ToolTip>
-                            <ToolTip Content="経歴入力・変更画面を開きます。"/>
-                        </ToolTipService.ToolTip>
-                    </MenuItem>
+                <MenuItem Header="経歴" Command="{Binding ShowCareerManager}">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="経歴編集画面を開きます。"/>
+                    </ToolTipService.ToolTip>
+                </MenuItem>
+
+                <MenuItem Header="オプション">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="アプリケーション設定画面を開きます。"/>
+                    </ToolTipService.ToolTip>
                 </MenuItem>
             </MenuItem>
 
             <MenuItem Header="読込">
+                <MenuItem Header="デフォルト明細を取得" Command="{Binding GetDefaultClick}">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="登録されているデフォルト明細を取得します。"/>
+                    </ToolTipService.ToolTip>
+                </MenuItem>
+                
                 <MenuItem Header="CSV読込" Command="{Binding ReadCSVClick}">
                     <ToolTipService.ToolTip>
                         <ToolTip Content="CSVを読み込みます。仮作成。"/>

@@ -14,7 +14,7 @@ namespace SalaryManager.Domain.StaticValues
         private static List<AnnualChartEntity> _entities = new List<AnnualChartEntity>();
 
         /// <summary>
-        /// Create
+        /// テーブル取得
         /// </summary>
         /// <param name="repository">Repository</param>
         /// <remarks>

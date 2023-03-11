@@ -33,9 +33,6 @@ namespace SalaryManager.Domain.Modules.Logics
         /// <remarks> Excelのヘッダ行 </remarks>
         public static readonly int DefaultRow = 5;
 
-        /// <summary> 拡張子 </summary>
-        public static readonly string FileExtension = "xlsx";
-
         /// <summary>
         /// Workbook保存
         /// </summary>
@@ -53,7 +50,7 @@ namespace SalaryManager.Domain.Modules.Logics
 
             try
             {
-                this.Workbook.SaveAs($@"{directory}\Payslips_{year}{month}{day}.{Excel.FileExtension}");
+                this.Workbook.SaveAs($@"{directory}\Payslips_{year}{month}{day}.xlsx");
             }
             catch(IOException ex)
             {

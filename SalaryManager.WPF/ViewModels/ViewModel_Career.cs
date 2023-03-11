@@ -28,10 +28,18 @@ namespace SalaryManager.WPF.ViewModels
         {
             this.Model.ViewModel = this;
 
-            this.Careers_ItemSource       = new ObservableCollection<CareerEntity>();
+            this.Careers_ItemSource = new ObservableCollection<CareerEntity>();
 
             this.Model.Initialize();
 
+            this.BindEvent();
+        }
+
+        /// <summary>
+        /// Bind Event
+        /// </summary>
+        private void BindEvent()
+        {
             _isWorkingAction += this.Model.IsWorking_Checked;
             this.Isworking_Checked = new RelayCommand(_isWorkingAction);
 
@@ -53,7 +61,7 @@ namespace SalaryManager.WPF.ViewModels
         /// </summary>
         public string Title
         {
-            get => "経歴入力";
+            get => "経歴編集";
         }
 
         #endregion

@@ -13,9 +13,6 @@ namespace SalaryManager.Domain
         /// <summary> 日付フォーマット </summary>
         public static string YearFormat = ConfigurationManager.AppSettings["YearFormat"];
 
-        /// <summary> 社員番号 </summary>
-        public static string EmployeeID = ConfigurationManager.AppSettings["EmployeeID"];
-
         /// <summary> CSVの保存ディレクトリ </summary>
         public static string DirectoryCSV = ConfigurationManager.AppSettings["DirectoryCSV"];
         /// <summary> Excelの保存先 </summary>

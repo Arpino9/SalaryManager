@@ -16,7 +16,7 @@ namespace SalaryManager.Domain.StaticValues
         private static List<CareerEntity> _entities = new List<CareerEntity>();
 
         /// <summary>
-        /// Create
+        /// テーブル取得
         /// </summary>
         /// <param name="repository">Repository</param>
         /// <remarks>
@@ -45,8 +45,8 @@ namespace SalaryManager.Domain.StaticValues
         /// 会社名を取得
         /// </summary>
         /// <param name="date">日付</param>
-        /// <returns>職歴</returns>
-        public static CompanyValue Fetch(DateTime date)
+        /// <returns>会社名</returns>
+        public static CompanyValue FetchCompany(DateTime date)
         {
             var entity = _entities.Find(x => x.WorkingStartDate.Value <= date &&
                                              date <= x.WorkingEndDate.Value);
@@ -57,6 +57,23 @@ namespace SalaryManager.Domain.StaticValues
             }
 
             return entity.CompanyName;
+        }
+
+        /// <summary>
+        /// 会社名から社員番号を取得
+        /// </summary>
+        /// <param name="company">会社名</param>
+        /// <returns>社員番号</returns>
+        public static string FetchEmployeeNumber(CompanyValue company)
+        {
+            var entity = _entities.Find(x => x.CompanyName == company);
+
+            if (entity == null)
+            {
+                return string.Empty;
+            }
+
+            return entity.EmployeeNumber;
         }
 
         /// <summary>

@@ -7,8 +7,6 @@ using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Domain.StaticValues;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.Infrastructure.Interface;
-using DocumentFormat.OpenXml.Spreadsheet;
-using DocumentFormat.OpenXml.Vml.Office;
 
 namespace SalaryManager.WPF.Models
 {
@@ -320,31 +318,28 @@ namespace SalaryManager.WPF.Models
                 this.ViewModel.EmployeeNumber,
                 this.ViewModel.WorkingStartDate,
                 workingEndDate,
-                this.CreateAllowanceExistenceEntity(),
+                CreateAllowanceExistenceEntity(),
                 this.ViewModel.Remarks);
-        }
 
-        /// <summary>
-        /// 手当有無の作成
-        /// </summary>
-        /// <returns>手当有無</returns>
-        private AllowanceExistenceEntity CreateAllowanceExistenceEntity()
-        {
-            return new AllowanceExistenceEntity(
-                this.ViewModel.PerfectAttendanceAllowance_IsChecked,
-                this.ViewModel.EducationAllowance_IsChecked,
-                this.ViewModel.ElectricityAllowance_IsChecked,
-                this.ViewModel.CertificationAllowance_IsChecked,
-                this.ViewModel.OvertimeAllowance_IsChecked,
-                this.ViewModel.TravelAllowance_IsChecked,
-                this.ViewModel.HousingAllowance_IsChecked,
-                this.ViewModel.FoodAllowance_IsChecked,
-                this.ViewModel.LateNightAllowance_IsChecked,
-                this.ViewModel.AreaAllowance_IsChecked,
-                this.ViewModel.CommutingAllowance_IsChecked,
-                this.ViewModel.DependencyAllowance_IsChecked,
-                this.ViewModel.ExecutiveAllowance_IsChecked,
-                this.ViewModel.SpecialAllowance_IsChecked);
+            // 手当有無の作成
+            AllowanceExistenceEntity CreateAllowanceExistenceEntity()
+            {
+                return new AllowanceExistenceEntity(
+                    this.ViewModel.PerfectAttendanceAllowance_IsChecked,
+                    this.ViewModel.EducationAllowance_IsChecked,
+                    this.ViewModel.ElectricityAllowance_IsChecked,
+                    this.ViewModel.CertificationAllowance_IsChecked,
+                    this.ViewModel.OvertimeAllowance_IsChecked,
+                    this.ViewModel.TravelAllowance_IsChecked,
+                    this.ViewModel.HousingAllowance_IsChecked,
+                    this.ViewModel.FoodAllowance_IsChecked,
+                    this.ViewModel.LateNightAllowance_IsChecked,
+                    this.ViewModel.AreaAllowance_IsChecked,
+                    this.ViewModel.CommutingAllowance_IsChecked,
+                    this.ViewModel.DependencyAllowance_IsChecked,
+                    this.ViewModel.ExecutiveAllowance_IsChecked,
+                    this.ViewModel.SpecialAllowance_IsChecked);
+            }
         }
 
         /// <summary>
@@ -388,7 +383,8 @@ namespace SalaryManager.WPF.Models
 
             using (var cursor = new CursorWaiting())
             {
-                this.Delete();
+                var career = new CareerSQLite();
+                career.Delete(this.ViewModel.Careers_SelectedIndex + 1);
 
                 this.ViewModel.Careers_ItemSource.RemoveAt(this.ViewModel.Careers_SelectedIndex);
 
@@ -409,15 +405,6 @@ namespace SalaryManager.WPF.Models
             }
 
             this.Reload();
-        }
-
-        /// <summary>
-        /// 削除
-        /// </summary>
-        public void Delete()
-        {
-            var career = new CareerSQLite();
-            career.Delete(this.ViewModel.Careers_SelectedIndex + 1);
         }
     }
 }
