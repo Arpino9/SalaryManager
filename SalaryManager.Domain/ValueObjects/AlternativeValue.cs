@@ -11,6 +11,10 @@
         /// <summary> × </summary>
         public static readonly AlternativeValue Invalid = new AlternativeValue(false);
 
+        /// <summary>
+        /// Value Object - 二者択一
+        /// </summary>
+        /// <param name="value">値</param>
         public AlternativeValue(bool value)
         {
             this.Value = value;
@@ -19,7 +23,7 @@
         /// <summary>
         /// Value 
         /// </summary>
-        private readonly bool Value;
+        public readonly bool Value;
 
         /// <summary>
         /// Text
@@ -38,7 +42,7 @@
         /// <returns>文字列</returns>
         public override string ToString()
         {
-            return (this.Text);
+            return this.Text;
         }
 
         protected override bool EqualsCore(AlternativeValue other)

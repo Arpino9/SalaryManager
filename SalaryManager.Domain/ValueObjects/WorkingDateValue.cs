@@ -17,7 +17,7 @@ namespace SalaryManager.Domain.ValueObjects
         }
 
         /// <summary> 値 </summary>
-        private readonly DateTime Value;
+        public readonly DateTime Value;
 
         /// <summary>
         /// 就業中か

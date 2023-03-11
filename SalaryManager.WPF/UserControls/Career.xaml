@@ -8,7 +8,7 @@
         xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" x:Class="SalaryManager.WPF.UserControls.Career"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="経歴入力" Height="400" Width="500">
+        Title="{Binding Title, Mode=OneWay}" Height="440" Width="500">
     <Window.DataContext>
         <ViewModels:ViewModel_Career/>
     </Window.DataContext>
@@ -23,13 +23,7 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding WorkingStatus}">
-                        <GridViewColumnHeader Content="雇用形態">
-                            <behaviors:Interaction.Triggers>
-                                <behaviors:EventTrigger EventName="Click">
-                                    <behaviors:InvokeCommandAction Command="{Binding OnLoadedCommand}" />
-                                </behaviors:EventTrigger>
-                            </behaviors:Interaction.Triggers>
-                        </GridViewColumnHeader>
+                        <GridViewColumnHeader Content="雇用形態"/>
                     </GridViewColumn>
 
                     <GridViewColumn DisplayMemberBinding="{Binding CompanyName}">
@@ -44,59 +38,59 @@
                         <GridViewColumnHeader Content="勤務終了日" />
                     </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.PerfectAttendanceAllowance.Text}">
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.PerfectAttendance.Text}">
                         <GridViewColumnHeader Content="皆勤" />
                     </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.EducationAllowance.Text}">
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.Education.Text}">
                         <GridViewColumnHeader Content="教育" />
                     </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.ElectricityAllowance.Text}">
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.Electricity.Text}">
                         <GridViewColumnHeader Content="在宅" />
                     </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.CertificationAllowance.Text}">
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.Certification.Text}">
                         <GridViewColumnHeader Content="資格" />
                     </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.OvertimeAllowance.Text}">
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.Overtime.Text}">
                         <GridViewColumnHeader Content="時間外" VerticalAlignment="Center" />
                     </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.TravelAllowance.Text}">
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.Travel.Text}">
                         <GridViewColumnHeader Content="出張" />
                     </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.HousingAllowance.Text}">
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.Housing.Text}">
                         <GridViewColumnHeader Content="住宅" />
                     </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.FoodAllowance.Text}">
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.Food.Text}">
                         <GridViewColumnHeader Content="食事" />
                     </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.LateNightAllowance.Text}">
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.LateNight.Text}">
                         <GridViewColumnHeader Content="深夜" />
                     </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.AreaAllowance.Text}">
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.Area.Text}">
                         <GridViewColumnHeader Content="地域" />
                     </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.CommutionAllowance.Text}">
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.Commution.Text}">
                         <GridViewColumnHeader Content="通勤" />
                     </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.DependencyAllowance.Text}">
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.Dependency.Text}">
                         <GridViewColumnHeader Content="扶養" />
                     </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.ExecutiveAllowance.Text}">
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.Executive.Text}">
                         <GridViewColumnHeader Content="役職" />
                     </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.SpecialAllowance.Text}">
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.Special.Text}">
                         <GridViewColumnHeader Content="特別" />
                     </GridViewColumn>
 
@@ -123,6 +117,7 @@
                 <RowDefinition Height="60" />
                 <RowDefinition />
                 <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
 
             <Label Content="雇用形態" 
@@ -138,7 +133,13 @@
             <TextBox Grid.Column="1" 
                      Grid.Row="1" 
                      Grid.ColumnSpan="4" 
-                     Text="{Binding CompanyName}"  />
+                     Text="{Binding CompanyName_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <behaviors:Interaction.Triggers>
+                    <behaviors:EventTrigger EventName="TextChanged">
+                        <behaviors:InvokeCommandAction Command="{Binding CompanyName_TextChanged}" />
+                    </behaviors:EventTrigger>
+                </behaviors:Interaction.Triggers>
+            </TextBox>
 
             <Label Content="勤務期間" 
                    Grid.Row="2" 
@@ -162,7 +163,17 @@
             <CheckBox Content="就業中" 
                       Grid.Column="3" 
                       Grid.Row="3"
-                      IsChecked="{Binding IsWorking}"/>
+                      IsChecked="{Binding IsWorking}">
+                <behaviors:Interaction.Triggers>
+                    <behaviors:EventTrigger EventName="Checked">
+                        <behaviors:InvokeCommandAction Command="{Binding Isworking_Checked}" />
+                    </behaviors:EventTrigger>
+
+                    <behaviors:EventTrigger EventName="Unchecked">
+                        <behaviors:InvokeCommandAction Command="{Binding Isworking_Checked}" />
+                    </behaviors:EventTrigger>
+                </behaviors:Interaction.Triggers>
+            </CheckBox>
 
             <Label Content="社員番号" 
                    Grid.Row="4" 
@@ -206,13 +217,19 @@
             <Button Content="追加" 
                     Grid.Row="7" 
                     Grid.ColumnSpan="2" 
-                    Command="{Binding Add_Command}"/>
+                    Command="{Binding Add_Command}"
+                    IsEnabled="{Binding Add_IsEnabled}"/>
             <Button Content="削除" 
                     Grid.Column="2" 
                     Grid.ColumnSpan="2" 
                     Grid.Row="7" 
                     Command="{Binding Remove_Command}" 
                     IsEnabled="{Binding Remove_IsEnabled}"/>
+            <Button Content="保存" 
+                    Grid.Row="8" 
+                    Grid.ColumnSpan="4" 
+                    Command="{Binding Save_Command}"
+                    IsEnabled="{Binding Save_IsEnabled}"/>
         </Grid>
     </Grid>
 </Window>

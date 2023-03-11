@@ -10,92 +10,92 @@ namespace SalaryManager.Domain.Entities
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="perfectAttendanceAllowance">皆勤手当</param>
-        /// <param name="educationAllowance">教育手当</param>
-        /// <param name="electricityAllowance">在宅手当</param>
-        /// <param name="certificationAllowance">資格手当</param>
-        /// <param name="overtimeAllowance">時間外手当</param>
-        /// <param name="travelAllowance">出張手当</param>
-        /// <param name="housingAllowance">住宅手当</param>
-        /// <param name="foodAllowance">食事手当</param>
-        /// <param name="lateNightAllowance">深夜手当</param>
-        /// <param name="areaAllowance">地域手当</param>
-        /// <param name="commutionAllowance">通勤手当</param>
-        /// <param name="dependencyAllowance">扶養手当</param>
-        /// <param name="executiveAllowance">役職手当</param>
-        /// <param name="specialAllowance">特別手当</param>
+        /// <param name="perfectAttendance">皆勤手当</param>
+        /// <param name="education">教育手当</param>
+        /// <param name="electricity">在宅手当</param>
+        /// <param name="certification">資格手当</param>
+        /// <param name="overtime">時間外手当</param>
+        /// <param name="travel">出張手当</param>
+        /// <param name="housing">住宅手当</param>
+        /// <param name="food">食事手当</param>
+        /// <param name="lateNight">深夜手当</param>
+        /// <param name="area">地域手当</param>
+        /// <param name="commution">通勤手当</param>
+        /// <param name="dependency">扶養手当</param>
+        /// <param name="executive">役職手当</param>
+        /// <param name="special">特別手当</param>
         public AllowanceExistenceEntity(
-            bool perfectAttendanceAllowance,
-            bool educationAllowance,
-            bool electricityAllowance,
-            bool certificationAllowance,
-            bool overtimeAllowance,
-            bool travelAllowance,
-            bool housingAllowance,
-            bool foodAllowance,
-            bool lateNightAllowance,
-            bool areaAllowance,
-            bool commutionAllowance,
-            bool dependencyAllowance,
-            bool executiveAllowance,
-            bool specialAllowance)
+            bool perfectAttendance,
+            bool education,
+            bool electricity,
+            bool certification,
+            bool overtime,
+            bool travel,
+            bool housing,
+            bool food,
+            bool lateNight,
+            bool area,
+            bool commution,
+            bool dependency,
+            bool executive,
+            bool special)
         {
-            this.PerfectAttendanceAllowance = new AlternativeValue(perfectAttendanceAllowance);
-            this.EducationAllowance         = new AlternativeValue(educationAllowance);
-            this.ElectricityAllowance       = new AlternativeValue(electricityAllowance);
-            this.CertificationAllowance     = new AlternativeValue(certificationAllowance);
-            this.OvertimeAllowance          = new AlternativeValue(overtimeAllowance);
-            this.TravelAllowance            = new AlternativeValue(travelAllowance);
-            this.HousingAllowance           = new AlternativeValue(housingAllowance);
-            this.FoodAllowance              = new AlternativeValue(foodAllowance);
-            this.LateNightAllowance         = new AlternativeValue(lateNightAllowance);
-            this.AreaAllowance              = new AlternativeValue(areaAllowance);
-            this.CommutionAllowance         = new AlternativeValue(commutionAllowance);
-            this.DependencyAllowance        = new AlternativeValue(dependencyAllowance);
-            this.ExecutiveAllowance         = new AlternativeValue(executiveAllowance);
-            this.SpecialAllowance           = new AlternativeValue(specialAllowance);
+            this.PerfectAttendance = new AlternativeValue(perfectAttendance);
+            this.Education         = new AlternativeValue(education);
+            this.Electricity       = new AlternativeValue(electricity);
+            this.Certification     = new AlternativeValue(certification);
+            this.Overtime          = new AlternativeValue(overtime);
+            this.Travel            = new AlternativeValue(travel);
+            this.Housing           = new AlternativeValue(housing);
+            this.Food              = new AlternativeValue(food);
+            this.LateNight         = new AlternativeValue(lateNight);
+            this.Area              = new AlternativeValue(area);
+            this.Commution         = new AlternativeValue(commution);
+            this.Dependency        = new AlternativeValue(dependency);
+            this.Executive         = new AlternativeValue(executive);
+            this.Special           = new AlternativeValue(special);
         }
 
         /// <summary> 皆勤手当 </summary>
-        public AlternativeValue PerfectAttendanceAllowance { get; }
+        public AlternativeValue PerfectAttendance { get; }
 
         /// <summary> 教育手当 </summary>
-        public AlternativeValue EducationAllowance { get; }
+        public AlternativeValue Education { get; }
 
         /// <summary> 在宅手当 </summary>
-        public AlternativeValue ElectricityAllowance { get; }
+        public AlternativeValue Electricity { get; }
 
         /// <summary> 資格手当 </summary>
-        public AlternativeValue CertificationAllowance { get; }
+        public AlternativeValue Certification { get; }
 
         /// <summary> 時間外手当 </summary>
-        public AlternativeValue OvertimeAllowance { get; }
+        public AlternativeValue Overtime { get; }
 
         /// <summary> 出張手当 </summary>
-        public AlternativeValue TravelAllowance { get; }
+        public AlternativeValue Travel { get; }
 
         /// <summary> 住宅手当 </summary>
-        public AlternativeValue HousingAllowance { get; }
+        public AlternativeValue Housing { get; }
 
         /// <summary> 食事手当 </summary>
-        public AlternativeValue FoodAllowance { get; }
+        public AlternativeValue Food { get; }
 
         /// <summary> 深夜手当 </summary>
-        public AlternativeValue LateNightAllowance { get; }
+        public AlternativeValue LateNight { get; }
 
         /// <summary> 地域手当 </summary>
-        public AlternativeValue AreaAllowance { get; }
+        public AlternativeValue Area { get; }
 
         /// <summary> 通勤手当 </summary>
-        public AlternativeValue CommutionAllowance { get; }
+        public AlternativeValue Commution { get; }
 
         /// <summary> 扶養手当 </summary>
-        public AlternativeValue DependencyAllowance { get; }
+        public AlternativeValue Dependency { get; }
 
         /// <summary> 役職手当 </summary>
-        public AlternativeValue ExecutiveAllowance { get; }
+        public AlternativeValue Executive { get; }
 
         /// <summary> 特別手当 </summary>
-        public AlternativeValue SpecialAllowance { get; }
+        public AlternativeValue Special { get; }
     }
 }

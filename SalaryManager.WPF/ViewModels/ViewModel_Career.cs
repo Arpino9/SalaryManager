@@ -1,10 +1,11 @@
-﻿using SalaryManager.Domain.Entities;
-using SalaryManager.WPF.Converter;
-using SalaryManager.WPF.Models;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SalaryManager.Domain.Entities;
+using SalaryManager.WPF.Converter;
+using SalaryManager.WPF.Models;
 
 namespace SalaryManager.WPF.ViewModels
 {
@@ -27,13 +28,32 @@ namespace SalaryManager.WPF.ViewModels
         {
             this.Model.ViewModel = this;
 
-            this.WorkingStatus_ItemSource = new ObservableCollection<string>();
             this.Careers_ItemSource       = new ObservableCollection<CareerEntity>();
 
             this.Model.Initialize();
+
+            _isWorkingAction += this.Model.IsWorking_Checked;
+            this.Isworking_Checked = new RelayCommand(_isWorkingAction);
+
+            _companyNameAction += this.Model.CompanyName_TextChanged;
+            this.CompanyName_TextChanged = new RelayCommand(_companyNameAction);
         }
 
         public Model_Career Model { get; set; } = Model_Career.GetInstance();
+
+        public IReadOnlyList<CareerEntity> Entities { get; internal set; }
+
+        #region タイトル
+
+        /// <summary>
+        /// タイトル
+        /// </summary>
+        public string Title
+        {
+            get => "経歴入力";
+        }
+
+        #endregion
 
         #region 職歴一覧
 
@@ -71,19 +91,12 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 雇用形態
 
-        private ObservableCollection<string> _workingStatus_itemSource;
-
         /// <summary>
         /// 雇用形態 - ItemSource
         /// </summary>
         public ObservableCollection<string> WorkingStatus_ItemSource
         {
-            get => this._workingStatus_itemSource;
-            set
-            {
-                this._workingStatus_itemSource = value;
-                this.RaisePropertyChanged();
-            }
+            get => new ObservableCollection<string> {"正社員", "契約社員", "派遣社員", "業務委託", "アルバイト"};
         }
 
         private int _workingStatus_SelectedIndex;
@@ -120,20 +133,27 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 会社名
 
-        private string _companyName;
+        private string _companyName_Text;
 
         /// <summary>
-        /// 会社名
+        /// 会社名 - Text
         /// </summary>
-        public string CompanyName
+        public string CompanyName_Text
         {
-            get => this._companyName;
+            get => this._companyName_Text;
             set
             {
-                this._companyName = value;
+                this._companyName_Text = value;
                 this.RaisePropertyChanged();
             }
         }
+
+        /// <summary>
+        /// 会社名 - TextChanged
+        /// </summary>
+        public RelayCommand CompanyName_TextChanged { get; private set; }
+
+        private Action _companyNameAction;
 
         #endregion
 
@@ -176,7 +196,7 @@ namespace SalaryManager.WPF.ViewModels
         private bool _isWorking_IsEnabled;
 
         /// <summary>
-        /// 就業中
+        /// 就業中 - IsEnabled
         /// </summary>
         public bool WorkingEndDate_IsEnabled
         {
@@ -204,10 +224,15 @@ namespace SalaryManager.WPF.ViewModels
             {
                 this._isWorking = value;
                 this.RaisePropertyChanged();
-
-                this.Model.IsWorking_Checked();
             }
         }
+
+        /// <summary>
+        /// 扶養手当 - Checked
+        /// </summary>
+        public RelayCommand Isworking_Checked { get; private set; }
+
+        private Action _isWorkingAction;
 
         #endregion
 
@@ -517,6 +542,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 追加
 
+        private bool _add_IsEnabled;
+
+        /// <summary>
+        /// 追加 - IsEnabled
+        /// </summary>
+        public bool Add_IsEnabled
+        {
+            get => this._add_IsEnabled;
+            set
+            {
+                this._add_IsEnabled = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private RelayCommand _add;
 
         /// <summary>
@@ -572,5 +612,40 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
+        #region 保存
+
+        private bool _save_IsEnabled;
+
+        /// <summary>
+        /// 保存 - IsEnabled
+        /// </summary>
+        public bool Save_IsEnabled
+        {
+            get => this._save_IsEnabled;
+            set
+            {
+                this._save_IsEnabled = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private RelayCommand _save_Command;
+
+        /// <summary>
+        /// 保存 - Command
+        /// </summary>
+        public RelayCommand Save_Command
+        {
+            get
+            {
+                if (this._save_Command == null)
+                {
+                    this._save_Command = new RelayCommand(this.Model.Save);
+                }
+                return this._save_Command;
+            }
+        }
+
+        #endregion
     }
 }
