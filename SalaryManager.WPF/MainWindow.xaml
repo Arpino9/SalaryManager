@@ -20,7 +20,8 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="50" />
             <RowDefinition Height="50" />
             <RowDefinition />
             <RowDefinition Height="40" />
@@ -91,9 +92,9 @@
         </Menu>
 
         <local:Header Width="200" Grid.Row="1" VerticalAlignment="Center" />
-        <local:WorkPlace  Grid.Column="1"/>
+        <local:WorkPlace Grid.Column="1" Grid.RowSpan="2"/>
 
-        <TabControl Grid.Row="2">
+        <TabControl Grid.Row="2" Grid.RowSpan="2">
             <TabItem Header="支給額">
                 <local:Allowance Height="340" VerticalAlignment="Top" >
                     <local:Allowance.Background>
@@ -125,7 +126,7 @@
         </TabControl>
 
         <local:AnnualChart Grid.Column="1" 
-                           Grid.Row="1" 
+                           Grid.Row="2" 
                            Grid.RowSpan="2" />
 
         <StatusBar Grid.Row="3" VerticalAlignment="Bottom">

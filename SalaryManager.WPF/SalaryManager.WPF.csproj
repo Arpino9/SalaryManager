@@ -112,7 +112,7 @@
     <Compile Include="UserControls\AnnualChart.xaml.cs">
       <DependentUpon>AnnualChart.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Career.xaml.cs">
+    <Compile Include="Window\Career.xaml.cs">
       <DependentUpon>Career.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Deduction.xaml.cs">
@@ -146,7 +146,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\Career.xaml">
+    <Page Include="Window\Career.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

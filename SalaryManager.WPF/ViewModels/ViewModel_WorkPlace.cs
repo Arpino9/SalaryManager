@@ -29,6 +29,25 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary> Model </summary>
         public Model_WorkingReference Model { get; set; } = Model_WorkingReference.GetInstance();
 
+        #region 所属会社名
+
+        private string _companyName;
+
+        /// <summary>
+        /// 勤務先
+        /// </summary>
+        public string CompanyName
+        {
+            get => this._companyName;
+            set
+            {
+                this._companyName = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
         #region 勤務先
 
         private string _workPlace;

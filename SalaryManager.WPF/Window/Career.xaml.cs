@@ -1,11 +1,11 @@
 ﻿using System.Windows;
 
-namespace SalaryManager.WPF.UserControls
+namespace SalaryManager.WPF.Window
 {
     /// <summary>
     /// CareerInput.xaml の相互作用ロジック
     /// </summary>
-    public partial class Career : Window
+    public partial class Career : System.Windows.Window
     {
         public Career()
         {

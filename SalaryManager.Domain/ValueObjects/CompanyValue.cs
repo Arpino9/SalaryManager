@@ -20,7 +20,7 @@
         public string Text { get; }
 
         /// <summary> 未登録 </summary>
-        public static CompanyValue Undefined = new CompanyValue("<未登録>");
+        public static CompanyValue Undefined = new CompanyValue(string.Empty);
 
         /// <summary>
         /// 株式会社か
@@ -30,7 +30,9 @@
             get
             {
                 return (this.Text.StartsWith("株式会社") || 
-                        this.Text.EndsWith("株式会社"));
+                        this.Text.StartsWith("(株)") || 
+                        this.Text.EndsWith("株式会社") ||
+                        this.Text.EndsWith("(株)"));
             }
         }
 
@@ -42,13 +44,15 @@
             get
             {
                 return (this.Text.StartsWith("有限会社") ||
-                        this.Text.EndsWith("有限会社"));
+                        this.Text.StartsWith("(有)") ||
+                        this.Text.EndsWith("有限会社") ||
+                        this.Text.EndsWith("(有)"));
             }
         }
 
         public override string ToString()
         {
-            return (this == Undefined ? Undefined.Text : base.ToString());
+            return (this == CompanyValue.Undefined ? "<未登録>" : this.Text);
         }
 
         protected override bool EqualsCore(CompanyValue other)

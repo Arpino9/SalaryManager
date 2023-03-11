@@ -4,9 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SalaryManager.WPF.UserControls"
-             xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" x:Class="SalaryManager.WPF.UserControls.WorkPlace"
+             xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" 
+             x:Class="SalaryManager.WPF.UserControls.WorkPlace"
              mc:Ignorable="d" 
-             d:DesignHeight="30" d:DesignWidth="300"
+             d:DesignHeight="70" d:DesignWidth="300"
              Background="{x:Static SystemColors.ControlLightBrush}">
     <UserControl.Resources>
         <Style x:Key="TextBox_Style" TargetType="{x:Type TextBox}">
@@ -22,12 +23,28 @@
         <ViewModels:ViewModel_WorkPlace/>
     </UserControl.DataContext>
     <Grid>
-        <StackPanel Orientation="Horizontal">
-            <Label Content="勤務先" 
-                   Style="{StaticResource PayslipItemLabel_Style}" />
-            <TextBox Style="{StaticResource PayslipItemCharacter_Style}" 
-                     Text="{Binding WorkPlace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                     Width="240" />
-        </StackPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Label Content="所属会社名"
+               Style="{StaticResource PayslipItemLabel_Style}" />
+        <TextBox Grid.Column="1"
+                 IsReadOnly="True"
+                 Style="{StaticResource PayslipItemCharacter_Style}"
+                 Text="{Binding CompanyName}"/>
+
+        <Label Content="勤務先" 
+               Grid.Row="1"
+               Style="{StaticResource PayslipItemLabel_Style}" />
+        <TextBox Grid.Column="1"
+                 Grid.Row="1"
+                 Style="{StaticResource PayslipItemCharacter_Style}" 
+                 Text="{Binding WorkPlace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
 </UserControl>

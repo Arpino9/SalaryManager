@@ -8,8 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Media;
-using SalaryManager.WPF.UserControls;
 using WorkingReferences = SalaryManager.Domain.StaticValues.WorkingReferences;
+using SalaryManager.WPF.Window;
 
 namespace SalaryManager.WPF.Models
 {

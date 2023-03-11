@@ -5,6 +5,7 @@ using SalaryManager.Infrastructure.Interface;
 using SalaryManager.WPF.ViewModels;
 using SalaryManager.Domain.StaticValues;
 using SalaryManager.Domain.Modules.Logics;
+using SalaryManager.Domain.ValueObjects;
 
 namespace SalaryManager.WPF.Models
 {
@@ -45,6 +46,7 @@ namespace SalaryManager.WPF.Models
         public void Initialize(DateTime entityDate)
         {
             WorkingReferences.Create(new WorkingReferenceSQLite());
+            Careers.Create(new CareerSQLite());
 
             this.ViewModel.Entity          = WorkingReferences.Fetch(entityDate.Year, entityDate.Month);
             this.ViewModel.Entity_LastYear = WorkingReferences.Fetch(entityDate.Year, entityDate.Month - 1);
@@ -69,7 +71,7 @@ namespace SalaryManager.WPF.Models
 
                 this.ViewModel.Entity          = WorkingReferences.Fetch(this.Header.Year,     this.Header.Month);
                 this.ViewModel.Entity_LastYear = WorkingReferences.Fetch(this.Header.Year - 1, this.Header.Month);
-            
+
                 this.Refresh();
             }   
         }
@@ -97,6 +99,8 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.PaidVacation      = default(double);
             // 勤務時間
             this.ViewModel.WorkingHours      = default(double);
+            // 所属会社名
+            this.WorkPlace.CompanyName       = CompanyValue.Undefined.ToString();
             // 勤務先
             this.WorkPlace.WorkPlace         = default(string);
             // 備考
@@ -138,6 +142,9 @@ namespace SalaryManager.WPF.Models
             this.WorkPlace.WorkPlace         = entity.WorkPlace;
             // 備考
             this.ViewModel.Remarks           = entity.Remarks;
+
+            var company = Careers.Fetch(new DateTime(this.Header.Year, this.Header.Month, 1));
+            this.WorkPlace.CompanyName = company.ToString();
         }
 
         /// <summary>

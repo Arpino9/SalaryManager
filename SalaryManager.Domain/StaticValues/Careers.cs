@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Repositories;
+using System;
+using SalaryManager.Domain.ValueObjects;
 
 namespace SalaryManager.Domain.StaticValues
 {
@@ -37,6 +39,24 @@ namespace SalaryManager.Domain.StaticValues
         public static CareerEntity Fetch(int id)
         {
             return _entities.Find(x => x.ID == id);
+        }
+
+        /// <summary>
+        /// 会社名を取得
+        /// </summary>
+        /// <param name="date">日付</param>
+        /// <returns>職歴</returns>
+        public static CompanyValue Fetch(DateTime date)
+        {
+            var entity = _entities.Find(x => x.WorkingStartDate.Value <= date &&
+                                             date <= x.WorkingEndDate.Value);
+
+            if (entity == null) 
+            {
+                return new CompanyValue(string.Empty);
+            }
+
+            return entity.CompanyName;
         }
 
         /// <summary>
