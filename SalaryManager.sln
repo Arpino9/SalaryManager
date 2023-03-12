@@ -3,15 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalaryManager", "SalaryManager\SalaryManager.csproj", "{76397870-C59B-4574-BFEA-7D4AB7C7065D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalaryManager.Domain", "SalaryManager.Domain\SalaryManager.Domain.csproj", "{03C4F951-1B96-4911-A26E-E8547AE1E310}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalaryManager.Infrastructure", "SalaryManager.Infrastructure\SalaryManager.Infrastructure.csproj", "{9F8EE54C-7226-401B-B3B3-BB30EE9C37AE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalaryManager.WPF", "SalaryManager.WPF\SalaryManager.WPF.csproj", "{19EE1FCF-EC40-4EC5-A3C3-A58D61A41DFE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalaryManagerTest.Test", "SalaryManagerTest.Test\SalaryManagerTest.Test.csproj", "{AD23F41A-A7EC-436A-8863-8736924C1727}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
