@@ -30,7 +30,7 @@
                Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="1" 
                  Style="{StaticResource PayslipItemNumeric_Style}" 
-                 Text="{Binding SideBusiness, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                 Text="{Binding SideBusiness_Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
 
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
@@ -49,7 +49,7 @@
         <TextBox Grid.Column="1" 
                  Grid.Row="1" 
                  Style="{StaticResource PayslipItemNumeric_Style}" 
-                 Text="{Binding Perquisite, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                 Text="{Binding Perquisite_Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
 
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
@@ -67,7 +67,7 @@
                Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="3" 
                  Style="{StaticResource PayslipItemNumeric_Style}" 
-                 Text="{Binding Others, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                 Text="{Binding Others_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
 
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
@@ -89,6 +89,6 @@
                  AcceptsReturn="True"
                  TextWrapping="Wrap"
                  Style="{StaticResource PayslipItemCharacter_Style}"
-                 Text="{Binding Remarks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                 Text="{Binding Remarks_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
 </UserControl>

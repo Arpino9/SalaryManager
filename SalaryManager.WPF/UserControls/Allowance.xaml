@@ -38,7 +38,7 @@
                Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="1" 
                  Style="{StaticResource PayslipItemNumeric_Style}"
-                 Text="{Binding BasicSalary, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding BasicSalary_Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
@@ -56,8 +56,9 @@
                Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="1" 
                  Grid.Row="1" 
+                 IsEnabled="{Binding ExecutiveAllowance_IsEnabled}"
                  Style="{StaticResource PayslipItemNumeric_Style}"
-                 Text="{Binding ExecutiveAllowance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding ExecutiveAllowance_Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
@@ -75,8 +76,9 @@
                Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="1" 
                  Grid.Row="2" 
+                 IsEnabled="{Binding DependencyAllowance_IsEnabled}"
                  Style="{StaticResource PayslipItemNumeric_Style}"
-                 Text="{Binding DependencyAllowance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding DependencyAllowance_Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
@@ -94,8 +96,9 @@
                Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="1" 
                  Grid.Row="3" 
+                 IsEnabled="{Binding OvertimeAllowance_IsEnabled}"
                  Style="{StaticResource PayslipItemNumeric_Style}"
-                 Text="{Binding OvertimeAllowance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding OvertimeAllowance_Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
@@ -114,7 +117,7 @@
         <TextBox Grid.Column="1" 
                  Grid.Row="4" 
                  Style="{StaticResource PayslipItemNumeric_Style}"
-                 Text="{Binding DaysoffIncreased, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding DaysoffIncreased_Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
@@ -132,8 +135,9 @@
                Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="1" 
                  Grid.Row="5" 
+                 IsEnabled="{Binding TransportationExpenses_IsEnabled}"
                  Style="{StaticResource PayslipItemNumeric_Style}"
-                 Text="{Binding TransportationExpenses, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding TransportationExpenses_Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
@@ -150,8 +154,9 @@
                Grid.Column="2" 
                Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="3" 
+                 IsEnabled="{Binding NightworkIncreased_IsEnabled}"
                  Style="{StaticResource PayslipItemNumeric_Style}"
-                 Text="{Binding NightworkIncreased, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding NightworkIncreased_Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
@@ -170,8 +175,9 @@
                Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="3" 
                  Grid.Row="1" 
+                 IsEnabled="{Binding HousingAllowance_IsEnabled}"
                  Style="{StaticResource PayslipItemNumeric_Style}"
-                 Text="{Binding HousingAllowance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding HousingAllowance_Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
@@ -191,7 +197,7 @@
         <TextBox Grid.Column="3" 
                  Grid.Row="2" 
                  Style="{StaticResource PayslipItemNumeric_Style}"
-                 Text="{Binding LateAbsent}"
+                 Text="{Binding LateAbsent_Value}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
@@ -210,8 +216,9 @@
                Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="3" 
                  Grid.Row="3" 
+                 IsEnabled="{Binding SpecialAllowance_IsEnabled}"
                  Style="{StaticResource PayslipItemNumeric_Style}"
-                 Text="{Binding SpecialAllowance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding SpecialAllowance_Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
@@ -230,9 +237,10 @@
                Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="3" 
                  Grid.Row="4" 
+                 IsEnabled="{Binding ElectricityAllowance_IsEnabled}"
                  Style="{StaticResource PayslipItemNumeric_Style}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True" 
-                 Text="{Binding ElectricityAllowance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                 Text="{Binding ElectricityAllowance_Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         
         <Label Content="予備" 
                Grid.Column="2" 
@@ -241,7 +249,7 @@
         <TextBox Grid.Column="3" 
                  Grid.Row="5" 
                  Style="{StaticResource PayslipItemNumeric_Style}"
-                 Text="{Binding SpareAllowance, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding SpareAllowance_Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
@@ -263,7 +271,7 @@
                  AcceptsReturn="True"
                  TextWrapping="Wrap"
                  Style="{StaticResource PayslipItemCharacter_Style}"
-                 Text="{Binding Remarks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                 Text="{Binding Remarks_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <Label Content="支給額計" 
                Grid.Column="1"
@@ -275,7 +283,7 @@
                  Grid.Row="7"  
                  Margin="0,10,0,0"
                  Style="{StaticResource PayslipItemNumeric_Style}"
-                 Text="{Binding TotalSalary, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding TotalSalary_Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True" 
                  IsReadOnly="True" 
                  Foreground="{Binding TotalSalary_Foreground}">
@@ -300,7 +308,7 @@
                  Grid.Row="8"  
                  Margin="0,10,0,0"
                  Style="{StaticResource PayslipItemNumeric_Style}"
-                 Text="{Binding TotalDeductedSalary, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding TotalDeductedSalary_Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True" 
                  IsReadOnly="True" 
                  Foreground="{Binding TotalDeductedSalary_Foreground}">

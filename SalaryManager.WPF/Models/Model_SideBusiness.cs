@@ -65,8 +65,8 @@ namespace SalaryManager.WPF.Models
             {
                 SideBusinesses.Create(new SideBusinessSQLite());
 
-                this.ViewModel.Entity          = SideBusinesses.Fetch(this.Header.Year, this.Header.Month);
-                this.ViewModel.Entity_LastYear = SideBusinesses.Fetch(this.Header.Year - 1, this.Header.Month);
+                this.ViewModel.Entity          = SideBusinesses.Fetch(this.Header.Year_Value, this.Header.Month_Value);
+                this.ViewModel.Entity_LastYear = SideBusinesses.Fetch(this.Header.Year_Value - 1, this.Header.Month_Value);
             
                 this.Refresh();
             }   
@@ -78,13 +78,13 @@ namespace SalaryManager.WPF.Models
         public void Clear()
         {
             // 副業
-            this.ViewModel.SideBusiness = default(double);
+            this.ViewModel.SideBusiness_Value = default(double);
             // 臨時収入
-            this.ViewModel.Perquisite   = default(double);
+            this.ViewModel.Perquisite_Value   = default(double);
             // その他
-            this.ViewModel.Others       = default(double);
+            this.ViewModel.Others_Value       = default(double);
             // 備考
-            this.ViewModel.Remarks      = default(string);
+            this.ViewModel.Remarks_Text      = default(string);
         }
 
         /// <summary>
@@ -101,13 +101,13 @@ namespace SalaryManager.WPF.Models
             }
 
             // 副業
-            this.ViewModel.SideBusiness = entity.SideBusiness;
+            this.ViewModel.SideBusiness_Value = entity.SideBusiness;
             // 臨時収入
-            this.ViewModel.Perquisite   = entity.Perquisite;
+            this.ViewModel.Perquisite_Value   = entity.Perquisite;
             // その他
-            this.ViewModel.Others       = entity.Others;
+            this.ViewModel.Others_Value       = entity.Others;
             // 備考
-            this.ViewModel.Remarks      = entity.Remarks;
+            this.ViewModel.Remarks_Text      = entity.Remarks;
         }
 
         /// <summary>
@@ -119,10 +119,10 @@ namespace SalaryManager.WPF.Models
             var entity = new SideBusinessEntity(
                 this.Header.ID,
                 this.Header.YearMonth,
-                this.ViewModel.SideBusiness,
-                this.ViewModel.Perquisite,
-                this.ViewModel.Others,
-                this.ViewModel.Remarks);
+                this.ViewModel.SideBusiness_Value,
+                this.ViewModel.Perquisite_Value,
+                this.ViewModel.Others_Value,
+                this.ViewModel.Remarks_Text);
 
             var sideBusiness = new SideBusinessSQLite();
             sideBusiness.Save(transaction, entity);

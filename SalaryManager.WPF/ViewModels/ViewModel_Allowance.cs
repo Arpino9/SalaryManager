@@ -56,33 +56,33 @@ namespace SalaryManager.WPF.ViewModels
             // Mouse Leave
             this.MouseLeave_Action             = new RelayCommand(() => this.MainWindow.ComparePrice(0, 0));
             // 基本給
-            this.BasicSalary_Action            = new RelayCommand(() => this.MainWindow.ComparePrice(this.BasicSalary,            this.Entity_LastYear?.BasicSalary.Value));
+            this.BasicSalary_Action            = new RelayCommand(() => this.MainWindow.ComparePrice(this.BasicSalary_Value,            this.Entity_LastYear?.BasicSalary.Value));
             // 役職手当
-            this.ExecutiveAllowance_Action     = new RelayCommand(() => this.MainWindow.ComparePrice(this.ExecutiveAllowance,     this.Entity_LastYear?.ExecutiveAllowance.Value));
+            this.ExecutiveAllowance_Action     = new RelayCommand(() => this.MainWindow.ComparePrice(this.ExecutiveAllowance_Value,     this.Entity_LastYear?.ExecutiveAllowance.Value));
             // 扶養手当
-            this.DependencyAllowance_Action    = new RelayCommand(() => this.MainWindow.ComparePrice(this.DependencyAllowance,    this.Entity_LastYear?.DependencyAllowance.Value));
+            this.DependencyAllowance_Action    = new RelayCommand(() => this.MainWindow.ComparePrice(this.DependencyAllowance_Value,    this.Entity_LastYear?.DependencyAllowance.Value));
             // 時間外手当
-            this.OvertimeAllowance_Action      = new RelayCommand(() => this.MainWindow.ComparePrice(this.OvertimeAllowance,      this.Entity_LastYear?.OvertimeAllowance.Value));
+            this.OvertimeAllowance_Action      = new RelayCommand(() => this.MainWindow.ComparePrice(this.OvertimeAllowance_Value,      this.Entity_LastYear?.OvertimeAllowance.Value));
             // 休日割増
-            this.DaysoffIncreased_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.DaysoffIncreased,       this.Entity_LastYear?.DaysoffIncreased.Value));
+            this.DaysoffIncreased_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.DaysoffIncreased_Value,       this.Entity_LastYear?.DaysoffIncreased.Value));
             // 深夜割増
-            this.NightworkIncreased_Action     = new RelayCommand(() => this.MainWindow.ComparePrice(this.NightworkIncreased,     this.Entity_LastYear?.NightworkIncreased.Value));
+            this.NightworkIncreased_Action     = new RelayCommand(() => this.MainWindow.ComparePrice(this.NightworkIncreased_Value,     this.Entity_LastYear?.NightworkIncreased.Value));
             // 住宅手当
-            this.HousingAllowance_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.HousingAllowance,       this.Entity_LastYear?.HousingAllowance.Value));
+            this.HousingAllowance_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.HousingAllowance_Value,       this.Entity_LastYear?.HousingAllowance.Value));
             // 遅刻早退欠勤
-            this.LateAbsent_Action             = new RelayCommand(() => this.MainWindow.ComparePrice(this.LateAbsent,             this.Entity_LastYear?.LateAbsent));
+            this.LateAbsent_Action             = new RelayCommand(() => this.MainWindow.ComparePrice(this.LateAbsent_Value,             this.Entity_LastYear?.LateAbsent));
             // 交通費
-            this.TransportationExpenses_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.TransportationExpenses, this.Entity_LastYear?.TransportationExpenses.Value));
+            this.TransportationExpenses_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.TransportationExpenses_Value, this.Entity_LastYear?.TransportationExpenses.Value));
             // 在宅手当
-            this.ElectricityAllowance_Action   = new RelayCommand(() => this.MainWindow.ComparePrice(this.ElectricityAllowance,   this.Entity_LastYear?.ElectricityAllowance.Value));
+            this.ElectricityAllowance_Action   = new RelayCommand(() => this.MainWindow.ComparePrice(this.ElectricityAllowance_Value,   this.Entity_LastYear?.ElectricityAllowance.Value));
             // 特別手当
-            this.SpecialAllowance_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.SpecialAllowance,       this.Entity_LastYear?.SpecialAllowance.Value));
+            this.SpecialAllowance_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.SpecialAllowance_Value,       this.Entity_LastYear?.SpecialAllowance.Value));
             // 予備
-            this.SpareAllowance_Action         = new RelayCommand(() => this.MainWindow.ComparePrice(this.SpareAllowance,         this.Entity_LastYear?.SpareAllowance.Value));
+            this.SpareAllowance_Action         = new RelayCommand(() => this.MainWindow.ComparePrice(this.SpareAllowance_Value,         this.Entity_LastYear?.SpareAllowance.Value));
             // 支給総計
-            this.TotalSalary_Action            = new RelayCommand(() => this.MainWindow.ComparePrice(this.TotalSalary,            this.Entity_LastYear?.TotalSalary.Value));
+            this.TotalSalary_Action            = new RelayCommand(() => this.MainWindow.ComparePrice(this.TotalSalary_Value,            this.Entity_LastYear?.TotalSalary.Value));
             // 差引支給額
-            this.TotalDeductedSalary_Action    = new RelayCommand(() => this.MainWindow.ComparePrice(this.TotalDeductedSalary,    this.Entity_LastYear?.TotalDeductedSalary.Value));
+            this.TotalDeductedSalary_Action    = new RelayCommand(() => this.MainWindow.ComparePrice(this.TotalDeductedSalary_Value,    this.Entity_LastYear?.TotalDeductedSalary.Value));
         }
 
         /// <summary> Model - 支給額 </summary>
@@ -111,17 +111,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 基本給
 
-        private double _basicSalary;
+        private double _basicSalary_Value;
 
         /// <summary>
-        /// 基本給
+        /// 基本給 - Value
         /// </summary>
-        public double BasicSalary
+        public double BasicSalary_Value
         {
-            get => this._basicSalary;
+            get => this._basicSalary_Value;
             set
             {
-                this._basicSalary = value;
+                this._basicSalary_Value = value;
                 this.RaisePropertyChanged();
 
                 this.Model.ReCaluculate();
@@ -137,17 +137,32 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 役職手当
 
-        private double _executiveAllowance;
+        private bool _executiveAllowance_IsEnabled;
 
         /// <summary>
-        /// 役職手当
+        /// 役職手当 - IsEnabled
         /// </summary>
-        public double ExecutiveAllowance
+        public bool ExecutiveAllowance_IsEnabled
         {
-            get => this._executiveAllowance;
+            get => this._executiveAllowance_IsEnabled;
             set
             {
-                this._executiveAllowance = value;
+                this._executiveAllowance_IsEnabled = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private double _executiveAllowance_Value;
+
+        /// <summary>
+        /// 役職手当 - Value
+        /// </summary>
+        public double ExecutiveAllowance_Value
+        {
+            get => this._executiveAllowance_Value;
+            set
+            {
+                this._executiveAllowance_Value = value;
                 this.RaisePropertyChanged();
 
                 this.Model.ReCaluculate();
@@ -163,17 +178,32 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 扶養手当
 
-        private double _dependencyAllowance;
+        private bool _dependencyAllowance_IsEnabled;
 
         /// <summary>
-        /// 扶養手当
+        /// 扶養手当 - IsEnabled
         /// </summary>
-        public double DependencyAllowance
+        public bool DependencyAllowance_IsEnabled
         {
-            get => this._dependencyAllowance;
+            get => this._dependencyAllowance_IsEnabled;
             set
             {
-                this._dependencyAllowance = value;
+                this._dependencyAllowance_IsEnabled = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private double _dependencyAllowance_Value;
+
+        /// <summary>
+        /// 扶養手当 - Value
+        /// </summary>
+        public double DependencyAllowance_Value
+        {
+            get => this._dependencyAllowance_Value;
+            set
+            {
+                this._dependencyAllowance_Value = value;
                 this.RaisePropertyChanged();
 
                 this.Model.ReCaluculate();
@@ -189,17 +219,32 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 時間外手当
 
-        private double _overtimeAllowance;
+        private bool _overtimeAllowance_IsEnabled;
 
         /// <summary>
-        /// 時間外手当
+        /// 時間外手当 - IsEnabled
         /// </summary>
-        public double OvertimeAllowance
+        public bool OvertimeAllowance_IsEnabled
         {
-            get => this._overtimeAllowance;
+            get => this._overtimeAllowance_IsEnabled;
             set
             {
-                this._overtimeAllowance = value;
+                this._overtimeAllowance_IsEnabled = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private double _overtimeAllowance_Value;
+
+        /// <summary>
+        /// 時間外手当 - Value
+        /// </summary>
+        public double OvertimeAllowance_Value
+        {
+            get => this._overtimeAllowance_Value;
+            set
+            {
+                this._overtimeAllowance_Value = value;
                 this.RaisePropertyChanged();
 
                 this.Model.ReCaluculate();
@@ -215,17 +260,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 休日割増
 
-        private double _daysoffIncreased;
+        private double _daysoffIncreased_Value;
 
         /// <summary>
-        /// 休日割増
+        /// 休日割増 - Value
         /// </summary>
-        public double DaysoffIncreased
+        public double DaysoffIncreased_Value
         {
-            get => this._daysoffIncreased;
+            get => this._daysoffIncreased_Value;
             set
             {
-                this._daysoffIncreased = value;
+                this._daysoffIncreased_Value = value;
                 this.RaisePropertyChanged();
 
                 this.Model.ReCaluculate();
@@ -241,17 +286,32 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 深夜割増
 
-        private double _nightworkIncreased;
+        private bool _nightworkIncreased_IsEnabled;
 
         /// <summary>
-        /// 深夜割増
+        /// 深夜割増 - IsEnabled
         /// </summary>
-        public double NightworkIncreased
+        public bool NightworkIncreased_IsEnabled
         {
-            get => this._nightworkIncreased;
+            get => this._nightworkIncreased_IsEnabled;
             set
             {
-                this._nightworkIncreased = value;
+                this._nightworkIncreased_IsEnabled = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private double _nightworkIncreased_Value;
+
+        /// <summary>
+        /// 深夜割増 - Value
+        /// </summary>
+        public double NightworkIncreased_Value
+        {
+            get => this._nightworkIncreased_Value;
+            set
+            {
+                this._nightworkIncreased_Value = value;
                 this.RaisePropertyChanged();
 
                 this.Model.ReCaluculate();
@@ -267,20 +327,35 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 住宅手当
 
-        private double _housingAllowance;
+        private bool _housingAllowance_IsEnabled;
 
         /// <summary>
-        /// 住宅手当
+        /// 住宅手当 - IsEnabled
         /// </summary>
-        public double HousingAllowance
+        public bool HousingAllowance_IsEnabled
+        {
+            get => this._housingAllowance_IsEnabled;
+            set
+            {
+                this._housingAllowance_IsEnabled = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private double _housingAllowance_Value;
+
+        /// <summary>
+        /// 住宅手当 - Value
+        /// </summary>
+        public double HousingAllowance_Value
         {
             get
             {
-                return this._housingAllowance;
+                return this._housingAllowance_Value;
             }
             set
             {
-                this._housingAllowance = value;
+                this._housingAllowance_Value = value;
                 this.RaisePropertyChanged();
 
                 this.Model.ReCaluculate();
@@ -296,17 +371,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 遅刻早退欠勤
 
-        private double _lateAbsent;
+        private double _lateAbsent_Value;
 
         /// <summary>
         /// 遅刻早退欠勤
         /// </summary>
-        public double LateAbsent
+        public double LateAbsent_Value
         {
-            get => this._lateAbsent;
+            get => this._lateAbsent_Value;
             set
             {
-                this._lateAbsent = value;
+                this._lateAbsent_Value = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -320,17 +395,32 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 交通費
 
-        private double _transportationExpenses;
+        private bool _transportationExpenses_IsEnabled;
 
         /// <summary>
-        /// 交通費
+        /// 交通費 - IsEnabled
         /// </summary>
-        public double TransportationExpenses
+        public bool TransportationExpenses_IsEnabled
         {
-            get => this._transportationExpenses;
+            get => this._transportationExpenses_IsEnabled;
             set
             {
-                this._transportationExpenses = value;
+                this._transportationExpenses_IsEnabled = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private double _transportationExpenses_Value;
+
+        /// <summary>
+        /// 交通費 - Value
+        /// </summary>
+        public double TransportationExpenses_Value
+        {
+            get => this._transportationExpenses_Value;
+            set
+            {
+                this._transportationExpenses_Value = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -344,17 +434,32 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 在宅手当
 
-        private double _electricityAllowance;
+        private bool _electricityAllowance_IsEnabled;
 
         /// <summary>
-        /// 在宅手当
+        /// 在宅手当 - IsEnabled
         /// </summary>
-        public double ElectricityAllowance
+        public bool ElectricityAllowance_IsEnabled
         {
-            get => this._electricityAllowance;
+            get => this._electricityAllowance_IsEnabled;
             set
             {
-                this._electricityAllowance = value;
+                this._electricityAllowance_IsEnabled = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private double _electricityAllowance_Value;
+
+        /// <summary>
+        /// 在宅手当 - Value
+        /// </summary>
+        public double ElectricityAllowance_Value
+        {
+            get => this._electricityAllowance_Value;
+            set
+            {
+                this._electricityAllowance_Value = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -368,17 +473,32 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 特別手当
 
-        private double _specialAllowance;
+        private bool _specialAllowance_IsEnabled;
 
         /// <summary>
-        /// 特別手当
+        /// 特別手当 - IsEnabled
         /// </summary>
-        public double SpecialAllowance
+        public bool SpecialAllowance_IsEnabled
         {
-            get => this._specialAllowance;
+            get => this._specialAllowance_IsEnabled;
             set
             {
-                this._specialAllowance = value;
+                this._specialAllowance_IsEnabled = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private double _specialAllowance_Value;
+
+        /// <summary>
+        /// 特別手当 - Value
+        /// </summary>
+        public double SpecialAllowance_Value
+        {
+            get => this._specialAllowance_Value;
+            set
+            {
+                this._specialAllowance_Value = value;
                 this.RaisePropertyChanged();
 
                 this.Model.ReCaluculate();
@@ -394,17 +514,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 予備
 
-        private double _spareAllowance;
+        private double _spareAllowance_Value;
 
         /// <summary>
         /// 予備
         /// </summary>
-        public double SpareAllowance
+        public double SpareAllowance_Value
         {
-            get => this._spareAllowance;
+            get => this._spareAllowance_Value;
             set
             {
-                this._spareAllowance = value;
+                this._spareAllowance_Value = value;
                 this.RaisePropertyChanged();
 
                 this.Model.ReCaluculate();
@@ -420,17 +540,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 備考
 
-        private string _remarks;
+        private string _remarks_Text;
 
         /// <summary>
         /// 備考
         /// </summary>
-        public string Remarks
+        public string Remarks_Text
         {
-            get => this._remarks;
+            get => this._remarks_Text;
             set
             {
-                this._remarks = value;
+                this._remarks_Text = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -447,17 +567,17 @@ namespace SalaryManager.WPF.ViewModels
             get => new SolidColorBrush(Colors.Blue);
         }
 
-        private double _totalSalary;
+        private double _totalSalary_Value;
 
         /// <summary>
         /// 支給総計
         /// </summary>
-        public double TotalSalary
+        public double TotalSalary_Value
         {
-            get => this._totalSalary;
+            get => this._totalSalary_Value;
             set
             {
-                this._totalSalary = value;
+                this._totalSalary_Value = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -486,17 +606,17 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
-        private double _totalDeductedSalary;
+        private double _totalDeductedSalary_Value;
 
         /// <summary>
         /// 差引支給額
         /// </summary>
-        public double TotalDeductedSalary
+        public double TotalDeductedSalary_Value
         {
-            get => this._totalDeductedSalary;
+            get => this._totalDeductedSalary_Value;
             set
             {
-                this._totalDeductedSalary = value;
+                this._totalDeductedSalary_Value = value;
                 this.RaisePropertyChanged();
             }
         }

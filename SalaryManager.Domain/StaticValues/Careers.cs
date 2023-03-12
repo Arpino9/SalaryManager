@@ -46,17 +46,17 @@ namespace SalaryManager.Domain.StaticValues
         /// </summary>
         /// <param name="date">日付</param>
         /// <returns>会社名</returns>
-        public static CompanyValue FetchCompany(DateTime date)
+        public static string FetchCompany(DateTime date)
         {
             var entity = _entities.Find(x => x.WorkingStartDate.Value <= date &&
                                              date <= x.WorkingEndDate.Value);
 
             if (entity == null) 
             {
-                return new CompanyValue(string.Empty);
+                return new CompanyValue(string.Empty).DisplayValue;
             }
 
-            return entity.CompanyName;
+            return entity.CompanyName.DisplayValue;
         }
 
         /// <summary>
@@ -74,6 +74,18 @@ namespace SalaryManager.Domain.StaticValues
             }
 
             return entity.EmployeeNumber;
+        }
+
+        /// <summary>
+        /// 会社名から支給有無を取得
+        /// </summary>
+        /// <param name="company">会社名</param>
+        /// <returns>支給有無</returns>
+        public static AllowanceExistenceEntity FetchAllowanceExistence(CompanyValue company)
+        {
+            var entity = _entities.Find(x => x.CompanyName == company);
+
+            return entity?.AllowanceExistence;
         }
 
         /// <summary>

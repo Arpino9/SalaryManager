@@ -23,7 +23,7 @@
         /// <summary>
         /// Value 
         /// </summary>
-        public readonly bool Value;
+        public bool Value { get; }
 
         /// <summary>
         /// Text

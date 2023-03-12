@@ -3,6 +3,7 @@ using System.Windows.Media;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Domain.StaticValues;
+using SalaryManager.Domain.ValueObjects;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.ViewModels;
@@ -40,6 +41,9 @@ namespace SalaryManager.WPF.Models
         /// <summary> ViewModel - 控除額 </summary>
         internal ViewModel_Deduction ViewModel_Deduction { get; set; }
 
+        /// <summary> ViewModel - 勤務先 </summary>
+        internal ViewModel_WorkPlace ViewModel_WorkPlace { get; set; }
+
         /// <summary>
         /// 初期化
         /// </summary>
@@ -63,6 +67,9 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 再描画
         /// </summary>
+        /// <remarks>
+        /// 該当月に支給額と手当有無が存在すれば、各項目を再描画する。
+        /// </remarks>
         public void Refresh()
         {
             var entity = this.ViewModel.Entity;
@@ -74,33 +81,52 @@ namespace SalaryManager.WPF.Models
             }
 
             // 基本給
-            this.ViewModel.BasicSalary            = entity.BasicSalary.Value;
+            this.ViewModel.BasicSalary_Value            = entity.BasicSalary.Value;
             // 役職手当
-            this.ViewModel.ExecutiveAllowance     = entity.ExecutiveAllowance.Value;
+            this.ViewModel.ExecutiveAllowance_Value     = entity.ExecutiveAllowance.Value;
             // 扶養手当
-            this.ViewModel.DependencyAllowance    = entity.DependencyAllowance.Value;
+            this.ViewModel.DependencyAllowance_Value    = entity.DependencyAllowance.Value;
             // 時間外手当
-            this.ViewModel.OvertimeAllowance      = entity.OvertimeAllowance.Value;
+            this.ViewModel.OvertimeAllowance_Value      = entity.OvertimeAllowance.Value;
             // 休日割増
-            this.ViewModel.DaysoffIncreased       = entity.DaysoffIncreased.Value;
+            this.ViewModel.DaysoffIncreased_Value       = entity.DaysoffIncreased.Value;
             // 深夜割増
-            this.ViewModel.NightworkIncreased     = entity.NightworkIncreased.Value;
+            this.ViewModel.NightworkIncreased_Value     = entity.NightworkIncreased.Value;
             // 住宅手当
-            this.ViewModel.HousingAllowance       = entity.HousingAllowance.Value;
+            this.ViewModel.HousingAllowance_Value       = entity.HousingAllowance.Value;
             // 遅刻早退欠勤
-            this.ViewModel.LateAbsent             = entity.LateAbsent;
+            this.ViewModel.LateAbsent_Value             = entity.LateAbsent;
             // 交通費
-            this.ViewModel.TransportationExpenses = entity.TransportationExpenses.Value;
+            this.ViewModel.TransportationExpenses_Value = entity.TransportationExpenses.Value;
             // 在宅手当
-            this.ViewModel.ElectricityAllowance   = entity.ElectricityAllowance.Value;
+            this.ViewModel.ElectricityAllowance_Value   = entity.ElectricityAllowance.Value;
             // 特別手当
-            this.ViewModel.SpecialAllowance       = entity.SpecialAllowance.Value;
+            this.ViewModel.SpecialAllowance_Value       = entity.SpecialAllowance.Value;
             // 予備
-            this.ViewModel.SpareAllowance         = entity.SpareAllowance.Value;
+            this.ViewModel.SpareAllowance_Value         = entity.SpareAllowance.Value;
             // 備考
-            this.ViewModel.Remarks                = entity.Remarks;
+            this.ViewModel.Remarks_Text                 = entity.Remarks;
             // 支給総計、差引支給額
             this.ReCaluculate();
+
+            if (ViewModel_WorkPlace.CompanyName is null)
+            {
+                return;
+            }
+
+            // 手当有無
+            var existence = Careers.FetchAllowanceExistence(new CompanyValue(ViewModel_WorkPlace.CompanyName));
+            if (existence != null) 
+            {
+                this.ViewModel.ExecutiveAllowance_IsEnabled     = existence.Executive.Value;
+                this.ViewModel.DependencyAllowance_IsEnabled    = existence.Dependency.Value;
+                this.ViewModel.OvertimeAllowance_IsEnabled      = existence.Overtime.Value;
+                this.ViewModel.NightworkIncreased_IsEnabled     = existence.LateNight.Value;
+                this.ViewModel.HousingAllowance_IsEnabled       = existence.Housing.Value;
+                this.ViewModel.TransportationExpenses_IsEnabled = existence.Commution.Value;
+                this.ViewModel.ElectricityAllowance_IsEnabled   = existence.Electricity.Value;
+                this.ViewModel.SpecialAllowance_IsEnabled       = existence.Electricity.Value;
+            }
         }
 
         /// <summary>
@@ -112,8 +138,8 @@ namespace SalaryManager.WPF.Models
             {
                 Allowances.Create(new AllowanceSQLite());
 
-                this.ViewModel.Entity          = Allowances.Fetch(this.Header.Year,     this.Header.Month);
-                this.ViewModel.Entity_LastYear = Allowances.Fetch(this.Header.Year - 1, this.Header.Month);
+                this.ViewModel.Entity          = Allowances.Fetch(this.Header.Year_Value,     this.Header.Month_Value);
+                this.ViewModel.Entity_LastYear = Allowances.Fetch(this.Header.Year_Value - 1, this.Header.Month_Value);
 
                 this.Refresh();
             }
@@ -125,36 +151,44 @@ namespace SalaryManager.WPF.Models
         public void Clear()
         {
             // 基本給
-            this.ViewModel.BasicSalary            = default(double);
+            this.ViewModel.BasicSalary_Value                = default(double);
             // 役職手当
-            this.ViewModel.ExecutiveAllowance     = default(double);
+            this.ViewModel.ExecutiveAllowance_Value         = default(double);
+            this.ViewModel.ExecutiveAllowance_IsEnabled     = true;
             // 扶養手当
-            this.ViewModel.DependencyAllowance    = default(double);
+            this.ViewModel.DependencyAllowance_Value        = default(double);
+            this.ViewModel.DependencyAllowance_IsEnabled    = true;
             // 時間外手当
-            this.ViewModel.OvertimeAllowance      = default(double);
+            this.ViewModel.OvertimeAllowance_Value          = default(double);
+            this.ViewModel.OvertimeAllowance_IsEnabled      = true;
             // 休日割増
-            this.ViewModel.DaysoffIncreased       = default(double);
+            this.ViewModel.DaysoffIncreased_Value           = default(double);
             // 深夜割増
-            this.ViewModel.NightworkIncreased     = default(double);
+            this.ViewModel.NightworkIncreased_Value         = default(double);
+            this.ViewModel.NightworkIncreased_IsEnabled     = true;
             // 住宅手当
-            this.ViewModel.HousingAllowance       = default(double);
+            this.ViewModel.HousingAllowance_Value           = default(double);
+            this.ViewModel.HousingAllowance_IsEnabled       = true;
             // 遅刻早退欠勤
-            this.ViewModel.LateAbsent             = default(double);
+            this.ViewModel.LateAbsent_Value                 = default(double);
             // 交通費
-            this.ViewModel.TransportationExpenses = default(double);
+            this.ViewModel.TransportationExpenses_Value     = default(double);
+            this.ViewModel.TransportationExpenses_IsEnabled = true;
             // 在宅手当
-            this.ViewModel.ElectricityAllowance   = default(double);
+            this.ViewModel.ElectricityAllowance_Value       = default(double);
+            this.ViewModel.ElectricityAllowance_IsEnabled   = true;
             // 特別手当
-            this.ViewModel.SpecialAllowance       = default(double);
+            this.ViewModel.SpecialAllowance_Value           = default(double);
+            this.ViewModel.SpecialAllowance_IsEnabled       = true;
             // 予備
-            this.ViewModel.SpareAllowance         = default(double);
+            this.ViewModel.SpareAllowance_Value         = default(double);
             // 備考
-            this.ViewModel.Remarks                = default(string);
+            this.ViewModel.Remarks_Text                = default(string);
             // 支給総計
-            this.ViewModel.TotalSalary            = default(double);
+            this.ViewModel.TotalSalary_Value            = default(double);
             // 差引支給額
             this.ViewModel.TotalDeductedSalary_Foreground = new SolidColorBrush(Colors.Black);
-            this.ViewModel.TotalDeductedSalary    = default(double);
+            this.ViewModel.TotalDeductedSalary_Value    = default(double);
         }
 
         /// <summary>
@@ -166,21 +200,21 @@ namespace SalaryManager.WPF.Models
             var entity = new AllowanceValueEntity(
                               this.Header.ID,
                               this.Header.YearMonth,
-                              this.ViewModel.BasicSalary,
-                              this.ViewModel.ExecutiveAllowance,
-                              this.ViewModel.DependencyAllowance,
-                              this.ViewModel.OvertimeAllowance,
-                              this.ViewModel.DaysoffIncreased,
-                              this.ViewModel.NightworkIncreased,
-                              this.ViewModel.HousingAllowance,
-                              this.ViewModel.LateAbsent,
-                              this.ViewModel.TransportationExpenses,
-                              this.ViewModel.ElectricityAllowance,
-                              this.ViewModel.SpecialAllowance,
-                              this.ViewModel.SpareAllowance,
-                              this.ViewModel.Remarks,
-                              this.ViewModel.TotalSalary,
-                              this.ViewModel.TotalDeductedSalary);
+                              this.ViewModel.BasicSalary_Value,
+                              this.ViewModel.ExecutiveAllowance_Value,
+                              this.ViewModel.DependencyAllowance_Value,
+                              this.ViewModel.OvertimeAllowance_Value,
+                              this.ViewModel.DaysoffIncreased_Value,
+                              this.ViewModel.NightworkIncreased_Value,
+                              this.ViewModel.HousingAllowance_Value,
+                              this.ViewModel.LateAbsent_Value,
+                              this.ViewModel.TransportationExpenses_Value,
+                              this.ViewModel.ElectricityAllowance_Value,
+                              this.ViewModel.SpecialAllowance_Value,
+                              this.ViewModel.SpareAllowance_Value,
+                              this.ViewModel.Remarks_Text,
+                              this.ViewModel.TotalSalary_Value,
+                              this.ViewModel.TotalDeductedSalary_Value);
 
             var allowance = new AllowanceSQLite();
             allowance.Save(transaction, entity);
@@ -199,24 +233,24 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
-            this.ViewModel.TotalSalary = this.ViewModel.BasicSalary
-                                       + this.ViewModel.ExecutiveAllowance
-                                       + this.ViewModel.DependencyAllowance
-                                       + this.ViewModel.OvertimeAllowance
-                                       + this.ViewModel.DaysoffIncreased
-                                       + this.ViewModel.NightworkIncreased
-                                       + this.ViewModel.HousingAllowance
-                                       + this.ViewModel.LateAbsent
-                                       + this.ViewModel.SpecialAllowance
-                                       + this.ViewModel.SpareAllowance;
+            this.ViewModel.TotalSalary_Value = this.ViewModel.BasicSalary_Value
+                                       + this.ViewModel.ExecutiveAllowance_Value
+                                       + this.ViewModel.DependencyAllowance_Value
+                                       + this.ViewModel.OvertimeAllowance_Value
+                                       + this.ViewModel.DaysoffIncreased_Value
+                                       + this.ViewModel.NightworkIncreased_Value
+                                       + this.ViewModel.HousingAllowance_Value
+                                       + this.ViewModel.LateAbsent_Value
+                                       + this.ViewModel.SpecialAllowance_Value
+                                       + this.ViewModel.SpareAllowance_Value;
 
             if (this.ViewModel_Deduction is null)
             {
                 return;
             }
 
-            this.ViewModel.TotalDeductedSalary = this.ViewModel.TotalSalary 
-                                               - this.ViewModel_Deduction.TotalDeduct;
+            this.ViewModel.TotalDeductedSalary_Value = this.ViewModel.TotalSalary_Value 
+                                               - this.ViewModel_Deduction.TotalDeduct_Value;
 
             this.ChangeColor();
         }
@@ -229,7 +263,7 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         internal void ChangeColor()
         {
-            if (this.ViewModel.TotalDeductedSalary >= 0)
+            if (this.ViewModel.TotalDeductedSalary_Value >= 0)
             {
                 this.ViewModel.TotalDeductedSalary_Foreground = new SolidColorBrush(Colors.Blue);
             }

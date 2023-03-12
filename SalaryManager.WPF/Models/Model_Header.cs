@@ -42,8 +42,8 @@ namespace SalaryManager.WPF.Models
         {
             var yearMonth = this.ViewModel.YearMonth.AddMonths(-1);
 
-            this.ViewModel.Year  = yearMonth.Year;
-            this.ViewModel.Month = yearMonth.Month;
+            this.ViewModel.Year_Value  = yearMonth.Year;
+            this.ViewModel.Month_Value = yearMonth.Month;
 
             this.Reload();
         }
@@ -55,8 +55,8 @@ namespace SalaryManager.WPF.Models
         {
             var yearMonth = this.ViewModel.YearMonth.AddMonths(1);
 
-            this.ViewModel.Year  = yearMonth.Year;
-            this.ViewModel.Month = yearMonth.Month;
+            this.ViewModel.Year_Value  = yearMonth.Year;
+            this.ViewModel.Month_Value = yearMonth.Month;
 
             this.Reload();
         }
@@ -90,7 +90,7 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         public void Reload()
         {
-            this.FetchEntity(this.ViewModel.Year, this.ViewModel.Month);
+            this.FetchEntity(this.ViewModel.Year_Value, this.ViewModel.Month_Value);
 
             if (this.Entity is null)
             {
@@ -106,7 +106,7 @@ namespace SalaryManager.WPF.Models
                 this.ViewModel.UpdateDate = this.Entity.UpdateDate;
             }
 
-            this.ViewModel.YearMonth = new DateTime(this.ViewModel.Year, this.ViewModel.Month, 1);
+            this.ViewModel.YearMonth = new DateTime(this.ViewModel.Year_Value, this.ViewModel.Month_Value, 1);
         }
 
         /// <summary>
@@ -137,8 +137,8 @@ namespace SalaryManager.WPF.Models
             }
 
             this.ViewModel.ID         = this.Entity.ID;
-            this.ViewModel.Year       = this.Entity.YearMonth.Year;
-            this.ViewModel.Month      = this.Entity.YearMonth.Month;
+            this.ViewModel.Year_Value       = this.Entity.YearMonth.Year;
+            this.ViewModel.Month_Value      = this.Entity.YearMonth.Month;
             this.ViewModel.CreateDate = this.Entity.CreateDate;
             this.ViewModel.UpdateDate = this.Entity.UpdateDate;
         }
@@ -148,8 +148,8 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Clear()
         {
-            this.ViewModel.Year       = this.ViewModel.YearMonth.Year;
-            this.ViewModel.Month      = this.ViewModel.YearMonth.Month;
+            this.ViewModel.Year_Value       = this.ViewModel.YearMonth.Year;
+            this.ViewModel.Month_Value      = this.ViewModel.YearMonth.Month;
             this.ViewModel.CreateDate = DateTime.Today;
             this.ViewModel.UpdateDate = DateTime.Today;
         }
@@ -196,7 +196,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void SetDefault()
         {
-            var confirmingMessage = $"{this.ViewModel.Year}年{this.ViewModel.Month}月の給与明細をデフォルト明細として設定しますか？";
+            var confirmingMessage = $"{this.ViewModel.Year_Value}年{this.ViewModel.Month_Value}月の給与明細をデフォルト明細として設定しますか？";
             if (!DialogMessage.ShowConfirmingMessage(confirmingMessage, this.ViewModel.Title))
             {
                 // キャンセル

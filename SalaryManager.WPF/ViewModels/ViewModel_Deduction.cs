@@ -57,23 +57,23 @@ namespace SalaryManager.WPF.ViewModels
             // Mouse Leave
             this.MouseLeave_Action            = new RelayCommand(() => this.MainWindow.ComparePrice(0, 0));
             // 健康保険
-            this.HealthInsurance_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.HealthInsurance,       this.Entity_LastYear?.HealthInsurance.Value));
+            this.HealthInsurance_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.HealthInsurance_Value,       this.Entity_LastYear?.HealthInsurance.Value));
             // 介護保険
-            this.NursingInsurance_Action      = new RelayCommand(() => this.MainWindow.ComparePrice(this.NursingInsurance,      this.Entity_LastYear?.NursingInsurance.Value));
+            this.NursingInsurance_Action      = new RelayCommand(() => this.MainWindow.ComparePrice(this.NursingInsurance_Value,      this.Entity_LastYear?.NursingInsurance.Value));
             // 厚生年金
-            this.WelfareAnnuity_Action        = new RelayCommand(() => this.MainWindow.ComparePrice(this.WelfareAnnuity,        this.Entity_LastYear?.WelfareAnnuity.Value));
+            this.WelfareAnnuity_Action        = new RelayCommand(() => this.MainWindow.ComparePrice(this.WelfareAnnuity_Value,        this.Entity_LastYear?.WelfareAnnuity.Value));
             // 雇用保険
-            this.EmploymentInsurance_Action   = new RelayCommand(() => this.MainWindow.ComparePrice(this.EmploymentInsurance,   this.Entity_LastYear?.EmploymentInsurance.Value));
+            this.EmploymentInsurance_Action   = new RelayCommand(() => this.MainWindow.ComparePrice(this.EmploymentInsurance_Value,   this.Entity_LastYear?.EmploymentInsurance.Value));
             // 所得税
-            this.IncomeTax_Action             = new RelayCommand(() => this.MainWindow.ComparePrice(this.IncomeTax,             this.Entity_LastYear?.IncomeTax.Value));
+            this.IncomeTax_Action             = new RelayCommand(() => this.MainWindow.ComparePrice(this.IncomeTax_Value,             this.Entity_LastYear?.IncomeTax.Value));
             // 市町村税
-            this.MunicipalTax_Action          = new RelayCommand(() => this.MainWindow.ComparePrice(this.MunicipalTax,          this.Entity_LastYear?.MunicipalTax.Value));
+            this.MunicipalTax_Action          = new RelayCommand(() => this.MainWindow.ComparePrice(this.MunicipalTax_Value,          this.Entity_LastYear?.MunicipalTax.Value));
             // 互助会
-            this.FriendshipAssociation_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.FriendshipAssociation, this.Entity_LastYear?.FriendshipAssociation.Value));
+            this.FriendshipAssociation_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.FriendshipAssociation_Value, this.Entity_LastYear?.FriendshipAssociation.Value));
             // 年末調整他
-            this.YearEndTaxAdjustment_Action  = new RelayCommand(() => this.MainWindow.ComparePrice(this.YearEndTaxAdjustment,  this.Entity_LastYear?.YearEndTaxAdjustment));
+            this.YearEndTaxAdjustment_Action  = new RelayCommand(() => this.MainWindow.ComparePrice(this.YearEndTaxAdjustment_Value,  this.Entity_LastYear?.YearEndTaxAdjustment));
             // 控除額計
-            this.TotalDeduct_Action           = new RelayCommand(() => this.MainWindow.ComparePrice(this.TotalDeduct,           this.Entity_LastYear?.TotalDeduct.Value));
+            this.TotalDeduct_Action           = new RelayCommand(() => this.MainWindow.ComparePrice(this.TotalDeduct_Value,           this.Entity_LastYear?.TotalDeduct.Value));
         }
 
         /// <summary> Model - 控除額 </summary>
@@ -102,17 +102,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 健康保険
 
-        private double _healthhnsurance;
+        private double _healthhnsurance_Value;
 
         /// <summary>
         /// 健康保険
         /// </summary>
-        public double HealthInsurance
+        public double HealthInsurance_Value
         {
-            get => this._healthhnsurance;
+            get => this._healthhnsurance_Value;
             set
             {
-                this._healthhnsurance = value;
+                this._healthhnsurance_Value = value;
                 this.RaisePropertyChanged();
 
                 this.Model.ReCaluculate();
@@ -128,17 +128,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 介護保険
 
-        private double _nursingInsurance;
+        private double _nursingInsurance_Value;
 
         /// <summary>
         /// 介護保険
         /// </summary>
-        public double NursingInsurance
+        public double NursingInsurance_Value
         {
-            get => this._nursingInsurance;
+            get => this._nursingInsurance_Value;
             set
             {
-                this._nursingInsurance = value;
+                this._nursingInsurance_Value = value;
                 this.RaisePropertyChanged();
 
                 this.Model.ReCaluculate();
@@ -154,17 +154,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 厚生年金
 
-        private double _welfareAnnuity;
+        private double _welfareAnnuity_Value;
 
         /// <summary>
         /// 厚生年金
         /// </summary>
-        public double WelfareAnnuity
+        public double WelfareAnnuity_Value
         {
-            get => this._welfareAnnuity;
+            get => this._welfareAnnuity_Value;
             set
             {
-                this._welfareAnnuity = value;
+                this._welfareAnnuity_Value = value;
                 this.RaisePropertyChanged();
 
                 this.Model.ReCaluculate();
@@ -180,17 +180,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 雇用保険
 
-        private double _employmentInsurance;
+        private double _employmentInsurance_Value;
 
         /// <summary>
         /// 雇用保険
         /// </summary>
-        public double EmploymentInsurance
+        public double EmploymentInsurance_Value
         {
-            get => this._employmentInsurance;
+            get => this._employmentInsurance_Value;
             set
             {
-                this._employmentInsurance = value;
+                this._employmentInsurance_Value = value;
                 this.RaisePropertyChanged();
 
                 this.Model.ReCaluculate();
@@ -206,17 +206,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 所得税
 
-        private double _incomeTax;
+        private double _incomeTax_Value;
 
         /// <summary>
         /// 所得税
         /// </summary>
-        public double IncomeTax
+        public double IncomeTax_Value
         {
-            get => this._incomeTax;
+            get => this._incomeTax_Value;
             set
             {
-                this._incomeTax = value;
+                this._incomeTax_Value = value;
                 this.RaisePropertyChanged();
 
                 this.Model.ReCaluculate();
@@ -232,17 +232,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 市町村税
 
-        private double _municipalTax;
+        private double _municipalTax_Value;
 
         /// <summary>
         /// 市町村税
         /// </summary>
-        public double MunicipalTax
+        public double MunicipalTax_Value
         {
-            get => this._municipalTax;
+            get => this._municipalTax_Value;
             set
             {
-                this._municipalTax = value;
+                this._municipalTax_Value = value;
                 this.RaisePropertyChanged();
 
                 this.Model.ReCaluculate();
@@ -258,17 +258,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 互助会
 
-        private double _friendshipAssociation;
+        private double _friendshipAssociation_Value;
 
         /// <summary>
         /// 互助会
         /// </summary>
-        public double FriendshipAssociation
+        public double FriendshipAssociation_Value
         {
-            get => this._friendshipAssociation;
+            get => this._friendshipAssociation_Value;
             set
             {
-                this._friendshipAssociation = value;
+                this._friendshipAssociation_Value = value;
                 this.RaisePropertyChanged();
 
                 this.Model.ReCaluculate();
@@ -284,17 +284,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 年末調整他
 
-        private double _yearEndTaxAdjustment;
+        private double _yearEndTaxAdjustment_Value;
 
         /// <summary>
         /// 年末調整他
         /// </summary>
-        public double YearEndTaxAdjustment
+        public double YearEndTaxAdjustment_Value
         {
-            get => this._yearEndTaxAdjustment;
+            get => this._yearEndTaxAdjustment_Value;
             set
             {
-                this._yearEndTaxAdjustment = value;
+                this._yearEndTaxAdjustment_Value = value;
                 this.RaisePropertyChanged();
 
                 this.Model.ReCaluculate();
@@ -318,17 +318,17 @@ namespace SalaryManager.WPF.ViewModels
             get => new SolidColorBrush(Colors.Red);
         }
 
-        private double _totalDeduct;
+        private double _totalDeduct_Value;
 
         /// <summary>
         /// 控除額計
         /// </summary>
-        public double TotalDeduct
+        public double TotalDeduct_Value
         {
-            get => this._totalDeduct;
+            get => this._totalDeduct_Value;
             set
             {
-                this._totalDeduct = value;
+                this._totalDeduct_Value = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -342,17 +342,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 備考
 
-        private string _remarks;
+        private string _remarks_Text;
 
         /// <summary>
         /// 備考
         /// </summary>
-        public string Remarks
+        public string Remarks_Text
         {
-            get => this._remarks;
+            get => this._remarks_Text;
             set
             {
-                this._remarks = value;
+                this._remarks_Text = value;
                 this.RaisePropertyChanged();
             }
         }

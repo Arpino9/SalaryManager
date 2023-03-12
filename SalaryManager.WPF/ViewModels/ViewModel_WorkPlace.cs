@@ -26,6 +26,7 @@ namespace SalaryManager.WPF.ViewModels
         {
             this.Model.WorkPlace = this;
             this.MainWindow.WorkPlace = this;
+            this.Allowance.ViewModel_WorkPlace = this;
         }
 
         /// <summary> Model </summary>
@@ -33,6 +34,9 @@ namespace SalaryManager.WPF.ViewModels
 
         /// <summary> メイン画面 </summary>
         public Model_MainWindow MainWindow { get; set; } = Model_MainWindow.GetInstance();
+        
+        /// <summary> 手当 </summary>
+        public Model_Allowance Allowance { get; set; } = Model_Allowance.GetInstance();
 
         #region 所属会社名
 

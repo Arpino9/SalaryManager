@@ -50,11 +50,11 @@ namespace SalaryManager.WPF.ViewModels
             // Mouse Leave
             this.MouseLeave_Action   = new RelayCommand(() => this.MainWindow.ComparePrice(0, 0));
             // 副業
-            this.SideBusiness_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.SideBusiness, this.Entity_LastYear?.SideBusiness));
+            this.SideBusiness_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.SideBusiness_Value, this.Entity_LastYear?.SideBusiness));
             // 臨時収入
-            this.Perquisite_Action   = new RelayCommand(() => this.MainWindow.ComparePrice(this.Perquisite,   this.Entity_LastYear?.Perquisite));
+            this.Perquisite_Action   = new RelayCommand(() => this.MainWindow.ComparePrice(this.Perquisite_Value,   this.Entity_LastYear?.Perquisite));
             // その他
-            this.Others_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.Others,       this.Entity_LastYear?.Others));
+            this.Others_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.Others_Value,       this.Entity_LastYear?.Others));
         }
 
         /// <summary> Model </summary>
@@ -80,17 +80,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 副業
 
-        private double _sideBusiness;
+        private double _sideBusiness_Value;
 
         /// <summary>
         /// 副業
         /// </summary>
-        public double SideBusiness
+        public double SideBusiness_Value
         {
-            get => this._sideBusiness;
+            get => this._sideBusiness_Value;
             set
             {
-                this._sideBusiness = value;
+                this._sideBusiness_Value = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -104,17 +104,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 臨時収入
 
-        private double _perquisite;
+        private double _perquisite_Value;
 
         /// <summary>
         /// 臨時収入
         /// </summary>
-        public double Perquisite
+        public double Perquisite_Value
         {
-            get => this._perquisite;
+            get => this._perquisite_Value;
             set
             {
-                this._perquisite = value;
+                this._perquisite_Value = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -128,17 +128,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region その他
 
-        private double _others;
+        private double _others_Value;
 
         /// <summary>
         /// その他
         /// </summary>
-        public double Others
+        public double Others_Value
         {
-            get => this._others;
+            get => this._others_Value;
             set
             {
-                this._others = value;
+                this._others_Value = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -152,17 +152,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 備考
 
-        private string _remarks;
+        private string _remarks_Text;
 
         /// <summary>
         /// 備考
         /// </summary>
-        public string Remarks
+        public string Remarks_Text
         {
-            get => this._remarks;
+            get => this._remarks_Text;
             set
             {
-                this._remarks = value;
+                this._remarks_Text = value;
                 this.RaisePropertyChanged();
             }
         }

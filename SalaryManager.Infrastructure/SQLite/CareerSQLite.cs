@@ -225,7 +225,7 @@ where ID = @ID
             var args = new List<SQLiteParameter>()
             {
                 new SQLiteParameter("ID",                entity.ID),
-                new SQLiteParameter("CompanyName",       entity.CompanyName),
+                new SQLiteParameter("CompanyName",       entity.CompanyName.Text),
                 new SQLiteParameter("EmployeeNumber",    entity.EmployeeNumber),
                 new SQLiteParameter("WorkingStatus",     entity.WorkingStatus),
                 new SQLiteParameter("WorkingStartDate",  DateHelpers.ConvertToSQLiteValue(startDate.Year, startDate.Month, startDate.Day)),

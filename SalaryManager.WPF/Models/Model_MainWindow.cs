@@ -64,7 +64,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void ReadCSV()
         {
-            var confirmingMessage = $"{this.Header.ViewModel.Year}年{this.Header.ViewModel.Month}月のCSVを読み込みますか？";
+            var confirmingMessage = $"{this.Header.ViewModel.Year_Value}年{this.Header.ViewModel.Month_Value}月のCSVを読み込みますか？";
             if (!DialogMessage.ShowConfirmingMessage(confirmingMessage, this.MainWindow.Title))
             {
                 // キャンセル
@@ -81,7 +81,7 @@ namespace SalaryManager.WPF.Models
 
             var encode = System.Text.Encoding.GetEncoding("shift_jis");
 ;
-            var path = $"{Shared.DirectoryCSV}\\{employeeID}-{this.Header.ViewModel.Year}-{this.Header.ViewModel.Month}.csv";
+            var path = $"{Shared.DirectoryCSV}\\{employeeID}-{this.Header.ViewModel.Year_Value}-{this.Header.ViewModel.Month_Value}.csv";
             
             try
             {
@@ -98,12 +98,12 @@ namespace SalaryManager.WPF.Models
 
                     // 有給残日数
                     var paidVacation = Convert.ToDouble(values[17]) + Convert.ToDouble(values[25]);
-                    this.WorkingReference.ViewModel.PaidVacation = paidVacation;
+                    this.WorkingReference.ViewModel.PaidVacation_Value = paidVacation;
                 }
             }
             catch(FileNotFoundException _)
             {
-                var message = $"「{Shared.DirectoryCSV}」に{this.Header.ViewModel.Year}年{this.Header.ViewModel.Month}月分のCSVが\n保存されていません。読み込みを中断します。";
+                var message = $"「{Shared.DirectoryCSV}」に{this.Header.ViewModel.Year_Value}年{this.Header.ViewModel.Month_Value}月分のCSVが\n保存されていません。読み込みを中断します。";
                 DialogMessage.ShowResultMessage(message, this.MainWindow.Title);
             }
         }
@@ -158,7 +158,7 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         internal void Save()
         {
-            var message = $"{this.Header.ViewModel.Year}年{this.Header.ViewModel.Month}月の給与明細を保存しますか？";
+            var message = $"{this.Header.ViewModel.Year_Value}年{this.Header.ViewModel.Month_Value}月の給与明細を保存しますか？";
             if (!DialogMessage.ShowConfirmingMessage(message, this.MainWindow.Title))
             {
                 // キャンセル
@@ -226,8 +226,8 @@ namespace SalaryManager.WPF.Models
         internal void ShowCurrentPayslip()
         {
             // ヘッダ
-            this.Header.ViewModel.Year  = DateTime.Today.Year;
-            this.Header.ViewModel.Month = DateTime.Today.Month;
+            this.Header.ViewModel.Year_Value  = DateTime.Today.Year;
+            this.Header.ViewModel.Month_Value = DateTime.Today.Month;
             // 支給額
             this.Allowance.Initialize(DateTime.Today);
             // 控除額

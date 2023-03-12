@@ -36,7 +36,7 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// リロード
         /// </summary>
-        internal void Reload() => this.Initialize(this.Header.Year);
+        internal void Reload() => this.Initialize(this.Header.Year_Value);
 
         /// <summary>
         /// Initialize
@@ -45,12 +45,12 @@ namespace SalaryManager.WPF.Models
         internal void Initialize(int fetchingYear)
         {
             // 対象日付
-            if (this.Header.Year.ToString().Length != 4)
+            if (this.Header.Year_Value.ToString().Length != 4)
             {
                 return;
             }
 
-            var yearValue = new YearValue(this.Header.Year, this.Header.Month);
+            var yearValue = new YearValue(this.Header.Year_Value, this.Header.Month_Value);
             this.ViewModel.TargetDate = yearValue?.YearWithJapaneseCalendar;
 
             if (this.ViewModel.TargetDate is null)

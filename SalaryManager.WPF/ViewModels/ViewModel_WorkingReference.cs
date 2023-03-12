@@ -53,9 +53,9 @@ namespace SalaryManager.WPF.ViewModels
             // Mouse Leave
             this.MouseLeave_Action = new RelayCommand(() => this.MainWindow.ComparePrice(0, 0));
             // 支給額-保険
-            this.Insurance_Action  = new RelayCommand(() => this.MainWindow.ComparePrice(this.Insurance, this.Entity_LastYear?.Insurance.Value));
+            this.Insurance_Action  = new RelayCommand(() => this.MainWindow.ComparePrice(this.Insurance_Value, this.Entity_LastYear?.Insurance.Value));
             // 標準月額千円
-            this.Norm_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.Norm,      this.Entity_LastYear?.Norm));
+            this.Norm_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.Norm_Value,      this.Entity_LastYear?.Norm));
         }
 
         /// <summary> Model </summary>
@@ -81,17 +81,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 時間外時間
 
-        private double _overtimeTime;
+        private double _overtimeTime_Value;
 
         /// <summary>
         /// 時間外時間
         /// </summary>
-        public double OvertimeTime
+        public double OvertimeTime_Value
         {
-            get => this._overtimeTime;
+            get => this._overtimeTime_Value;
             set
             {
-                this._overtimeTime = value;
+                this._overtimeTime_Value = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -100,17 +100,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 休出時間
 
-        private double _weekendWorktime;
+        private double _weekendWorktime_Value;
 
         /// <summary>
         /// 休出時間
         /// </summary>
-        public double WeekendWorktime
+        public double WeekendWorktime_Value
         {
-            get => this._weekendWorktime;
+            get => this._weekendWorktime_Value;
             set
             {
-                this._weekendWorktime = value;
+                this._weekendWorktime_Value = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -119,17 +119,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 深夜時間
 
-        private double _midnightWorktime;
+        private double _midnightWorktime_Value;
 
         /// <summary>
         /// 深夜時間
         /// </summary>
-        public double MidnightWorktime
+        public double MidnightWorktime_Value
         {
-            get => this._midnightWorktime;
+            get => this._midnightWorktime_Value;
             set
             {
-                this._midnightWorktime = value;
+                this._midnightWorktime_Value = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -138,17 +138,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 遅刻早退欠勤H
 
-        private double _lateAbsentH;
+        private double _lateAbsentH_Value;
 
         /// <summary>
         /// 遅刻早退欠勤H
         /// </summary>
-        public double LateAbsentH
+        public double LateAbsentH_Value
         {
-            get => this._lateAbsentH;
+            get => this._lateAbsentH_Value;
             set
             {
-                this._lateAbsentH = value;
+                this._lateAbsentH_Value = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -157,17 +157,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 支給額-保険
 
-        private double _insurance;
+        private double _insurance_Value;
 
         /// <summary>
         /// 支給額-保険
         /// </summary>
-        public double Insurance
+        public double Insurance_Value
         {
-            get => this._insurance;
+            get => this._insurance_Value;
             set
             {
-                this._insurance = value;
+                this._insurance_Value = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -181,17 +181,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 標準月額千円
 
-        private double _norm;
+        private double _norm_Value;
 
         /// <summary>
         /// 標準月額千円
         /// </summary>
-        public double Norm
+        public double Norm_Value
         {
-            get => this._norm;
+            get => this._norm_Value;
             set
             {
-                this._norm = value;
+                this._norm_Value = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -205,17 +205,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 扶養人数
 
-        private double _numberOfDependent;
+        private double _numberOfDependent_Value;
 
         /// <summary>
         /// 扶養人数
         /// </summary>
-        public double NumberOfDependent
+        public double NumberOfDependent_Value
         {
-            get => this._numberOfDependent;
+            get => this._numberOfDependent_Value;
             set
             {
-                this._numberOfDependent = value;
+                this._numberOfDependent_Value = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -224,17 +224,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 有給残日数
 
-        private double _paidVacation;
+        private double _paidVacation_Value;
 
         /// <summary>
         /// 有給残日数
         /// </summary>
-        public double PaidVacation
+        public double PaidVacation_Value
         {
-            get => this._paidVacation;
+            get => this._paidVacation_Value;
             set
             {
-                this._paidVacation = value;
+                this._paidVacation_Value = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -243,17 +243,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 勤務時間
 
-        private double _workingHours;
+        private double _workingHours_Value;
 
         /// <summary>
         /// 勤務時間
         /// </summary>
-        public double WorkingHours
+        public double WorkingHours_Value
         {
-            get => this._workingHours;
+            get => this._workingHours_Value;
             set
             {
-                this._workingHours = value;
+                this._workingHours_Value = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -262,17 +262,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 備考
 
-        private string _remarks;
+        private string _remarks_Text;
 
         /// <summary>
         /// 勤務時間
         /// </summary>
-        public string Remarks
+        public string Remarks_Text
         {
-            get => this._remarks;
+            get => this._remarks_Text;
             set
             {
-                this._remarks = value;
+                this._remarks_Text = value;
                 this.RaisePropertyChanged();
             }
         }

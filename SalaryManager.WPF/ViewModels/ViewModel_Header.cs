@@ -124,14 +124,14 @@ namespace SalaryManager.WPF.ViewModels
         /// </summary>
         public DateTime YearMonth { get; set; } = DateTime.Today;
 
-        private int _year = DateTime.Now.Year;
+        private int _year_Value = DateTime.Now.Year;
 
         /// <summary>
         /// 年
         /// </summary>
-        public int Year
+        public int Year_Value
         {
-            get => this._year;
+            get => this._year_Value;
             set
             {
                 if (value.ToString().Length != 4)
@@ -139,7 +139,7 @@ namespace SalaryManager.WPF.ViewModels
                     return;
                 }
 
-                this._year = value;
+                this._year_Value = value;
                 this.RaisePropertyChanged();
 
                 this.Model.Reload();
@@ -153,27 +153,27 @@ namespace SalaryManager.WPF.ViewModels
         /// </summary>
         public RelayCommand Year_TextChanged { get; private set; }
 
-        private int _month = DateTime.Now.Month;
+        private int _month_Value = DateTime.Now.Month;
 
         /// <summary>
         /// 月
         /// </summary>
-        public int Month
+        public int Month_Value
         {
-            get => this._month;
+            get => this._month_Value;
             set
             {
                 if (value < 1)
                 {
-                    this._month = 1;
+                    this._month_Value = 1;
                 } 
                 else if (value > 12)
                 {
-                    this._month = 12;
+                    this._month_Value = 12;
                 }
                 else
                 {
-                    this._month = value;
+                    this._month_Value = value;
                 }
                 
                 this.RaisePropertyChanged();
