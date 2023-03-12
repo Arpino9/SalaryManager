@@ -59,14 +59,6 @@
             }
         }
 
-        /// <summary>
-        /// 表示用
-        /// </summary>
-        public override string ToString()
-        {
-            return (this == CompanyValue.Undefined ? "<未登録>" : this.Text);
-        }
-
         protected override bool EqualsCore(CompanyValue other)
         {
             return this.Text == other.Text;

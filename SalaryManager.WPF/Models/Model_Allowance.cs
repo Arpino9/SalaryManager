@@ -48,6 +48,9 @@ namespace SalaryManager.WPF.Models
         /// 初期化
         /// </summary>
         /// <param name="entityDate">初期化する日付</param>
+        /// <remarks>
+        /// 画面起動時に、項目を初期化する。
+        /// </remarks>
         public void Initialize(DateTime entityDate)
         {
             Allowances.Create(new AllowanceSQLite());
@@ -132,6 +135,9 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// リロード
         /// </summary>
+        /// <remarks>
+        /// 年月の変更時などに、該当月の項目を取得する。
+        /// </remarks>
         public void Reload()
         {
             using (var cursor = new CursorWaiting())
@@ -148,6 +154,9 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// クリア
         /// </summary>
+        /// <remarks>
+        /// 各項目を初期化する。
+        /// </remarks>
         public void Clear()
         {
             // 基本給
@@ -195,6 +204,9 @@ namespace SalaryManager.WPF.Models
         /// 保存
         /// </summary>
         /// <param name="transaction">トランザクション</param>
+        /// <remarks>
+        /// SQLiteに接続し、入力項目を保存する。
+        /// </remarks>
         public void Save(SQLiteTransaction transaction)
         {
             var entity = new AllowanceValueEntity(

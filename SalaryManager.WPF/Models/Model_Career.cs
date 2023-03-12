@@ -59,6 +59,9 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 再描画
         /// </summary>
+        /// <remarks>
+        /// 該当月に経歴情報が存在すれば、各項目を再描画する。
+        /// </remarks>
         public void Refresh()
         {
             // ListView
@@ -102,7 +105,7 @@ namespace SalaryManager.WPF.Models
             // 更新ボタン
             this.ViewModel.Update_IsEnabled = selected;
             // 削除ボタン
-            this.ViewModel.Remove_IsEnabled = selected;
+            this.ViewModel.Delete_IsEnabled = selected;
         }
 
         /// <summary>
@@ -162,7 +165,7 @@ namespace SalaryManager.WPF.Models
             // 通勤手当
             this.ViewModel.CommutingAllowance_IsChecked         = allowance.Commution.Value;
             // 扶養手当
-            this.ViewModel.DependencyAllowance_IsChecked        = allowance.Dependency.Value;
+            this.ViewModel.DependencyAllowance_IsChecked         = allowance.Dependency.Value;
             // 役職手当
             this.ViewModel.ExecutiveAllowance_IsChecked         = allowance.Executive.Value;
             // 特別手当
@@ -210,6 +213,9 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// リロード
         /// </summary>
+        /// <remarks>
+        /// 年月の変更時などに、該当月の項目を取得する。
+        /// </remarks>
         public void Reload()
         {
             using (var cursor = new CursorWaiting())
@@ -225,6 +231,9 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// クリア
         /// </summary>
+        /// <remarks>
+        /// 各項目を初期化する。
+        /// </remarks>
         public void Clear_InputForm()
         {
             // 雇用形態
@@ -264,7 +273,7 @@ namespace SalaryManager.WPF.Models
             // 通勤手当
             this.ViewModel.CommutingAllowance_IsChecked         = default(bool);
             // 扶養手当
-            this.ViewModel.DependencyAllowance_IsChecked        = default(bool);
+            this.ViewModel.DependencyAllowance_IsChecked         = default(bool);
             // 役職手当
             this.ViewModel.ExecutiveAllowance_IsChecked         = default(bool);
             // 特別手当
@@ -275,7 +284,7 @@ namespace SalaryManager.WPF.Models
             // 更新ボタン
             this.ViewModel.Update_IsEnabled = false;
             // 削除ボタン
-            this.ViewModel.Remove_IsEnabled = false;
+            this.ViewModel.Delete_IsEnabled = false;
         }
 
         /// <summary>
@@ -291,7 +300,7 @@ namespace SalaryManager.WPF.Models
 
             using (var cursor = new CursorWaiting())
             {
-                this.ViewModel.Remove_IsEnabled = true;
+                this.ViewModel.Delete_IsEnabled = true;
 
                 var entity = this.CreateEntity(this.ViewModel.Entities.Count + 1);
                 this.ViewModel.Careers_ItemSource.Add(entity);
@@ -367,7 +376,7 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 削除
         /// </summary>
-        public void Remove()
+        public void Delete()
         {
             if (this.ViewModel.Careers_SelectedIndex == -1 ||
                 !this.ViewModel.Careers_ItemSource.Any()) 

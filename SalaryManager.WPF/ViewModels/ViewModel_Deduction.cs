@@ -105,7 +105,7 @@ namespace SalaryManager.WPF.ViewModels
         private double _healthhnsurance_Value;
 
         /// <summary>
-        /// 健康保険
+        /// 健康保険 - Value
         /// </summary>
         public double HealthInsurance_Value
         {
@@ -131,7 +131,7 @@ namespace SalaryManager.WPF.ViewModels
         private double _nursingInsurance_Value;
 
         /// <summary>
-        /// 介護保険
+        /// 介護保険 = Value
         /// </summary>
         public double NursingInsurance_Value
         {
@@ -157,7 +157,7 @@ namespace SalaryManager.WPF.ViewModels
         private double _welfareAnnuity_Value;
 
         /// <summary>
-        /// 厚生年金
+        /// 厚生年金 - Value
         /// </summary>
         public double WelfareAnnuity_Value
         {
@@ -183,7 +183,7 @@ namespace SalaryManager.WPF.ViewModels
         private double _employmentInsurance_Value;
 
         /// <summary>
-        /// 雇用保険
+        /// 雇用保険 - Value
         /// </summary>
         public double EmploymentInsurance_Value
         {
@@ -209,7 +209,7 @@ namespace SalaryManager.WPF.ViewModels
         private double _incomeTax_Value;
 
         /// <summary>
-        /// 所得税
+        /// 所得税 - Value
         /// </summary>
         public double IncomeTax_Value
         {
@@ -235,7 +235,7 @@ namespace SalaryManager.WPF.ViewModels
         private double _municipalTax_Value;
 
         /// <summary>
-        /// 市町村税
+        /// 市町村税 - Value
         /// </summary>
         public double MunicipalTax_Value
         {
@@ -261,7 +261,7 @@ namespace SalaryManager.WPF.ViewModels
         private double _friendshipAssociation_Value;
 
         /// <summary>
-        /// 互助会
+        /// 互助会 - Value
         /// </summary>
         public double FriendshipAssociation_Value
         {
@@ -287,7 +287,7 @@ namespace SalaryManager.WPF.ViewModels
         private double _yearEndTaxAdjustment_Value;
 
         /// <summary>
-        /// 年末調整他
+        /// 年末調整他 - Value
         /// </summary>
         public double YearEndTaxAdjustment_Value
         {
@@ -321,7 +321,7 @@ namespace SalaryManager.WPF.ViewModels
         private double _totalDeduct_Value;
 
         /// <summary>
-        /// 控除額計
+        /// 控除額計 - Value
         /// </summary>
         public double TotalDeduct_Value
         {
@@ -345,7 +345,7 @@ namespace SalaryManager.WPF.ViewModels
         private string _remarks_Text;
 
         /// <summary>
-        /// 備考
+        /// 備考 - Text
         /// </summary>
         public string Remarks_Text
         {

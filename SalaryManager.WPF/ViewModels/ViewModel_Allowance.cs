@@ -374,7 +374,7 @@ namespace SalaryManager.WPF.ViewModels
         private double _lateAbsent_Value;
 
         /// <summary>
-        /// 遅刻早退欠勤
+        /// 遅刻早退欠勤 - Value
         /// </summary>
         public double LateAbsent_Value
         {
@@ -517,7 +517,7 @@ namespace SalaryManager.WPF.ViewModels
         private double _spareAllowance_Value;
 
         /// <summary>
-        /// 予備
+        /// 予備 - Value
         /// </summary>
         public double SpareAllowance_Value
         {
@@ -543,7 +543,7 @@ namespace SalaryManager.WPF.ViewModels
         private string _remarks_Text;
 
         /// <summary>
-        /// 備考
+        /// 備考 - Text
         /// </summary>
         public string Remarks_Text
         {
@@ -570,7 +570,7 @@ namespace SalaryManager.WPF.ViewModels
         private double _totalSalary_Value;
 
         /// <summary>
-        /// 支給総計
+        /// 支給総計 - Value
         /// </summary>
         public double TotalSalary_Value
         {
@@ -609,7 +609,7 @@ namespace SalaryManager.WPF.ViewModels
         private double _totalDeductedSalary_Value;
 
         /// <summary>
-        /// 差引支給額
+        /// 差引支給額 - Value
         /// </summary>
         public double TotalDeductedSalary_Value
         {

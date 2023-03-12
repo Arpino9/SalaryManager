@@ -9,16 +9,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="70" d:DesignWidth="300"
              Background="{x:Static SystemColors.ControlLightBrush}">
-    <UserControl.Resources>
-        <Style x:Key="TextBox_Style" TargetType="{x:Type TextBox}">
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="LightYellow"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </UserControl.Resources>
-    
     <UserControl.DataContext>
         <ViewModels:ViewModel_WorkPlace/>
     </UserControl.DataContext>

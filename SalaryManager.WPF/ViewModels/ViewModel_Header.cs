@@ -6,6 +6,9 @@ using SalaryManager.WPF.Models;
 
 namespace SalaryManager.WPF.ViewModels
 {
+    /// <summary>
+    /// ViewModel - ヘッダ
+    /// </summary>
     public class ViewModel_Header : INotifyPropertyChanged
     {
         #region Property Changed
@@ -127,7 +130,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _year_Value = DateTime.Now.Year;
 
         /// <summary>
-        /// 年
+        /// 年 - Value
         /// </summary>
         public int Year_Value
         {
@@ -156,7 +159,7 @@ namespace SalaryManager.WPF.ViewModels
         private int _month_Value = DateTime.Now.Month;
 
         /// <summary>
-        /// 月
+        /// 月 - Value
         /// </summary>
         public int Month_Value
         {

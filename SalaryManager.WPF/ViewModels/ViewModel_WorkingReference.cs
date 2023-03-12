@@ -84,7 +84,7 @@ namespace SalaryManager.WPF.ViewModels
         private double _overtimeTime_Value;
 
         /// <summary>
-        /// 時間外時間
+        /// 時間外時間 - Value
         /// </summary>
         public double OvertimeTime_Value
         {
@@ -103,7 +103,7 @@ namespace SalaryManager.WPF.ViewModels
         private double _weekendWorktime_Value;
 
         /// <summary>
-        /// 休出時間
+        /// 休出時間 - Value
         /// </summary>
         public double WeekendWorktime_Value
         {
@@ -122,7 +122,7 @@ namespace SalaryManager.WPF.ViewModels
         private double _midnightWorktime_Value;
 
         /// <summary>
-        /// 深夜時間
+        /// 深夜時間 - Value
         /// </summary>
         public double MidnightWorktime_Value
         {
@@ -141,7 +141,7 @@ namespace SalaryManager.WPF.ViewModels
         private double _lateAbsentH_Value;
 
         /// <summary>
-        /// 遅刻早退欠勤H
+        /// 遅刻早退欠勤H - Value
         /// </summary>
         public double LateAbsentH_Value
         {
@@ -160,7 +160,7 @@ namespace SalaryManager.WPF.ViewModels
         private double _insurance_Value;
 
         /// <summary>
-        /// 支給額-保険
+        /// 支給額-保険 - Value
         /// </summary>
         public double Insurance_Value
         {
@@ -184,7 +184,7 @@ namespace SalaryManager.WPF.ViewModels
         private double _norm_Value;
 
         /// <summary>
-        /// 標準月額千円
+        /// 標準月額千円 - Value
         /// </summary>
         public double Norm_Value
         {
@@ -208,7 +208,7 @@ namespace SalaryManager.WPF.ViewModels
         private double _numberOfDependent_Value;
 
         /// <summary>
-        /// 扶養人数
+        /// 扶養人数 - Value
         /// </summary>
         public double NumberOfDependent_Value
         {
@@ -227,7 +227,7 @@ namespace SalaryManager.WPF.ViewModels
         private double _paidVacation_Value;
 
         /// <summary>
-        /// 有給残日数
+        /// 有給残日数 - Value
         /// </summary>
         public double PaidVacation_Value
         {
@@ -246,7 +246,7 @@ namespace SalaryManager.WPF.ViewModels
         private double _workingHours_Value;
 
         /// <summary>
-        /// 勤務時間
+        /// 勤務時間 - Value
         /// </summary>
         public double WorkingHours_Value
         {
@@ -265,7 +265,7 @@ namespace SalaryManager.WPF.ViewModels
         private string _remarks_Text;
 
         /// <summary>
-        /// 勤務時間
+        /// 勤務時間 - Text
         /// </summary>
         public string Remarks_Text
         {

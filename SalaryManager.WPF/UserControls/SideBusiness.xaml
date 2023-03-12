@@ -87,8 +87,8 @@
                  Grid.ColumnSpan="3"
                  Grid.Row="2" 
                  AcceptsReturn="True"
-                 TextWrapping="Wrap"
                  Style="{StaticResource PayslipItemCharacter_Style}"
-                 Text="{Binding Remarks_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                 Text="{Binding Remarks_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 TextWrapping="Wrap" />
     </Grid>
 </UserControl>

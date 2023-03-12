@@ -233,8 +233,8 @@
             <Button Content="削除" 
                     Grid.Column="3" 
                     Grid.Row="7" 
-                    Command="{Binding Remove_Command}" 
-                    IsEnabled="{Binding Remove_IsEnabled}"/>
+                    Command="{Binding Delete_Command}" 
+                    IsEnabled="{Binding Delete_IsEnabled}"/>
         </Grid>
     </Grid>
 </Window>

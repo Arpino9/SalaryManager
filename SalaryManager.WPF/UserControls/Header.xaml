@@ -48,7 +48,7 @@
         </TextBox>
         <Label Content="月" 
                Grid.Column="4" />
-
+        
         <Button Content="→" 
                 Grid.Column="5" 
                 Command="{Binding Proceed_Command, Mode=OneWay}" />

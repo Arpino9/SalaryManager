@@ -58,7 +58,7 @@ namespace SalaryManager.WPF.ViewModels
         private string _companyName;
 
         /// <summary>
-        /// 勤務先
+        /// 所属会社名
         /// </summary>
         public string CompanyName
         {

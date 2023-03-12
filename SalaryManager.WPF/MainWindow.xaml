@@ -29,13 +29,13 @@
 
         <Menu>
             <MenuItem Header="編集">
-                <MenuItem Header="デフォルト明細" Command="{Binding GetDefaultClick}">
+                <MenuItem Header="デフォルト明細" Command="{Binding SetDefault_Command}">
                     <ToolTipService.ToolTip>
                         <ToolTip Content="選択された給与明細をデフォルト明細に登録します。"/>
                     </ToolTipService.ToolTip>
                 </MenuItem>
 
-                <MenuItem Header="経歴" Command="{Binding ShowCareerManager}">
+                <MenuItem Header="経歴" Command="{Binding ShowCareerManager_Command}">
                     <ToolTipService.ToolTip>
                         <ToolTip Content="経歴編集画面を開きます。"/>
                     </ToolTipService.ToolTip>
@@ -49,13 +49,13 @@
             </MenuItem>
 
             <MenuItem Header="読込">
-                <MenuItem Header="デフォルト明細を取得" Command="{Binding GetDefaultClick}">
+                <MenuItem Header="デフォルト明細を取得" Command="{Binding GetDefault_Command}">
                     <ToolTipService.ToolTip>
                         <ToolTip Content="登録されているデフォルト明細を取得します。"/>
                     </ToolTipService.ToolTip>
                 </MenuItem>
-                
-                <MenuItem Header="CSV読込" Command="{Binding ReadCSVClick}">
+
+                <MenuItem Header="CSV読込" Command="{Binding ReadCSV_Command}">
                     <ToolTipService.ToolTip>
                         <ToolTip Content="CSVを読み込みます。仮作成。"/>
                     </ToolTipService.ToolTip>
@@ -63,7 +63,7 @@
             </MenuItem>
 
             <MenuItem Header="表示">
-                <MenuItem Header="今月の明細" Command="{Binding ShowCurrentPayslip}">
+                <MenuItem Header="今月の明細" Command="{Binding ShowCurrentPayslip_Command}">
                     <ToolTipService.ToolTip>
                         <ToolTip Content="今月の明細を表示します。"/>
                     </ToolTipService.ToolTip>
@@ -71,14 +71,14 @@
             </MenuItem>
 
             <MenuItem Header="出力">
-                <MenuItem Header="Excel" Command="{Binding OutputExcel}">
+                <MenuItem Header="Excel" Command="{Binding OutputExcel_Command}">
                     <ToolTipService.ToolTip>
                         <ToolTip Content="configファイルに指定された保存先にExcel出力します。"/>
                     </ToolTipService.ToolTip>
                 </MenuItem>
             </MenuItem>
 
-            <MenuItem Header="保存" Command="{Binding SaveClick}">
+            <MenuItem Header="保存" Command="{Binding Save_Command}">
                 <ToolTipService.ToolTip>
                     <ToolTip Content="入力された給与明細を保存します。"/>
                 </ToolTipService.ToolTip>

@@ -7,9 +7,6 @@ namespace SalaryManager.WPF.UserControls
     /// </summary>
     public partial class Allowance : UserControl
     {
-        /// <summary>
-        /// Constructor
-        /// </summary>
         public Allowance()
         {
             InitializeComponent();

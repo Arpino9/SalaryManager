@@ -7,6 +7,9 @@ using SalaryManager.WPF.Models;
 
 namespace SalaryManager.WPF.ViewModels
 {
+    /// <summary>
+    /// ViewModel - メイン画面
+    /// </summary>
     public class ViewModel_MainWindow : INotifyPropertyChanged
     {
         #region Property Changed
@@ -24,12 +27,12 @@ namespace SalaryManager.WPF.ViewModels
         public ViewModel_MainWindow()
         {
             // 保存
-            this._saveAction += this.Model.Save;
-            this._saveAction += this.AnnualChart.Reload;
+            this._save_Action += this.Model.Save;
+            this._save_Action += this.AnnualChart.Reload;
 
             // デフォルトに設定
-            this._setDefaultAction += this.Header.SetDefault;
-            this._setDefaultAction += this.Header.Save;
+            this._setDefault_Action += this.Header.SetDefault;
+            this._setDefault_Action += this.Header.Save;
 
             this.Model.MainWindow = this;
         }
@@ -57,20 +60,20 @@ namespace SalaryManager.WPF.ViewModels
 
         #region CSV読込
 
-        private RelayCommand _readCSV;
+        private RelayCommand _readCSV_Command;
 
         /// <summary>
         /// CSV読込ボタン
         /// </summary>
-        public RelayCommand ReadCSVClick
+        public RelayCommand ReadCSV_Command
         {
             get
             {
-                if (this._readCSV == null)
+                if (this._readCSV_Command == null)
                 {
-                    this._readCSV = new RelayCommand(this.Model.ReadCSV);
+                    this._readCSV_Command = new RelayCommand(this.Model.ReadCSV);
                 }
-                return this._readCSV;
+                return this._readCSV_Command;
             }
         }
 
@@ -78,22 +81,22 @@ namespace SalaryManager.WPF.ViewModels
 
         #region デフォルトに設定
 
-        private RelayCommand _setDefault;
+        private RelayCommand _setDefault_Command;
 
-        private Action _setDefaultAction;
+        private Action _setDefault_Action;
 
         /// <summary>
-        /// デフォルトに設定ボタン
+        /// デフォルトに設定 - Command
         /// </summary>
-        public RelayCommand SetDefaultClick
+        public RelayCommand SetDefault_Command
         {
             get
             {
-                if (this._setDefault == null)
+                if (this._setDefault_Command == null)
                 {
-                    this._setDefault = new RelayCommand(this._setDefaultAction);
+                    this._setDefault_Command = new RelayCommand(this._setDefault_Action);
                 }
-                return this._setDefault;
+                return this._setDefault_Command;
             }
         }
 
@@ -101,20 +104,20 @@ namespace SalaryManager.WPF.ViewModels
 
         #region デフォルトから取得
 
-        private RelayCommand _getDefault;
+        private RelayCommand _getDefault_Command;
 
         /// <summary>
-        /// デフォルトに設定ボタン
+        /// デフォルトに設定 - Command
         /// </summary>
-        public RelayCommand GetDefaultClick
+        public RelayCommand GetDefault_Command
         {
             get
             {
-                if (this._getDefault == null)
+                if (this._getDefault_Command == null)
                 {
-                    this._getDefault = new RelayCommand(this.Model.FetchDefault);
+                    this._getDefault_Command = new RelayCommand(this.Model.FetchDefault);
                 }
-                return this._getDefault;
+                return this._getDefault_Command;
             }
         }
 
@@ -122,20 +125,20 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 経歴管理画面を開く
 
-        private RelayCommand _showCareerManager;
+        private RelayCommand _showCareerManager_Command;
 
         /// <summary>
-        /// 経歴管理画面を開く
+        /// 経歴管理画面を開く - Command
         /// </summary>
-        public RelayCommand ShowCareerManager
+        public RelayCommand ShowCareerManager_Command
         {
             get
             {
-                if (this._showCareerManager == null)
+                if (this._showCareerManager_Command == null)
                 {
-                    this._showCareerManager = new RelayCommand(this.Model.ShowCareerManager);
+                    this._showCareerManager_Command = new RelayCommand(this.Model.ShowCareerManager);
                 }
-                return this._showCareerManager;
+                return this._showCareerManager_Command;
             }
         }
 
@@ -143,20 +146,20 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 今月の明細を表示
 
-        private RelayCommand _showCurrentPayslip;
+        private RelayCommand _showCurrentPayslip_Command;
 
         /// <summary>
-        /// 今月の明細を表示
+        /// 今月の明細を表示 - Command
         /// </summary>
-        public RelayCommand ShowCurrentPayslip
+        public RelayCommand ShowCurrentPayslip_Command
         {
             get
             {
-                if (this._showCurrentPayslip == null)
+                if (this._showCurrentPayslip_Command == null)
                 {
-                    this._showCurrentPayslip = new RelayCommand(this.Model.ShowCurrentPayslip);
+                    this._showCurrentPayslip_Command = new RelayCommand(this.Model.ShowCurrentPayslip);
                 }
-                return this._showCurrentPayslip;
+                return this._showCurrentPayslip_Command;
             }
         }
 
@@ -164,22 +167,22 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 保存
 
-        private RelayCommand _save;
+        private RelayCommand _save_Command;
 
-        private Action _saveAction;
+        private Action _save_Action;
 
         /// <summary>
-        /// 保存ボタン
+        /// 保存 - Command
         /// </summary>
-        public RelayCommand SaveClick
+        public RelayCommand Save_Command
         {
             get
             {
-                if (this._save == null)
+                if (this._save_Command == null)
                 {
-                    this._save = new RelayCommand(this._saveAction);
+                    this._save_Command = new RelayCommand(this._save_Action);
                 }
-                return this._save;
+                return this._save_Command;
             }
         }
 
@@ -187,20 +190,20 @@ namespace SalaryManager.WPF.ViewModels
 
         #region Excel出力
 
-        private RelayCommand _outputExcel;
+        private RelayCommand _outputExcel_Command;
 
         /// <summary>
-        /// Excel出力ボタン
+        /// Excel出力 - Command
         /// </summary>
-        public RelayCommand OutputExcel
+        public RelayCommand OutputExcel_Command
         {
             get
             {
-                if (this._outputExcel == null)
+                if (this._outputExcel_Command == null)
                 {
-                    this._outputExcel = new RelayCommand(this.Model.OutputExcel);
+                    this._outputExcel_Command = new RelayCommand(this.Model.OutputExcel);
                 }
-                return this._outputExcel;
+                return this._outputExcel_Command;
             }
         }
 
@@ -211,7 +214,7 @@ namespace SalaryManager.WPF.ViewModels
         private Brush _priceUpDown_Foreground;
 
         /// <summary>
-        /// 金額の比較用
+        /// 金額の比較用 - Foreground
         /// </summary>
         public Brush PriceUpdown_Foreground
         {
@@ -223,17 +226,17 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
-        private string _priceUpDown;
+        private string _priceUpDown_Content;
 
         /// <summary>
-        /// 金額の比較用
+        /// 金額の比較用 - Content
         /// </summary>
         public string PriceUpdown_Content
         {
-            get => this._priceUpDown;
+            get => this._priceUpDown_Content;
             set
             {
-                this._priceUpDown = value;
+                this._priceUpDown_Content = value;
                 this.RaisePropertyChanged();
             }
         }

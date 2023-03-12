@@ -269,9 +269,9 @@
                  Grid.ColumnSpan="3"
                  Grid.Row="6" 
                  AcceptsReturn="True"
-                 TextWrapping="Wrap"
                  Style="{StaticResource PayslipItemCharacter_Style}"
-                 Text="{Binding Remarks_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                 Text="{Binding Remarks_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 TextWrapping="Wrap" />
 
         <Label Content="支給額計" 
                Grid.Column="1"

@@ -1,16 +1,16 @@
-﻿using SalaryManager.Domain;
-using SalaryManager.Domain.Modules.Logics;
-using SalaryManager.Domain.Modules.Helpers;
-using SalaryManager.Domain.StaticValues;
-using SalaryManager.Infrastructure.SQLite;
-using SalaryManager.WPF.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Media;
-using WorkingReferences = SalaryManager.Domain.StaticValues.WorkingReferences;
-using SalaryManager.WPF.Window;
+using SalaryManager.Domain;
+using SalaryManager.Domain.Modules.Logics;
+using SalaryManager.Domain.Modules.Helpers;
+using SalaryManager.Domain.StaticValues;
 using SalaryManager.Domain.ValueObjects;
+using SalaryManager.Infrastructure.SQLite;
+using SalaryManager.WPF.ViewModels;
+using SalaryManager.WPF.Window;
+using WorkingReferences = SalaryManager.Domain.StaticValues.WorkingReferences;
 
 namespace SalaryManager.WPF.Models
 {

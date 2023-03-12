@@ -113,6 +113,9 @@ namespace SalaryManager.WPF.Models
         /// 初期化
         /// </summary>
         /// <param name="entityDate">取得する日付</param>
+        /// <remarks>
+        /// 画面起動時に、項目を初期化する。
+        /// </remarks>
         public void Initialize(DateTime entityDate)
         {
             this.FetchEntity(entityDate.Year, entityDate.Month);
@@ -128,6 +131,9 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 再描画
         /// </summary>
+        /// <remarks>
+        /// 該当月にヘッダ情報が存在すれば、各項目を再描画する。
+        /// </remarks>
         public void Refresh()
         {
             if (this.Entity is null)
@@ -146,6 +152,9 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// クリア
         /// </summary>
+        /// <remarks>
+        /// 各項目を初期化する。
+        /// </remarks>
         public void Clear()
         {
             this.ViewModel.Year_Value       = this.ViewModel.YearMonth.Year;

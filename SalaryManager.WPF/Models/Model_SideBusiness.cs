@@ -40,6 +40,9 @@ namespace SalaryManager.WPF.Models
         /// 初期化
         /// </summary>
         /// <param name="entityDate">取得する日付</param>
+        /// <remarks>
+        /// 画面起動時に、項目を初期化する。
+        /// </remarks>
         public void Initialize(DateTime entityDate)
         {
             SideBusinesses.Create(new SideBusinessSQLite());
@@ -59,6 +62,9 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// リロード
         /// </summary>
+        /// <remarks>
+        /// 該当月に副業額が存在すれば、各項目を再描画する。
+        /// </remarks>
         public void Reload()
         {
             using (var cursor = new CursorWaiting())
@@ -75,6 +81,9 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// クリア
         /// </summary>
+        /// <remarks>
+        /// 各項目を初期化する。
+        /// </remarks>
         public void Clear()
         {
             // 副業
@@ -90,6 +99,9 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 再描画
         /// </summary>
+        /// <remarks>
+        /// 該当月に副業額が存在すれば、各項目を再描画する。
+        /// </remarks>
         public void Refresh()
         {
             var entity = this.ViewModel.Entity;
@@ -114,6 +126,9 @@ namespace SalaryManager.WPF.Models
         /// 保存
         /// </summary>
         /// <param name="transaction">トランザクション</param>
+        /// <remarks>
+        /// SQLiteに接続し、入力項目を保存する。
+        /// </remarks>
         public void Save(SQLiteTransaction transaction)
         {
             var entity = new SideBusinessEntity(

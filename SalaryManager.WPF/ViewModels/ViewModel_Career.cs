@@ -278,7 +278,7 @@ namespace SalaryManager.WPF.ViewModels
         private bool _perfectAttendanceAllowance_IsChecked;
 
         /// <summary>
-        /// 皆勤手当
+        /// 皆勤手当 - IsChecked
         /// </summary>
         public bool PerfectAttendanceAllowance_IsChecked
         {
@@ -297,7 +297,7 @@ namespace SalaryManager.WPF.ViewModels
         private bool _educationAllowance_IsChecked;
 
         /// <summary>
-        /// 教育手当
+        /// 教育手当 - IsChecked
         /// </summary>
         public bool EducationAllowance_IsChecked
         {
@@ -316,7 +316,7 @@ namespace SalaryManager.WPF.ViewModels
         private bool _electricityAllowance_IsChecked;
 
         /// <summary>
-        /// 在宅手当
+        /// 在宅手当 - IsChecked
         /// </summary>
         public bool ElectricityAllowance_IsChecked
         {
@@ -335,7 +335,7 @@ namespace SalaryManager.WPF.ViewModels
         private bool _certificationAllowance_IsChecked;
 
         /// <summary>
-        /// 資格手当
+        /// 資格手当 - IsChecked
         /// </summary>
         public bool CertificationAllowance_IsChecked
         {
@@ -354,7 +354,7 @@ namespace SalaryManager.WPF.ViewModels
         private bool _overtimeAllowance_IsChecked;
 
         /// <summary>
-        /// 時間外手当
+        /// 時間外手当 - IsChecked
         /// </summary>
         public bool OvertimeAllowance_IsChecked
         {
@@ -373,7 +373,7 @@ namespace SalaryManager.WPF.ViewModels
         private bool _travelAllowance_IsChecked;
 
         /// <summary>
-        /// 出張手当
+        /// 出張手当 - IsChecked
         /// </summary>
         public bool TravelAllowance_IsChecked
         {
@@ -392,7 +392,7 @@ namespace SalaryManager.WPF.ViewModels
         private bool _housingAllowance_IsChecked;
 
         /// <summary>
-        /// 住宅手当
+        /// 住宅手当 - IsChecked
         /// </summary>
         public bool HousingAllowance_IsChecked
         {
@@ -411,7 +411,7 @@ namespace SalaryManager.WPF.ViewModels
         private bool _foodAllowance_IsChecked;
 
         /// <summary>
-        /// 食事手当
+        /// 食事手当 - IsChecked
         /// </summary>
         public bool FoodAllowance_IsChecked
         {
@@ -430,7 +430,7 @@ namespace SalaryManager.WPF.ViewModels
         private bool _lateNightAllowance_IsChecked;
 
         /// <summary>
-        /// 深夜手当
+        /// 深夜手当 - IsChecked
         /// </summary>
         public bool LateNightAllowance_IsChecked
         {
@@ -449,7 +449,7 @@ namespace SalaryManager.WPF.ViewModels
         private bool _areaAllowance_IsChecked;
 
         /// <summary>
-        /// 地域手当
+        /// 地域手当 - IsChecked
         /// </summary>
         public bool AreaAllowance_IsChecked
         {
@@ -468,7 +468,7 @@ namespace SalaryManager.WPF.ViewModels
         private bool _commutionAllowance_IsChecked;
 
         /// <summary>
-        /// 通勤手当
+        /// 通勤手当 - IsChecked
         /// </summary>
         public bool CommutingAllowance_IsChecked
         {
@@ -487,7 +487,7 @@ namespace SalaryManager.WPF.ViewModels
         private bool _dependencyAllowance_IsChecked;
 
         /// <summary>
-        /// 扶養手当
+        /// 扶養手当 - IsCecked
         /// </summary>
         public bool DependencyAllowance_IsChecked
         {
@@ -506,7 +506,7 @@ namespace SalaryManager.WPF.ViewModels
         private bool _executiveAllowance_IsChecked;
 
         /// <summary>
-        /// 役職手当
+        /// 役職手当 - IsChecked
         /// </summary>
         public bool ExecutiveAllowance_IsChecked
         {
@@ -525,7 +525,7 @@ namespace SalaryManager.WPF.ViewModels
         private bool _specialAllowance_IsChecked;
 
         /// <summary>
-        /// 特別手当
+        /// 特別手当 - IsChecked
         /// </summary>
         public bool SpecialAllowance_IsChecked
         {
@@ -575,20 +575,20 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
-        private RelayCommand _add;
+        private RelayCommand _add_Command;
 
         /// <summary>
-        /// 追加ボタン
+        /// 追加ボタン - Command
         /// </summary>
         public RelayCommand Add_Command
         {
             get
             {
-                if (this._add == null)
+                if (this._add_Command == null)
                 {
-                    this._add = new RelayCommand(this.Model.Add);
+                    this._add_Command = new RelayCommand(this.Model.Add);
                 }
-                return this._add;
+                return this._add_Command;
             }
         }
 
@@ -611,20 +611,20 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
-        private RelayCommand _update;
+        private RelayCommand _update_Command;
 
         /// <summary>
-        /// 更新ボタン
+        /// 更新ボタン - Command
         /// </summary>
         public RelayCommand Update_Command
         {
             get
             {
-                if (this._update == null)
+                if (this._update_Command == null)
                 {
-                    this._update = new RelayCommand(this.Model.Update);
+                    this._update_Command = new RelayCommand(this.Model.Update);
                 }
-                return this._update;
+                return this._update_Command;
             }
         }
 
@@ -632,35 +632,35 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 削除
 
-        private bool _remove_IsEnabled;
+        private bool _delete_IsEnabled;
 
         /// <summary>
         /// 削除 - IsEnabled
         /// </summary>
-        public bool Remove_IsEnabled
+        public bool Delete_IsEnabled
         {
-            get => this._remove_IsEnabled;
+            get => this._delete_IsEnabled;
             set
             {
-                this._remove_IsEnabled = value;
+                this._delete_IsEnabled = value;
                 this.RaisePropertyChanged();
             }
         }
 
-        private RelayCommand _remove;
+        private RelayCommand _delete_Command;
 
         /// <summary>
-        /// 削除ボタン
+        /// 削除 - Command
         /// </summary>
-        public RelayCommand Remove_Command
+        public RelayCommand Delete_Command
         {
             get
             {
-                if (this._remove == null)
+                if (this._delete_Command == null)
                 {
-                    this._remove = new RelayCommand(this.Model.Remove);
+                    this._delete_Command = new RelayCommand(this.Model.Delete);
                 }
-                return this._remove;
+                return this._delete_Command;
             }
         }
 

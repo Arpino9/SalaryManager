@@ -9,11 +9,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="300"
              Background="{x:Static SystemColors.ControlLightBrush}">
-    <UserControl.Resources>
-        <Style x:Key="Value_Style" TargetType="{x:Type TextBox}">
-            <Setter Property="Margin" Value="3" />
-        </Style>
-    </UserControl.Resources>
     <UserControl.DataContext>
         <ViewModels:ViewModel_AnnualChart/>
     </UserControl.DataContext>

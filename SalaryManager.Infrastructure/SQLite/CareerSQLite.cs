@@ -4,7 +4,6 @@ using SalaryManager.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using static System.Data.Entity.Infrastructure.Design.Executor;
 
 namespace SalaryManager.Infrastructure.SQLite
 {

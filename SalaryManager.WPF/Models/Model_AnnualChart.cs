@@ -42,6 +42,9 @@ namespace SalaryManager.WPF.Models
         /// Initialize
         /// </summary>
         /// <param name="fetchingYear">取得する年</param>
+        /// <remarks>
+        /// 画面起動時に、項目を初期化する。
+        /// </remarks>
         internal void Initialize(int fetchingYear)
         {
             // 対象日付
@@ -158,6 +161,9 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 再計算
         /// </summary>
+        /// <remarks>
+        /// 給与明細の保存後に再計算する。
+        /// </remarks>
         internal void Recalculate()
         {
             // 支給額計
@@ -206,6 +212,9 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// Clear
         /// </summary>
+        /// <remarks>
+        /// 各項目を初期化する。
+        /// </remarks>
         private void Clear()
         {
             // 支給額計

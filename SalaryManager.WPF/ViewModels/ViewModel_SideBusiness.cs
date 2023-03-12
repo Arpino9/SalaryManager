@@ -83,7 +83,7 @@ namespace SalaryManager.WPF.ViewModels
         private double _sideBusiness_Value;
 
         /// <summary>
-        /// 副業
+        /// 副業 - Value
         /// </summary>
         public double SideBusiness_Value
         {
@@ -107,7 +107,7 @@ namespace SalaryManager.WPF.ViewModels
         private double _perquisite_Value;
 
         /// <summary>
-        /// 臨時収入
+        /// 臨時収入 - Value
         /// </summary>
         public double Perquisite_Value
         {
@@ -131,7 +131,7 @@ namespace SalaryManager.WPF.ViewModels
         private double _others_Value;
 
         /// <summary>
-        /// その他
+        /// その他 - Value
         /// </summary>
         public double Others_Value
         {
@@ -155,7 +155,7 @@ namespace SalaryManager.WPF.ViewModels
         private string _remarks_Text;
 
         /// <summary>
-        /// 備考
+        /// 備考 - Text
         /// </summary>
         public string Remarks_Text
         {

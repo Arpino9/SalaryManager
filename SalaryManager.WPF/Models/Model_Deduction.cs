@@ -43,6 +43,9 @@ namespace SalaryManager.WPF.Models
         /// 初期化
         /// </summary>
         /// <param name="entityDate">取得する日付</param>
+        /// <remarks>
+        /// 画面起動時に、項目を初期化する。
+        /// </remarks>
         public void Initialize(DateTime entityDate)
         {
             Deductions.Create(new DeductionSQLite());
@@ -62,6 +65,9 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 再描画
         /// </summary>
+        /// <remarks>
+        /// 該当月に控除額が存在すれば、各項目を再描画する。
+        /// </remarks>
         public void Refresh()
         {
             var entity = this.ViewModel.Entity;
@@ -97,6 +103,9 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// リロード
         /// </summary>
+        /// <remarks>
+        /// 年月の変更時などに、該当月の項目を取得する。
+        /// </remarks>
         public void Reload()
         {
             using (var cursor = new CursorWaiting())
@@ -113,6 +122,9 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// クリア
         /// </summary>
+        /// <remarks>
+        /// 各項目を初期化する。
+        /// </remarks>
         public void Clear()
         {
             // 健康保険
@@ -141,6 +153,9 @@ namespace SalaryManager.WPF.Models
         /// 保存
         /// </summary>
         /// <param name="transaction">トランザクション</param>
+        /// <remarks>
+        /// SQLiteに接続し、入力項目を保存する。
+        /// </remarks>
         public void Save(SQLiteTransaction transaction)
         {
             var entity = new DeductionEntity(
@@ -164,6 +179,9 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 再計算
         /// </summary>
+        /// <remarks>
+        /// 該当項目の変更時に、支給総計と差引支給額を再計算する。
+        /// </remarks>
         internal void ReCaluculate()
         {
             if (this.ViewModel is null)
