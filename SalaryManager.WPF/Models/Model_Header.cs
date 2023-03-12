@@ -75,7 +75,8 @@ namespace SalaryManager.WPF.Models
                                           && x.YearMonth.Month == month)
                                  .FirstOrDefault();
 
-            if (this.Entity is null)
+            if (this.Entity is null && 
+                records.Any())
             {
                 this.ViewModel.ID = records.Max(x => x.ID) + 1;
             }
