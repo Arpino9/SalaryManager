@@ -107,11 +107,16 @@
     <Compile Include="Models\Model_Header.cs" />
     <Compile Include="Models\Model_AnnualChart.cs" />
     <Compile Include="Models\Model_MainWindow.cs" />
+    <Compile Include="Models\Model_Option.cs" />
     <Compile Include="Models\Model_SideBusiness.cs" />
     <Compile Include="Models\Model_WorkingReference.cs" />
     <Compile Include="UserControls\AnnualChart.xaml.cs">
       <DependentUpon>AnnualChart.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Option_General.xaml.cs">
+      <DependentUpon>Option_General.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ViewModel_GeneralOption.cs" />
     <Compile Include="Window\Career.xaml.cs">
       <DependentUpon>Career.xaml</DependentUpon>
     </Compile>
@@ -142,7 +147,14 @@
     <Compile Include="ViewModels\ViewModel_SideBusiness.cs" />
     <Compile Include="ViewModels\ViewModel_WorkingReference.cs" />
     <Compile Include="ViewModels\ViewModel_WorkPlace.cs" />
+    <Compile Include="Window\Option.xaml.cs">
+      <DependentUpon>Option.xaml</DependentUpon>
+    </Compile>
     <Page Include="UserControls\AnnualChart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Option_General.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -183,6 +195,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\WorkPlace.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\Option.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

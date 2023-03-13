@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SalaryManager.WPF.UserControls"
         xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" x:Class="SalaryManager.WPF.MainWindow"
+        xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" 
+        x:Class="SalaryManager.WPF.MainWindow"
         mc:Ignorable="d"
         Title="{Binding Title, Mode=OneWay}" Height="550" Width="700"
         Background="{x:Static SystemColors.ControlLightBrush}"
@@ -41,7 +42,7 @@
                     </ToolTipService.ToolTip>
                 </MenuItem>
 
-                <MenuItem Header="オプション">
+                <MenuItem Header="オプション" Command="{Binding ShowOption_Command}">
                     <ToolTipService.ToolTip>
                         <ToolTip Content="アプリケーション設定画面を開きます。"/>
                     </ToolTipService.ToolTip>

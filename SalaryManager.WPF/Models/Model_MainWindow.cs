@@ -269,8 +269,7 @@ namespace SalaryManager.WPF.Models
                 );
             }
 
-            var selector = new DirectorySelector();
-            var directory = selector.Select("Excel出力先のフォルダを選択してください。");
+            var directory = DirectorySelector.Select("Excel出力先のフォルダを選択してください。");
 
             workbook.CopyAsWorkbook(directory);
         }
@@ -285,6 +284,19 @@ namespace SalaryManager.WPF.Models
         internal void ShowCareerManager()
         {
             var career = new Career();
+            career.Show();
+        }
+
+        #endregion
+
+        #region オプション
+
+        /// <summary>
+        /// オプション画面を開く
+        /// </summary>
+        internal void ShowOption()
+        {
+            var career = new Option();
             career.Show();
         }
 

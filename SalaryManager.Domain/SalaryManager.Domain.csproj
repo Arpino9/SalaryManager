@@ -85,6 +85,7 @@
     <Compile Include="Modules\Logics\CursorWaiting.cs" />
     <Compile Include="Modules\Logics\DialogMessage.cs" />
     <Compile Include="Modules\Logics\Excel.cs" />
+    <Compile Include="Modules\Logics\FilePath.cs" />
     <Compile Include="Repositories\IAnnualChartRepository.cs" />
     <Compile Include="Repositories\ICareerRepository.cs" />
     <Compile Include="Repositories\IHeaderRepository.cs" />

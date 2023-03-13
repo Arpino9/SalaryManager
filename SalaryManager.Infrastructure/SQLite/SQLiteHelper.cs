@@ -1,19 +1,38 @@
-﻿using SalaryManager.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Reflection;
+using SalaryManager.Domain.Modules.Logics;
 
 namespace SalaryManager.Infrastructure.SQLite
 {
     public class SQLiteHelper
     {
+        /// <summary> SQLiteのバージョン </summary>
+        private static readonly int Version = 3;
+
+        /// <summary>
+        /// SQLiteの接続文字列を取得する
+        /// </summary>
+        /// <returns>接続文字列</returns>
+        private static string GetConnectionString()
+        {
+            var projectName = Assembly.GetExecutingAssembly().GetName().Name;
+            var sqlitePath  = $"{FilePath.GetSolutionPath()}\\{projectName}\\{FilePath.GetSolutionName()}.db";
+
+            return $"Data Source={sqlitePath};Version={SQLiteHelper.Version};";
+        }
+
         internal static IReadOnlyList<T> Query<T>(
             string sql,
             Func<SQLiteDataReader, T> createEntity)
         {
             var result = new List<T>();
 
-            using (var connection = new SQLiteConnection(Shared.ConnectionString))
+            var projectName = Assembly.GetExecutingAssembly().GetName().Name;
+            var sqlitePath = $"{FilePath.GetSolutionPath()}\\{projectName}\\{FilePath.GetSolutionName()}.db";
+            
+            using (var connection = new SQLiteConnection(SQLiteHelper.GetConnectionString()))
             {
                 using (var command = new SQLiteCommand(sql, connection))
                 {
@@ -48,7 +67,7 @@ namespace SalaryManager.Infrastructure.SQLite
         {
             var result = new List<T>();
 
-            using (var connection = new SQLiteConnection(Shared.ConnectionString))
+            using (var connection = new SQLiteConnection(SQLiteHelper.GetConnectionString()))
             using (var command = new SQLiteCommand(sql, connection))
             {
                 connection.Open();
@@ -76,7 +95,7 @@ namespace SalaryManager.Infrastructure.SQLite
         {
             var result = new List<T>();
 
-            using (var connection = new SQLiteConnection(Shared.ConnectionString))
+            using (var connection = new SQLiteConnection(SQLiteHelper.GetConnectionString()))
             using (var command = new SQLiteCommand(sql, connection))
             {
                 connection.Open();
@@ -103,7 +122,7 @@ namespace SalaryManager.Infrastructure.SQLite
         SQLiteParameter[] parameters
         )
         {
-            using (var connection = new SQLiteConnection(Shared.ConnectionString))
+            using (var connection = new SQLiteConnection(SQLiteHelper.GetConnectionString()))
             using (var command = new SQLiteCommand(sql, connection))
             {
                 connection.Open();
@@ -121,7 +140,7 @@ namespace SalaryManager.Infrastructure.SQLite
             string update,
             SQLiteParameter[] parameters)
         {
-            using (var connection = new SQLiteConnection(Shared.ConnectionString))
+            using (var connection = new SQLiteConnection(SQLiteHelper.GetConnectionString()))
             using (var command = new SQLiteCommand(update, connection))
             {
                 connection.Open();

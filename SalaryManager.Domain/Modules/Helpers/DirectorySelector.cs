@@ -18,7 +18,7 @@ namespace SalaryManager.Domain.Modules.Helpers
         /// <remarks>
         /// 何も指定されなかった場合は空欄を返す。
         /// </remarks>
-        public string Select(string description)
+        public static string Select(string description)
         {
             using (var dialog = new FolderBrowserDialog())
             {
