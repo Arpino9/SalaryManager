@@ -30,19 +30,12 @@ namespace SalaryManager.WPF.ViewModels
         /// <exception cref="Exception">読込失敗時</exception>
         public ViewModel_WorkingReference()
         {
-            try
-            {
-                this.MainWindow.WorkingReference = this.Model;
+            this.MainWindow.WorkingReference = this.Model;
+            this.Model.ViewModel = this;
 
-                this.Model.ViewModel = this;
-                this.Model.Initialize(DateTime.Today);
+            this.Model.Initialize(DateTime.Today);
 
-                this.BindEvent();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("勤務備考テーブルの読込に失敗しました。", ex);
-            }
+            this.BindEvent();
         }
 
         /// <summary>

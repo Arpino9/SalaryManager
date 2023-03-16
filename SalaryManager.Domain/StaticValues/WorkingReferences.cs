@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
+using Microsoft.Data.Sqlite;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Repositories;
 
@@ -27,9 +29,17 @@ namespace SalaryManager.Domain.StaticValues
             lock (((ICollection)_entities).SyncRoot)
             {
                 _entities.Clear();
-                _entities.AddRange(repository.GetEntities());
 
-                _default = repository.GetDefault();
+                try
+                {
+                    _entities.AddRange(repository.GetEntities());
+
+                    _default = repository.GetDefault();
+                }
+                catch(SqliteException ex)
+                {
+                    MessageBox.Show("勤務備考テーブルの読込に失敗しました", ex.ToString());
+                }
             }
         }
 
