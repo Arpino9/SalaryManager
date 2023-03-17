@@ -27,19 +27,12 @@ namespace SalaryManager.WPF.ViewModels
         /// <exception cref="Exception">読込失敗時</exception>
         public ViewModel_SideBusiness()
         {
-            try
-            {
-                this.MainWindow.SideBusiness = this.Model;
+            this.MainWindow.SideBusiness = this.Model;
 
-                this.Model.ViewModel = this;
-                this.Model.Initialize(DateTime.Today);
+            this.Model.ViewModel = this;
+            this.Model.Initialize(DateTime.Today);
 
-                this.BindEvent();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("副業テーブルの読込に失敗しました。", ex);
-            }
+            this.BindEvent();
         }
 
         /// <summary>

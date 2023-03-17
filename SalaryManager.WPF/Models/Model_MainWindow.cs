@@ -11,6 +11,7 @@ using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.ViewModels;
 using SalaryManager.WPF.Window;
 using WorkingReferences = SalaryManager.Domain.StaticValues.WorkingReferences;
+using SalaryManager.Domain.Exceptions;
 
 namespace SalaryManager.WPF.Models
 {
@@ -165,6 +166,11 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
+            if (this.WorkingReference.EditValidationCheck() == false)
+            {
+                return;
+            }
+
             using (var transaction = new SQLiteTransaction())
             {
                 // ヘッダー
@@ -259,14 +265,21 @@ namespace SalaryManager.WPF.Models
                 SideBusinesses.Create(new SideBusinessSQLite());
 
                 // Write Records
-                await System.Threading.Tasks.Task.WhenAll(
-                    workbook.WriteAllHeader(Headers.FetchByDescending()),
-                    workbook.WriteAllAllowance(Allowances.FetchByDescending()),
-                    workbook.WriteAllDeduction(Deductions.FetchByDescending()),
-                    workbook.WriteAllWorkingReferences(WorkingReferences.FetchByDescending()),
-                    workbook.WriteAllSideBusiness(SideBusinesses.FetchByDescending()),
-                    workbook.SetStyle()
-                );
+                try
+                {
+                    await System.Threading.Tasks.Task.WhenAll(
+                        workbook.WriteAllHeader(Headers.FetchByDescending()),
+                        workbook.WriteAllAllowance(Allowances.FetchByDescending()),
+                        workbook.WriteAllDeduction(Deductions.FetchByDescending()),
+                        workbook.WriteAllWorkingReferences(WorkingReferences.FetchByDescending()),
+                        workbook.WriteAllSideBusiness(SideBusinesses.FetchByDescending()),
+                        workbook.SetStyle()
+                    );
+                }
+                catch (Exception ex) 
+                {
+                    throw new FileWriterException("Excelへの書き込みに失敗しました。", ex);
+                }
             }
 
             var directory = DirectorySelector.Select("Excel出力先のフォルダを選択してください。");

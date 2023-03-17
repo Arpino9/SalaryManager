@@ -95,6 +95,9 @@
     <Compile Include="Entities\HeaderEntity.cs" />
     <Compile Include="Exceptions\DatabaseException.cs" />
     <Compile Include="Exceptions\ExceptionBase.cs" />
+    <Compile Include="Exceptions\FileReaderException.cs" />
+    <Compile Include="Exceptions\FileWriterException.cs" />
+    <Compile Include="Exceptions\FormatException.cs" />
     <Compile Include="Modules\Helpers\ListUtil.cs" />
     <Compile Include="Modules\Helpers\DateHelpers.cs" />
     <Compile Include="Modules\Helpers\DirectorySelector.cs" />

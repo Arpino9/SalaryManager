@@ -31,21 +31,14 @@ namespace SalaryManager.WPF.ViewModels
         /// <exception cref="Exception">読込失敗時</exception>
         public ViewModel_Allowance()
         {
-            try
-            {
-                this.MainWindow.Allowance = this.Model;
+            this.MainWindow.Allowance = this.Model;
 
-                this.Model_Deduction.Allowance = this.Model;
+            this.Model_Deduction.Allowance = this.Model;
 
-                this.Model.ViewModel = this;
-                this.Model.Initialize(DateTime.Today);
+            this.Model.ViewModel = this;
+            this.Model.Initialize(DateTime.Today);
 
-                this.BindEvent();
-            }
-            catch(Exception ex)
-            {
-                throw new Exception("支給額テーブルの読込に失敗しました。", ex);
-            } 
+            this.BindEvent();
         }
 
         /// <summary>

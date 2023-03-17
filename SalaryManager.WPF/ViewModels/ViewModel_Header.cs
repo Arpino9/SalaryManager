@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
@@ -26,6 +27,8 @@ namespace SalaryManager.WPF.ViewModels
 
         public ViewModel_Header()
         {
+            var a = MethodBase.GetCurrentMethod().Name;
+
             this.MainWindow.Header = this.Model;
 
             this.Model.ViewModel         = this;

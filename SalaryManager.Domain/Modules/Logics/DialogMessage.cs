@@ -7,6 +7,10 @@ namespace SalaryManager.Domain.Modules.Logics
     /// </summary>
     public sealed class DialogMessage
     {
+        private static readonly log4net.ILog _logger =
+          log4net.LogManager.GetLogger(
+              System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// 通常のメッセージを表示する (OKのみ)
         /// </summary>
@@ -15,6 +19,7 @@ namespace SalaryManager.Domain.Modules.Logics
         public static void ShowResultMessage(string message, string title)
         {
             MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            _logger.Info(message);
         }
 
         /// <summary>
@@ -25,6 +30,7 @@ namespace SalaryManager.Domain.Modules.Logics
         public static void ShowErrorMessage(string message, string title)
         {
             MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            _logger.Warn(message);
         }
 
         /// <summary>
@@ -36,6 +42,7 @@ namespace SalaryManager.Domain.Modules.Logics
         public static bool ShowConfirmingMessage(string message, string title)
         {
             var result = MessageBox.Show(message, title, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            _logger.Info(message);
             return (result == DialogResult.Yes);
         }
     }

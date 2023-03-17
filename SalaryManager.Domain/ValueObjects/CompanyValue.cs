@@ -27,10 +27,8 @@
         {
             get
             {
-                return (this.Text.StartsWith("株式会社") || 
-                        this.Text.StartsWith("(株)") || 
-                        this.Text.EndsWith("株式会社") ||
-                        this.Text.EndsWith("(株)"));
+                return (this.Text.Contains("株式会社") || 
+                        this.Text.Contains("(株)"));
             }
         }
 
@@ -41,10 +39,8 @@
         {
             get
             {
-                return (this.Text.StartsWith("有限会社") ||
-                        this.Text.StartsWith("(有)") ||
-                        this.Text.EndsWith("有限会社") ||
-                        this.Text.EndsWith("(有)"));
+                return (this.Text.Contains("有限会社") ||
+                        this.Text.Contains("(有)"));
             }
         }
 
@@ -61,7 +57,7 @@
 
         protected override bool EqualsCore(CompanyValue other)
         {
-            return this.Text == other.Text;
+            return (this.Text == other.Text);
         }
     }
 }

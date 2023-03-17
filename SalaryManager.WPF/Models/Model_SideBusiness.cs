@@ -119,7 +119,7 @@ namespace SalaryManager.WPF.Models
             // その他
             this.ViewModel.Others_Value       = entity.Others;
             // 備考
-            this.ViewModel.Remarks_Text      = entity.Remarks;
+            this.ViewModel.Remarks_Text       = entity.Remarks;
         }
 
         /// <summary>

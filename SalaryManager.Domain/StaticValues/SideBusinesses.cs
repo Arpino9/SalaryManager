@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using SalaryManager.Domain.Entities;
+using SalaryManager.Domain.Exceptions;
 using SalaryManager.Domain.Repositories;
 
 namespace SalaryManager.Domain.StaticValues
@@ -27,9 +29,17 @@ namespace SalaryManager.Domain.StaticValues
             lock (((ICollection)_entities).SyncRoot)
             {
                 _entities.Clear();
-                _entities.AddRange(repository.GetEntities());
 
-                _default = repository.GetDefault();
+                try
+                {
+                    _entities.AddRange(repository.GetEntities());
+
+                    _default = repository.GetDefault();
+                } 
+                catch(SqlException ex) 
+                {
+                    throw new DatabaseException("副業テーブルの読込に失敗しました。", ex);
+                }
             }
         }
 

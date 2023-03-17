@@ -172,6 +172,26 @@ namespace SalaryManager.WPF.Models
         }
 
         /// <summary>
+        /// エディットバリデーションチェック
+        /// </summary>
+        /// <returns>判定可否</returns>
+        public bool EditValidationCheck()
+        {
+            var paidVacation = this.ViewModel.Entity.PaidVacation;
+
+            if (paidVacation.Value < PaidVacationDaysValue.Minimum ||
+                paidVacation.Value > PaidVacationDaysValue.Maximum)
+            {
+                DialogMessage.ShowErrorMessage(
+                    $"有給休暇は{PaidVacationDaysValue.Minimum}から{PaidVacationDaysValue.Maximum}までの日数で入力して下さい。",
+                    "入力エラー");
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// 保存
         /// </summary>
         /// <param name="transaction">トランザクション</param>

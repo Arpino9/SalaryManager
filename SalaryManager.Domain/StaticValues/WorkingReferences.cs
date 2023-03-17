@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using Microsoft.Data.Sqlite;
 using SalaryManager.Domain.Entities;
+using SalaryManager.Domain.Exceptions;
 using SalaryManager.Domain.Repositories;
 
 namespace SalaryManager.Domain.StaticValues
@@ -38,7 +38,7 @@ namespace SalaryManager.Domain.StaticValues
                 }
                 catch(SqliteException ex)
                 {
-                    MessageBox.Show("勤務備考テーブルの読込に失敗しました", ex.ToString());
+                    throw new DatabaseException("勤務備考テーブルの読込に失敗しました", ex);
                 }
             }
         }

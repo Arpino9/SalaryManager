@@ -19,17 +19,18 @@ namespace SalaryManager.Domain.Exceptions
         /// コンストラクタ
         /// </summary>
         /// <param name="message">メッセージ</param>
+        /// <param name="title">タイトル</param>
         /// <remarks>
         /// 通常の例外
         /// </remarks>
-        public ExceptionBase(string message) : 
+        public ExceptionBase(string message, string title) : 
             base(message)
         {
 
 #if DEBUG
 
-            MessageBox.Show(message, "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
-             _logger.Error(message);
+            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+
 #endif
 
         }
@@ -38,27 +39,21 @@ namespace SalaryManager.Domain.Exceptions
         /// コンストラクタ
         /// </summary>
         /// <param name="message">メッセージ</param>
-        /// <param name="kind">ログ区分</param>
+        /// <param name="logType">ログ区分</param>
         /// <remarks>
-        /// ログ書き出しバージョン
+        /// ログ書き出しバージョン(簡略版)
         /// </remarks>
-        public ExceptionBase(string message,  WriteLogKind kind)
+        public ExceptionBase(string message, LogType logType)
         {
 
 #if DEBUG
 
-            switch (kind)
+            switch (logType)
             {
-                case WriteLogKind.Warn:
-                    MessageBox.Show(message, "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    _logger.Warn(message); break;
-
-                case WriteLogKind.Error:
-                    MessageBox.Show(message, "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
+                case LogType.Error:
                     _logger.Error(message); break;
 
-                case WriteLogKind.Fatal:
-                    MessageBox.Show(message, "ヤバいエラー", MessageBoxButton.OK, MessageBoxImage.Error);
+                case LogType.Fatal:
                     _logger.Fatal(message); break;
             }
 
@@ -70,19 +65,26 @@ namespace SalaryManager.Domain.Exceptions
         /// コンストラクタ
         /// </summary>
         /// <param name="message">メッセージ</param>
-        /// <param name="exception">元になった例外</param>
+        /// <param name="title">タイトル</param>
+        /// <param name="logType">ログ区分</param>
         /// <remarks>
-        /// 内部例外ありバージョン
+        /// メッセージ＆ログ書き出しバージョン(簡略版)
         /// </remarks>
-        public ExceptionBase(string message, Exception exception)
-            : base(message, exception)
+        public ExceptionBase(string message, string title, LogType logType)
         {
 
 #if DEBUG
 
-            MessageBox.Show(exception.ToString(), message, MessageBoxButton.OK);
-            
-            _logger.Error(message.ToString());
+            switch (logType)
+            {
+                case LogType.Error:
+                    MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                    _logger.Error(message); break;
+
+                case LogType.Fatal:
+                    MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                    _logger.Fatal(message); break;
+            }
 
 #endif
 
@@ -91,30 +93,26 @@ namespace SalaryManager.Domain.Exceptions
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        /// <param name="message">メッセージ</param>
-        /// <param name="exception">元になった例外</param>
+        /// <param name="title">タイトル</param>
+        /// <param name="ex">元になった例外</param>
         /// <remarks>
         /// 内部例外あり＆ログ書き出しバージョン
         /// </remarks>
-        public ExceptionBase(string message, Exception exception, WriteLogKind kind)
-            : base(message, exception)
+        public ExceptionBase(string title, Exception ex, LogType logType)
+            : base(title, ex)
         {
 
 #if DEBUG
 
-            switch (kind)
+            switch (logType)
             {
-                case WriteLogKind.Warn:
-                    MessageBox.Show(exception.ToString(), message, MessageBoxButton.OK, MessageBoxImage.Warning);
-                    _logger.Warn(message, exception); break;
+                case LogType.Error:
+                    MessageBox.Show(ex.ToString(), title, MessageBoxButton.OK, MessageBoxImage.Error);
+                    _logger.Error(title, ex); break;
 
-                case WriteLogKind.Error:
-                    MessageBox.Show(exception.ToString(), message, MessageBoxButton.OK, MessageBoxImage.Error);
-                    _logger.Error(message, exception); break;
-
-                case WriteLogKind.Fatal:
-                    MessageBox.Show(exception.ToString(), message, MessageBoxButton.OK, MessageBoxImage.Error);
-                    _logger.Fatal(message, exception); break;
+                case LogType.Fatal:
+                    MessageBox.Show(ex.ToString(), title, MessageBoxButton.OK, MessageBoxImage.Error);
+                    _logger.Fatal(title, ex); break;
             }
 
 #endif
@@ -124,14 +122,12 @@ namespace SalaryManager.Domain.Exceptions
         /// <summary>
         /// ログ区分
         /// </summary>
-        public enum WriteLogKind
+        public enum LogType
         {
-            /// <summary> 警告 </summary>
-            /// <remarks> 入力エラーなど </remarks>
-            Warn,
             /// <summary> エラー </summary>
             /// <remarks> SQL接続エラーなど </remarks>
             Error,
+
             /// <summary> ヤバいエラー </summary>
             /// <remarks> システムの信頼性を脅かすエラー </remarks>
             Fatal

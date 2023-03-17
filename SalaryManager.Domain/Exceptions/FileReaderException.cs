@@ -4,17 +4,17 @@ using System.Reflection;
 namespace SalaryManager.Domain.Exceptions
 {
     /// <summary>
-    /// ユーザ定義例外 - データベース接続
+    /// ユーザ定義例外 - ファイル読み込み
     /// </summary>
-    public sealed class DatabaseException : ExceptionBase
+    public sealed class FileReaderException : ExceptionBase
     {
-        public DatabaseException(string message) :
+        public FileReaderException(string message) :
             base(message, MethodBase.GetCurrentMethod().DeclaringType.Name, LogType.Error)
         {
 
         }
 
-        public DatabaseException(string message, Exception ex, LogType logType = LogType.Error) :
+        public FileReaderException(string message, Exception ex, LogType logType = LogType.Error) :
            base(message, ex, logType)
         {
 

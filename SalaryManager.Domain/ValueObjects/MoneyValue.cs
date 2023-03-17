@@ -19,7 +19,7 @@ namespace SalaryManager.Domain.ValueObjects
         {
             if (money < 0)
             {
-                throw new ArgumentOutOfRangeException("金額の値が不正です。");
+                throw new Exceptions.FormatException("金額の値が不正です。");
             }
 
             this.Value = money;
@@ -30,20 +30,11 @@ namespace SalaryManager.Domain.ValueObjects
         /// </summary>
         public readonly double Value;
 
-        /// <summary>
-        /// To String
-        /// </summary>
-        /// <returns>金額</returns>
         public override string ToString()
         {
             return (this.Value.ToString("C"));
         }
 
-        /// <summary>
-        /// Equals Core
-        /// </summary>
-        /// <param name="other">金額</param>
-        /// <returns>金額</returns>
         protected override bool EqualsCore(MoneyValue other)
         {
             return (this.Value == other.Value);

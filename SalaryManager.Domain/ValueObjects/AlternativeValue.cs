@@ -47,7 +47,7 @@
 
         protected override bool EqualsCore(AlternativeValue other)
         {
-            return this.Value == other.Value;
+            return (this.Value == other.Value);
         }
     }
 }
