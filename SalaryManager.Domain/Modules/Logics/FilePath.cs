@@ -53,7 +53,7 @@ namespace SalaryManager.Domain.Modules.Logics
         }
 
         /// <summary>
-        /// SQLiteの初期パスを返す
+        /// SQLiteの初期パスを取得する
         /// </summary>
         /// <returns>SQLiteの初期パス</returns>
         public static string GetSQLiteDefaultPath()

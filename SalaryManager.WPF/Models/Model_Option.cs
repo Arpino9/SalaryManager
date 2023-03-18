@@ -1,9 +1,12 @@
-﻿using SalaryManager.Domain;
-using SalaryManager.Domain.Modules.Helpers;
+﻿using System.Windows.Forms;
+using SalaryManager.Domain;
 using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Domain.StaticValues;
 using SalaryManager.WPF.ViewModels;
-using System.Windows.Forms;
+using System.Drawing.Text;
+using System.Linq;
+using SalaryManager.Domain.Modules.Helpers;
+using System.Windows;
 
 namespace SalaryManager.WPF.Models
 {
@@ -38,9 +41,16 @@ namespace SalaryManager.WPF.Models
         internal void Initialize()
         {
             Options_General.Create();
-
+            
+            // Excelテンプレート
             this.ViewModel.SelectExcelTempletePath_Text = Options_General.FetchExcelTemplatePath();
+            // SQLite
             this.ViewModel.SelectSQLite_Text            = Options_General.FetchSQLitePath();
+
+            // フォントファミリ
+            var fonts =  new InstalledFontCollection();
+            this.ViewModel.FontFamily_ItemSource = ListUtil.ToObservableCollection<string>(fonts.Families.Select(x => x.Name).ToList());
+            this.ViewModel.FontFamily_Text       = Options_General.FetchFontFamily();
         }
 
         #endregion
@@ -61,19 +71,16 @@ namespace SalaryManager.WPF.Models
         {
             var dialog = new OpenFileDialog();
             dialog.Filter = "SQLiteファイル(*.db)|*.db|全てのファイル(*.*)|*.*";
+            dialog.Title  = "SQLiteデータベースを指定してください";
 
             var result = dialog.ShowDialog();
 
-            if (dialog.SafeFileName != $"{FilePath.GetSolutionName()}.db")
+            if (result == DialogResult.Cancel)
             {
-                DialogMessage.ShowErrorMessage("ファイル名が不正です。", "SQLiteファイル選択");
                 return;
             }
 
-            if (result == DialogResult.OK)
-            {
-                this.ViewModel.SelectSQLite_Text = dialog.FileName;
-            }
+            this.ViewModel.SelectSQLite_Text = dialog.FileName;
         }
 
         /// <summary>
@@ -93,8 +100,18 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void SelectExcelTemplatePath()
         {
-            var path = DirectorySelector.Select("Excelのテンプレートが格納されているフォルダを指定してください。");
-            this.ViewModel.SelectExcelTempletePath_Text = path;
+            var dialog = new OpenFileDialog();
+            dialog.Filter = "Excelファイル(*.xlsx)|*.xlsx|全てのファイル(*.*)|*.*";
+            dialog.Title  = "Excelのテンプレートを指定してください";
+
+            var result = dialog.ShowDialog();
+
+            if (result == DialogResult.Cancel)
+            {
+                return;
+            }
+
+            this.ViewModel.SelectExcelTempletePath_Text = dialog.FileName;
         }
 
         /// <summary>
@@ -103,6 +120,27 @@ namespace SalaryManager.WPF.Models
         internal void SetDefault_SelectExcelTemplatePath()
         {
             this.ViewModel.SelectExcelTempletePath_Text = Shared.PathOutputPayslip;
+        }
+
+        #endregion
+
+        #region フォントファミリ
+
+        /// <summary>
+        /// フォントファミリ - SelectionChanged
+        /// </summary>
+        internal void FontFamily_SelectionChanged()
+        {
+            this.ViewModel.FontFamily_FontFamily = new System.Windows.Media.FontFamily(this.ViewModel.FontFamily_Text);
+        }
+
+        /// <summary>
+        /// フォントファミリ - 初期値に戻す
+        /// </summary>
+        internal void SetDefault_FontFamily()
+        {
+            this.ViewModel.FontFamily_Text       = "Yu Gothic UI";
+            this.ViewModel.FontFamily_FontFamily = new System.Windows.Media.FontFamily(this.ViewModel.FontFamily_Text);
         }
 
         #endregion
@@ -120,6 +158,7 @@ namespace SalaryManager.WPF.Models
             {
                 setting.SQLitePath        = this.ViewModel.SelectSQLite_Text;
                 setting.ExcelTemplatePath = this.ViewModel.SelectExcelTempletePath_Text;
+                setting.FontFamily        = this.ViewModel.FontFamily_Text;
 
                 writer.Serialize(setting);
             }

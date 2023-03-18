@@ -11,7 +11,7 @@ namespace SalaryManager.Domain.Modules.Logics
         /// <summary> シリアライザー </summary>
         private XmlSerializer _xmlSerializer;
 
-        /// <summary> ライター </summary>
+        /// <summary> リーダー </summary>
         private StreamReader _reader;
 
         public XMLReader(string filePath, Type type)
@@ -26,7 +26,7 @@ namespace SalaryManager.Domain.Modules.Logics
             }
             catch (Exception ex)
             {
-                throw new FileWriterException("XMLファイルの作成に失敗しました。", ex);
+                throw new FileWriterException("XMLファイルの取得に失敗しました。", ex);
             }
         }
 
@@ -42,7 +42,7 @@ namespace SalaryManager.Domain.Modules.Logics
             }
             catch (Exception ex)
             {
-                throw new FileReaderException("XMLファイルの書き込みに失敗しました。", ex);
+                throw new FileReaderException("XMLファイルの読み込みに失敗しました。", ex);
             }
         }
 

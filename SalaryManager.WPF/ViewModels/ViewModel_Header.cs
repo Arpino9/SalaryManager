@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;

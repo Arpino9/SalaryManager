@@ -31,6 +31,15 @@ namespace SalaryManager.Domain.StaticValues
         {
             return _settings?.ExcelTemplatePath ?? Shared.PathOutputPayslip;
         }
+
+        /// <summary>
+        /// フォントファミリを取得
+        /// </summary>
+        /// <returns>フォントファミリ</returns>
+        public static string FetchFontFamily()
+        {
+            return _settings?.FontFamily ?? "Yu Gothic UI";
+        }
     }
 
     /// <summary>
@@ -43,5 +52,8 @@ namespace SalaryManager.Domain.StaticValues
 
         /// <summary> SQLiteのパス </summary>
         public string SQLitePath;
+
+        /// <summary> フォントファミリ </summary>
+        public string FontFamily;
     }
 }

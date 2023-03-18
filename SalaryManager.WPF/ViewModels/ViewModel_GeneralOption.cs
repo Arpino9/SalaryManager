@@ -1,6 +1,7 @@
 ﻿using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -26,10 +27,32 @@ namespace SalaryManager.WPF.ViewModels
         {
             this.Model.ViewModel = this;
             this.Model.Initialize();
+
+            _fontFamily_Action += this.Model.FontFamily_SelectionChanged;
+            this.FontFamily_SelectionChanged = new RelayCommand(_fontFamily_Action);
         }
 
         /// <summary> Model - 支給額 </summary>
         public Model_Option Model = Model_Option.GetInstance();
+
+        #region 共通
+
+        private System.Windows.Media.FontFamily _fontFamily_FontFamily;
+
+        /// <summary>
+        /// フォントファミリ - FontFamily
+        /// </summary>
+        public System.Windows.Media.FontFamily FontFamily_FontFamily
+        {
+            get => this._fontFamily_FontFamily;
+            set
+            {
+                this._fontFamily_FontFamily = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        #endregion
 
         #region SQLite
 
@@ -144,6 +167,67 @@ namespace SalaryManager.WPF.ViewModels
                     this._setDefault_SelectExcelTemplatePath_Command = new RelayCommand(this.Model.SetDefault_SelectExcelTemplatePath);
                 }
                 return this._setDefault_SelectExcelTemplatePath_Command;
+            }
+        }
+        
+        #endregion
+
+        #region フォントファミリ
+
+        public Action _fontFamily_Action;
+
+        /// <summary>
+        /// FontFamily - SelectionChanged
+        /// </summary>
+        public RelayCommand FontFamily_SelectionChanged { get; private set; }
+
+        private ObservableCollection<string> _fontFamily_ItemSource;
+
+        /// <summary>
+        /// フォントファミリ - ItemSource
+        /// </summary>
+        public ObservableCollection<string> FontFamily_ItemSource
+        {
+            get => this._fontFamily_ItemSource;
+            set
+            {
+                this._fontFamily_ItemSource = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _fontFamily_Text;
+
+        /// <summary>
+        /// フォントファミリ - Text
+        /// </summary>
+        public string FontFamily_Text
+        {
+            get => this._fontFamily_Text;
+            set
+            {
+                this._fontFamily_Text = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private RelayCommand _setDefault_FontFamily_Command;
+
+        /// <summary>
+        /// フォントファミリ - Command
+        /// </summary>
+        /// <remarks>
+        /// 初期値に戻す
+        /// </remarks>
+        public RelayCommand SetDefault_FontFamily_Command
+        {
+            get
+            {
+                if (this._setDefault_FontFamily_Command == null)
+                {
+                    this._setDefault_FontFamily_Command = new RelayCommand(this.Model.SetDefault_FontFamily);
+                }
+                return this._setDefault_FontFamily_Command;
             }
         }
 
