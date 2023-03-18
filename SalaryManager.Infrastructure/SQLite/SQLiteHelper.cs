@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Reflection;
-using SalaryManager.Domain.Modules.Logics;
+using SalaryManager.Domain.StaticValues;
 
 namespace SalaryManager.Infrastructure.SQLite
 {
@@ -14,10 +13,8 @@ namespace SalaryManager.Infrastructure.SQLite
         /// <returns>接続文字列</returns>
         internal static string GetConnectionString()
         {
-            var projectName = Assembly.GetExecutingAssembly().GetName().Name;
-            var sqlitePath  = $"{FilePath.GetSolutionPath()}\\{projectName}\\{FilePath.GetSolutionName()}.db";
-
-            return ($"Data Source={sqlitePath};Version=3;");
+            Options_General.Create();
+            return ($"Data Source={Options_General.FetchSQLitePath()};Version=3;");
         }
 
         /// <summary>

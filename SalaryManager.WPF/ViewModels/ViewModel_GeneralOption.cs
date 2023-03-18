@@ -31,14 +31,14 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary> Model - 支給額 </summary>
         public Model_Option Model = Model_Option.GetInstance();
 
-        #region SQLite選択
+        #region SQLite
 
         private string _selectSQLite_Text;
 
         /// <summary>
-        /// Excelテンプレートのパス - Value
+        /// SQLite - Text
         /// </summary>
-        public string ExcelTemplatePath_Text
+        public string SelectSQLite_Text
         {
             get => this._selectSQLite_Text;
             set
@@ -48,11 +48,73 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
+        private RelayCommand _selectSQLite_Command;
+
+        /// <summary>
+        /// SQLite - Command
+        /// </summary>
+        /// <remarks>
+        /// 開く
+        /// </remarks>
+        public RelayCommand SelectSQLite_Command
+        {
+            get
+            {
+                if (this._selectSQLite_Command == null)
+                {
+                    this._selectSQLite_Command = new RelayCommand(this.Model.SelectSQLitePath);
+                }
+                return this._selectSQLite_Command;
+            }
+        }
+
+        private RelayCommand _setDefault_selectSQLite_Command;
+
+        /// <summary>
+        /// SQLite - Command
+        /// </summary>
+        /// <remarks>
+        /// 初期値に戻す
+        /// </remarks>
+        public RelayCommand SetDefault_SelectSQLite_Command
+        {
+            get
+            {
+                if (this._setDefault_selectSQLite_Command == null)
+                {
+                    this._setDefault_selectSQLite_Command = new RelayCommand(this.Model.SetDefault_SelectSQLitePath);
+                }
+                return this._setDefault_selectSQLite_Command;
+            }
+        }
+
+        #endregion
+
+        #region Excelテンプレート
+
+        private string _selectExcelTempletePath_Text;
+
+        /// <summary>
+        /// Excelテンプレート - Text
+        /// </summary>
+        public string SelectExcelTempletePath_Text
+        {
+            get => this._selectExcelTempletePath_Text;
+            set
+            {
+                this._selectExcelTempletePath_Text = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private RelayCommand _selectExcelTempletePath_Command;
 
         /// <summary>
-        /// Excelテンプレートパスの指定 - Command
+        /// Excelテンプレート - Command
         /// </summary>
+        /// <remarks>
+        /// 開く
+        /// </remarks>
         public RelayCommand SelectExcelTemplatePath_Command
         {
             get
@@ -67,6 +129,12 @@ namespace SalaryManager.WPF.ViewModels
 
         private RelayCommand _setDefault_SelectExcelTemplatePath_Command;
 
+        /// <summary>
+        /// Excelテンプレート - Command
+        /// </summary>
+        /// <remarks>
+        /// 初期値に戻す
+        /// </remarks>
         public RelayCommand SetDefault_SelectExcelTemplatePath_Command
         {
             get
@@ -86,7 +154,7 @@ namespace SalaryManager.WPF.ViewModels
         private RelayCommand _save_Command;
 
         /// <summary>
-        /// Excelテンプレートパスの指定 - Command
+        /// 保存 - Command
         /// </summary>
         public RelayCommand Save_Command
         {

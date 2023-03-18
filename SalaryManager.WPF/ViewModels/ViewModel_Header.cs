@@ -27,8 +27,6 @@ namespace SalaryManager.WPF.ViewModels
 
         public ViewModel_Header()
         {
-            var a = MethodBase.GetCurrentMethod().Name;
-
             this.MainWindow.Header = this.Model;
 
             this.Model.ViewModel         = this;

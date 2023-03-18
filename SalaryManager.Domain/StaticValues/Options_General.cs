@@ -15,6 +15,15 @@ namespace SalaryManager.Domain.StaticValues
         }
 
         /// <summary>
+        /// SQLiteのパスを取得
+        /// </summary>
+        /// <returns>Excelテンプレートのパス</returns>
+        public static string FetchSQLitePath()
+        {
+            return _settings?.SQLitePath ?? FilePath.GetSQLiteDefaultPath(); ;
+        }
+
+        /// <summary>
         /// Excelテンプレートのパスを取得
         /// </summary>
         /// <returns>Excelテンプレートのパス</returns>
@@ -31,5 +40,8 @@ namespace SalaryManager.Domain.StaticValues
     {
         /// <summary> Excelテンプレートのパス </summary>
         public string ExcelTemplatePath;
+
+        /// <summary> SQLiteのパス </summary>
+        public string SQLitePath;
     }
 }

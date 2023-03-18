@@ -51,5 +51,15 @@ namespace SalaryManager.Domain.Modules.Logics
 
             return (projectName.Substring(0, projectName.IndexOf(".")));
         }
+
+        /// <summary>
+        /// SQLiteの初期パスを返す
+        /// </summary>
+        /// <returns>SQLiteの初期パス</returns>
+        public static string GetSQLiteDefaultPath()
+        {
+            var solutionName = FilePath.GetSolutionName();
+            return $"{FilePath.GetSolutionPath()}\\{solutionName}.Infrastructure\\{solutionName}.db";
+        }
     }
 }
