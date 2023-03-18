@@ -30,5 +30,10 @@
         <Label Content="Excelテンプレートの保存先パス"/>
         <TextBox Grid.Column="1" Text="{Binding ExcelTemplatePath_Text}" IsReadOnly="True" />
         <Button Grid.Column="2" Content="開く" Command="{Binding SelectExcelTemplatePath_Command}"/>
+        <Button Grid.Column="3" Content="初期値に戻す" Command="{Binding SetDefault_SelectExcelTemplatePath_Command}"/>
+        
+        
+        
+        <Button Grid.Row="4" Grid.Column="1" Content="保存" Command="{Binding Save_Command}"/>
     </Grid>
 </UserControl>

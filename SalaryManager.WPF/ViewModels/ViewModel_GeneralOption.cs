@@ -1,12 +1,8 @@
 ﻿using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SalaryManager.WPF.ViewModels
 {
@@ -29,17 +25,18 @@ namespace SalaryManager.WPF.ViewModels
         public ViewModel_GeneralOption()
         {
             this.Model.ViewModel = this;
+            this.Model.Initialize();
         }
 
         /// <summary> Model - 支給額 </summary>
-        public Model_Option Model { get; set; } = Model_Option.GetInstance();
+        public Model_Option Model = Model_Option.GetInstance();
 
         #region SQLite選択
 
         private string _selectSQLite_Text;
 
         /// <summary>
-        /// 基本給 - Value
+        /// Excelテンプレートのパス - Value
         /// </summary>
         public string ExcelTemplatePath_Text
         {
@@ -65,6 +62,41 @@ namespace SalaryManager.WPF.ViewModels
                     this._selectExcelTempletePath_Command = new RelayCommand(this.Model.SelectExcelTemplatePath);
                 }
                 return this._selectExcelTempletePath_Command;
+            }
+        }
+
+        private RelayCommand _setDefault_SelectExcelTemplatePath_Command;
+
+        public RelayCommand SetDefault_SelectExcelTemplatePath_Command
+        {
+            get
+            {
+                if (this._setDefault_SelectExcelTemplatePath_Command == null)
+                {
+                    this._setDefault_SelectExcelTemplatePath_Command = new RelayCommand(this.Model.SetDefault_SelectExcelTemplatePath);
+                }
+                return this._setDefault_SelectExcelTemplatePath_Command;
+            }
+        }
+
+        #endregion
+
+        #region 保存
+
+        private RelayCommand _save_Command;
+
+        /// <summary>
+        /// Excelテンプレートパスの指定 - Command
+        /// </summary>
+        public RelayCommand Save_Command
+        {
+            get
+            {
+                if (this._save_Command == null)
+                {
+                    this._save_Command = new RelayCommand(this.Model.Save);
+                }
+                return this._save_Command;
             }
         }
 

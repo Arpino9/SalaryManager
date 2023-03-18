@@ -26,7 +26,7 @@ namespace SalaryManager.Infrastructure.SQLite
         /// </summary>
         public SQLiteTransaction()
         {
-            _connection = new SQLiteConnection(Shared.ConnectionString);
+            _connection = new SQLiteConnection(SQLiteHelper.GetConnectionString());
             _connection.Open();
 
             _transaction = _connection.BeginTransaction();

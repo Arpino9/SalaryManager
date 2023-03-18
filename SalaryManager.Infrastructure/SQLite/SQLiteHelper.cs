@@ -8,19 +8,16 @@ namespace SalaryManager.Infrastructure.SQLite
 {
     public class SQLiteHelper
     {
-        /// <summary> SQLiteのバージョン </summary>
-        private static readonly int Version = 3;
-
         /// <summary>
         /// SQLiteの接続文字列を取得する
         /// </summary>
         /// <returns>接続文字列</returns>
-        private static string GetConnectionString()
+        internal static string GetConnectionString()
         {
             var projectName = Assembly.GetExecutingAssembly().GetName().Name;
             var sqlitePath  = $"{FilePath.GetSolutionPath()}\\{projectName}\\{FilePath.GetSolutionName()}.db";
 
-            return ($"Data Source={sqlitePath};Version={SQLiteHelper.Version};");
+            return ($"Data Source={sqlitePath};Version=3;");
         }
 
         /// <summary>

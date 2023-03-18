@@ -1,5 +1,6 @@
 ﻿using ClosedXML.Excel;
 using SalaryManager.Domain.Entities;
+using SalaryManager.Domain.StaticValues;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,15 +12,15 @@ namespace SalaryManager.Domain.Modules.Logics
     /// <summary>
     /// Utility - Excel
     /// </summary>
-    public sealed class Excel
+    public sealed class ExcelWriter
     {
-        public Excel()
+        public ExcelWriter()
         {
             
         }
 
         /// <summary> Workbook </summary>
-        public XLWorkbook Workbook { get; } = new XLWorkbook(Shared.PathOutputPayslip);
+        public XLWorkbook Workbook { get; } = new XLWorkbook(Options_General.FetchExcelTemplatePath());
 
         /// <summary> Worksheet - 給与明細 </summary>
         public IXLWorksheet Worksheet_Payslip => this.Workbook.Worksheet("給与明細");
@@ -70,7 +71,7 @@ namespace SalaryManager.Domain.Modules.Logics
                 return;
             }
 
-            var row = Excel.DefaultRow;
+            var row = ExcelWriter.DefaultRow;
 
             foreach (var entity in entities)
             {
@@ -96,7 +97,7 @@ namespace SalaryManager.Domain.Modules.Logics
                 return;
             }
 
-            var row = Excel.DefaultRow;
+            var row = ExcelWriter.DefaultRow;
 
             foreach (var entity in entities ) 
             {
@@ -151,7 +152,7 @@ namespace SalaryManager.Domain.Modules.Logics
                 return;
             }
 
-            var row = Excel.DefaultRow;
+            var row = ExcelWriter.DefaultRow;
 
             foreach (var entity in entities)
             {
@@ -195,7 +196,7 @@ namespace SalaryManager.Domain.Modules.Logics
                 return;
             }
 
-            var row = Excel.DefaultRow;
+            var row = ExcelWriter.DefaultRow;
 
             foreach (var entity in entities)
             {
@@ -241,7 +242,7 @@ namespace SalaryManager.Domain.Modules.Logics
                 return;
             }
 
-            var row = Excel.DefaultRow;
+            var row = ExcelWriter.DefaultRow;
 
             foreach (var entity in entities)
             {
@@ -269,16 +270,16 @@ namespace SalaryManager.Domain.Modules.Logics
             var date = StaticValues.Headers.FetchByDescending();
 
             // 罫線
-            var style_Payslip = this.Worksheet_Payslip.Range(Excel.DefaultRow, Excel.DefaultColumn, date.Count + Excel.DefaultRow - 1, 43).Style;
+            var style_Payslip = this.Worksheet_Payslip.Range(ExcelWriter.DefaultRow, ExcelWriter.DefaultColumn, date.Count + ExcelWriter.DefaultRow - 1, 43).Style;
             style_Payslip.Border.InsideBorder  = XLBorderStyleValues.Thin;
             style_Payslip.Border.OutsideBorder = XLBorderStyleValues.Thin;
 
-            var style_Budget = this.Worksheet_Budget.Range(Excel.DefaultRow - 1, Excel.DefaultColumn, date.Count + Excel.DefaultRow - 2, 7).Style;
+            var style_Budget = this.Worksheet_Budget.Range(ExcelWriter.DefaultRow - 1, ExcelWriter.DefaultColumn, date.Count + ExcelWriter.DefaultRow - 2, 7).Style;
             style_Budget.Border.InsideBorder  = XLBorderStyleValues.Thin;
             style_Budget.Border.OutsideBorder = XLBorderStyleValues.Thin;
 
             // 行間の自動調整
-            for (var column = Excel.DefaultColumn; column < 43; column++)
+            for (var column = ExcelWriter.DefaultColumn; column < 43; column++)
             {
                 this.Worksheet_Payslip.Column(column).AdjustToContents();
                 this.Worksheet_Budget.Column(column).AdjustToContents();

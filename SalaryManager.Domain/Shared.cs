@@ -17,8 +17,8 @@ namespace SalaryManager.Domain
         public static string DirectoryCSV = ConfigurationManager.AppSettings["DirectoryCSV"];
         /// <summary> Excelの保存先 </summary>
         public static string PathOutputPayslip = ConfigurationManager.AppSettings["PathOutputPayslip"];
-
-        /// <summary> 接続先 </summary>
-        public static string ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
+       
+        /// <summary> XMLの保存先 </summary>
+        public static string XMLPath = ConfigurationManager.AppSettings["XMLPath"];
     }
 }

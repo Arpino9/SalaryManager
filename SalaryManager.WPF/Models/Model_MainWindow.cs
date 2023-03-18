@@ -253,7 +253,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal async void OutputExcel()
         {
-            var workbook = new Excel();
+            var workbook = new ExcelWriter();
 
             using (var cursor = new CursorWaiting())
             {
@@ -283,6 +283,8 @@ namespace SalaryManager.WPF.Models
             }
 
             var directory = DirectorySelector.Select("Excel出力先のフォルダを選択してください。");
+
+            Options_General.Create();
 
             workbook.CopyAsWorkbook(directory);
         }
