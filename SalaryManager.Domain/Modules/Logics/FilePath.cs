@@ -7,6 +7,8 @@ namespace SalaryManager.Domain.Modules.Logics
     /// </summary>
     public class FilePath
     {
+        #region ソリューション
+
         /// <summary>
         /// ソリューションのパスを取得する
         /// </summary>
@@ -21,13 +23,19 @@ namespace SalaryManager.Domain.Modules.Logics
         }
 
         /// <summary>
-        /// exeのパスを取得する。
+        /// ソリューション名を取得する
         /// </summary>
-        /// <returns>exeファイルのパス</returns>
-        public static string GetAppPath()
+        /// <returns>ソリューション名</returns>
+        public static string GetSolutionName()
         {
-            return (Assembly.GetExecutingAssembly().Location);
+            var projectName = FilePath.GetProjectName();
+
+            return (projectName.Substring(0, projectName.IndexOf(".")));
         }
+
+        #endregion
+
+        #region プロジェクト
 
         /// <summary>
         /// プロジェクト名を取得する
@@ -41,16 +49,36 @@ namespace SalaryManager.Domain.Modules.Logics
             return (Assembly.GetExecutingAssembly().GetName().Name);
         }
 
-        /// <summary>
-        /// ソリューション名を取得する
-        /// </summary>
-        /// <returns>ソリューション名</returns>
-        public static string GetSolutionName()
-        {
-            var projectName = FilePath.GetProjectName();
+        #endregion
 
-            return (projectName.Substring(0, projectName.IndexOf(".")));
+        #region exe
+
+        /// <summary>
+        /// exeのパスを取得する。
+        /// </summary>
+        /// <returns>exeファイルのパス</returns>
+        public static string GetAppPath()
+        {
+            return (Assembly.GetExecutingAssembly().Location);
         }
+
+        /// <summary>
+        /// exeのフォルダパスを取得する。
+        /// </summary>
+        /// <returns>exeファイルのパス</returns>
+        public static string GetAppFolderPath()
+        {
+            var exePath = Assembly.GetExecutingAssembly().Location;
+            return (exePath.Substring(0, exePath.LastIndexOf(FilePath.GetSolutionName())));
+        }
+
+        #endregion
+
+
+
+
+
+
 
         /// <summary>
         /// SQLiteの初期パスを取得する

@@ -62,9 +62,37 @@ namespace SalaryManager.WPF.Models
 
         internal void Initialize()
         {
+            this.InitializeSQLite();
+
             Options_General.Create();
 
            this.ViewModel.FontFamily = Options_General.FetchFontFamily();
+        }
+
+        /// <summary>
+        /// SQLiteの設定ファイル初期化
+        /// </summary>
+        private void InitializeSQLite()
+        {
+            var sqlite64Directory = $"{FilePath.GetAppFolderPath()}\\x64";
+
+            if (!Directory.Exists(sqlite64Directory))
+            {
+                Directory.CreateDirectory(sqlite64Directory);
+
+                var sqlite = $"{FilePath.GetSolutionPath()}\\SQLite\\x64\\SQLite.Interop.dll";
+                File.Copy(sqlite, $"{sqlite64Directory}\\SQLite.Interop.dll");
+            }
+
+            var sqlite86Directory = $"{FilePath.GetAppFolderPath()}\\x86";
+
+            if (!Directory.Exists(sqlite86Directory))
+            {
+                Directory.CreateDirectory(sqlite86Directory);
+
+                var sqlite = $"{FilePath.GetSolutionPath()}\\SQLite\\x86\\SQLite.Interop.dll";
+                File.Copy(sqlite, $"{sqlite64Directory}\\SQLite.Interop.dll");
+            }
         }
 
         #endregion
