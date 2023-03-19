@@ -74,14 +74,16 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         private void InitializeSQLite()
         {
+            var dllName = "SQLite.Interop.dll";
+
             var sqlite64Directory = $"{FilePath.GetAppFolderPath()}\\x64";
 
             if (!Directory.Exists(sqlite64Directory))
             {
                 Directory.CreateDirectory(sqlite64Directory);
 
-                var sqlite = $"{FilePath.GetSolutionPath()}\\SQLite\\x64\\SQLite.Interop.dll";
-                File.Copy(sqlite, $"{sqlite64Directory}\\SQLite.Interop.dll");
+                var sqlite = $"{FilePath.GetSolutionPath()}\\SQLite\\x64\\{dllName}";
+                File.Copy(sqlite, $"{sqlite64Directory}\\{dllName}");
             }
 
             var sqlite86Directory = $"{FilePath.GetAppFolderPath()}\\x86";
@@ -90,8 +92,8 @@ namespace SalaryManager.WPF.Models
             {
                 Directory.CreateDirectory(sqlite86Directory);
 
-                var sqlite = $"{FilePath.GetSolutionPath()}\\SQLite\\x86\\SQLite.Interop.dll";
-                File.Copy(sqlite, $"{sqlite64Directory}\\SQLite.Interop.dll");
+                var sqlite = $"{FilePath.GetSolutionPath()}\\SQLite\\x86\\{dllName}";
+                File.Copy(sqlite, $"{sqlite86Directory}\\{dllName}");
             }
         }
 
@@ -227,6 +229,26 @@ namespace SalaryManager.WPF.Models
             }
         }
 
+        #endregion
+
+        #region DBバックアップ
+
+        /// <summary>
+        /// DBバックアップ
+        /// </summary>
+        internal void CreateBackup()
+        {
+            Options_General.Create();
+            var directory = DirectorySelector.Select("DB出力先のフォルダを選択してください。");
+
+            if (string.IsNullOrEmpty(directory))
+            {
+                return;
+            }
+
+            File.Copy(Options_General.FetchSQLitePath(), $"{directory}\\{FilePath.GetSolutionName()}.db");
+        }
+        
         #endregion
 
         #region デフォルトから取得

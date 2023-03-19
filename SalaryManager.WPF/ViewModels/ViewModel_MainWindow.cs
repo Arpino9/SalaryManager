@@ -33,6 +33,8 @@ namespace SalaryManager.WPF.ViewModels
             this._save_Action += this.Model.Save;
             this._save_Action += this.AnnualChart.Reload;
 
+            this._createBackup_Action += this.Model.CreateBackup;
+
             // デフォルトに設定
             this._setDefault_Action += this.Header.SetDefault;
             this._setDefault_Action += this.Header.Save;
@@ -228,6 +230,29 @@ namespace SalaryManager.WPF.ViewModels
                     this._save_Command = new RelayCommand(this._save_Action);
                 }
                 return this._save_Command;
+            }
+        }
+
+        #endregion
+
+        #region 保存
+
+        private RelayCommand _createBackup_Command;
+
+        private Action _createBackup_Action;
+
+        /// <summary>
+        /// 保存 - Command
+        /// </summary>
+        public RelayCommand CreateBackup_Command
+        {
+            get
+            {
+                if (this._createBackup_Command == null)
+                {
+                    this._createBackup_Command = new RelayCommand(this._createBackup_Action);
+                }
+                return this._createBackup_Command;
             }
         }
 

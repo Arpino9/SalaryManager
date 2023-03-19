@@ -74,12 +74,6 @@ namespace SalaryManager.Domain.Modules.Logics
 
         #endregion
 
-
-
-
-
-
-
         /// <summary>
         /// SQLiteの初期パスを取得する
         /// </summary>

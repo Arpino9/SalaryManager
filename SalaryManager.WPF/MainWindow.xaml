@@ -81,9 +81,17 @@
             </MenuItem>
 
             <MenuItem Header="保存" Command="{Binding Save_Command}">
-                <ToolTipService.ToolTip>
-                    <ToolTip Content="入力された給与明細を保存します。"/>
-                </ToolTipService.ToolTip>
+                <MenuItem Header="給与明細を保存する">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="入力された給与明細を保存します。"/>
+                    </ToolTipService.ToolTip>
+                </MenuItem>
+
+                <MenuItem Header="DBのバックアップを作成する" Command="{Binding CreateBackup_Command}">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="SQLiteのバックアップを作成します。"/>
+                    </ToolTipService.ToolTip>
+                </MenuItem>
             </MenuItem>
 
             <!--<MenuItem Header="閉じる">
