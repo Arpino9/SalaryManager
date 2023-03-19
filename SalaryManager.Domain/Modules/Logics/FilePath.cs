@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace SalaryManager.Domain.Modules.Logics
 {
@@ -7,6 +8,21 @@ namespace SalaryManager.Domain.Modules.Logics
     /// </summary>
     public class FilePath
     {
+        /// <summary>
+        /// プロジェクト名
+        /// </summary>
+        public enum ProjectName
+        {
+            /// <summary> ドメイン層 </summary>
+            Domain,
+            
+            /// <summary> インフラストラクチャ層 </summary>
+            Infrastructure,
+
+            /// <summary> WPF層 </summary>
+            WPF,
+        }
+
         #region ソリューション
 
         /// <summary>
@@ -28,7 +44,7 @@ namespace SalaryManager.Domain.Modules.Logics
         /// <returns>ソリューション名</returns>
         public static string GetSolutionName()
         {
-            var projectName = FilePath.GetProjectName();
+            var projectName = Assembly.GetExecutingAssembly().GetName().Name;
 
             return (projectName.Substring(0, projectName.IndexOf(".")));
         }
@@ -38,15 +54,13 @@ namespace SalaryManager.Domain.Modules.Logics
         #region プロジェクト
 
         /// <summary>
-        /// プロジェクト名を取得する
+        /// プロジェクトのパスを取得する
         /// </summary>
-        /// <returns>プロジェクト名</returns>
-        /// <remarks>
-        /// このクラスが配置されているプロジェクト名であることに注意。
-        /// </remarks>
-        public static string GetProjectName()
+        /// <param name="projectName">プロジェクト名</param>
+        /// <returns>プロジェクトのパス</returns>
+        public static string GetProjectPath(ProjectName projectName)
         {
-            return (Assembly.GetExecutingAssembly().GetName().Name);
+            return $"{FilePath.GetSolutionPath()}\\{FilePath.GetSolutionName()}.{projectName.ToString()}";
         }
 
         #endregion
@@ -74,14 +88,44 @@ namespace SalaryManager.Domain.Modules.Logics
 
         #endregion
 
+        #region SQLite
+
         /// <summary>
         /// SQLiteの初期パスを取得する
         /// </summary>
         /// <returns>SQLiteの初期パス</returns>
         public static string GetSQLiteDefaultPath()
         {
-            var solutionName = FilePath.GetSolutionName();
-            return $"{FilePath.GetSolutionPath()}\\{solutionName}.Infrastructure\\{solutionName}.db";
+            return $"{FilePath.GetProjectPath(ProjectName.Infrastructure)}\\{FilePath.GetSolutionName()}.db";
         }
+
+        #endregion
+
+        #region Excel
+
+        /// <summary>
+        /// Excelテンプレートの初期パスを取得する
+        /// </summary>
+        /// <returns>SQLiteの初期パス</returns>
+        public static string GetExcelTempleteDefaultPath()
+        {
+            return $"{FilePath.GetProjectPath(ProjectName.Domain)}\\Template\\{Shared.ExcelTemplateName}.xlsx";
+        }
+
+        #endregion
+
+        #region XML
+
+        /// <summary>
+        /// XMLの初期パスを取得する
+        /// </summary>
+        /// <returns>SQLiteの初期パス</returns>
+        public static string GetXMLDefaultPath()
+        {
+            return $"{FilePath.GetProjectPath(ProjectName.Domain)}\\{Shared.XMLName}.xml";
+        }
+
+        #endregion
+
     }
 }

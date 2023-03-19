@@ -15,12 +15,13 @@ namespace SalaryManager.Domain
 
         /// <summary> CSVの保存ディレクトリ </summary>
         public static string DirectoryCSV = ConfigurationManager.AppSettings["DirectoryCSV"];
-        /// <summary> Excelの保存先 </summary>
-        public static string PathOutputPayslip = ConfigurationManager.AppSettings["PathOutputPayslip"];
-       
-        /// <summary> XMLの保存先 </summary>
-        public static string XMLPath = ConfigurationManager.AppSettings["XMLPath"];
 
+        /// <summary> 給与明細Excelのテンプレートファイル名 </summary>
+        public static string ExcelTemplateName = ConfigurationManager.AppSettings["ExcelTemplateName"];
+
+        /// <summary> XMLのファイル名 </summary>
+        public static string XMLName = ConfigurationManager.AppSettings["XMLName"];
+       
         /// <summary> フォントファミリ </summary>
         public static string FontFamily = ConfigurationManager.AppSettings["FontFamily"];
     }

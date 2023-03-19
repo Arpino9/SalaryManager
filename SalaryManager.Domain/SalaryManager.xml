@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ExcelTemplatePath>C:\Users\OKAJIMA\source\repos\SalaryManager\SalaryManager.Domain\Template\Template_Payslip.xlsx</ExcelTemplatePath>
-  <SQLitePath>C:\Users\OKAJIMA\Desktop\勉強用\SQlite\SalaryManager.db</SQLitePath>
-  <FontFamily>にゃしぃフォント改二</FontFamily>
-  <ShowDefaultPayslip>false</ShowDefaultPayslip>
+  <SQLitePath>C:\Users\OKAJIMA\source\repos\SalaryManager\SalaryManager.Infrastructure\SalaryManager.db</SQLitePath>
+  <FontFamily>Yu Gothic UI</FontFamily>
+  <ShowDefaultPayslip>true</ShowDefaultPayslip>
 </Settings>

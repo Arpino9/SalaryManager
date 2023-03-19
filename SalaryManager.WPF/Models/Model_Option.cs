@@ -124,7 +124,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void SetDefault_SelectExcelTemplatePath()
         {
-            this.ViewModel.SelectExcelTempletePath_Text = Shared.PathOutputPayslip;
+            this.ViewModel.SelectExcelTempletePath_Text = FilePath.GetExcelTempleteDefaultPath();
         }
 
         #endregion
@@ -166,7 +166,7 @@ namespace SalaryManager.WPF.Models
 
             var setting = new Settings();
 
-            using (var writer = new XMLWriter(Shared.XMLPath, setting.GetType()))
+            using (var writer = new XMLWriter(FilePath.GetXMLDefaultPath(), setting.GetType()))
             {
                 setting.SQLitePath         = this.ViewModel.SelectSQLite_Text;
                 setting.ExcelTemplatePath  = this.ViewModel.SelectExcelTempletePath_Text;

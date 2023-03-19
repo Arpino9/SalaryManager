@@ -11,7 +11,7 @@ namespace SalaryManager.Domain.StaticValues
         /// </summary>
         public static void Create()
         {
-            using (var reader = new XMLReader(Shared.XMLPath, new Settings().GetType()))
+            using (var reader = new XMLReader(FilePath.GetXMLDefaultPath(), new Settings().GetType()))
             {
                 _settings = reader.Deserialize() as Settings;
             }
@@ -32,7 +32,7 @@ namespace SalaryManager.Domain.StaticValues
         /// <returns>Excelテンプレートのパス</returns>
         public static string FetchExcelTemplatePath()
         {
-            return _settings?.ExcelTemplatePath ?? Shared.PathOutputPayslip;
+            return _settings?.ExcelTemplatePath ?? FilePath.GetExcelTempleteDefaultPath();
         }
 
         /// <summary>
@@ -50,12 +50,9 @@ namespace SalaryManager.Domain.StaticValues
         /// <returns>フォントファミリ</returns>
         public static System.Windows.Media.FontFamily FetchFontFamily()
         {
-            if (_settings?.FontFamily is null)
-            {
-                return new System.Windows.Media.FontFamily(Shared.FontFamily);
-            }
+            var fontFamily = _settings?.FontFamily ?? Shared.FontFamily;
 
-            return new System.Windows.Media.FontFamily(_settings.FontFamily);
+            return new System.Windows.Media.FontFamily(fontFamily);
         }
 
         /// <summary>

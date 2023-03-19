@@ -57,7 +57,7 @@
                 Grid.Row="1"                
                 Command="{Binding SetDefault_SelectExcelTemplatePath_Command}"/>
 
-        <Label Content="フォント" 
+        <Label Content="フォントファミリ" 
                Grid.Row="2"  />
         <ComboBox Grid.Column="1" 
                   Grid.Row="2" 
