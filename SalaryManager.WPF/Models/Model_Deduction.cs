@@ -49,11 +49,13 @@ namespace SalaryManager.WPF.Models
         public void Initialize(DateTime entityDate)
         {
             Deductions.Create(new DeductionSQLite());
+            Options_General.Create();
 
             this.ViewModel.Entity          = Deductions.Fetch(entityDate.Year, entityDate.Month);
             this.ViewModel.Entity_LastYear = Deductions.Fetch(entityDate.Year, entityDate.Month - 1);
 
-            if (this.ViewModel.Entity is null)
+            if (this.ViewModel.Entity is null &&
+                Options_General.FetchShowDefaultPayslip())
             {
                 // デフォルト明細
                 this.ViewModel.Entity = Deductions.FetchDefault();

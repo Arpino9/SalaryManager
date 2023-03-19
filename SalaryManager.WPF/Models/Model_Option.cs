@@ -51,6 +51,9 @@ namespace SalaryManager.WPF.Models
             var fonts =  new InstalledFontCollection();
             this.ViewModel.FontFamily_ItemSource = ListUtil.ToObservableCollection<string>(fonts.Families.Select(x => x.Name).ToList());
             this.ViewModel.FontFamily_Text       = Options_General.FetchFontFamily();
+
+            // 初期表示時にデフォルト明細を表示する
+            this.ViewModel.ShowDefaultPayslip_IsChecked = Options_General.FetchShowDefaultPayslip();
         }
 
         #endregion
@@ -139,8 +142,8 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void SetDefault_FontFamily()
         {
-            this.ViewModel.FontFamily_Text       = "Yu Gothic UI";
-            this.ViewModel.Preview_FontFamily = new System.Windows.Media.FontFamily(this.ViewModel.FontFamily_Text);
+            this.ViewModel.FontFamily_Text    = Shared.FontFamily;
+            this.ViewModel.Preview_FontFamily = new System.Windows.Media.FontFamily(Shared.FontFamily);
         }
 
         #endregion
@@ -152,13 +155,21 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void Save()
         {
+            var message = $"設定内容を保存しますか？";
+            if (!DialogMessage.ShowConfirmingMessage(message, "保存"))
+            {
+                // キャンセル
+                return;
+            }
+
             var setting = new Settings();
 
             using (var writer = new XMLWriter(Shared.XMLPath, setting.GetType()))
             {
-                setting.SQLitePath        = this.ViewModel.SelectSQLite_Text;
-                setting.ExcelTemplatePath = this.ViewModel.SelectExcelTempletePath_Text;
-                setting.FontFamily        = this.ViewModel.FontFamily_Text;
+                setting.SQLitePath         = this.ViewModel.SelectSQLite_Text;
+                setting.ExcelTemplatePath  = this.ViewModel.SelectExcelTempletePath_Text;
+                setting.FontFamily         = this.ViewModel.FontFamily_Text;
+                setting.ShowDefaultPayslip = this.ViewModel.ShowDefaultPayslip_IsChecked;
 
                 writer.Serialize(setting);
             }

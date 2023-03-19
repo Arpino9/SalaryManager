@@ -28,31 +28,13 @@ namespace SalaryManager.WPF.ViewModels
             this.Model.ViewModel = this;
             this.Model.Initialize();
 
+            // フォントファミリ
             _fontFamily_Action += this.Model.FontFamily_SelectionChanged;
             this.FontFamily_SelectionChanged = new RelayCommand(_fontFamily_Action);
         }
 
         /// <summary> Model - 支給額 </summary>
         public Model_Option Model = Model_Option.GetInstance();
-
-        #region 共通
-
-        private System.Windows.Media.FontFamily _Preview_FontFamily;
-
-        /// <summary>
-        /// プレビュー - FontFamily
-        /// </summary>
-        public System.Windows.Media.FontFamily Preview_FontFamily
-        {
-            get => this._Preview_FontFamily;
-            set
-            {
-                this._Preview_FontFamily = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        #endregion
 
         #region SQLite
 
@@ -176,9 +158,7 @@ namespace SalaryManager.WPF.ViewModels
 
         public Action _fontFamily_Action;
 
-        /// <summary>
-        /// FontFamily - SelectionChanged
-        /// </summary>
+        /// <summary> FontFamily - SelectionChanged </summary>
         public RelayCommand FontFamily_SelectionChanged { get; private set; }
 
         private ObservableCollection<string> _fontFamily_ItemSource;
@@ -228,6 +208,44 @@ namespace SalaryManager.WPF.ViewModels
                     this._setDefault_FontFamily_Command = new RelayCommand(this.Model.SetDefault_FontFamily);
                 }
                 return this._setDefault_FontFamily_Command;
+            }
+        }
+
+        #endregion
+
+        #region プレビュー
+
+        private System.Windows.Media.FontFamily _Preview_FontFamily;
+
+        /// <summary>
+        /// プレビュー - FontFamily
+        /// </summary>
+        public System.Windows.Media.FontFamily Preview_FontFamily
+        {
+            get => this._Preview_FontFamily;
+            set
+            {
+                this._Preview_FontFamily = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #region 初期表示時にデフォルト明細を表示する
+
+        private bool _showdefaultPayslip_IsChecked;
+
+        /// <summary>
+        /// 初期表示時にデフォルト明細を表示する - IsChecked
+        /// </summary>
+        public bool ShowDefaultPayslip_IsChecked
+        {
+            get => this._showdefaultPayslip_IsChecked;
+            set
+            {
+                this._showdefaultPayslip_IsChecked = value;
+                this.RaisePropertyChanged();
             }
         }
 

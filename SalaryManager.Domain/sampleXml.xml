@@ -2,5 +2,6 @@
 <Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ExcelTemplatePath>C:\Users\OKAJIMA\source\repos\SalaryManager\SalaryManager.Domain\Template\Template_Payslip.xlsx</ExcelTemplatePath>
   <SQLitePath>C:\Users\OKAJIMA\Desktop\勉強用\SQlite\SalaryManager.db</SQLitePath>
-  <FontFamily>Arial</FontFamily>
+  <FontFamily>HG正楷書体-PRO</FontFamily>
+  <ShowDefaultPayslip>false</ShowDefaultPayslip>
 </Settings>

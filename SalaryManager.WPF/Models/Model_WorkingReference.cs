@@ -51,11 +51,13 @@ namespace SalaryManager.WPF.Models
         {
             WorkingReferences.Create(new WorkingReferenceSQLite());
             Careers.Create(new CareerSQLite());
+            Options_General.Create();
 
             this.ViewModel.Entity          = WorkingReferences.Fetch(entityDate.Year, entityDate.Month);
             this.ViewModel.Entity_LastYear = WorkingReferences.Fetch(entityDate.Year, entityDate.Month - 1);
 
-            if (this.ViewModel.Entity is null)
+            if (this.ViewModel.Entity is null && 
+                Options_General.FetchShowDefaultPayslip())
             {
                 // デフォルト明細
                 this.ViewModel.Entity = WorkingReferences.FetchDefault();

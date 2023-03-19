@@ -40,6 +40,15 @@ namespace SalaryManager.Domain.StaticValues
         {
             return _settings?.FontFamily ?? Shared.FontFamily;
         }
+
+        /// <summary>
+        /// 「初期表示時にデフォルト明細を表示する」のチェック有無を取得する
+        /// </summary>
+        /// <returns></returns>
+        public static bool FetchShowDefaultPayslip() 
+        {
+            return _settings?.ShowDefaultPayslip ?? false;
+        }
     }
 
     /// <summary>
@@ -55,5 +64,8 @@ namespace SalaryManager.Domain.StaticValues
 
         /// <summary> フォントファミリ </summary>
         public string FontFamily;
+
+        /// <summary> 初期表示時にデフォルト明細を表示する </summary>
+        public bool ShowDefaultPayslip;
     }
 }

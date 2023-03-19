@@ -54,11 +54,13 @@ namespace SalaryManager.WPF.Models
         public void Initialize(DateTime entityDate)
         {
             Allowances.Create(new AllowanceSQLite());
+            Options_General.Create();
 
             this.ViewModel.Entity          = Allowances.Fetch(entityDate.Year, entityDate.Month);
             this.ViewModel.Entity_LastYear = Allowances.Fetch(entityDate.Year, entityDate.Month - 1);
 
-            if (this.ViewModel.Entity is null)
+            if (this.ViewModel.Entity is null && 
+                Options_General.FetchShowDefaultPayslip())
             {
                 // デフォルト明細
                 this.ViewModel.Entity = Allowances.FetchDefault();
@@ -193,14 +195,14 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.SpecialAllowance_Value           = default(double);
             this.ViewModel.SpecialAllowance_IsEnabled       = true;
             // 予備
-            this.ViewModel.SpareAllowance_Value         = default(double);
+            this.ViewModel.SpareAllowance_Value             = default(double);
             // 備考
-            this.ViewModel.Remarks_Text                = default(string);
+            this.ViewModel.Remarks_Text                     = default(string);
             // 支給総計
-            this.ViewModel.TotalSalary_Value            = default(double);
+            this.ViewModel.TotalSalary_Value                = default(double);
             // 差引支給額
-            this.ViewModel.TotalDeductedSalary_Foreground = new SolidColorBrush(Colors.Black);
-            this.ViewModel.TotalDeductedSalary_Value    = default(double);
+            this.ViewModel.TotalDeductedSalary_Foreground   = new SolidColorBrush(Colors.Black);
+            this.ViewModel.TotalDeductedSalary_Value        = default(double);
         }
 
         /// <summary>

@@ -34,15 +34,15 @@
         <TextBox Grid.Column="1" 
                  Text="{Binding SelectSQLite_Text}" 
                  IsReadOnly="True" />
-        <Button Grid.Column="2" 
-                Content="開く" 
+        <Button Content="開く" 
+                Grid.Column="2"                 
                 Command="{Binding SelectSQLite_Command}"/>
         <Button Grid.Column="3" 
                 Content="初期値に戻す" 
                 Command="{Binding SetDefault_SelectSQLite_Command}"/>
 
-        <Label Grid.Row="1"
-               Content="Excelテンプレートの保存先パス"/>
+        <Label Content="Excelテンプレートの保存先パス"
+               Grid.Row="1"/>
         <TextBox Grid.Column="1" 
                  Grid.Row="1" 
                  IsReadOnly="True"
@@ -51,13 +51,13 @@
                 Grid.Row="1" 
                 Content="開く" 
                 Command="{Binding SelectExcelTemplatePath_Command}"/>
-        <Button Grid.Column="3" 
-                Grid.Row="1" 
-                Content="初期値に戻す" 
+        <Button Content="初期値に戻す" 
+                Grid.Column="3" 
+                Grid.Row="1"                
                 Command="{Binding SetDefault_SelectExcelTemplatePath_Command}"/>
 
-        <Label Grid.Row="2" 
-               Content="フォント" />
+        <Label Content="フォント" 
+               Grid.Row="2"  />
         <ComboBox Grid.Column="1" 
                   Grid.Row="2" 
                   Grid.ColumnSpan="2" 
@@ -69,22 +69,36 @@
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </ComboBox>
-        <Button Grid.Column="3"
-                Grid.Row="2" 
-                Content="初期値に戻す" 
+        <Button Content="初期値に戻す" 
+                Grid.Column="3"
+                Grid.Row="2"                
                 Command="{Binding SetDefault_FontFamily_Command}"/>
 
-        <Label Grid.Row="3" Content="プレビュー" />
+        <Label Content="プレビュー"
+               Grid.Row="3" />
         <Label Grid.Column="1" 
                Grid.ColumnSpan="3" 
                Grid.Row="3"                
                Content="吾輩は猫である。名前はまだ無い。どこで生れたかとんと見当がつかぬ。" 
                FontFamily="{Binding Preview_FontFamily}"/>
-        
 
-        <Button Grid.Row="4" 
-                Grid.Column="1" 
-                Content="保存" 
+        <Label Content="デフォルト明細" 
+               Grid.Row="4" />
+        <CheckBox Content="初期表示時にデフォルト明細を表示する" 
+                  Grid.Column="1"
+                  Grid.ColumnSpan="2"
+                  Grid.Row="4"
+                  IsChecked="{Binding ShowDefaultPayslip_IsChecked}">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="Checked">
+                    <behaviors:InvokeCommandAction Command="{Binding ShowDefaultPayslip_IsChecked}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </CheckBox>
+
+        <Button Content="保存"
+                Grid.Column="1"                 
+                Grid.Row="5" 
                 Command="{Binding Save_Command}"/>
     </Grid>
 </UserControl>
