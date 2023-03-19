@@ -9,7 +9,8 @@
         x:Class="SalaryManager.WPF.Window.Career"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="{Binding Title, Mode=OneWay}" Height="440" Width="500">
+        Title="{Binding Title, Mode=OneWay}" Height="440" Width="500" 
+        FontFamily="{Binding FontFamily}">
     <Window.DataContext>
         <ViewModels:ViewModel_Career/>
     </Window.DataContext>

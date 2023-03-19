@@ -66,6 +66,25 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
+        #region フォントファミリ
+
+        private System.Windows.Media.FontFamily _FontFamily;
+
+        /// <summary>
+        /// フォントファミリ - FontFamily
+        /// </summary>
+        public System.Windows.Media.FontFamily FontFamily
+        {
+            get => this._FontFamily;
+            set
+            {
+                this._FontFamily = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
         #region 職歴一覧
 
         private ObservableCollection<CareerEntity> _careers_itemSource;

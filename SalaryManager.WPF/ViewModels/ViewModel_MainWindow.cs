@@ -34,7 +34,9 @@ namespace SalaryManager.WPF.ViewModels
             this._setDefault_Action += this.Header.SetDefault;
             this._setDefault_Action += this.Header.Save;
 
-            this.Model.MainWindow = this;
+            this.Model.ViewModel = this;
+
+            this.Model.Initialize();
         }
 
         /// <summary> Model - ヘッダー </summary>
@@ -54,6 +56,25 @@ namespace SalaryManager.WPF.ViewModels
         public string Title
         {
             get => "給与明細管理(仮)";
+        }
+
+        #endregion
+
+        #region フォントファミリ
+
+        private System.Windows.Media.FontFamily _FontFamily;
+
+        /// <summary>
+        /// フォントファミリ - FontFamily
+        /// </summary>
+        public System.Windows.Media.FontFamily FontFamily
+        {
+            get => this._FontFamily;
+            set
+            {
+                this._FontFamily = value;
+                this.RaisePropertyChanged();
+            }
         }
 
         #endregion

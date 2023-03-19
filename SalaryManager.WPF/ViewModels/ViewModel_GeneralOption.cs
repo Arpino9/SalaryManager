@@ -36,6 +36,25 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary> Model - 支給額 </summary>
         public Model_Option Model = Model_Option.GetInstance();
 
+        #region フォントファミリ
+
+        private System.Windows.Media.FontFamily _FontFamily;
+
+        /// <summary>
+        /// フォントファミリ - FontFamily
+        /// </summary>
+        public System.Windows.Media.FontFamily FontFamily
+        {
+            get => this._FontFamily;
+            set
+            {
+                this._FontFamily = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
         #region SQLite
 
         private string _selectSQLite_Text;

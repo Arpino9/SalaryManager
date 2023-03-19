@@ -48,6 +48,10 @@ namespace SalaryManager.WPF.Models
         public void Initialize()
         {
             Careers.Create(new CareerSQLite());
+            Options_General.Create();
+
+            this.ViewModel.FontFamily = Options_General.FetchFontFamily();
+
             this.ViewModel.Entities = Careers.FetchByDescending();
 
             this.Reflesh_ListView();

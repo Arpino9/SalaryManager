@@ -38,7 +38,7 @@ namespace SalaryManager.WPF.Models
         #endregion
 
         /// <summary> ViewModel - メイdン画面 </summary>
-        internal ViewModel_MainWindow MainWindow { get; set; }
+        internal ViewModel_MainWindow ViewModel { get; set; }
 
         /// <summary> ViewModel - 勤務先 </summary>
         internal ViewModel_WorkPlace WorkPlace { get; set; }
@@ -58,6 +58,17 @@ namespace SalaryManager.WPF.Models
         /// <summary> Model - 副業 </summary>
         internal Model_SideBusiness SideBusiness { get; set; }
 
+        #region 初期化
+
+        internal void Initialize()
+        {
+            Options_General.Create();
+
+           this.ViewModel.FontFamily = Options_General.FetchFontFamily();
+        }
+
+        #endregion
+
         #region CSV読込
 
         /// <summary>
@@ -66,7 +77,7 @@ namespace SalaryManager.WPF.Models
         internal void ReadCSV()
         {
             var confirmingMessage = $"{this.Header.ViewModel.Year_Value}年{this.Header.ViewModel.Month_Value}月のCSVを読み込みますか？";
-            if (!DialogMessage.ShowConfirmingMessage(confirmingMessage, this.MainWindow.Title))
+            if (!DialogMessage.ShowConfirmingMessage(confirmingMessage, this.ViewModel.Title))
             {
                 // キャンセル
                 return;
@@ -105,7 +116,7 @@ namespace SalaryManager.WPF.Models
             catch(FileNotFoundException _)
             {
                 var message = $"「{Shared.DirectoryCSV}」に{this.Header.ViewModel.Year_Value}年{this.Header.ViewModel.Month_Value}月分のCSVが\n保存されていません。読み込みを中断します。";
-                DialogMessage.ShowResultMessage(message, this.MainWindow.Title);
+                DialogMessage.ShowResultMessage(message, this.ViewModel.Title);
             }
         }
 
@@ -133,19 +144,19 @@ namespace SalaryManager.WPF.Models
                 difference == 0)
             {
                 // 変更なし
-                this.MainWindow.PriceUpdown_Content = string.Empty;
+                this.ViewModel.PriceUpdown_Content = string.Empty;
                 return;
             }
 
             if (difference > 0) 
             {
-                this.MainWindow.PriceUpdown_Foreground = new SolidColorBrush(Colors.Blue);
-                this.MainWindow.PriceUpdown_Content    = $"+{difference.ToString()}";
+                this.ViewModel.PriceUpdown_Foreground = new SolidColorBrush(Colors.Blue);
+                this.ViewModel.PriceUpdown_Content    = $"+{difference.ToString()}";
             }
             else
             {
-                this.MainWindow.PriceUpdown_Foreground = new SolidColorBrush(Colors.Red);
-                this.MainWindow.PriceUpdown_Content    = difference.ToString();
+                this.ViewModel.PriceUpdown_Foreground = new SolidColorBrush(Colors.Red);
+                this.ViewModel.PriceUpdown_Content    = difference.ToString();
             }
         }
 
@@ -160,7 +171,7 @@ namespace SalaryManager.WPF.Models
         internal void Save()
         {
             var message = $"{this.Header.ViewModel.Year_Value}年{this.Header.ViewModel.Month_Value}月の給与明細を保存しますか？";
-            if (!DialogMessage.ShowConfirmingMessage(message, this.MainWindow.Title))
+            if (!DialogMessage.ShowConfirmingMessage(message, this.ViewModel.Title))
             {
                 // キャンセル
                 return;
@@ -201,7 +212,7 @@ namespace SalaryManager.WPF.Models
 
             if (Headers.FetchDefault() == null)
             {
-                DialogMessage.ShowResultMessage("デフォルト明細が登録されていません。", this.MainWindow.Title);
+                DialogMessage.ShowResultMessage("デフォルト明細が登録されていません。", this.ViewModel.Title);
                 return;
             }
 

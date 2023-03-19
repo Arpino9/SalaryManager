@@ -6,7 +6,6 @@ using SalaryManager.WPF.ViewModels;
 using System.Drawing.Text;
 using System.Linq;
 using SalaryManager.Domain.Modules.Helpers;
-using System.Windows;
 
 namespace SalaryManager.WPF.Models
 {
@@ -50,10 +49,13 @@ namespace SalaryManager.WPF.Models
             // フォントファミリ
             var fonts =  new InstalledFontCollection();
             this.ViewModel.FontFamily_ItemSource = ListUtil.ToObservableCollection<string>(fonts.Families.Select(x => x.Name).ToList());
-            this.ViewModel.FontFamily_Text       = Options_General.FetchFontFamily();
+            this.ViewModel.FontFamily_Text       = Options_General.FetchFontFamilyText();
 
             // 初期表示時にデフォルト明細を表示する
             this.ViewModel.ShowDefaultPayslip_IsChecked = Options_General.FetchShowDefaultPayslip();
+
+            // プレビュー
+            this.ViewModel.Preview_FontFamily = Options_General.FetchFontFamily();
         }
 
         #endregion

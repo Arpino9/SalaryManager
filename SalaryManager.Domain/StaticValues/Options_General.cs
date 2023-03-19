@@ -6,6 +6,9 @@ namespace SalaryManager.Domain.StaticValues
     {
         private static Settings _settings;
 
+        /// <summary>
+        /// 値の生成
+        /// </summary>
         public static void Create()
         {
             using (var reader = new XMLReader(Shared.XMLPath, new Settings().GetType()))
@@ -36,9 +39,23 @@ namespace SalaryManager.Domain.StaticValues
         /// フォントファミリを取得
         /// </summary>
         /// <returns>フォントファミリ</returns>
-        public static string FetchFontFamily()
+        public static string FetchFontFamilyText()
         {
             return _settings?.FontFamily ?? Shared.FontFamily;
+        }
+
+        /// <summary>
+        /// フォントファミリを取得
+        /// </summary>
+        /// <returns>フォントファミリ</returns>
+        public static System.Windows.Media.FontFamily FetchFontFamily()
+        {
+            if (_settings?.FontFamily is null)
+            {
+                return new System.Windows.Media.FontFamily(Shared.FontFamily);
+            }
+
+            return new System.Windows.Media.FontFamily(_settings.FontFamily);
         }
 
         /// <summary>

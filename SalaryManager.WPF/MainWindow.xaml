@@ -11,7 +11,8 @@
         Title="{Binding Title, Mode=OneWay}" Height="550" Width="700"
         Background="{x:Static SystemColors.ControlLightBrush}"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize" 
+        FontFamily="{Binding FontFamily}">
     <Window.DataContext>
         <ViewModels:ViewModel_MainWindow/>
     </Window.DataContext>
