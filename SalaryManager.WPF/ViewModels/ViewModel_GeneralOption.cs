@@ -37,17 +37,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 共通
 
-        private System.Windows.Media.FontFamily _fontFamily_FontFamily;
+        private System.Windows.Media.FontFamily _Preview_FontFamily;
 
         /// <summary>
-        /// フォントファミリ - FontFamily
+        /// プレビュー - FontFamily
         /// </summary>
-        public System.Windows.Media.FontFamily FontFamily_FontFamily
+        public System.Windows.Media.FontFamily Preview_FontFamily
         {
-            get => this._fontFamily_FontFamily;
+            get => this._Preview_FontFamily;
             set
             {
-                this._fontFamily_FontFamily = value;
+                this._Preview_FontFamily = value;
                 this.RaisePropertyChanged();
             }
         }

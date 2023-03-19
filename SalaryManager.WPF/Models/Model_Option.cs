@@ -131,7 +131,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void FontFamily_SelectionChanged()
         {
-            this.ViewModel.FontFamily_FontFamily = new System.Windows.Media.FontFamily(this.ViewModel.FontFamily_Text);
+            this.ViewModel.Preview_FontFamily = new System.Windows.Media.FontFamily(this.ViewModel.FontFamily_Text);
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace SalaryManager.WPF.Models
         internal void SetDefault_FontFamily()
         {
             this.ViewModel.FontFamily_Text       = "Yu Gothic UI";
-            this.ViewModel.FontFamily_FontFamily = new System.Windows.Media.FontFamily(this.ViewModel.FontFamily_Text);
+            this.ViewModel.Preview_FontFamily = new System.Windows.Media.FontFamily(this.ViewModel.FontFamily_Text);
         }
 
         #endregion

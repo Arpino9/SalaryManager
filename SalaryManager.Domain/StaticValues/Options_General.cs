@@ -38,7 +38,7 @@ namespace SalaryManager.Domain.StaticValues
         /// <returns>フォントファミリ</returns>
         public static string FetchFontFamily()
         {
-            return _settings?.FontFamily ?? "Yu Gothic UI";
+            return _settings?.FontFamily ?? Shared.FontFamily;
         }
     }
 

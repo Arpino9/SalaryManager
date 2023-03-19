@@ -20,5 +20,8 @@ namespace SalaryManager.Domain
        
         /// <summary> XMLの保存先 </summary>
         public static string XMLPath = ConfigurationManager.AppSettings["XMLPath"];
+
+        /// <summary> フォントファミリ </summary>
+        public static string FontFamily = ConfigurationManager.AppSettings["FontFamily"];
     }
 }

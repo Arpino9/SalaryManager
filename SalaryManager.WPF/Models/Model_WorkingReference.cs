@@ -158,6 +158,7 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.Remarks_Text           = entity.Remarks;
 
             // 所属会社名
+            Careers.Create(new CareerSQLite());
             var company = Careers.FetchCompany(new DateTime(this.Header.Year_Value, this.Header.Month_Value, 1));
             this.WorkPlace.CompanyName = company;
 

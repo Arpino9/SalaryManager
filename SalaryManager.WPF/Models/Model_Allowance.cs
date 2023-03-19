@@ -112,13 +112,16 @@ namespace SalaryManager.WPF.Models
             // 支給総計、差引支給額
             this.ReCaluculate();
 
-            if (ViewModel_WorkPlace.CompanyName is null)
+            // 所属会社名
+            Careers.Create(new CareerSQLite());
+            var company = Careers.FetchCompany(new DateTime(this.Header.Year_Value, this.Header.Month_Value, 1));
+            if (company is null)
             {
                 return;
             }
 
             // 手当有無
-            var existence = Careers.FetchAllowanceExistence(new CompanyValue(ViewModel_WorkPlace.CompanyName));
+            var existence = Careers.FetchAllowanceExistence(new CompanyValue(company));
             if (existence != null) 
             {
                 this.ViewModel.ExecutiveAllowance_IsEnabled     = existence.Executive.Value;
