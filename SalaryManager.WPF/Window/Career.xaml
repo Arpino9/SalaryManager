@@ -10,7 +10,8 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="{Binding Title, Mode=OneWay}" Height="440" Width="500" 
-        FontFamily="{Binding FontFamily}">
+        FontFamily="{Binding FontFamily}" 
+        Background="{Binding Window_Background}">
     <Window.DataContext>
         <ViewModels:ViewModel_Career/>
     </Window.DataContext>

@@ -9,7 +9,7 @@
              x:Class="SalaryManager.WPF.UserControls.Header"
              mc:Ignorable="d" 
              d:DesignHeight="25" d:DesignWidth="200"
-             Background="{x:Static SystemColors.ControlLightBrush}">
+             Background="{Binding Window_Background}">
     <UserControl.DataContext>
         <ViewModels:ViewModel_Header/>
     </UserControl.DataContext>

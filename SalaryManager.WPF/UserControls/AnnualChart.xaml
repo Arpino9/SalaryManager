@@ -8,7 +8,7 @@
              x:Class="SalaryManager.WPF.UserControls.AnnualChart"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="300"
-             Background="{x:Static SystemColors.ControlLightBrush}">
+             Background="{Binding Window_Background}">
     <UserControl.DataContext>
         <ViewModels:ViewModel_AnnualChart/>
     </UserControl.DataContext>

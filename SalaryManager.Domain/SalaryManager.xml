@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ExcelTemplatePath>C:\Users\OKAJIMA\source\repos\SalaryManager\SalaryManager.Domain\Template\Template_Payslip.xlsx</ExcelTemplatePath>
+  <SQLitePath>C:\Users\OKAJIMA\source\repos\SalaryManager\SalaryManager.Infrastructure\SalaryManager.db</SQLitePath>
+  <FontFamily>Yu Gothic UI</FontFamily>
+  <ShowDefaultPayslip>false</ShowDefaultPayslip>
+  <BackgroundColor>ffcefafd</BackgroundColor>
+  <BackgroundColor_A>255</BackgroundColor_A>
+  <BackgroundColor_R>206</BackgroundColor_R>
+  <BackgroundColor_G>250</BackgroundColor_G>
+  <BackgroundColor_B>253</BackgroundColor_B>
+</Settings>

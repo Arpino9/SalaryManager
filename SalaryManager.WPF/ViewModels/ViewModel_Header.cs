@@ -98,7 +98,26 @@ namespace SalaryManager.WPF.ViewModels
 
         /// <summary> Model - 副業 </summary>
         public Model_SideBusiness SideBusiness { get; set; } = Model_SideBusiness.GetInstance();
-        
+
+        #region 背景色
+
+        private System.Windows.Media.Brush _window_Background;
+
+        /// <summary>
+        /// 背景色 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Window_Background
+        {
+            get => this._window_Background;
+            set
+            {
+                this._window_Background = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
         #region タイトル
 
         /// <summary>

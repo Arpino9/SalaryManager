@@ -67,6 +67,8 @@ namespace SalaryManager.WPF.Models
             Options_General.Create();
 
            this.ViewModel.FontFamily = Options_General.FetchFontFamily();
+
+           this.ViewModel.Window_Background = Options_General.FetchBackgroundColorBrush();
         }
 
         /// <summary>

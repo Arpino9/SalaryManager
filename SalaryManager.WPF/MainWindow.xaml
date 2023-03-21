@@ -9,7 +9,7 @@
         x:Class="SalaryManager.WPF.MainWindow"
         mc:Ignorable="d"
         Title="{Binding Title, Mode=OneWay}" Height="550" Width="700"
-        Background="{x:Static SystemColors.ControlLightBrush}"
+        Background="{Binding Window_Background}"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize" 
         FontFamily="{Binding FontFamily}">
@@ -107,7 +107,7 @@
         <local:Header Width="200" Grid.Row="1" VerticalAlignment="Center" />
         <local:WorkPlace Grid.Column="1" Grid.RowSpan="2"/>
 
-        <TabControl Grid.Row="2" Grid.RowSpan="2">
+        <TabControl Grid.Row="2" Grid.RowSpan="2" Background="{Binding Window_Background}">
             <TabItem Header="支給額">
                 <local:Allowance Height="340" VerticalAlignment="Top" >
                     <local:Allowance.Background>
@@ -142,9 +142,9 @@
                            Grid.Row="2" 
                            Grid.RowSpan="2" />
 
-        <StatusBar Grid.Row="3" VerticalAlignment="Bottom">
+        <StatusBar Grid.Row="3" VerticalAlignment="Bottom" Background="{Binding Window_Background}">
             <Label Content="{Binding PriceUpdown_Content}" 
-                   Foreground="{Binding PriceUpdown_Foreground}"/>
+                   Foreground="{Binding PriceUpdown_Foreground}" />
         </StatusBar>
     </Grid>
 </Window>

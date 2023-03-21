@@ -52,6 +52,8 @@ namespace SalaryManager.WPF.Models
 
             this.ViewModel.FontFamily = Options_General.FetchFontFamily();
 
+            this.ViewModel.Window_Background = Options_General.FetchBackgroundColorBrush();
+
             this.ViewModel.Entities = Careers.FetchByDescending();
 
             this.Reflesh_ListView();

@@ -24,6 +24,25 @@ namespace SalaryManager.WPF.ViewModels
 
         private Model_AnnualChart Model { get; set; }
 
+        #region 背景色
+
+        private System.Windows.Media.Brush _window_Background;
+
+        /// <summary>
+        /// 背景色 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Window_Background
+        {
+            get => this._window_Background;
+            set
+            {
+                this._window_Background = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
         #region 対象日付
 
         private string _targetDate;

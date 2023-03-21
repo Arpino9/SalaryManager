@@ -56,6 +56,8 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.Entity          = WorkingReferences.Fetch(entityDate.Year, entityDate.Month);
             this.ViewModel.Entity_LastYear = WorkingReferences.Fetch(entityDate.Year, entityDate.Month - 1);
 
+            this.WorkPlace.Window_Background = Options_General.FetchBackgroundColorBrush();
+
             if (this.ViewModel.Entity is null && 
                 Options_General.FetchShowDefaultPayslip())
             {
