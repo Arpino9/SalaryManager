@@ -238,15 +238,17 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void CreateBackup()
         {
+            var filter = "Databaseファイル(*.db)|*.db|すべてのファイル(*.*)|*.*";
+
             Options_General.Create();
-            var directory = DirectorySelector.Select("DB出力先のフォルダを選択してください。");
+            var directory = Selector.SelectWithName("SalaryManager.db", filter);
 
             if (string.IsNullOrEmpty(directory))
             {
                 return;
             }
 
-            File.Copy(Options_General.FetchSQLitePath(), $"{directory}\\{FilePath.GetSolutionName()}.db");
+            File.Copy(Options_General.FetchSQLitePath(), directory);
         }
         
         #endregion
@@ -343,7 +345,7 @@ namespace SalaryManager.WPF.Models
                 }
             }
 
-            var directory = DirectorySelector.Select("Excel出力先のフォルダを選択してください。");
+            var directory = Selector.Select("Excel出力先のフォルダを選択してください。");
 
             Options_General.Create();
 

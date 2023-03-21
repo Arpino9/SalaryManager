@@ -6,6 +6,7 @@ using SalaryManager.WPF.ViewModels;
 using System.Drawing.Text;
 using System.Linq;
 using SalaryManager.Domain.Modules.Helpers;
+using System.Drawing;
 
 namespace SalaryManager.WPF.Models
 {
@@ -54,8 +55,12 @@ namespace SalaryManager.WPF.Models
             // 初期表示時にデフォルト明細を表示する
             this.ViewModel.ShowDefaultPayslip_IsChecked = Options_General.FetchShowDefaultPayslip();
 
-            // プレビュー
-            this.ViewModel.Preview_FontFamily = Options_General.FetchFontFamily();
+            // フォント
+            this.ViewModel.Preview_FontFamily     = Options_General.FetchFontFamily();
+
+            // 背景色
+            this.ViewModel.Window_BackgroundColor = Options_General.FetchBackgroundColor();
+            this.ViewModel.Window_Background      = Options_General.FetchBackgroundColorBrush();
         }
 
         #endregion
@@ -150,6 +155,36 @@ namespace SalaryManager.WPF.Models
 
         #endregion
 
+        #region 背景色
+
+        /// <summary>
+        /// 背景色 - 色を選択
+        /// </summary>
+        internal void ChangeWindowBackground()
+        {
+            var dialog = new ColorDialog();
+            var result = dialog.ShowDialog(); 
+
+            if (result == DialogResult.OK) 
+            {
+                this.ViewModel.Window_Background      = ColorUtil.ToWPFColor(dialog.Color);
+                this.ViewModel.Window_BackgroundColor = dialog.Color;
+            }
+        }
+
+        /// <summary>
+        /// 背景色 - デフォルトに戻す
+        /// </summary>
+        internal void SetDefault_WindowBackground()
+        {
+            var defaultColor = SystemColors.ControlLight;
+
+            this.ViewModel.Window_BackgroundColor = defaultColor;
+            this.ViewModel.Window_Background      = ColorUtil.ToWPFColor(defaultColor);
+        }
+
+        #endregion
+
         #region 保存
 
         /// <summary>
@@ -172,6 +207,11 @@ namespace SalaryManager.WPF.Models
                 setting.ExcelTemplatePath  = this.ViewModel.SelectExcelTempletePath_Text;
                 setting.FontFamily         = this.ViewModel.FontFamily_Text;
                 setting.ShowDefaultPayslip = this.ViewModel.ShowDefaultPayslip_IsChecked;
+                setting.BackgroundColor    = this.ViewModel.Window_BackgroundColor.Name;
+                setting.BackgroundColor_A  = this.ViewModel.Window_BackgroundColor.A.ToString();
+                setting.BackgroundColor_R  = this.ViewModel.Window_BackgroundColor.R.ToString();
+                setting.BackgroundColor_G  = this.ViewModel.Window_BackgroundColor.G.ToString();
+                setting.BackgroundColor_B  = this.ViewModel.Window_BackgroundColor.B.ToString();
 
                 writer.Serialize(setting);
             }

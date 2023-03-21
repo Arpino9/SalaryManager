@@ -107,9 +107,10 @@
     <Compile Include="Exceptions\FileReaderException.cs" />
     <Compile Include="Exceptions\FileWriterException.cs" />
     <Compile Include="Exceptions\FormatException.cs" />
+    <Compile Include="Modules\Helpers\ColorUtil.cs" />
     <Compile Include="Modules\Helpers\ListUtil.cs" />
     <Compile Include="Modules\Helpers\DateHelpers.cs" />
-    <Compile Include="Modules\Helpers\DirectorySelector.cs" />
+    <Compile Include="Modules\Helpers\Selector.cs" />
     <Compile Include="Modules\Logics\CursorWaiting.cs" />
     <Compile Include="Modules\Logics\DialogMessage.cs" />
     <Compile Include="Modules\Logics\ExcelWriter.cs" />

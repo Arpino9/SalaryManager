@@ -3,6 +3,7 @@ using SalaryManager.WPF.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Drawing;
 using System.Runtime.CompilerServices;
 
 namespace SalaryManager.WPF.ViewModels
@@ -227,6 +228,64 @@ namespace SalaryManager.WPF.ViewModels
                     this._setDefault_FontFamily_Command = new RelayCommand(this.Model.SetDefault_FontFamily);
                 }
                 return this._setDefault_FontFamily_Command;
+            }
+        }
+
+        #endregion
+
+        #region 背景色
+
+        internal System.Drawing.Color Window_BackgroundColor = SystemColors.ControlLight;
+
+        private System.Windows.Media.Brush _window_Background;
+
+        /// <summary>
+        /// 背景色 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Window_Background
+        {
+            get => this._window_Background;
+            set
+            {
+                this._window_Background = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private RelayCommand _changeWindowBackground_Command;
+
+        /// <summary>
+        /// 背景色 - Command
+        /// </summary>
+        public RelayCommand ChangeWindowBackground_Command
+        {
+            get
+            {
+                if (this._changeWindowBackground_Command == null)
+                {
+                    this._changeWindowBackground_Command = new RelayCommand(this.Model.ChangeWindowBackground);
+                }
+                return this._changeWindowBackground_Command;
+            }
+        }
+
+        private RelayCommand _setDefault_WindowBackground_Command;
+
+        /// <summary>
+        /// フォントファミリ - Command
+        /// </summary>
+        /// <remarks>
+        /// 初期値に戻す
+        /// </remarks>
+        public RelayCommand SetDefault_WindowBackground_Command
+        {
+            get
+            {
+                if (this._setDefault_WindowBackground_Command == null)
+                {
+                    this._setDefault_WindowBackground_Command = new RelayCommand(this.Model.SetDefault_WindowBackground);
+                }
+                return this._setDefault_WindowBackground_Command;
             }
         }
 
