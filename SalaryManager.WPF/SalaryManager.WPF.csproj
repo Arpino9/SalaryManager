@@ -107,6 +107,8 @@
     <Compile Include="Behavior\TextBoxIntegerOnly.cs" />
     <Compile Include="Converter\IntToStringConverter.cs" />
     <Compile Include="Converter\RelayCommand.cs" />
+    <Compile Include="Interface\IInputPayslip.cs" />
+    <Compile Include="Interface\IMaster.cs" />
     <Compile Include="Models\Model_Allowance.cs" />
     <Compile Include="Models\Model_Career.cs" />
     <Compile Include="Models\Model_Deduction.cs" />
