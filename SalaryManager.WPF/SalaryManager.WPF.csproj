@@ -121,6 +121,9 @@
     <Compile Include="UserControls\AnnualChart.xaml.cs">
       <DependentUpon>AnnualChart.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\NumericUpDown.xaml.cs">
+      <DependentUpon>NumericUpDown.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Option_General.xaml.cs">
       <DependentUpon>Option_General.xaml</DependentUpon>
     </Compile>
@@ -159,6 +162,10 @@
       <DependentUpon>Option.xaml</DependentUpon>
     </Compile>
     <Page Include="UserControls\AnnualChart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\NumericUpDown.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
