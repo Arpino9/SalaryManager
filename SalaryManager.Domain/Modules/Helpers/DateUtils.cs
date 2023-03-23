@@ -6,7 +6,7 @@ namespace SalaryManager.Domain.Modules.Helpers
     /// <summary>
     /// Helpers - 日付関連
     /// </summary>
-    public sealed class DateHelpers
+    public sealed class DateUtils
     {
         /// <summary>
         /// SQLiteの値に変換

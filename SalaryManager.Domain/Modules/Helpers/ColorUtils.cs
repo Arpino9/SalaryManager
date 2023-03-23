@@ -2,9 +2,10 @@
 
 namespace SalaryManager.Domain.Modules.Helpers
 {
-    public static  class ColorUtil
+    public static  class ColorUtils
     {
-        //TODO: メソッド名は要検討
+        //TODO: メソッド名は要検討、
+        //MEMO: Labelにバインディングするため、値オブジェクトは不採用
         /// <summary>
         /// WPFの前景色、背景色に変換
         /// </summary>

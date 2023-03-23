@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace SalaryManager.Domain.Modules.Helpers
 {
-    public static class ListUtil
+    public static class ListUtils
     {
         /// <summary>
         /// Observable Collectionに変換する

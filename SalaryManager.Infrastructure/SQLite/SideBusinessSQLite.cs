@@ -124,7 +124,7 @@ where Id = @Id
             var args = new List<SQLiteParameter>()
             {
                 new SQLiteParameter("Id", entity.ID),
-                new SQLiteParameter("YearMonth", DateHelpers.ConvertToSQLiteValue(entity.YearMonth)),
+                new SQLiteParameter("YearMonth", DateUtils.ConvertToSQLiteValue(entity.YearMonth)),
                 new SQLiteParameter("SideBusiness", entity.SideBusiness),
                 new SQLiteParameter("Perquisite", entity.Perquisite),
                 new SQLiteParameter("Others", entity.Others),

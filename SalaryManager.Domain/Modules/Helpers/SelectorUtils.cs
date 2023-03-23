@@ -5,7 +5,7 @@ namespace SalaryManager.Domain.Modules.Helpers
     /// <summary>
     /// ディレクトリ・ファイル選択
     /// </summary>
-    public sealed class Selector
+    public sealed class SelectorUtils
     {
         /// <summary> 初期ディレクトリ </summary>
         public static readonly string DefaultPath = @"C:";
@@ -23,7 +23,7 @@ namespace SalaryManager.Domain.Modules.Helpers
             using (var dialog = new FolderBrowserDialog())
             {
                 dialog.Description         = description;
-                dialog.SelectedPath        = Selector.DefaultPath;                
+                dialog.SelectedPath        = SelectorUtils.DefaultPath;                
                 dialog.ShowNewFolderButton = true;
 
                 if (dialog.ShowDialog() != DialogResult.OK)

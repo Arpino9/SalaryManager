@@ -28,7 +28,8 @@
             get
             {
                 return (this.Text.Contains("株式会社") || 
-                        this.Text.Contains("(株)"));
+                        this.Text.Contains("(株)") ||
+                        this.Text.Contains("（株）"));
             }
         }
 
@@ -40,7 +41,8 @@
             get
             {
                 return (this.Text.Contains("有限会社") ||
-                        this.Text.Contains("(有)"));
+                        this.Text.Contains("(有)") ||
+                        this.Text.Contains("（有）"));
             }
         }
 

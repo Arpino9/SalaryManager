@@ -243,7 +243,7 @@ namespace SalaryManager.WPF.Models
             var filter = "Databaseファイル(*.db)|*.db|すべてのファイル(*.*)|*.*";
 
             Options_General.Create();
-            var directory = Selector.SelectWithName("SalaryManager.db", filter);
+            var directory = SelectorUtils.SelectWithName("SalaryManager.db", filter);
 
             if (string.IsNullOrEmpty(directory))
             {
@@ -347,7 +347,7 @@ namespace SalaryManager.WPF.Models
                 }
             }
 
-            var directory = Selector.Select("Excel出力先のフォルダを選択してください。");
+            var directory = SelectorUtils.Select("Excel出力先のフォルダを選択してください。");
 
             Options_General.Create();
 

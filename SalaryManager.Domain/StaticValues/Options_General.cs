@@ -64,15 +64,16 @@ namespace SalaryManager.Domain.StaticValues
         /// <returns>背景色</returns>
         public static System.Drawing.Color FetchBackgroundColor()
         {
-            if (_settings?.BackgroundColor is null)
+            if (_settings?.BackgroundColor_ColorCode is null)
             {
                 return SystemColors.ControlLight;
             }
 
-            return System.Drawing.Color.FromName(_settings.BackgroundColor);
+            return System.Drawing.Color.FromName(_settings.BackgroundColor_ColorCode);
         }
 
-        private static readonly SolidColorBrush Default = ColorUtil.ToWPFColor("255", "227", "227", "227");
+        /// <summary> 背景色 (初期値) </summary>
+        private static readonly SolidColorBrush Default = ColorUtils.ToWPFColor("255", "227", "227", "227");
 
         /// <summary>
         /// 背景色を取得
@@ -80,12 +81,13 @@ namespace SalaryManager.Domain.StaticValues
         /// <returns>背景色</returns>
         public static SolidColorBrush FetchBackgroundColorBrush()
         {
-            if (_settings?.BackgroundColor is null)
+            if (_settings?.BackgroundColor_ColorCode is null)
             {
                 return Default;
             }
 
-            return ColorUtil.ToWPFColor(_settings.BackgroundColor_A, _settings.BackgroundColor_R, _settings.BackgroundColor_G, _settings.BackgroundColor_B);
+            var color = StringUtils.Separate(_settings.BackgroundColor);
+            return ColorUtils.ToWPFColor(color[0], color[1], color[2], color[3]);
         }
 
         /// <summary>
@@ -116,14 +118,9 @@ namespace SalaryManager.Domain.StaticValues
         public bool ShowDefaultPayslip;
 
         /// <summary> 背景色 (カラーコード) </summary>
+        public string BackgroundColor_ColorCode;
+        
+        /// <summary> 背景色 (ARGB) </summary>
         public string BackgroundColor;
-        /// <summary> 背景色 (アルファ) </summary>
-        public string BackgroundColor_A;
-        /// <summary> 背景色 (赤) </summary>
-        public string BackgroundColor_R;
-        /// <summary> 背景色 (緑) </summary>
-        public string BackgroundColor_G;
-        /// <summary> 背景色 (黒) </summary>
-        public string BackgroundColor_B;
     }
 }

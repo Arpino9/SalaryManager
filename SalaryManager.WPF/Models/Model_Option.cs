@@ -7,6 +7,7 @@ using System.Drawing.Text;
 using System.Linq;
 using SalaryManager.Domain.Modules.Helpers;
 using System.Drawing;
+using System.Collections.Generic;
 
 namespace SalaryManager.WPF.Models
 {
@@ -49,7 +50,7 @@ namespace SalaryManager.WPF.Models
 
             // フォントファミリ
             var fonts =  new InstalledFontCollection();
-            this.ViewModel.FontFamily_ItemSource = ListUtil.ToObservableCollection<string>(fonts.Families.Select(x => x.Name).ToList());
+            this.ViewModel.FontFamily_ItemSource = ListUtils.ToObservableCollection<string>(fonts.Families.Select(x => x.Name).ToList());
             this.ViewModel.FontFamily_Text       = Options_General.FetchFontFamilyText();
 
             // 初期表示時にデフォルト明細を表示する
@@ -167,7 +168,7 @@ namespace SalaryManager.WPF.Models
 
             if (result == DialogResult.OK) 
             {
-                this.ViewModel.Window_Background      = ColorUtil.ToWPFColor(dialog.Color);
+                this.ViewModel.Window_Background      = ColorUtils.ToWPFColor(dialog.Color);
                 this.ViewModel.Window_BackgroundColor = dialog.Color;
             }
         }
@@ -180,7 +181,7 @@ namespace SalaryManager.WPF.Models
             var defaultColor = SystemColors.ControlLight;
 
             this.ViewModel.Window_BackgroundColor = defaultColor;
-            this.ViewModel.Window_Background      = ColorUtil.ToWPFColor(defaultColor);
+            this.ViewModel.Window_Background      = ColorUtils.ToWPFColor(defaultColor);
         }
 
         #endregion
@@ -203,15 +204,21 @@ namespace SalaryManager.WPF.Models
 
             using (var writer = new XMLWriter(FilePath.GetXMLDefaultPath(), setting.GetType()))
             {
-                setting.SQLitePath         = this.ViewModel.SelectSQLite_Text;
-                setting.ExcelTemplatePath  = this.ViewModel.SelectExcelTempletePath_Text;
-                setting.FontFamily         = this.ViewModel.FontFamily_Text;
-                setting.ShowDefaultPayslip = this.ViewModel.ShowDefaultPayslip_IsChecked;
-                setting.BackgroundColor    = this.ViewModel.Window_BackgroundColor.Name;
-                setting.BackgroundColor_A  = this.ViewModel.Window_BackgroundColor.A.ToString();
-                setting.BackgroundColor_R  = this.ViewModel.Window_BackgroundColor.R.ToString();
-                setting.BackgroundColor_G  = this.ViewModel.Window_BackgroundColor.G.ToString();
-                setting.BackgroundColor_B  = this.ViewModel.Window_BackgroundColor.B.ToString();
+                setting.SQLitePath                = this.ViewModel.SelectSQLite_Text;
+                setting.ExcelTemplatePath         = this.ViewModel.SelectExcelTempletePath_Text;
+                setting.FontFamily                = this.ViewModel.FontFamily_Text;
+                setting.ShowDefaultPayslip        = this.ViewModel.ShowDefaultPayslip_IsChecked;
+                setting.BackgroundColor_ColorCode = this.ViewModel.Window_BackgroundColor.Name;
+
+                var list = new List<string>()
+                {
+                    this.ViewModel.Window_BackgroundColor.A.ToString(),
+                    this.ViewModel.Window_BackgroundColor.R.ToString(),
+                    this.ViewModel.Window_BackgroundColor.G.ToString(),
+                    this.ViewModel.Window_BackgroundColor.B.ToString()
+                };
+
+                setting.BackgroundColor = StringUtils.Aggregate(list);
 
                 writer.Serialize(setting);
             }
