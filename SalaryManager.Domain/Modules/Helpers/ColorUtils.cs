@@ -23,7 +23,7 @@ namespace SalaryManager.Domain.Modules.Helpers
         {
             var brush = new SolidColorBrush();
 
-            brush.Color = System.Windows.Media.Color.FromArgb(colorAlpha, colorRed, colorGreen, colorGreen);
+            brush.Color = System.Windows.Media.Color.FromArgb(colorAlpha, colorRed, colorGreen, colorBlue);
 
             return brush;
         }

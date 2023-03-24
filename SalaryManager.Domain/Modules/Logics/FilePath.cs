@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 
 namespace SalaryManager.Domain.Modules.Logics
 {
@@ -122,7 +121,7 @@ namespace SalaryManager.Domain.Modules.Logics
         /// <returns>SQLiteの初期パス</returns>
         public static string GetXMLDefaultPath()
         {
-            return $"{FilePath.GetProjectPath(ProjectName.Domain)}\\{Shared.XMLName}.xml";
+            return $"{FilePath.GetProjectPath(ProjectName.Infrastructure)}\\{Shared.XMLName}.xml";
         }
 
         #endregion

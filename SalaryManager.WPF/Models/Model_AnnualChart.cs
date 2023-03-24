@@ -2,6 +2,7 @@
 using SalaryManager.Domain.StaticValues;
 using SalaryManager.Domain.ValueObjects;
 using SalaryManager.Infrastructure.SQLite;
+using SalaryManager.Infrastructure.XML;
 using SalaryManager.WPF.ViewModels;
 
 namespace SalaryManager.WPF.Models
@@ -47,8 +48,7 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         internal void Initialize(int fetchingYear)
         {
-            Options_General.Create();
-            this.ViewModel.Window_Background = Options_General.FetchBackgroundColorBrush();
+            this.ViewModel.Window_Background = XMLLoader.FetchBackgroundColorBrush();
 
             // 対象日付
             if (this.Header.Year_Value.ToString().Length != 4)

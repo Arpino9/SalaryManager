@@ -4,11 +4,14 @@ using System.Text;
 using System.Xml.Serialization;
 using SalaryManager.Domain.Exceptions;
 
-namespace SalaryManager.Domain.Modules.Logics
+namespace SalaryManager.Infrastructure.XML
 {
     /// <summary>
     /// XML書き込み
     /// </summary>
+    /// <remarks>
+    /// 指定されたパスにXMLを生成し、それぞれのタグに値を書き込む。
+    /// </remarks>
     public sealed class XMLWriter : IDisposable
     {
         /// <summary> シリアライザー </summary>
@@ -22,9 +25,9 @@ namespace SalaryManager.Domain.Modules.Logics
             try
             {
                 _xmlSerializer = new XmlSerializer(type);
-                _writer        = new StreamWriter(filePath, false, new UTF8Encoding(false));
+                _writer = new StreamWriter(filePath, false, new UTF8Encoding(false));
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 throw new FileWriterException("XMLファイルの作成に失敗しました。", ex);
             }
@@ -41,7 +44,7 @@ namespace SalaryManager.Domain.Modules.Logics
             {
                 _xmlSerializer.Serialize(_writer, source);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 throw new FileWriterException("XMLファイルの書き込みに失敗しました。", ex);
             }

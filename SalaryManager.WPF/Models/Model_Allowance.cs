@@ -6,6 +6,7 @@ using SalaryManager.Domain.StaticValues;
 using SalaryManager.Domain.ValueObjects;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.Infrastructure.SQLite;
+using SalaryManager.Infrastructure.XML;
 using SalaryManager.WPF.ViewModels;
 
 namespace SalaryManager.WPF.Models
@@ -54,13 +55,12 @@ namespace SalaryManager.WPF.Models
         public void Initialize(DateTime entityDate)
         {
             Allowances.Create(new AllowanceSQLite());
-            Options_General.Create();
 
             this.ViewModel.Entity          = Allowances.Fetch(entityDate.Year, entityDate.Month);
             this.ViewModel.Entity_LastYear = Allowances.Fetch(entityDate.Year, entityDate.Month - 1);
 
-            if (this.ViewModel.Entity is null && 
-                Options_General.FetchShowDefaultPayslip())
+            if (this.ViewModel.Entity is null &&
+                XMLLoader.FetchShowDefaultPayslip())
             {
                 // デフォルト明細
                 this.ViewModel.Entity = Allowances.FetchDefault();

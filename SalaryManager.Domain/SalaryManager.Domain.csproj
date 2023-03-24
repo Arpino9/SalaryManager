@@ -114,13 +114,11 @@
     <Compile Include="Modules\Helpers\StringUtils.cs" />
     <Compile Include="Modules\Logics\CursorWaiting.cs" />
     <Compile Include="Modules\Logics\DialogMessage.cs" />
-    <Compile Include="Modules\Logics\ExcelWriter.cs" />
     <Compile Include="Modules\Logics\FilePath.cs" />
-    <Compile Include="Modules\Logics\XMLReader.cs" />
-    <Compile Include="Modules\Logics\XMLWriter.cs" />
     <Compile Include="Repositories\IAnnualChartRepository.cs" />
     <Compile Include="Repositories\ICareerRepository.cs" />
     <Compile Include="Repositories\IHeaderRepository.cs" />
+    <Compile Include="Repositories\IXMLReaderRepository.cs" />
     <Compile Include="Shared.cs" />
     <Compile Include="Entities\AllowanceValueEntity.cs" />
     <Compile Include="Entities\DeductionEntity.cs" />
@@ -136,7 +134,6 @@
     <Compile Include="StaticValues\Careers.cs" />
     <Compile Include="StaticValues\Deductions.cs" />
     <Compile Include="StaticValues\Headers.cs" />
-    <Compile Include="StaticValues\Options_General.cs" />
     <Compile Include="StaticValues\SideBusinesses.cs" />
     <Compile Include="StaticValues\WorkingReferences.cs" />
     <Compile Include="ValueObjects\AlternativeValue.cs" />

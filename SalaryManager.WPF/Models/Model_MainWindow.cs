@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Media;
 using SalaryManager.Domain;
-using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Domain.Modules.Helpers;
 using SalaryManager.Domain.StaticValues;
 using SalaryManager.Domain.ValueObjects;
@@ -12,6 +11,9 @@ using SalaryManager.WPF.ViewModels;
 using SalaryManager.WPF.Window;
 using WorkingReferences = SalaryManager.Domain.StaticValues.WorkingReferences;
 using SalaryManager.Domain.Exceptions;
+using SalaryManager.Infrastructure.XML;
+using SalaryManager.Infrastructure.Excel;
+using SalaryManager.Domain.Modules.Logics;
 
 namespace SalaryManager.WPF.Models
 {
@@ -62,13 +64,11 @@ namespace SalaryManager.WPF.Models
 
         internal void Initialize()
         {
-            this.InitializeSQLite();
+           this.InitializeSQLite();
 
-            Options_General.Create();
+           this.ViewModel.FontFamily = XMLLoader.FetchFontFamily();
 
-           this.ViewModel.FontFamily = Options_General.FetchFontFamily();
-
-           this.ViewModel.Window_Background = Options_General.FetchBackgroundColorBrush();
+           this.ViewModel.Window_Background = XMLLoader.FetchBackgroundColorBrush();
         }
 
         /// <summary>
@@ -106,6 +106,9 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// CSV読み込み
         /// </summary>
+        /// <remarks>
+        /// 暫定的なメソッドのため、あえてInfrastructure層には加えていない。
+        /// </remarks>
         internal void ReadCSV()
         {
             var confirmingMessage = $"{this.Header.ViewModel.Year_Value}年{this.Header.ViewModel.Month_Value}月のCSVを読み込みますか？";
@@ -242,7 +245,6 @@ namespace SalaryManager.WPF.Models
         {
             var filter = "Databaseファイル(*.db)|*.db|すべてのファイル(*.*)|*.*";
 
-            Options_General.Create();
             var directory = SelectorUtils.SelectWithName("SalaryManager.db", filter);
 
             if (string.IsNullOrEmpty(directory))
@@ -250,7 +252,7 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
-            File.Copy(Options_General.FetchSQLitePath(), directory);
+            File.Copy(XMLLoader.FetchSQLitePath(), directory);
         }
         
         #endregion
@@ -318,7 +320,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal async void OutputExcel()
         {
-            var workbook = new ExcelWriter();
+            var workbook = new Infrastructure.Excel.ExcelWriter();
 
             using (var cursor = new CursorWaiting())
             {
@@ -348,8 +350,6 @@ namespace SalaryManager.WPF.Models
             }
 
             var directory = SelectorUtils.Select("Excel出力先のフォルダを選択してください。");
-
-            Options_General.Create();
 
             workbook.CopyAsWorkbook(directory);
         }

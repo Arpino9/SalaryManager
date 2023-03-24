@@ -1,13 +1,13 @@
 ﻿using System.Windows.Forms;
 using SalaryManager.Domain;
 using SalaryManager.Domain.Modules.Logics;
-using SalaryManager.Domain.StaticValues;
 using SalaryManager.WPF.ViewModels;
 using System.Drawing.Text;
 using System.Linq;
 using SalaryManager.Domain.Modules.Helpers;
 using System.Drawing;
 using System.Collections.Generic;
+using SalaryManager.Infrastructure.XML;
 
 namespace SalaryManager.WPF.Models
 {
@@ -41,27 +41,25 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         internal void Initialize()
         {
-            Options_General.Create();
-            
             // Excelテンプレート
-            this.ViewModel.SelectExcelTempletePath_Text = Options_General.FetchExcelTemplatePath();
+            this.ViewModel.SelectExcelTempletePath_Text = XMLLoader.FetchExcelTemplatePath();
             // SQLite
-            this.ViewModel.SelectSQLite_Text            = Options_General.FetchSQLitePath();
+            this.ViewModel.SelectSQLite_Text            = XMLLoader.FetchSQLitePath();
 
             // フォントファミリ
             var fonts =  new InstalledFontCollection();
             this.ViewModel.FontFamily_ItemSource = ListUtils.ToObservableCollection<string>(fonts.Families.Select(x => x.Name).ToList());
-            this.ViewModel.FontFamily_Text       = Options_General.FetchFontFamilyText();
+            this.ViewModel.FontFamily_Text       = XMLLoader.FetchFontFamilyText();
 
             // 初期表示時にデフォルト明細を表示する
-            this.ViewModel.ShowDefaultPayslip_IsChecked = Options_General.FetchShowDefaultPayslip();
+            this.ViewModel.ShowDefaultPayslip_IsChecked = XMLLoader.FetchShowDefaultPayslip();
 
             // フォント
-            this.ViewModel.Preview_FontFamily     = Options_General.FetchFontFamily();
+            this.ViewModel.Preview_FontFamily     = XMLLoader.FetchFontFamily();
 
             // 背景色
-            this.ViewModel.Window_BackgroundColor = Options_General.FetchBackgroundColor();
-            this.ViewModel.Window_Background      = Options_General.FetchBackgroundColorBrush();
+            this.ViewModel.Window_BackgroundColor = XMLLoader.FetchBackgroundColor();
+            this.ViewModel.Window_Background      = XMLLoader.FetchBackgroundColorBrush();
         }
 
         #endregion
@@ -200,15 +198,15 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
-            var setting = new Settings();
+            var tag = new XMLTag();
 
-            using (var writer = new XMLWriter(FilePath.GetXMLDefaultPath(), setting.GetType()))
+            using (var writer = new XMLWriter(FilePath.GetXMLDefaultPath(), tag.GetType()))
             {
-                setting.SQLitePath                = this.ViewModel.SelectSQLite_Text;
-                setting.ExcelTemplatePath         = this.ViewModel.SelectExcelTempletePath_Text;
-                setting.FontFamily                = this.ViewModel.FontFamily_Text;
-                setting.ShowDefaultPayslip        = this.ViewModel.ShowDefaultPayslip_IsChecked;
-                setting.BackgroundColor_ColorCode = this.ViewModel.Window_BackgroundColor.Name;
+                tag.SQLitePath                = this.ViewModel.SelectSQLite_Text;
+                tag.ExcelTemplatePath         = this.ViewModel.SelectExcelTempletePath_Text;
+                tag.FontFamily                = this.ViewModel.FontFamily_Text;
+                tag.ShowDefaultPayslip        = this.ViewModel.ShowDefaultPayslip_IsChecked;
+                tag.BackgroundColor_ColorCode = this.ViewModel.Window_BackgroundColor.Name;
 
                 var list = new List<string>()
                 {
@@ -218,9 +216,9 @@ namespace SalaryManager.WPF.Models
                     this.ViewModel.Window_BackgroundColor.B.ToString()
                 };
 
-                setting.BackgroundColor = StringUtils.Aggregate(list);
+                tag.BackgroundColor = StringUtils.Aggregate(list);
 
-                writer.Serialize(setting);
+                writer.Serialize(tag);
             }
         }
 

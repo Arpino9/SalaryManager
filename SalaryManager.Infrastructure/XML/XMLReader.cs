@@ -4,8 +4,14 @@ using System.Text;
 using System.Xml.Serialization;
 using SalaryManager.Domain.Exceptions;
 
-namespace SalaryManager.Domain.Modules.Logics
+namespace SalaryManager.Infrastructure.XML
 {
+    /// <summary>
+    /// XML読み込み
+    /// </summary>
+    /// <remarks>
+    /// 指定されたパスのXMLの読み込み、破棄を行う。
+    /// </remarks>
     public sealed class XMLReader : IDisposable
     {
         /// <summary> シリアライザー </summary>
@@ -18,10 +24,10 @@ namespace SalaryManager.Domain.Modules.Logics
         {
             try
             {
-                if (File.Exists(filePath)) 
+                if (File.Exists(filePath))
                 {
                     _xmlSerializer = new XmlSerializer(type);
-                    _reader        = new StreamReader(filePath, new UTF8Encoding(false));
+                    _reader = new StreamReader(filePath, new UTF8Encoding(false));
                 }
             }
             catch (Exception ex)

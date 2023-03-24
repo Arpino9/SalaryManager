@@ -7,6 +7,7 @@ using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Domain.StaticValues;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.Infrastructure.Interface;
+using SalaryManager.Infrastructure.XML;
 
 namespace SalaryManager.WPF.Models
 {
@@ -48,11 +49,10 @@ namespace SalaryManager.WPF.Models
         public void Initialize()
         {
             Careers.Create(new CareerSQLite());
-            Options_General.Create();
 
-            this.ViewModel.FontFamily = Options_General.FetchFontFamily();
+            this.ViewModel.FontFamily = XMLLoader.FetchFontFamily();
 
-            this.ViewModel.Window_Background = Options_General.FetchBackgroundColorBrush();
+            this.ViewModel.Window_Background = XMLLoader.FetchBackgroundColorBrush();
 
             this.ViewModel.Entities = Careers.FetchByDescending();
 

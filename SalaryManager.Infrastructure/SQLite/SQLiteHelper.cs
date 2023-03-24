@@ -1,7 +1,7 @@
-﻿using System;
+﻿using SalaryManager.Infrastructure.XML;
+using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using SalaryManager.Domain.StaticValues;
 
 namespace SalaryManager.Infrastructure.SQLite
 {
@@ -13,8 +13,7 @@ namespace SalaryManager.Infrastructure.SQLite
         /// <returns>接続文字列</returns>
         internal static string GetConnectionString()
         {
-            Options_General.Create();
-            return ($"Data Source={Options_General.FetchSQLitePath()};Version=3;");
+            return ($"Data Source={XMLLoader.FetchSQLitePath()};Version=3;");
         }
 
         /// <summary>

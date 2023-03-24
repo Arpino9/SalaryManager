@@ -7,6 +7,7 @@ using SalaryManager.Domain.ValueObjects;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.ViewModels;
+using SalaryManager.Infrastructure.XML;
 
 namespace SalaryManager.WPF.Models
 {
@@ -51,15 +52,14 @@ namespace SalaryManager.WPF.Models
         {
             WorkingReferences.Create(new WorkingReferenceSQLite());
             Careers.Create(new CareerSQLite());
-            Options_General.Create();
 
             this.ViewModel.Entity          = WorkingReferences.Fetch(entityDate.Year, entityDate.Month);
             this.ViewModel.Entity_LastYear = WorkingReferences.Fetch(entityDate.Year, entityDate.Month - 1);
 
-            this.WorkPlace.Window_Background = Options_General.FetchBackgroundColorBrush();
+            this.WorkPlace.Window_Background = XMLLoader.FetchBackgroundColorBrush();
 
-            if (this.ViewModel.Entity is null && 
-                Options_General.FetchShowDefaultPayslip())
+            if (this.ViewModel.Entity is null &&
+                XMLLoader.FetchShowDefaultPayslip())
             {
                 // デフォルト明細
                 this.ViewModel.Entity = WorkingReferences.FetchDefault();

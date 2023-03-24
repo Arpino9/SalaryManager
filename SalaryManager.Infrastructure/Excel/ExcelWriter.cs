@@ -1,13 +1,14 @@
 ﻿using ClosedXML.Excel;
 using SalaryManager.Domain.Entities;
-using SalaryManager.Domain.StaticValues;
+using SalaryManager.Domain.Modules.Logics;
+using SalaryManager.Infrastructure.XML;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SalaryManager.Domain.Modules.Logics
+namespace SalaryManager.Infrastructure.Excel
 {
     /// <summary>
     /// Utility - Excel
@@ -16,15 +17,15 @@ namespace SalaryManager.Domain.Modules.Logics
     {
         public ExcelWriter()
         {
-            
+
         }
 
         /// <summary> Workbook </summary>
-        public XLWorkbook Workbook { get; } = new XLWorkbook(Options_General.FetchExcelTemplatePath());
+        public XLWorkbook Workbook { get; } = new XLWorkbook(XMLLoader.FetchExcelTemplatePath());
 
         /// <summary> Worksheet - 給与明細 </summary>
         public IXLWorksheet Worksheet_Payslip => this.Workbook.Worksheet("給与明細");
-        
+
         /// <summary> Worksheet - 収支推移 </summary>
         public IXLWorksheet Worksheet_Budget => this.Workbook.Worksheet("収支推移");
 
@@ -45,18 +46,18 @@ namespace SalaryManager.Domain.Modules.Logics
                 return;
             }
 
-            var year  = DateTime.Today.ToString("yyyy");
+            var year = DateTime.Today.ToString("yyyy");
             var month = DateTime.Today.ToString("MM");
-            var day   = DateTime.Today.ToString("dd");
+            var day = DateTime.Today.ToString("dd");
 
             try
             {
                 this.Workbook.SaveAs($@"{directory}\Payslips_{year}{month}{day}.xlsx");
             }
-            catch(IOException ex)
+            catch (IOException ex)
             {
                 DialogMessage.ShowErrorMessage("更新先のExcelが開いたままです。Excelを閉じて再度出力してください。", "Excel出力エラー");
-            }            
+            }
         }
 
         /// <summary>
@@ -77,7 +78,7 @@ namespace SalaryManager.Domain.Modules.Logics
             {
                 // 年月
                 this.Worksheet_Budget.Cell(row - 1, 2).Value = entity.YearMonth;
-                this.Worksheet_Payslip.Cell(row,    3).Value = entity.YearMonth;
+                this.Worksheet_Payslip.Cell(row, 3).Value = entity.YearMonth;
 
                 row++;
             }
@@ -99,7 +100,7 @@ namespace SalaryManager.Domain.Modules.Logics
 
             var row = ExcelWriter.DefaultRow;
 
-            foreach (var entity in entities ) 
+            foreach (var entity in entities)
             {
                 // 基本給
                 this.Worksheet_Payslip.Cell(row, 4).Value = entity.BasicSalary;
@@ -129,10 +130,10 @@ namespace SalaryManager.Domain.Modules.Logics
                 this.Worksheet_Payslip.Cell(row, 16).Value = entity.Remarks;
                 // 支給総計
                 this.Worksheet_Budget.Cell(row - 1, 4).Value = entity.TotalSalary;
-                this.Worksheet_Payslip.Cell(row,   40).Value = entity.TotalSalary;
+                this.Worksheet_Payslip.Cell(row, 40).Value = entity.TotalSalary;
                 // 差引支給額
                 this.Worksheet_Budget.Cell(row - 1, 6).Value = entity.TotalDeductedSalary;
-                this.Worksheet_Payslip.Cell(row,   43).Value = entity.TotalDeductedSalary;
+                this.Worksheet_Payslip.Cell(row, 43).Value = entity.TotalDeductedSalary;
 
                 row++;
             }
@@ -176,7 +177,7 @@ namespace SalaryManager.Domain.Modules.Logics
                 this.Worksheet_Payslip.Cell(row, 25).Value = entity.Remarks;
                 // 控除額計
                 this.Worksheet_Budget.Cell(row - 1, 5).Value = entity.TotalDeduct;
-                this.Worksheet_Payslip.Cell(row,   41).Value = entity.TotalDeduct;
+                this.Worksheet_Payslip.Cell(row, 41).Value = entity.TotalDeduct;
 
                 row++;
             }
@@ -222,7 +223,7 @@ namespace SalaryManager.Domain.Modules.Logics
                 this.Worksheet_Payslip.Cell(row, 35).Value = entity.Remarks;
                 // 勤務先
                 this.Worksheet_Budget.Cell(row - 1, 3).Value = entity.WorkPlace;
-                this.Worksheet_Payslip.Cell(row,    2).Value = entity.WorkPlace;
+                this.Worksheet_Payslip.Cell(row, 2).Value = entity.WorkPlace;
 
                 row++;
             }
@@ -267,15 +268,15 @@ namespace SalaryManager.Domain.Modules.Logics
         /// <returns>void</returns>
         public async Task SetStyle()
         {
-            var date = StaticValues.Headers.FetchByDescending();
+            var date = Domain.StaticValues.Headers.FetchByDescending();
 
             // 罫線
             var style_Payslip = this.Worksheet_Payslip.Range(ExcelWriter.DefaultRow, ExcelWriter.DefaultColumn, date.Count + ExcelWriter.DefaultRow - 1, 43).Style;
-            style_Payslip.Border.InsideBorder  = XLBorderStyleValues.Thin;
+            style_Payslip.Border.InsideBorder = XLBorderStyleValues.Thin;
             style_Payslip.Border.OutsideBorder = XLBorderStyleValues.Thin;
 
             var style_Budget = this.Worksheet_Budget.Range(ExcelWriter.DefaultRow - 1, ExcelWriter.DefaultColumn, date.Count + ExcelWriter.DefaultRow - 2, 7).Style;
-            style_Budget.Border.InsideBorder  = XLBorderStyleValues.Thin;
+            style_Budget.Border.InsideBorder = XLBorderStyleValues.Thin;
             style_Budget.Border.OutsideBorder = XLBorderStyleValues.Thin;
 
             // 行間の自動調整

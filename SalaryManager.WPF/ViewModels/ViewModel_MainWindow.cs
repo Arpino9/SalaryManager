@@ -1,9 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
-using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
-using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
 

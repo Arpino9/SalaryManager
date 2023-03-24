@@ -2,9 +2,9 @@
 using System.Linq;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Modules.Logics;
-using SalaryManager.Domain.StaticValues;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.Infrastructure.SQLite;
+using SalaryManager.Infrastructure.XML;
 using SalaryManager.WPF.ViewModels;
 
 namespace SalaryManager.WPF.Models
@@ -121,9 +121,8 @@ namespace SalaryManager.WPF.Models
         public void Initialize(DateTime entityDate)
         {
             this.FetchEntity(entityDate.Year, entityDate.Month);
-            Options_General.Create();
 
-            this.ViewModel.Window_Background = Options_General.FetchBackgroundColorBrush();
+            this.ViewModel.Window_Background = XMLLoader.FetchBackgroundColorBrush();
 
 
             if (this.Entity is null)

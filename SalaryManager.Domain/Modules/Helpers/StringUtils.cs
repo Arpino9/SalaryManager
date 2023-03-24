@@ -1,13 +1,13 @@
-﻿using System;
+﻿using System.Linq;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SalaryManager.Domain.Modules.Helpers
 {
     public static class StringUtils
     {
+        /// <summary> 区切り文字 </summary>
+        private static readonly char Separator = ',';
+
         /// <summary>
         /// 区切り文字をつける
         /// </summary>
@@ -18,15 +18,11 @@ namespace SalaryManager.Domain.Modules.Helpers
             var str = string.Empty;
             foreach(var item in list) 
             {
-                if (list.Last() == item)
-                {
-                    return str += item;
-                }
-
-                str += item + ",";
+                str += item + StringUtils.Separator;
             }
 
-            return string.Empty;
+            // 末尾の「,」は除外
+            return str.Substring(0, str.Length - 1);
         }
 
         /// <summary>
@@ -36,7 +32,7 @@ namespace SalaryManager.Domain.Modules.Helpers
         /// <returns></returns>
         public static List<string> Separate(string str)
         {
-            return str.Split(',').ToList();
+            return str.Split(StringUtils.Separator).ToList();
         }
     }
 }
