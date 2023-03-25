@@ -47,8 +47,8 @@
                  CommandManager.PreviewExecuted="CustomTextBox_PreviewExecuted"
                  GotFocus="CustomTextBox_GotFocus"
                  PreviewMouseLeftButtonDown="CustomTextBox_PreviewMouseLeftButtonDown"
-                 MouseWheel="CustomTextBox_MouseWheel"
-                 Text="{Binding Path=Value, StringFormat={}{0:N0}, Mode=TwoWay,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:NumericUpDown}}">
+                 MouseWheel="CustomTextBox_MouseWheel"                 
+                 Text="{Binding Path=CustomValue, StringFormat={}{0:N0}, Mode=TwoWay,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:NumericUpDown}}">
         </TextBox>
     </Grid>
 </UserControl>

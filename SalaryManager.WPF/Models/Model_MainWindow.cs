@@ -108,6 +108,7 @@ namespace SalaryManager.WPF.Models
         internal void Window_Activated()
         {
             this.ViewModel.FontFamily        = XMLLoader.FetchFontFamily();
+            this.ViewModel.FontSize          = XMLLoader.FetchFontSize();
             this.ViewModel.Window_Background = XMLLoader.FetchBackgroundColorBrush();
         }
 

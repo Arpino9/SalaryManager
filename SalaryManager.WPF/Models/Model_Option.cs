@@ -58,6 +58,7 @@ namespace SalaryManager.WPF.Models
 
             // フォント
             this.ViewModel.Preview_FontFamily     = XMLLoader.FetchFontFamily();
+            this.ViewModel.FontSize_Value         = XMLLoader.FetchFontSize();
 
             // 背景色
             this.ViewModel.Window_BackgroundColor = XMLLoader.FetchBackgroundColor();
@@ -154,6 +155,18 @@ namespace SalaryManager.WPF.Models
 
         #endregion
 
+        #region フォントサイズ
+
+        /// <summary>
+        /// フォントサイズ - 初期値に戻す
+        /// </summary>
+        internal void SetDefault_FontSize_Value()
+        {
+            this.ViewModel.FontSize_Value = decimal.Parse(Shared.FontSize);
+        }
+
+        #endregion
+
         #region 背景色
 
         /// <summary>
@@ -204,6 +217,7 @@ namespace SalaryManager.WPF.Models
                 tag.SQLitePath                = this.ViewModel.SelectSQLite_Text;
                 tag.ExcelTemplatePath         = this.ViewModel.SelectExcelTempletePath_Text;
                 tag.FontFamily                = this.ViewModel.FontFamily_Text;
+                tag.FontSize                  = this.ViewModel.FontSize_Value;
                 tag.ShowDefaultPayslip        = this.ViewModel.ShowDefaultPayslip_IsChecked;
                 tag.BackgroundColor_ColorCode = this.ViewModel.Window_BackgroundColor.Name;
 

@@ -51,6 +51,7 @@ namespace SalaryManager.WPF.Models
             Careers.Create(new CareerSQLite());
 
             this.ViewModel.FontFamily = XMLLoader.FetchFontFamily();
+            this.ViewModel.FontSize   = XMLLoader.FetchFontSize();
 
             this.ViewModel.Window_Background = XMLLoader.FetchBackgroundColorBrush();
 

@@ -83,7 +83,36 @@ namespace SalaryManager.Infrastructure.XML
                 return SystemColors.ControlLight;
             }
 
-            return System.Drawing.Color.FromName(_tag.BackgroundColor_ColorCode);
+            var color = StringUtils.Separate(_tag.BackgroundColor);
+
+            if (color.Count < 2)
+            {
+                return System.Drawing.Color.FromArgb(int.Parse(color[0]), 0, 0, 0);
+            }
+            else if (color.Count < 3)
+            {
+                return System.Drawing.Color.FromArgb(int.Parse(color[0]), int.Parse(color[1]), 0, 0);
+            }
+            else if (color.Count < 4)
+            {
+                return System.Drawing.Color.FromArgb(int.Parse(color[0]), int.Parse(color[1]), int.Parse(color[2]), 0);
+            }
+
+            return System.Drawing.Color.FromArgb(int.Parse(color[0]), int.Parse(color[1]), int.Parse(color[2]), int.Parse(color[3]));
+        }
+
+        /// <summary>
+        /// 背景色を取得
+        /// </summary>
+        /// <returns>背景色</returns>
+        public static decimal FetchFontSize()
+        {
+            if (_tag?.FontSize is null)
+            {
+                return 12;
+            }
+
+            return _tag.FontSize;
         }
 
         /// <summary> 背景色 (初期値) </summary>

@@ -17,6 +17,9 @@
         /// <summary> フォントファミリ </summary>
         public string FontFamily;
 
+        /// <summary> フォントサイズ </summary>
+        public decimal FontSize;
+
         /// <summary> 初期表示時にデフォルト明細を表示する </summary>
         public bool ShowDefaultPayslip;
 

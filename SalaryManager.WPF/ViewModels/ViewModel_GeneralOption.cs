@@ -233,6 +233,45 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
+        #region フォントサイズ
+
+        private decimal _fontSize_Value;
+
+        /// <summary>
+        /// フォントサイズ - Value
+        /// </summary>
+        public decimal FontSize_Value
+        {
+            get => this._fontSize_Value;
+            set
+            {
+                this._fontSize_Value = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private RelayCommand _setDefault_FontSize_Value;
+
+        /// <summary>
+        /// フォントサイズ - Command
+        /// </summary>
+        /// <remarks>
+        /// 初期値に戻す
+        /// </remarks>
+        public RelayCommand SetDefault_FontSize_Value
+        {
+            get
+            {
+                if (this._setDefault_FontSize_Value == null)
+                {
+                    this._setDefault_FontSize_Value = new RelayCommand(this.Model.SetDefault_FontSize_Value);
+                }
+                return this._setDefault_FontSize_Value;
+            }
+        }
+
+        #endregion
+
         #region 背景色
 
         internal System.Drawing.Color Window_BackgroundColor = SystemColors.ControlLight;

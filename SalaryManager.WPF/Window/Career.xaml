@@ -11,7 +11,8 @@
         WindowStartupLocation="CenterScreen"
         Title="{Binding Title, Mode=OneWay}" Height="440" Width="600" 
         FontFamily="{Binding FontFamily}" 
-        Background="{Binding Window_Background}">
+        Background="{Binding Window_Background}" 
+        FontSize="{Binding FontSize}">
     <Window.DataContext>
         <ViewModels:ViewModel_Career/>
     </Window.DataContext>

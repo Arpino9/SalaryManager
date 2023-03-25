@@ -147,14 +147,14 @@ namespace SalaryManager.WPF.UserControls
         #region 依存関係プロパティ
 
         //要の値
-        public decimal Value
+        public decimal CustomValue
         {
             get { return (decimal)GetValue(CustomValueProperty); }
             set { SetValue(CustomValueProperty, value); }
         }
 
         public static readonly DependencyProperty CustomValueProperty =
-            DependencyProperty.Register(nameof(Value), typeof(decimal), typeof(NumericUpDown),
+            DependencyProperty.Register(nameof(CustomValue), typeof(decimal), typeof(NumericUpDown),
                 new PropertyMetadata(0m, OnCustomValuePropertyChanged, CoerceCustomValue));
 
         //CustomValueの変更直後の動作
@@ -170,8 +170,8 @@ namespace SalaryManager.WPF.UserControls
         {
             var ud = (NumericUpDown)d;
             var m = (decimal)basaValue;
-            if (m < ud.Minimum) m = ud.Minimum;
-            if (m > ud.Maximum) m = ud.Maximum;
+            if (m < ud.CustomMinimum) m = ud.CustomMinimum;
+            if (m > ud.CustomMaximum) m = ud.CustomMaximum;
             return m;
         }
 
@@ -197,13 +197,13 @@ namespace SalaryManager.WPF.UserControls
         /// <summary>
         /// 下限値
         /// </summary>
-        public decimal Minimum
+        public decimal CustomMinimum
         {
             get { return (decimal)GetValue(CustomMinValueProperty); }
             set { SetValue(CustomMinValueProperty, value); }
         }
         public static readonly DependencyProperty CustomMinValueProperty =
-            DependencyProperty.Register(nameof(Minimum), typeof(decimal), typeof(NumericUpDown),
+            DependencyProperty.Register(nameof(CustomMinimum), typeof(decimal), typeof(NumericUpDown),
                 new PropertyMetadata(decimal.MinValue, OnCustomMinValuePropertyChanged, CoerceCustomMinValue));
 
         //PropertyChangedコールバック、プロパティ値変更"直後"に実行される
@@ -213,7 +213,7 @@ namespace SalaryManager.WPF.UserControls
         {
             var ud = (NumericUpDown)d;
             var min = (decimal)e.NewValue;//変更後の新しい下限値
-            if (min > ud.Value) ud.Value = min;
+            if (min > ud.CustomValue) ud.CustomValue = min;
         }
 
         //値の検証と変更
@@ -224,21 +224,20 @@ namespace SalaryManager.WPF.UserControls
         {
             var ud = (NumericUpDown)d;
             var min = (decimal)baseValue;//入力された下限値
-            if (min > ud.Maximum) min = ud.Maximum;
+            if (min > ud.CustomMaximum) min = ud.CustomMaximum;
             return min;
         }
-
 
         /// <summary>
         /// 上限値
         /// </summary>
-        public decimal Maximum
+        public decimal CustomMaximum
         {
             get { return (decimal)GetValue(CustomMaxValueProperty); }
             set { SetValue(CustomMaxValueProperty, value); }
         }
         public static readonly DependencyProperty CustomMaxValueProperty =
-            DependencyProperty.Register(nameof(Maximum), typeof(decimal), typeof(NumericUpDown),
+            DependencyProperty.Register(nameof(CustomMaximum), typeof(decimal), typeof(NumericUpDown),
                 new PropertyMetadata(decimal.MaxValue, OnCustomMaxValuePropertyChanged, CoerceCustomMaxValue));
 
         //上限値の変更直後の動作。上限値より今の値が大きい場合は、今の値を上限値に変更する
@@ -246,9 +245,9 @@ namespace SalaryManager.WPF.UserControls
         {
             var ud = (NumericUpDown)d;
             var max = (decimal)e.NewValue;
-            if (max < ud.Value)
+            if (max < ud.CustomValue)
             {
-                ud.Value = max;
+                ud.CustomValue = max;
             }
         }
 
@@ -257,9 +256,9 @@ namespace SalaryManager.WPF.UserControls
         {
             var ud = (NumericUpDown)d;
             var max = (decimal)baseValue;
-            if (max < ud.Minimum)
+            if (max < ud.CustomMinimum)
             {
-                max = ud.Minimum;
+                max = ud.CustomMinimum;
             }
             return max;
         }
@@ -268,24 +267,24 @@ namespace SalaryManager.WPF.UserControls
 
         private void RepeatButtonUp_Click(object sender, RoutedEventArgs e)
         {
-            Value += CustomSmallChange;
+            CustomValue += CustomSmallChange;
         }
 
         private void RepeatButtonDown_Click(object sender, RoutedEventArgs e)
         {
-            Value -= CustomSmallChange;
+            CustomValue -= CustomSmallChange;
         }
 
         private void RepeatButton_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            if (e.Delta < 0) Value -= CustomLargeChange;
-            else Value += CustomLargeChange;
+            if (e.Delta < 0) CustomValue -= CustomLargeChange;
+            else CustomValue += CustomLargeChange;
         }
 
         private void CustomTextBox_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            if (e.Delta < 0) Value -= CustomSmallChange;
-            else Value += CustomSmallChange;
+            if (e.Delta < 0) CustomValue -= CustomSmallChange;
+            else CustomValue += CustomSmallChange;
         }
     }
 }

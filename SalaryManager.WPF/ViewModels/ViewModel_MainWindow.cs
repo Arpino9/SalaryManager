@@ -101,6 +101,25 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
+        #region フォントサイズ
+
+        private decimal _FontSize;
+
+        /// <summary>
+        /// フォントサイズ - FontSize
+        /// </summary>
+        public decimal FontSize
+        {
+            get => this._FontSize;
+            set
+            {
+                this._FontSize = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
         #region 背景色
 
         private System.Windows.Media.Brush _window_Background;

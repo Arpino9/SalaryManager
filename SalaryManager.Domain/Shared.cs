@@ -24,5 +24,8 @@ namespace SalaryManager.Domain
        
         /// <summary> フォントファミリ </summary>
         public static string FontFamily = ConfigurationManager.AppSettings["FontFamily"];
+
+        /// <summary> フォントサイズ </summary>
+        public static string FontSize = ConfigurationManager.AppSettings["FontSize"];
     }
 }
