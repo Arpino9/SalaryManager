@@ -12,7 +12,6 @@ using SalaryManager.WPF.Window;
 using WorkingReferences = SalaryManager.Domain.StaticValues.WorkingReferences;
 using SalaryManager.Domain.Exceptions;
 using SalaryManager.Infrastructure.XML;
-using SalaryManager.Infrastructure.Excel;
 using SalaryManager.Domain.Modules.Logics;
 
 namespace SalaryManager.WPF.Models
@@ -39,11 +38,14 @@ namespace SalaryManager.WPF.Models
 
         #endregion
 
-        /// <summary> ViewModel - メイdン画面 </summary>
+        /// <summary> ViewModel - メイン画面 </summary>
         internal ViewModel_MainWindow ViewModel { get; set; }
 
         /// <summary> ViewModel - 勤務先 </summary>
         internal ViewModel_WorkPlace WorkPlace { get; set; }
+
+        /// <summary> ViewModel - 月収一覧 </summary>
+        internal ViewModel_AnnualChart AnnualChart { get; set; }
 
         /// <summary> Model - ヘッダー </summary>
         internal Model_Header Header { get; set; }
@@ -60,15 +62,13 @@ namespace SalaryManager.WPF.Models
         /// <summary> Model - 副業 </summary>
         internal Model_SideBusiness SideBusiness { get; set; }
 
+
         #region 初期化
 
         internal void Initialize()
         {
-           this.InitializeSQLite();
-
-           this.ViewModel.FontFamily = XMLLoader.FetchFontFamily();
-
-           this.ViewModel.Window_Background = XMLLoader.FetchBackgroundColorBrush();
+            this.InitializeSQLite();
+            this.Window_Activated();
         }
 
         /// <summary>
@@ -97,6 +97,15 @@ namespace SalaryManager.WPF.Models
                 var sqlite = $"{FilePath.GetSolutionPath()}\\SQLite\\x86\\{dllName}";
                 File.Copy(sqlite, $"{sqlite86Directory}\\{dllName}");
             }
+        }
+
+        /// <summary>
+        /// 画面起動時の処理
+        /// </summary>
+        internal void Window_Activated()
+        {
+            this.ViewModel.FontFamily        = XMLLoader.FetchFontFamily();
+            this.ViewModel.Window_Background = XMLLoader.FetchBackgroundColorBrush();
         }
 
         #endregion
@@ -141,7 +150,7 @@ namespace SalaryManager.WPF.Models
                     lists.AddRange(values);
 
                     // 勤務先
-                    this.WorkingReference.WorkPlace.WorkPlace = values[3];
+                    this.WorkPlace.WorkPlace = values[3];
 
                     // 有給残日数
                     var paidVacation = Convert.ToDouble(values[17]) + Convert.ToDouble(values[25]);

@@ -118,6 +118,7 @@
     <Compile Include="Models\Model_Option.cs" />
     <Compile Include="Models\Model_SideBusiness.cs" />
     <Compile Include="Models\Model_WorkingReference.cs" />
+    <Compile Include="Models\Model_WorkPlace.cs" />
     <Compile Include="UserControls\AnnualChart.xaml.cs">
       <DependentUpon>AnnualChart.xaml</DependentUpon>
     </Compile>

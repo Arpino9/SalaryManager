@@ -1,4 +1,6 @@
-﻿using SalaryManager.WPF.Models;
+﻿using SalaryManager.Domain.Entities;
+using SalaryManager.WPF.Models;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
@@ -24,13 +26,19 @@ namespace SalaryManager.WPF.ViewModels
 
         public ViewModel_WorkPlace()
         {
-            this.Model.WorkPlace = this;
-            this.MainWindow.WorkPlace = this;
+            this.Model.ViewModel               = this;
+            this.WorkingReference.WorkPlace    = this;
+            this.MainWindow.WorkPlace          = this;
             this.Allowance.ViewModel_WorkPlace = this;
+
+            this.Model.Initialize(DateTime.Today);
         }
 
         /// <summary> Model </summary>
-        public Model_WorkingReference Model { get; set; } = Model_WorkingReference.GetInstance();
+        public Model_WorkPlace Model { get; set; } = Model_WorkPlace.GetInstance();
+
+        /// <summary> Model - 勤怠備考 </summary>
+        public Model_WorkingReference WorkingReference { get; set; } = Model_WorkingReference.GetInstance();
 
         /// <summary> メイン画面 </summary>
         public Model_MainWindow MainWindow { get; set; } = Model_MainWindow.GetInstance();
@@ -38,14 +46,20 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary> 手当 </summary>
         public Model_Allowance Allowance { get; set; } = Model_Allowance.GetInstance();
 
+        /// <summary> Entity - 勤務備考 </summary>
+        public WorkingReferencesEntity Entity { get; set; }
+
+        /// <summary> Entity - 勤務備考 (昨年度) </summary>
+        public WorkingReferencesEntity Entity_LastYear { get; set; }
+
         #region 背景色
 
-        private System.Windows.Media.Brush _window_Background;
+        private Brush _window_Background;
 
         /// <summary>
         /// 背景色 - Background
         /// </summary>
-        public System.Windows.Media.Brush Window_Background
+        public Brush Window_Background
         {
             get => this._window_Background;
             set

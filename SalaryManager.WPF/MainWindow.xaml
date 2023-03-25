@@ -13,6 +13,11 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize" 
         FontFamily="{Binding FontFamily}">
+    <behaviors:Interaction.Triggers>
+        <behaviors:EventTrigger EventName="Activated">
+            <behaviors:InvokeCommandAction Command="{Binding Window_Activated}" />
+        </behaviors:EventTrigger>
+    </behaviors:Interaction.Triggers>
     <Window.DataContext>
         <ViewModels:ViewModel_MainWindow/>
     </Window.DataContext>

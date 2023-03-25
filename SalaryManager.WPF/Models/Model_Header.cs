@@ -122,8 +122,7 @@ namespace SalaryManager.WPF.Models
         {
             this.FetchEntity(entityDate.Year, entityDate.Month);
 
-            this.ViewModel.Window_Background = XMLLoader.FetchBackgroundColorBrush();
-
+            this.Window_Activated();
 
             if (this.Entity is null)
             {
@@ -131,6 +130,14 @@ namespace SalaryManager.WPF.Models
             }
 
             this.Refresh();
+        }
+
+        /// <summary>
+        /// 画面起動時の処理
+        /// </summary>
+        internal void Window_Activated()
+        {
+            this.ViewModel.Window_Background = XMLLoader.FetchBackgroundColorBrush();
         }
 
         /// <summary>

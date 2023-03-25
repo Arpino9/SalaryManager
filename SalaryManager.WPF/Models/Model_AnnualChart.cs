@@ -48,7 +48,7 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         internal void Initialize(int fetchingYear)
         {
-            this.ViewModel.Window_Background = XMLLoader.FetchBackgroundColorBrush();
+            this.Window_Activated();
 
             // 対象日付
             if (this.Header.Year_Value.ToString().Length != 4)
@@ -159,6 +159,14 @@ namespace SalaryManager.WPF.Models
             }
 
             this.Recalculate();
+        }
+
+        /// <summary>
+        /// 画面起動時の処理
+        /// </summary>
+        internal void Window_Activated()
+        {
+            this.ViewModel.Window_Background = XMLLoader.FetchBackgroundColorBrush();
         }
 
         /// <summary>

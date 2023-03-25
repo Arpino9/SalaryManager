@@ -33,6 +33,7 @@ namespace SalaryManager.WPF.ViewModels
             this.Deduction.Header        = this;
             this.WorkingReference.Header = this;
             this.SideBusiness.Header     = this;
+            this.WorkPlace.Header        = this;
             this.AnnualCharts.Header     = this;
 
             this.BindEvents();
@@ -51,6 +52,7 @@ namespace SalaryManager.WPF.ViewModels
             this._returnAction += this.Deduction.Reload;
             this._returnAction += this.WorkingReference.Reload;
             this._returnAction += this.SideBusiness.Reload;
+            this._returnAction += this.WorkPlace.Reload;
             this._returnAction += this.AnnualCharts.Reload;
 
             // →(進む)
@@ -59,6 +61,7 @@ namespace SalaryManager.WPF.ViewModels
             this._proceedAction += this.Deduction.Reload;
             this._proceedAction += this.WorkingReference.Reload;
             this._proceedAction += this.SideBusiness.Reload;
+            this._proceedAction += this.WorkPlace.Reload;
             this._proceedAction += this.AnnualCharts.Reload;
 
             // 年
@@ -66,6 +69,7 @@ namespace SalaryManager.WPF.ViewModels
             this._yearAction += this.Deduction.Reload;
             this._yearAction += this.WorkingReference.Reload;
             this._yearAction += this.SideBusiness.Reload;
+            this._yearAction += this.WorkPlace.Reload;
             this._yearAction += this.AnnualCharts.Reload;
             this.Year_TextChanged = new RelayCommand(_yearAction);
 
@@ -74,6 +78,7 @@ namespace SalaryManager.WPF.ViewModels
             this._monthAction += this.Deduction.Reload;
             this._monthAction += this.WorkingReference.Reload;
             this._monthAction += this.SideBusiness.Reload;
+            this._monthAction += this.WorkPlace.Reload;
             this._monthAction += this.AnnualCharts.Reload;
             this.Month_TextChanged = new RelayCommand(_monthAction);
         }
@@ -95,6 +100,9 @@ namespace SalaryManager.WPF.ViewModels
 
         /// <summary> Model - 勤務備考 </summary>
         public Model_WorkingReference WorkingReference { get; set; } = Model_WorkingReference.GetInstance();
+
+        /// <summary> Model - 勤務場所 </summary>
+        public Model_WorkPlace WorkPlace { get; set; } = Model_WorkPlace.GetInstance();
 
         /// <summary> Model - 副業 </summary>
         public Model_SideBusiness SideBusiness { get; set; } = Model_SideBusiness.GetInstance();

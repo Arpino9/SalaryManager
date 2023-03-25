@@ -118,7 +118,6 @@
     <Compile Include="Repositories\IAnnualChartRepository.cs" />
     <Compile Include="Repositories\ICareerRepository.cs" />
     <Compile Include="Repositories\IHeaderRepository.cs" />
-    <Compile Include="Repositories\IXMLReaderRepository.cs" />
     <Compile Include="Shared.cs" />
     <Compile Include="Entities\AllowanceValueEntity.cs" />
     <Compile Include="Entities\DeductionEntity.cs" />

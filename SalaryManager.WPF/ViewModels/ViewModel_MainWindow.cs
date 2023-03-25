@@ -24,9 +24,14 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
-
         public ViewModel_MainWindow()
         {
+            _windowAction += this.Model.Window_Activated;
+            _windowAction += this.Header.Window_Activated;
+            _windowAction += this.WorkPlace.Window_Activated;
+            _windowAction += this.AnnualChart.Window_Activated;
+            this.Window_Activated = new RelayCommand(_windowAction);
+
             // 保存
             this._save_Action += this.Model.Save;
             this._save_Action += this.AnnualChart.Reload;
@@ -48,6 +53,9 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary> Model - ヘッダ </summary>
         public Model_Header Header { get; set; } = Model_Header.GetInstance();
 
+        /// <summary> Model - 勤務場所 </summary>
+        private Model_WorkPlace WorkPlace { get; set; } = Model_WorkPlace.GetInstance();
+
         /// <summary> Model - 月収一覧 </summary>
         private Model_AnnualChart AnnualChart { get; set; } = Model_AnnualChart.GetInstance();
 
@@ -60,6 +68,17 @@ namespace SalaryManager.WPF.ViewModels
         {
             get => "給与明細管理(仮)";
         }
+
+        #endregion
+
+        #region 画面遷移時
+
+        /// <summary>
+        /// Window - Activated
+        /// </summary>
+        public RelayCommand Window_Activated { get; private set; }
+
+        private Action _windowAction;
 
         #endregion
 

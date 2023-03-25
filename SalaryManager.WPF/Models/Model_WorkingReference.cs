@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Media;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.StaticValues;
 using SalaryManager.Domain.Modules.Logics;
@@ -56,8 +55,6 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.Entity          = WorkingReferences.Fetch(entityDate.Year, entityDate.Month);
             this.ViewModel.Entity_LastYear = WorkingReferences.Fetch(entityDate.Year, entityDate.Month - 1);
 
-            this.WorkPlace.Window_Background = XMLLoader.FetchBackgroundColorBrush();
-
             if (this.ViewModel.Entity is null &&
                 XMLLoader.FetchShowDefaultPayslip())
             {
@@ -113,13 +110,8 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.PaidVacation_Value      = default(double);
             // 勤務時間
             this.ViewModel.WorkingHours_Value      = default(double);
-            // 所属会社名
-            this.WorkPlace.CompanyName       = CompanyValue.Undefined.DisplayValue;
-            this.WorkPlace.CompanyName_Foreground = new SolidColorBrush(Colors.Gray);
-            // 勤務先
-            this.WorkPlace.WorkPlace         = default(string);
             // 備考
-            this.ViewModel.Remarks_Text           = default(string);
+            this.ViewModel.Remarks_Text            = default(string);
         }
 
         /// <summary>
@@ -156,24 +148,8 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.PaidVacation_Value      = entity.PaidVacation.Value;
             // 勤務時間
             this.ViewModel.WorkingHours_Value      = entity.WorkingHours;
-            // 勤務先
-            this.WorkPlace.WorkPlace         = entity.WorkPlace;
             // 備考
-            this.ViewModel.Remarks_Text           = entity.Remarks;
-
-            // 所属会社名
-            Careers.Create(new CareerSQLite());
-            var company = Careers.FetchCompany(new DateTime(this.Header.Year_Value, this.Header.Month_Value, 1));
-            this.WorkPlace.CompanyName = company;
-
-            if (company == CompanyValue.Undefined.DisplayValue)
-            {
-                this.WorkPlace.CompanyName_Foreground = new SolidColorBrush(Colors.Gray);
-            }
-            else
-            {
-                this.WorkPlace.CompanyName_Foreground = new SolidColorBrush(Colors.Black);
-            }
+            this.ViewModel.Remarks_Text            = entity.Remarks;
         }
 
         /// <summary>

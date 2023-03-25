@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
 
 namespace SalaryManager.WPF.ViewModels
@@ -16,13 +17,27 @@ namespace SalaryManager.WPF.ViewModels
         
         public ViewModel_AnnualChart()
         {
-            this.Model = Model_AnnualChart.GetInstance();
             this.Model.ViewModel = this;
+            this.MainWindow.AnnualChart = this;
 
             this.Model.Initialize(DateTime.Today.Year);
         }
 
-        private Model_AnnualChart Model { get; set; }
+        private Model_AnnualChart Model { get; set; } = Model_AnnualChart.GetInstance();
+
+        /// <summary> Model - メイン画面 </summary>
+        public Model_MainWindow MainWindow { get; set; } = Model_MainWindow.GetInstance();
+
+        #region 画面遷移時
+
+        /// <summary>
+        /// Window - Activated
+        /// </summary>
+        public RelayCommand Window_Activated { get; private set; }
+
+        private Action _windowAction;
+
+        #endregion
 
         #region 背景色
 
