@@ -4,6 +4,6 @@
   <SQLitePath>C:\Users\OKAJIMA\source\repos\SalaryManager\SalaryManager.Infrastructure\SalaryManager.db</SQLitePath>
   <FontFamily>Yu Gothic UI</FontFamily>
   <ShowDefaultPayslip>false</ShowDefaultPayslip>
-  <BackgroundColor_ColorCode>ffd5ffff</BackgroundColor_ColorCode>
-  <BackgroundColor>255,213,255,255</BackgroundColor>
+  <BackgroundColor_ColorCode>ffd0ffd0</BackgroundColor_ColorCode>
+  <BackgroundColor>255,208,255,208</BackgroundColor>
 </XMLTag>

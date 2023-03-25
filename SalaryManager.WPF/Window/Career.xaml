@@ -9,7 +9,7 @@
         x:Class="SalaryManager.WPF.Window.Career"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="{Binding Title, Mode=OneWay}" Height="440" Width="500" 
+        Title="{Binding Title, Mode=OneWay}" Height="440" Width="600" 
         FontFamily="{Binding FontFamily}" 
         Background="{Binding Window_Background}">
     <Window.DataContext>
@@ -151,7 +151,6 @@
             <Label Content="勤務期間" 
                    Grid.Row="2" 
                    Grid.RowSpan="2"
-                   VerticalAlignment="Center"
                    Background="AliceBlue"/>
             <DatePicker Grid.Column="1" 
                         Grid.Row="2" 
@@ -161,8 +160,7 @@
                    Grid.Row="2"
                    Grid.RowSpan="2"
                    HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Background="AliceBlue"/>
+                   VerticalAlignment="Center" />
             <DatePicker Grid.Column="3" 
                         Grid.Row="2" 
                         SelectedDate="{Binding WorkingEndDate}" 

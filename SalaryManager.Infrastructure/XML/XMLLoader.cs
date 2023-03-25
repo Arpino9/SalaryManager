@@ -107,13 +107,11 @@ namespace SalaryManager.Infrastructure.XML
             {
                 return ColorUtils.ToWPFColor(color[0], "0", "0", "0");
             }
-
-            if (color.Count < 3)
+            else if (color.Count < 3)
             {
                 return ColorUtils.ToWPFColor(color[0], color[1], "0", "0");
             }
-
-            if (color.Count < 4)
+            else if (color.Count < 4)
             {
                 return ColorUtils.ToWPFColor(color[0], color[1], color[2], "0");
             }

@@ -65,6 +65,9 @@ namespace SalaryManager.WPF.Models
 
         #region 初期化
 
+        /// <summary>
+        /// 初期化
+        /// </summary>
         internal void Initialize()
         {
             this.InitializeSQLite();

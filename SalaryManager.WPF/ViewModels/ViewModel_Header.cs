@@ -171,8 +171,6 @@ namespace SalaryManager.WPF.ViewModels
 
                 this._year_Value = value;
                 this.RaisePropertyChanged();
-
-                this.Model.Reload();
             }
         }
 
@@ -207,8 +205,6 @@ namespace SalaryManager.WPF.ViewModels
                 }
                 
                 this.RaisePropertyChanged();
-
-                this.Model.Reload();
             }
         }
 

@@ -28,6 +28,8 @@ namespace SalaryManager.WPF.Models
             return model;
         }
 
+        #endregion
+
         public Model_Option()
         {
             
@@ -61,8 +63,6 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.Window_BackgroundColor = XMLLoader.FetchBackgroundColor();
             this.ViewModel.Window_Background      = XMLLoader.FetchBackgroundColorBrush();
         }
-
-        #endregion
 
         /// <summary> ViewModel - 全般設定 </summary>
         internal ViewModel_GeneralOption ViewModel { get; set; }
@@ -191,8 +191,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void Save()
         {
-            var message = $"設定内容を保存しますか？";
-            if (!DialogMessage.ShowConfirmingMessage(message, "保存"))
+            if (!DialogMessage.ShowConfirmingMessage("設定内容を保存しますか？", "保存"))
             {
                 // キャンセル
                 return;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using FormatException = SalaryManager.Domain.Exceptions.FormatException;
 
 namespace SalaryManager.Domain.ValueObjects
 {
@@ -28,6 +29,16 @@ namespace SalaryManager.Domain.ValueObjects
         /// <param name="dateTime">日付</param>
         public YearValue(DateTime dateTime)
         {
+            if (dateTime.Year < 1970)
+            {
+                throw new FormatException("日付書式が不正です。");
+            }
+
+            if (dateTime.Month < 1 || 12 < dateTime.Month)
+            {
+                throw new FormatException("日付書式が不正です。");
+            }
+
             this.Value = dateTime;
         }
 

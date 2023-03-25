@@ -154,11 +154,11 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
-            this.ViewModel.ID         = this.Entity.ID;
-            this.ViewModel.Year_Value       = this.Entity.YearMonth.Year;
-            this.ViewModel.Month_Value      = this.Entity.YearMonth.Month;
-            this.ViewModel.CreateDate = this.Entity.CreateDate;
-            this.ViewModel.UpdateDate = this.Entity.UpdateDate;
+            this.ViewModel.ID          = this.Entity.ID;
+            this.ViewModel.Year_Value  = this.Entity.YearMonth.Year;
+            this.ViewModel.Month_Value = this.Entity.YearMonth.Month;
+            this.ViewModel.CreateDate  = this.Entity.CreateDate;
+            this.ViewModel.UpdateDate  = this.Entity.UpdateDate;
         }
 
         /// <summary>
@@ -169,10 +169,10 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         public void Clear()
         {
-            this.ViewModel.Year_Value       = this.ViewModel.YearMonth.Year;
-            this.ViewModel.Month_Value      = this.ViewModel.YearMonth.Month;
-            this.ViewModel.CreateDate = DateTime.Today;
-            this.ViewModel.UpdateDate = DateTime.Today;
+            this.ViewModel.Year_Value  = this.ViewModel.YearMonth.Year;
+            this.ViewModel.Month_Value = this.ViewModel.YearMonth.Month;
+            this.ViewModel.CreateDate  = DateTime.Today;
+            this.ViewModel.UpdateDate  = DateTime.Today;
         }
 
         /// <summary>

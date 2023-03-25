@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace SalaryManager.Infrastructure.Excel
 {
     /// <summary>
-    /// Utility - Excel
+    /// Excel書き込み
     /// </summary>
     public sealed class ExcelWriter
     {
