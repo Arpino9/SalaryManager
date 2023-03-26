@@ -34,17 +34,5 @@ namespace SalaryManager.Domain.Modules.Helpers
         {
             return str.Split(StringUtils.Separator).ToList();
         }
-
-        /// <summary>
-        /// ファイル名を抽出する
-        /// </summary>
-        /// <param name="path"パス></param>
-        /// <returns>ファイル名</returns>
-        public static string ExtractFileName(string path)
-        {
-            var startIndex = path.LastIndexOf("\\");
-
-            return path.Substring(startIndex + "\\".Length, path.Length - startIndex - "\\".Length);
-        }
     }
 }

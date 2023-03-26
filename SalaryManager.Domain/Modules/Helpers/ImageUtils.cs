@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Aspose.Pdf;
+using Aspose.Pdf.Devices;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -15,6 +17,38 @@ namespace SalaryManager.Domain.Modules.Helpers
     {
         /// <summary> 最大バイトサイズ </summary>
         private static readonly int Max_Byte_Size = 65535;
+
+        
+        public static string ExtractFileExtension(string path)
+        {
+            var startIndex = path.LastIndexOf('.');
+
+            return path.Substring(startIndex + 1, path.Length - startIndex - 1);
+        }
+
+        /// <summary>
+        /// ファイル名を抽出する
+        /// </summary>
+        /// <param name="path">パス</param>
+        /// <returns>ファイル名</returns>
+        public static string ExtractFileName(string path)
+        {
+            var startIndex = path.LastIndexOf("\\") + 1;
+
+            return path.Substring(startIndex, path.Length - startIndex);
+        }
+
+        /// <summary>
+        /// ファイル名を抽出する
+        /// </summary>
+        /// <param name="path">パス</param>
+        /// <returns>ファイル名</returns>
+        public static string ExtractFileDirectory(string path)
+        {
+            var startIndex = path.LastIndexOf("\\");
+
+            return path.Substring(0, startIndex + 1);
+        }
 
         /// <summary>
         /// 画像パスをBMP変換
@@ -43,7 +77,7 @@ namespace SalaryManager.Domain.Modules.Helpers
         public static byte[] ConvertPathToBytes(string path, ImageFormat format)
         {
             // 画像を読み込む
-            Image img = Image.FromFile(path);
+            System.Drawing.Image img = System.Drawing.Image.FromFile(path);
 
             // Jpeg形式でストリームを定義
             MemoryStream stream = new MemoryStream();
@@ -72,6 +106,35 @@ namespace SalaryManager.Domain.Modules.Helpers
             image.Freeze();
 
             return image;
+        }
+
+        public static List<string> ConvertPDFToImage(string path)
+        {
+            // ドキュメントを開く
+            var pdfDocument = new Document(path);
+
+            var filePaths = new List<string>();
+
+            foreach (var page in pdfDocument.Pages)
+            {
+                // 解像度を定義する
+                var resolution = new Resolution(300);
+
+                // 指定された属性でPngデバイスを作成する
+                // 幅、高さ、解像度
+                var PngDevice = new PngDevice(500, 700, resolution);
+
+                var directory = ExtractFileDirectory(path);
+
+                // 特定のページを変換し、画像を保存してストリーミングする
+                var filePath = directory + page.Number + "_out" + ".Png";
+
+                PngDevice.Process(pdfDocument.Pages[page.Number], filePath);
+
+                filePaths.Add(filePath);
+            }
+
+            return filePaths;
         }
     }
 }

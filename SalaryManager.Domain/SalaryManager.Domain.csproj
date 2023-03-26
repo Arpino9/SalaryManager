@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Aspose.PDF, Version=23.3.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
+      <HintPath>..\packages\Aspose.PDF.23.3.0\lib\net4.0\Aspose.PDF.dll</HintPath>
+    </Reference>
     <Reference Include="ClosedXML, Version=0.96.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
       <HintPath>..\packages\ClosedXML.0.96.0\lib\net46\ClosedXML.dll</HintPath>
     </Reference>
@@ -139,6 +142,7 @@
     <Compile Include="StaticValues\WorkingReferences.cs" />
     <Compile Include="ValueObjects\AlternativeValue.cs" />
     <Compile Include="ValueObjects\CompanyValue.cs" />
+    <Compile Include="ValueObjects\FileExtensionValue.cs" />
     <Compile Include="ValueObjects\MoneyValue.cs" />
     <Compile Include="ValueObjects\PaidVacationDaysValue.cs" />
     <Compile Include="ValueObjects\ValueObject.cs" />

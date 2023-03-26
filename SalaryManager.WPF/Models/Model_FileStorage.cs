@@ -1,16 +1,14 @@
-﻿using DocumentFormat.OpenXml.Office2010.Excel;
-using DocumentFormat.OpenXml.Vml.Office;
-using SalaryManager.Domain.Entities;
+﻿using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Modules.Helpers;
 using SalaryManager.Domain.Modules.Logics;
+using SalaryManager.Domain.ValueObjects;
 using SalaryManager.Infrastructure.Interface;
-using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 using System.Drawing.Imaging;
-using System.IO;
 using System.Linq;
+using Message = SalaryManager.Domain.Modules.Logics.Message;
 
 namespace SalaryManager.WPF.Models
 {
@@ -93,24 +91,84 @@ namespace SalaryManager.WPF.Models
         {
             //TODO: PDF, 画像ファイルに限定する
             var filter = "すべてのファイル(*.*)|*.*";
-            var path = DialogUtils.SelectFile("a", filter);
+            var path = DialogUtils.SelectFile(string.Empty, filter);
 
             if (string.IsNullOrEmpty(path)) 
             {
                 return;
             }
 
-            // 表示する画像
-            this.ViewModel.ByteImage       = ImageUtils.ConvertPathToBytes(path, ImageFormat.Jpeg);
-            this.ViewModel.FileImage_Image = ImageUtils.ConvertPathToImage(path, ImageFormat.Jpeg);
+            var extension = new FileExtensionValue(ImageUtils.ExtractFileExtension(path));
 
-            var fileName = StringUtils.ExtractFileName(path);
+            if (extension.IsPDF) 
+            {
+                if (this.ConvertPDFToPNG(path))
+                {
+                    // 追加ボタン
+                    this.ViewModel.Add_IsEnabled = true;
+                }
+                
+                return;
+            }
+
+            // 表示する画像
+            this.ViewModel.ByteImage       = ImageUtils.ConvertPathToBytes(path, extension.ImageFormat);
+            this.ViewModel.FileImage_Image = ImageUtils.ConvertPathToImage(path, extension.ImageFormat);
+
+            var fileName = ImageUtils.ExtractFileName(path);
             // タイトル
             this.ViewModel.Title_Text    = fileName;
             // ファイル名
             this.ViewModel.FileName_Text = fileName;
             // 追加ボタン
             this.ViewModel.Add_IsEnabled = true;
+        }
+
+        /// <summary>
+        /// PDFをPNGに変換する
+        /// </summary>
+        /// <param name="path">ファイルパス</param>
+        /// <returns>追加可否</returns>
+        private bool ConvertPDFToPNG(string path)
+        {
+            var pngPaths = ImageUtils.ConvertPDFToImage(path);
+
+            if (pngPaths.Count == 1)
+            {
+                // 1枚
+                var fileName = ImageUtils.ExtractFileName(pngPaths.First());
+                // タイトル
+                this.ViewModel.Title_Text = fileName;
+                // ファイル名
+                this.ViewModel.FileName_Text = fileName;
+                // 表示する画像
+                this.ViewModel.ByteImage = ImageUtils.ConvertPathToBytes(pngPaths.First(), ImageFormat.Png);
+
+                this.AddFile();
+            }
+            else
+            {
+                // 複数枚
+                if (Message.ShowConfirmingMessage("PDFが複数枚選択されています。全て追加しますか？\n(「いいえ」で中断)", "確認") == false)
+                {
+                    return false;
+                }
+
+                foreach (var pngPath in pngPaths)
+                {
+                    var fileName = ImageUtils.ExtractFileName(pngPath);
+                    // タイトル
+                    this.ViewModel.Title_Text = fileName;
+                    // ファイル名
+                    this.ViewModel.FileName_Text = fileName;
+                    // 表示する画像
+                    this.ViewModel.ByteImage = ImageUtils.ConvertPathToBytes(pngPath, ImageFormat.Png);
+
+                    this.AddFile();
+                }
+            }
+
+            return true;
         }
 
         #endregion
@@ -128,6 +186,14 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
+            this.AddFile();
+        }
+
+        /// <summary>
+        /// 添付画像をリストに追加する
+        /// </summary>
+        private void AddFile()
+        {
             using (var cursor = new CursorWaiting())
             {
                 this.ViewModel.CreateDate = DateTime.Today;
