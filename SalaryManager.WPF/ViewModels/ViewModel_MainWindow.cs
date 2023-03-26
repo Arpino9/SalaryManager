@@ -225,6 +225,27 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
+        #region 添付ファイル管理画面を開く
+
+        private RelayCommand _showFileStorage_Command;
+
+        /// <summary>
+        /// 添付ファイル画面を開く - Command
+        /// </summary>
+        public RelayCommand ShowFileStorage_Command
+        {
+            get
+            {
+                if (this._showFileStorage_Command == null)
+                {
+                    this._showFileStorage_Command = new RelayCommand(this.Model.ShowFileSotrage);
+                }
+                return this._showFileStorage_Command;
+            }
+        }
+
+        #endregion
+
         #region オプション
 
         private RelayCommand _showOption_Command;

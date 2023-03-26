@@ -101,6 +101,7 @@
     <Compile Include="Entities\AllowanceExistenceEntity.cs" />
     <Compile Include="Entities\AnnualChartEntity.cs" />
     <Compile Include="Entities\CareerEntity.cs" />
+    <Compile Include="Entities\FileStorageEntity.cs" />
     <Compile Include="Entities\HeaderEntity.cs" />
     <Compile Include="Exceptions\DatabaseException.cs" />
     <Compile Include="Exceptions\ExceptionBase.cs" />
@@ -108,12 +109,13 @@
     <Compile Include="Exceptions\FileWriterException.cs" />
     <Compile Include="Exceptions\FormatException.cs" />
     <Compile Include="Modules\Helpers\ColorUtils.cs" />
+    <Compile Include="Modules\Helpers\ImageUtils.cs" />
     <Compile Include="Modules\Helpers\ListUtils.cs" />
     <Compile Include="Modules\Helpers\DateUtils.cs" />
-    <Compile Include="Modules\Helpers\SelectorUtils.cs" />
+    <Compile Include="Modules\Helpers\DialogUtils.cs" />
     <Compile Include="Modules\Helpers\StringUtils.cs" />
     <Compile Include="Modules\Logics\CursorWaiting.cs" />
-    <Compile Include="Modules\Logics\DialogMessage.cs" />
+    <Compile Include="Modules\Logics\Message.cs" />
     <Compile Include="Modules\Logics\FilePath.cs" />
     <Compile Include="Repositories\IAnnualChartRepository.cs" />
     <Compile Include="Repositories\ICareerRepository.cs" />

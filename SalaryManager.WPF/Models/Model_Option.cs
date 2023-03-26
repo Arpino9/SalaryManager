@@ -204,7 +204,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void Save()
         {
-            if (!DialogMessage.ShowConfirmingMessage("設定内容を保存しますか？", "保存"))
+            if (!Domain.Modules.Logics.Message.ShowConfirmingMessage("設定内容を保存しますか？", "保存"))
             {
                 // キャンセル
                 return;

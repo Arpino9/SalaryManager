@@ -56,7 +56,7 @@ namespace SalaryManager.Infrastructure.Excel
             }
             catch (IOException ex)
             {
-                DialogMessage.ShowErrorMessage("更新先のExcelが開いたままです。Excelを閉じて再度出力してください。", "Excel出力エラー");
+                Message.ShowErrorMessage("更新先のExcelが開いたままです。Excelを閉じて再度出力してください。", "Excel出力エラー");
             }
         }
 

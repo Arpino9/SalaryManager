@@ -172,7 +172,7 @@ namespace SalaryManager.WPF.Models
             // 通勤手当
             this.ViewModel.CommutingAllowance_IsChecked         = allowance.Commution.Value;
             // 扶養手当
-            this.ViewModel.DependencyAllowance_IsChecked         = allowance.Dependency.Value;
+            this.ViewModel.DependencyAllowance_IsChecked        = allowance.Dependency.Value;
             // 役職手当
             this.ViewModel.ExecutiveAllowance_IsChecked         = allowance.Executive.Value;
             // 特別手当
@@ -299,7 +299,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Add()
         {
-            if (!DialogMessage.ShowConfirmingMessage($"入力された職歴を追加しますか？", this.ViewModel.Title))
+            if (!Message.ShowConfirmingMessage($"入力された職歴を追加しますか？", this.ViewModel.Title))
             {
                 // キャンセル
                 return;
@@ -363,7 +363,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Update()
         {
-            if (!DialogMessage.ShowConfirmingMessage($"選択中の職歴を更新しますか？", this.ViewModel.Title))
+            if (!Message.ShowConfirmingMessage($"選択中の職歴を更新しますか？", this.ViewModel.Title))
             {
                 // キャンセル
                 return;
@@ -391,7 +391,7 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
-            if (!DialogMessage.ShowConfirmingMessage($"選択中の職歴を削除しますか？", this.ViewModel.Title))
+            if (!Message.ShowConfirmingMessage($"選択中の職歴を削除しますか？", this.ViewModel.Title))
             {
                 // キャンセル
                 return;

@@ -5,7 +5,7 @@ namespace SalaryManager.Domain.Modules.Logics
     /// <summary>
     /// Utility - ダイアログメッセージ
     /// </summary>
-    public sealed class DialogMessage
+    public sealed class Message
     {
         private static readonly log4net.ILog _logger =
           log4net.LogManager.GetLogger(

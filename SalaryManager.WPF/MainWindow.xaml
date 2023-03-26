@@ -49,6 +49,12 @@
                     </ToolTipService.ToolTip>
                 </MenuItem>
 
+                <MenuItem Header="添付ファイル" Command="{Binding ShowFileStorage_Command}">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="添付ファイル登録画面を開きます。"/>
+                    </ToolTipService.ToolTip>
+                </MenuItem>
+
                 <MenuItem Header="オプション" Command="{Binding ShowOption_Command}">
                     <ToolTipService.ToolTip>
                         <ToolTip Content="アプリケーション設定画面を開きます。"/>

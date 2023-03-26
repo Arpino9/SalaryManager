@@ -163,7 +163,7 @@ namespace SalaryManager.WPF.Models
             if (paidVacation.Value < PaidVacationDaysValue.Minimum ||
                 paidVacation.Value > PaidVacationDaysValue.Maximum)
             {
-                DialogMessage.ShowErrorMessage(
+                Message.ShowErrorMessage(
                     $"有給休暇は{PaidVacationDaysValue.Minimum}から{PaidVacationDaysValue.Maximum}までの日数で入力して下さい。",
                     "入力エラー");
                 return false;
