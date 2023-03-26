@@ -96,17 +96,20 @@
                Grid.ColumnSpan="3" 
                Grid.Row="4"                
                Content="小さな仕事に分けてしまえば、何事も特に難しいことはない。 - ヘンリー・フォード" 
-               FontFamily="{Binding Preview_FontFamily}"/>
+               FontFamily="{Binding Preview_FontFamily}"
+               FontSize="{Binding FontSize_Value}"/>
         <Label Grid.Column="1" 
                Grid.ColumnSpan="3" 
                Grid.Row="5"                
                Content="Nothing is particularly hard if you divide it into small jobs. - Henry Ford" 
-               FontFamily="{Binding Preview_FontFamily}"/>
+               FontFamily="{Binding Preview_FontFamily}"
+               FontSize="{Binding FontSize_Value}"/>
         <Label Grid.Column="1" 
                Grid.ColumnSpan="3" 
                Grid.Row="6"                
                Content="1234567890" 
-               FontFamily="{Binding Preview_FontFamily}"/>
+               FontFamily="{Binding Preview_FontFamily}"
+               FontSize="{Binding FontSize_Value}"/>
 
         <Label Content="背景色" 
                Grid.Row="7"  />
