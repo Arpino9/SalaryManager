@@ -57,6 +57,9 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Aspose.PDF, Version=23.3.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
+      <HintPath>..\packages\Aspose.PDF.23.3.0\lib\net4.0\Aspose.PDF.dll</HintPath>
+    </Reference>
     <Reference Include="ClosedXML, Version=0.96.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
       <HintPath>..\packages\ClosedXML.0.96.0\lib\net46\ClosedXML.dll</HintPath>
     </Reference>
@@ -101,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Excel\ExcelWriter.cs" />
+    <Compile Include="PDF\PDFReader.cs" />
     <Compile Include="SQLite\CareerSQLite.cs" />
     <Compile Include="SQLite\AnnualChartSQLite.cs" />
     <Compile Include="SQLite\DeductionSQLite.cs" />

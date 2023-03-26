@@ -3,10 +3,12 @@ using SalaryManager.Domain.Modules.Helpers;
 using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Domain.ValueObjects;
 using SalaryManager.Infrastructure.Interface;
+using SalaryManager.Infrastructure.PDF;
 using SalaryManager.WPF.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using Message = SalaryManager.Domain.Modules.Logics.Message;
 
@@ -129,22 +131,27 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         /// <param name="path">ファイルパス</param>
         /// <returns>追加可否</returns>
+        /// <remarks>
+        /// 一時的にPNGを出力し、リスト追加後に削除している。
+        /// </remarks>
         private bool ConvertPDFToPNG(string path)
         {
-            var pngPaths = ImageUtils.ConvertPDFToImage(path);
+            var pngPaths = PDFReader.ConvertPDFToImage(path);
 
             if (pngPaths.Count == 1)
             {
                 // 1枚
                 var fileName = ImageUtils.ExtractFileName(pngPaths.First());
                 // タイトル
-                this.ViewModel.Title_Text = fileName;
+                this.ViewModel.Title_Text    = fileName;
                 // ファイル名
                 this.ViewModel.FileName_Text = fileName;
                 // 表示する画像
-                this.ViewModel.ByteImage = ImageUtils.ConvertPathToBytes(pngPaths.First(), ImageFormat.Png);
+                this.ViewModel.ByteImage     = ImageUtils.ConvertPathToBytes(pngPaths.First(), ImageFormat.Png);
 
                 this.AddFile();
+
+                File.Delete(pngPaths.First());
             }
             else
             {
@@ -158,13 +165,15 @@ namespace SalaryManager.WPF.Models
                 {
                     var fileName = ImageUtils.ExtractFileName(pngPath);
                     // タイトル
-                    this.ViewModel.Title_Text = fileName;
+                    this.ViewModel.Title_Text    = fileName;
                     // ファイル名
                     this.ViewModel.FileName_Text = fileName;
                     // 表示する画像
-                    this.ViewModel.ByteImage = ImageUtils.ConvertPathToBytes(pngPath, ImageFormat.Png);
+                    this.ViewModel.ByteImage     = ImageUtils.ConvertPathToBytes(pngPath, ImageFormat.Png);
 
                     this.AddFile();
+
+                    File.Delete(pngPath);
                 }
             }
 
@@ -208,6 +217,11 @@ namespace SalaryManager.WPF.Models
             }
         }
 
+        /// <summary>
+        /// エンティティ生成
+        /// </summary>
+        /// <param name="id">ID</param>
+        /// <returns>エンティティ</returns>
         private FileStorageEntity CreateEntity(int id)
         {
             return new FileStorageEntity(

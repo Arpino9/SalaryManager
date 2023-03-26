@@ -8,6 +8,9 @@ namespace SalaryManager.WPF.Behavior
     /// TextBox用ビヘイビア
     /// 整数値のみを入力許可
     /// </summary>
+    /// <remarks>
+    /// Reference: https://hilapon.hatenadiary.org/entry/20101021/1287641423
+    /// </remarks>
     public class TextBoxIntegerOnly
     {
 

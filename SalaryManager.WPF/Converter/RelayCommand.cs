@@ -1,13 +1,16 @@
 ﻿namespace SalaryManager.WPF.Converter
 {
-	/// <summary>
-	/// その機能を中継することのみを目的とするコマンド
-	/// デリゲートを呼び出すことにより、他のオブジェクトに対して呼び出します。
-	/// CanExecute メソッドの既定の戻り値は 'true' です。
-	/// <see cref="RaiseCanExecuteChanged"/> は、次の場合は必ず呼び出す必要があります。
-	/// <see cref="CanExecute"/> は、別の値を返すことが予期されます。
-	/// </summary>
-	public class RelayCommand :
+    /// <summary>
+    /// その機能を中継することのみを目的とするコマンド
+    /// デリゲートを呼び出すことにより、他のオブジェクトに対して呼び出します。
+    /// CanExecute メソッドの既定の戻り値は 'true' です。
+    /// <see cref="RaiseCanExecuteChanged"/> は、次の場合は必ず呼び出す必要があります。
+    /// <see cref="CanExecute"/> は、別の値を返すことが予期されます。
+    /// </summary>
+    /// <remarks>
+    /// Reference: https://sourcechord.hatenablog.com/entry/2014/01/13/200039
+    /// </remarks>
+    public class RelayCommand :
 		// Command
 		System.Windows.Input.ICommand
 	{

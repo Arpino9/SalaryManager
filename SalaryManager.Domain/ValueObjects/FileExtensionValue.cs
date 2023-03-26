@@ -1,6 +1,4 @@
-﻿using SalaryManager.Domain.Exceptions;
-using System;
-using System.Drawing.Imaging;
+﻿using System.Drawing.Imaging;
 using FormatException = SalaryManager.Domain.Exceptions.FormatException;
 
 namespace SalaryManager.Domain.ValueObjects

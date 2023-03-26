@@ -1,24 +1,27 @@
-﻿using Aspose.Pdf;
-using Aspose.Pdf.Devices;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace SalaryManager.Domain.Modules.Helpers
 {
+    /// <summary>
+    /// Utility - 画像関連
+    /// </summary>
     public sealed class ImageUtils
     {
         /// <summary> 最大バイトサイズ </summary>
         private static readonly int Max_Byte_Size = 65535;
 
-        
+        /// <summary>
+        /// ファイルの拡張子を抽出する
+        /// </summary>
+        /// <param name="path">パス</param>
+        /// <returns>拡張子</returns>
+        /// <remarks>
+        /// 値オブジェクトと連動して使うことを推奨。
+        /// </remarks>
         public static string ExtractFileExtension(string path)
         {
             var startIndex = path.LastIndexOf('.');
@@ -77,18 +80,19 @@ namespace SalaryManager.Domain.Modules.Helpers
         public static byte[] ConvertPathToBytes(string path, ImageFormat format)
         {
             // 画像を読み込む
-            System.Drawing.Image img = System.Drawing.Image.FromFile(path);
+            using(var image = System.Drawing.Image.FromFile(path))
+            {
+                // Jpeg形式でストリームを定義
+                MemoryStream stream = new MemoryStream();
+                image.Save(stream, format);
 
-            // Jpeg形式でストリームを定義
-            MemoryStream stream = new MemoryStream();
-            img.Save(stream, format);
+                // ストリームからバイト配列に書き込む
+                var imgBytes = new Byte[Max_Byte_Size];
+                stream.Seek(0, SeekOrigin.Begin);
+                stream.Read(imgBytes, 0, Max_Byte_Size);
 
-            // ストリームからバイト配列に書き込む
-            var imgBytes = new Byte[Max_Byte_Size];
-            stream.Seek(0, SeekOrigin.Begin);
-            stream.Read(imgBytes, 0, Max_Byte_Size);
-
-            return imgBytes;
+                return imgBytes;
+            }
         }
 
         /// <summary>
@@ -106,35 +110,6 @@ namespace SalaryManager.Domain.Modules.Helpers
             image.Freeze();
 
             return image;
-        }
-
-        public static List<string> ConvertPDFToImage(string path)
-        {
-            // ドキュメントを開く
-            var pdfDocument = new Document(path);
-
-            var filePaths = new List<string>();
-
-            foreach (var page in pdfDocument.Pages)
-            {
-                // 解像度を定義する
-                var resolution = new Resolution(300);
-
-                // 指定された属性でPngデバイスを作成する
-                // 幅、高さ、解像度
-                var PngDevice = new PngDevice(500, 700, resolution);
-
-                var directory = ExtractFileDirectory(path);
-
-                // 特定のページを変換し、画像を保存してストリーミングする
-                var filePath = directory + page.Number + "_out" + ".Png";
-
-                PngDevice.Process(pdfDocument.Pages[page.Number], filePath);
-
-                filePaths.Add(filePath);
-            }
-
-            return filePaths;
         }
     }
 }
