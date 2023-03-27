@@ -8,6 +8,7 @@ using SalaryManager.Infrastructure.Interface;
 using SalaryManager.Infrastructure.PDF;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.ViewModels;
+using SalaryManager.WPF.Window;
 using System;
 using System.Collections.ObjectModel;
 using System.Drawing.Imaging;
@@ -44,6 +45,9 @@ namespace SalaryManager.WPF.Models
         /// <summary> ViewModel - 添付ファイル管理 </summary>
         public ViewModel_FileStorage ViewModel { get; set; }
 
+        /// <summary> ViewModel - イメージビューアー </summary>
+        public ViewModel_ImageViewer ViewModel_ImageViewer { get; set; }
+
         /// <summary> PDF変換リポジトリ </summary>
         private IPDFConverterRepository _repositoryPDFConverter;
 
@@ -76,8 +80,11 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.Delete_IsEnabled = selected;
         }
 
-        #region MyRegion
+        #region ファイルを開く
 
+        /// <summary>
+        /// ファイルを開く - SelectionChanged
+        /// </summary>
         internal void AttachedFile_SelectionChanged()
         {
             if (this.ViewModel.AttachedFile_SelectedIndex == -1)
@@ -101,10 +108,6 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.Remarks_Text  = entity.Remarks;
         }
 
-        #endregion
-
-        #region ファイルを開く
-
         /// <summary>
         /// ファイルを開く
         /// </summary>
@@ -116,6 +119,7 @@ namespace SalaryManager.WPF.Models
 
             if (string.IsNullOrEmpty(path)) 
             {
+                // キャンセル
                 return;
             }
 
@@ -123,6 +127,7 @@ namespace SalaryManager.WPF.Models
 
             if (extension.IsPDF) 
             {
+                // PDF
                 if (this.ConvertPDFToPNG(path))
                 {
                     // 追加ボタン
@@ -135,6 +140,8 @@ namespace SalaryManager.WPF.Models
             // 表示する画像
             this.ViewModel.ByteImage       = ImageUtils.ConvertPathToBytes(path, extension.ImageFormat);
             this.ViewModel.FileImage_Image = ImageUtils.ConvertPathToImage(path, extension.ImageFormat);
+
+            this.ViewModel.OpenImageViewer_IsEnabled = true;
 
             var fileName = ImageUtils.ExtractFileName(path);
             // タイトル
@@ -201,6 +208,26 @@ namespace SalaryManager.WPF.Models
 
         #endregion
 
+        #region 画像を拡大表示する
+
+        /// <summary>
+        /// イメージビューアーを開く
+        /// </summary>
+        internal void OpenImageViewer()
+        {
+            this.ViewModel_ImageViewer = new ViewModel_ImageViewer();
+
+            var viewer = new ImageViewer();
+
+            this.ViewModel_ImageViewer.FileImage_Height = this.ViewModel.FileImage_Image.Height;
+            this.ViewModel_ImageViewer.FileImage_Width  = this.ViewModel.FileImage_Image.Width;
+            this.ViewModel_ImageViewer.FileImage_Image  = this.ViewModel.FileImage_Image;
+            
+            viewer.Show();
+        }
+
+        #endregion
+
         #region 追加
 
         /// <summary>
@@ -256,13 +283,9 @@ namespace SalaryManager.WPF.Models
 
         #endregion
 
-
         /// <summary>
         /// 再描画
         /// </summary>
-        /// <remarks>
-        /// 該当月に添付ファイル情報が存在すれば、各項目を再描画する。
-        /// </remarks>
         public void Refresh()
         {
             // ListView
@@ -276,12 +299,11 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         private void Reflesh_ListView()
         {
-            this.ViewModel.AttachedFile_ItemSource.Clear();
-
             var entities = this.ViewModel.Entities;
 
             if (!entities.Any())
             {
+                this.ViewModel.AttachedFile_ItemSource.Clear();
                 this.Clear_InputForm();
                 return;
             }
@@ -306,9 +328,6 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// リロード
         /// </summary>
-        /// <remarks>
-        /// 年月の変更時などに、該当月の項目を取得する。
-        /// </remarks>
         public void Reload()
         {
             using (var cursor = new CursorWaiting())
@@ -330,6 +349,7 @@ namespace SalaryManager.WPF.Models
         public void Clear_InputForm()
         {
             this.ViewModel.FileImage_Image = null;
+            this.ViewModel.OpenImageViewer_IsEnabled = false;
 
             this.ViewModel.Title_Text    = string.Empty;
             this.ViewModel.FileName_Text = string.Empty;
@@ -386,8 +406,6 @@ namespace SalaryManager.WPF.Models
 
                 var sqlite = new FileStorageSQLite();
                 sqlite.Delete(this.ViewModel.AttachedFile_SelectedIndex + 1);
-
-                this.Reload();
             }
         }
 

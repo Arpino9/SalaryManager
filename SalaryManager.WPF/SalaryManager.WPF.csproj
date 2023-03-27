@@ -122,6 +122,7 @@
     </Compile>
     <Compile Include="ViewModels\ViewModel_FileStorage.cs" />
     <Compile Include="ViewModels\ViewModel_GeneralOption.cs" />
+    <Compile Include="ViewModels\ViewModel_ImageViewer.cs" />
     <Compile Include="Window\Career.xaml.cs">
       <DependentUpon>Career.xaml</DependentUpon>
     </Compile>
@@ -154,6 +155,9 @@
     <Compile Include="ViewModels\ViewModel_WorkPlace.cs" />
     <Compile Include="Window\FileStorage.xaml.cs">
       <DependentUpon>FileStorage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\ImageViewer.xaml.cs">
+      <DependentUpon>ImageViewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Window\Option.xaml.cs">
       <DependentUpon>Option.xaml</DependentUpon>
@@ -211,6 +215,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Window\FileStorage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\ImageViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

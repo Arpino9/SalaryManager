@@ -162,6 +162,42 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
+        #region 画像を拡大表示する
+
+        private bool _openImageViewer_IsEnabled;
+
+        /// <summary>
+        /// 画像を拡大表示する - IsEnabled
+        /// </summary>
+        public bool OpenImageViewer_IsEnabled
+        {
+            get => this._openImageViewer_IsEnabled;
+            set
+            {
+                this._openImageViewer_IsEnabled = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private RelayCommand _openImageViewer_Command;
+
+        /// <summary>
+        /// 画像を拡大表示する - Command
+        /// </summary>
+        public RelayCommand OpenImageViewer_Command
+        {
+            get
+            {
+                if (this._openImageViewer_Command == null)
+                {
+                    this._openImageViewer_Command = new RelayCommand(this.Model.OpenImageViewer);
+                }
+                return this._openImageViewer_Command;
+            }
+        }
+
+        #endregion
+
         #region タイトル
 
         private string _title_Text;

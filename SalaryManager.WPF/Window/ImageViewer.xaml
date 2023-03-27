@@ -1,0 +1,19 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SalaryManager.WPF.Window"
+        xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" x:Class="SalaryManager.WPF.Window.ImageViewer"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="ImageViewer" 
+        Height="{Binding FileImage_Height}" 
+        Width="{Binding FileImage_Width}">
+    <Window.DataContext>
+        <ViewModels:ViewModel_ImageViewer/>
+    </Window.DataContext>
+    <Grid>
+        <Image Source="{Binding FileImage_Image}"/>
+    </Grid>
+</Window>

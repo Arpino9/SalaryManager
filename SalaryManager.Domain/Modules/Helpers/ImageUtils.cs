@@ -12,7 +12,8 @@ namespace SalaryManager.Domain.Modules.Helpers
     public sealed class ImageUtils
     {
         /// <summary> 最大バイトサイズ </summary>
-        private static readonly int Max_Byte_Size = 65535;
+        /// <remarks> 画像が途中までしか表示されない場合、ここの数値を増やす </remarks>
+        private static readonly int Max_Byte_Size = 999999;
 
         /// <summary>
         /// ファイルの拡張子を抽出する
