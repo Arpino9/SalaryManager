@@ -104,7 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Excel\ExcelWriter.cs" />
-    <Compile Include="PDF\PDFReader.cs" />
+    <Compile Include="PDF\PDFConverter.cs" />
     <Compile Include="SQLite\CareerSQLite.cs" />
     <Compile Include="SQLite\AnnualChartSQLite.cs" />
     <Compile Include="SQLite\DeductionSQLite.cs" />

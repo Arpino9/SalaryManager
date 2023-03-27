@@ -13,6 +13,8 @@ using WorkingReferences = SalaryManager.Domain.StaticValues.WorkingReferences;
 using SalaryManager.Domain.Exceptions;
 using SalaryManager.Infrastructure.XML;
 using SalaryManager.Domain.Modules.Logics;
+using SalaryManager.Domain.Repositories;
+using SalaryManager.Infrastructure.Excel;
 
 namespace SalaryManager.WPF.Models
 {
@@ -38,6 +40,16 @@ namespace SalaryManager.WPF.Models
 
         #endregion
 
+        public Model_MainWindow()
+        {
+            _excelWriterRepository = new ExcelWriter();
+            _XMLLoaderRepository   = new XMLLoader();
+        }
+
+        private IXMLLoaderRepository _XMLLoaderRepository;
+
+        private IExcelWriterRepository _excelWriterRepository;
+
         /// <summary> ViewModel - メイン画面 </summary>
         internal ViewModel_MainWindow ViewModel { get; set; }
 
@@ -61,7 +73,6 @@ namespace SalaryManager.WPF.Models
 
         /// <summary> Model - 副業 </summary>
         internal Model_SideBusiness SideBusiness { get; set; }
-
 
         #region 初期化
 
@@ -107,9 +118,9 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void Window_Activated()
         {
-            this.ViewModel.FontFamily        = XMLLoader.FetchFontFamily();
-            this.ViewModel.FontSize          = XMLLoader.FetchFontSize();
-            this.ViewModel.Window_Background = XMLLoader.FetchBackgroundColorBrush();
+            this.ViewModel.FontFamily        = _XMLLoaderRepository.FetchFontFamily();
+            this.ViewModel.FontSize          = _XMLLoaderRepository.FetchFontSize();
+            this.ViewModel.Window_Background = _XMLLoaderRepository.FetchBackgroundColorBrush();
         }
 
         #endregion
@@ -265,7 +276,7 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
-            File.Copy(XMLLoader.FetchSQLitePath(), directory);
+            File.Copy(_XMLLoaderRepository.FetchSQLitePath(), directory);
         }
         
         #endregion
@@ -333,8 +344,6 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal async void OutputExcel()
         {
-            var workbook = new Infrastructure.Excel.ExcelWriter();
-
             using (var cursor = new CursorWaiting())
             {
                 // Create Records
@@ -348,12 +357,12 @@ namespace SalaryManager.WPF.Models
                 try
                 {
                     await System.Threading.Tasks.Task.WhenAll(
-                        workbook.WriteAllHeader(Headers.FetchByDescending()),
-                        workbook.WriteAllAllowance(Allowances.FetchByDescending()),
-                        workbook.WriteAllDeduction(Deductions.FetchByDescending()),
-                        workbook.WriteAllWorkingReferences(WorkingReferences.FetchByDescending()),
-                        workbook.WriteAllSideBusiness(SideBusinesses.FetchByDescending()),
-                        workbook.SetStyle()
+                        _excelWriterRepository.WriteAllHeader(Headers.FetchByDescending()),
+                        _excelWriterRepository.WriteAllAllowance(Allowances.FetchByDescending()),
+                        _excelWriterRepository.WriteAllDeduction(Deductions.FetchByDescending()),
+                        _excelWriterRepository.WriteAllWorkingReferences(WorkingReferences.FetchByDescending()),
+                        _excelWriterRepository.WriteAllSideBusiness(SideBusinesses.FetchByDescending()),
+                        _excelWriterRepository.SetStyle()
                     );
                 }
                 catch (Exception ex) 
@@ -364,7 +373,7 @@ namespace SalaryManager.WPF.Models
 
             var directory = DialogUtils.SelectDirectory("Excel出力先のフォルダを選択してください。");
 
-            workbook.CopyAsWorkbook(directory);
+            _excelWriterRepository.CopyAsWorkbook(directory);
         }
 
         #endregion

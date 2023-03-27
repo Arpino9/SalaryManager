@@ -1,21 +1,22 @@
 ﻿using Aspose.Pdf;
 using Aspose.Pdf.Devices;
 using SalaryManager.Domain.Modules.Helpers;
+using SalaryManager.Domain.Repositories;
 using System.Collections.Generic;
 
 namespace SalaryManager.Infrastructure.PDF
 {
     /// <summary>
-    /// PDF読み込み
+    /// PDF変換
     /// </summary>
-    public sealed class PDFReader
+    public sealed class PDFConverter : IPDFConverterRepository
     {
         /// <summary>
         /// PDFをPNG変換する
         /// </summary>
         /// <param name="path">パス</param>
         /// <returns>生成されたPNGパスのリスト</returns>
-        public static List<string> ConvertPDFToImage(string path)
+        public List<string> ConvertPDFIntoImage(string path)
         {
             // ドキュメントを開く
             var pdfDocument = new Document(path);

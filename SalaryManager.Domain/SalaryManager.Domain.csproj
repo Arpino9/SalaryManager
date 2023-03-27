@@ -119,7 +119,10 @@
     <Compile Include="Modules\Logics\FilePath.cs" />
     <Compile Include="Repositories\IAnnualChartRepository.cs" />
     <Compile Include="Repositories\ICareerRepository.cs" />
+    <Compile Include="Repositories\IExcelWriterRepository.cs" />
     <Compile Include="Repositories\IHeaderRepository.cs" />
+    <Compile Include="Repositories\IPDFConverterRepository.cs" />
+    <Compile Include="Repositories\IXMLLoaderRepository.cs" />
     <Compile Include="Shared.cs" />
     <Compile Include="Entities\AllowanceValueEntity.cs" />
     <Compile Include="Entities\DeductionEntity.cs" />

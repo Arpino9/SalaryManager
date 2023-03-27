@@ -4,7 +4,7 @@ using SalaryManager.Domain.Entities;
 namespace SalaryManager.Domain.Repositories
 {
     /// <summary>
-    /// Repositories - 支給額
+    /// Repository - 支給額
     /// </summary>
     public interface IAllowanceRepository
     {

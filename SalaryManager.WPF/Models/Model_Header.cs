@@ -2,6 +2,7 @@
 using System.Linq;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Modules.Logics;
+using SalaryManager.Domain.Repositories;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.Infrastructure.XML;
@@ -29,6 +30,13 @@ namespace SalaryManager.WPF.Models
         }
 
         #endregion
+
+        public Model_Header()
+        {
+            _XMLLoaderRepository = new XMLLoader();
+        }
+
+        private static IXMLLoaderRepository _XMLLoaderRepository;
 
         /// <summary> ViewModel - ヘッダー </summary>
         internal ViewModel_Header ViewModel { get; set; }
@@ -137,7 +145,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void Window_Activated()
         {
-            this.ViewModel.Window_Background = XMLLoader.FetchBackgroundColorBrush();
+            this.ViewModel.Window_Background = _XMLLoaderRepository.FetchBackgroundColorBrush();
         }
 
         /// <summary>

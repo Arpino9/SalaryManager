@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Media;
 using SalaryManager.Domain.Modules.Logics;
+using SalaryManager.Domain.Repositories;
 using SalaryManager.Domain.StaticValues;
 using SalaryManager.Domain.ValueObjects;
 using SalaryManager.Infrastructure.Interface;
@@ -32,6 +33,14 @@ namespace SalaryManager.WPF.Models
 
         #endregion
 
+        public Model_WorkPlace()
+        {
+            _XMLLoaderRepository = new XMLLoader();
+        }
+
+        /// <summary> Repository - XML読み込み </summary>
+        private static IXMLLoaderRepository _XMLLoaderRepository;
+
         /// <summary> ViewModel - 勤務先 </summary>
         internal ViewModel_WorkPlace ViewModel { get; set; }
 
@@ -56,7 +65,7 @@ namespace SalaryManager.WPF.Models
             this.Window_Activated();
 
             if (this.ViewModel.Entity is null &&
-                XMLLoader.FetchShowDefaultPayslip())
+                _XMLLoaderRepository.FetchShowDefaultPayslip())
             {
                 // デフォルト明細
                 this.ViewModel.Entity = WorkingReferences.FetchDefault();
@@ -70,7 +79,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void Window_Activated()
         {
-            this.ViewModel.Window_Background = XMLLoader.FetchBackgroundColorBrush();
+            this.ViewModel.Window_Background = _XMLLoaderRepository.FetchBackgroundColorBrush();
         }
 
         /// <summary>

@@ -3,6 +3,7 @@ using System.Windows.Media;
 using SalaryManager.Domain.Modules.Helpers;
 using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Domain;
+using SalaryManager.Domain.Repositories;
 
 namespace SalaryManager.Infrastructure.XML
 {
@@ -14,14 +15,19 @@ namespace SalaryManager.Infrastructure.XML
     /// 呼び出しが面倒(コンストラクタ部分にあたるDeserialize()で逐一usingする必要がある)なので、
     /// あえてインターフェースを介さないことにした。
     /// </remarks>
-    public sealed class XMLLoader
+    public sealed class XMLLoader : IXMLLoaderRepository
     {
+        public XMLLoader()
+        {
+            
+        }
+
         private static XMLTag _tag;
 
         /// <summary>
         /// デシリアライズ
         /// </summary>
-        private static void Deserialize()
+        public void Deserialize()
         {
             using (var reader = new XMLReader(FilePath.GetXMLDefaultPath(), new XMLTag().GetType()))
             {
@@ -33,9 +39,9 @@ namespace SalaryManager.Infrastructure.XML
         /// SQLiteのパスを取得
         /// </summary>
         /// <returns>Excelテンプレートのパス</returns>
-        public static string FetchSQLitePath()
+        public string FetchSQLitePath()
         {
-            XMLLoader.Deserialize();
+            this.Deserialize();
             return _tag?.SQLitePath ?? FilePath.GetSQLiteDefaultPath(); ;
         }
 
@@ -43,9 +49,9 @@ namespace SalaryManager.Infrastructure.XML
         /// Excelテンプレートのパスを取得
         /// </summary>
         /// <returns>Excelテンプレートのパス</returns>
-        public static string FetchExcelTemplatePath()
+        public string FetchExcelTemplatePath()
         {
-            XMLLoader.Deserialize();
+            this.Deserialize();
             return _tag?.ExcelTemplatePath ?? FilePath.GetExcelTempleteDefaultPath();
         }
 
@@ -53,9 +59,9 @@ namespace SalaryManager.Infrastructure.XML
         /// フォントファミリを取得
         /// </summary>
         /// <returns>フォントファミリ</returns>
-        public static string FetchFontFamilyText()
+        public string FetchFontFamilyText()
         {
-            XMLLoader.Deserialize();
+            this.Deserialize();
             return _tag?.FontFamily ?? Shared.FontFamily;
         }
 
@@ -63,9 +69,9 @@ namespace SalaryManager.Infrastructure.XML
         /// フォントファミリを取得
         /// </summary>
         /// <returns>フォントファミリ</returns>
-        public static System.Windows.Media.FontFamily FetchFontFamily()
+        public System.Windows.Media.FontFamily FetchFontFamily()
         {
-            XMLLoader.Deserialize();
+            this.Deserialize();
             var fontFamily = _tag?.FontFamily ?? Shared.FontFamily;
 
             return new System.Windows.Media.FontFamily(fontFamily);
@@ -75,9 +81,9 @@ namespace SalaryManager.Infrastructure.XML
         /// 背景色を取得
         /// </summary>
         /// <returns>背景色</returns>
-        public static System.Drawing.Color FetchBackgroundColor()
+        public System.Drawing.Color FetchBackgroundColor()
         {
-            XMLLoader.Deserialize();
+            this.Deserialize();
             if (_tag?.BackgroundColor_ColorCode is null)
             {
                 return SystemColors.ControlLight;
@@ -105,7 +111,7 @@ namespace SalaryManager.Infrastructure.XML
         /// 背景色を取得
         /// </summary>
         /// <returns>背景色</returns>
-        public static decimal FetchFontSize()
+        public decimal FetchFontSize()
         {
             if (_tag?.FontSize is null)
             {
@@ -122,9 +128,9 @@ namespace SalaryManager.Infrastructure.XML
         /// 背景色を取得
         /// </summary>
         /// <returns>背景色</returns>
-        public static SolidColorBrush FetchBackgroundColorBrush()
+        public SolidColorBrush FetchBackgroundColorBrush()
         {
-            XMLLoader.Deserialize();
+            this.Deserialize();
             if (_tag?.BackgroundColor_ColorCode is null)
             {
                 return Default;
@@ -152,9 +158,9 @@ namespace SalaryManager.Infrastructure.XML
         /// 「初期表示時にデフォルト明細を表示する」のチェック有無を取得する
         /// </summary>
         /// <returns></returns>
-        public static bool FetchShowDefaultPayslip()
+        public bool FetchShowDefaultPayslip()
         {
-            XMLLoader.Deserialize();
+            this.Deserialize();
             return _tag?.ShowDefaultPayslip ?? false;
         }
     }

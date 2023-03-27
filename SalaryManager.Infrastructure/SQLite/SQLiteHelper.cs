@@ -1,4 +1,5 @@
-﻿using SalaryManager.Infrastructure.XML;
+﻿using SalaryManager.Domain.Repositories;
+using SalaryManager.Infrastructure.XML;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
@@ -7,13 +8,16 @@ namespace SalaryManager.Infrastructure.SQLite
 {
     public class SQLiteHelper
     {
+        private static IXMLLoaderRepository _XMLLoaderRepository;
+
         /// <summary>
         /// SQLiteの接続文字列を取得する
         /// </summary>
         /// <returns>接続文字列</returns>
         internal static string GetConnectionString()
         {
-            return ($"Data Source={XMLLoader.FetchSQLitePath()};Version=3;");
+            _XMLLoaderRepository = new XMLLoader();
+            return ($"Data Source={_XMLLoaderRepository.FetchSQLitePath()};Version=3;");
         }
 
         /// <summary>

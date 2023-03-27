@@ -8,6 +8,7 @@ using SalaryManager.Domain.StaticValues;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.Infrastructure.XML;
+using SalaryManager.Domain.Repositories;
 
 namespace SalaryManager.WPF.Models
 {
@@ -34,9 +35,11 @@ namespace SalaryManager.WPF.Models
 
         public Model_Career()
         {
-            
+            _XMLLoaderRepository = new XMLLoader();
         }
-        
+
+        private static IXMLLoaderRepository _XMLLoaderRepository;
+
         /// <summary> ViewModel - 職歴 </summary>
         public ViewModel_Career ViewModel { get; set; }
 
@@ -50,10 +53,10 @@ namespace SalaryManager.WPF.Models
         {
             Careers.Create(new CareerSQLite());
 
-            this.ViewModel.FontFamily = XMLLoader.FetchFontFamily();
-            this.ViewModel.FontSize   = XMLLoader.FetchFontSize();
+            this.ViewModel.FontFamily = _XMLLoaderRepository.FetchFontFamily();
+            this.ViewModel.FontSize   = _XMLLoaderRepository.FetchFontSize();
 
-            this.ViewModel.Window_Background = XMLLoader.FetchBackgroundColorBrush();
+            this.ViewModel.Window_Background = _XMLLoaderRepository.FetchBackgroundColorBrush();
 
             this.ViewModel.Entities = Careers.FetchByDescending();
 

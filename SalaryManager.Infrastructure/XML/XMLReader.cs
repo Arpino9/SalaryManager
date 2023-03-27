@@ -11,6 +11,7 @@ namespace SalaryManager.Infrastructure.XML
     /// </summary>
     /// <remarks>
     /// 指定されたパスのXMLの読み込み、破棄を行う。
+    /// コンストラクタ呼び出し時にusingを行うため、Repositoryは不要。
     /// </remarks>
     public sealed class XMLReader : IDisposable
     {
@@ -39,6 +40,7 @@ namespace SalaryManager.Infrastructure.XML
         /// <summary>
         /// デシリアライズ
         /// </summary>
+        /// <returns>デシリアライズ化されたオブジェクト</returns>
         /// <exception cref="FileWriterException">書き込み失敗</exception>
         public object Deserialize()
         {

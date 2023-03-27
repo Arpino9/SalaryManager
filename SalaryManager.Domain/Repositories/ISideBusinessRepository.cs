@@ -1,14 +1,10 @@
 ﻿using SalaryManager.Domain.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SalaryManager.Domain.Repositories
 {
     /// <summary>
-    /// Interface - 副業
+    /// Repository - 副業
     /// </summary>
     public interface ISideBusinessRepository
     {

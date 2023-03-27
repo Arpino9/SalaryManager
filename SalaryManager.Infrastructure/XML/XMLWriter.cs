@@ -11,6 +11,7 @@ namespace SalaryManager.Infrastructure.XML
     /// </summary>
     /// <remarks>
     /// 指定されたパスにXMLを生成し、それぞれのタグに値を書き込む。
+    /// コンストラクタ呼び出し時にusingを行うため、Repositoryは不要。
     /// </remarks>
     public sealed class XMLWriter : IDisposable
     {

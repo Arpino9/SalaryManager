@@ -2,6 +2,7 @@
 using System.Windows.Media;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Modules.Logics;
+using SalaryManager.Domain.Repositories;
 using SalaryManager.Domain.StaticValues;
 using SalaryManager.Domain.ValueObjects;
 using SalaryManager.Infrastructure.Interface;
@@ -33,6 +34,13 @@ namespace SalaryManager.WPF.Models
 
         #endregion
 
+        public Model_Allowance()
+        {
+            _XMLLoaderRepository = new XMLLoader();
+        }
+
+        private static IXMLLoaderRepository _XMLLoaderRepository;
+
         /// <summary> ViewModel - ヘッダ </summary>
         internal ViewModel_Header Header { get; set; }
 
@@ -60,7 +68,7 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.Entity_LastYear = Allowances.Fetch(entityDate.Year, entityDate.Month - 1);
 
             if (this.ViewModel.Entity is null &&
-                XMLLoader.FetchShowDefaultPayslip())
+                _XMLLoaderRepository.FetchShowDefaultPayslip())
             {
                 // デフォルト明細
                 this.ViewModel.Entity = Allowances.FetchDefault();

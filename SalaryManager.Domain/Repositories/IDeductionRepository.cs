@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace SalaryManager.Domain.Repositories
 {
     /// <summary>
-    /// Repositories - 控除額
+    /// Repository - 控除額
     /// </summary>
     public interface IDeductionRepository
     {

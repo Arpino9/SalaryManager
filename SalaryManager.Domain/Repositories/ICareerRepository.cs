@@ -4,7 +4,7 @@ using SalaryManager.Domain.Entities;
 namespace SalaryManager.Domain.Repositories
 {
     /// <summary>
-    /// Repositories - 職歴
+    /// Repository - 職歴
     /// </summary>
     public interface ICareerRepository
     {

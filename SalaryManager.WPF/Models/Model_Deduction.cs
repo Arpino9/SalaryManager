@@ -1,6 +1,7 @@
 ﻿using System;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Modules.Logics;
+using SalaryManager.Domain.Repositories;
 using SalaryManager.Domain.StaticValues;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.Infrastructure.SQLite;
@@ -31,6 +32,13 @@ namespace SalaryManager.WPF.Models
 
         #endregion
 
+        public Model_Deduction()
+        {
+            _XMLLoaderRepository = new XMLLoader();
+        }
+
+        private static IXMLLoaderRepository _XMLLoaderRepository;
+
         /// <summary> ViewModel - ヘッダ </summary>
         internal ViewModel_Header Header { get; set; }
 
@@ -55,7 +63,7 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.Entity_LastYear = Deductions.Fetch(entityDate.Year, entityDate.Month - 1);
 
             if (this.ViewModel.Entity is null &&
-                XMLLoader.FetchShowDefaultPayslip())
+                _XMLLoaderRepository.FetchShowDefaultPayslip())
             {
                 // デフォルト明細
                 this.ViewModel.Entity = Deductions.FetchDefault();

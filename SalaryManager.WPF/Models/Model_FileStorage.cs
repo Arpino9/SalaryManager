@@ -1,6 +1,7 @@
 ﻿using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Modules.Helpers;
 using SalaryManager.Domain.Modules.Logics;
+using SalaryManager.Domain.Repositories;
 using SalaryManager.Domain.ValueObjects;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.Infrastructure.PDF;
@@ -33,7 +34,16 @@ namespace SalaryManager.WPF.Models
 
         #endregion
 
+        public Model_FileStorage()
+        {
+            _repository = new PDFConverter();
+        }
+
+        /// <summary> ViewModel - 添付ファイル管理 </summary>
         public ViewModel_FileStorage ViewModel { get; set; }
+
+        /// <summary> PDF変換リポジトリ </summary>
+        private IPDFConverterRepository _repository;
 
         public void Initialize()
         {
@@ -136,7 +146,7 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         private bool ConvertPDFToPNG(string path)
         {
-            var pngPaths = PDFReader.ConvertPDFToImage(path);
+            var pngPaths = _repository.ConvertPDFIntoImage(path);
 
             if (pngPaths.Count == 1)
             {

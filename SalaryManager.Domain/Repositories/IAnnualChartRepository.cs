@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace SalaryManager.Domain.Repositories
 {
+    /// <summary>
+    /// Repository - 月収一覧
+    /// </summary>
     public interface IAnnualChartRepository
     {
         /// <summary> 

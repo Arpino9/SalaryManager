@@ -1,6 +1,7 @@
 ﻿using ClosedXML.Excel;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Modules.Logics;
+using SalaryManager.Domain.Repositories;
 using SalaryManager.Infrastructure.XML;
 using System;
 using System.Collections.Generic;
@@ -13,15 +14,20 @@ namespace SalaryManager.Infrastructure.Excel
     /// <summary>
     /// Excel書き込み
     /// </summary>
-    public sealed class ExcelWriter
+    public sealed class ExcelWriter : IExcelWriterRepository
     {
         public ExcelWriter()
         {
+            _XMLLoaderRepository = new XMLLoader();
 
+            this.Workbook = new XLWorkbook(_XMLLoaderRepository.FetchExcelTemplatePath());
         }
 
+        /// <summary> Repository - XMLローダー </summary>
+        private IXMLLoaderRepository _XMLLoaderRepository;
+
         /// <summary> Workbook </summary>
-        public XLWorkbook Workbook { get; } = new XLWorkbook(XMLLoader.FetchExcelTemplatePath());
+        public XLWorkbook Workbook { get; }
 
         /// <summary> Worksheet - 給与明細 </summary>
         public IXLWorksheet Worksheet_Payslip => this.Workbook.Worksheet("給与明細");
