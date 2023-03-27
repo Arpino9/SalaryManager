@@ -114,6 +114,7 @@
     <Compile Include="SQLite\SideBusinessSQLite.cs" />
     <Compile Include="SQLite\SQLiteHelper.cs" />
     <Compile Include="SQLite\SQLiteTransaction.cs" />
+    <Compile Include="SQLite\FileStorageSQLite.cs" />
     <Compile Include="SQLite\WorkingReferenceSQLite.cs" />
     <Compile Include="XML\XMLLoader.cs" />
     <Compile Include="XML\XMLReader.cs" />

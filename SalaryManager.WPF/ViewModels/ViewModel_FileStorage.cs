@@ -1,16 +1,12 @@
-﻿using SalaryManager.Domain.Entities;
-using SalaryManager.WPF.Converter;
-using SalaryManager.WPF.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Media;
+using SalaryManager.Domain.Entities;
+using SalaryManager.WPF.Converter;
+using SalaryManager.WPF.Models;
 
 namespace SalaryManager.WPF.ViewModels
 {
@@ -37,10 +33,14 @@ namespace SalaryManager.WPF.ViewModels
 
             _attachedFileAction += this.Model.AttachedFile_SelectionChanged;
             this.AttachedFile_SelectionChanged = new RelayCommand(_attachedFileAction);
+
+            this.Model.Initialize();
         }
 
         /// <summary> Model - 支給額 </summary>
         public Model_FileStorage Model = Model_FileStorage.GetInstance();
+
+        public IReadOnlyList<FileStorageEntity> Entities { get; internal set; }
 
         #region 添付ファイル一覧
 

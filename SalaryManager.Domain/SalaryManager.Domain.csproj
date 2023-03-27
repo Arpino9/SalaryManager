@@ -120,6 +120,7 @@
     <Compile Include="Repositories\IAnnualChartRepository.cs" />
     <Compile Include="Repositories\ICareerRepository.cs" />
     <Compile Include="Repositories\IExcelWriterRepository.cs" />
+    <Compile Include="Repositories\IFileStorageRepository.cs" />
     <Compile Include="Repositories\IHeaderRepository.cs" />
     <Compile Include="Repositories\IPDFConverterRepository.cs" />
     <Compile Include="Repositories\IXMLLoaderRepository.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="StaticValues\AnnualCharts.cs" />
     <Compile Include="StaticValues\Careers.cs" />
     <Compile Include="StaticValues\Deductions.cs" />
+    <Compile Include="StaticValues\FileStorages.cs" />
     <Compile Include="StaticValues\Headers.cs" />
     <Compile Include="StaticValues\SideBusinesses.cs" />
     <Compile Include="StaticValues\WorkingReferences.cs" />

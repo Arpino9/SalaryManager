@@ -2,9 +2,11 @@
 using SalaryManager.Domain.Modules.Helpers;
 using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Domain.Repositories;
+using SalaryManager.Domain.StaticValues;
 using SalaryManager.Domain.ValueObjects;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.Infrastructure.PDF;
+using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.ViewModels;
 using System;
 using System.Collections.ObjectModel;
@@ -36,17 +38,24 @@ namespace SalaryManager.WPF.Models
 
         public Model_FileStorage()
         {
-            _repository = new PDFConverter();
+            _repositoryPDFConverter = new PDFConverter();
         }
 
         /// <summary> ViewModel - 添付ファイル管理 </summary>
         public ViewModel_FileStorage ViewModel { get; set; }
 
         /// <summary> PDF変換リポジトリ </summary>
-        private IPDFConverterRepository _repository;
+        private IPDFConverterRepository _repositoryPDFConverter;
 
         public void Initialize()
         {
+            FileStorages.Create(new FileStorageSQLite());
+
+            this.ViewModel.Entities = FileStorages.FetchByDescending();
+
+            this.Reflesh_ListView();
+
+            this.ViewModel.AttachedFile_SelectedIndex = -1;
             this.Clear_InputForm();
         }
 
@@ -146,7 +155,7 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         private bool ConvertPDFToPNG(string path)
         {
-            var pngPaths = _repository.ConvertPDFIntoImage(path);
+            var pngPaths = _repositoryPDFConverter.ConvertPDFIntoImage(path);
 
             if (pngPaths.Count == 1)
             {
@@ -221,6 +230,7 @@ namespace SalaryManager.WPF.Models
                 var id = this.ViewModel.AttachedFile_ItemSource.Count + 1;
 
                 this.ViewModel.AttachedFile_ItemSource.Add(this.CreateEntity(id));
+                this.Save();
 
                 // 並び変え
                 this.ViewModel.AttachedFile_ItemSource = new ObservableCollection<FileStorageEntity>(this.ViewModel.AttachedFile_ItemSource.OrderByDescending(x => x.FileName));
@@ -246,6 +256,92 @@ namespace SalaryManager.WPF.Models
 
         #endregion
 
+
+        /// <summary>
+        /// 再描画
+        /// </summary>
+        /// <remarks>
+        /// 該当月に添付ファイル情報が存在すれば、各項目を再描画する。
+        /// </remarks>
+        public void Refresh()
+        {
+            // ListView
+            this.Reflesh_ListView();
+            // 入力用フォーム
+            this.Reflesh_InputForm();
+        }
+
+        /// <summary>
+        /// 再描画 - ListView
+        /// </summary>
+        private void Reflesh_ListView()
+        {
+            this.ViewModel.AttachedFile_ItemSource.Clear();
+
+            var entities = this.ViewModel.Entities;
+
+            if (!entities.Any())
+            {
+                this.Clear_InputForm();
+                return;
+            }
+
+            foreach (var entity in entities)
+            {
+                this.ViewModel.AttachedFile_ItemSource.Add(entity);
+            }
+        }
+
+        /// <summary>
+        /// 再描画 - 入力用フォーム
+        /// </summary>
+        private void Reflesh_InputForm()
+        {
+            // ListView
+            this.Reflesh_ListView();
+            // 更新、削除ボタン
+            this.EnableControlButton();
+        }
+
+        /// <summary>
+        /// リロード
+        /// </summary>
+        /// <remarks>
+        /// 年月の変更時などに、該当月の項目を取得する。
+        /// </remarks>
+        public void Reload()
+        {
+            using (var cursor = new CursorWaiting())
+            {
+                Careers.Create(new CareerSQLite());
+
+                this.ViewModel.Entities = FileStorages.FetchByDescending();
+
+                this.Refresh();
+            }
+        }
+
+        /// <summary>
+        /// クリア
+        /// </summary>
+        /// <remarks>
+        /// 各項目を初期化する。
+        /// </remarks>
+        public void Clear_InputForm()
+        {
+            this.ViewModel.FileImage_Image = null;
+
+            this.ViewModel.Title_Text    = string.Empty;
+            this.ViewModel.FileName_Text = string.Empty;
+            this.ViewModel.Remarks_Text  = string.Empty;
+
+            this.ViewModel.CreateDate = DateTime.Today;
+            this.ViewModel.UpdateDate = DateTime.Today;
+
+            // 追加ボタン
+            this.ViewModel.Add_IsEnabled = false;
+        }
+
         #region 更新
 
         /// <summary>
@@ -267,6 +363,9 @@ namespace SalaryManager.WPF.Models
 
                 var entity = this.CreateEntity(id);
                 this.ViewModel.AttachedFile_ItemSource[this.ViewModel.AttachedFile_SelectedIndex] = entity;
+
+                var sqlite = new FileStorageSQLite();
+                sqlite.Save(entity);
             }
         }
 
@@ -284,50 +383,28 @@ namespace SalaryManager.WPF.Models
                 this.ViewModel.AttachedFile_ItemSource.RemoveAt(this.ViewModel.AttachedFile_SelectedIndex);
 
                 this.EnableControlButton();
+
+                var sqlite = new FileStorageSQLite();
+                sqlite.Delete(this.ViewModel.AttachedFile_SelectedIndex + 1);
+
+                this.Reload();
             }
         }
 
         #endregion
 
-        public void Refresh()
-        {
-            this.Reflesh_InputForm();
-        }
-
         /// <summary>
-        /// 再描画 - 入力用フォーム
+        /// 保存
         /// </summary>
-        private void Reflesh_InputForm()
+        public void Save()        
         {
-            // 更新、削除ボタン
-            this.EnableControlButton();
+            foreach(var entity in this.ViewModel.AttachedFile_ItemSource)
+            {
+                var sqlite = new FileStorageSQLite();
+                sqlite.Save(entity);
+            }
+
+            this.Reload();
         }
-
-        public void Reload()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Clear_InputForm()
-        {
-            this.ViewModel.FileImage_Image = null;
-
-            this.ViewModel.Title_Text    = string.Empty;
-            this.ViewModel.FileName_Text = string.Empty;
-            this.ViewModel.Remarks_Text  = string.Empty;
-
-            this.ViewModel.CreateDate = DateTime.Today;
-            this.ViewModel.UpdateDate = DateTime.Today;
-
-            // 追加ボタン
-            this.ViewModel.Add_IsEnabled = false;
-        }
-
-        public void Save()
-        {
-            throw new NotImplementedException();
-        }
-
-
     }
 }
