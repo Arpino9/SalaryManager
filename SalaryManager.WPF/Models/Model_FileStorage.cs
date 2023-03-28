@@ -273,6 +273,9 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 添付画像をリストに追加する
         /// </summary>
+        /// <remarks>
+        /// 重複を防止するため、登録されたレコードの最大ID + 1のIDを割り当てる。
+        /// </remarks>
         private void AddFile()
         {
             if (this.ViewModel.FileImage_Image is null)
@@ -285,8 +288,17 @@ namespace SalaryManager.WPF.Models
                 this.ViewModel.CreateDate = DateTime.Today;
                 this.ViewModel.UpdateDate = DateTime.Today;
 
-                var id = this.ViewModel.AttachedFile_ItemSource.Max(x => x.ID) + 1;
+                var id = default(int);
 
+                if (this.ViewModel.AttachedFile_ItemSource.Any())
+                {
+                    id = this.ViewModel.AttachedFile_ItemSource.Max(x => x.ID) + 1;
+                }
+                else
+                {
+                    id = 1;
+                }
+                
                 this.ViewModel.AttachedFile_ItemSource.Add(this.CreateEntity(id));
                 this.Save();
 
@@ -465,7 +477,6 @@ namespace SalaryManager.WPF.Models
             using (var cursor = new CursorWaiting())
             {
                 var id = this.ViewModel.AttachedFile_ItemSource[this.ViewModel.AttachedFile_SelectedIndex].ID;
-
                 _fileStorageRepository.Delete(id);
 
                 this.ViewModel.AttachedFile_ItemSource.RemoveAt(this.ViewModel.AttachedFile_SelectedIndex);
