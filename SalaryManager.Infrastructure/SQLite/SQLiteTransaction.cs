@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.SQLite;
 using SalaryManager.Domain;
+using SalaryManager.Domain.Repositories;
 
 namespace SalaryManager.Infrastructure.SQLite
 {
@@ -10,7 +11,7 @@ namespace SalaryManager.Infrastructure.SQLite
     /// <remarks>
     /// SQLiteはTransactionScopeが使用できないため、こちらを利用する。
     /// </remarks>
-    public class SQLiteTransaction : IDisposable
+    public class SQLiteTransaction : IDisposable, ITransactionRepository
     {
         /// <summary> 接続インスタンス </summary>
         private SQLiteConnection _connection;

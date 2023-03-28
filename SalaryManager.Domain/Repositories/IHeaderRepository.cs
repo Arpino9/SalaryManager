@@ -15,5 +15,12 @@ namespace SalaryManager.Domain.Repositories
         IReadOnlyList<HeaderEntity> GetEntities();
 
         HeaderEntity FetchDefault();
+
+        public void Save(
+            HeaderEntity entity);
+
+        public void Save(
+            ITransactionRepository transaction,
+            HeaderEntity entity);
     }
 }

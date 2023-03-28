@@ -123,6 +123,7 @@
     <Compile Include="Repositories\IFileStorageRepository.cs" />
     <Compile Include="Repositories\IHeaderRepository.cs" />
     <Compile Include="Repositories\IPDFConverterRepository.cs" />
+    <Compile Include="Repositories\ITransactionRepository.cs" />
     <Compile Include="Repositories\IXMLLoaderRepository.cs" />
     <Compile Include="Shared.cs" />
     <Compile Include="Entities\AllowanceValueEntity.cs" />

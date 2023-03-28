@@ -34,10 +34,14 @@ namespace SalaryManager.WPF.Models
 
         public Model_WorkingReference()
         {
-            _XMLLoaderRepository = new XMLLoader();
+            
         }
 
-        private static IXMLLoaderRepository _XMLLoaderRepository;
+        /// <summary> Repository - XML読み込み </summary>
+        private static IXMLLoaderRepository _XMLLoaderRepository = new XMLLoader();
+
+        /// <summary> Repository - 勤務備考 </summary>
+        private IWorkingReferencesRepository _workingReferencesRepository = new WorkingReferenceSQLite();
 
         /// <summary> ViewModel - ヘッダ </summary>
         internal ViewModel_Header Header { get; set; }
@@ -57,7 +61,7 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         public void Initialize(DateTime entityDate)
         {
-            WorkingReferences.Create(new WorkingReferenceSQLite());
+            WorkingReferences.Create(_workingReferencesRepository);
             Careers.Create(new CareerSQLite());
 
             this.ViewModel.Entity          = WorkingReferences.Fetch(entityDate.Year, entityDate.Month);
@@ -83,7 +87,7 @@ namespace SalaryManager.WPF.Models
         {
             using (var cursor = new CursorWaiting())
             {
-                WorkingReferences.Create(new WorkingReferenceSQLite());
+                WorkingReferences.Create(_workingReferencesRepository);
 
                 this.ViewModel.Entity          = WorkingReferences.Fetch(this.Header.Year_Value,     this.Header.Month_Value);
                 this.ViewModel.Entity_LastYear = WorkingReferences.Fetch(this.Header.Year_Value - 1, this.Header.Month_Value);
@@ -187,7 +191,7 @@ namespace SalaryManager.WPF.Models
         /// <remarks>
         /// SQLiteに接続し、入力項目を保存する。
         /// </remarks>
-        public void Save(SQLiteTransaction transaction)
+        public void Save(ITransactionRepository transaction)
         {
             var entity = new WorkingReferencesEntity(
                 this.Header.ID,
@@ -204,8 +208,7 @@ namespace SalaryManager.WPF.Models
                 this.WorkPlace.WorkPlace,
                 this.ViewModel.Remarks_Text);
 
-            var workingReference = new WorkingReferenceSQLite();
-            workingReference.Save(transaction, entity);
+            _workingReferencesRepository.Save(transaction, entity);
         }
     }
 }

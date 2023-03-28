@@ -27,5 +27,9 @@ namespace SalaryManager.Domain.Repositories
         /// </summary>
         /// <returns>デフォルト明細</returns>
         DeductionEntity GetDefault();
+
+        public void Save(
+            ITransactionRepository transaction,
+            DeductionEntity entity);
     }
 }

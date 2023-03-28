@@ -34,10 +34,14 @@ namespace SalaryManager.WPF.Models
 
         public Model_Deduction()
         {
-            _XMLLoaderRepository = new XMLLoader();
+
         }
 
-        private static IXMLLoaderRepository _XMLLoaderRepository;
+        /// <summary> Repository - XML読み込み </summary>
+        private static IXMLLoaderRepository _XMLLoaderRepository = new XMLLoader();
+
+        /// <summary> Repository - 控除額 </summary>
+        private IDeductionRepository _deductionRepository = new DeductionSQLite();
 
         /// <summary> ViewModel - ヘッダ </summary>
         internal ViewModel_Header Header { get; set; }
@@ -57,7 +61,7 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         public void Initialize(DateTime entityDate)
         {
-            Deductions.Create(new DeductionSQLite());
+            Deductions.Create(_deductionRepository);
 
             this.ViewModel.Entity          = Deductions.Fetch(entityDate.Year, entityDate.Month);
             this.ViewModel.Entity_LastYear = Deductions.Fetch(entityDate.Year, entityDate.Month - 1);
@@ -105,7 +109,7 @@ namespace SalaryManager.WPF.Models
             // 年末調整他
             this.ViewModel.YearEndTaxAdjustment_Value  = entity.YearEndTaxAdjustment;
             // 備考
-            this.ViewModel.Remarks_Text               = entity.Remarks;
+            this.ViewModel.Remarks_Text                = entity.Remarks;
             // 控除額計
             this.ViewModel.TotalDeduct_Value           = entity.TotalDeduct.Value;
         }
@@ -120,7 +124,7 @@ namespace SalaryManager.WPF.Models
         {
             using (var cursor = new CursorWaiting())
             {
-                Deductions.Create(new DeductionSQLite());
+                Deductions.Create(_deductionRepository);
 
                 this.ViewModel.Entity          = Deductions.Fetch(this.Header.Year_Value,     this.Header.Month_Value);
                 this.ViewModel.Entity_LastYear = Deductions.Fetch(this.Header.Year_Value - 1, this.Header.Month_Value);
@@ -166,7 +170,7 @@ namespace SalaryManager.WPF.Models
         /// <remarks>
         /// SQLiteに接続し、入力項目を保存する。
         /// </remarks>
-        public void Save(SQLiteTransaction transaction)
+        public void Save(ITransactionRepository transaction)
         {
             var entity = new DeductionEntity(
                             this.Header.ID,
@@ -182,8 +186,7 @@ namespace SalaryManager.WPF.Models
                             this.ViewModel.Remarks_Text,
                             this.ViewModel.TotalDeduct_Value);
 
-            var deduction = new DeductionSQLite();
-            deduction.Save(transaction, entity);
+            _deductionRepository.Save(transaction, entity);
         }
 
         /// <summary>

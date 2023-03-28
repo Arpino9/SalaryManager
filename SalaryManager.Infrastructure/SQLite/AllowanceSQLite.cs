@@ -301,5 +301,8 @@ where Id = @Id
 
             transaction.Execute(insert, update, args.ToArray());
         }
+
+        public void Save(ITransactionRepository transaction, AllowanceValueEntity entity)
+            => this.Save((SQLiteTransaction)transaction, entity);
     }
 }

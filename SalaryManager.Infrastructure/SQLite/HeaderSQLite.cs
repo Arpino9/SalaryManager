@@ -127,5 +127,8 @@ where Id = @Id
 
             transaction.Execute(insert, update, args.ToArray());
         }
+
+        public void Save(ITransactionRepository transaction, HeaderEntity entity)
+            => this.Save((SQLiteTransaction)transaction, entity);
     }
 }

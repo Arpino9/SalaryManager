@@ -157,10 +157,8 @@ namespace SalaryManager.WPF.Models
         /// <param name="transaction">トランザクション</param>
         /// <see cref="Model_WorkingReference"/>
         /// <exception cref="NotImplementedException">未実装例外</exception>
-        /// <remarks>
-        /// 保存先は勤怠備考テーブルなので実装していない。
-        /// </remarks>
-        public void Save(SQLiteTransaction transaction)
+        [Obsolete("保存先は勤怠備考テーブルなので実装していない。")]
+        public void Save(ITransactionRepository transaction)
         {
             throw new NotImplementedException();
         }

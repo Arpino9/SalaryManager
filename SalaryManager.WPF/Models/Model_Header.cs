@@ -33,10 +33,14 @@ namespace SalaryManager.WPF.Models
 
         public Model_Header()
         {
-            _XMLLoaderRepository = new XMLLoader();
+
         }
 
-        private static IXMLLoaderRepository _XMLLoaderRepository;
+        /// <summary> Repository - XML読み込み </summary>
+        private static IXMLLoaderRepository _XMLLoaderRepository = new XMLLoader();
+
+        /// <summary> Repository - ヘッダー </summary>
+        private IHeaderRepository _headerRepository = new HeaderSQLite();
 
         /// <summary> ViewModel - ヘッダー </summary>
         internal ViewModel_Header ViewModel { get; set; }
@@ -196,15 +200,14 @@ namespace SalaryManager.WPF.Models
                 this.ViewModel.UpdateDate
             );
 
-            var header = new HeaderSQLite();
-            header.Save(entity);
+            _headerRepository.Save(entity);
         }
 
         /// <summary>
         /// 保存
         /// </summary>
         /// <param name="transaction">トランザクション</param>
-        public void Save(SQLiteTransaction transaction)
+        public void Save(ITransactionRepository transaction)
         {
             var entity = new HeaderEntity(
                  this.ViewModel.ID,
@@ -214,8 +217,7 @@ namespace SalaryManager.WPF.Models
                  this.ViewModel.UpdateDate
              );
 
-            var header = new HeaderSQLite();
-            header.Save(transaction, entity);
+            _headerRepository.Save(transaction, entity);
         }
 
         #region デフォルトに設定
@@ -233,13 +235,12 @@ namespace SalaryManager.WPF.Models
             }
 
             // 前回のデフォルト設定を解除する
-            var header = new HeaderSQLite();
-            var defaultEntity = header.FetchDefault();
+            var defaultEntity = _headerRepository.FetchDefault();
 
             if (defaultEntity != null)
             {
                 defaultEntity.IsDefault = false;
-                header.Save(defaultEntity);
+                _headerRepository.Save(defaultEntity);
             }
 
             // 今回のデフォルト設定を登録する

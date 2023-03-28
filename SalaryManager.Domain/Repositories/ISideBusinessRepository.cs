@@ -17,5 +17,9 @@ namespace SalaryManager.Domain.Repositories
 
         SideBusinessEntity GetEntity(int year, int month);
         SideBusinessEntity GetDefault();
+
+        public void Save(
+            ITransactionRepository transaction,
+            SideBusinessEntity entity);
     }
 }

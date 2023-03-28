@@ -35,10 +35,14 @@ namespace SalaryManager.WPF.Models
 
         public Model_Career()
         {
-            _XMLLoaderRepository = new XMLLoader();
+
         }
 
-        private static IXMLLoaderRepository _XMLLoaderRepository;
+        /// <summary> Repository - XML読み込み </summary>
+        private static IXMLLoaderRepository _XMLLoaderRepository = new XMLLoader();
+
+        /// <summary> Repository - 職歴 </summary>
+        private ICareerRepository _careerRepository = new CareerSQLite();
 
         /// <summary> ViewModel - 職歴 </summary>
         public ViewModel_Career ViewModel { get; set; }
@@ -51,7 +55,7 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         public void Initialize()
         {
-            Careers.Create(new CareerSQLite());
+            Careers.Create(_careerRepository);
 
             this.ViewModel.FontFamily = _XMLLoaderRepository.FetchFontFamily();
             this.ViewModel.FontSize   = _XMLLoaderRepository.FetchFontSize();
@@ -230,7 +234,7 @@ namespace SalaryManager.WPF.Models
         {
             using (var cursor = new CursorWaiting())
             {
-                Careers.Create(new CareerSQLite());
+                Careers.Create(_careerRepository);
 
                 this.ViewModel.Entities = Careers.FetchByDescending();
 
@@ -402,8 +406,7 @@ namespace SalaryManager.WPF.Models
 
             using (var cursor = new CursorWaiting())
             {
-                var career = new CareerSQLite();
-                career.Delete(this.ViewModel.Careers_SelectedIndex + 1);
+                _careerRepository.Delete(this.ViewModel.Careers_SelectedIndex + 1);
 
                 this.ViewModel.Careers_ItemSource.RemoveAt(this.ViewModel.Careers_SelectedIndex);
 
@@ -419,8 +422,7 @@ namespace SalaryManager.WPF.Models
         {
             foreach (var entity in this.ViewModel.Careers_ItemSource)
             {
-                var career = new CareerSQLite();
-                career.Save(entity);
+                _careerRepository.Save(entity);
             }
 
             this.Reload();

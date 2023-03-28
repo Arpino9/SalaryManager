@@ -1,12 +1,11 @@
 ﻿using SalaryManager.Domain.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SalaryManager.Domain.Repositories
 {
+    /// <summary>
+    /// Repository - 添付ファイル
+    /// </summary>
     public interface IFileStorageRepository
     {
         IReadOnlyList<FileStorageEntity> GetEntities();

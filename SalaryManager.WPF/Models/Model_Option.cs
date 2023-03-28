@@ -12,6 +12,9 @@ using SalaryManager.Domain.Repositories;
 
 namespace SalaryManager.WPF.Models
 {
+    /// <summary>
+    /// Model - オプション
+    /// </summary>
     public class Model_Option
     {
 
@@ -33,10 +36,11 @@ namespace SalaryManager.WPF.Models
 
         public Model_Option()
         {
-            _XMLLoaderRepository = new XMLLoader();
+
         }
 
-        private static IXMLLoaderRepository _XMLLoaderRepository;
+        /// <summary> Repository - XML読み込み </summary>
+        private static IXMLLoaderRepository _XMLLoaderRepository = new XMLLoader();
 
         /// <summary>
         /// 初期化

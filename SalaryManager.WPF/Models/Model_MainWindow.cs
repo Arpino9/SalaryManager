@@ -42,13 +42,14 @@ namespace SalaryManager.WPF.Models
 
         public Model_MainWindow()
         {
-            _excelWriterRepository = new ExcelWriter();
-            _XMLLoaderRepository   = new XMLLoader();
+
         }
 
-        private IXMLLoaderRepository _XMLLoaderRepository;
+        /// <summary> Repository - Excel読み込み </summary>
+        private IXMLLoaderRepository _XMLLoaderRepository = new XMLLoader();
 
-        private IExcelWriterRepository _excelWriterRepository;
+        /// <summary> Repository - Excel書き込み </summary>
+        private IExcelWriterRepository _excelWriterRepository = new ExcelWriter();
 
         /// <summary> ViewModel - メイン画面 </summary>
         internal ViewModel_MainWindow ViewModel { get; set; }

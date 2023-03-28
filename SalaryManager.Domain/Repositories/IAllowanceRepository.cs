@@ -27,5 +27,9 @@ namespace SalaryManager.Domain.Repositories
         /// </summary>
         /// <returns></returns>
         AllowanceValueEntity GetDefault();
+
+        public void Save(
+            ITransactionRepository transaction,
+            AllowanceValueEntity entity);
     }
 }

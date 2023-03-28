@@ -23,5 +23,9 @@ namespace SalaryManager.Domain.Repositories
         WorkingReferencesEntity GetEntity(int year, int month);
 
         WorkingReferencesEntity GetDefault();
+
+        public void Save(
+            ITransactionRepository transaction,
+            WorkingReferencesEntity entity);
     }
 }

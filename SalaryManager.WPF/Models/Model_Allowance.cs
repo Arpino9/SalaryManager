@@ -36,12 +36,16 @@ namespace SalaryManager.WPF.Models
 
         public Model_Allowance()
         {
-            _XMLLoaderRepository = new XMLLoader();
+
         }
 
-        private static IXMLLoaderRepository _XMLLoaderRepository;
+        /// <summary> Repository - XML読み込み </summary>
+        private static IXMLLoaderRepository _XMLLoaderRepository = new XMLLoader();
 
-        /// <summary> ViewModel - ヘッダ </summary>
+        /// <summary> Repository - ヘッダ </summary>
+        private IAllowanceRepository _allowanceRepository = new AllowanceSQLite();
+
+        /// <summary> ViewModel - 支給額 </summary>
         internal ViewModel_Header Header { get; set; }
 
         /// <summary> ViewModel - 支給額 </summary>
@@ -62,7 +66,7 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         public void Initialize(DateTime entityDate)
         {
-            Allowances.Create(new AllowanceSQLite());
+            Allowances.Create(_allowanceRepository);
 
             this.ViewModel.Entity          = Allowances.Fetch(entityDate.Year, entityDate.Month);
             this.ViewModel.Entity_LastYear = Allowances.Fetch(entityDate.Year, entityDate.Month - 1);
@@ -155,7 +159,7 @@ namespace SalaryManager.WPF.Models
         {
             using (var cursor = new CursorWaiting())
             {
-                Allowances.Create(new AllowanceSQLite());
+                Allowances.Create(_allowanceRepository);
 
                 this.ViewModel.Entity          = Allowances.Fetch(this.Header.Year_Value,     this.Header.Month_Value);
                 this.ViewModel.Entity_LastYear = Allowances.Fetch(this.Header.Year_Value - 1, this.Header.Month_Value);
@@ -220,7 +224,7 @@ namespace SalaryManager.WPF.Models
         /// <remarks>
         /// SQLiteに接続し、入力項目を保存する。
         /// </remarks>
-        public void Save(SQLiteTransaction transaction)
+        public void Save(ITransactionRepository transaction)
         {
             var entity = new AllowanceValueEntity(
                               this.Header.ID,
@@ -241,8 +245,7 @@ namespace SalaryManager.WPF.Models
                               this.ViewModel.TotalSalary_Value,
                               this.ViewModel.TotalDeductedSalary_Value);
 
-            var allowance = new AllowanceSQLite();
-            allowance.Save(transaction, entity);
+            _allowanceRepository.Save(transaction, entity);
         }
 
         /// <summary>
@@ -259,15 +262,15 @@ namespace SalaryManager.WPF.Models
             }
 
             this.ViewModel.TotalSalary_Value = this.ViewModel.BasicSalary_Value
-                                       + this.ViewModel.ExecutiveAllowance_Value
-                                       + this.ViewModel.DependencyAllowance_Value
-                                       + this.ViewModel.OvertimeAllowance_Value
-                                       + this.ViewModel.DaysoffIncreased_Value
-                                       + this.ViewModel.NightworkIncreased_Value
-                                       + this.ViewModel.HousingAllowance_Value
-                                       + this.ViewModel.LateAbsent_Value
-                                       + this.ViewModel.SpecialAllowance_Value
-                                       + this.ViewModel.SpareAllowance_Value;
+                                             + this.ViewModel.ExecutiveAllowance_Value
+                                             + this.ViewModel.DependencyAllowance_Value
+                                             + this.ViewModel.OvertimeAllowance_Value
+                                             + this.ViewModel.DaysoffIncreased_Value
+                                             + this.ViewModel.NightworkIncreased_Value
+                                             + this.ViewModel.HousingAllowance_Value
+                                             + this.ViewModel.LateAbsent_Value
+                                             + this.ViewModel.SpecialAllowance_Value
+                                             + this.ViewModel.SpareAllowance_Value;
 
             if (this.ViewModel_Deduction is null)
             {
@@ -275,7 +278,7 @@ namespace SalaryManager.WPF.Models
             }
 
             this.ViewModel.TotalDeductedSalary_Value = this.ViewModel.TotalSalary_Value 
-                                               - this.ViewModel_Deduction.TotalDeduct_Value;
+                                                     - this.ViewModel_Deduction.TotalDeduct_Value;
 
             this.ChangeColor();
         }

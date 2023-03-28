@@ -1,15 +1,13 @@
 ﻿using SalaryManager.WPF.Models;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace SalaryManager.WPF.ViewModels
 {
+    /// <summary>
+    /// ViewModel - イメージビューアー
+    /// </summary>
     public class ViewModel_ImageViewer : INotifyPropertyChanged
     {
 
@@ -34,6 +32,8 @@ namespace SalaryManager.WPF.ViewModels
         public Model_FileStorage Model { get; set; } = Model_FileStorage.GetInstance();
 
         private double _fileImage_Height;
+
+        #region 画面サイズ
 
         /// <summary>
         /// 画像 - Height
@@ -62,6 +62,8 @@ namespace SalaryManager.WPF.ViewModels
                 this.RaisePropertyChanged();
             }
         }
+
+        #endregion
 
         #region 画像
 

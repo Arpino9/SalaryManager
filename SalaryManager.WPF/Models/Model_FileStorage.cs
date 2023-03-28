@@ -39,8 +39,15 @@ namespace SalaryManager.WPF.Models
 
         public Model_FileStorage()
         {
-            _repositoryPDFConverter = new PDFConverter();
+            _PDFConverterRepository = new PDFConverter();
+            _fileStorageRepository  = new FileStorageSQLite();
         }
+
+        /// <summary> Repository - PDF変換 </summary>
+        private IPDFConverterRepository _PDFConverterRepository;
+
+        /// <summary> Repository - 添付ファイル </summary>
+        private IFileStorageRepository _fileStorageRepository;
 
         /// <summary> ViewModel - 添付ファイル管理 </summary>
         public ViewModel_FileStorage ViewModel { get; set; }
@@ -48,12 +55,12 @@ namespace SalaryManager.WPF.Models
         /// <summary> ViewModel - イメージビューアー </summary>
         public ViewModel_ImageViewer ViewModel_ImageViewer { get; set; }
 
-        /// <summary> PDF変換リポジトリ </summary>
-        private IPDFConverterRepository _repositoryPDFConverter;
-
+        /// <summary>
+        /// 初期化
+        /// </summary>
         public void Initialize()
         {
-            FileStorages.Create(new FileStorageSQLite());
+            FileStorages.Create(_fileStorageRepository);
 
             this.ViewModel.Entities = FileStorages.FetchByDescending();
 
@@ -66,9 +73,6 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// Enable - 操作ボタン
         /// </summary>
-        /// <remarks>
-        /// 追加ボタンは「会社名」に値があれば押下可能。
-        /// </remarks>
         private void EnableControlButton()
         {
             var selected = this.ViewModel.AttachedFile_ItemSource.Any()
@@ -106,6 +110,8 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.Title_Text    = entity.Title;
             this.ViewModel.FileName_Text = entity.FileName;
             this.ViewModel.Remarks_Text  = entity.Remarks;
+
+            this.ViewModel.OpenImageViewer_IsEnabled = true;
         }
 
         /// <summary>
@@ -162,7 +168,7 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         private bool ConvertPDFToPNG(string path)
         {
-            var pngPaths = _repositoryPDFConverter.ConvertPDFIntoImage(path);
+            var pngPaths = _PDFConverterRepository.ConvertPDFIntoImage(path);
 
             if (pngPaths.Count == 1)
             {
@@ -384,8 +390,7 @@ namespace SalaryManager.WPF.Models
                 var entity = this.CreateEntity(id);
                 this.ViewModel.AttachedFile_ItemSource[this.ViewModel.AttachedFile_SelectedIndex] = entity;
 
-                var sqlite = new FileStorageSQLite();
-                sqlite.Save(entity);
+                _fileStorageRepository.Save(entity);
             }
         }
 
@@ -404,8 +409,7 @@ namespace SalaryManager.WPF.Models
 
                 this.EnableControlButton();
 
-                var sqlite = new FileStorageSQLite();
-                sqlite.Delete(this.ViewModel.AttachedFile_SelectedIndex + 1);
+                _fileStorageRepository.Delete(this.ViewModel.AttachedFile_SelectedIndex + 1);
             }
         }
 
@@ -418,8 +422,7 @@ namespace SalaryManager.WPF.Models
         {
             foreach(var entity in this.ViewModel.AttachedFile_ItemSource)
             {
-                var sqlite = new FileStorageSQLite();
-                sqlite.Save(entity);
+                _fileStorageRepository.Save(entity);
             }
 
             this.Reload();

@@ -1,5 +1,5 @@
 ﻿using System;
-using SalaryManager.Infrastructure.SQLite;
+using SalaryManager.Domain.Repositories;
 
 namespace SalaryManager.Infrastructure.Interface
 {
@@ -25,6 +25,6 @@ namespace SalaryManager.Infrastructure.Interface
         public void Clear();
 
         /// <summary> 保存 </summary>
-        public void Save(SQLiteTransaction transaction);
+        public void Save(ITransactionRepository transaction);
     }
 }
