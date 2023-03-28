@@ -31,11 +31,27 @@ namespace SalaryManager.Domain.Modules.Helpers
         }
 
         /// <summary>
-        /// ファイル名を抽出する
+        /// ファイル名(拡張子なし)を抽出する
         /// </summary>
         /// <param name="path">パス</param>
-        /// <returns>ファイル名</returns>
-        public static string ExtractFileName(string path)
+        /// <returns>ファイル名(拡張子なし)</returns>
+        /// <remarks>
+        /// 拡張子の文字数 = 拡張子入りファイル名 - (拡張子の文字数 + ドット)
+        /// </remarks>
+        public static string ExtractFileNameWithoutExtension(string path)
+        {
+            var startIndex = path.LastIndexOf("\\") + 1;
+            var extensionLength = ExtractFileExtension(path).Length + 1;
+
+            return path.Substring(startIndex, path.Length - startIndex - extensionLength);
+        }
+
+        /// <summary>
+        /// ファイル名(拡張子入り)を抽出する
+        /// </summary>
+        /// <param name="path">パス</param>
+        /// <returns>ファイル名(拡張子入り)</returns>
+        public static string ExtractFileNameWithExtension(string path)
         {
             var startIndex = path.LastIndexOf("\\") + 1;
 
@@ -43,7 +59,7 @@ namespace SalaryManager.Domain.Modules.Helpers
         }
 
         /// <summary>
-        /// ファイル名を抽出する
+        /// ディレクトリ名を抽出する
         /// </summary>
         /// <param name="path">パス</param>
         /// <returns>ファイル名</returns>

@@ -160,12 +160,11 @@ namespace SalaryManager.WPF.Models
             // 画像を拡大表示するボタン
             this.ViewModel.OpenImageViewer_IsEnabled = true;
 
-            var fileName = ImageUtils.ExtractFileName(path);
             // タイトル
             this.ViewModel.Title_IsEnabled = true;
-            this.ViewModel.Title_Text      = fileName;
+            this.ViewModel.Title_Text      = ImageUtils.ExtractFileNameWithoutExtension(path);
             // ファイル名
-            this.ViewModel.FileName_Text   = fileName;
+            this.ViewModel.FileName_Text   = ImageUtils.ExtractFileNameWithExtension(path);
             // 備考
             this.ViewModel.Remarks_IsEnabled = true;
             // 追加ボタン
@@ -187,11 +186,10 @@ namespace SalaryManager.WPF.Models
             if (pngPaths.Count == 1)
             {
                 // 1枚
-                var fileName = ImageUtils.ExtractFileName(pngPaths.First());
                 // タイトル
-                this.ViewModel.Title_Text    = fileName;
+                this.ViewModel.Title_Text    = ImageUtils.ExtractFileNameWithoutExtension(pngPaths.First());
                 // ファイル名
-                this.ViewModel.FileName_Text = fileName;
+                this.ViewModel.FileName_Text = ImageUtils.ExtractFileNameWithExtension(pngPaths.First());
                 // 表示する画像
                 this.ViewModel.ByteImage     = ImageUtils.ConvertPathToBytes(pngPaths.First(), ImageFormat.Png);
 
@@ -209,11 +207,10 @@ namespace SalaryManager.WPF.Models
 
                 foreach (var pngPath in pngPaths)
                 {
-                    var fileName = ImageUtils.ExtractFileName(pngPath);
                     // タイトル
-                    this.ViewModel.Title_Text    = fileName;
+                    this.ViewModel.Title_Text    = ImageUtils.ExtractFileNameWithoutExtension(pngPath);
                     // ファイル名
-                    this.ViewModel.FileName_Text = fileName;
+                    this.ViewModel.FileName_Text = ImageUtils.ExtractFileNameWithExtension(pngPath);
                     // 表示する画像
                     this.ViewModel.ByteImage     = ImageUtils.ConvertPathToBytes(pngPath, ImageFormat.Png);
 
