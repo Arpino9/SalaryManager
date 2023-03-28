@@ -3,6 +3,7 @@ using System.Linq;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Domain.Repositories;
+using SalaryManager.Domain.StaticValues;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.Infrastructure.XML;
@@ -81,8 +82,8 @@ namespace SalaryManager.WPF.Models
         /// <param name="month">取得する月</param>
         private void FetchEntity(int year, int month)
         {
-            var sqlite  = new HeaderSQLite();
-            var records = sqlite.GetEntities();
+            Headers.Create(_headerRepository);
+            var records = Headers.FetchByAscending();
 
             this.Entity = records.Where(x => x.YearMonth.Year  == year
                                           && x.YearMonth.Month == month)

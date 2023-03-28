@@ -37,10 +37,23 @@ namespace SalaryManager.WPF.ViewModels
             this.Model.Initialize();
         }
 
+        /// <summary> Entities - 添付ファイル管理 </summary>
+        public IReadOnlyList<FileStorageEntity> Entities { get; internal set; }
+
         /// <summary> Model - 支給額 </summary>
         public Model_FileStorage Model = Model_FileStorage.GetInstance();
 
-        public IReadOnlyList<FileStorageEntity> Entities { get; internal set; }
+        #region タイトル
+
+        /// <summary>
+        /// タイトル
+        /// </summary>
+        public string Window_Title
+        {
+            get => "添付ファイル管理";
+        }
+
+        #endregion
 
         #region 添付ファイル一覧
 
@@ -200,6 +213,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region タイトル
 
+        private bool _title_IsEnabled;
+
+        /// <summary>
+        /// タイトル - IsEnabled
+        /// </summary>
+        public bool Title_IsEnabled
+        {
+            get => this._title_IsEnabled;
+            set
+            {
+                this._title_IsEnabled = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _title_Text;
 
         /// <summary>
@@ -237,6 +265,21 @@ namespace SalaryManager.WPF.ViewModels
         #endregion
 
         #region 備考
+
+        private bool _remarks_IsEnabled;
+
+        /// <summary>
+        /// 備考 - IsEnabled
+        /// </summary>
+        public bool Remarks_IsEnabled
+        {
+            get => this._remarks_IsEnabled;
+            set
+            {
+                this._remarks_IsEnabled = value;
+                this.RaisePropertyChanged();
+            }
+        }
 
         private string _remarks_Text;
 

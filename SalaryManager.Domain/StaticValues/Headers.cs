@@ -45,7 +45,7 @@ namespace SalaryManager.Domain.StaticValues
         /// <summary>
         /// 昇順で取得する
         /// </summary>
-        /// <returns>副業額</returns>
+        /// <returns>ヘッダ情報</returns>
         public static IReadOnlyList<HeaderEntity> FetchByAscending()
         {
             return _entities.OrderBy(x => x.YearMonth).ToList().AsReadOnly();
@@ -54,7 +54,7 @@ namespace SalaryManager.Domain.StaticValues
         /// <summary>
         /// 降順で取得する
         /// </summary>
-        /// <returns>副業額</returns>
+        /// <returns>ヘッダ情報</returns>
         public static IReadOnlyList<HeaderEntity> FetchByDescending()
         {
             return _entities.OrderByDescending(x => x.YearMonth).ToList().AsReadOnly();

@@ -105,13 +105,24 @@ namespace SalaryManager.WPF.Models
 
             var entity = this.ViewModel.AttachedFile_ItemSource[this.ViewModel.AttachedFile_SelectedIndex];
 
+            // サムネイル
             this.ViewModel.FileImage_Image = ImageUtils.ConvertBytesToImage(entity.Image);
-
-            this.ViewModel.Title_Text    = entity.Title;
-            this.ViewModel.FileName_Text = entity.FileName;
-            this.ViewModel.Remarks_Text  = entity.Remarks;
-
+            // 画像を拡大表示するボタン
             this.ViewModel.OpenImageViewer_IsEnabled = true;
+
+            // タイトル
+            this.ViewModel.Title_IsEnabled = true;
+            this.ViewModel.Title_Text      = entity.Title;
+            // ファイル名
+            this.ViewModel.FileName_Text = entity.FileName;
+            // 備考
+            this.ViewModel.Remarks_IsEnabled = true;
+            this.ViewModel.Remarks_Text      = entity.Remarks;
+
+            // 追加
+            this.ViewModel.Update_IsEnabled = true;
+            // 削除
+            this.ViewModel.Delete_IsEnabled = true;
         }
 
         /// <summary>
@@ -143,19 +154,22 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
-            // 表示する画像
+            // サムネイル
             this.ViewModel.ByteImage       = ImageUtils.ConvertPathToBytes(path, extension.ImageFormat);
             this.ViewModel.FileImage_Image = ImageUtils.ConvertPathToImage(path, extension.ImageFormat);
-
+            // 画像を拡大表示するボタン
             this.ViewModel.OpenImageViewer_IsEnabled = true;
 
             var fileName = ImageUtils.ExtractFileName(path);
             // タイトル
-            this.ViewModel.Title_Text    = fileName;
+            this.ViewModel.Title_IsEnabled = true;
+            this.ViewModel.Title_Text      = fileName;
             // ファイル名
-            this.ViewModel.FileName_Text = fileName;
+            this.ViewModel.FileName_Text   = fileName;
+            // 備考
+            this.ViewModel.Remarks_IsEnabled = true;
             // 追加ボタン
-            this.ViewModel.Add_IsEnabled = true;
+            this.ViewModel.Add_IsEnabled   = true;
         }
 
         /// <summary>
@@ -188,7 +202,7 @@ namespace SalaryManager.WPF.Models
             else
             {
                 // 複数枚
-                if (Message.ShowConfirmingMessage("PDFが複数枚選択されています。全て追加しますか？\n(「いいえ」で中断)", "確認") == false)
+                if (Message.ShowConfirmingMessage("PDFが複数枚選択されています。全て追加しますか？\n(「いいえ」で中断)", this.ViewModel.Window_Title) == false)
                 {
                     return false;
                 }
@@ -241,7 +255,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void Add()
         {
-            if (!Message.ShowConfirmingMessage($"画像情報を追加しますか？", "添付ファイル管理"))
+            if (!Message.ShowConfirmingMessage($"画像情報を追加しますか？", this.ViewModel.Window_Title))
             {
                 // キャンセル
                 return;
@@ -267,6 +281,9 @@ namespace SalaryManager.WPF.Models
 
                 // 並び変え
                 this.ViewModel.AttachedFile_ItemSource = new ObservableCollection<FileStorageEntity>(this.ViewModel.AttachedFile_ItemSource.OrderByDescending(x => x.FileName));
+
+                // 追加ボタン
+                this.ViewModel.Add_IsEnabled = false;
             }
         }
 
@@ -303,20 +320,29 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 再描画 - ListView
         /// </summary>
+        /// <remarks>
+        /// リストのデータを更新する。
+        /// </remarks>
         private void Reflesh_ListView()
         {
             var entities = this.ViewModel.Entities;
 
-            if (!entities.Any())
+            if (entities.Any())
             {
+                // 既存の添付画像あり
+                this.ViewModel.AttachedFile_ItemSource.Clear();
+
+                foreach (var entity in entities)
+                {
+                    this.ViewModel.AttachedFile_ItemSource.Add(entity);
+                }
+            }
+            else
+            {
+                // 既存の添付画像なし
                 this.ViewModel.AttachedFile_ItemSource.Clear();
                 this.Clear_InputForm();
                 return;
-            }
-
-            foreach (var entity in entities)
-            {
-                this.ViewModel.AttachedFile_ItemSource.Add(entity);
             }
         }
 
@@ -338,7 +364,7 @@ namespace SalaryManager.WPF.Models
         {
             using (var cursor = new CursorWaiting())
             {
-                Careers.Create(new CareerSQLite());
+                FileStorages.Create(new FileStorageSQLite());
 
                 this.ViewModel.Entities = FileStorages.FetchByDescending();
 
@@ -354,15 +380,22 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         public void Clear_InputForm()
         {
+            // サムネイル
             this.ViewModel.FileImage_Image = null;
+            // 画像を拡大表示するボタン
             this.ViewModel.OpenImageViewer_IsEnabled = false;
 
-            this.ViewModel.Title_Text    = string.Empty;
-            this.ViewModel.FileName_Text = string.Empty;
-            this.ViewModel.Remarks_Text  = string.Empty;
-
-            this.ViewModel.CreateDate = DateTime.Today;
-            this.ViewModel.UpdateDate = DateTime.Today;
+            // タイトル
+            this.ViewModel.Title_IsEnabled = false;
+            this.ViewModel.Title_Text      = string.Empty;
+            // ファイル名
+            this.ViewModel.FileName_Text   = string.Empty;
+            // 備考
+            this.ViewModel.Remarks_Text    = string.Empty;
+            // 作成日
+            this.ViewModel.CreateDate      = DateTime.Today;
+            // 更新日
+            this.ViewModel.UpdateDate      = DateTime.Today;
 
             // 追加ボタン
             this.ViewModel.Add_IsEnabled = false;
@@ -375,7 +408,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void Update()
         {
-            if (!Message.ShowConfirmingMessage("画像情報を更新しますか？", "添付ファイル管理"))
+            if (!Message.ShowConfirmingMessage("画像情報を更新しますか？", this.ViewModel.Window_Title))
             {
                 // キャンセル
                 return;
@@ -391,6 +424,8 @@ namespace SalaryManager.WPF.Models
                 this.ViewModel.AttachedFile_ItemSource[this.ViewModel.AttachedFile_SelectedIndex] = entity;
 
                 _fileStorageRepository.Save(entity);
+
+                this.ViewModel.Update_IsEnabled = false;
             }
         }
 
@@ -403,13 +438,22 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void Delete()
         {
+            if (!Message.ShowConfirmingMessage("画像情報を削除しますか？", this.ViewModel.Window_Title))
+            {
+                // キャンセル
+                return;
+            }
+
             using (var cursor = new CursorWaiting())
             {
+                var id = this.ViewModel.AttachedFile_ItemSource[this.ViewModel.AttachedFile_SelectedIndex].ID;
+
+                _fileStorageRepository.Delete(id);
+
                 this.ViewModel.AttachedFile_ItemSource.RemoveAt(this.ViewModel.AttachedFile_SelectedIndex);
 
                 this.EnableControlButton();
-
-                _fileStorageRepository.Delete(this.ViewModel.AttachedFile_SelectedIndex + 1);
+                this.Clear_InputForm();
             }
         }
 
