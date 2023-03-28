@@ -261,6 +261,12 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
+            if (string.IsNullOrEmpty(this.ViewModel.Title_Text))
+            {
+                Message.ShowErrorMessage("タイトルは入力必須です", this.ViewModel.Window_Title);
+                return;
+            }
+
             this.AddFile();
         }
 
@@ -269,12 +275,17 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         private void AddFile()
         {
+            if (this.ViewModel.FileImage_Image is null)
+            {
+                throw new Domain.Exceptions.FormatException("画像情報が定義されていません。");
+            }
+
             using (var cursor = new CursorWaiting())
             {
                 this.ViewModel.CreateDate = DateTime.Today;
                 this.ViewModel.UpdateDate = DateTime.Today;
 
-                var id = this.ViewModel.AttachedFile_ItemSource.Count + 1;
+                var id = this.ViewModel.AttachedFile_ItemSource.Max(x => x.ID) + 1;
 
                 this.ViewModel.AttachedFile_ItemSource.Add(this.CreateEntity(id));
                 this.Save();
@@ -414,6 +425,12 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
+            if (string.IsNullOrEmpty(this.ViewModel.Title_Text))
+            {
+                Message.ShowErrorMessage("タイトルは入力必須です", this.ViewModel.Window_Title);
+                return;
+            }
+
             this.ViewModel.UpdateDate = DateTime.Today;
 
             using (var cursor = new CursorWaiting())
@@ -425,7 +442,8 @@ namespace SalaryManager.WPF.Models
 
                 _fileStorageRepository.Save(entity);
 
-                this.ViewModel.Update_IsEnabled = false;
+                this.EnableControlButton();
+                this.Clear_InputForm();
             }
         }
 
