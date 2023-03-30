@@ -21,11 +21,11 @@ namespace SalaryManager.WPF.Models
 
         private static Model_Career model = null;
 
-        public static Model_Career GetInstance()
+        public static Model_Career GetInstance(ICareerRepository repository)
         {
             if (model == null)
             {
-                model = new Model_Career();
+                model = new Model_Career(repository);
             }
 
             return model;
@@ -33,16 +33,16 @@ namespace SalaryManager.WPF.Models
 
         #endregion
 
-        public Model_Career()
-        {
+        /// <summary> Repository </summary>
+        private ICareerRepository _repository;
 
+        public Model_Career(ICareerRepository repository)
+        {
+            _repository = repository;
         }
 
-        /// <summary> Repository - XML読み込み </summary>
-        private static IXMLLoaderRepository _XMLLoaderRepository = new XMLLoader();
-
-        /// <summary> Repository - 職歴 </summary>
-        private ICareerRepository _careerRepository = new CareerSQLite();
+        /// <summary> XML読み込み </summary>
+        private readonly XMLLoader XMLLoader = new XMLLoader();
 
         /// <summary> ViewModel - 職歴 </summary>
         public ViewModel_Career ViewModel { get; set; }
@@ -55,12 +55,12 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         public void Initialize()
         {
-            Careers.Create(_careerRepository);
+            Careers.Create(_repository);
 
-            this.ViewModel.FontFamily = _XMLLoaderRepository.FetchFontFamily();
-            this.ViewModel.FontSize   = _XMLLoaderRepository.FetchFontSize();
+            this.ViewModel.FontFamily = this.XMLLoader.FetchFontFamily();
+            this.ViewModel.FontSize   = this.XMLLoader.FetchFontSize();
 
-            this.ViewModel.Window_Background = _XMLLoaderRepository.FetchBackgroundColorBrush();
+            this.ViewModel.Window_Background = this.XMLLoader.FetchBackgroundColorBrush();
 
             this.ViewModel.Entities = Careers.FetchByDescending();
 
@@ -234,7 +234,7 @@ namespace SalaryManager.WPF.Models
         {
             using (var cursor = new CursorWaiting())
             {
-                Careers.Create(_careerRepository);
+                Careers.Create(_repository);
 
                 this.ViewModel.Entities = Careers.FetchByDescending();
 
@@ -406,7 +406,7 @@ namespace SalaryManager.WPF.Models
 
             using (var cursor = new CursorWaiting())
             {
-                _careerRepository.Delete(this.ViewModel.Careers_SelectedIndex + 1);
+                _repository.Delete(this.ViewModel.Careers_SelectedIndex + 1);
 
                 this.ViewModel.Careers_ItemSource.RemoveAt(this.ViewModel.Careers_SelectedIndex);
 
@@ -422,7 +422,7 @@ namespace SalaryManager.WPF.Models
         {
             foreach (var entity in this.ViewModel.Careers_ItemSource)
             {
-                _careerRepository.Save(entity);
+                _repository.Save(entity);
             }
 
             this.Reload();

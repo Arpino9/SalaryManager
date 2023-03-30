@@ -22,11 +22,11 @@ namespace SalaryManager.WPF.Models
 
         private static Model_Allowance model = null;
 
-        public static Model_Allowance GetInstance()
+        public static Model_Allowance GetInstance(IAllowanceRepository repository)
         {
             if (model == null)
             {
-                model = new Model_Allowance();
+                model = new Model_Allowance(repository);
             }
 
             return model;
@@ -34,16 +34,16 @@ namespace SalaryManager.WPF.Models
 
         #endregion
 
-        public Model_Allowance()
-        {
+        /// <summary> Repository </summary>
+        private IAllowanceRepository _repository;
 
+        public Model_Allowance(IAllowanceRepository repository)
+        {
+            _repository = repository;
         }
 
-        /// <summary> Repository - XML読み込み </summary>
-        private static IXMLLoaderRepository _XMLLoaderRepository = new XMLLoader();
-
-        /// <summary> Repository - ヘッダ </summary>
-        private IAllowanceRepository _allowanceRepository = new AllowanceSQLite();
+        /// <summary> XML読み込み </summary>
+        private readonly XMLLoader XMLLoader = new XMLLoader();
 
         /// <summary> ViewModel - 支給額 </summary>
         internal ViewModel_Header Header { get; set; }
@@ -66,13 +66,13 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         public void Initialize(DateTime entityDate)
         {
-            Allowances.Create(_allowanceRepository);
+            Allowances.Create(_repository);
 
             this.ViewModel.Entity          = Allowances.Fetch(entityDate.Year, entityDate.Month);
             this.ViewModel.Entity_LastYear = Allowances.Fetch(entityDate.Year, entityDate.Month - 1);
 
             if (this.ViewModel.Entity is null &&
-                _XMLLoaderRepository.FetchShowDefaultPayslip())
+                this.XMLLoader.FetchShowDefaultPayslip())
             {
                 // デフォルト明細
                 this.ViewModel.Entity = Allowances.FetchDefault();
@@ -159,7 +159,7 @@ namespace SalaryManager.WPF.Models
         {
             using (var cursor = new CursorWaiting())
             {
-                Allowances.Create(_allowanceRepository);
+                Allowances.Create(_repository);
 
                 this.ViewModel.Entity          = Allowances.Fetch(this.Header.Year_Value,     this.Header.Month_Value);
                 this.ViewModel.Entity_LastYear = Allowances.Fetch(this.Header.Year_Value - 1, this.Header.Month_Value);
@@ -245,7 +245,7 @@ namespace SalaryManager.WPF.Models
                               this.ViewModel.TotalSalary_Value,
                               this.ViewModel.TotalDeductedSalary_Value);
 
-            _allowanceRepository.Save(transaction, entity);
+            _repository.Save(transaction, entity);
         }
 
         /// <summary>

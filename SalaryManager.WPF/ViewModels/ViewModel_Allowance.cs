@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
 using SalaryManager.Domain.Entities;
+using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
 
@@ -79,10 +80,10 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary> Model - 支給額 </summary>
-        public Model_Allowance Model { get; set; } = Model_Allowance.GetInstance();
+        public Model_Allowance Model { get; set; } = Model_Allowance.GetInstance(new AllowanceSQLite());
 
         /// <summary> Model - 控除額 </summary>
-        public Model_Deduction Model_Deduction { get; set; } = Model_Deduction.GetInstance();
+        public Model_Deduction Model_Deduction { get; set; } = Model_Deduction.GetInstance(new DeductionSQLite());
 
         /// <summary> Model - メイン画面 </summary>
         public Model_MainWindow MainWindow { get; set; } = Model_MainWindow.GetInstance();

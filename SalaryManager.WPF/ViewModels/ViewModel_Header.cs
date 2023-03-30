@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
 
@@ -84,7 +85,7 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary> Model - ヘッダー </summary>
-        public Model_Header Model { get; set; } = Model_Header.GetInstance();
+        public Model_Header Model { get; set; } = Model_Header.GetInstance(new HeaderSQLite());
 
         /// <summary> Model - メイン画面 </summary>
         public Model_MainWindow MainWindow { get; set; } = Model_MainWindow.GetInstance();
@@ -93,19 +94,19 @@ namespace SalaryManager.WPF.ViewModels
         public Model_AnnualChart AnnualCharts { get; set; } = Model_AnnualChart.GetInstance();
 
         /// <summary> Model - 支給額 </summary>
-        public Model_Allowance Allowance { get; set; } = Model_Allowance.GetInstance();
+        public Model_Allowance Allowance { get; set; } = Model_Allowance.GetInstance(new AllowanceSQLite());
 
         /// <summary> Model - 控除額 </summary>
-        public Model_Deduction Deduction { get; set; } = Model_Deduction.GetInstance();
+        public Model_Deduction Deduction { get; set; } = Model_Deduction.GetInstance(new DeductionSQLite());
 
         /// <summary> Model - 勤務備考 </summary>
-        public Model_WorkingReference WorkingReference { get; set; } = Model_WorkingReference.GetInstance();
+        public Model_WorkingReference WorkingReference { get; set; } = Model_WorkingReference.GetInstance(new WorkingReferenceSQLite());
 
         /// <summary> Model - 勤務場所 </summary>
         public Model_WorkPlace WorkPlace { get; set; } = Model_WorkPlace.GetInstance();
 
         /// <summary> Model - 副業 </summary>
-        public Model_SideBusiness SideBusiness { get; set; } = Model_SideBusiness.GetInstance();
+        public Model_SideBusiness SideBusiness { get; set; } = Model_SideBusiness.GetInstance(new SideBusinessSQLite());
 
         #region 背景色
 

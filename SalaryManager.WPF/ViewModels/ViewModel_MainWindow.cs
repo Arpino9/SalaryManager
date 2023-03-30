@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
+using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
 
@@ -51,7 +52,7 @@ namespace SalaryManager.WPF.ViewModels
         public Model_MainWindow Model { get; set; } = Model_MainWindow.GetInstance();
 
         /// <summary> Model - ヘッダ </summary>
-        public Model_Header Header { get; set; } = Model_Header.GetInstance();
+        public Model_Header Header { get; set; } = Model_Header.GetInstance(new HeaderSQLite());
 
         /// <summary> Model - 勤務場所 </summary>
         private Model_WorkPlace WorkPlace { get; set; } = Model_WorkPlace.GetInstance();

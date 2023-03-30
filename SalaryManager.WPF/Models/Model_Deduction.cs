@@ -4,7 +4,6 @@ using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Domain.Repositories;
 using SalaryManager.Domain.StaticValues;
 using SalaryManager.Infrastructure.Interface;
-using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.Infrastructure.XML;
 using SalaryManager.WPF.ViewModels;
 
@@ -20,28 +19,28 @@ namespace SalaryManager.WPF.Models
 
         private static Model_Deduction model = null;
 
-        public static Model_Deduction GetInstance()
+        public static Model_Deduction GetInstance(IDeductionRepository repository)
         {
             if (model == null)
             {
-                model = new Model_Deduction();
+                model = new Model_Deduction(repository);
             }
 
             return model;
         }
 
         #endregion
+        
+        /// <summary> Repository </summary>
+        private IDeductionRepository _repository;
 
-        public Model_Deduction()
+        public Model_Deduction(IDeductionRepository repository)
         {
-
+            _repository = repository;
         }
 
-        /// <summary> Repository - XML読み込み </summary>
-        private static IXMLLoaderRepository _XMLLoaderRepository = new XMLLoader();
-
-        /// <summary> Repository - 控除額 </summary>
-        private IDeductionRepository _deductionRepository = new DeductionSQLite();
+        /// <summary> XML読み込み </summary>
+        private readonly XMLLoader XMLLoader = new XMLLoader();
 
         /// <summary> ViewModel - ヘッダ </summary>
         internal ViewModel_Header Header { get; set; }
@@ -61,13 +60,13 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         public void Initialize(DateTime entityDate)
         {
-            Deductions.Create(_deductionRepository);
+            Deductions.Create(_repository);
 
             this.ViewModel.Entity          = Deductions.Fetch(entityDate.Year, entityDate.Month);
             this.ViewModel.Entity_LastYear = Deductions.Fetch(entityDate.Year, entityDate.Month - 1);
 
             if (this.ViewModel.Entity is null &&
-                _XMLLoaderRepository.FetchShowDefaultPayslip())
+                this.XMLLoader.FetchShowDefaultPayslip())
             {
                 // デフォルト明細
                 this.ViewModel.Entity = Deductions.FetchDefault();
@@ -124,7 +123,7 @@ namespace SalaryManager.WPF.Models
         {
             using (var cursor = new CursorWaiting())
             {
-                Deductions.Create(_deductionRepository);
+                Deductions.Create(_repository);
 
                 this.ViewModel.Entity          = Deductions.Fetch(this.Header.Year_Value,     this.Header.Month_Value);
                 this.ViewModel.Entity_LastYear = Deductions.Fetch(this.Header.Year_Value - 1, this.Header.Month_Value);
@@ -186,7 +185,7 @@ namespace SalaryManager.WPF.Models
                             this.ViewModel.Remarks_Text,
                             this.ViewModel.TotalDeduct_Value);
 
-            _deductionRepository.Save(transaction, entity);
+            _repository.Save(transaction, entity);
         }
 
         /// <summary>

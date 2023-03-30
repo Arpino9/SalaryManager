@@ -1,6 +1,5 @@
 ﻿using System;
 using SalaryManager.Domain.Entities;
-using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.WPF.ViewModels;
 using SalaryManager.Domain.StaticValues;
@@ -20,11 +19,11 @@ namespace SalaryManager.WPF.Models
 
         private static Model_SideBusiness model = null;
 
-        public static Model_SideBusiness GetInstance()
+        public static Model_SideBusiness GetInstance(ISideBusinessRepository repository)
         {
             if (model == null)
             {
-                model = new Model_SideBusiness();
+                model = new Model_SideBusiness(repository);
             }
 
             return model;
@@ -32,16 +31,16 @@ namespace SalaryManager.WPF.Models
 
         #endregion
 
-        public Model_SideBusiness()
+        /// <summary> Repository </summary>
+        private ISideBusinessRepository _repository;
+
+        public Model_SideBusiness(ISideBusinessRepository repository)
         {
-            
+            _repository = repository;
         }
 
-        /// <summary> Repository - XML読み込み </summary>
-        private static IXMLLoaderRepository _XMLLoaderRepository = new XMLLoader();
-
-        /// <summary> Repository - 副業 </summary>
-        private ISideBusinessRepository _sideBusinessRepository = new SideBusinessSQLite();
+        /// <summary> XML読み込み </summary>
+        private readonly XMLLoader XMLLoader = new XMLLoader();
 
         /// <summary> ViewModel - ヘッダ </summary>
         internal ViewModel_Header Header { get; set; }
@@ -58,13 +57,13 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         public void Initialize(DateTime entityDate)
         {
-            SideBusinesses.Create(_sideBusinessRepository);
+            SideBusinesses.Create(_repository);
 
             this.ViewModel.Entity          = SideBusinesses.Fetch(entityDate.Year, entityDate.Month);
             this.ViewModel.Entity_LastYear = SideBusinesses.Fetch(entityDate.Year, entityDate.Month - 1);
 
             if (this.ViewModel.Entity is null &&
-                _XMLLoaderRepository.FetchShowDefaultPayslip())
+                this.XMLLoader.FetchShowDefaultPayslip())
             {
                 // デフォルト明細
                 this.ViewModel.Entity = SideBusinesses.FetchDefault();
@@ -83,7 +82,7 @@ namespace SalaryManager.WPF.Models
         {
             using (var cursor = new CursorWaiting())
             {
-                SideBusinesses.Create(_sideBusinessRepository);
+                SideBusinesses.Create(_repository);
 
                 this.ViewModel.Entity          = SideBusinesses.Fetch(this.Header.Year_Value, this.Header.Month_Value);
                 this.ViewModel.Entity_LastYear = SideBusinesses.Fetch(this.Header.Year_Value - 1, this.Header.Month_Value);
@@ -153,7 +152,7 @@ namespace SalaryManager.WPF.Models
                 this.ViewModel.Others_Value,
                 this.ViewModel.Remarks_Text);
 
-            _sideBusinessRepository.Save(transaction, entity);
+            _repository.Save(transaction, entity);
         }
     }
 }

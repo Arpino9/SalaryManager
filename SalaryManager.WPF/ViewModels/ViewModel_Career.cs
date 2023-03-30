@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using SalaryManager.Domain.Entities;
+using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
 
@@ -50,7 +51,7 @@ namespace SalaryManager.WPF.ViewModels
             this.Careers_SelectionChanged = new RelayCommand(_careersAction);
         }
 
-        public Model_Career Model { get; set; } = Model_Career.GetInstance();
+        public Model_Career Model { get; set; } = Model_Career.GetInstance(new CareerSQLite());
 
         public IReadOnlyList<CareerEntity> Entities { get; internal set; }
 

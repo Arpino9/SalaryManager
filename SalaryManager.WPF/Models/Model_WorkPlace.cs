@@ -35,11 +35,11 @@ namespace SalaryManager.WPF.Models
 
         public Model_WorkPlace()
         {
-            _XMLLoaderRepository = new XMLLoader();
+
         }
 
-        /// <summary> Repository - XML読み込み </summary>
-        private static IXMLLoaderRepository _XMLLoaderRepository;
+        /// <summary> XML読み込み </summary>
+        private readonly XMLLoader XMLLoader = new XMLLoader();
 
         /// <summary> ViewModel - 勤務先 </summary>
         internal ViewModel_WorkPlace ViewModel { get; set; }
@@ -65,7 +65,7 @@ namespace SalaryManager.WPF.Models
             this.Window_Activated();
 
             if (this.ViewModel.Entity is null &&
-                _XMLLoaderRepository.FetchShowDefaultPayslip())
+                this.XMLLoader.FetchShowDefaultPayslip())
             {
                 // デフォルト明細
                 this.ViewModel.Entity = WorkingReferences.FetchDefault();
@@ -79,7 +79,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void Window_Activated()
         {
-            this.ViewModel.Window_Background = _XMLLoaderRepository.FetchBackgroundColorBrush();
+            this.ViewModel.Window_Background = this.XMLLoader.FetchBackgroundColorBrush();
         }
 
         /// <summary>

@@ -3,7 +3,6 @@ using System.Windows.Media;
 using SalaryManager.Domain.Modules.Helpers;
 using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Domain;
-using SalaryManager.Domain.Repositories;
 
 namespace SalaryManager.Infrastructure.XML
 {
@@ -15,7 +14,7 @@ namespace SalaryManager.Infrastructure.XML
     /// 呼び出しが面倒(コンストラクタ部分にあたるDeserialize()で逐一usingする必要がある)なので、
     /// あえてインターフェースを介さないことにした。
     /// </remarks>
-    public sealed class XMLLoader : IXMLLoaderRepository
+    public sealed class XMLLoader
     {
         public XMLLoader()
         {

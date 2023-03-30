@@ -25,11 +25,11 @@ namespace SalaryManager.WPF.Models
 
         private static Model_FileStorage model = null;
 
-        public static Model_FileStorage GetInstance()
+        public static Model_FileStorage GetInstance(IFileStorageRepository repository)
         {
             if (model == null)
             {
-                model = new Model_FileStorage();
+                model = new Model_FileStorage(repository);
             }
 
             return model;
@@ -37,17 +37,16 @@ namespace SalaryManager.WPF.Models
 
         #endregion
 
-        public Model_FileStorage()
+        /// <summary> Repository </summary>
+        private IFileStorageRepository _repository;
+
+        public Model_FileStorage(IFileStorageRepository repository)
         {
-            _PDFConverterRepository = new PDFConverter();
-            _fileStorageRepository  = new FileStorageSQLite();
+            _repository  = repository;
         }
 
-        /// <summary> Repository - PDF変換 </summary>
-        private IPDFConverterRepository _PDFConverterRepository;
-
-        /// <summary> Repository - 添付ファイル </summary>
-        private IFileStorageRepository _fileStorageRepository;
+        /// <summary> PDF変換 </summary>
+        private PDFConverter PDFConverter { get; set; } = new PDFConverter();
 
         /// <summary> ViewModel - 添付ファイル管理 </summary>
         public ViewModel_FileStorage ViewModel { get; set; }
@@ -60,7 +59,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Initialize()
         {
-            FileStorages.Create(_fileStorageRepository);
+            FileStorages.Create(_repository);
 
             this.ViewModel.Entities = FileStorages.FetchByDescending();
 
@@ -181,7 +180,7 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         private bool ConvertPDFToPNG(string path)
         {
-            var pngPaths = _PDFConverterRepository.ConvertPDFIntoImage(path);
+            var pngPaths = this.PDFConverter.ConvertPDFIntoImage(path);
 
             if (pngPaths.Count == 1)
             {
@@ -449,7 +448,7 @@ namespace SalaryManager.WPF.Models
                 var entity = this.CreateEntity(id);
                 this.ViewModel.AttachedFile_ItemSource[this.ViewModel.AttachedFile_SelectedIndex] = entity;
 
-                _fileStorageRepository.Save(entity);
+                _repository.Save(entity);
 
                 this.EnableControlButton();
                 this.Clear_InputForm();
@@ -474,7 +473,7 @@ namespace SalaryManager.WPF.Models
             using (var cursor = new CursorWaiting())
             {
                 var id = this.ViewModel.AttachedFile_ItemSource[this.ViewModel.AttachedFile_SelectedIndex].ID;
-                _fileStorageRepository.Delete(id);
+                _repository.Delete(id);
 
                 this.ViewModel.AttachedFile_ItemSource.RemoveAt(this.ViewModel.AttachedFile_SelectedIndex);
 
@@ -492,7 +491,7 @@ namespace SalaryManager.WPF.Models
         {
             foreach(var entity in this.ViewModel.AttachedFile_ItemSource)
             {
-                _fileStorageRepository.Save(entity);
+                _repository.Save(entity);
             }
 
             this.Reload();

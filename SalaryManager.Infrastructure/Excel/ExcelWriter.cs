@@ -18,13 +18,11 @@ namespace SalaryManager.Infrastructure.Excel
     {
         public ExcelWriter()
         {
-            _XMLLoaderRepository = new XMLLoader();
-
-            this.Workbook = new XLWorkbook(_XMLLoaderRepository.FetchExcelTemplatePath());
+            this.Workbook = new XLWorkbook(this.XMLLoader.FetchExcelTemplatePath());
         }
 
-        /// <summary> Repository - XMLローダー </summary>
-        private IXMLLoaderRepository _XMLLoaderRepository;
+        /// <summary> XMLローダー </summary>
+        private readonly XMLLoader XMLLoader = new XMLLoader();
 
         /// <summary> Workbook </summary>
         public XLWorkbook Workbook { get; }

@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using SalaryManager.Domain.Entities;
+using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
 
@@ -51,7 +52,7 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary> Model </summary>
-        public Model_SideBusiness Model { get; set; } = Model_SideBusiness.GetInstance();
+        public Model_SideBusiness Model { get; set; } = Model_SideBusiness.GetInstance(new SideBusinessSQLite());
 
         /// <summary> Model - メイン画面 </summary>
         public Model_MainWindow MainWindow { get; set; } = Model_MainWindow.GetInstance();

@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
 using SalaryManager.Domain.Entities;
+using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
 
@@ -41,7 +42,7 @@ namespace SalaryManager.WPF.ViewModels
         public IReadOnlyList<FileStorageEntity> Entities { get; internal set; }
 
         /// <summary> Model - 支給額 </summary>
-        public Model_FileStorage Model = Model_FileStorage.GetInstance();
+        public Model_FileStorage Model = Model_FileStorage.GetInstance(new FileStorageSQLite());
 
         #region タイトル
 

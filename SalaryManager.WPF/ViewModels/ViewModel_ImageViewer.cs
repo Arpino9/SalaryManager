@@ -1,4 +1,5 @@
-﻿using SalaryManager.WPF.Models;
+﻿using SalaryManager.Infrastructure.SQLite;
+using SalaryManager.WPF.Models;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
@@ -29,7 +30,7 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary> Model - 添付ファイル管理 </summary>
-        public Model_FileStorage Model { get; set; } = Model_FileStorage.GetInstance();
+        public Model_FileStorage Model { get; set; } = Model_FileStorage.GetInstance(new FileStorageSQLite());
 
         private double _fileImage_Height;
 

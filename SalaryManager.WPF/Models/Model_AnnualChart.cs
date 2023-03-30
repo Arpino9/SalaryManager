@@ -1,5 +1,4 @@
 ﻿using SalaryManager.Domain.Entities;
-using SalaryManager.Domain.Repositories;
 using SalaryManager.Domain.StaticValues;
 using SalaryManager.Domain.ValueObjects;
 using SalaryManager.Infrastructure.SQLite;
@@ -31,10 +30,11 @@ namespace SalaryManager.WPF.Models
 
         public Model_AnnualChart()
         {
-            _XMLLoaderRepository = new XMLLoader();
+            
         }
 
-        private static IXMLLoaderRepository _XMLLoaderRepository;
+        /// <summary> XML読み込み </summary>
+        private readonly XMLLoader XMLLoader = new XMLLoader();
 
         /// <summary> ViewModel - ヘッダ </summary>
         internal ViewModel_Header Header { get; set; }
@@ -174,7 +174,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void Window_Activated()
         {
-            this.ViewModel.Window_Background = _XMLLoaderRepository.FetchBackgroundColorBrush();
+            this.ViewModel.Window_Background = this.XMLLoader.FetchBackgroundColorBrush();
         }
 
         /// <summary>

@@ -5,7 +5,6 @@ using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Domain.Repositories;
 using SalaryManager.Domain.StaticValues;
 using SalaryManager.Infrastructure.Interface;
-using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.Infrastructure.XML;
 using SalaryManager.WPF.ViewModels;
 
@@ -20,11 +19,11 @@ namespace SalaryManager.WPF.Models
 
         private static Model_Header model = null;
         
-        public static Model_Header GetInstance()
+        public static Model_Header GetInstance(IHeaderRepository repository)
         {
             if (model == null)
             {
-                model = new Model_Header();
+                model = new Model_Header(repository);
             }
 
             return model;
@@ -32,16 +31,16 @@ namespace SalaryManager.WPF.Models
 
         #endregion
 
-        public Model_Header()
-        {
+        /// <summary> Repository </summary>
+        private IHeaderRepository _repository;
 
+        public Model_Header(IHeaderRepository repository)
+        {
+            _repository = repository;
         }
 
-        /// <summary> Repository - XML読み込み </summary>
-        private static IXMLLoaderRepository _XMLLoaderRepository = new XMLLoader();
-
-        /// <summary> Repository - ヘッダー </summary>
-        private IHeaderRepository _headerRepository = new HeaderSQLite();
+        /// <summary> XML読み込み </summary>
+        private readonly XMLLoader XMLLoader = new XMLLoader();
 
         /// <summary> ViewModel - ヘッダー </summary>
         internal ViewModel_Header ViewModel { get; set; }
@@ -82,7 +81,7 @@ namespace SalaryManager.WPF.Models
         /// <param name="month">取得する月</param>
         private void FetchEntity(int year, int month)
         {
-            Headers.Create(_headerRepository);
+            Headers.Create(_repository);
             var records = Headers.FetchByAscending();
 
             this.Entity = records.Where(x => x.YearMonth.Year  == year
@@ -150,7 +149,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void Window_Activated()
         {
-            this.ViewModel.Window_Background = _XMLLoaderRepository.FetchBackgroundColorBrush();
+            this.ViewModel.Window_Background = this.XMLLoader.FetchBackgroundColorBrush();
         }
 
         /// <summary>
@@ -201,7 +200,7 @@ namespace SalaryManager.WPF.Models
                 this.ViewModel.UpdateDate
             );
 
-            _headerRepository.Save(entity);
+            _repository.Save(entity);
         }
 
         /// <summary>
@@ -218,7 +217,7 @@ namespace SalaryManager.WPF.Models
                  this.ViewModel.UpdateDate
              );
 
-            _headerRepository.Save(transaction, entity);
+            _repository.Save(transaction, entity);
         }
 
         #region デフォルトに設定
@@ -236,12 +235,12 @@ namespace SalaryManager.WPF.Models
             }
 
             // 前回のデフォルト設定を解除する
-            var defaultEntity = _headerRepository.FetchDefault();
+            var defaultEntity = _repository.FetchDefault();
 
             if (defaultEntity != null)
             {
                 defaultEntity.IsDefault = false;
-                _headerRepository.Save(defaultEntity);
+                _repository.Save(defaultEntity);
             }
 
             // 今回のデフォルト設定を登録する

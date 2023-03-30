@@ -25,6 +25,7 @@ namespace SalaryManager.Infrastructure.Interface
         public void Clear();
 
         /// <summary> 保存 </summary>
+        /// <param name="transaction">トランザクション</param>
         public void Save(ITransactionRepository transaction);
     }
 }

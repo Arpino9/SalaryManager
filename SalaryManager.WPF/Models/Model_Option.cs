@@ -8,7 +8,6 @@ using SalaryManager.Domain.Modules.Helpers;
 using System.Drawing;
 using System.Collections.Generic;
 using SalaryManager.Infrastructure.XML;
-using SalaryManager.Domain.Repositories;
 
 namespace SalaryManager.WPF.Models
 {
@@ -39,8 +38,8 @@ namespace SalaryManager.WPF.Models
 
         }
 
-        /// <summary> Repository - XML読み込み </summary>
-        private static IXMLLoaderRepository _XMLLoaderRepository = new XMLLoader();
+        /// <summary> XML読み込み </summary>
+        private readonly XMLLoader XMLLoader = new XMLLoader();
 
         /// <summary>
         /// 初期化
@@ -51,25 +50,25 @@ namespace SalaryManager.WPF.Models
         internal void Initialize()
         {
             // Excelテンプレート
-            this.ViewModel.SelectExcelTempletePath_Text = _XMLLoaderRepository.FetchExcelTemplatePath();
+            this.ViewModel.SelectExcelTempletePath_Text = this.XMLLoader.FetchExcelTemplatePath();
             // SQLite
-            this.ViewModel.SelectSQLite_Text            = _XMLLoaderRepository.FetchSQLitePath();
+            this.ViewModel.SelectSQLite_Text            = this.XMLLoader.FetchSQLitePath();
 
             // フォントファミリ
             var fonts =  new InstalledFontCollection();
             this.ViewModel.FontFamily_ItemSource = ListUtils.ToObservableCollection<string>(fonts.Families.Select(x => x.Name).ToList());
-            this.ViewModel.FontFamily_Text       = _XMLLoaderRepository.FetchFontFamilyText();
+            this.ViewModel.FontFamily_Text       = this.XMLLoader.FetchFontFamilyText();
 
             // 初期表示時にデフォルト明細を表示する
-            this.ViewModel.ShowDefaultPayslip_IsChecked = _XMLLoaderRepository.FetchShowDefaultPayslip();
+            this.ViewModel.ShowDefaultPayslip_IsChecked = this.XMLLoader.FetchShowDefaultPayslip();
 
             // フォント
-            this.ViewModel.Preview_FontFamily     = _XMLLoaderRepository.FetchFontFamily();
-            this.ViewModel.FontSize_Value         = _XMLLoaderRepository.FetchFontSize();
+            this.ViewModel.Preview_FontFamily     = this.XMLLoader.FetchFontFamily();
+            this.ViewModel.FontSize_Value         = this.XMLLoader.FetchFontSize();
 
             // 背景色
-            this.ViewModel.Window_BackgroundColor = _XMLLoaderRepository.FetchBackgroundColor();
-            this.ViewModel.Window_Background      = _XMLLoaderRepository.FetchBackgroundColorBrush();
+            this.ViewModel.Window_BackgroundColor = this.XMLLoader.FetchBackgroundColor();
+            this.ViewModel.Window_Background      = this.XMLLoader.FetchBackgroundColorBrush();
         }
 
         /// <summary> ViewModel - 全般設定 </summary>

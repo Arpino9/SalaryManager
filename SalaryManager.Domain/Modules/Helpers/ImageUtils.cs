@@ -99,7 +99,7 @@ namespace SalaryManager.Domain.Modules.Helpers
             // 画像を読み込む
             using(var image = System.Drawing.Image.FromFile(path))
             {
-                // Jpeg形式でストリームを定義
+                // ストリームを定義
                 MemoryStream stream = new MemoryStream();
                 image.Save(stream, format);
 
