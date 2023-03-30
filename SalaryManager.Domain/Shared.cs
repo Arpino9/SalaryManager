@@ -27,5 +27,8 @@ namespace SalaryManager.Domain
 
         /// <summary> フォントサイズ </summary>
         public static string FontSize = ConfigurationManager.AppSettings["FontSize"];
+
+        /// <summary> 初期表示時にデフォルト明細を表示する </summary>
+        public static string ShowDefaultPayslip = ConfigurationManager.AppSettings["ShowDefaultPayslip"];
     }
 }

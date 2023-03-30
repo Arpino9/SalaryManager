@@ -107,17 +107,12 @@ namespace SalaryManager.Infrastructure.XML
         }
 
         /// <summary>
-        /// 背景色を取得
+        /// フォントサイズを取得
         /// </summary>
-        /// <returns>背景色</returns>
+        /// <returns>フォントサイズ</returns>
         public decimal FetchFontSize()
         {
-            if (_tag?.FontSize is null)
-            {
-                return 12;
-            }
-
-            return _tag.FontSize;
+            return _tag?.FontSize ?? decimal.Parse(Shared.FontSize);
         }
 
         /// <summary> 背景色 (初期値) </summary>
@@ -160,7 +155,7 @@ namespace SalaryManager.Infrastructure.XML
         public bool FetchShowDefaultPayslip()
         {
             this.Deserialize();
-            return _tag?.ShowDefaultPayslip ?? false;
+            return _tag?.ShowDefaultPayslip ?? bool.Parse(Shared.ShowDefaultPayslip);
         }
     }
 }
