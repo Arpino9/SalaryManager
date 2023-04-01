@@ -16,6 +16,11 @@ namespace SalaryManager.Infrastructure.XML
     /// </remarks>
     public static class XMLLoader
     {
+        static XMLLoader()
+        {
+            XMLLoader.Deserialize();
+        } 
+
         private static XMLTag _tag;
 
         /// <summary>
@@ -35,7 +40,6 @@ namespace SalaryManager.Infrastructure.XML
         /// <returns>Excelテンプレートのパス</returns>
         public static string FetchSQLitePath()
         {
-            XMLLoader.Deserialize();
             return _tag?.SQLitePath ?? FilePath.GetSQLiteDefaultPath(); ;
         }
 
@@ -45,7 +49,6 @@ namespace SalaryManager.Infrastructure.XML
         /// <returns>Excelテンプレートのパス</returns>
         public static string FetchExcelTemplatePath()
         {
-            XMLLoader.Deserialize();
             return _tag?.ExcelTemplatePath ?? FilePath.GetExcelTempleteDefaultPath();
         }
 
@@ -55,7 +58,6 @@ namespace SalaryManager.Infrastructure.XML
         /// <returns>フォントファミリ</returns>
         public static string FetchFontFamilyText()
         {
-            XMLLoader.Deserialize();
             return _tag?.FontFamily ?? Shared.FontFamily;
         }
 
@@ -65,7 +67,6 @@ namespace SalaryManager.Infrastructure.XML
         /// <returns>フォントファミリ</returns>
         public static System.Windows.Media.FontFamily FetchFontFamily()
         {
-            XMLLoader.Deserialize();
             var fontFamily = _tag?.FontFamily ?? Shared.FontFamily;
 
             return new System.Windows.Media.FontFamily(fontFamily);
@@ -77,7 +78,6 @@ namespace SalaryManager.Infrastructure.XML
         /// <returns>背景色</returns>
         public static System.Drawing.Color FetchBackgroundColor()
         {
-            XMLLoader.Deserialize();
             if (_tag?.BackgroundColor_ColorCode is null)
             {
                 return SystemColors.ControlLight;
@@ -119,7 +119,6 @@ namespace SalaryManager.Infrastructure.XML
         /// <returns>背景色</returns>
         public static SolidColorBrush FetchBackgroundColorBrush()
         {
-            XMLLoader.Deserialize();
             if (_tag?.BackgroundColor_ColorCode is null)
             {
                 return Default;
@@ -149,7 +148,6 @@ namespace SalaryManager.Infrastructure.XML
         /// <returns></returns>
         public static bool FetchShowDefaultPayslip()
         {
-            XMLLoader.Deserialize();
             return _tag?.ShowDefaultPayslip ?? bool.Parse(Shared.ShowDefaultPayslip);
         }
     }
