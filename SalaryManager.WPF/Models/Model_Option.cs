@@ -38,9 +38,6 @@ namespace SalaryManager.WPF.Models
 
         }
 
-        /// <summary> XML読み込み </summary>
-        private readonly XMLLoader XMLLoader = new XMLLoader();
-
         /// <summary>
         /// 初期化
         /// </summary>
@@ -50,25 +47,25 @@ namespace SalaryManager.WPF.Models
         internal void Initialize()
         {
             // Excelテンプレート
-            this.ViewModel.SelectExcelTempletePath_Text = this.XMLLoader.FetchExcelTemplatePath();
+            this.ViewModel.SelectExcelTempletePath_Text = XMLLoader.FetchExcelTemplatePath();
             // SQLite
-            this.ViewModel.SelectSQLite_Text            = this.XMLLoader.FetchSQLitePath();
+            this.ViewModel.SelectSQLite_Text            = XMLLoader.FetchSQLitePath();
 
             // フォントファミリ
             var fonts =  new InstalledFontCollection();
             this.ViewModel.FontFamily_ItemSource = ListUtils.ToObservableCollection<string>(fonts.Families.Select(x => x.Name).ToList());
-            this.ViewModel.FontFamily_Text       = this.XMLLoader.FetchFontFamilyText();
+            this.ViewModel.FontFamily_Text       = XMLLoader.FetchFontFamilyText();
 
             // 初期表示時にデフォルト明細を表示する
-            this.ViewModel.ShowDefaultPayslip_IsChecked = this.XMLLoader.FetchShowDefaultPayslip();
+            this.ViewModel.ShowDefaultPayslip_IsChecked = XMLLoader.FetchShowDefaultPayslip();
 
             // フォント
-            this.ViewModel.Preview_FontFamily     = this.XMLLoader.FetchFontFamily();
-            this.ViewModel.FontSize_Value         = this.XMLLoader.FetchFontSize();
+            this.ViewModel.Preview_FontFamily     = XMLLoader.FetchFontFamily();
+            this.ViewModel.FontSize_Value         = XMLLoader.FetchFontSize();
 
             // 背景色
-            this.ViewModel.Window_BackgroundColor = this.XMLLoader.FetchBackgroundColor();
-            this.ViewModel.Window_Background      = this.XMLLoader.FetchBackgroundColorBrush();
+            this.ViewModel.Window_BackgroundColor = XMLLoader.FetchBackgroundColor();
+            this.ViewModel.Window_Background      = XMLLoader.FetchBackgroundColorBrush();
         }
 
         /// <summary> ViewModel - 全般設定 </summary>

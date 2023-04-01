@@ -14,19 +14,14 @@ namespace SalaryManager.Infrastructure.XML
     /// 呼び出しが面倒(コンストラクタ部分にあたるDeserialize()で逐一usingする必要がある)なので、
     /// あえてインターフェースを介さないことにした。
     /// </remarks>
-    public sealed class XMLLoader
+    public static class XMLLoader
     {
-        public XMLLoader()
-        {
-            
-        }
-
         private static XMLTag _tag;
 
         /// <summary>
         /// デシリアライズ
         /// </summary>
-        public void Deserialize()
+        public static void Deserialize()
         {
             using (var reader = new XMLReader(FilePath.GetXMLDefaultPath(), new XMLTag().GetType()))
             {
@@ -38,9 +33,9 @@ namespace SalaryManager.Infrastructure.XML
         /// SQLiteのパスを取得
         /// </summary>
         /// <returns>Excelテンプレートのパス</returns>
-        public string FetchSQLitePath()
+        public static string FetchSQLitePath()
         {
-            this.Deserialize();
+            XMLLoader.Deserialize();
             return _tag?.SQLitePath ?? FilePath.GetSQLiteDefaultPath(); ;
         }
 
@@ -48,9 +43,9 @@ namespace SalaryManager.Infrastructure.XML
         /// Excelテンプレートのパスを取得
         /// </summary>
         /// <returns>Excelテンプレートのパス</returns>
-        public string FetchExcelTemplatePath()
+        public static string FetchExcelTemplatePath()
         {
-            this.Deserialize();
+            XMLLoader.Deserialize();
             return _tag?.ExcelTemplatePath ?? FilePath.GetExcelTempleteDefaultPath();
         }
 
@@ -58,9 +53,9 @@ namespace SalaryManager.Infrastructure.XML
         /// フォントファミリを取得
         /// </summary>
         /// <returns>フォントファミリ</returns>
-        public string FetchFontFamilyText()
+        public static string FetchFontFamilyText()
         {
-            this.Deserialize();
+            XMLLoader.Deserialize();
             return _tag?.FontFamily ?? Shared.FontFamily;
         }
 
@@ -68,9 +63,9 @@ namespace SalaryManager.Infrastructure.XML
         /// フォントファミリを取得
         /// </summary>
         /// <returns>フォントファミリ</returns>
-        public System.Windows.Media.FontFamily FetchFontFamily()
+        public static System.Windows.Media.FontFamily FetchFontFamily()
         {
-            this.Deserialize();
+            XMLLoader.Deserialize();
             var fontFamily = _tag?.FontFamily ?? Shared.FontFamily;
 
             return new System.Windows.Media.FontFamily(fontFamily);
@@ -80,9 +75,9 @@ namespace SalaryManager.Infrastructure.XML
         /// 背景色を取得
         /// </summary>
         /// <returns>背景色</returns>
-        public System.Drawing.Color FetchBackgroundColor()
+        public static System.Drawing.Color FetchBackgroundColor()
         {
-            this.Deserialize();
+            XMLLoader.Deserialize();
             if (_tag?.BackgroundColor_ColorCode is null)
             {
                 return SystemColors.ControlLight;
@@ -110,7 +105,7 @@ namespace SalaryManager.Infrastructure.XML
         /// フォントサイズを取得
         /// </summary>
         /// <returns>フォントサイズ</returns>
-        public decimal FetchFontSize()
+        public static decimal FetchFontSize()
         {
             return _tag?.FontSize ?? decimal.Parse(Shared.FontSize);
         }
@@ -122,9 +117,9 @@ namespace SalaryManager.Infrastructure.XML
         /// 背景色を取得
         /// </summary>
         /// <returns>背景色</returns>
-        public SolidColorBrush FetchBackgroundColorBrush()
+        public static SolidColorBrush FetchBackgroundColorBrush()
         {
-            this.Deserialize();
+            XMLLoader.Deserialize();
             if (_tag?.BackgroundColor_ColorCode is null)
             {
                 return Default;
@@ -152,9 +147,9 @@ namespace SalaryManager.Infrastructure.XML
         /// 「初期表示時にデフォルト明細を表示する」のチェック有無を取得する
         /// </summary>
         /// <returns></returns>
-        public bool FetchShowDefaultPayslip()
+        public static bool FetchShowDefaultPayslip()
         {
-            this.Deserialize();
+            XMLLoader.Deserialize();
             return _tag?.ShowDefaultPayslip ?? bool.Parse(Shared.ShowDefaultPayslip);
         }
     }

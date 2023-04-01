@@ -7,8 +7,6 @@ namespace SalaryManager.Infrastructure.SQLite
 {
     public class SQLiteHelper
     {
-        private static readonly XMLLoader XMLLoader = new XMLLoader();
-
         /// <summary>
         /// SQLiteの接続文字列を取得する
         /// </summary>

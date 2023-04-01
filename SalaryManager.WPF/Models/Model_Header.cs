@@ -39,9 +39,6 @@ namespace SalaryManager.WPF.Models
             _repository = repository;
         }
 
-        /// <summary> XML読み込み </summary>
-        private readonly XMLLoader XMLLoader = new XMLLoader();
-
         /// <summary> ViewModel - ヘッダー </summary>
         internal ViewModel_Header ViewModel { get; set; }
 
@@ -149,7 +146,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void Window_Activated()
         {
-            this.ViewModel.Window_Background = this.XMLLoader.FetchBackgroundColorBrush();
+            this.ViewModel.Window_Background = XMLLoader.FetchBackgroundColorBrush();
         }
 
         /// <summary>

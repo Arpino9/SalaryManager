@@ -41,9 +41,6 @@ namespace SalaryManager.WPF.Models
             _repository = repository;
         }
 
-        /// <summary> XML読み込み </summary>
-        private readonly XMLLoader XMLLoader = new XMLLoader();
-
         /// <summary> ViewModel - 職歴 </summary>
         public ViewModel_Career ViewModel { get; set; }
 
@@ -57,10 +54,10 @@ namespace SalaryManager.WPF.Models
         {
             Careers.Create(_repository);
 
-            this.ViewModel.FontFamily = this.XMLLoader.FetchFontFamily();
-            this.ViewModel.FontSize   = this.XMLLoader.FetchFontSize();
+            this.ViewModel.FontFamily = XMLLoader.FetchFontFamily();
+            this.ViewModel.FontSize   = XMLLoader.FetchFontSize();
 
-            this.ViewModel.Window_Background = this.XMLLoader.FetchBackgroundColorBrush();
+            this.ViewModel.Window_Background = XMLLoader.FetchBackgroundColorBrush();
 
             this.ViewModel.Entities = Careers.FetchByDescending();
 

@@ -39,9 +39,6 @@ namespace SalaryManager.WPF.Models
             _repository = repository;
         }
 
-        /// <summary> XML読み込み </summary>
-        private readonly XMLLoader XMLLoader = new XMLLoader();
-
         /// <summary> ViewModel - ヘッダ </summary>
         internal ViewModel_Header Header { get; set; }
 
@@ -65,8 +62,9 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.Entity          = Deductions.Fetch(entityDate.Year, entityDate.Month);
             this.ViewModel.Entity_LastYear = Deductions.Fetch(entityDate.Year, entityDate.Month - 1);
 
-            if (this.ViewModel.Entity is null &&
-                this.XMLLoader.FetchShowDefaultPayslip())
+            var showDefaultPayslip = XMLLoader.FetchShowDefaultPayslip();
+
+            if (this.ViewModel.Entity is null && showDefaultPayslip)
             {
                 // デフォルト明細
                 this.ViewModel.Entity = Deductions.FetchDefault();

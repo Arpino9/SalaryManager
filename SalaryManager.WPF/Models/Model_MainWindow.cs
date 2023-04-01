@@ -44,9 +44,6 @@ namespace SalaryManager.WPF.Models
 
         }
 
-        /// <summary> Repository - Excel読み込み </summary>
-        private readonly XMLLoader XMLLoader = new XMLLoader();
-
         /// <summary> Repository - Excel書き込み </summary>
         private ExcelWriter ExcelWriter = new ExcelWriter();
 
@@ -118,9 +115,9 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void Window_Activated()
         {
-            this.ViewModel.FontFamily        = this.XMLLoader.FetchFontFamily();
-            this.ViewModel.FontSize          = this.XMLLoader.FetchFontSize();
-            this.ViewModel.Window_Background = this.XMLLoader.FetchBackgroundColorBrush();
+            this.ViewModel.FontFamily        = XMLLoader.FetchFontFamily();
+            this.ViewModel.FontSize          = XMLLoader.FetchFontSize();
+            this.ViewModel.Window_Background = XMLLoader.FetchBackgroundColorBrush();
         }
 
         #endregion
@@ -276,7 +273,7 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
-            File.Copy(this.XMLLoader.FetchSQLitePath(), directory);
+            File.Copy(XMLLoader.FetchSQLitePath(), directory);
         }
         
         #endregion
