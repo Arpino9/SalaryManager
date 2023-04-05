@@ -202,14 +202,13 @@ namespace SalaryManager.WPF.Models
         {
             var folderPath = XMLLoader.FetchImageFolder();
             
-            if (File.Exists(folderPath) == false &&
-                folderPath != FilePath.GetDesktopPath())
+            if (Directory.Exists(folderPath) == false)
             {
                 Message.ShowErrorMessage("フォルダが存在しません。設定画面から画像ファイルの格納先を指定してください。", "aa");
                 return;
             }
 
-            foreach(var filePath in Directory.GetFiles(folderPath))
+            foreach(var filePath in Directory.GetFiles(folderPath, "*", SearchOption.AllDirectories))
             {
                 var extension = new FileExtensionValue(filePath);
 
