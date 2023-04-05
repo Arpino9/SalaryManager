@@ -4,11 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SalaryManager.WPF.UserControls"
-             xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" x:Class="SalaryManager.WPF.UserControls.Option_General"
-             mc:Ignorable="d" 
+             xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" 
              xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:Converter="clr-namespace:SalaryManager.WPF.Converter" x:Class="SalaryManager.WPF.UserControls.Option_General"
+             mc:Ignorable="d"
              Background="{x:Static SystemColors.ControlLightBrush}"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="500" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Converter:EnumToBoolConverter x:Key="EnumToBoolConverter"/>
+    </UserControl.Resources>
     <UserControl.DataContext>
         <ViewModels:ViewModel_GeneralOption/>
     </UserControl.DataContext>
@@ -31,8 +35,9 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
-        
+
         <Label Content="SQLiteの保存先パス"/>
         <TextBox Grid.Column="1" 
                  Text="{Binding SelectSQLite_Text}" 
@@ -139,9 +144,22 @@
             </behaviors:Interaction.Triggers>
         </CheckBox>
 
+        <Label Content="DBへの画像の保存方法" 
+               Grid.Row="9" />
+
+        <RadioButton Content="画像パス(推奨)" 
+                     Grid.Column="1"
+                     Grid.Row="9" 
+                     IsChecked="{Binding HowToSaveImage_IsChecked, ConverterParameter=SavePath, Converter={StaticResource EnumToBoolConverter}, Mode=TwoWay}" />
+
+        <RadioButton Content="画像データ" 
+                     Grid.Column="2"
+                     Grid.Row="9"
+                     IsChecked="{Binding HowToSaveImage_IsChecked, ConverterParameter=SaveImage, Converter={StaticResource EnumToBoolConverter}, Mode=TwoWay}" />
+
         <Button Content="保存"
                 Grid.Column="1"                 
-                Grid.Row="9" 
+                Grid.Row="10" 
                 Command="{Binding Save_Command}"/>
     </Grid>
 </UserControl>

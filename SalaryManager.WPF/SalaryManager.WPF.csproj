@@ -96,6 +96,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Behavior\TextBoxIntegerOnly.cs" />
+    <Compile Include="Converter\EnumToBoolConverter.cs" />
     <Compile Include="Converter\IntToStringConverter.cs" />
     <Compile Include="Converter\RelayCommand.cs" />
     <Compile Include="Interface\IInputPayslip.cs" />

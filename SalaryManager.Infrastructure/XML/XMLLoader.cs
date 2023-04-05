@@ -3,6 +3,7 @@ using System.Windows.Media;
 using SalaryManager.Domain.Modules.Helpers;
 using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Domain;
+using DocumentFormat.OpenXml.Bibliography;
 
 namespace SalaryManager.Infrastructure.XML
 {
@@ -149,6 +150,15 @@ namespace SalaryManager.Infrastructure.XML
         public static bool FetchShowDefaultPayslip()
         {
             return _tag?.ShowDefaultPayslip ?? bool.Parse(Shared.ShowDefaultPayslip);
+        }
+
+        /// <summary>
+        /// 画像の保存方法を取得する
+        /// </summary>
+        /// <returns></returns>
+        public static string FetchHowToSaveImage() 
+        {
+            return _tag?.HowToSaveImage;
         }
     }
 }

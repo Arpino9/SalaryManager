@@ -200,13 +200,13 @@ namespace SalaryManager.WPF.Models
             }
 
             this.ViewModel.TotalDeduct_Value = this.ViewModel.HealthInsurance_Value
-                                       + this.ViewModel.NursingInsurance_Value
-                                       + this.ViewModel.WelfareAnnuity_Value
-                                       + this.ViewModel.EmploymentInsurance_Value
-                                       + this.ViewModel.IncomeTax_Value
-                                       + this.ViewModel.MunicipalTax_Value
-                                       + this.ViewModel.FriendshipAssociation_Value
-                                       + this.ViewModel.YearEndTaxAdjustment_Value;
+                                             + this.ViewModel.NursingInsurance_Value
+                                             + this.ViewModel.WelfareAnnuity_Value
+                                             + this.ViewModel.EmploymentInsurance_Value
+                                             + this.ViewModel.IncomeTax_Value
+                                             + this.ViewModel.MunicipalTax_Value
+                                             + this.ViewModel.FriendshipAssociation_Value
+                                             + this.ViewModel.YearEndTaxAdjustment_Value;
 
             this.Allowance.ReCaluculate();
         }

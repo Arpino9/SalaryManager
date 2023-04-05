@@ -368,6 +368,37 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
+        #region 画像の保存方法
+
+        /// <summary>
+        /// 画像の保存方法
+        /// </summary>
+        public enum HowToSaveImage
+        {
+            /// <summary> 画像パス </summary>
+            SavePath,
+
+            /// <summary> 画像データ </summary>
+            SaveImage,
+        }
+
+        private HowToSaveImage _howToSaveImage_IsChecked = HowToSaveImage.SavePath;
+
+        /// <summary>
+        /// 画像の保存方法 - IsChecked
+        /// </summary>
+        public HowToSaveImage HowToSaveImage_IsChecked
+        {
+            get => this._howToSaveImage_IsChecked;
+            set
+            {
+                this._howToSaveImage_IsChecked = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
         #region 保存
 
         private RelayCommand _save_Command;

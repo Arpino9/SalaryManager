@@ -28,5 +28,8 @@
 
         /// <summary> 背景色 (ARGB) </summary>
         public string BackgroundColor;
+
+        /// <summary> DBへの画像の保存方法 </summary>
+        public string HowToSaveImage;
     }
 }

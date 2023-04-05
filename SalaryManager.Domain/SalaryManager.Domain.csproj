@@ -109,6 +109,7 @@
     <Compile Include="Exceptions\FileWriterException.cs" />
     <Compile Include="Exceptions\FormatException.cs" />
     <Compile Include="Modules\Helpers\ColorUtils.cs" />
+    <Compile Include="Modules\Helpers\EnumUtils.cs" />
     <Compile Include="Modules\Helpers\ImageUtils.cs" />
     <Compile Include="Modules\Helpers\ListUtils.cs" />
     <Compile Include="Modules\Helpers\DateUtils.cs" />

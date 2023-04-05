@@ -8,6 +8,8 @@ using SalaryManager.Domain.Modules.Helpers;
 using System.Drawing;
 using System.Collections.Generic;
 using SalaryManager.Infrastructure.XML;
+using System;
+using static SalaryManager.WPF.ViewModels.ViewModel_GeneralOption;
 
 namespace SalaryManager.WPF.Models
 {
@@ -62,6 +64,12 @@ namespace SalaryManager.WPF.Models
             // フォント
             this.ViewModel.Preview_FontFamily     = XMLLoader.FetchFontFamily();
             this.ViewModel.FontSize_Value         = XMLLoader.FetchFontSize();
+
+            var obj = EnumUtils.ToEnum(this.ViewModel.HowToSaveImage_IsChecked.GetType(), XMLLoader.FetchHowToSaveImage());
+            if (obj != null)
+            {
+                this.ViewModel.HowToSaveImage_IsChecked = (HowToSaveImage)obj;
+            }
 
             // 背景色
             this.ViewModel.Window_BackgroundColor = XMLLoader.FetchBackgroundColor();
@@ -231,6 +239,8 @@ namespace SalaryManager.WPF.Models
                     this.ViewModel.Window_BackgroundColor.G.ToString(),
                     this.ViewModel.Window_BackgroundColor.B.ToString()
                 };
+
+                tag.HowToSaveImage = this.ViewModel.HowToSaveImage_IsChecked.ToString();
 
                 tag.BackgroundColor = StringUtils.Aggregate(list);
 
