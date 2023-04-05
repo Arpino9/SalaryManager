@@ -8,7 +8,6 @@ using SalaryManager.Domain.Modules.Helpers;
 using System.Drawing;
 using System.Collections.Generic;
 using SalaryManager.Infrastructure.XML;
-using System;
 using static SalaryManager.WPF.ViewModels.ViewModel_GeneralOption;
 
 namespace SalaryManager.WPF.Models
@@ -70,6 +69,9 @@ namespace SalaryManager.WPF.Models
             {
                 this.ViewModel.HowToSaveImage_IsChecked = (HowToSaveImage)obj;
             }
+
+            this.ViewModel.ImageFolderPath_Text   = XMLLoader.FetchImageFolder();
+            this.ViewModel.SelectFolder_IsEnabled = this.ViewModel.HowToSaveImage_IsChecked == HowToSaveImage.SavePath;
 
             // 背景色
             this.ViewModel.Window_BackgroundColor = XMLLoader.FetchBackgroundColor();
@@ -166,6 +168,14 @@ namespace SalaryManager.WPF.Models
 
         #endregion
 
+        /// <summary>
+        /// フォントファミリ - SelectionChanged
+        /// </summary>
+        internal void HowToSaveImage_SelectionChanged()
+        {
+            this.ViewModel.SelectFolder_IsEnabled = this.ViewModel.HowToSaveImage_IsChecked == HowToSaveImage.SavePath;
+        }
+
         #region フォントサイズ
 
         /// <summary>
@@ -231,6 +241,7 @@ namespace SalaryManager.WPF.Models
                 tag.FontSize                  = this.ViewModel.FontSize_Value;
                 tag.ShowDefaultPayslip        = this.ViewModel.ShowDefaultPayslip_IsChecked;
                 tag.BackgroundColor_ColorCode = this.ViewModel.Window_BackgroundColor.Name;
+                tag.ImageFolderPath           = this.ViewModel.ImageFolderPath_Text;
 
                 var list = new List<string>()
                 {
@@ -246,6 +257,21 @@ namespace SalaryManager.WPF.Models
 
                 writer.Serialize(tag);
             }
+        }
+
+        /// <summary>
+        /// フォルダを開く
+        /// </summary>
+        internal void OpenFolder()
+        {
+            var directory = DialogUtils.SelectDirectory("取得元のフォルダを選択してください。");
+
+            if (string.IsNullOrEmpty(directory))
+            {
+                return;
+            }
+
+            this.ViewModel.ImageFolderPath_Text = directory;
         }
 
         #endregion

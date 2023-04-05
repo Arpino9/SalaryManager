@@ -32,6 +32,9 @@ namespace SalaryManager.WPF.ViewModels
             // フォントファミリ
             _fontFamily_Action += this.Model.FontFamily_SelectionChanged;
             this.FontFamily_SelectionChanged = new RelayCommand(_fontFamily_Action);
+
+            _howToSaveImage_Action += this.Model.HowToSaveImage_SelectionChanged;
+            this.HowToSaveImage_Checked = new RelayCommand(_howToSaveImage_Action);
         }
 
         /// <summary> Model - 支給額 </summary>
@@ -370,6 +373,11 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 画像の保存方法
 
+        public Action _howToSaveImage_Action;
+
+        /// <summary> 画像の保存方法 - Checked </summary>
+        public RelayCommand HowToSaveImage_Checked { get; private set; }
+
         /// <summary>
         /// 画像の保存方法
         /// </summary>
@@ -394,6 +402,57 @@ namespace SalaryManager.WPF.ViewModels
             {
                 this._howToSaveImage_IsChecked = value;
                 this.RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #region フォルダを開く
+
+        private string _selectfolder_Text;
+
+        /// <summary>
+        /// フォルダを開く - Text
+        /// </summary>
+        public string ImageFolderPath_Text
+        {
+            get => this._selectfolder_Text;
+            set
+            {
+                this._selectfolder_Text = value;
+                this.RaisePropertyChanged(); ;
+            }
+        }
+
+        private RelayCommand _selectfolder_Command;
+
+        /// <summary>
+        /// フォルダを開く - Command
+        /// </summary>
+        public RelayCommand SelectFolder_Command
+        {
+            get
+            {
+                if (this._selectfolder_Command == null)
+                {
+                    this._selectfolder_Command = new RelayCommand(this.Model.OpenFolder);
+                }
+                return this._selectfolder_Command;
+            }
+        }
+
+        private bool _selectfolder_IsEnabled;
+
+        /// <summary>
+        /// フォルダを開く - IsEnabled
+        /// </summary>
+        public bool SelectFolder_IsEnabled
+        {
+            get => this._selectfolder_IsEnabled;
+            set
+            {
+                this._selectfolder_IsEnabled = value;
+                this.RaisePropertyChanged(); ;
             }
         }
 

@@ -8,6 +8,7 @@ using SalaryManager.Domain.Entities;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
+using static SalaryManager.WPF.ViewModels.ViewModel_GeneralOption;
 
 namespace SalaryManager.WPF.ViewModels
 {
@@ -116,7 +117,7 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
-        #region 開く
+        #region ファイルのパス
 
         private string _filePath_Text;
 
@@ -133,10 +134,14 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
+        #endregion
+
+        #region ファイルを開く
+
         private RelayCommand _selectfile_Command;
 
         /// <summary>
-        /// ファイルのパス - Command
+        /// ファイルを開く - Command
         /// </summary>
         /// <remarks>
         /// 開く
@@ -150,6 +155,65 @@ namespace SalaryManager.WPF.ViewModels
                     this._selectfile_Command = new RelayCommand(this.Model.OpenFile);
                 }
                 return this._selectfile_Command;
+            }
+        }
+
+        internal HowToSaveImage HowToSave { get; private set; }
+
+        private bool _selectfile_IsEnabled;
+
+        /// <summary>
+        /// ファイルを開く - IsEnabled
+        /// </summary>
+        /// <remarks>
+        /// 開く
+        /// </remarks>
+        public bool SelectFile_IsEnabled
+        {
+            get => this._selectfile_IsEnabled;
+            set
+            {
+                this._selectfile_IsEnabled = value;
+                this.RaisePropertyChanged(); ;
+            }
+        }
+
+        #endregion
+
+        #region フォルダを開く
+
+        private RelayCommand _selectfolder_Command;
+
+        /// <summary>
+        /// フォルダを開く - Command
+        /// </summary>
+        /// <remarks>
+        /// 開く
+        /// </remarks>
+        public RelayCommand SelectFolder_Command
+        {
+            get
+            {
+                if (this._selectfolder_Command == null)
+                {
+                    this._selectfolder_Command = new RelayCommand(this.Model.OpenFolder);
+                }
+                return this._selectfolder_Command;
+            }
+        }
+
+        private bool _selectfolder_IsEnabled;
+
+        /// <summary>
+        /// フォルダを開く - IsEnabled
+        /// </summary>
+        public bool SelectFolder_IsEnabled
+        {
+            get => this._selectfolder_IsEnabled;
+            set
+            {
+                this._selectfolder_IsEnabled = value;
+                this.RaisePropertyChanged(); ;
             }
         }
 

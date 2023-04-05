@@ -59,8 +59,8 @@
             </ListView.View>
         </ListView>
 
-        <Button Content="ファイルを開く" Grid.Row="1" Grid.Column="1" Command="{Binding SelectFile_Command}"/>
-
+        <Button Content="ファイルを開く" Grid.Row="1" Grid.Column="1" Command="{Binding SelectFile_Command}" IsEnabled="{Binding SelectFile_IsEnabled}"/>
+        
         <Image Grid.Column="1" Grid.Row="2" Source="{Binding FileImage_Image}"/>
         <Button Content="画像を拡大表示する" 
                 Grid.Column="2" 

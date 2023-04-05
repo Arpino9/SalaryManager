@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 
 namespace SalaryManager.Domain.Modules.Logics
 {
@@ -126,5 +127,13 @@ namespace SalaryManager.Domain.Modules.Logics
 
         #endregion
 
+        /// <summary>
+        /// デスクトップのパスを取得する
+        /// </summary>
+        /// <returns>デスクトップのパス</returns>
+        public static string GetDesktopPath()
+        {
+            return Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+        }
     }
 }

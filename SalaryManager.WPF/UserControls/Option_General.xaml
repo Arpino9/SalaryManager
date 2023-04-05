@@ -9,7 +9,7 @@
              xmlns:Converter="clr-namespace:SalaryManager.WPF.Converter" x:Class="SalaryManager.WPF.UserControls.Option_General"
              mc:Ignorable="d"
              Background="{x:Static SystemColors.ControlLightBrush}"
-             d:DesignHeight="500" d:DesignWidth="800">
+             d:DesignHeight="550" d:DesignWidth="800">
     <UserControl.Resources>
         <Converter:EnumToBoolConverter x:Key="EnumToBoolConverter"/>
     </UserControl.Resources>
@@ -36,12 +36,13 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
 
         <Label Content="SQLiteの保存先パス"/>
         <TextBox Grid.Column="1" 
                  Text="{Binding SelectSQLite_Text}" 
-                 IsReadOnly="True" />
+                 IsEnabled="False" />
         <Button Content="開く" 
                 Grid.Column="2"                 
                 Command="{Binding SelectSQLite_Command}"/>
@@ -53,7 +54,7 @@
                Grid.Row="1"/>
         <TextBox Grid.Column="1" 
                  Grid.Row="1" 
-                 IsReadOnly="True"
+                 IsEnabled="False"
                  Text="{Binding SelectExcelTempletePath_Text}" />
         <Button Grid.Column="2" 
                 Grid.Row="1" 
@@ -150,16 +151,39 @@
         <RadioButton Content="画像パス(推奨)" 
                      Grid.Column="1"
                      Grid.Row="9" 
-                     IsChecked="{Binding HowToSaveImage_IsChecked, ConverterParameter=SavePath, Converter={StaticResource EnumToBoolConverter}, Mode=TwoWay}" />
+                     IsChecked="{Binding HowToSaveImage_IsChecked, ConverterParameter=SavePath, Converter={StaticResource EnumToBoolConverter}, Mode=TwoWay}">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="Checked">
+                    <behaviors:InvokeCommandAction Command="{Binding HowToSaveImage_Checked}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </RadioButton>
 
         <RadioButton Content="画像データ" 
                      Grid.Column="2"
                      Grid.Row="9"
-                     IsChecked="{Binding HowToSaveImage_IsChecked, ConverterParameter=SaveImage, Converter={StaticResource EnumToBoolConverter}, Mode=TwoWay}" />
+                     IsChecked="{Binding HowToSaveImage_IsChecked, ConverterParameter=SaveImage, Converter={StaticResource EnumToBoolConverter}, Mode=TwoWay}">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="Checked">
+                    <behaviors:InvokeCommandAction Command="{Binding HowToSaveImage_Checked}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </RadioButton>
 
+        <TextBox Grid.Column="1" 
+                 Grid.Row="10" 
+                 Text="{Binding ImageFolderPath_Text}" 
+                 IsEnabled="False" />
+        
+        <Button Content="フォルダを開く" 
+                Grid.Column="2"
+                Grid.Row="10"
+                IsEnabled="{Binding SelectFolder_IsEnabled}"
+                Command="{Binding SelectFolder_Command}"/>
+        
         <Button Content="保存"
                 Grid.Column="1"                 
-                Grid.Row="10" 
+                Grid.Row="11" 
                 Command="{Binding Save_Command}"/>
     </Grid>
 </UserControl>

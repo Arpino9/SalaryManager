@@ -1,4 +1,5 @@
-﻿using System.Drawing.Imaging;
+﻿using SalaryManager.Domain.Modules.Helpers;
+using System.Drawing.Imaging;
 using FormatException = SalaryManager.Domain.Exceptions.FormatException;
 
 namespace SalaryManager.Domain.ValueObjects
@@ -26,8 +27,10 @@ namespace SalaryManager.Domain.ValueObjects
         /// <summary> EXIF形式 </summary>
         private static readonly FileExtensionValue Exif = new FileExtensionValue("exif");
 
-        public FileExtensionValue(string rawExtension)
+        public FileExtensionValue(string path)
         {
+            var rawExtension = ImageUtils.ExtractFileExtension(path);
+
             this.Value = rawExtension.ToLower();
         }
 
@@ -39,6 +42,76 @@ namespace SalaryManager.Domain.ValueObjects
             get
             {
                 return this.Value == FileExtensionValue.PDF.Value;
+            }
+        }
+
+        /// <summary>
+        /// 画像形式か
+        /// </summary>
+        public bool IsImage
+        {
+            get
+            {
+                return this.IsJPG  || 
+                       this.IsGIF  || 
+                       this.IsPNG  || 
+                       this.IsTIFF || 
+                       this.IsExif;
+            }
+        }
+
+        /// <summary>
+        /// JPG形式か
+        /// </summary>
+        public bool IsJPG
+        {
+            get
+            {
+                return this.Value == FileExtensionValue.JPG.Value;
+            }
+        }
+
+        /// <summary>
+        /// GIF形式か
+        /// </summary>
+        public bool IsGIF
+        {
+            get
+            {
+                return this.Value == FileExtensionValue.GIF.Value;
+            }
+        }
+
+        /// <summary>
+        /// PNG形式か
+        /// </summary>
+        public bool IsPNG
+        {
+            get
+            {
+                return this.Value == FileExtensionValue.PNG.Value;
+            }
+        }
+
+        /// <summary>
+        /// TIFF形式か
+        /// </summary>
+        public bool IsTIFF
+        {
+            get
+            {
+                return this.Value == FileExtensionValue.TIFF.Value;
+            }
+        }
+
+        /// <summary>
+        /// Exif形式か
+        /// </summary>
+        public bool IsExif
+        {
+            get
+            {
+                return this.Value == FileExtensionValue.Exif.Value;
             }
         }
 

@@ -31,5 +31,7 @@
 
         /// <summary> DBへの画像の保存方法 </summary>
         public string HowToSaveImage;
+        /// <summary> 画像の格納パス </summary>
+        public string ImageFolderPath;
     }
 }
