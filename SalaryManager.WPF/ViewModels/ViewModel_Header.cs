@@ -66,6 +66,7 @@ namespace SalaryManager.WPF.ViewModels
             this._proceedAction += this.AnnualCharts.Reload;
 
             // 年
+            this._yearAction += this.Model.Reload;
             this._yearAction += this.Allowance.Reload;
             this._yearAction += this.Deduction.Reload;
             this._yearAction += this.WorkingReference.Reload;
@@ -75,6 +76,7 @@ namespace SalaryManager.WPF.ViewModels
             this.Year_TextChanged = new RelayCommand(_yearAction);
 
             // 月
+            this._monthAction += this.Model.Reload;
             this._monthAction += this.Allowance.Reload;
             this._monthAction += this.Deduction.Reload;
             this._monthAction += this.WorkingReference.Reload;

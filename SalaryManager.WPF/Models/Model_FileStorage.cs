@@ -65,11 +65,6 @@ namespace SalaryManager.WPF.Models
 
             this.ViewModel.Entities = FileStorages.FetchByDescending();
 
-            if (this.ViewModel.HowToSave == HowToSaveImage.SaveImage)
-            {
-                this.Reflesh_ListView();
-            }
-
             this.ViewModel.AttachedFile_SelectedIndex = -1;
             this.Clear_InputForm();
 
@@ -78,6 +73,8 @@ namespace SalaryManager.WPF.Models
             {
                 this.ViewModel.SelectFile_IsEnabled   = false;
                 this.ViewModel.SelectFolder_IsEnabled = true;
+
+                this.Reflesh_ListView();
             }
             else
             {
@@ -88,6 +85,10 @@ namespace SalaryManager.WPF.Models
                 if (howToSave == HowToSaveImage.SavePath)
                 {
                     this.OpenFolder();
+                }
+                else
+                {
+                    this.Reflesh_ListView();
                 }
             }
         }
@@ -208,42 +209,83 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
-            foreach(var filePath in Directory.GetFiles(folderPath, "*", SearchOption.AllDirectories))
+            using (var cursor = new CursorWaiting())
             {
-                var extension = new FileExtensionValue(filePath);
+                foreach (var filePath in Directory.GetFiles(folderPath, "*", SearchOption.AllDirectories))
+                {
+                    this.AddFileFromFolder(filePath);
+                }
 
-                if (extension.IsImage)
+                this.ViewModel.Title_IsEnabled   = false;
+                this.ViewModel.Remarks_IsEnabled = false;
+                this.ViewModel.Update_IsEnabled  = false;
+                this.ViewModel.Delete_IsEnabled  = false;
+            }   
+        }
+
+        /// <summary>
+        /// フォルダから画像・PDFファイルを追加する
+        /// </summary>
+        /// <param name="filePath">ファイルパス</param>
+        private void AddFileFromFolder(string filePath)
+        {
+            var extension = new FileExtensionValue(filePath);
+
+            // ID
+            var id = default(int);
+
+            if (this.ViewModel.AttachedFile_ItemSource.Any())
+            {
+                id = this.ViewModel.AttachedFile_ItemSource.Max(x => x.ID) + 1;
+            }
+            else
+            {
+                id = 1;
+            }
+
+            // 追加日
+            this.ViewModel.CreateDate = DateTime.Today;
+            // 更新日
+            this.ViewModel.UpdateDate = DateTime.Today;
+
+            if (extension.IsPDF)
+            {
+                var pngPaths = this.PDFConverter.ConvertPDFIntoImage(filePath);
+
+                var count = 1;
+
+                foreach (var pngPath in pngPaths)
                 {
                     // タイトル
-                    this.ViewModel.Title_Text    = ImageUtils.ExtractFileNameWithoutExtension(filePath);
+                    this.ViewModel.Title_Text = $"{ImageUtils.ExtractFileNameWithoutExtension(filePath)}_{count.ToString("D2")}";
                     // ファイル名
                     this.ViewModel.FileName_Text = ImageUtils.ExtractFileNameWithExtension(filePath);
+
                     // 表示する画像
-                    this.ViewModel.ByteImage       = ImageUtils.ConvertPathToBytes(filePath, ImageFormat.Png);
-                    this.ViewModel.FileImage_Image = ImageUtils.ConvertPathToImage(filePath, extension.ImageFormat);
+                    this.ViewModel.ByteImage = ImageUtils.ConvertPathToBytes(pngPath, ImageFormat.Png);
+                    this.ViewModel.FileImage_Image = ImageUtils.ConvertPathToImage(pngPath, ImageFormat.Png);
 
-                    this.ViewModel.CreateDate = DateTime.Today;
-                    this.ViewModel.UpdateDate = DateTime.Today;
-
-                    var id = default(int);
-
-                    if (this.ViewModel.AttachedFile_ItemSource.Any())
-                    {
-                        id = this.ViewModel.AttachedFile_ItemSource.Max(x => x.ID) + 1;
-                    }
-                    else
-                    {
-                        id = 1;
-                    }
+                    File.Delete(pngPath);
 
                     this.ViewModel.AttachedFile_ItemSource.Add(this.CreateEntity(id));
+
+                    count++;
                 }
             }
 
-            this.ViewModel.Title_IsEnabled   = false;
-            this.ViewModel.Remarks_IsEnabled = false;
-            this.ViewModel.Update_IsEnabled  = false;
-            this.ViewModel.Delete_IsEnabled  = false;
+            if (extension.IsImage)
+            {
+                // タイトル
+                this.ViewModel.Title_Text = ImageUtils.ExtractFileNameWithoutExtension(filePath);
+                // ファイル名
+                this.ViewModel.FileName_Text = ImageUtils.ExtractFileNameWithExtension(filePath);
+
+                // 表示する画像
+                this.ViewModel.ByteImage = ImageUtils.ConvertPathToBytes(filePath, ImageFormat.Png);
+                this.ViewModel.FileImage_Image = ImageUtils.ConvertPathToImage(filePath, extension.ImageFormat);
+
+                this.ViewModel.AttachedFile_ItemSource.Add(this.CreateEntity(id));
+            }
         }
 
         /// <summary>

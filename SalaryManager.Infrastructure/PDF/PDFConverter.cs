@@ -25,12 +25,8 @@ namespace SalaryManager.Infrastructure.PDF
 
             foreach (var page in pdfDocument.Pages)
             {
-                // 解像度を定義する
-                var resolution = new Resolution(300);
-
-                // 指定された属性でPngデバイスを作成する
-                // 幅、高さ、解像度
-                var PngDevice = new PngDevice(500, 700, resolution);
+                // Pngデバイスを作成する
+                var PngDevice = new PngDevice();
 
                 var directory = ImageUtils.ExtractFileDirectory(path);
 

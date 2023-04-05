@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Media;
@@ -97,7 +98,7 @@ namespace SalaryManager.Domain.Modules.Helpers
         public static byte[] ConvertPathToBytes(string path, ImageFormat format)
         {
             // 画像を読み込む
-            using(var image = System.Drawing.Image.FromFile(path))
+            using (var image = Image.FromFile(path, true))
             {
                 // ストリームを定義
                 MemoryStream stream = new MemoryStream();
