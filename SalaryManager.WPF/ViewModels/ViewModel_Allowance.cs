@@ -44,40 +44,40 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// Bind Event
+        /// イベント登録
         /// </summary>
         private void BindEvent()
         {
-            // Mouse Leave
-            this.MouseLeave_Action = new RelayCommand(() => this.MainWindow.ComparePrice(0, 0));
+            // 項目共通
+            this.Default_MouseLeave               = new RelayCommand(() => this.MainWindow.ComparePrice(0, 0));
             // 基本給
-            this.BasicSalary_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.BasicSalary_Value, this.Entity_LastYear?.BasicSalary.Value));
+            this.BasicSalary_MouseMove            = new RelayCommand(() => this.MainWindow.ComparePrice(this.BasicSalary_Value,            this.Entity_LastYear?.BasicSalary.Value));
             // 役職手当
-            this.ExecutiveAllowance_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.ExecutiveAllowance_Value, this.Entity_LastYear?.ExecutiveAllowance.Value));
+            this.ExecutiveAllowance_MouseMove     = new RelayCommand(() => this.MainWindow.ComparePrice(this.ExecutiveAllowance_Value,     this.Entity_LastYear?.ExecutiveAllowance.Value));
             // 扶養手当
-            this.DependencyAllowance_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.DependencyAllowance_Value, this.Entity_LastYear?.DependencyAllowance.Value));
+            this.DependencyAllowance_MouseMove    = new RelayCommand(() => this.MainWindow.ComparePrice(this.DependencyAllowance_Value,    this.Entity_LastYear?.DependencyAllowance.Value));
             // 時間外手当
-            this.OvertimeAllowance_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.OvertimeAllowance_Value, this.Entity_LastYear?.OvertimeAllowance.Value));
+            this.OvertimeAllowance_MouseMove      = new RelayCommand(() => this.MainWindow.ComparePrice(this.OvertimeAllowance_Value,      this.Entity_LastYear?.OvertimeAllowance.Value));
             // 休日割増
-            this.DaysoffIncreased_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.DaysoffIncreased_Value, this.Entity_LastYear?.DaysoffIncreased.Value));
-            // 深夜割増
-            this.NightworkIncreased_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.NightworkIncreased_Value, this.Entity_LastYear?.NightworkIncreased.Value));
-            // 住宅手当
-            this.HousingAllowance_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.HousingAllowance_Value, this.Entity_LastYear?.HousingAllowance.Value));
-            // 遅刻早退欠勤
-            this.LateAbsent_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.LateAbsent_Value, this.Entity_LastYear?.LateAbsent));
+            this.DaysoffIncreased_MouseMove       = new RelayCommand(() => this.MainWindow.ComparePrice(this.DaysoffIncreased_Value,       this.Entity_LastYear?.DaysoffIncreased.Value));
             // 交通費
-            this.TransportationExpenses_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.TransportationExpenses_Value, this.Entity_LastYear?.TransportationExpenses.Value));
+            this.TransportationExpenses_MouseMove = new RelayCommand(() => this.MainWindow.ComparePrice(this.TransportationExpenses_Value, this.Entity_LastYear?.TransportationExpenses.Value));
+            // 深夜割増
+            this.NightworkIncreased_MouseMove     = new RelayCommand(() => this.MainWindow.ComparePrice(this.NightworkIncreased_Value,     this.Entity_LastYear?.NightworkIncreased.Value));
+            // 住宅手当
+            this.HousingAllowance_MouseMove       = new RelayCommand(() => this.MainWindow.ComparePrice(this.HousingAllowance_Value,       this.Entity_LastYear?.HousingAllowance.Value));
+            // 遅刻早退欠勤
+            this.LateAbsent_MouseMove             = new RelayCommand(() => this.MainWindow.ComparePrice(this.LateAbsent_Value,             this.Entity_LastYear?.LateAbsent));
             // 在宅手当
-            this.ElectricityAllowance_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.ElectricityAllowance_Value, this.Entity_LastYear?.ElectricityAllowance.Value));
+            this.ElectricityAllowance_MouseMove   = new RelayCommand(() => this.MainWindow.ComparePrice(this.ElectricityAllowance_Value,   this.Entity_LastYear?.ElectricityAllowance.Value));
             // 特別手当
-            this.SpecialAllowance_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.SpecialAllowance_Value, this.Entity_LastYear?.SpecialAllowance.Value));
+            this.SpecialAllowance_MouseMove       = new RelayCommand(() => this.MainWindow.ComparePrice(this.SpecialAllowance_Value,       this.Entity_LastYear?.SpecialAllowance.Value));
             // 予備
-            this.SpareAllowance_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.SpareAllowance_Value, this.Entity_LastYear?.SpareAllowance.Value));
+            this.SpareAllowance_MouseMove         = new RelayCommand(() => this.MainWindow.ComparePrice(this.SpareAllowance_Value,         this.Entity_LastYear?.SpareAllowance.Value));
             // 支給総計
-            this.TotalSalary_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.TotalSalary_Value, this.Entity_LastYear?.TotalSalary.Value));
+            this.TotalSalary_MouseMove            = new RelayCommand(() => this.MainWindow.ComparePrice(this.TotalSalary_Value,            this.Entity_LastYear?.TotalSalary.Value));
             // 差引支給額
-            this.TotalDeductedSalary_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.TotalDeductedSalary_Value, this.Entity_LastYear?.TotalDeductedSalary.Value));
+            this.TotalDeductedSalary_MouseMove    = new RelayCommand(() => this.MainWindow.ComparePrice(this.TotalDeductedSalary_Value,    this.Entity_LastYear?.TotalDeductedSalary.Value));
         }
 
         /// <summary> Model - 支給額 </summary>
@@ -95,14 +95,10 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary> Entity - 支給額 (昨年度) </summary>
         public AllowanceValueEntity Entity_LastYear { get; set; }
 
-        #region Mouse Leave
-
         /// <summary>
-        /// MouseLeave - Action
+        /// 初期状態 - MouseLeave
         /// </summary>
-        public RelayCommand MouseLeave_Action { get; private set; }
-
-        #endregion
+        public RelayCommand Default_MouseLeave { get; private set; }
 
         #region 基本給
 
@@ -124,9 +120,9 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// 基本給 - Action
+        /// 基本給 - MouseMove
         /// </summary>
-        public RelayCommand BasicSalary_Action { get; private set; }
+        public RelayCommand BasicSalary_MouseMove { get; private set; }
 
         #endregion
 
@@ -165,9 +161,9 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// 役職手当 - Action
+        /// 役職手当 - MouseMove
         /// </summary>
-        public RelayCommand ExecutiveAllowance_Action { get; private set; }
+        public RelayCommand ExecutiveAllowance_MouseMove { get; private set; }
 
         #endregion
 
@@ -206,9 +202,9 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// 扶養手当 - Action
+        /// 扶養手当 - MouseMove
         /// </summary>
-        public RelayCommand DependencyAllowance_Action { get; private set; }
+        public RelayCommand DependencyAllowance_MouseMove { get; private set; }
 
         #endregion
 
@@ -247,9 +243,9 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// 時間外手当 - Action
+        /// 時間外手当 - MouseMove
         /// </summary>
-        public RelayCommand OvertimeAllowance_Action { get; private set; }
+        public RelayCommand OvertimeAllowance_MouseMove { get; private set; }
 
         #endregion
 
@@ -273,9 +269,48 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// 休日割増 - Action
+        /// 休日割増 - MouseMove
         /// </summary>
-        public RelayCommand DaysoffIncreased_Action { get; private set; }
+        public RelayCommand DaysoffIncreased_MouseMove { get; private set; }
+
+        #endregion
+
+        #region 交通費
+
+        private bool _transportationExpenses_IsEnabled;
+
+        /// <summary>
+        /// 交通費 - IsEnabled
+        /// </summary>
+        public bool TransportationExpenses_IsEnabled
+        {
+            get => this._transportationExpenses_IsEnabled;
+            set
+            {
+                this._transportationExpenses_IsEnabled = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private double _transportationExpenses_Value;
+
+        /// <summary>
+        /// 交通費 - Value
+        /// </summary>
+        public double TransportationExpenses_Value
+        {
+            get => this._transportationExpenses_Value;
+            set
+            {
+                this._transportationExpenses_Value = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// 交通費 - MouseMove
+        /// </summary>
+        public RelayCommand TransportationExpenses_MouseMove { get; private set; }
 
         #endregion
 
@@ -314,9 +349,9 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// 深夜割増 - Action
+        /// 深夜割増 - MouseMove
         /// </summary>
-        public RelayCommand NightworkIncreased_Action { get; private set; }
+        public RelayCommand NightworkIncreased_MouseMove { get; private set; }
 
         #endregion
 
@@ -358,9 +393,9 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// 住宅手当 - Action
+        /// 住宅手当 - MouseMove
         /// </summary>
-        public RelayCommand HousingAllowance_Action { get; private set; }
+        public RelayCommand HousingAllowance_MouseMove { get; private set; }
 
         #endregion
 
@@ -382,87 +417,9 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// 遅刻早退欠勤 - Action
+        /// 遅刻早退欠勤 - MouseMove
         /// </summary>
-        public RelayCommand LateAbsent_Action { get; private set; }
-
-        #endregion
-
-        #region 交通費
-
-        private bool _transportationExpenses_IsEnabled;
-
-        /// <summary>
-        /// 交通費 - IsEnabled
-        /// </summary>
-        public bool TransportationExpenses_IsEnabled
-        {
-            get => this._transportationExpenses_IsEnabled;
-            set
-            {
-                this._transportationExpenses_IsEnabled = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private double _transportationExpenses_Value;
-
-        /// <summary>
-        /// 交通費 - Value
-        /// </summary>
-        public double TransportationExpenses_Value
-        {
-            get => this._transportationExpenses_Value;
-            set
-            {
-                this._transportationExpenses_Value = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// 交通費 - Action
-        /// </summary>
-        public RelayCommand TransportationExpenses_Action { get; private set; }
-
-        #endregion
-
-        #region 在宅手当
-
-        private bool _electricityAllowance_IsEnabled;
-
-        /// <summary>
-        /// 在宅手当 - IsEnabled
-        /// </summary>
-        public bool ElectricityAllowance_IsEnabled
-        {
-            get => this._electricityAllowance_IsEnabled;
-            set
-            {
-                this._electricityAllowance_IsEnabled = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private double _electricityAllowance_Value;
-
-        /// <summary>
-        /// 在宅手当 - Value
-        /// </summary>
-        public double ElectricityAllowance_Value
-        {
-            get => this._electricityAllowance_Value;
-            set
-            {
-                this._electricityAllowance_Value = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// 在宅手当 - Action
-        /// </summary>
-        public RelayCommand ElectricityAllowance_Action { get; private set; }
+        public RelayCommand LateAbsent_MouseMove { get; private set; }
 
         #endregion
 
@@ -501,9 +458,48 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// 特別手当 - Action
+        /// 特別手当 - MouseMove
         /// </summary>
-        public RelayCommand SpecialAllowance_Action { get; private set; }
+        public RelayCommand SpecialAllowance_MouseMove { get; private set; }
+
+        #endregion
+
+        #region 在宅手当
+
+        private bool _electricityAllowance_IsEnabled;
+
+        /// <summary>
+        /// 在宅手当 - IsEnabled
+        /// </summary>
+        public bool ElectricityAllowance_IsEnabled
+        {
+            get => this._electricityAllowance_IsEnabled;
+            set
+            {
+                this._electricityAllowance_IsEnabled = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private double _electricityAllowance_Value;
+
+        /// <summary>
+        /// 在宅手当 - Value
+        /// </summary>
+        public double ElectricityAllowance_Value
+        {
+            get => this._electricityAllowance_Value;
+            set
+            {
+                this._electricityAllowance_Value = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// 在宅手当 - MouseMove
+        /// </summary>
+        public RelayCommand ElectricityAllowance_MouseMove { get; private set; }
 
         #endregion
 
@@ -527,9 +523,9 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// 予備 - Action
+        /// 予備 - MouseMove
         /// </summary>
-        public RelayCommand SpareAllowance_Action { get; private set; }
+        public RelayCommand SpareAllowance_MouseMove { get; private set; }
 
         #endregion
 
@@ -578,9 +574,9 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// 支給総計 - Action
+        /// 支給総計 - MouseMove
         /// </summary>
-        public RelayCommand TotalSalary_Action { get; private set; }
+        public RelayCommand TotalSalary_MouseMove { get; private set; }
 
         #endregion
 
@@ -617,9 +613,9 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// 差引支給額 - Action
+        /// 差引支給額 - MouseMove
         /// </summary>
-        public RelayCommand TotalDeductedSalary_Action { get; private set; }
+        public RelayCommand TotalDeductedSalary_MouseMove { get; private set; }
 
         #endregion
 

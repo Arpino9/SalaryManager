@@ -33,8 +33,7 @@ namespace SalaryManager.WPF.ViewModels
             this.Model.ViewModel = this;
             this.AttachedFile_ItemSource = new ObservableCollection<FileStorageEntity>();
 
-            _attachedFileAction += this.Model.AttachedFile_SelectionChanged;
-            this.AttachedFile_SelectionChanged = new RelayCommand(_attachedFileAction);
+            this.AttachedFile_SelectionChanged = new RelayCommand(this.Model.AttachedFile_SelectionChanged);
 
             this.Model.Initialize();
         }
@@ -93,8 +92,6 @@ namespace SalaryManager.WPF.ViewModels
         /// 添付ファイル一覧 - SelectionChanged
         /// </summary>
         public RelayCommand AttachedFile_SelectionChanged { get; private set; }
-
-        private Action _attachedFileAction;
 
         #endregion
 

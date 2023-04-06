@@ -29,12 +29,18 @@ namespace SalaryManager.WPF.ViewModels
             this.Model.ViewModel = this;
             this.Model.Initialize();
 
-            // フォントファミリ
-            _fontFamily_Action += this.Model.FontFamily_SelectionChanged;
-            this.FontFamily_SelectionChanged = new RelayCommand(_fontFamily_Action);
+            this.BindEvents();
+        }
 
-            _howToSaveImage_Action += this.Model.HowToSaveImage_SelectionChanged;
-            this.HowToSaveImage_Checked = new RelayCommand(_howToSaveImage_Action);
+        /// <summary>
+        /// イベント登録
+        /// </summary>
+        private void BindEvents()
+        {
+            // フォントファミリ
+            this.FontFamily_SelectionChanged = new RelayCommand(this.Model.FontFamily_SelectionChanged);
+            // 画像の保存方法
+            this.HowToSaveImage_Checked      = new RelayCommand(this.Model.HowToSaveImage_SelectionChanged);
         }
 
         /// <summary> Model - 支給額 </summary>
@@ -178,8 +184,6 @@ namespace SalaryManager.WPF.ViewModels
         #endregion
 
         #region フォントファミリ
-
-        public Action _fontFamily_Action;
 
         /// <summary> FontFamily - SelectionChanged </summary>
         public RelayCommand FontFamily_SelectionChanged { get; private set; }
@@ -372,8 +376,6 @@ namespace SalaryManager.WPF.ViewModels
         #endregion
 
         #region 画像の保存方法
-
-        public Action _howToSaveImage_Action;
 
         /// <summary> 画像の保存方法 - Checked </summary>
         public RelayCommand HowToSaveImage_Checked { get; private set; }

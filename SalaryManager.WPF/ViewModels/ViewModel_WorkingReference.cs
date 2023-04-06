@@ -44,12 +44,12 @@ namespace SalaryManager.WPF.ViewModels
         /// </summary>
         private void BindEvent()
         {
-            // Mouse Leave
-            this.MouseLeave_Action = new RelayCommand(() => this.MainWindow.ComparePrice(0, 0));
+            // 初期状態
+            this.Default_MouseMove    = new RelayCommand(() => this.MainWindow.ComparePrice(0, 0));
             // 支給額-保険
-            this.Insurance_Action  = new RelayCommand(() => this.MainWindow.ComparePrice(this.Insurance_Value, this.Entity_LastYear?.Insurance.Value));
+            this.Insurance_MouseMove  = new RelayCommand(() => this.MainWindow.ComparePrice(this.Insurance_Value, this.Entity_LastYear?.Insurance.Value));
             // 標準月額千円
-            this.Norm_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.Norm_Value,      this.Entity_LastYear?.Norm));
+            this.Norm_MouseMove       = new RelayCommand(() => this.MainWindow.ComparePrice(this.Norm_Value,      this.Entity_LastYear?.Norm));
         }
 
         /// <summary> Model </summary>
@@ -64,14 +64,10 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary> Entity - 勤務備考 (昨年度) </summary>
         public WorkingReferencesEntity Entity_LastYear { get; set; }
 
-        #region Mouse Leave
-
         /// <summary>
-        /// MouseLeave - Action
+        /// 初期状態 - MouseMove
         /// </summary>
-        public RelayCommand MouseLeave_Action { get; private set; }
-
-        #endregion
+        public RelayCommand Default_MouseMove { get; private set; }
 
         #region 時間外時間
 
@@ -167,9 +163,9 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// 支給額-保険 - Action
+        /// 支給額-保険 - MouseMove
         /// </summary>
-        public RelayCommand Insurance_Action { get; private set; }
+        public RelayCommand Insurance_MouseMove { get; private set; }
 
         #endregion
 
@@ -191,9 +187,9 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// 標準月額千円 - Action
+        /// 標準月額千円 - MouseMove
         /// </summary>
-        public RelayCommand Norm_Action { get; private set; }
+        public RelayCommand Norm_MouseMove { get; private set; }
 
         #endregion
 

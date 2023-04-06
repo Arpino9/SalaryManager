@@ -42,13 +42,13 @@ namespace SalaryManager.WPF.ViewModels
         private void BindEvent()
         {
             // Mouse Leave
-            this.MouseLeave_Action   = new RelayCommand(() => this.MainWindow.ComparePrice(0, 0));
+            this.Default_MouseLeave     = new RelayCommand(() => this.MainWindow.ComparePrice(0, 0));
             // 副業
-            this.SideBusiness_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.SideBusiness_Value, this.Entity_LastYear?.SideBusiness));
+            this.SideBusiness_MouseMove = new RelayCommand(() => this.MainWindow.ComparePrice(this.SideBusiness_Value, this.Entity_LastYear?.SideBusiness));
             // 臨時収入
-            this.Perquisite_Action   = new RelayCommand(() => this.MainWindow.ComparePrice(this.Perquisite_Value,   this.Entity_LastYear?.Perquisite));
+            this.Perquisite_MouseMove   = new RelayCommand(() => this.MainWindow.ComparePrice(this.Perquisite_Value,   this.Entity_LastYear?.Perquisite));
             // その他
-            this.Others_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.Others_Value,       this.Entity_LastYear?.Others));
+            this.Others_MouseMove       = new RelayCommand(() => this.MainWindow.ComparePrice(this.Others_Value,       this.Entity_LastYear?.Others));
         }
 
         /// <summary> Model </summary>
@@ -66,9 +66,9 @@ namespace SalaryManager.WPF.ViewModels
         #region Mouse Leave
 
         /// <summary>
-        /// MouseLeave - Action
+        /// MouseLeave - MouseLeave
         /// </summary>
-        public RelayCommand MouseLeave_Action { get; private set; }
+        public RelayCommand Default_MouseLeave { get; private set; }
 
         #endregion
 
@@ -90,9 +90,9 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// 副業 - Action
+        /// 副業 - MouseMove
         /// </summary>
-        public RelayCommand SideBusiness_Action { get; private set; }
+        public RelayCommand SideBusiness_MouseMove { get; private set; }
 
         #endregion
 
@@ -114,9 +114,9 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// 臨時収入 - Action
+        /// 臨時収入 - MouseMove
         /// </summary>
-        public RelayCommand Perquisite_Action { get; private set; }
+        public RelayCommand Perquisite_MouseMove { get; private set; }
 
         #endregion
 
@@ -138,9 +138,9 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// その他 - Action
+        /// その他 - MouseMove
         /// </summary>
-        public RelayCommand Others_Action { get; private set; }
+        public RelayCommand Others_MouseMove { get; private set; }
 
         #endregion
 

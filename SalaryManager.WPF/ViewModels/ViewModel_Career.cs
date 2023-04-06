@@ -37,18 +37,16 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// Bind Event
+        /// イベント登録
         /// </summary>
         private void BindEvent()
         {
-            _isWorkingAction += this.Model.IsWorking_Checked;
-            this.Isworking_Checked = new RelayCommand(_isWorkingAction);
-
-            _companyNameAction += this.Model.EnableAddButton;
-            this.CompanyName_TextChanged = new RelayCommand(_companyNameAction);
-
-            _careersAction += this.Model.Careers_SelectionChanged;
-            this.Careers_SelectionChanged = new RelayCommand(_careersAction);
+            // 就業中
+            this.IsWorking_Checked        = new RelayCommand(this.Model.IsWorking_Checked);
+            // 会社名
+            this.CompanyName_TextChanged  = new RelayCommand(this.Model.EnableAddButton);
+            // 経歴一覧
+            this.Careers_SelectionChanged = new RelayCommand(this.Model.Careers_SelectionChanged);
         }
 
         public Model_Career Model { get; set; } = Model_Career.GetInstance(new CareerSQLite());
@@ -161,8 +159,6 @@ namespace SalaryManager.WPF.ViewModels
         /// </summary>
         public RelayCommand Careers_SelectionChanged { get; private set; }
 
-        private Action _careersAction;
-
         #endregion
 
         #region 雇用形態
@@ -228,8 +224,6 @@ namespace SalaryManager.WPF.ViewModels
         /// 会社名 - TextChanged
         /// </summary>
         public RelayCommand CompanyName_TextChanged { get; private set; }
-
-        private Action _companyNameAction;
 
         #endregion
 
@@ -304,11 +298,9 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// 扶養手当 - Checked
+        /// 就業中 - Checked
         /// </summary>
-        public RelayCommand Isworking_Checked { get; private set; }
-
-        private Action _isWorkingAction;
+        public RelayCommand IsWorking_Checked { get; private set; }
 
         #endregion
 

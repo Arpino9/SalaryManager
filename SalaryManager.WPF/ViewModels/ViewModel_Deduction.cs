@@ -44,30 +44,30 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// Bind Event
+        /// イベント登録
         /// </summary>
         private void BindEvent()
         {
-            // Mouse Leave
-            this.MouseLeave_Action            = new RelayCommand(() => this.MainWindow.ComparePrice(0, 0));
+            // 初期状態
+            this.Default_MouseLeave              = new RelayCommand(() => this.MainWindow.ComparePrice(0, 0));
             // 健康保険
-            this.HealthInsurance_Action       = new RelayCommand(() => this.MainWindow.ComparePrice(this.HealthInsurance_Value,       this.Entity_LastYear?.HealthInsurance.Value));
+            this.HealthInsurance_MouseMove       = new RelayCommand(() => this.MainWindow.ComparePrice(this.HealthInsurance_Value,       this.Entity_LastYear?.HealthInsurance.Value));
             // 介護保険
-            this.NursingInsurance_Action      = new RelayCommand(() => this.MainWindow.ComparePrice(this.NursingInsurance_Value,      this.Entity_LastYear?.NursingInsurance.Value));
+            this.NursingInsurance_MouseMove      = new RelayCommand(() => this.MainWindow.ComparePrice(this.NursingInsurance_Value,      this.Entity_LastYear?.NursingInsurance.Value));
             // 厚生年金
-            this.WelfareAnnuity_Action        = new RelayCommand(() => this.MainWindow.ComparePrice(this.WelfareAnnuity_Value,        this.Entity_LastYear?.WelfareAnnuity.Value));
+            this.WelfareAnnuity_MouseMove        = new RelayCommand(() => this.MainWindow.ComparePrice(this.WelfareAnnuity_Value,        this.Entity_LastYear?.WelfareAnnuity.Value));
             // 雇用保険
-            this.EmploymentInsurance_Action   = new RelayCommand(() => this.MainWindow.ComparePrice(this.EmploymentInsurance_Value,   this.Entity_LastYear?.EmploymentInsurance.Value));
+            this.EmploymentInsurance_MouseMove   = new RelayCommand(() => this.MainWindow.ComparePrice(this.EmploymentInsurance_Value,   this.Entity_LastYear?.EmploymentInsurance.Value));
             // 所得税
-            this.IncomeTax_Action             = new RelayCommand(() => this.MainWindow.ComparePrice(this.IncomeTax_Value,             this.Entity_LastYear?.IncomeTax.Value));
+            this.IncomeTax_MouseMove             = new RelayCommand(() => this.MainWindow.ComparePrice(this.IncomeTax_Value,             this.Entity_LastYear?.IncomeTax.Value));
             // 市町村税
-            this.MunicipalTax_Action          = new RelayCommand(() => this.MainWindow.ComparePrice(this.MunicipalTax_Value,          this.Entity_LastYear?.MunicipalTax.Value));
+            this.MunicipalTax_MouseMove          = new RelayCommand(() => this.MainWindow.ComparePrice(this.MunicipalTax_Value,          this.Entity_LastYear?.MunicipalTax.Value));
             // 互助会
-            this.FriendshipAssociation_Action = new RelayCommand(() => this.MainWindow.ComparePrice(this.FriendshipAssociation_Value, this.Entity_LastYear?.FriendshipAssociation.Value));
+            this.FriendshipAssociation_MouseMove = new RelayCommand(() => this.MainWindow.ComparePrice(this.FriendshipAssociation_Value, this.Entity_LastYear?.FriendshipAssociation.Value));
             // 年末調整他
-            this.YearEndTaxAdjustment_Action  = new RelayCommand(() => this.MainWindow.ComparePrice(this.YearEndTaxAdjustment_Value,  this.Entity_LastYear?.YearEndTaxAdjustment));
+            this.YearEndTaxAdjustment_MouseMove  = new RelayCommand(() => this.MainWindow.ComparePrice(this.YearEndTaxAdjustment_Value,  this.Entity_LastYear?.YearEndTaxAdjustment));
             // 控除額計
-            this.TotalDeduct_Action           = new RelayCommand(() => this.MainWindow.ComparePrice(this.TotalDeduct_Value,           this.Entity_LastYear?.TotalDeduct.Value));
+            this.TotalDeduct_MouseMove           = new RelayCommand(() => this.MainWindow.ComparePrice(this.TotalDeduct_Value,           this.Entity_LastYear?.TotalDeduct.Value));
         }
 
         /// <summary> Model - 控除額 </summary>
@@ -85,14 +85,10 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary> Entity - 控除額 (昨年度) </summary>
         public DeductionEntity Entity_LastYear { get; set; }
 
-        #region Mouse Leave
-
         /// <summary>
-        /// MouseLeave - Action
+        /// 初期状態 - MouseLeave
         /// </summary>
-        public RelayCommand MouseLeave_Action { get; private set; }
-
-        #endregion
+        public RelayCommand Default_MouseLeave { get; private set; }
 
         #region 健康保険
 
@@ -114,9 +110,9 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// 健康保険 - Action
+        /// 健康保険 - MouseMove
         /// </summary>
-        public RelayCommand HealthInsurance_Action { get; private set; }
+        public RelayCommand HealthInsurance_MouseMove { get; private set; }
 
         #endregion
 
@@ -140,9 +136,9 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// 介護保険 - Action
+        /// 介護保険 - MouseMove
         /// </summary>
-        public RelayCommand NursingInsurance_Action { get; private set; }
+        public RelayCommand NursingInsurance_MouseMove { get; private set; }
 
         #endregion
 
@@ -166,9 +162,9 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// 厚生年金 - Action
+        /// 厚生年金 - MouseMove
         /// </summary>
-        public RelayCommand WelfareAnnuity_Action { get; private set; }
+        public RelayCommand WelfareAnnuity_MouseMove { get; private set; }
 
         #endregion
 
@@ -192,9 +188,9 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// 雇用保険 - Action
+        /// 雇用保険 - MouseMove
         /// </summary>
-        public RelayCommand EmploymentInsurance_Action { get; private set; }
+        public RelayCommand EmploymentInsurance_MouseMove { get; private set; }
 
         #endregion
 
@@ -218,9 +214,9 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// 所得税 - Action
+        /// 所得税 - MouseMove
         /// </summary>
-        public RelayCommand IncomeTax_Action { get; private set; }
+        public RelayCommand IncomeTax_MouseMove { get; private set; }
 
         #endregion
 
@@ -244,9 +240,9 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// 市町村税 - Action
+        /// 市町村税 - MouseMove
         /// </summary>
-        public RelayCommand MunicipalTax_Action { get; private set; }
+        public RelayCommand MunicipalTax_MouseMove { get; private set; }
 
         #endregion
 
@@ -270,9 +266,9 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// 互助会 - Action
+        /// 互助会 - MouseMove
         /// </summary>
-        public RelayCommand FriendshipAssociation_Action { get; private set; }
+        public RelayCommand FriendshipAssociation_MouseMove { get; private set; }
 
         #endregion
 
@@ -296,9 +292,9 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// 年末調整他 - Action
+        /// 年末調整他 - MouseMove
         /// </summary>
-        public RelayCommand YearEndTaxAdjustment_Action { get; private set; }
+        public RelayCommand YearEndTaxAdjustment_MouseMove { get; private set; }
 
         #endregion
 
@@ -328,9 +324,9 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// 年末調整他 - Action
+        /// 年末調整他 - MouseMove
         /// </summary>
-        public RelayCommand TotalDeduct_Action { get; private set; }
+        public RelayCommand TotalDeduct_MouseMove { get; private set; }
 
         #endregion
 

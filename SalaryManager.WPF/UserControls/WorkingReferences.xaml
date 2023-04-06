@@ -71,11 +71,11 @@
 
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
-                    <behaviors:InvokeCommandAction Command="{Binding Insurance_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding Insurance_MouseMove}" />
                 </behaviors:EventTrigger>
 
                 <behaviors:EventTrigger EventName="MouseLeave">
-                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseMove}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
@@ -92,11 +92,11 @@
 
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
-                    <behaviors:InvokeCommandAction Command="{Binding Norm_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding Norm_MouseMove}" />
                 </behaviors:EventTrigger>
 
                 <behaviors:EventTrigger EventName="MouseLeave">
-                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseMove}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>

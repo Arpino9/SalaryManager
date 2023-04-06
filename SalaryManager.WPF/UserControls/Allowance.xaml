@@ -42,11 +42,11 @@
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
-                    <behaviors:InvokeCommandAction Command="{Binding BasicSalary_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding BasicSalary_MouseMove}" />
                 </behaviors:EventTrigger>
 
                 <behaviors:EventTrigger EventName="MouseLeave">
-                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
@@ -62,11 +62,11 @@
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
-                    <behaviors:InvokeCommandAction Command="{Binding ExecutiveAllowance_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding ExecutiveAllowance_MouseMove}" />
                 </behaviors:EventTrigger>
 
                 <behaviors:EventTrigger EventName="MouseLeave">
-                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
@@ -82,11 +82,11 @@
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
-                    <behaviors:InvokeCommandAction Command="{Binding DependencyAllowance_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding DependencyAllowance_MouseMove}" />
                 </behaviors:EventTrigger>
 
                 <behaviors:EventTrigger EventName="MouseLeave">
-                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
@@ -102,11 +102,11 @@
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
-                    <behaviors:InvokeCommandAction Command="{Binding OvertimeAllowance_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding OvertimeAllowance_MouseMove}" />
                 </behaviors:EventTrigger>
 
                 <behaviors:EventTrigger EventName="MouseLeave">
-                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
@@ -121,11 +121,11 @@
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
-                    <behaviors:InvokeCommandAction Command="{Binding DaysoffIncreased_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding DaysoffIncreased_MouseMove}" />
                 </behaviors:EventTrigger>
 
                 <behaviors:EventTrigger EventName="MouseLeave">
-                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
@@ -141,11 +141,11 @@
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
-                    <behaviors:InvokeCommandAction Command="{Binding TransportationExpenses_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding TransportationExpenses_MouseMove}" />
                 </behaviors:EventTrigger>
 
                 <behaviors:EventTrigger EventName="MouseLeave">
-                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
@@ -160,11 +160,11 @@
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
-                    <behaviors:InvokeCommandAction Command="{Binding NightworkIncreased_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding NightworkIncreased_MouseMove}" />
                 </behaviors:EventTrigger>
 
                 <behaviors:EventTrigger EventName="MouseLeave">
-                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
@@ -181,11 +181,11 @@
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
-                    <behaviors:InvokeCommandAction Command="{Binding HousingAllowance_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding HousingAllowance_MouseMove}" />
                 </behaviors:EventTrigger>
 
                 <behaviors:EventTrigger EventName="MouseLeave">
-                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
@@ -201,11 +201,11 @@
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
-                    <behaviors:InvokeCommandAction Command="{Binding LateAbsent_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding LateAbsent_MouseMove}" />
                 </behaviors:EventTrigger>
 
                 <behaviors:EventTrigger EventName="MouseLeave">
-                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
@@ -222,11 +222,11 @@
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
-                    <behaviors:InvokeCommandAction Command="{Binding SpecialAllowance_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding SpecialAllowance_MouseMove}" />
                 </behaviors:EventTrigger>
 
                 <behaviors:EventTrigger EventName="MouseLeave">
-                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
@@ -253,11 +253,11 @@
                  Behavior:TextBoxIntegerOnly.IsNumeric="True">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
-                    <behaviors:InvokeCommandAction Command="{Binding SpareAllowance_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding SpareAllowance_MouseMove}" />
                 </behaviors:EventTrigger>
 
                 <behaviors:EventTrigger EventName="MouseLeave">
-                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
@@ -289,11 +289,11 @@
                  Foreground="{Binding TotalSalary_Foreground}">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
-                    <behaviors:InvokeCommandAction Command="{Binding TotalSalary_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding TotalSalary_MouseMove}" />
                 </behaviors:EventTrigger>
 
                 <behaviors:EventTrigger EventName="MouseLeave">
-                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
@@ -314,11 +314,11 @@
                  Foreground="{Binding TotalDeductedSalary_Foreground}">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
-                    <behaviors:InvokeCommandAction Command="{Binding TotalDeductedSalary_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding TotalDeductedSalary_MouseMove}" />
                 </behaviors:EventTrigger>
 
                 <behaviors:EventTrigger EventName="MouseLeave">
-                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>

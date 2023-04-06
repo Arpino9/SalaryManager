@@ -177,7 +177,7 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
-        private Action _yearAction;
+        private event Action _yearAction;
 
         /// <summary>
         /// 年 - TextChanged
@@ -211,7 +211,7 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
-        private Action _monthAction;
+        private event Action _monthAction;
 
         /// <summary>
         /// 月 - TextChanged

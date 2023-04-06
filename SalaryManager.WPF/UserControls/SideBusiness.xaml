@@ -7,7 +7,7 @@
              xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels"
              mc:Ignorable="d" 
              xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
-             d:DesignHeight="150" d:DesignWidth="300"
+             d:DesignHeight="200" d:DesignWidth="300"
              Background="{x:Static SystemColors.ControlLightBrush}">
     <UserControl.DataContext>
         <ViewModels:ViewModel_SideBusiness/>
@@ -23,7 +23,7 @@
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="70" />
         </Grid.RowDefinitions>
 
         <Label Content="副業" 
@@ -34,11 +34,11 @@
 
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
-                    <behaviors:InvokeCommandAction Command="{Binding SideBusiness_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding SideBusiness_MouseMove}" />
                 </behaviors:EventTrigger>
 
                 <behaviors:EventTrigger EventName="MouseLeave">
-                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
@@ -53,11 +53,11 @@
 
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
-                    <behaviors:InvokeCommandAction Command="{Binding Perquisite_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding Perquisite_MouseMove}" />
                 </behaviors:EventTrigger>
 
                 <behaviors:EventTrigger EventName="MouseLeave">
-                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
@@ -71,11 +71,11 @@
 
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
-                    <behaviors:InvokeCommandAction Command="{Binding Others_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding Others_MouseMove}" />
                 </behaviors:EventTrigger>
 
                 <behaviors:EventTrigger EventName="MouseLeave">
-                    <behaviors:InvokeCommandAction Command="{Binding MouseLeave_Action}" />
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
