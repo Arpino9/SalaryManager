@@ -218,8 +218,7 @@
                  Grid.Row="3" 
                  IsEnabled="{Binding SpecialAllowance_IsEnabled}"
                  Style="{StaticResource PayslipItemNumeric_Style}"
-                 Text="{Binding SpecialAllowance_Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 Behavior:TextBoxIntegerOnly.IsNumeric="True">
+                 Text="{Binding SpecialAllowance_Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
                     <behaviors:InvokeCommandAction Command="{Binding SpecialAllowance_MouseMove}" />

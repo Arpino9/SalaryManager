@@ -30,7 +30,6 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <exception cref="Exception">読込失敗時</exception>
         public ViewModel_Allowance()
         {
             this.MainWindow.Allowance = this.Model;
@@ -41,6 +40,34 @@ namespace SalaryManager.WPF.ViewModels
             this.Model.Initialize(DateTime.Today);
 
             this.BindEvent();
+        }
+
+        /// <summary>
+        /// 単体テスト用
+        /// </summary>
+        /// <param name="entity">エンティティ</param>
+        public ViewModel_Allowance(AllowanceValueEntity entity)
+        {
+            if (entity is null)
+            {
+                return;
+            }
+
+            this.BasicSalary_Value            = entity.BasicSalary.Value;
+            this.ExecutiveAllowance_Value     = entity.ExecutiveAllowance.Value;
+            this.DependencyAllowance_Value    = entity.DependencyAllowance.Value;
+            this.OvertimeAllowance_Value      = entity.OvertimeAllowance.Value;
+            this.DaysoffIncreased_Value       = entity.DaysoffIncreased.Value;
+            this.TransportationExpenses_Value = entity.TransportationExpenses.Value;
+            this.NightworkIncreased_Value     = entity.NightworkIncreased.Value;
+            this.HousingAllowance_Value       = entity.HousingAllowance.Value;
+            this.LateAbsent_Value             = entity.LateAbsent;
+            this.SpecialAllowance_Value       = entity.SpecialAllowance;
+            this.ElectricityAllowance_Value   = entity.ElectricityAllowance.Value;
+            this.SpareAllowance_Value         = entity.SpareAllowance.Value;
+            this.Remarks_Text                 = entity.Remarks;
+            this.TotalSalary_Value            = entity.TotalSalary.Value;
+            this.TotalDeductedSalary_Value    = entity.TotalDeductedSalary.Value;
         }
 
         /// <summary>
@@ -71,7 +98,7 @@ namespace SalaryManager.WPF.ViewModels
             // 在宅手当
             this.ElectricityAllowance_MouseMove   = new RelayCommand(() => this.MainWindow.ComparePrice(this.ElectricityAllowance_Value,   this.Entity_LastYear?.ElectricityAllowance.Value));
             // 特別手当
-            this.SpecialAllowance_MouseMove       = new RelayCommand(() => this.MainWindow.ComparePrice(this.SpecialAllowance_Value,       this.Entity_LastYear?.SpecialAllowance.Value));
+            this.SpecialAllowance_MouseMove       = new RelayCommand(() => this.MainWindow.ComparePrice(this.SpecialAllowance_Value,       this.Entity_LastYear?.SpecialAllowance));
             // 予備
             this.SpareAllowance_MouseMove         = new RelayCommand(() => this.MainWindow.ComparePrice(this.SpareAllowance_Value,         this.Entity_LastYear?.SpareAllowance.Value));
             // 支給総計

@@ -116,7 +116,7 @@ namespace SalaryManager.WPF.Models
             // 在宅手当
             this.ViewModel.ElectricityAllowance_Value   = entity.ElectricityAllowance.Value;
             // 特別手当
-            this.ViewModel.SpecialAllowance_Value       = entity.SpecialAllowance.Value;
+            this.ViewModel.SpecialAllowance_Value       = entity.SpecialAllowance;
             // 予備
             this.ViewModel.SpareAllowance_Value         = entity.SpareAllowance.Value;
             // 備考

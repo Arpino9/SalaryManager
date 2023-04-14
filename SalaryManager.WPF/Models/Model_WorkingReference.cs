@@ -168,6 +168,11 @@ namespace SalaryManager.WPF.Models
         /// <returns>判定可否</returns>
         public bool EditValidationCheck()
         {
+            if (this.ViewModel.Entity is null)
+            {
+                return true;
+            }
+
             var paidVacation = this.ViewModel.Entity.PaidVacation;
 
             if (paidVacation.Value < PaidVacationDaysValue.Minimum ||

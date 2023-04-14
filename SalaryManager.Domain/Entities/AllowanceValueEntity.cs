@@ -1,5 +1,5 @@
-﻿using SalaryManager.Domain.ValueObjects;
-using System;
+﻿using System;
+using SalaryManager.Domain.ValueObjects;
 
 namespace SalaryManager.Domain.Entities
 {
@@ -58,7 +58,7 @@ namespace SalaryManager.Domain.Entities
             this.LateAbsent             = lateAbsent;
             this.TransportationExpenses = new MoneyValue(transportationExpenses);
             this.ElectricityAllowance   = new MoneyValue(electricityAllowance);
-            this.SpecialAllowance       = new MoneyValue(specialAllowance);
+            this.SpecialAllowance       = specialAllowance;
             this.SpareAllowance         = new MoneyValue(spareAllowance);
             this.Remarks                = remarks;
             this.TotalSalary            = new MoneyValue(totalSalary);
@@ -102,7 +102,7 @@ namespace SalaryManager.Domain.Entities
         public MoneyValue ElectricityAllowance { get; }
 
         /// <summary> 特別手当 </summary>
-        public MoneyValue SpecialAllowance { get; }
+        public double SpecialAllowance { get; }
 
         /// <summary> 予備 </summary>
         public MoneyValue SpareAllowance { get; }

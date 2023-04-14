@@ -294,7 +294,7 @@ where Id = @Id
                 new SQLiteParameter("LateAbsent", entity.LateAbsent),
                 new SQLiteParameter("TransportationExpenses", entity.TransportationExpenses.Value),
                 new SQLiteParameter("ElectricityAllowance", entity.ElectricityAllowance.Value),
-                new SQLiteParameter("SpecialAllowance", entity.SpecialAllowance.Value),
+                new SQLiteParameter("SpecialAllowance", entity.SpecialAllowance),
                 new SQLiteParameter("SpareAllowance", entity.SpareAllowance.Value),
                 new SQLiteParameter("Remarks", entity.Remarks),
             };

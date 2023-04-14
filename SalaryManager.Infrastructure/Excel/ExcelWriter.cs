@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using SalaryManager.Domain;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Domain.Repositories;
@@ -18,6 +19,11 @@ namespace SalaryManager.Infrastructure.Excel
     {
         public ExcelWriter()
         {
+            if (Shared.XMLName is null)
+            {
+                return;
+            }
+
             this.Workbook = new XLWorkbook(XMLLoader.FetchExcelTemplatePath());
         }
 

@@ -1,4 +1,6 @@
-﻿namespace SalaryManager.WPF
+﻿using SalaryManager.Domain;
+
+namespace SalaryManager.WPF
 {
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック
@@ -7,7 +9,9 @@
     {
         public MainWindow()
         {
+            var a = Shared.FontSize;
             InitializeComponent();
+
         }
     }
 }
