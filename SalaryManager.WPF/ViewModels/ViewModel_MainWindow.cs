@@ -43,7 +43,9 @@ namespace SalaryManager.WPF.ViewModels
             this._setDefault_Action += this.Header.SetDefault;
             this._setDefault_Action += this.Header.Save;
 
-            this.Model.ViewModel = this;
+            this.Model.ViewModel   = this;
+            this.Header.MainWindow = this;
+            this.WorkingReference.MainWindow = this;
 
             this.Model.Initialize();
         }
@@ -60,17 +62,8 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary> Model - 月収一覧 </summary>
         private Model_AnnualChart AnnualChart { get; set; } = Model_AnnualChart.GetInstance();
 
-        #region タイトル
-
-        /// <summary>
-        /// タイトル
-        /// </summary>
-        public string Title
-        {
-            get => "給与明細管理(仮)";
-        }
-
-        #endregion
+        /// <summary> Model - 勤怠備考 </summary>
+        private Model_WorkingReference WorkingReference { get; set; } = Model_WorkingReference.GetInstance(new WorkingReferenceSQLite());
 
         #region 画面遷移時
 

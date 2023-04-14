@@ -39,6 +39,9 @@ namespace SalaryManager.WPF.Models
             _repository = repository;
         }
 
+        /// <summary> ViewModel - メイン画面 </summary>
+        internal ViewModel_MainWindow MainWindow { get; set; }
+
         /// <summary> ViewModel - ヘッダー </summary>
         internal ViewModel_Header ViewModel { get; set; }
 
@@ -225,7 +228,7 @@ namespace SalaryManager.WPF.Models
         internal void SetDefault()
         {
             var confirmingMessage = $"{this.ViewModel.Year_Value}年{this.ViewModel.Month_Value}月の給与明細をデフォルト明細として設定しますか？";
-            if (!Message.ShowConfirmingMessage(confirmingMessage, this.ViewModel.Title))
+            if (!Message.ShowConfirmingMessage(confirmingMessage, this.MainWindow.Window_Title))
             {
                 // キャンセル
                 return;

@@ -205,7 +205,7 @@ namespace SalaryManager.WPF.Models
             
             if (Directory.Exists(folderPath) == false)
             {
-                Message.ShowErrorMessage("フォルダが存在しません。設定画面から画像ファイルの格納先を指定してください。", "aa");
+                Message.ShowErrorMessage("フォルダが存在しません。設定画面から画像ファイルの格納先を指定してください。", this.ViewModel.Window_Title);
                 return;
             }
 

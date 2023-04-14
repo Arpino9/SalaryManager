@@ -8,7 +8,7 @@
         xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" 
         x:Class="SalaryManager.WPF.MainWindow"
         mc:Ignorable="d"
-        Title="{Binding Title, Mode=OneWay}" Height="550" Width="700"
+        Title="{Binding Window_Title, Mode=OneWay}" Height="550" Width="700"
         Background="{Binding Window_Background}"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize" 

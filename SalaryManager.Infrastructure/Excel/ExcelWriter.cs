@@ -53,9 +53,9 @@ namespace SalaryManager.Infrastructure.Excel
                 return;
             }
 
-            var year = DateTime.Today.ToString("yyyy");
+            var year  = DateTime.Today.ToString("yyyy");
             var month = DateTime.Today.ToString("MM");
-            var day = DateTime.Today.ToString("dd");
+            var day   = DateTime.Today.ToString("dd");
 
             try
             {

@@ -1,6 +1,5 @@
 ﻿using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
-using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
@@ -45,6 +44,18 @@ namespace SalaryManager.WPF.ViewModels
 
         /// <summary> Model - 支給額 </summary>
         public Model_Option Model = Model_Option.GetInstance();
+
+        #region タイトル
+
+        /// <summary>
+        /// タイトル
+        /// </summary>
+        public string Window_Title
+        {
+            get => "オプション";
+        }
+
+        #endregion
 
         #region フォントファミリ
 

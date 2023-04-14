@@ -129,18 +129,6 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
-        #region タイトル
-
-        /// <summary>
-        /// 基本給
-        /// </summary>
-        public string Title
-        {
-            get => "給与明細管理(仮)";
-        }
-
-        #endregion
-
         #region ID
 
         /// <summary>

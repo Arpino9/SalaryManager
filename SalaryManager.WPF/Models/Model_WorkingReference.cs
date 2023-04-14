@@ -16,6 +16,7 @@ namespace SalaryManager.WPF.Models
     /// </summary>
     public class Model_WorkingReference : IInputPayslip
     {
+
         #region Get Instance
 
         private static Model_WorkingReference model = null;
@@ -39,6 +40,9 @@ namespace SalaryManager.WPF.Models
         {
             _repository = repository;
         }
+
+        /// <summary> ViewModel - メイン画面 </summary>
+        internal ViewModel_MainWindow MainWindow { get; set; }
 
         /// <summary> ViewModel - ヘッダ </summary>
         internal ViewModel_Header Header { get; set; }
@@ -170,6 +174,7 @@ namespace SalaryManager.WPF.Models
         {
             if (this.ViewModel.Entity is null)
             {
+                // 今月の明細の新規登録
                 return true;
             }
 
@@ -180,7 +185,8 @@ namespace SalaryManager.WPF.Models
             {
                 Message.ShowErrorMessage(
                     $"有給休暇は{PaidVacationDaysValue.Minimum}から{PaidVacationDaysValue.Maximum}までの日数で入力して下さい。",
-                    "入力エラー");
+                    this.MainWindow.Window_Title);
+
                 return false;
             }
 

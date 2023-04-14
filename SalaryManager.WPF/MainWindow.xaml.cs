@@ -9,9 +9,7 @@ namespace SalaryManager.WPF
     {
         public MainWindow()
         {
-            var a = Shared.FontSize;
             InitializeComponent();
-
         }
     }
 }

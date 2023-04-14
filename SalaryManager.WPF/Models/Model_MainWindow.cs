@@ -133,7 +133,7 @@ namespace SalaryManager.WPF.Models
         internal void ReadCSV()
         {
             var confirmingMessage = $"{this.Header.ViewModel.Year_Value}年{this.Header.ViewModel.Month_Value}月のCSVを読み込みますか？";
-            if (!Message.ShowConfirmingMessage(confirmingMessage, this.ViewModel.Title))
+            if (!Message.ShowConfirmingMessage(confirmingMessage, this.ViewModel.Window_Title))
             {
                 // キャンセル
                 return;
@@ -172,7 +172,7 @@ namespace SalaryManager.WPF.Models
             catch(FileNotFoundException _)
             {
                 var message = $"「{Shared.DirectoryCSV}」に{this.Header.ViewModel.Year_Value}年{this.Header.ViewModel.Month_Value}月分のCSVが\n保存されていません。読み込みを中断します。";
-                Message.ShowResultMessage(message, this.ViewModel.Title);
+                Message.ShowResultMessage(message, this.ViewModel.Window_Title);
             }
         }
 
@@ -227,7 +227,7 @@ namespace SalaryManager.WPF.Models
         internal void Save()
         {
             var message = $"{this.Header.ViewModel.Year_Value}年{this.Header.ViewModel.Month_Value}月の給与明細を保存しますか？";
-            if (!Message.ShowConfirmingMessage(message, this.ViewModel.Title))
+            if (!Message.ShowConfirmingMessage(message, this.ViewModel.Window_Title))
             {
                 // キャンセル
                 return;
@@ -289,7 +289,7 @@ namespace SalaryManager.WPF.Models
 
             if (Headers.FetchDefault() == null)
             {
-                Message.ShowResultMessage("デフォルト明細が登録されていません。", this.ViewModel.Title);
+                Message.ShowResultMessage("デフォルト明細が登録されていません。", this.ViewModel.Window_Title);
                 return;
             }
 
