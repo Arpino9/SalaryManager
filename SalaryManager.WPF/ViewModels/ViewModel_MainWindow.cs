@@ -76,6 +76,14 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
+        /// <summary>
+        /// フォントファミリ - FontFamily
+        /// </summary>
+        public string Window_Title
+        {
+            get => "明細管理システム(仮)";
+        }
+
         #region フォントファミリ
 
         private System.Windows.Media.FontFamily _FontFamily;

@@ -42,6 +42,8 @@ namespace SalaryManager.Domain.Entities
 
         /// <summary> ファイル名 </summary>
         public string FileName { get; }
+
+        /// <summary> 画像 </summary>
         public byte[] Image { get; }
 
         /// <summary> 備考 </summary>
