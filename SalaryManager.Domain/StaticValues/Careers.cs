@@ -53,7 +53,7 @@ namespace SalaryManager.Domain.StaticValues
 
             if (entity == null) 
             {
-                return new CompanyValue(string.Empty).DisplayValue;
+                return CompanyValue.Undefined.DisplayValue;
             }
 
             return entity.CompanyName.DisplayValue;

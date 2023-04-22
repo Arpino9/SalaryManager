@@ -3,10 +3,11 @@ using System.Windows.Media;
 using SalaryManager.Domain.Modules.Helpers;
 using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Domain;
-using DocumentFormat.OpenXml.Bibliography;
 
 namespace SalaryManager.Infrastructure.XML
 {
+    // Caution: Observerパターンなので、途中で設定変更になった場合に備えて、各メソッドで逐一最新の情報に更新する必要がある
+
     /// <summary>
     /// XMLローダー
     /// </summary>
@@ -71,10 +72,7 @@ namespace SalaryManager.Infrastructure.XML
         /// <returns>フォントファミリ</returns>
         public static System.Windows.Media.FontFamily FetchFontFamily()
         {
-            XMLLoader.Deserialize();
-            var fontFamily = _tag?.FontFamily ?? Shared.FontFamily;
-
-            return new System.Windows.Media.FontFamily(fontFamily);
+            return new System.Windows.Media.FontFamily(XMLLoader.FetchFontFamilyText());
         }
 
         /// <summary>

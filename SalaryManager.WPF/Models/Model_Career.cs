@@ -5,7 +5,6 @@ using SalaryManager.Domain.Entities;
 using SalaryManager.WPF.ViewModels;
 using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Domain.StaticValues;
-using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.Infrastructure.XML;
 using SalaryManager.Domain.Repositories;

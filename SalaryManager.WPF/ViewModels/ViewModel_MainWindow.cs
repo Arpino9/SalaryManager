@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
+using SalaryManager.Domain;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
@@ -81,7 +82,7 @@ namespace SalaryManager.WPF.ViewModels
         /// </summary>
         public string Window_Title
         {
-            get => "明細管理システム(仮)";
+            get => Shared.SystemName;
         }
 
         #region フォントファミリ

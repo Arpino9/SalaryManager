@@ -2,6 +2,9 @@
 
 namespace SalaryManager.Domain.Modules.Helpers
 {
+    /// <summary>
+    /// Utility - 色情報
+    /// </summary>
     public static  class ColorUtils
     {
         //TODO: メソッド名は要検討、
@@ -9,7 +12,7 @@ namespace SalaryManager.Domain.Modules.Helpers
         /// <summary>
         /// WPFの前景色、背景色に変換
         /// </summary>
-        /// <param name="color"></param>
+        /// <param name="color">色情報</param>
         /// <returns>色定義</returns>
         public static SolidColorBrush ToWPFColor(System.Drawing.Color color)
         {
