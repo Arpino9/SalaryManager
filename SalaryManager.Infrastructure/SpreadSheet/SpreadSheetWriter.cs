@@ -86,7 +86,7 @@ namespace SalaryManager.Infrastructure.SpreadSheet
         {
             SpreadSheetReader.ReadOutlineHeader(SpreadSheetDefinition.SheetName.Outline);
 
-            var columns = SpreadSheetReader.CellValues;
+            var columns = SpreadSheetReader.CellValues.Take(3).ToList();
 
             foreach (var payslip in this.Payslips)
             {
@@ -115,7 +115,7 @@ namespace SalaryManager.Infrastructure.SpreadSheet
         {
             SpreadSheetReader.ReadOutlineHeader(SpreadSheetDefinition.SheetName.Detail);
 
-            var columns = SpreadSheetReader.CellValues;
+            var columns = SpreadSheetReader.CellValues.Take(4).ToList();
 
             foreach (var payslip in this.Payslips)
             {

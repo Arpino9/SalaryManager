@@ -4,6 +4,7 @@ using Google.Apis.Sheets.v4;
 using SalaryManager.Infrastructure.XML;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace SalaryManager.Infrastructure.SpreadSheet
 {
