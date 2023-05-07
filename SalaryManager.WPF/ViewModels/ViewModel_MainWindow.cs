@@ -358,6 +358,27 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
+        #region スプレッドシート出力
+
+        private RelayCommand _outputSpreadSheet_Command;
+
+        /// <summary>
+        /// スプレッドシート出力 - Command
+        /// </summary>
+        public RelayCommand OutputSpreadSheet_Command
+        {
+            get
+            {
+                if (this._outputSpreadSheet_Command == null)
+                {
+                    this._outputSpreadSheet_Command = new RelayCommand(this.Model.OutputSpreadSheet);
+                }
+                return this._outputSpreadSheet_Command;
+            }
+        }
+
+        #endregion
+
         #region 金額の比較用
 
         private Brush _priceUpDown_Foreground;

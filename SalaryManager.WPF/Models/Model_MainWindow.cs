@@ -14,6 +14,7 @@ using SalaryManager.Domain.Exceptions;
 using SalaryManager.Infrastructure.XML;
 using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Infrastructure.Excel;
+using SalaryManager.Infrastructure.SpreadSheet;
 
 namespace SalaryManager.WPF.Models
 {
@@ -371,6 +372,38 @@ namespace SalaryManager.WPF.Models
             var directory = DialogUtils.SelectDirectory("Excel出力先のフォルダを選択してください。");
 
             this.ExcelWriter.CopyAsWorkbook(directory);
+        }
+
+        #endregion
+
+        #region スプレッドシート出力
+
+        /// <summary>
+        /// スプレッドシート出力
+        /// </summary>
+        internal void OutputSpreadSheet()
+        {
+            // Create Records
+            Headers.Create(new HeaderSQLite());
+            Allowances.Create(new AllowanceSQLite());
+            Deductions.Create(new DeductionSQLite());
+            WorkingReferences.Create(new WorkingReferenceSQLite());
+            SideBusinesses.Create(new SideBusinessSQLite());
+
+            try
+            {
+                var writer = new SpreadSheetWriter(Headers.FetchByDescending(), 
+                                                   Allowances.FetchByDescending(), 
+                                                   Deductions.FetchByDescending(), 
+                                                   WorkingReferences.FetchByDescending(),
+                                                   SideBusinesses.FetchByDescending());
+
+                writer.WritePayslips();
+            }
+            catch (Exception ex) 
+            {
+                throw new FileWriterException("スプレッドシートへの書き込みに失敗しました。", ex);
+            }
         }
 
         #endregion

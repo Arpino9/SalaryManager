@@ -90,6 +90,12 @@
                         <ToolTip Content="configファイルに指定された保存先にExcel出力します。"/>
                     </ToolTipService.ToolTip>
                 </MenuItem>
+
+                <MenuItem Header="スプレッドシート" Command="{Binding OutputSpreadSheet_Command}">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="configファイルに指定された保存先にスプレッドシート出力します。"/>
+                    </ToolTipService.ToolTip>
+                </MenuItem>
             </MenuItem>
 
             <MenuItem Header="保存">
