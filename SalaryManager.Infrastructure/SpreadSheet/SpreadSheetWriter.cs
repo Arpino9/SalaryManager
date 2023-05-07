@@ -102,7 +102,7 @@ namespace SalaryManager.Infrastructure.SpreadSheet
 
             var body = new ValueRange() { Values = columns };
 
-            var request = sheetsService.Spreadsheets.Values.Update(body, SpreadSheetDefinition.SheetId, SpreadSheetDefinition.OutlineRange);
+            var request = sheetsService.Spreadsheets.Values.Update(body, XMLLoader.FetchSheetId(), SpreadSheetDefinition.OutlineRange);
             request.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.USERENTERED;
             request.Execute();
         }
@@ -183,7 +183,7 @@ namespace SalaryManager.Infrastructure.SpreadSheet
 
             var body = new ValueRange() { Values = columns };
 
-            var request = sheetsService.Spreadsheets.Values.Update(body, SpreadSheetDefinition.SheetId, SpreadSheetDefinition.DetailRange);
+            var request = sheetsService.Spreadsheets.Values.Update(body, XMLLoader.FetchSheetId(), SpreadSheetDefinition.DetailRange);
             request.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.USERENTERED;
             request.Execute();
         }
