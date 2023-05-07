@@ -177,5 +177,25 @@ namespace SalaryManager.Infrastructure.XML
             XMLLoader.Deserialize();
             return _tag?.ImageFolderPath ?? FilePath.GetDesktopPath();
         }
+
+        /// <summary>
+        /// 認証ファイルのパスを取得する
+        /// </summary>
+        /// <returns>認証ファイルのパス</returns>
+        public static string FetchPrivateKeyPath()
+        {
+            XMLLoader.Deserialize();
+            return _tag?.PrivateKeyPath ?? string.Empty;
+        }
+
+        /// <summary>
+        /// シートIDを取得する
+        /// </summary>
+        /// <returns>シートID</returns>
+        public static string FetchSheetId()
+        {
+            XMLLoader.Deserialize();
+            return _tag?.SheetId ?? string.Empty;
+        }
     }
 }

@@ -4,6 +4,8 @@ using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Modules.Helpers;
+using SalaryManager.Domain.Modules.Logics;
+using SalaryManager.Infrastructure.XML;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -63,7 +65,7 @@ namespace SalaryManager.Infrastructure.SpreadSheet
         /// </remarks>
         private void Write()
         {
-            using (var fileStream = new FileStream(SpreadSheetDefinition.PrivateKey, FileMode.Open, FileAccess.Read))
+            using (var fileStream = new FileStream(XMLLoader.FetchPrivateKeyPath(), FileMode.Open, FileAccess.Read))
             {
                 var googleCredential = GoogleCredential.FromStream(fileStream)
                                                        .CreateScoped(SheetsService.Scope.Spreadsheets);

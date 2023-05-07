@@ -1,6 +1,7 @@
 ﻿using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
+using SalaryManager.Infrastructure.XML;
 using System.Collections.Generic;
 using System.IO;
 
@@ -20,7 +21,7 @@ namespace SalaryManager.Infrastructure.SpreadSheet
         /// <param name="sheetName">シート名</param>
         public static void ReadOutlineHeader(string sheetName)
         {
-            using(var fileStream = new FileStream(SpreadSheetDefinition.PrivateKey, FileMode.Open, FileAccess.Read))
+            using(var fileStream = new FileStream(XMLLoader.FetchPrivateKeyPath(), FileMode.Open, FileAccess.Read))
             {
                 var googleCredential = GoogleCredential.FromStream(fileStream)
                                                        .CreateScoped(SheetsService.Scope.Spreadsheets);
@@ -28,7 +29,7 @@ namespace SalaryManager.Infrastructure.SpreadSheet
                 var initializer = new BaseClientService.Initializer() { HttpClientInitializer = googleCredential };
                 var sheetsService = new SheetsService(initializer);
 
-                var request  = sheetsService.Spreadsheets.Values.Get(SpreadSheetDefinition.SheetId, GetRange(sheetName));
+                var request  = sheetsService.Spreadsheets.Values.Get(XMLLoader.FetchSheetId(), GetRange(sheetName));
                 var response = request.Execute();
 
                 SpreadSheetReader.CellValues = response.Values;

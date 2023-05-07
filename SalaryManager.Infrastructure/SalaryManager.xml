@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<XMLTag xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ExcelTemplatePath>C:\Users\OKAJIMA\source\repos\SalaryManager\SalaryManager.Domain\Template\Template_Payslip.xlsx</ExcelTemplatePath>
+  <SQLitePath>C:\Users\OKAJIMA\source\repos\SalaryManager\SalaryManager.Infrastructure\SalaryManager.db</SQLitePath>
+  <FontFamily>Yu Gothic UI</FontFamily>
+  <FontSize>13</FontSize>
+  <ShowDefaultPayslip>true</ShowDefaultPayslip>
+  <BackgroundColor_ColorCode>ffe3e3e3</BackgroundColor_ColorCode>
+  <BackgroundColor>255,227,227,227</BackgroundColor>
+  <HowToSaveImage>SavePath</HowToSaveImage>
+  <ImageFolderPath>D:\給与明細</ImageFolderPath>
+  <PrivateKeyPath>C:\Users\OKAJIMA\source\repos\SalaryManager\SalaryManager.Infrastructure\SpreadSheet\cogent-jetty-298301-aa9962858f21.json</PrivateKeyPath>
+  <SheetId>1nvm_16P7d5qjujxg5vqn2xy3N6ye5AE4v0wa4ZWaXPQ</SheetId>
+</XMLTag>

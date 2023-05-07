@@ -25,8 +25,8 @@ namespace SalaryManager.WPF.ViewModels
 
         public ViewModel_GeneralOption()
         {
-            this.Model.ViewModel = this;
-            this.Model.Initialize();
+            this.Model.GeneralOption = this;
+            this.Model.Initialize_General();
 
             this.BindEvents();
         }
@@ -42,7 +42,7 @@ namespace SalaryManager.WPF.ViewModels
             this.HowToSaveImage_Checked      = new RelayCommand(this.Model.HowToSaveImage_SelectionChanged);
         }
 
-        /// <summary> Model - 支給額 </summary>
+        /// <summary> Model - オプション </summary>
         public Model_Option Model = Model_Option.GetInstance();
 
         #region タイトル

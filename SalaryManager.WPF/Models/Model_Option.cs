@@ -45,41 +45,56 @@ namespace SalaryManager.WPF.Models
         /// <remarks>
         /// 値があればXMLから、なければconfigから取得する。
         /// </remarks>
-        internal void Initialize()
+        internal void Initialize_General()
         {
             // Excelテンプレート
-            this.ViewModel.SelectExcelTempletePath_Text = XMLLoader.FetchExcelTemplatePath();
+            this.GeneralOption.SelectExcelTempletePath_Text = XMLLoader.FetchExcelTemplatePath();
             // SQLite
-            this.ViewModel.SelectSQLite_Text            = XMLLoader.FetchSQLitePath();
+            this.GeneralOption.SelectSQLite_Text            = XMLLoader.FetchSQLitePath();
 
             // フォントファミリ
             var fonts =  new InstalledFontCollection();
-            this.ViewModel.FontFamily_ItemSource = ListUtils.ToObservableCollection<string>(fonts.Families.Select(x => x.Name).ToList());
-            this.ViewModel.FontFamily_Text       = XMLLoader.FetchFontFamilyText();
+            this.GeneralOption.FontFamily_ItemSource = ListUtils.ToObservableCollection<string>(fonts.Families.Select(x => x.Name).ToList());
+            this.GeneralOption.FontFamily_Text       = XMLLoader.FetchFontFamilyText();
 
             // 初期表示時にデフォルト明細を表示する
-            this.ViewModel.ShowDefaultPayslip_IsChecked = XMLLoader.FetchShowDefaultPayslip();
+            this.GeneralOption.ShowDefaultPayslip_IsChecked = XMLLoader.FetchShowDefaultPayslip();
 
             // フォント
-            this.ViewModel.Preview_FontFamily     = XMLLoader.FetchFontFamily();
-            this.ViewModel.FontSize_Value         = XMLLoader.FetchFontSize();
+            this.GeneralOption.Preview_FontFamily     = XMLLoader.FetchFontFamily();
+            this.GeneralOption.FontSize_Value         = XMLLoader.FetchFontSize();
 
-            var obj = EnumUtils.ToEnum(this.ViewModel.HowToSaveImage_IsChecked.GetType(), XMLLoader.FetchHowToSaveImage());
+            var obj = EnumUtils.ToEnum(this.GeneralOption.HowToSaveImage_IsChecked.GetType(), XMLLoader.FetchHowToSaveImage());
             if (obj != null)
             {
-                this.ViewModel.HowToSaveImage_IsChecked = (HowToSaveImage)obj;
+                this.GeneralOption.HowToSaveImage_IsChecked = (HowToSaveImage)obj;
             }
 
-            this.ViewModel.ImageFolderPath_Text   = XMLLoader.FetchImageFolder();
-            this.ViewModel.SelectFolder_IsEnabled = this.ViewModel.HowToSaveImage_IsChecked == HowToSaveImage.SavePath;
+            this.GeneralOption.ImageFolderPath_Text   = XMLLoader.FetchImageFolder();
+            this.GeneralOption.SelectFolder_IsEnabled = this.GeneralOption.HowToSaveImage_IsChecked == HowToSaveImage.SavePath;
 
             // 背景色
-            this.ViewModel.Window_BackgroundColor = XMLLoader.FetchBackgroundColor();
-            this.ViewModel.Window_Background      = XMLLoader.FetchBackgroundColorBrush();
+            this.GeneralOption.Window_BackgroundColor = XMLLoader.FetchBackgroundColor();
+            this.GeneralOption.Window_Background      = XMLLoader.FetchBackgroundColorBrush();
+        }
+
+        /// <summary>
+        /// 初期化
+        /// </summary>
+        /// <remarks>
+        /// 値があればXMLから、なければconfigから取得する。
+        /// </remarks>
+        internal void Initialize_SpreadSheet()
+        {
+            this.SpreadSheetOption.SelectPrivateKey_Text = XMLLoader.FetchPrivateKeyPath();
+            this.SpreadSheetOption.SheetId_Text = XMLLoader.FetchSheetId();
         }
 
         /// <summary> ViewModel - 全般設定 </summary>
-        internal ViewModel_GeneralOption ViewModel { get; set; }
+        internal ViewModel_GeneralOption GeneralOption { get; set; }
+
+        /// <summary> ViewModel - スプレッドシート設定 </summary>
+        internal ViewModel_SpreadSheetOption SpreadSheetOption { get; set; }
 
         #region SQLite
 
@@ -103,7 +118,7 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
-            this.ViewModel.SelectSQLite_Text = dialog.FileName;
+            this.GeneralOption.SelectSQLite_Text = dialog.FileName;
         }
 
         /// <summary>
@@ -111,7 +126,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void SetDefault_SelectSQLitePath()
         {
-            this.ViewModel.SelectSQLite_Text = FilePath.GetSQLiteDefaultPath();
+            this.GeneralOption.SelectSQLite_Text = FilePath.GetSQLiteDefaultPath();
         }
 
         #endregion
@@ -134,7 +149,7 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
-            this.ViewModel.SelectExcelTempletePath_Text = dialog.FileName;
+            this.GeneralOption.SelectExcelTempletePath_Text = dialog.FileName;
         }
 
         /// <summary>
@@ -142,7 +157,30 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void SetDefault_SelectExcelTemplatePath()
         {
-            this.ViewModel.SelectExcelTempletePath_Text = FilePath.GetExcelTempleteDefaultPath();
+            this.GeneralOption.SelectExcelTempletePath_Text = FilePath.GetExcelTempleteDefaultPath();
+        }
+
+        #endregion
+
+        #region 認証ファイル
+
+        /// <summary>
+        /// 認証ファイル - 開く
+        /// </summary>
+        internal void SelectPrivateKeyPath()
+        {
+            var dialog = new OpenFileDialog();
+            dialog.Filter = "JSONファイル(*.json)|*.json";
+            dialog.Title = "認証ファイルを指定してください";
+
+            var result = dialog.ShowDialog();
+
+            if (result == DialogResult.Cancel)
+            {
+                return;
+            }
+
+            this.SpreadSheetOption.SelectPrivateKey_Text = dialog.FileName;
         }
 
         #endregion
@@ -154,7 +192,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void FontFamily_SelectionChanged()
         {
-            this.ViewModel.Preview_FontFamily = new System.Windows.Media.FontFamily(this.ViewModel.FontFamily_Text);
+            this.GeneralOption.Preview_FontFamily = new System.Windows.Media.FontFamily(this.GeneralOption.FontFamily_Text);
         }
 
         /// <summary>
@@ -162,8 +200,8 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void SetDefault_FontFamily()
         {
-            this.ViewModel.FontFamily_Text    = Shared.FontFamily;
-            this.ViewModel.Preview_FontFamily = new System.Windows.Media.FontFamily(Shared.FontFamily);
+            this.GeneralOption.FontFamily_Text    = Shared.FontFamily;
+            this.GeneralOption.Preview_FontFamily = new System.Windows.Media.FontFamily(Shared.FontFamily);
         }
 
         #endregion
@@ -173,7 +211,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void HowToSaveImage_SelectionChanged()
         {
-            this.ViewModel.SelectFolder_IsEnabled = this.ViewModel.HowToSaveImage_IsChecked == HowToSaveImage.SavePath;
+            this.GeneralOption.SelectFolder_IsEnabled = this.GeneralOption.HowToSaveImage_IsChecked == HowToSaveImage.SavePath;
         }
 
         #region フォントサイズ
@@ -183,7 +221,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void SetDefault_FontSize_Value()
         {
-            this.ViewModel.FontSize_Value = decimal.Parse(Shared.FontSize);
+            this.GeneralOption.FontSize_Value = decimal.Parse(Shared.FontSize);
         }
 
         #endregion
@@ -200,8 +238,8 @@ namespace SalaryManager.WPF.Models
 
             if (result == DialogResult.OK) 
             {
-                this.ViewModel.Window_Background      = ColorUtils.ToWPFColor(dialog.Color);
-                this.ViewModel.Window_BackgroundColor = dialog.Color;
+                this.GeneralOption.Window_Background      = ColorUtils.ToWPFColor(dialog.Color);
+                this.GeneralOption.Window_BackgroundColor = dialog.Color;
             }
         }
 
@@ -212,8 +250,8 @@ namespace SalaryManager.WPF.Models
         {
             var defaultColor = SystemColors.ControlLight;
 
-            this.ViewModel.Window_BackgroundColor = defaultColor;
-            this.ViewModel.Window_Background      = ColorUtils.ToWPFColor(defaultColor);
+            this.GeneralOption.Window_BackgroundColor = defaultColor;
+            this.GeneralOption.Window_Background      = ColorUtils.ToWPFColor(defaultColor);
         }
 
         #endregion
@@ -235,25 +273,28 @@ namespace SalaryManager.WPF.Models
 
             using (var writer = new XMLWriter(FilePath.GetXMLDefaultPath(), tag.GetType()))
             {
-                tag.SQLitePath                = this.ViewModel.SelectSQLite_Text;
-                tag.ExcelTemplatePath         = this.ViewModel.SelectExcelTempletePath_Text;
-                tag.FontFamily                = this.ViewModel.FontFamily_Text;
-                tag.FontSize                  = this.ViewModel.FontSize_Value;
-                tag.ShowDefaultPayslip        = this.ViewModel.ShowDefaultPayslip_IsChecked;
-                tag.BackgroundColor_ColorCode = this.ViewModel.Window_BackgroundColor.Name;
-                tag.ImageFolderPath           = this.ViewModel.ImageFolderPath_Text;
+                tag.SQLitePath                = this.GeneralOption.SelectSQLite_Text;
+                tag.ExcelTemplatePath         = this.GeneralOption.SelectExcelTempletePath_Text;
+                tag.FontFamily                = this.GeneralOption.FontFamily_Text;
+                tag.FontSize                  = this.GeneralOption.FontSize_Value;
+                tag.ShowDefaultPayslip        = this.GeneralOption.ShowDefaultPayslip_IsChecked;
+                tag.BackgroundColor_ColorCode = this.GeneralOption.Window_BackgroundColor.Name;
+                tag.ImageFolderPath           = this.GeneralOption.ImageFolderPath_Text;
 
                 var list = new List<string>()
                 {
-                    this.ViewModel.Window_BackgroundColor.A.ToString(),
-                    this.ViewModel.Window_BackgroundColor.R.ToString(),
-                    this.ViewModel.Window_BackgroundColor.G.ToString(),
-                    this.ViewModel.Window_BackgroundColor.B.ToString()
+                    this.GeneralOption.Window_BackgroundColor.A.ToString(),
+                    this.GeneralOption.Window_BackgroundColor.R.ToString(),
+                    this.GeneralOption.Window_BackgroundColor.G.ToString(),
+                    this.GeneralOption.Window_BackgroundColor.B.ToString()
                 };
 
-                tag.HowToSaveImage = this.ViewModel.HowToSaveImage_IsChecked.ToString();
+                tag.HowToSaveImage = this.GeneralOption.HowToSaveImage_IsChecked.ToString();
 
                 tag.BackgroundColor = StringUtils.Aggregate(list);
+
+                tag.PrivateKeyPath = this.SpreadSheetOption.SelectPrivateKey_Text;
+                tag.SheetId        = this.SpreadSheetOption.SheetId_Text;
 
                 writer.Serialize(tag);
             }
@@ -271,7 +312,7 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
-            this.ViewModel.ImageFolderPath_Text = directory;
+            this.GeneralOption.ImageFolderPath_Text = directory;
         }
 
         #endregion

@@ -383,6 +383,18 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void OutputSpreadSheet()
         {
+            if (string.IsNullOrEmpty(XMLLoader.FetchPrivateKeyPath()))
+            {
+                Message.ShowErrorMessage("認証ファイルのパスを指定してください。", "エラー");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(XMLLoader.FetchSheetId()))
+            {
+                Message.ShowErrorMessage("スプレッドシートのシートIDを指定してください。", "エラー");
+                return;
+            }
+
             // Create Records
             Headers.Create(new HeaderSQLite());
             Allowances.Create(new AllowanceSQLite());

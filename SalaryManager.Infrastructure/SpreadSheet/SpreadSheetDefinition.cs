@@ -19,13 +19,6 @@ namespace SalaryManager.Infrastructure.SpreadSheet
             public static string Detail = "給与明細";
         }
 
-        /// <summary> 秘密鍵 </summary>
-        /// <remarks> 対象のブックと紐付ける </remarks>
-        internal static readonly string PrivateKey = @"C:\Users\OKAJIMA\source\repos\SalaryManager\SalaryManager.Infrastructure\SpreadSheet\cogent-jetty-298301-aa9962858f21.json";
-
-        /// <summary> ID </summary>
-        internal static readonly string SheetId = "1nvm_16P7d5qjujxg5vqn2xy3N6ye5AE4v0wa4ZWaXPQ";
-
         /// <summary> 範囲 (収支推移) </summary>
         internal static readonly string OutlineRange = $"{SpreadSheetDefinition.SheetName.Outline}!B:G";
 

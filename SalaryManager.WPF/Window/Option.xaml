@@ -14,6 +14,10 @@
             <TabItem Header="全般">
                 <UserControls:Option_General />
             </TabItem>
+
+            <TabItem Header="スプレッドシート">
+                <UserControls:Option_SpreadSheet />
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>

@@ -142,9 +142,13 @@
     <Compile Include="UserControls\Option_General.xaml.cs">
       <DependentUpon>Option_General.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Option_SpreadSheet.xaml.cs">
+      <DependentUpon>Option_SpreadSheet.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\ViewModel_FileStorage.cs" />
     <Compile Include="ViewModels\ViewModel_GeneralOption.cs" />
     <Compile Include="ViewModels\ViewModel_ImageViewer.cs" />
+    <Compile Include="ViewModels\ViewModel_SpreadSheetOption.cs" />
     <Compile Include="Window\Career.xaml.cs">
       <DependentUpon>Career.xaml</DependentUpon>
     </Compile>
@@ -193,6 +197,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Option_General.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Option_SpreadSheet.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

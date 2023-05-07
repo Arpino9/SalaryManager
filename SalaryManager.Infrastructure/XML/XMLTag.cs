@@ -33,5 +33,10 @@
         public string HowToSaveImage;
         /// <summary> 画像の格納パス </summary>
         public string ImageFolderPath;
+
+        /// <summary> 認証ファイル </summary>
+        public string PrivateKeyPath;
+        /// <summary> シートID </summary>
+        public string SheetId;
     }
 }
