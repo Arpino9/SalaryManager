@@ -9,7 +9,7 @@
              x:Class="SalaryManager.WPF.UserControls.Allowance"
              mc:Ignorable="d" 
              xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
-             d:DesignHeight="340" d:DesignWidth="300"
+             d:DesignHeight="350" d:DesignWidth="300"
              Background="{x:Static SystemColors.ControlLightBrush}">
     <UserControl.DataContext>
         <ViewModels:ViewModel_Allowance/>
@@ -23,6 +23,7 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
+            <RowDefinition />
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
@@ -150,6 +151,26 @@
             </behaviors:Interaction.Triggers>
         </TextBox>
 
+        <Label Content="前払退職金" 
+               Grid.Row="6" 
+               Style="{StaticResource PayslipItemLabel_Style}" />
+        <TextBox Grid.Column="1" 
+                 Grid.Row="6" 
+                 IsEnabled="{Binding PrepaidRetirementPayment_IsEnabled}"
+                 Style="{StaticResource PayslipItemNumeric_Style}"
+                 Text="{Binding PrepaidRetirementPayment_Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Behavior:TextBoxIntegerOnly.IsNumeric="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding PrepaidRetirementPayment_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
+
         <Label Content="深夜割増" 
                Grid.Column="2" 
                Style="{StaticResource PayslipItemLabel_Style}" />
@@ -262,11 +283,11 @@
         </TextBox>
 
         <Label Content="備考" 
-               Grid.Row="6"
+               Grid.Row="7"
                Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="1"
                  Grid.ColumnSpan="3"
-                 Grid.Row="6" 
+                 Grid.Row="7" 
                  AcceptsReturn="True"
                  Style="{StaticResource PayslipItemCharacter_Style}"
                  Text="{Binding Remarks_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
@@ -274,12 +295,12 @@
 
         <Label Content="支給額計" 
                Grid.Column="1"
-               Grid.Row="7" 
+               Grid.Row="8" 
                HorizontalAlignment="Center"
                Margin="0,10,0,0"
                Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="2" 
-                 Grid.Row="7"  
+                 Grid.Row="8"  
                  Margin="0,10,0,0"
                  Style="{StaticResource PayslipItemNumeric_Style}"
                  Text="{Binding TotalSalary_Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -299,12 +320,12 @@
 
         <Label Content="差引支給額" 
                Grid.Column="1"
-               Grid.Row="8" 
+               Grid.Row="9" 
                HorizontalAlignment="Center"
                Margin="0,10,0,0"
                Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="2" 
-                 Grid.Row="8"  
+                 Grid.Row="9"  
                  Margin="0,10,0,0"
                  Style="{StaticResource PayslipItemNumeric_Style}"
                  Text="{Binding TotalDeductedSalary_Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

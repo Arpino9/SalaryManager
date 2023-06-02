@@ -32,6 +32,7 @@ Food,
 LateNight, 
 Area, 
 Commution, 
+PrepaidRetirement, 
 Dependency, 
 Executive, 
 Special, 
@@ -54,6 +55,7 @@ FROM Career";
                         Convert.ToBoolean(reader["LateNight"]),
                         Convert.ToBoolean(reader["Area"]),
                         Convert.ToBoolean(reader["Commution"]),
+                        Convert.ToBoolean(reader["PrepaidRetirement"]),
                         Convert.ToBoolean(reader["Dependency"]),
                         Convert.ToBoolean(reader["Executive"]),
                         Convert.ToBoolean(reader["Special"]));
@@ -73,8 +75,7 @@ FROM Career";
         /// <summary>
         /// Get - 支給額
         /// </summary>
-        /// <param name="year">年</param>
-        /// <param name="month">月</param>
+        /// <param name="id">ID</param>
         /// <returns>支給額</returns>
         public CareerEntity GetEntity(int id)
         {
@@ -96,6 +97,7 @@ Food,
 LateNight, 
 Area, 
 Commution, 
+PrepaidRetirement, 
 Dependency, 
 Executive, 
 Special, 
@@ -125,6 +127,7 @@ Where ID = @ID";
                         Convert.ToBoolean(reader["LateNight"]),
                         Convert.ToBoolean(reader["Area"]),
                         Convert.ToBoolean(reader["Commution"]),
+                        Convert.ToBoolean(reader["PrepaidRetirement"]),
                         Convert.ToBoolean(reader["Dependency"]),
                         Convert.ToBoolean(reader["Executive"]),
                         Convert.ToBoolean(reader["Special"]));
@@ -164,6 +167,7 @@ Food,
 LateNight, 
 Area, 
 Commution, 
+PrepaidRetirement, 
 Dependency, 
 Executive, 
 Special, 
@@ -186,6 +190,7 @@ values
 @LateNight, 
 @Area, 
 @Commution, 
+@PrepaidRetirement, 
 @Dependency, 
 @Executive, 
 @Special, 
@@ -211,6 +216,7 @@ set ID                = @ID,
     LateNight         = @LateNight,  
     Area              = @Area,  
     Commution         = @Commution,  
+    PrepaidRetirement = @PrepaidRetirement,  
     Dependency        = @Dependency,  
     Executive         = @Executive,  
     Special           = @Special,  
@@ -240,6 +246,7 @@ where ID = @ID
                 new SQLiteParameter("LateNight",         entity.AllowanceExistence.LateNight.Value),
                 new SQLiteParameter("Area",              entity.AllowanceExistence.Area.Value),
                 new SQLiteParameter("Commution",         entity.AllowanceExistence.Commution.Value),
+                new SQLiteParameter("PrepaidRetirement", entity.AllowanceExistence.PrepaidRetirement.Value),
                 new SQLiteParameter("Dependency",        entity.AllowanceExistence.Dependency.Value),
                 new SQLiteParameter("Executive",         entity.AllowanceExistence.Executive.Value),
                 new SQLiteParameter("Special",           entity.AllowanceExistence.Special.Value),

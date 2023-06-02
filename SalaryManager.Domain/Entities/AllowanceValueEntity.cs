@@ -27,6 +27,7 @@ namespace SalaryManager.Domain.Entities
         /// <param name="remarks">備考</param>
         /// <param name="totalSalary">支給総計</param>
         /// <param name="totalDeductedSalary">差引支給額</param>
+        /// <param name="prepaidRetirementPayment">前払退職金</param>
         public AllowanceValueEntity(
             int id,
             DateTime yearMonth, 
@@ -39,6 +40,7 @@ namespace SalaryManager.Domain.Entities
             double housingAllowance,
             double lateAbsent,
             double transportationExpenses,
+            double prepaidRetirementPayment,
             double electricityAllowance,
             double specialAllowance,
             double spareAllowance,
@@ -46,23 +48,24 @@ namespace SalaryManager.Domain.Entities
             double totalSalary,
             double totalDeductedSalary)
         {
-            this.ID                     = id;
-            this.YearMonth              = yearMonth;
-            this.BasicSalary            = new MoneyValue(basicSalary);
-            this.ExecutiveAllowance     = new MoneyValue(executiveAllowance);
-            this.DependencyAllowance    = new MoneyValue(dependencyAllowance);
-            this.OvertimeAllowance      = new MoneyValue(overtimeAllowance);
-            this.DaysoffIncreased       = new MoneyValue(daysoffIncreased);
-            this.NightworkIncreased     = new MoneyValue(nightworkIncreased);
-            this.HousingAllowance       = new MoneyValue(housingAllowance);
-            this.LateAbsent             = lateAbsent;
-            this.TransportationExpenses = new MoneyValue(transportationExpenses);
-            this.ElectricityAllowance   = new MoneyValue(electricityAllowance);
-            this.SpecialAllowance       = specialAllowance;
-            this.SpareAllowance         = new MoneyValue(spareAllowance);
-            this.Remarks                = remarks;
-            this.TotalSalary            = new MoneyValue(totalSalary);
-            this.TotalDeductedSalary    = new MoneyValue(totalDeductedSalary);                           
+            this.ID                       = id;
+            this.YearMonth                = yearMonth;
+            this.BasicSalary              = new MoneyValue(basicSalary);
+            this.ExecutiveAllowance       = new MoneyValue(executiveAllowance);
+            this.DependencyAllowance      = new MoneyValue(dependencyAllowance);
+            this.OvertimeAllowance        = new MoneyValue(overtimeAllowance);
+            this.DaysoffIncreased         = new MoneyValue(daysoffIncreased);
+            this.NightworkIncreased       = new MoneyValue(nightworkIncreased);
+            this.HousingAllowance         = new MoneyValue(housingAllowance);
+            this.LateAbsent               = lateAbsent;
+            this.TransportationExpenses   = new MoneyValue(transportationExpenses);
+            this.PrepaidRetirementPayment = new MoneyValue(prepaidRetirementPayment);                           
+            this.ElectricityAllowance     = new MoneyValue(electricityAllowance);
+            this.SpecialAllowance         = specialAllowance;
+            this.SpareAllowance           = new MoneyValue(spareAllowance);
+            this.Remarks                  = remarks;
+            this.TotalSalary              = new MoneyValue(totalSalary);
+            this.TotalDeductedSalary      = new MoneyValue(totalDeductedSalary);                           
         }
 
         /// <summary> ID </summary>
@@ -100,6 +103,9 @@ namespace SalaryManager.Domain.Entities
 
         /// <summary> 交通費 </summary>
         public MoneyValue ElectricityAllowance { get; }
+
+        /// <summary> 前払退職金 </summary>
+        public MoneyValue PrepaidRetirementPayment { get; }
 
         /// <summary> 特別手当 </summary>
         public double SpecialAllowance { get; }

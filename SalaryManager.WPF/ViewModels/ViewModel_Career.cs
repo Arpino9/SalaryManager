@@ -532,6 +532,25 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
+        #region 前払退職金
+
+        private bool _prepaidRetirementPayment_IsChecked;
+
+        /// <summary>
+        /// 前払退職金 - IsChecked
+        /// </summary>
+        public bool PrepaidRetirementPayment_IsChecked
+        {
+            get => this._prepaidRetirementPayment_IsChecked;
+            set
+            {
+                this._prepaidRetirementPayment_IsChecked = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
         #region 扶養手当
 
         private bool _dependencyAllowance_IsChecked;

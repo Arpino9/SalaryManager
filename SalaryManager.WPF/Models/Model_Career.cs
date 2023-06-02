@@ -174,6 +174,8 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.AreaAllowance_IsChecked              = allowance.Area.Value;
             // 通勤手当
             this.ViewModel.CommutingAllowance_IsChecked         = allowance.Commution.Value;
+            // 前払退職金
+            this.ViewModel.PrepaidRetirementPayment_IsChecked   = allowance.PrepaidRetirement.Value;
             // 扶養手当
             this.ViewModel.DependencyAllowance_IsChecked        = allowance.Dependency.Value;
             // 役職手当
@@ -282,8 +284,10 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.AreaAllowance_IsChecked              = default(bool);
             // 通勤手当
             this.ViewModel.CommutingAllowance_IsChecked         = default(bool);
+            // 前払退職金
+            this.ViewModel.PrepaidRetirementPayment_IsChecked   = default(bool);
             // 扶養手当
-            this.ViewModel.DependencyAllowance_IsChecked         = default(bool);
+            this.ViewModel.DependencyAllowance_IsChecked        = default(bool);
             // 役職手当
             this.ViewModel.ExecutiveAllowance_IsChecked         = default(bool);
             // 特別手当
@@ -355,6 +359,7 @@ namespace SalaryManager.WPF.Models
                     this.ViewModel.LateNightAllowance_IsChecked,
                     this.ViewModel.AreaAllowance_IsChecked,
                     this.ViewModel.CommutingAllowance_IsChecked,
+                    this.ViewModel.PrepaidRetirementPayment_IsChecked,
                     this.ViewModel.DependencyAllowance_IsChecked,
                     this.ViewModel.ExecutiveAllowance_IsChecked,
                     this.ViewModel.SpecialAllowance_IsChecked);

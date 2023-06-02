@@ -6,6 +6,7 @@ using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Modules.Helpers;
 using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Infrastructure.XML;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

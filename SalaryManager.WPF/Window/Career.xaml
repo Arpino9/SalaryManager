@@ -207,6 +207,7 @@
                     <CheckBox Content="食事手当" IsChecked="{Binding FoodAllowance_IsChecked}" />
                     <CheckBox Content="深夜手当" IsChecked="{Binding LateNightAllowance_IsChecked}" />
                     <CheckBox Content="通勤手当" IsChecked="{Binding CommutingAllowance_IsChecked}" />
+                    <CheckBox Content="前払退職金" IsChecked="{Binding PrepaidRetirementPayment_IsChecked}" />
                     <CheckBox Content="特別手当" IsChecked="{Binding SpecialAllowance_IsChecked}"/>
                     <CheckBox Content="扶養手当・家族手当" IsChecked="{Binding DependencyAllowance_IsChecked}" />
                     <CheckBox Content="役職手当" IsChecked="{Binding ExecutiveAllowance_IsChecked}"/>

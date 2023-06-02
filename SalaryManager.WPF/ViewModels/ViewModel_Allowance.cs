@@ -76,35 +76,37 @@ namespace SalaryManager.WPF.ViewModels
         private void BindEvent()
         {
             // 項目共通
-            this.Default_MouseLeave               = new RelayCommand(() => this.MainWindow.ComparePrice(0, 0));
+            this.Default_MouseLeave                 = new RelayCommand(() => this.MainWindow.ComparePrice(0, 0));
             // 基本給
-            this.BasicSalary_MouseMove            = new RelayCommand(() => this.MainWindow.ComparePrice(this.BasicSalary_Value,            this.Entity_LastYear?.BasicSalary.Value));
+            this.BasicSalary_MouseMove              = new RelayCommand(() => this.MainWindow.ComparePrice(this.BasicSalary_Value,              this.Entity_LastYear?.BasicSalary.Value));
             // 役職手当
-            this.ExecutiveAllowance_MouseMove     = new RelayCommand(() => this.MainWindow.ComparePrice(this.ExecutiveAllowance_Value,     this.Entity_LastYear?.ExecutiveAllowance.Value));
+            this.ExecutiveAllowance_MouseMove       = new RelayCommand(() => this.MainWindow.ComparePrice(this.ExecutiveAllowance_Value,       this.Entity_LastYear?.ExecutiveAllowance.Value));
             // 扶養手当
-            this.DependencyAllowance_MouseMove    = new RelayCommand(() => this.MainWindow.ComparePrice(this.DependencyAllowance_Value,    this.Entity_LastYear?.DependencyAllowance.Value));
+            this.DependencyAllowance_MouseMove      = new RelayCommand(() => this.MainWindow.ComparePrice(this.DependencyAllowance_Value,      this.Entity_LastYear?.DependencyAllowance.Value));
             // 時間外手当
-            this.OvertimeAllowance_MouseMove      = new RelayCommand(() => this.MainWindow.ComparePrice(this.OvertimeAllowance_Value,      this.Entity_LastYear?.OvertimeAllowance.Value));
+            this.OvertimeAllowance_MouseMove        = new RelayCommand(() => this.MainWindow.ComparePrice(this.OvertimeAllowance_Value,        this.Entity_LastYear?.OvertimeAllowance.Value));
             // 休日割増
-            this.DaysoffIncreased_MouseMove       = new RelayCommand(() => this.MainWindow.ComparePrice(this.DaysoffIncreased_Value,       this.Entity_LastYear?.DaysoffIncreased.Value));
+            this.DaysoffIncreased_MouseMove         = new RelayCommand(() => this.MainWindow.ComparePrice(this.DaysoffIncreased_Value,         this.Entity_LastYear?.DaysoffIncreased.Value));
             // 交通費
-            this.TransportationExpenses_MouseMove = new RelayCommand(() => this.MainWindow.ComparePrice(this.TransportationExpenses_Value, this.Entity_LastYear?.TransportationExpenses.Value));
+            this.TransportationExpenses_MouseMove   = new RelayCommand(() => this.MainWindow.ComparePrice(this.TransportationExpenses_Value,   this.Entity_LastYear?.TransportationExpenses.Value));
             // 深夜割増
-            this.NightworkIncreased_MouseMove     = new RelayCommand(() => this.MainWindow.ComparePrice(this.NightworkIncreased_Value,     this.Entity_LastYear?.NightworkIncreased.Value));
+            this.NightworkIncreased_MouseMove       = new RelayCommand(() => this.MainWindow.ComparePrice(this.NightworkIncreased_Value,       this.Entity_LastYear?.NightworkIncreased.Value));
             // 住宅手当
-            this.HousingAllowance_MouseMove       = new RelayCommand(() => this.MainWindow.ComparePrice(this.HousingAllowance_Value,       this.Entity_LastYear?.HousingAllowance.Value));
+            this.HousingAllowance_MouseMove         = new RelayCommand(() => this.MainWindow.ComparePrice(this.HousingAllowance_Value,         this.Entity_LastYear?.HousingAllowance.Value));
             // 遅刻早退欠勤
-            this.LateAbsent_MouseMove             = new RelayCommand(() => this.MainWindow.ComparePrice(this.LateAbsent_Value,             this.Entity_LastYear?.LateAbsent));
+            this.LateAbsent_MouseMove               = new RelayCommand(() => this.MainWindow.ComparePrice(this.LateAbsent_Value,               this.Entity_LastYear?.LateAbsent));
             // 在宅手当
-            this.ElectricityAllowance_MouseMove   = new RelayCommand(() => this.MainWindow.ComparePrice(this.ElectricityAllowance_Value,   this.Entity_LastYear?.ElectricityAllowance.Value));
+            this.ElectricityAllowance_MouseMove     = new RelayCommand(() => this.MainWindow.ComparePrice(this.ElectricityAllowance_Value,     this.Entity_LastYear?.ElectricityAllowance.Value));
             // 特別手当
-            this.SpecialAllowance_MouseMove       = new RelayCommand(() => this.MainWindow.ComparePrice(this.SpecialAllowance_Value,       this.Entity_LastYear?.SpecialAllowance));
+            this.SpecialAllowance_MouseMove         = new RelayCommand(() => this.MainWindow.ComparePrice(this.SpecialAllowance_Value,         this.Entity_LastYear?.SpecialAllowance));
             // 予備
-            this.SpareAllowance_MouseMove         = new RelayCommand(() => this.MainWindow.ComparePrice(this.SpareAllowance_Value,         this.Entity_LastYear?.SpareAllowance.Value));
+            this.SpareAllowance_MouseMove           = new RelayCommand(() => this.MainWindow.ComparePrice(this.SpareAllowance_Value,           this.Entity_LastYear?.SpareAllowance.Value));
             // 支給総計
-            this.TotalSalary_MouseMove            = new RelayCommand(() => this.MainWindow.ComparePrice(this.TotalSalary_Value,            this.Entity_LastYear?.TotalSalary.Value));
+            this.TotalSalary_MouseMove              = new RelayCommand(() => this.MainWindow.ComparePrice(this.TotalSalary_Value,              this.Entity_LastYear?.TotalSalary.Value));
             // 差引支給額
-            this.TotalDeductedSalary_MouseMove    = new RelayCommand(() => this.MainWindow.ComparePrice(this.TotalDeductedSalary_Value,    this.Entity_LastYear?.TotalDeductedSalary.Value));
+            this.TotalDeductedSalary_MouseMove      = new RelayCommand(() => this.MainWindow.ComparePrice(this.TotalDeductedSalary_Value,      this.Entity_LastYear?.TotalDeductedSalary.Value));
+            // 前払退職金
+            this.PrepaidRetirementPayment_MouseMove = new RelayCommand(() => this.MainWindow.ComparePrice(this.PrepaidRetirementPayment_Value, this.Entity_LastYear?.PrepaidRetirementPayment.Value));
         }
 
         /// <summary> Model - 支給額 </summary>
@@ -338,6 +340,45 @@ namespace SalaryManager.WPF.ViewModels
         /// 交通費 - MouseMove
         /// </summary>
         public RelayCommand TransportationExpenses_MouseMove { get; private set; }
+
+        #endregion
+
+        #region 前払退職金
+
+        private bool _prepaidRetirementPayment_IsEnabled;
+
+        /// <summary>
+        /// 前払退職金 - IsEnabled
+        /// </summary>
+        public bool PrepaidRetirementPayment_IsEnabled
+        {
+            get => this._prepaidRetirementPayment_IsEnabled;
+            set
+            {
+                this._prepaidRetirementPayment_IsEnabled = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private double _prepaidRetirementPayment_Value;
+
+        /// <summary>
+        /// 前払退職金 - Value
+        /// </summary>
+        public double PrepaidRetirementPayment_Value
+        {
+            get => this._prepaidRetirementPayment_Value;
+            set
+            {
+                this._prepaidRetirementPayment_Value = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// 前払退職金 - MouseMove
+        /// </summary>
+        public RelayCommand PrepaidRetirementPayment_MouseMove { get; private set; }
 
         #endregion
 

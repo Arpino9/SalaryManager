@@ -136,14 +136,15 @@ namespace SalaryManager.WPF.Models
             var existence = Careers.FetchAllowanceExistence(new CompanyValue(company));
             if (existence != null) 
             {
-                this.ViewModel.ExecutiveAllowance_IsEnabled     = existence.Executive.Value;
-                this.ViewModel.DependencyAllowance_IsEnabled    = existence.Dependency.Value;
-                this.ViewModel.OvertimeAllowance_IsEnabled      = existence.Overtime.Value;
-                this.ViewModel.NightworkIncreased_IsEnabled     = existence.LateNight.Value;
-                this.ViewModel.HousingAllowance_IsEnabled       = existence.Housing.Value;
-                this.ViewModel.TransportationExpenses_IsEnabled = existence.Commution.Value;
-                this.ViewModel.ElectricityAllowance_IsEnabled   = existence.Electricity.Value;
-                this.ViewModel.SpecialAllowance_IsEnabled       = existence.Electricity.Value;
+                this.ViewModel.ExecutiveAllowance_IsEnabled       = existence.Executive.Value;
+                this.ViewModel.DependencyAllowance_IsEnabled      = existence.Dependency.Value;
+                this.ViewModel.OvertimeAllowance_IsEnabled        = existence.Overtime.Value;
+                this.ViewModel.NightworkIncreased_IsEnabled       = existence.LateNight.Value;
+                this.ViewModel.HousingAllowance_IsEnabled         = existence.Housing.Value;
+                this.ViewModel.TransportationExpenses_IsEnabled   = existence.Commution.Value;
+                this.ViewModel.PrepaidRetirementPayment_IsEnabled = existence.PrepaidRetirement.Value;
+                this.ViewModel.ElectricityAllowance_IsEnabled     = existence.Electricity.Value;
+                this.ViewModel.SpecialAllowance_IsEnabled         = existence.Electricity.Value;
             }
         }
 
@@ -198,6 +199,9 @@ namespace SalaryManager.WPF.Models
             // 交通費
             this.ViewModel.TransportationExpenses_Value     = default(double);
             this.ViewModel.TransportationExpenses_IsEnabled = true;
+            // 前払退職金
+            this.ViewModel.PrepaidRetirementPayment_Value = default(double);
+            this.ViewModel.PrepaidRetirementPayment_IsEnabled = true;
             // 在宅手当
             this.ViewModel.ElectricityAllowance_Value       = default(double);
             this.ViewModel.ElectricityAllowance_IsEnabled   = true;
@@ -236,6 +240,7 @@ namespace SalaryManager.WPF.Models
                               this.ViewModel.HousingAllowance_Value,
                               this.ViewModel.LateAbsent_Value,
                               this.ViewModel.TransportationExpenses_Value,
+                              this.ViewModel.PrepaidRetirementPayment_Value,
                               this.ViewModel.ElectricityAllowance_Value,
                               this.ViewModel.SpecialAllowance_Value,
                               this.ViewModel.SpareAllowance_Value,

@@ -36,6 +36,7 @@ namespace SalaryManager.Domain.Entities
             bool lateNight,
             bool area,
             bool commution,
+            bool prepaidRetirement,
             bool dependency,
             bool executive,
             bool special)
@@ -51,6 +52,7 @@ namespace SalaryManager.Domain.Entities
             this.LateNight         = new AlternativeValue(lateNight);
             this.Area              = new AlternativeValue(area);
             this.Commution         = new AlternativeValue(commution);
+            this.PrepaidRetirement = new AlternativeValue(prepaidRetirement);
             this.Dependency        = new AlternativeValue(dependency);
             this.Executive         = new AlternativeValue(executive);
             this.Special           = new AlternativeValue(special);
@@ -88,6 +90,9 @@ namespace SalaryManager.Domain.Entities
 
         /// <summary> 通勤手当 </summary>
         public AlternativeValue Commution { get; }
+
+        /// <summary> 前払退職金 </summary>
+        public AlternativeValue PrepaidRetirement { get; }
 
         /// <summary> 扶養手当 </summary>
         public AlternativeValue Dependency { get; }
