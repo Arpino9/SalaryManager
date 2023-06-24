@@ -113,12 +113,14 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.LateAbsent_Value             = entity.LateAbsent;
             // 交通費
             this.ViewModel.TransportationExpenses_Value = entity.TransportationExpenses.Value;
+            // 前払退職金
+            this.ViewModel.PrepaidRetirementPayment_Value = entity.PrepaidRetirementPayment.Value;
             // 在宅手当
             this.ViewModel.ElectricityAllowance_Value   = entity.ElectricityAllowance.Value;
             // 特別手当
             this.ViewModel.SpecialAllowance_Value       = entity.SpecialAllowance;
             // 予備
-            this.ViewModel.SpareAllowance_Value         = entity.SpareAllowance.Value;
+            this.ViewModel.SpareAllowance_Value         = entity.SpareAllowance;
             // 備考
             this.ViewModel.Remarks_Text                 = entity.Remarks;
             // 支給総計、差引支給額
@@ -270,10 +272,12 @@ namespace SalaryManager.WPF.Models
                                              + this.ViewModel.OvertimeAllowance_Value
                                              + this.ViewModel.DaysoffIncreased_Value
                                              + this.ViewModel.NightworkIncreased_Value
-                                             + this.ViewModel.HousingAllowance_Value
+                                             + this.ViewModel.ElectricityAllowance_Value
                                              + this.ViewModel.LateAbsent_Value
                                              + this.ViewModel.SpecialAllowance_Value
-                                             + this.ViewModel.SpareAllowance_Value;
+                                             + this.ViewModel.SpareAllowance_Value
+                                             + this.ViewModel.TransportationExpenses_Value
+                                             + this.ViewModel.PrepaidRetirementPayment_Value;
 
             if (this.ViewModel_Deduction is null)
             {

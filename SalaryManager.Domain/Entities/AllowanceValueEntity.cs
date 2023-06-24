@@ -62,7 +62,7 @@ namespace SalaryManager.Domain.Entities
             this.PrepaidRetirementPayment = new MoneyValue(prepaidRetirementPayment);                           
             this.ElectricityAllowance     = new MoneyValue(electricityAllowance);
             this.SpecialAllowance         = specialAllowance;
-            this.SpareAllowance           = new MoneyValue(spareAllowance);
+            this.SpareAllowance           = spareAllowance;
             this.Remarks                  = remarks;
             this.TotalSalary              = new MoneyValue(totalSalary);
             this.TotalDeductedSalary      = new MoneyValue(totalDeductedSalary);                           
@@ -111,7 +111,7 @@ namespace SalaryManager.Domain.Entities
         public double SpecialAllowance { get; }
 
         /// <summary> 予備 </summary>
-        public MoneyValue SpareAllowance { get; }
+        public double SpareAllowance { get; }
 
         /// <summary> 備考 </summary>
         public string Remarks { get; }

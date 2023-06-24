@@ -193,6 +193,9 @@ A.BasicSalary
 + A.NightworkIncreased
 + A.HousingAllowance
 + A.LateAbsent
++ A.TransportationExpenses
++ A.ElectricityAllowance
++ A.PrepaidRetirementPayment
 + A.SpecialAllowance
 + A.SpareAllowance AS TotalSalary,
 A.TotalSalary - D.TotalDeduct AS TotalDeductedSalary
@@ -261,6 +264,7 @@ values
 @NightworkIncreased, 
 @HousingAllowance,
 @LateAbsent, 
+@PrepaidRetirementPayment, 
 @TransportationExpenses, 
 @ElectricityAllowance, 
 @SpecialAllowance, 
@@ -304,7 +308,7 @@ where Id = @Id
                 new SQLiteParameter("PrepaidRetirementPayment", entity.PrepaidRetirementPayment.Value),
                 new SQLiteParameter("ElectricityAllowance", entity.ElectricityAllowance.Value),
                 new SQLiteParameter("SpecialAllowance", entity.SpecialAllowance),
-                new SQLiteParameter("SpareAllowance", entity.SpareAllowance.Value),
+                new SQLiteParameter("SpareAllowance", entity.SpareAllowance),
                 new SQLiteParameter("Remarks", entity.Remarks),
             };
 

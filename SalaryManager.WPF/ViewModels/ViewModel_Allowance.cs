@@ -64,7 +64,7 @@ namespace SalaryManager.WPF.ViewModels
             this.LateAbsent_Value             = entity.LateAbsent;
             this.SpecialAllowance_Value       = entity.SpecialAllowance;
             this.ElectricityAllowance_Value   = entity.ElectricityAllowance.Value;
-            this.SpareAllowance_Value         = entity.SpareAllowance.Value;
+            this.SpareAllowance_Value         = entity.SpareAllowance;
             this.Remarks_Text                 = entity.Remarks;
             this.TotalSalary_Value            = entity.TotalSalary.Value;
             this.TotalDeductedSalary_Value    = entity.TotalDeductedSalary.Value;
@@ -100,7 +100,7 @@ namespace SalaryManager.WPF.ViewModels
             // 特別手当
             this.SpecialAllowance_MouseMove         = new RelayCommand(() => this.MainWindow.ComparePrice(this.SpecialAllowance_Value,         this.Entity_LastYear?.SpecialAllowance));
             // 予備
-            this.SpareAllowance_MouseMove           = new RelayCommand(() => this.MainWindow.ComparePrice(this.SpareAllowance_Value,           this.Entity_LastYear?.SpareAllowance.Value));
+            this.SpareAllowance_MouseMove           = new RelayCommand(() => this.MainWindow.ComparePrice(this.SpareAllowance_Value,           this.Entity_LastYear?.SpareAllowance));
             // 支給総計
             this.TotalSalary_MouseMove              = new RelayCommand(() => this.MainWindow.ComparePrice(this.TotalSalary_Value,              this.Entity_LastYear?.TotalSalary.Value));
             // 差引支給額
@@ -372,6 +372,8 @@ namespace SalaryManager.WPF.ViewModels
             {
                 this._prepaidRetirementPayment_Value = value;
                 this.RaisePropertyChanged();
+
+                this.Model.ReCaluculate();
             }
         }
 
@@ -561,6 +563,8 @@ namespace SalaryManager.WPF.ViewModels
             {
                 this._electricityAllowance_Value = value;
                 this.RaisePropertyChanged();
+
+                this.Model.ReCaluculate();
             }
         }
 
