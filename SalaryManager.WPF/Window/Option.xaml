@@ -18,6 +18,11 @@
             <TabItem Header="スプレッドシート">
                 <UserControls:Option_SpreadSheet />
             </TabItem>
+
+
+            <TabItem Header="PDF">
+                <UserControls:Option_PDF />
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>

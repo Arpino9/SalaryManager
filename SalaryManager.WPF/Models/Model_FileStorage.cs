@@ -1,4 +1,5 @@
 ﻿using SalaryManager.Domain.Entities;
+using SalaryManager.Domain.Exceptions;
 using SalaryManager.Domain.Modules.Helpers;
 using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Domain.Repositories;
@@ -213,7 +214,19 @@ namespace SalaryManager.WPF.Models
             {
                 foreach (var filePath in Directory.GetFiles(folderPath, "*", SearchOption.AllDirectories))
                 {
-                    this.AddFileFromFolder(filePath);
+                    try
+                    {
+                        this.AddFileFromFolder(filePath);
+                    }
+                    catch(Exception ex) when (ex.Message == "Invalid password")
+                    {
+                        throw new FileReaderException("PDFの読込パスワードが不正です。\nオプションから正しいパスワードを設定してください。");
+                    } 
+                    catch(Exception ex) 
+                    {
+                        throw new FileReaderException("添付ファイルの読み込みに失敗しました。", ex);
+                    }
+                    
                 }
 
                 this.ViewModel.AttachedFile_ItemSource = ListUtils.ToObservableCollection(this.ViewModel.AttachedFile_ItemSource.OrderByDescending(x => x.Title).ToList());

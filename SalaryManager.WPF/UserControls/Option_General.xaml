@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:SalaryManager.WPF.UserControls"
              xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" 
              xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:Converter="clr-namespace:SalaryManager.WPF.Converter" x:Class="SalaryManager.WPF.UserControls.Option_General"
+             xmlns:Converter="clr-namespace:SalaryManager.WPF.Converter" 
+             x:Class="SalaryManager.WPF.UserControls.Option_General"
              mc:Ignorable="d"
              Background="{x:Static SystemColors.ControlLightBrush}"
              d:DesignHeight="550" d:DesignWidth="800">

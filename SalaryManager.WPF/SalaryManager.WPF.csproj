@@ -116,6 +116,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behavior\PasswordBinding.cs" />
     <Compile Include="Behavior\TextBoxIntegerOnly.cs" />
     <Compile Include="Converter\EnumToBoolConverter.cs" />
     <Compile Include="Converter\IntToStringConverter.cs" />
@@ -142,12 +143,16 @@
     <Compile Include="UserControls\Option_General.xaml.cs">
       <DependentUpon>Option_General.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Option_PDF.xaml.cs">
+      <DependentUpon>Option_PDF.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Option_SpreadSheet.xaml.cs">
       <DependentUpon>Option_SpreadSheet.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ViewModel_FileStorage.cs" />
     <Compile Include="ViewModels\ViewModel_GeneralOption.cs" />
     <Compile Include="ViewModels\ViewModel_ImageViewer.cs" />
+    <Compile Include="ViewModels\ViewModel_PDFOption.cs" />
     <Compile Include="ViewModels\ViewModel_SpreadSheetOption.cs" />
     <Compile Include="Window\Career.xaml.cs">
       <DependentUpon>Career.xaml</DependentUpon>
@@ -197,6 +202,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Option_General.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Option_PDF.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

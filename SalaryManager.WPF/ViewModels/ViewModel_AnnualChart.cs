@@ -35,8 +35,6 @@ namespace SalaryManager.WPF.ViewModels
         /// </summary>
         public RelayCommand Window_Activated { get; private set; }
 
-        private Action _windowAction;
-
         #endregion
 
         #region 背景色

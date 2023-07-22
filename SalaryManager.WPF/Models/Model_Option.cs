@@ -87,7 +87,18 @@ namespace SalaryManager.WPF.Models
         internal void Initialize_SpreadSheet()
         {
             this.SpreadSheetOption.SelectPrivateKey_Text = XMLLoader.FetchPrivateKeyPath();
-            this.SpreadSheetOption.SheetId_Text = XMLLoader.FetchSheetId();
+            this.SpreadSheetOption.SheetId_Text          = XMLLoader.FetchSheetId();
+        }
+
+        /// <summary>
+        /// 初期化
+        /// </summary>
+        /// <remarks>
+        /// 値があればXMLから、なければconfigから取得する。
+        /// </remarks>
+        internal void Initialize_PDF()
+        {
+            this.PDFOption.Password_Text = XMLLoader.FetchPDFPassword();
         }
 
         /// <summary> ViewModel - 全般設定 </summary>
@@ -95,6 +106,9 @@ namespace SalaryManager.WPF.Models
 
         /// <summary> ViewModel - スプレッドシート設定 </summary>
         internal ViewModel_SpreadSheetOption SpreadSheetOption { get; set; }
+
+        /// <summary> ViewModel - PDF設定 </summary>
+        internal ViewModel_PDFOption PDFOption { get; set; }
 
         #region SQLite
 
@@ -248,6 +262,8 @@ namespace SalaryManager.WPF.Models
                 tag.PrivateKeyPath = this.SpreadSheetOption.SelectPrivateKey_Text;
                 tag.SheetId        = this.SpreadSheetOption.SheetId_Text;
 
+                tag.PDFPassword = this.PDFOption.Password_Text;
+
                 writer.Serialize(tag);
             }
         }
@@ -292,6 +308,9 @@ namespace SalaryManager.WPF.Models
             // 背景色
             this.GeneralOption.Window_BackgroundColor = SystemColors.ControlLight;
             this.GeneralOption.Window_Background      = ColorUtils.ToWPFColor(SystemColors.ControlLight);
+
+            // PDFのパスワード
+            this.PDFOption.Password_Text = XMLLoader.FetchPDFPassword();
         }
 
         #endregion

@@ -38,5 +38,8 @@
         public string PrivateKeyPath;
         /// <summary> シートID </summary>
         public string SheetId;
+
+        /// <summary> PDFのパスワード </summary>
+        public string PDFPassword;
     }
 }

@@ -1,7 +1,11 @@
 ﻿using Aspose.Pdf;
 using Aspose.Pdf.Devices;
+using SalaryManager.Domain;
+using SalaryManager.Domain.Exceptions;
 using SalaryManager.Domain.Modules.Helpers;
 using SalaryManager.Domain.Repositories;
+using SalaryManager.Infrastructure.XML;
+using System;
 using System.Collections.Generic;
 
 namespace SalaryManager.Infrastructure.PDF
@@ -18,9 +22,30 @@ namespace SalaryManager.Infrastructure.PDF
         /// <returns>生成されたPNGパスのリスト</returns>
         public List<string> ConvertPDFIntoImage(string path)
         {
-            // ドキュメントを開く
-            var pdfDocument = new Document(path);
+            try
+            {
+                // パスワードなし
+                return this.AddPDFToImage(path, new Document(path));
+            } 
+            catch(InvalidPasswordException _) 
+            {
+                // パスワードあり
+                return this.AddPDFToImage(path, new Document(path, XMLLoader.FetchPDFPassword()));
+            }
+            catch (Exception ex) 
+            {
+                throw new FileReaderException("PDFの読み込みに失敗しました。", ex);
+            }
+        }
 
+        /// <summary>
+        /// PDF文書を開く
+        /// </summary>
+        /// <param name="path">PDFのパス</param>
+        /// <param name="pdfDocument">PDFファイル</param>
+        /// <returns></returns>
+        private List<string> AddPDFToImage(string path, Document pdfDocument)
+        {
             var filePaths = new List<string>();
 
             foreach (var page in pdfDocument.Pages)

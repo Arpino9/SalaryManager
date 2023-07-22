@@ -197,5 +197,15 @@ namespace SalaryManager.Infrastructure.XML
             XMLLoader.Deserialize();
             return _tag?.SheetId ?? string.Empty;
         }
+
+        /// <summary>
+        /// PDFのパスワードを取得する
+        /// </summary>
+        /// <returns>PDFのパスワード</returns>
+        public static string FetchPDFPassword()
+        {
+            XMLLoader.Deserialize();
+            return _tag?.PDFPassword ?? string.Empty;
+        }
     }
 }
