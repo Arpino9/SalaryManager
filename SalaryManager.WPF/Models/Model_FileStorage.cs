@@ -216,6 +216,8 @@ namespace SalaryManager.WPF.Models
                     this.AddFileFromFolder(filePath);
                 }
 
+                this.ViewModel.AttachedFile_ItemSource = ListUtils.ToObservableCollection(this.ViewModel.AttachedFile_ItemSource.OrderByDescending(x => x.Title).ToList());
+
                 this.ViewModel.Title_IsEnabled   = false;
                 this.ViewModel.Remarks_IsEnabled = false;
                 this.ViewModel.Update_IsEnabled  = false;
@@ -244,9 +246,9 @@ namespace SalaryManager.WPF.Models
             }
 
             // 追加日
-            this.ViewModel.CreateDate = DateTime.Today;
+            this.ViewModel.CreateDate = File.GetCreationTime(filePath);
             // 更新日
-            this.ViewModel.UpdateDate = DateTime.Today;
+            this.ViewModel.UpdateDate = File.GetLastWriteTime(filePath);
 
             if (extension.IsPDF)
             {
@@ -281,7 +283,7 @@ namespace SalaryManager.WPF.Models
                 this.ViewModel.FileName_Text = ImageUtils.ExtractFileNameWithExtension(filePath);
 
                 // 表示する画像
-                this.ViewModel.ByteImage = ImageUtils.ConvertPathToBytes(filePath, ImageFormat.Png);
+                this.ViewModel.ByteImage       = ImageUtils.ConvertPathToBytes(filePath, ImageFormat.Png);
                 this.ViewModel.FileImage_Image = ImageUtils.ConvertPathToImage(filePath, extension.ImageFormat);
 
                 this.ViewModel.AttachedFile_ItemSource.Add(this.CreateEntity(id));
