@@ -46,9 +46,6 @@
         <Button Content="開く" 
                 Grid.Column="2"                 
                 Command="{Binding SelectSQLite_Command}"/>
-        <Button Grid.Column="3" 
-                Content="初期値に戻す" 
-                Command="{Binding SetDefault_SelectSQLite_Command}"/>
 
         <Label Content="Excelテンプレートの保存先パス"
                Grid.Row="1"/>
@@ -60,10 +57,6 @@
                 Grid.Row="1" 
                 Content="開く" 
                 Command="{Binding SelectExcelTemplatePath_Command}"/>
-        <Button Content="初期値に戻す" 
-                Grid.Column="3" 
-                Grid.Row="1"                
-                Command="{Binding SetDefault_SelectExcelTemplatePath_Command}"/>
 
         <Label Content="フォント" 
                Grid.Row="2"  />
@@ -78,10 +71,6 @@
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </ComboBox>
-        <Button Content="初期値に戻す" 
-                Grid.Column="3"
-                Grid.Row="2"                
-                Command="{Binding SetDefault_FontFamily_Command}"/>
 
         <Label Content="フォントサイズ" 
                Grid.Row="3" />
@@ -89,10 +78,6 @@
                              Grid.Row="3" 
                              CustomMinimum="1"
                              CustomValue="{Binding FontSize_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        <Button Content="初期値に戻す" 
-                Grid.Column="2" 
-                Grid.Row="3"                
-                Command="{Binding SetDefault_FontSize_Value}"/>
 
         <Label Content="プレビュー"
                Grid.Row="2"
@@ -126,10 +111,6 @@
                 Grid.Column="2"
                 Grid.Row="7"
                 Command="{Binding ChangeWindowBackground_Command}"/>
-        <Button Content="初期値に戻す" 
-                Grid.Column="3"
-                Grid.Row="7"                
-                Command="{Binding SetDefault_WindowBackground_Command}"/>
 
         <Label Content="デフォルト明細" 
                Grid.Row="8" />
@@ -185,5 +166,10 @@
                 Grid.Column="1"                 
                 Grid.Row="11" 
                 Command="{Binding Save_Command}"/>
+        <Button Content="初期値に戻す" 
+                Grid.Column="2"
+                Grid.Row="11"                
+                Command="{Binding SetDefault_Command}"/>
+        
     </Grid>
 </UserControl>

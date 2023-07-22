@@ -113,26 +113,6 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
-        private RelayCommand _setDefault_selectSQLite_Command;
-
-        /// <summary>
-        /// SQLite - Command
-        /// </summary>
-        /// <remarks>
-        /// 初期値に戻す
-        /// </remarks>
-        public RelayCommand SetDefault_SelectSQLite_Command
-        {
-            get
-            {
-                if (this._setDefault_selectSQLite_Command == null)
-                {
-                    this._setDefault_selectSQLite_Command = new RelayCommand(this.Model.SetDefault_SelectSQLitePath);
-                }
-                return this._setDefault_selectSQLite_Command;
-            }
-        }
-
         #endregion
 
         #region Excelテンプレート
@@ -169,26 +149,6 @@ namespace SalaryManager.WPF.ViewModels
                     this._selectExcelTempletePath_Command = new RelayCommand(this.Model.SelectExcelTemplatePath);
                 }
                 return this._selectExcelTempletePath_Command;
-            }
-        }
-
-        private RelayCommand _setDefault_SelectExcelTemplatePath_Command;
-
-        /// <summary>
-        /// Excelテンプレート - Command
-        /// </summary>
-        /// <remarks>
-        /// 初期値に戻す
-        /// </remarks>
-        public RelayCommand SetDefault_SelectExcelTemplatePath_Command
-        {
-            get
-            {
-                if (this._setDefault_SelectExcelTemplatePath_Command == null)
-                {
-                    this._setDefault_SelectExcelTemplatePath_Command = new RelayCommand(this.Model.SetDefault_SelectExcelTemplatePath);
-                }
-                return this._setDefault_SelectExcelTemplatePath_Command;
             }
         }
         
@@ -229,26 +189,6 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
-        private RelayCommand _setDefault_FontFamily_Command;
-
-        /// <summary>
-        /// フォントファミリ - Command
-        /// </summary>
-        /// <remarks>
-        /// 初期値に戻す
-        /// </remarks>
-        public RelayCommand SetDefault_FontFamily_Command
-        {
-            get
-            {
-                if (this._setDefault_FontFamily_Command == null)
-                {
-                    this._setDefault_FontFamily_Command = new RelayCommand(this.Model.SetDefault_FontFamily);
-                }
-                return this._setDefault_FontFamily_Command;
-            }
-        }
-
         #endregion
 
         #region フォントサイズ
@@ -265,26 +205,6 @@ namespace SalaryManager.WPF.ViewModels
             {
                 this._fontSize_Value = value;
                 this.RaisePropertyChanged();
-            }
-        }
-
-        private RelayCommand _setDefault_FontSize_Value;
-
-        /// <summary>
-        /// フォントサイズ - Command
-        /// </summary>
-        /// <remarks>
-        /// 初期値に戻す
-        /// </remarks>
-        public RelayCommand SetDefault_FontSize_Value
-        {
-            get
-            {
-                if (this._setDefault_FontSize_Value == null)
-                {
-                    this._setDefault_FontSize_Value = new RelayCommand(this.Model.SetDefault_FontSize_Value);
-                }
-                return this._setDefault_FontSize_Value;
             }
         }
 
@@ -323,26 +243,6 @@ namespace SalaryManager.WPF.ViewModels
                     this._changeWindowBackground_Command = new RelayCommand(this.Model.ChangeWindowBackground);
                 }
                 return this._changeWindowBackground_Command;
-            }
-        }
-
-        private RelayCommand _setDefault_WindowBackground_Command;
-
-        /// <summary>
-        /// フォントファミリ - Command
-        /// </summary>
-        /// <remarks>
-        /// 初期値に戻す
-        /// </remarks>
-        public RelayCommand SetDefault_WindowBackground_Command
-        {
-            get
-            {
-                if (this._setDefault_WindowBackground_Command == null)
-                {
-                    this._setDefault_WindowBackground_Command = new RelayCommand(this.Model.SetDefault_WindowBackground);
-                }
-                return this._setDefault_WindowBackground_Command;
             }
         }
 
@@ -487,6 +387,27 @@ namespace SalaryManager.WPF.ViewModels
                     this._save_Command = new RelayCommand(this.Model.Save);
                 }
                 return this._save_Command;
+            }
+        }
+
+        #endregion
+
+        #region 初期値に戻す
+
+        private RelayCommand _setDefault_Command;
+
+        /// <summary>
+        /// 初期値に戻す - Command
+        /// </summary>
+        public RelayCommand SetDefault_Command
+        {
+            get
+            {
+                if (this._setDefault_Command == null)
+                {
+                    this._setDefault_Command = new RelayCommand(this.Model.SetDefault);
+                }
+                return this._setDefault_Command;
             }
         }
 

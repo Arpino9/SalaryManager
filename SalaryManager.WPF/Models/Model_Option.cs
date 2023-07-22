@@ -121,14 +121,6 @@ namespace SalaryManager.WPF.Models
             this.GeneralOption.SelectSQLite_Text = dialog.FileName;
         }
 
-        /// <summary>
-        /// SQLite - 初期値に戻す
-        /// </summary>
-        internal void SetDefault_SelectSQLitePath()
-        {
-            this.GeneralOption.SelectSQLite_Text = FilePath.GetSQLiteDefaultPath();
-        }
-
         #endregion
 
         #region Excelテンプレート
@@ -152,14 +144,6 @@ namespace SalaryManager.WPF.Models
             this.GeneralOption.SelectExcelTempletePath_Text = dialog.FileName;
         }
 
-        /// <summary>
-        /// Excelテンプレートパス - 初期値に戻す
-        /// </summary>
-        internal void SetDefault_SelectExcelTemplatePath()
-        {
-            this.GeneralOption.SelectExcelTempletePath_Text = FilePath.GetExcelTempleteDefaultPath();
-        }
-
         #endregion
 
         #region 認証ファイル
@@ -171,7 +155,7 @@ namespace SalaryManager.WPF.Models
         {
             var dialog = new OpenFileDialog();
             dialog.Filter = "JSONファイル(*.json)|*.json";
-            dialog.Title = "認証ファイルを指定してください";
+            dialog.Title  = "認証ファイルを指定してください";
 
             var result = dialog.ShowDialog();
 
@@ -195,15 +179,6 @@ namespace SalaryManager.WPF.Models
             this.GeneralOption.Preview_FontFamily = new System.Windows.Media.FontFamily(this.GeneralOption.FontFamily_Text);
         }
 
-        /// <summary>
-        /// フォントファミリ - 初期値に戻す
-        /// </summary>
-        internal void SetDefault_FontFamily()
-        {
-            this.GeneralOption.FontFamily_Text    = Shared.FontFamily;
-            this.GeneralOption.Preview_FontFamily = new System.Windows.Media.FontFamily(Shared.FontFamily);
-        }
-
         #endregion
 
         /// <summary>
@@ -213,18 +188,6 @@ namespace SalaryManager.WPF.Models
         {
             this.GeneralOption.SelectFolder_IsEnabled = this.GeneralOption.HowToSaveImage_IsChecked == HowToSaveImage.SavePath;
         }
-
-        #region フォントサイズ
-
-        /// <summary>
-        /// フォントサイズ - 初期値に戻す
-        /// </summary>
-        internal void SetDefault_FontSize_Value()
-        {
-            this.GeneralOption.FontSize_Value = decimal.Parse(Shared.FontSize);
-        }
-
-        #endregion
 
         #region 背景色
 
@@ -241,17 +204,6 @@ namespace SalaryManager.WPF.Models
                 this.GeneralOption.Window_Background      = ColorUtils.ToWPFColor(dialog.Color);
                 this.GeneralOption.Window_BackgroundColor = dialog.Color;
             }
-        }
-
-        /// <summary>
-        /// 背景色 - デフォルトに戻す
-        /// </summary>
-        internal void SetDefault_WindowBackground()
-        {
-            var defaultColor = SystemColors.ControlLight;
-
-            this.GeneralOption.Window_BackgroundColor = defaultColor;
-            this.GeneralOption.Window_Background      = ColorUtils.ToWPFColor(defaultColor);
         }
 
         #endregion
@@ -313,6 +265,33 @@ namespace SalaryManager.WPF.Models
             }
 
             this.GeneralOption.ImageFolderPath_Text = directory;
+        }
+
+        #endregion
+
+        #region 初期値に戻す
+
+        /// <summary>
+        /// 初期値に戻す
+        /// </summary>
+        internal void SetDefault()
+        {
+            // SQLite
+            this.GeneralOption.SelectSQLite_Text = FilePath.GetSQLiteDefaultPath();
+
+            // Excelテンプレートパス
+            this.GeneralOption.SelectExcelTempletePath_Text = FilePath.GetExcelTempleteDefaultPath();
+
+            // フォントファミリ
+            this.GeneralOption.FontFamily_Text    = Shared.FontFamily;
+            this.GeneralOption.Preview_FontFamily = new System.Windows.Media.FontFamily(Shared.FontFamily);
+
+            // フォントサイズ
+            this.GeneralOption.FontSize_Value = decimal.Parse(Shared.FontSize);
+
+            // 背景色
+            this.GeneralOption.Window_BackgroundColor = SystemColors.ControlLight;
+            this.GeneralOption.Window_Background      = ColorUtils.ToWPFColor(SystemColors.ControlLight);
         }
 
         #endregion
