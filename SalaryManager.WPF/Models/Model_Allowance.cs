@@ -146,7 +146,7 @@ namespace SalaryManager.WPF.Models
                 this.ViewModel.TransportationExpenses_IsEnabled   = existence.Commution.Value;
                 this.ViewModel.PrepaidRetirementPayment_IsEnabled = existence.PrepaidRetirement.Value;
                 this.ViewModel.ElectricityAllowance_IsEnabled     = existence.Electricity.Value;
-                this.ViewModel.SpecialAllowance_IsEnabled         = existence.Electricity.Value;
+                this.ViewModel.SpecialAllowance_IsEnabled         = existence.Special.Value;
             }
         }
 

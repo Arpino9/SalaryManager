@@ -309,6 +309,10 @@ namespace SalaryManager.WPF.Models
             // 副業
             this.SideBusiness.ViewModel.Entity = SideBusinesses.FetchDefault();
             this.SideBusiness.Refresh();
+
+            // 勤務先、勤務場所
+            this.WorkPlace.Entity = WorkingReferences.FetchDefault();
+            this.WorkPlace.Model.Refresh();
         }
 
         #endregion
