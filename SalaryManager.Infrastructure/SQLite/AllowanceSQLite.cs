@@ -115,16 +115,8 @@ A.ElectricityAllowance,
 A.SpecialAllowance,
 A.SpareAllowance,
 A.Remarks,
-+ A.ExecutiveAllowance
-+ A.DependencyAllowance
-+ A.OvertimeAllowance
-+ A.DaysoffIncreased
-+ A.NightworkIncreased
-+ A.HousingAllowance
-+ A.LateAbsent
-+ A.SpecialAllowance
-+ A.SpareAllowance AS TotalSalary,
-A.TotalSalary - D.TotalDeduct AS TotalDeductedSalary
+A.TotalSalary.
+A.TotalDeductedSalary
 FROM Allowance A
 INNER JOIN Deduction D ON A.YearMonth = D.YearMonth
 Where YearMonth = @YearMonth";
@@ -185,20 +177,8 @@ A.ElectricityAllowance,
 A.SpecialAllowance,
 A.SpareAllowance,
 A.Remarks,
-A.BasicSalary
-+ A.ExecutiveAllowance
-+ A.DependencyAllowance
-+ A.OvertimeAllowance
-+ A.DaysoffIncreased
-+ A.NightworkIncreased
-+ A.HousingAllowance
-+ A.LateAbsent
-+ A.TransportationExpenses
-+ A.ElectricityAllowance
-+ A.PrepaidRetirementPayment
-+ A.SpecialAllowance
-+ A.SpareAllowance AS TotalSalary,
-A.TotalSalary - D.TotalDeduct AS TotalDeductedSalary
+A.TotalSalary,
+A.TotalDeductedSalary
 FROM Allowance A
 INNER JOIN YearMonth YM ON A.YearMonth = YM.YearMonth
 INNER JOIN Deduction D ON A.YearMonth = D.YearMonth
@@ -252,6 +232,8 @@ PrepaidRetirementPayment,
 ElectricityAllowance, 
 SpecialAllowance, 
 SpareAllowance, 
+TotalSalary.
+TotalDeductedSalary,
 Remarks)
 values
 (@Id, 
@@ -269,6 +251,8 @@ values
 @ElectricityAllowance, 
 @SpecialAllowance, 
 @SpareAllowance, 
+@TotalSalary.
+@TotalDeductedSalary,
 @Remarks)
 ";
 
@@ -288,6 +272,8 @@ set YearMonth              = @YearMonth,
     ElectricityAllowance   = @ElectricityAllowance,  
     SpecialAllowance       = @SpecialAllowance,  
     SpareAllowance         = @SpareAllowance,  
+    TotalSalary            = @TotalSalary,
+    TotalDeductedSalary    = @TotalDeductedSalary,
     Remarks                = @Remarks
 where Id = @Id
 ";
@@ -309,6 +295,8 @@ where Id = @Id
                 new SQLiteParameter("ElectricityAllowance", entity.ElectricityAllowance.Value),
                 new SQLiteParameter("SpecialAllowance", entity.SpecialAllowance),
                 new SQLiteParameter("SpareAllowance", entity.SpareAllowance),
+                new SQLiteParameter("TotalSalary", entity.TotalSalary.Value),
+                new SQLiteParameter("TotalDeductedSalary", entity.TotalDeductedSalary.Value),
                 new SQLiteParameter("Remarks", entity.Remarks),
             };
 
