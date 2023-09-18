@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SalaryManager.WPF.UserControls"
-             xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" 
+             xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels"
+             xmlns:MahApps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
              x:Class="SalaryManager.WPF.UserControls.Header"
              mc:Ignorable="d" 
@@ -24,7 +25,8 @@
         </Grid.ColumnDefinitions>
 
         <Button Content="←" 
-                Command="{Binding Return_Command, Mode=OneWay}" />
+                Command="{Binding Return_Command, Mode=OneWay}"
+                Style="{DynamicResource MahApps.Styles.Button.Circle}" />
         <TextBox Grid.Column="1" 
                  Grid.Row="1" Text="{Binding Year_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  TextAlignment="Right">
@@ -48,9 +50,10 @@
         </TextBox>
         <Label Content="月" 
                Grid.Column="4" />
-        
+
         <Button Content="→" 
                 Grid.Column="5" 
-                Command="{Binding Proceed_Command, Mode=OneWay}" />
+                Command="{Binding Proceed_Command, Mode=OneWay}"
+                Style="{DynamicResource MahApps.Styles.Button.Circle}" />
     </Grid>
 </UserControl>

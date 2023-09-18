@@ -46,6 +46,40 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
+        private char _password_PasswordChar = '⚫';
+
+        /// <summary>
+        /// パスワード - PasswordChar
+        /// </summary>
+        public char Password_PasswordChar
+        {
+            get => this._password_PasswordChar;
+            set
+            {
+                this._password_PasswordChar = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #region パスワード表示/非表示ボタン
+
+        private bool _password_IsVisible;
+
+        /// <summary>
+        /// パスワード - Text
+        /// </summary>
+        public bool Password_IsVisible
+        {
+            get => this._password_IsVisible;
+            set
+            {
+                this._password_IsVisible = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
     }

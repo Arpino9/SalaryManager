@@ -31,7 +31,7 @@
 
         <Label Content="PDFのパスワード"/>
 
-        <PasswordBox Behavior:PasswordBinding.Password="{Binding  Path=Password_Text}" 
-                     Grid.Column="1" />
+        <PasswordBox Behavior:PasswordBinding.Password="{Binding Path=Password_Text}" 
+                     Grid.Column="1" PasswordChar="{Binding Password_PasswordChar}" />
     </Grid>
 </UserControl>

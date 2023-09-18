@@ -84,7 +84,7 @@ namespace SalaryManager.WPF.Models
         /// 再描画
         /// </summary>
         /// <remarks>
-        /// 該当月に控除額が存在すれば、各項目を再描画する。
+        /// 勤務先、所属会社名を再描画する。
         /// </remarks>
         public void Refresh()
         {

@@ -1,9 +1,10 @@
-﻿<Window
+﻿<Controls:MetroWindow
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SalaryManager.WPF.UserControls"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" 
         x:Class="SalaryManager.WPF.MainWindow"
@@ -19,113 +20,115 @@
             <behaviors:InvokeCommandAction Command="{Binding Window_Activated}" />
         </behaviors:EventTrigger>
     </behaviors:Interaction.Triggers>
+
+    <Controls:MetroWindow.LeftWindowCommands>
+        <Controls:WindowCommands>
+            <Menu>
+                <MenuItem Header="編集">
+                    <MenuItem Header="経歴" Command="{Binding ShowCareerManager_Command}">
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="経歴編集画面を開きます。"/>
+                        </ToolTipService.ToolTip>
+                    </MenuItem>
+
+                    <MenuItem Header="添付ファイル" Command="{Binding ShowFileStorage_Command}">
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="添付ファイル登録画面を開きます。"/>
+                        </ToolTipService.ToolTip>
+                    </MenuItem>
+
+                    <MenuItem Header="オプション" Command="{Binding ShowOption_Command}">
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="アプリケーション設定画面を開きます。"/>
+                        </ToolTipService.ToolTip>
+                    </MenuItem>
+                </MenuItem>
+
+                <MenuItem Header="読込">
+                    <MenuItem Header="デフォルト明細を取得" Command="{Binding GetDefault_Command}">
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="登録されているデフォルト明細を取得します。"/>
+                        </ToolTipService.ToolTip>
+                    </MenuItem>
+
+                    <MenuItem Header="CSV読込" Command="{Binding ReadCSV_Command}">
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="CSVを読み込みます。仮作成。"/>
+                        </ToolTipService.ToolTip>
+                    </MenuItem>
+                </MenuItem>
+
+                <MenuItem Header="表示">
+                    <MenuItem Header="今月の明細" Command="{Binding ShowCurrentPayslip_Command}">
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="今月の明細を表示します。"/>
+                        </ToolTipService.ToolTip>
+                    </MenuItem>
+                </MenuItem>
+
+                <MenuItem Header="出力">
+                    <MenuItem Header="Excel" Command="{Binding OutputExcel_Command}">
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="configファイルに指定された保存先にExcel出力します。"/>
+                        </ToolTipService.ToolTip>
+                    </MenuItem>
+
+                    <MenuItem Header="スプレッドシート" Command="{Binding OutputSpreadSheet_Command}">
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="configファイルに指定された保存先にスプレッドシート出力します。"/>
+                        </ToolTipService.ToolTip>
+                    </MenuItem>
+                </MenuItem>
+
+                <MenuItem Header="保存">
+                    <MenuItem Header="給与明細を保存する" Command="{Binding Save_Command}">
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="入力された給与明細を保存します。"/>
+                        </ToolTipService.ToolTip>
+                    </MenuItem>
+
+                    <MenuItem Header="デフォルト明細" Command="{Binding SetDefault_Command}">
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="選択された給与明細をデフォルト明細に登録します。"/>
+                        </ToolTipService.ToolTip>
+                    </MenuItem>
+
+                    <MenuItem Header="DBのバックアップを作成する" Command="{Binding CreateBackup_Command}">
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="SQLiteのバックアップを作成します。"/>
+                        </ToolTipService.ToolTip>
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.LeftWindowCommands>
+
     <Window.DataContext>
         <ViewModels:ViewModel_MainWindow/>
     </Window.DataContext>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Dictionary1.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20" />
             <RowDefinition Height="50" />
             <RowDefinition Height="50" />
             <RowDefinition />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
 
-        <Menu>
-            <MenuItem Header="編集">
-                <MenuItem Header="デフォルト明細" Command="{Binding SetDefault_Command}">
-                    <ToolTipService.ToolTip>
-                        <ToolTip Content="選択された給与明細をデフォルト明細に登録します。"/>
-                    </ToolTipService.ToolTip>
-                </MenuItem>
-
-                <MenuItem Header="経歴" Command="{Binding ShowCareerManager_Command}">
-                    <ToolTipService.ToolTip>
-                        <ToolTip Content="経歴編集画面を開きます。"/>
-                    </ToolTipService.ToolTip>
-                </MenuItem>
-
-                <MenuItem Header="添付ファイル" Command="{Binding ShowFileStorage_Command}">
-                    <ToolTipService.ToolTip>
-                        <ToolTip Content="添付ファイル登録画面を開きます。"/>
-                    </ToolTipService.ToolTip>
-                </MenuItem>
-
-                <MenuItem Header="オプション" Command="{Binding ShowOption_Command}">
-                    <ToolTipService.ToolTip>
-                        <ToolTip Content="アプリケーション設定画面を開きます。"/>
-                    </ToolTipService.ToolTip>
-                </MenuItem>
-            </MenuItem>
-
-            <MenuItem Header="読込">
-                <MenuItem Header="デフォルト明細を取得" Command="{Binding GetDefault_Command}">
-                    <ToolTipService.ToolTip>
-                        <ToolTip Content="登録されているデフォルト明細を取得します。"/>
-                    </ToolTipService.ToolTip>
-                </MenuItem>
-
-                <MenuItem Header="CSV読込" Command="{Binding ReadCSV_Command}">
-                    <ToolTipService.ToolTip>
-                        <ToolTip Content="CSVを読み込みます。仮作成。"/>
-                    </ToolTipService.ToolTip>
-                </MenuItem>
-            </MenuItem>
-
-            <MenuItem Header="表示">
-                <MenuItem Header="今月の明細" Command="{Binding ShowCurrentPayslip_Command}">
-                    <ToolTipService.ToolTip>
-                        <ToolTip Content="今月の明細を表示します。"/>
-                    </ToolTipService.ToolTip>
-                </MenuItem>
-            </MenuItem>
-
-            <MenuItem Header="出力">
-                <MenuItem Header="Excel" Command="{Binding OutputExcel_Command}">
-                    <ToolTipService.ToolTip>
-                        <ToolTip Content="configファイルに指定された保存先にExcel出力します。"/>
-                    </ToolTipService.ToolTip>
-                </MenuItem>
-
-                <MenuItem Header="スプレッドシート" Command="{Binding OutputSpreadSheet_Command}">
-                    <ToolTipService.ToolTip>
-                        <ToolTip Content="configファイルに指定された保存先にスプレッドシート出力します。"/>
-                    </ToolTipService.ToolTip>
-                </MenuItem>
-            </MenuItem>
-
-            <MenuItem Header="保存">
-                <MenuItem Header="給与明細を保存する" Command="{Binding Save_Command}">
-                    <ToolTipService.ToolTip>
-                        <ToolTip Content="入力された給与明細を保存します。"/>
-                    </ToolTipService.ToolTip>
-                </MenuItem>
-
-                <MenuItem Header="DBのバックアップを作成する" Command="{Binding CreateBackup_Command}">
-                    <ToolTipService.ToolTip>
-                        <ToolTip Content="SQLiteのバックアップを作成します。"/>
-                    </ToolTipService.ToolTip>
-                </MenuItem>
-            </MenuItem>
-
-            <!--<MenuItem Header="閉じる">
-                <behaviors:Interaction.Triggers>
-                    <behaviors:EventTrigger EventName="Click">
-                        <behaviors:CallMethodAction MethodName="Close"
-                                TargetObject="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"/>
-                    </behaviors:EventTrigger>
-                </behaviors:Interaction.Triggers>
-            </MenuItem>-->
-        </Menu>
-
-        <local:Header Width="200" Grid.Row="1" VerticalAlignment="Center" />
+        <local:Header Width="200" Grid.Row="0" VerticalAlignment="Center" />
         <local:WorkPlace Grid.Column="1" Grid.RowSpan="2"/>
 
-        <TabControl Grid.Row="2" Grid.RowSpan="2" Background="{Binding Window_Background}">
+        <TabControl Grid.Row="1" Grid.RowSpan="2" Background="{Binding Window_Background}">
             <TabItem Header="支給額">
                 <local:Allowance Height="340" VerticalAlignment="Top" >
                     <local:Allowance.Background>
@@ -165,4 +168,4 @@
                    Foreground="{Binding PriceUpdown_Foreground}" />
         </StatusBar>
     </Grid>
-</Window>
+</Controls:MetroWindow>
