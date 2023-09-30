@@ -232,7 +232,7 @@ PrepaidRetirementPayment,
 ElectricityAllowance, 
 SpecialAllowance, 
 SpareAllowance, 
-TotalSalary.
+TotalSalary,
 TotalDeductedSalary,
 Remarks)
 values
@@ -251,7 +251,7 @@ values
 @ElectricityAllowance, 
 @SpecialAllowance, 
 @SpareAllowance, 
-@TotalSalary.
+@TotalSalary,
 @TotalDeductedSalary,
 @Remarks)
 ";
