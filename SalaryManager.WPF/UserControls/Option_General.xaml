@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SalaryManager.WPF.UserControls"
              xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" 
+             xmlns:MahApps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:Converter="clr-namespace:SalaryManager.WPF.Converter" 
              x:Class="SalaryManager.WPF.UserControls.Option_General"
@@ -75,10 +76,12 @@
 
         <Label Content="フォントサイズ" 
                Grid.Row="3" />
-        <local:NumericUpDown Grid.Column="1" 
+        <MahApps:NumericUpDown Grid.Column="1" 
                              Grid.Row="3" 
-                             CustomMinimum="1"
-                             CustomValue="{Binding FontSize_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                             Minimum="1"
+                             Width="100"
+                             Height="10"
+                             Value="{Binding FontSize_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <Label Content="プレビュー"
                Grid.Row="2"
