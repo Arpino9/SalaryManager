@@ -182,10 +182,30 @@ namespace SalaryManager.Infrastructure.XML
         /// 認証ファイルのパスを取得する
         /// </summary>
         /// <returns>認証ファイルのパス</returns>
-        public static string FetchPrivateKeyPath()
+        public static string FetchPrivateKeyPath_SpreadSheet()
         {
             XMLLoader.Deserialize();
-            return _tag?.PrivateKeyPath ?? string.Empty;
+            return _tag?.PrivateKeyPath_SpreadSheet ?? string.Empty;
+        }
+
+        /// <summary>
+        /// 認証ファイルのパスを取得する
+        /// </summary>
+        /// <returns>認証ファイルのパス</returns>
+        public static string FetchPrivateKeyPath_Calendar()
+        {
+            XMLLoader.Deserialize();
+            return _tag?.PrivateKeyPath_Calendar ?? string.Empty;
+        }
+
+        /// <summary>
+        /// カレンダーIDを取得する
+        /// </summary>
+        /// <returns>カレンダーID</returns>
+        public static string FetchCalendarId()
+        {
+            XMLLoader.Deserialize();
+            return _tag?.CalendarId ?? string.Empty;
         }
 
         /// <summary>

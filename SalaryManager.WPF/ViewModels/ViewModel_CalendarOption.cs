@@ -5,8 +5,9 @@ using System.Runtime.CompilerServices;
 
 namespace SalaryManager.WPF.ViewModels
 {
-    public class ViewModel_SpreadSheetOption : INotifyPropertyChanged
+    public class ViewModel_CalendarOption : INotifyPropertyChanged
     {
+
         #region Property Changed
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -20,17 +21,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
-        public ViewModel_SpreadSheetOption()
+        public ViewModel_CalendarOption()
         {
-            this.Model.SpreadSheetOption = this;
+            this.Model.CalendarOption = this;
 
-            this.Model.Initialize_SpreadSheet();
+            this.Model.Initialize_Calendar();
         }
 
         /// <summary> Model - オプション </summary>
         public Model_Option Model = Model_Option.GetInstance();
 
-        #region 認証ファイルの保存先パス
+        #region JSONの保存先パス
 
         private string _selectPrivateKey_Text;
 
@@ -61,7 +62,7 @@ namespace SalaryManager.WPF.ViewModels
             {
                 if (this._selectPrivateKey_Command == null)
                 {
-                    this._selectPrivateKey_Command = new RelayCommand(this.Model.SelectPrivateKeyPath_SpreadSheet);
+                    this._selectPrivateKey_Command = new RelayCommand(this.Model.SelectPrivateKeyPath_Calendar);
                 }
                 return this._selectPrivateKey_Command;
             }
@@ -69,19 +70,19 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
-        #region シートID
+        #region カレンダーID
 
-        private string _sheetId_Text;
+        private string _selectCalendarID_Text;
 
         /// <summary>
-        /// シートID - Text
+        /// カレンダーIDの保存先パス - Text
         /// </summary>
-        public string SheetId_Text
+        public string SelectCalendarID_Text
         {
-            get => this._sheetId_Text;
+            get => this._selectCalendarID_Text;
             set
             {
-                this._sheetId_Text = value;
+                this._selectCalendarID_Text = value;
                 this.RaisePropertyChanged();
             }
         }

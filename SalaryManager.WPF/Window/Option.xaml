@@ -25,6 +25,10 @@
             <TabItem Header="PDF">
                 <UserControls:Option_PDF />
             </TabItem>
+
+            <TabItem Header="カレンダー">
+                <UserControls:Option_Calendar />
+            </TabItem>
         </TabControl>
     </Grid>
 </Controls:MetroWindow>

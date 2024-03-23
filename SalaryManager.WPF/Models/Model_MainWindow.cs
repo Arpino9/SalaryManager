@@ -387,7 +387,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void OutputSpreadSheet()
         {
-            if (string.IsNullOrEmpty(XMLLoader.FetchPrivateKeyPath()))
+            if (string.IsNullOrEmpty(XMLLoader.FetchPrivateKeyPath_SpreadSheet()))
             {
                 Message.ShowErrorMessage("認証ファイルのパスを指定してください。", "エラー");
                 return;

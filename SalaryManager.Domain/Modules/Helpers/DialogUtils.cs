@@ -40,13 +40,14 @@ namespace SalaryManager.Domain.Modules.Helpers
         /// </summary>
         /// <param name="fileName">ファイル名</param>
         /// <param name="filter">フィルタ</param>
+        /// <param name="initialDirectory">初期ディレクトリ</param>
         /// <returns>指定されたパス</returns>
         public static string SelectFile(string fileName, string filter)
         {
             var dialog = new OpenFileDialog();
 
             dialog.FileName = fileName;
-            dialog.InitialDirectory = @"C:\";
+            dialog.InitialDirectory = string.Empty;
             dialog.Filter = filter;
             dialog.Title = "ファイルを開く";
             dialog.FilterIndex = 2;

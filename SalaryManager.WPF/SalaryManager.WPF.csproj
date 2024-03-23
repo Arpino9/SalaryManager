@@ -147,6 +147,9 @@
     <Compile Include="UserControls\NumericUpDown.xaml.cs">
       <DependentUpon>NumericUpDown.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Option_Calendar.xaml.cs">
+      <DependentUpon>Option_Calendar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Option_General.xaml.cs">
       <DependentUpon>Option_General.xaml</DependentUpon>
     </Compile>
@@ -156,6 +159,7 @@
     <Compile Include="UserControls\Option_SpreadSheet.xaml.cs">
       <DependentUpon>Option_SpreadSheet.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ViewModel_CalendarOption.cs" />
     <Compile Include="ViewModels\ViewModel_FileStorage.cs" />
     <Compile Include="ViewModels\ViewModel_GeneralOption.cs" />
     <Compile Include="ViewModels\ViewModel_ImageViewer.cs" />
@@ -209,6 +213,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\NumericUpDown.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Option_Calendar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

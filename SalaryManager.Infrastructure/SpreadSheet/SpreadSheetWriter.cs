@@ -66,7 +66,7 @@ namespace SalaryManager.Infrastructure.SpreadSheet
         /// </remarks>
         private void Write()
         {
-            using (var fileStream = new FileStream(XMLLoader.FetchPrivateKeyPath(), FileMode.Open, FileAccess.Read))
+            using (var fileStream = new FileStream(XMLLoader.FetchPrivateKeyPath_SpreadSheet(), FileMode.Open, FileAccess.Read))
             {
                 var googleCredential = GoogleCredential.FromStream(fileStream)
                                                        .CreateScoped(SheetsService.Scope.Spreadsheets);

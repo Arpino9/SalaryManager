@@ -22,7 +22,7 @@ namespace SalaryManager.Infrastructure.SpreadSheet
         /// <param name="sheetName">シート名</param>
         public static void ReadOutlineHeader(string sheetName)
         {
-            using(var fileStream = new FileStream(XMLLoader.FetchPrivateKeyPath(), FileMode.Open, FileAccess.Read))
+            using(var fileStream = new FileStream(XMLLoader.FetchPrivateKeyPath_SpreadSheet(), FileMode.Open, FileAccess.Read))
             {
                 var googleCredential = GoogleCredential.FromStream(fileStream)
                                                        .CreateScoped(SheetsService.Scope.Spreadsheets);

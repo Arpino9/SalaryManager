@@ -86,7 +86,7 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         internal void Initialize_SpreadSheet()
         {
-            this.SpreadSheetOption.SelectPrivateKey_Text = XMLLoader.FetchPrivateKeyPath();
+            this.SpreadSheetOption.SelectPrivateKey_Text = XMLLoader.FetchPrivateKeyPath_SpreadSheet();
             this.SpreadSheetOption.SheetId_Text          = XMLLoader.FetchSheetId();
         }
 
@@ -101,6 +101,18 @@ namespace SalaryManager.WPF.Models
             this.PDFOption.Password_Text = XMLLoader.FetchPDFPassword();
         }
 
+        /// <summary>
+        /// 初期化
+        /// </summary>
+        /// <remarks>
+        /// 値があればXMLから、なければconfigから取得する。
+        /// </remarks>
+        internal void Initialize_Calendar()
+        {
+            this.CalendarOption.SelectPrivateKey_Text = XMLLoader.FetchPrivateKeyPath_Calendar();
+            this.CalendarOption.SelectCalendarID_Text = XMLLoader.FetchCalendarId();
+        }
+
         /// <summary> ViewModel - 全般設定 </summary>
         internal ViewModel_GeneralOption GeneralOption { get; set; }
 
@@ -109,6 +121,9 @@ namespace SalaryManager.WPF.Models
 
         /// <summary> ViewModel - PDF設定 </summary>
         internal ViewModel_PDFOption PDFOption { get; set; }
+
+        /// <summary> ViewModel - Googleカレンダー </summary>
+        internal ViewModel_CalendarOption CalendarOption { get; set; }
 
         #region SQLite
 
@@ -163,22 +178,19 @@ namespace SalaryManager.WPF.Models
         #region 認証ファイル
 
         /// <summary>
-        /// 認証ファイル - 開く
+        /// 認証ファイル(SpreadSheet) - 開く
         /// </summary>
-        internal void SelectPrivateKeyPath()
+        internal void SelectPrivateKeyPath_SpreadSheet()
         {
-            var dialog = new OpenFileDialog();
-            dialog.Filter = "JSONファイル(*.json)|*.json";
-            dialog.Title  = "認証ファイルを指定してください";
+            this.SpreadSheetOption.SelectPrivateKey_Text = DialogUtils.SelectFile(string.Empty, "JSONファイル(*.json)|*.json");
+        }
 
-            var result = dialog.ShowDialog();
-
-            if (result == DialogResult.Cancel)
-            {
-                return;
-            }
-
-            this.SpreadSheetOption.SelectPrivateKey_Text = dialog.FileName;
+        /// <summary>
+        /// 認証ファイル(Googleカレンダー) - 開く
+        /// </summary>
+        internal void SelectPrivateKeyPath_Calendar()
+        {
+            this.CalendarOption.SelectPrivateKey_Text = DialogUtils.SelectFile(string.Empty, "JSONファイル(*.json)|*.json");
         }
 
         #endregion
@@ -259,10 +271,13 @@ namespace SalaryManager.WPF.Models
 
                 tag.BackgroundColor = StringUtils.Aggregate(list);
 
-                tag.PrivateKeyPath = this.SpreadSheetOption.SelectPrivateKey_Text;
-                tag.SheetId        = this.SpreadSheetOption.SheetId_Text;
+                tag.PrivateKeyPath_SpreadSheet = this.SpreadSheetOption.SelectPrivateKey_Text;
+                tag.SheetId                    = this.SpreadSheetOption.SheetId_Text;
 
                 tag.PDFPassword = this.PDFOption.Password_Text;
+
+                tag.PrivateKeyPath_Calendar = this.CalendarOption.SelectPrivateKey_Text;
+                tag.CalendarId              = this.CalendarOption.SelectCalendarID_Text;
 
                 writer.Serialize(tag);
             }
