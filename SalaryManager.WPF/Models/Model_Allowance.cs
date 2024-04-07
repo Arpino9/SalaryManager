@@ -138,7 +138,7 @@ namespace SalaryManager.WPF.Models
             }
 
             // 手当有無
-            var existence = Careers.FetchAllowanceExistence(new CompanyValue(company));
+            var existence = Careers.FetchAllowanceExistence(new CompanyNameValue(company));
             if (existence != null) 
             {
                 this.ViewModel.ExecutiveAllowance_IsEnabled       = existence.Executive.Value;

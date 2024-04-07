@@ -131,6 +131,7 @@
     <Compile Include="Interface\IInputPayslip.cs" />
     <Compile Include="Interface\IMaster.cs" />
     <Compile Include="Models\Model_Allowance.cs" />
+    <Compile Include="Models\Model_WorkingPlace.cs" />
     <Compile Include="Models\Model_Career.cs" />
     <Compile Include="Models\Model_Deduction.cs" />
     <Compile Include="Models\Model_FileStorage.cs" />
@@ -160,6 +161,7 @@
       <DependentUpon>Option_SpreadSheet.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ViewModel_CalendarOption.cs" />
+    <Compile Include="ViewModels\ViewModel_WorkingPlace.cs" />
     <Compile Include="ViewModels\ViewModel_FileStorage.cs" />
     <Compile Include="ViewModels\ViewModel_GeneralOption.cs" />
     <Compile Include="ViewModels\ViewModel_ImageViewer.cs" />
@@ -203,6 +205,9 @@
     </Compile>
     <Compile Include="Window\Option.xaml.cs">
       <DependentUpon>Option.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\WorkingPlace.xaml.cs">
+      <DependentUpon>WorkingPlace.xaml</DependentUpon>
     </Compile>
     <Page Include="Dictionary1.xaml">
       <SubType>Designer</SubType>
@@ -281,6 +286,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Window\Option.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\WorkingPlace.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

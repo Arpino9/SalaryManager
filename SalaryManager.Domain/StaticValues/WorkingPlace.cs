@@ -1,19 +1,17 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Repositories;
-using SalaryManager.Domain.ValueObjects;
 
 namespace SalaryManager.Domain.StaticValues
 {
     /// <summary>
-    /// Static Values - 職歴
+    /// Static Values - 就業場所
     /// </summary>
-    public static class Careers
+    public static class WorkingPlace
     {
-        private static List<CareerEntity> _entities = new List<CareerEntity>();
+        private static List<WorkingPlaceEntity> _entities = new List<WorkingPlaceEntity>();
 
         /// <summary>
         /// テーブル取得
@@ -22,7 +20,7 @@ namespace SalaryManager.Domain.StaticValues
         /// <remarks>
         /// 競合防止のためlockをかけており、常に最新の情報が取得できる。
         /// </remarks>
-        public static void Create(ICareerRepository repository)
+        public static void Create(IWorkingPlaceRepository repository)
         {
             lock (((ICollection)_entities).SyncRoot)
             {
@@ -36,12 +34,12 @@ namespace SalaryManager.Domain.StaticValues
         /// </summary>
         /// <param name="id">ID</param>
         /// <returns>職歴</returns>
-        public static CareerEntity Fetch(int id)
+        public static WorkingPlaceEntity Fetch(int id)
         {
             return _entities.Find(x => x.ID == id);
         }
 
-        /// <summary>
+        /*/// <summary>
         /// 会社名を取得
         /// </summary>
         /// <param name="date">日付</param>
@@ -86,24 +84,24 @@ namespace SalaryManager.Domain.StaticValues
             var entity = _entities.Find(x => x.CompanyName == company);
 
             return entity?.AllowanceExistence;
-        }
+        }*/
 
         /// <summary>
         /// 昇順で取得する
         /// </summary>
         /// <returns>職歴</returns>
-        public static IReadOnlyList<CareerEntity> FetchByAscending()
+        public static IReadOnlyList<WorkingPlaceEntity> FetchByAscending()
         {
-            return _entities.OrderBy(x => x.WorkingStartDate.Value).ToList().AsReadOnly();
+            return _entities.OrderBy(x => x.ID).ToList().AsReadOnly();
         }
 
         /// <summary>
         /// 降順で取得する
         /// </summary>
         /// <returns>職歴</returns>
-        public static IReadOnlyList<CareerEntity> FetchByDescending()
+        public static IReadOnlyList<WorkingPlaceEntity> FetchByDescending()
         {
-            return _entities.OrderByDescending(x => x.WorkingStartDate.Value).ToList().AsReadOnly();
+            return _entities.OrderByDescending(x => x.ID).ToList().AsReadOnly();
         }
     }
 }

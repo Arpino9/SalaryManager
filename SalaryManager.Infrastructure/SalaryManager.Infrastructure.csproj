@@ -183,6 +183,7 @@
     <Compile Include="SpreadSheet\SpreadSheetDefinition.cs" />
     <Compile Include="SpreadSheet\SpreadSheetReader.cs" />
     <Compile Include="SpreadSheet\SpreadSheetWriter.cs" />
+    <Compile Include="SQLite\WorkingPlaceSQLite.cs" />
     <Compile Include="SQLite\CareerSQLite.cs" />
     <Compile Include="SQLite\AnnualChartSQLite.cs" />
     <Compile Include="SQLite\DeductionSQLite.cs" />

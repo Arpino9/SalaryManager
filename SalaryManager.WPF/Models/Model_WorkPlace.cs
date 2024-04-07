@@ -105,7 +105,7 @@ namespace SalaryManager.WPF.Models
             var company = Careers.FetchCompany(new DateTime(this.Header.Year_Value, this.Header.Month_Value, 1));
             this.ViewModel.CompanyName = company;
 
-            if (company == CompanyValue.Undefined.DisplayValue)
+            if (company == CompanyNameValue.Undefined.DisplayValue)
             {
                 this.ViewModel.CompanyName_Foreground = new SolidColorBrush(Colors.Gray);
             }
@@ -143,7 +143,7 @@ namespace SalaryManager.WPF.Models
         public void Clear()
         {
             // 所属会社名
-            this.ViewModel.CompanyName            = CompanyValue.Undefined.DisplayValue;
+            this.ViewModel.CompanyName            = CompanyNameValue.Undefined.DisplayValue;
             this.ViewModel.CompanyName_Foreground = new SolidColorBrush(Colors.Gray);
             // 勤務先
             this.ViewModel.WorkPlace = default(string);

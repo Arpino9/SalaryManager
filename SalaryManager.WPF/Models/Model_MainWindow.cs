@@ -15,6 +15,7 @@ using SalaryManager.Infrastructure.XML;
 using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Infrastructure.Excel;
 using SalaryManager.Infrastructure.SpreadSheet;
+using WorkingPlace = SalaryManager.WPF.Window.WorkingPlace;
 
 namespace SalaryManager.WPF.Models
 {
@@ -140,7 +141,7 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
-            var employeeID = Careers.FetchEmployeeNumber(new CompanyValue(this.WorkPlace.CompanyName));
+            var employeeID = Careers.FetchEmployeeNumber(new CompanyNameValue(this.WorkPlace.CompanyName));
 
             if (string.IsNullOrEmpty(employeeID)) 
             {
@@ -420,6 +421,19 @@ namespace SalaryManager.WPF.Models
             {
                 throw new FileWriterException("スプレッドシートへの書き込みに失敗しました。", ex);
             }
+        }
+
+        #endregion
+
+        #region 会社入力
+
+        /// <summary>
+        /// 会社管理画面を開く
+        /// </summary>
+        internal void ShowCompanyManager()
+        {
+            var career = new WorkingPlace();
+            career.Show();
         }
 
         #endregion

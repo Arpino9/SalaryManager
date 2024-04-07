@@ -3,13 +3,13 @@
     /// <summary>
     /// Value Object - 会社
     /// </summary>
-    public class CompanyValue : ValueObject<CompanyValue>
+    public class CompanyNameValue : ValueObject<CompanyNameValue>
     {
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="value">値</param>
-        public CompanyValue(string value)
+        public CompanyNameValue(string value)
         {
             this.Text = value;
         }
@@ -18,7 +18,7 @@
         public string Text { get; }
 
         /// <summary> 未登録 </summary>
-        public static CompanyValue Undefined = new CompanyValue(string.Empty);
+        public static CompanyNameValue Undefined = new CompanyNameValue(string.Empty);
 
         /// <summary>
         /// 株式会社か
@@ -53,11 +53,11 @@
         {
             get
             {
-                return (this == CompanyValue.Undefined ? "<未登録>" : this.Text);
+                return (this == CompanyNameValue.Undefined ? "<未登録>" : this.Text);
             }
         }
 
-        protected override bool EqualsCore(CompanyValue other)
+        protected override bool EqualsCore(CompanyNameValue other)
         {
             return (this.Text == other.Text);
         }

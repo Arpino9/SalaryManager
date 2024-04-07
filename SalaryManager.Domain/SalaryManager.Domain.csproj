@@ -97,7 +97,9 @@
   <ItemGroup>
     <Compile Include="Entities\AllowanceExistenceEntity.cs" />
     <Compile Include="Entities\AnnualChartEntity.cs" />
+    <Compile Include="Entities\CalendarEventEntity.cs" />
     <Compile Include="Entities\CareerEntity.cs" />
+    <Compile Include="Entities\WorkingPlaceEntity.cs" />
     <Compile Include="Entities\FileStorageEntity.cs" />
     <Compile Include="Entities\HeaderEntity.cs" />
     <Compile Include="Exceptions\DatabaseException.cs" />
@@ -116,6 +118,7 @@
     <Compile Include="Modules\Logics\Message.cs" />
     <Compile Include="Modules\Logics\FilePath.cs" />
     <Compile Include="Repositories\IAnnualChartRepository.cs" />
+    <Compile Include="Repositories\IWorkingPlaceRepository.cs" />
     <Compile Include="Repositories\ICareerRepository.cs" />
     <Compile Include="Repositories\IExcelWriterRepository.cs" />
     <Compile Include="Repositories\IFileStorageRepository.cs" />
@@ -134,6 +137,7 @@
     <Compile Include="Repositories\IWorkingReferencesRepository.cs" />
     <Compile Include="StaticValues\Allowances.cs" />
     <Compile Include="StaticValues\AnnualCharts.cs" />
+    <Compile Include="StaticValues\WorkingPlace.cs" />
     <Compile Include="StaticValues\Careers.cs" />
     <Compile Include="StaticValues\Deductions.cs" />
     <Compile Include="StaticValues\FileStorages.cs" />
@@ -141,10 +145,12 @@
     <Compile Include="StaticValues\SideBusinesses.cs" />
     <Compile Include="StaticValues\WorkingReferences.cs" />
     <Compile Include="ValueObjects\AlternativeValue.cs" />
-    <Compile Include="ValueObjects\CompanyValue.cs" />
+    <Compile Include="ValueObjects\CompanyNameValue.cs" />
     <Compile Include="ValueObjects\FileExtensionValue.cs" />
     <Compile Include="ValueObjects\MoneyValue.cs" />
     <Compile Include="ValueObjects\PaidVacationDaysValue.cs" />
+    <Compile Include="ValueObjects\PrefectureValue.cs" />
+    <Compile Include="ValueObjects\TimeValue.cs" />
     <Compile Include="ValueObjects\ValueObject.cs" />
     <Compile Include="ValueObjects\WorkingDateValue.cs" />
     <Compile Include="ValueObjects\YearValue.cs" />
@@ -161,5 +167,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

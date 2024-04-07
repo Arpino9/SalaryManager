@@ -207,6 +207,27 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
+        #region 会社管理画面を開く
+
+        private RelayCommand _showCompanyManager_Command;
+
+        /// <summary>
+        /// 会社管理画面を開く - Command
+        /// </summary>
+        public RelayCommand ShowCompanyManager_Command
+        {
+            get
+            {
+                if (this._showCompanyManager_Command == null)
+                {
+                    this._showCompanyManager_Command = new RelayCommand(this.Model.ShowCompanyManager);
+                }
+                return this._showCompanyManager_Command;
+            }
+        }
+
+        #endregion
+
         #region 経歴管理画面を開く
 
         private RelayCommand _showCareerManager_Command;
