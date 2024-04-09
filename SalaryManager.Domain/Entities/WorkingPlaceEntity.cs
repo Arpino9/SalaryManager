@@ -7,8 +7,6 @@ namespace SalaryManager.Domain.Entities
     /// </summary>
     public sealed class WorkingPlaceEntity
     {
-        
-
         /// <summary>
         /// Constructor
         /// </summary>
@@ -32,17 +30,17 @@ namespace SalaryManager.Domain.Entities
             (int Hour, int Minute) lunchEndTime,
             (int Hour, int Minute) breakStartTime,
             (int Hour, int Minute) breakEndTime,
-            string remarks)
+            string remarks) 
         {
             this.ID = id;
             this.CompanyName = new CompanyNameValue(name);
             this.Address = address;
 
             this.WorkingTime = (new TimeValue(workingStartTime.Hour, workingStartTime.Minute),
-                                new TimeValue(workingEndTime.Hour,   workingEndTime.Minute));
+                                new TimeValue(workingEndTime.Hour, workingEndTime.Minute));
 
-            this.LunchTime   = (new TimeValue(lunchStartTime.Hour, lunchStartTime.Minute),
-                                new TimeValue(lunchEndTime.Hour,   lunchEndTime.Minute));
+            this.LunchTime = (new TimeValue(lunchStartTime.Hour, lunchStartTime.Minute),
+                                new TimeValue(lunchEndTime.Hour, lunchEndTime.Minute));
 
             this.BreakTime = (new TimeValue(breakStartTime.Hour, breakStartTime.Minute),
                                 new TimeValue(breakEndTime.Hour, breakEndTime.Minute));
@@ -84,22 +82,16 @@ namespace SalaryManager.Domain.Entities
             int break_Start_Minute,
             int break_End_Hour,
             int break_End_Minute,
-            string remarks)
+            string remarks) : this(id, name, address,
+                                  (working_Start_Hour, working_Start_Minute),
+                                  (working_End_Hour, working_End_Minute),
+                                  (lunch_Start_Hour, lunch_Start_Minute),
+                                  (lunch_End_Hour, lunch_End_Minute),
+                                  (break_Start_Hour, break_Start_Minute),
+                                  (break_End_Hour, break_End_Minute),
+                                  remarks)
         {
-            this.ID = id;
-            this.CompanyName = new CompanyNameValue(name);
-            this.Address = address;
-
-            this.WorkingTime = (new TimeValue(working_Start_Hour, working_Start_Minute),
-                                new TimeValue(working_End_Hour, working_End_Minute));
-
-            this.LunchTime = (new TimeValue(lunch_Start_Hour, lunch_Start_Minute),
-                                new TimeValue(lunch_End_Hour, lunch_End_Minute));
-
-            this.BreakTime = (new TimeValue(break_Start_Hour, break_Start_Minute),
-                                new TimeValue(break_End_Hour, break_End_Minute));
-
-            this.Remarks = remarks;
+            
         }
 
         /// <summary> ID </summary>

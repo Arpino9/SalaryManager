@@ -100,6 +100,8 @@ namespace SalaryManager.Infrastructure.Excel
         /// <returns>void</returns>
         public async Task WriteAllAllowance(IReadOnlyList<AllowanceValueEntity> entities)
         {
+            var column = 4;
+
             if (!entities.Any())
             {
                 return;
@@ -110,37 +112,40 @@ namespace SalaryManager.Infrastructure.Excel
             foreach (var entity in entities)
             {
                 // 基本給
-                this.Worksheet_Payslip.Cell(row, 4).Value = entity.BasicSalary;
+                this.Worksheet_Payslip.Cell(row, column).Value = entity.BasicSalary;
                 // 役職手当
-                this.Worksheet_Payslip.Cell(row, 5).Value = entity.ExecutiveAllowance;
+                this.Worksheet_Payslip.Cell(row, column + 1).Value = entity.ExecutiveAllowance;
                 // 扶養手当
-                this.Worksheet_Payslip.Cell(row, 6).Value = entity.DependencyAllowance;
+                this.Worksheet_Payslip.Cell(row, column + 2).Value = entity.DependencyAllowance;
                 // 時間外手当
-                this.Worksheet_Payslip.Cell(row, 7).Value = entity.OvertimeAllowance;
+                this.Worksheet_Payslip.Cell(row, column + 3).Value = entity.OvertimeAllowance;
                 // 休日割増
-                this.Worksheet_Payslip.Cell(row, 8).Value = entity.DaysoffIncreased;
+                this.Worksheet_Payslip.Cell(row, column + 4).Value = entity.DaysoffIncreased;
                 // 深夜割増
-                this.Worksheet_Payslip.Cell(row, 9).Value = entity.NightworkIncreased;
+                this.Worksheet_Payslip.Cell(row, column + 5).Value = entity.NightworkIncreased;
                 // 住宅手当
-                this.Worksheet_Payslip.Cell(row, 10).Value = entity.HousingAllowance;
+                this.Worksheet_Payslip.Cell(row, column + 6).Value = entity.HousingAllowance;
                 // 遅刻早退欠勤
-                this.Worksheet_Payslip.Cell(row, 11).Value = entity.LateAbsent;
+                this.Worksheet_Payslip.Cell(row, column + 7).Value = entity.LateAbsent;
                 // 交通費
-                this.Worksheet_Payslip.Cell(row, 12).Value = entity.TransportationExpenses;
+                this.Worksheet_Payslip.Cell(row, column + 8).Value = entity.TransportationExpenses;
                 // 在宅手当
-                this.Worksheet_Payslip.Cell(row, 13).Value = entity.ElectricityAllowance;
+                this.Worksheet_Payslip.Cell(row, column + 9).Value = entity.ElectricityAllowance;
                 // 特別手当
-                this.Worksheet_Payslip.Cell(row, 14).Value = entity.SpecialAllowance;
+                this.Worksheet_Payslip.Cell(row, column + 10).Value = entity.SpecialAllowance;
+                // 前払退職金
+                this.Worksheet_Payslip.Cell(row, column + 11).Value = entity.PrepaidRetirementPayment;
                 // 予備
-                this.Worksheet_Payslip.Cell(row, 15).Value = entity.SpareAllowance;
+                this.Worksheet_Payslip.Cell(row, column + 12).Value = entity.SpareAllowance;
                 // 備考
-                this.Worksheet_Payslip.Cell(row, 16).Value = entity.Remarks;
+                this.Worksheet_Payslip.Cell(row, column + 13).Value = entity.Remarks;
+                
                 // 支給総計
                 this.Worksheet_Budget.Cell(row - 1, 4).Value = entity.TotalSalary;
-                this.Worksheet_Payslip.Cell(row, 40).Value = entity.TotalSalary;
+                this.Worksheet_Payslip.Cell(row, 41).Value = entity.TotalSalary;
                 // 差引支給額
                 this.Worksheet_Budget.Cell(row - 1, 6).Value = entity.TotalDeductedSalary;
-                this.Worksheet_Payslip.Cell(row, 43).Value = entity.TotalDeductedSalary;
+                this.Worksheet_Payslip.Cell(row, 44).Value = entity.TotalDeductedSalary;
 
                 row++;
             }
@@ -155,6 +160,8 @@ namespace SalaryManager.Infrastructure.Excel
         /// <returns>void</returns>
         public async Task WriteAllDeduction(IReadOnlyList<DeductionEntity> entities)
         {
+            var column = 18;
+
             if (!entities.Any())
             {
                 return;
@@ -165,26 +172,26 @@ namespace SalaryManager.Infrastructure.Excel
             foreach (var entity in entities)
             {
                 // 健康保険
-                this.Worksheet_Payslip.Cell(row, 17).Value = entity.HealthInsurance;
+                this.Worksheet_Payslip.Cell(row, column).Value = entity.HealthInsurance;
                 // 介護保険
-                this.Worksheet_Payslip.Cell(row, 18).Value = entity.NursingInsurance;
+                this.Worksheet_Payslip.Cell(row, column + 1).Value = entity.NursingInsurance;
                 // 厚生年金
-                this.Worksheet_Payslip.Cell(row, 19).Value = entity.WelfareAnnuity;
+                this.Worksheet_Payslip.Cell(row, column + 2).Value = entity.WelfareAnnuity;
                 // 雇用保険
-                this.Worksheet_Payslip.Cell(row, 20).Value = entity.EmploymentInsurance;
+                this.Worksheet_Payslip.Cell(row, column + 3).Value = entity.EmploymentInsurance;
                 // 所得税
-                this.Worksheet_Payslip.Cell(row, 21).Value = entity.IncomeTax;
+                this.Worksheet_Payslip.Cell(row, column + 4).Value = entity.IncomeTax;
                 // 市町村税
-                this.Worksheet_Payslip.Cell(row, 22).Value = entity.MunicipalTax;
+                this.Worksheet_Payslip.Cell(row, column + 5).Value = entity.MunicipalTax;
                 // 互助会
-                this.Worksheet_Payslip.Cell(row, 23).Value = entity.FriendshipAssociation;
+                this.Worksheet_Payslip.Cell(row, column + 6).Value = entity.FriendshipAssociation;
                 // 年末調整他
-                this.Worksheet_Payslip.Cell(row, 24).Value = entity.YearEndTaxAdjustment;
+                this.Worksheet_Payslip.Cell(row, column + 7).Value = entity.YearEndTaxAdjustment;
                 // 備考
-                this.Worksheet_Payslip.Cell(row, 25).Value = entity.Remarks;
+                this.Worksheet_Payslip.Cell(row, column + 8).Value = entity.Remarks;
                 // 控除額計
                 this.Worksheet_Budget.Cell(row - 1, 5).Value = entity.TotalDeduct;
-                this.Worksheet_Payslip.Cell(row, 41).Value = entity.TotalDeduct;
+                this.Worksheet_Payslip.Cell(row, 42).Value = entity.TotalDeduct;
 
                 row++;
             }
@@ -199,6 +206,8 @@ namespace SalaryManager.Infrastructure.Excel
         /// <returns>void</returns>
         public async Task WriteAllWorkingReferences(IReadOnlyList<WorkingReferencesEntity> entities)
         {
+            var column = 27;
+
             if (!entities.Any())
             {
                 return;
@@ -209,25 +218,25 @@ namespace SalaryManager.Infrastructure.Excel
             foreach (var entity in entities)
             {
                 // 時間外時間
-                this.Worksheet_Payslip.Cell(row, 26).Value = entity.OvertimeTime;
+                this.Worksheet_Payslip.Cell(row, column).Value = entity.OvertimeTime;
                 // 休出時間
-                this.Worksheet_Payslip.Cell(row, 27).Value = entity.WeekendWorktime;
+                this.Worksheet_Payslip.Cell(row, column + 1).Value = entity.WeekendWorktime;
                 // 深夜時間
-                this.Worksheet_Payslip.Cell(row, 28).Value = entity.MidnightWorktime;
+                this.Worksheet_Payslip.Cell(row, column + 2).Value = entity.MidnightWorktime;
                 // 遅刻早退欠勤H
-                this.Worksheet_Payslip.Cell(row, 29).Value = entity.LateAbsentH;
+                this.Worksheet_Payslip.Cell(row, column + 3).Value = entity.LateAbsentH;
                 // 支給額-保険
-                this.Worksheet_Payslip.Cell(row, 30).Value = entity.Insurance;
+                this.Worksheet_Payslip.Cell(row, column + 4).Value = entity.Insurance;
                 // 標準月額千円
-                this.Worksheet_Payslip.Cell(row, 31).Value = entity.Norm;
+                this.Worksheet_Payslip.Cell(row, column + 5).Value = entity.Norm;
                 // 扶養人数
-                this.Worksheet_Payslip.Cell(row, 32).Value = entity.NumberOfDependent;
+                this.Worksheet_Payslip.Cell(row, column + 6).Value = entity.NumberOfDependent;
                 // 有給残日数
-                this.Worksheet_Payslip.Cell(row, 33).Value = entity.PaidVacation.Value;
+                this.Worksheet_Payslip.Cell(row, column + 7).Value = entity.PaidVacation.Value;
                 // 勤務時間
-                this.Worksheet_Payslip.Cell(row, 34).Value = entity.WorkingHours;
+                this.Worksheet_Payslip.Cell(row, column + 8).Value = entity.WorkingHours;
                 // 勤務時間
-                this.Worksheet_Payslip.Cell(row, 35).Value = entity.Remarks;
+                this.Worksheet_Payslip.Cell(row, column + 9).Value = entity.Remarks;
                 // 勤務先
                 this.Worksheet_Budget.Cell(row - 1, 3).Value = entity.WorkPlace;
                 this.Worksheet_Payslip.Cell(row, 2).Value = entity.WorkPlace;
@@ -245,6 +254,8 @@ namespace SalaryManager.Infrastructure.Excel
         /// <returns>void</returns>
         public async Task WriteAllSideBusiness(IReadOnlyList<SideBusinessEntity> entities)
         {
+            var column = 37;
+
             if (!entities.Any())
             {
                 return;
@@ -255,13 +266,13 @@ namespace SalaryManager.Infrastructure.Excel
             foreach (var entity in entities)
             {
                 // 副業収入
-                this.Worksheet_Payslip.Cell(row, 36).Value = entity.SideBusiness;
+                this.Worksheet_Payslip.Cell(row, column).Value = entity.SideBusiness;
                 // 臨時収入
-                this.Worksheet_Payslip.Cell(row, 37).Value = entity.Perquisite;
+                this.Worksheet_Payslip.Cell(row, column + 1).Value = entity.Perquisite;
                 // その他
-                this.Worksheet_Payslip.Cell(row, 38).Value = entity.Others;
+                this.Worksheet_Payslip.Cell(row, column + 2).Value = entity.Others;
                 // 備考
-                this.Worksheet_Payslip.Cell(row, 39).Value = entity.Remarks;
+                this.Worksheet_Payslip.Cell(row, column + 3).Value = entity.Remarks;
 
                 row++;
             }

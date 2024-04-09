@@ -42,7 +42,7 @@ namespace SalaryManager.Domain.ValueObjects
 
         protected override bool EqualsCore(TimeValue other)
         {
-            return (this.Hour == other.Hour &&
+            return (this.Hour   == other.Hour &&
                     this.Minute == other.Minute);
         }
     }

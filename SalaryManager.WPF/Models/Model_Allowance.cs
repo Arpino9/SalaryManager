@@ -5,7 +5,6 @@ using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Domain.Repositories;
 using SalaryManager.Domain.StaticValues;
 using SalaryManager.Domain.ValueObjects;
-using SalaryManager.Infrastructure.Google_Calendar;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.Infrastructure.XML;
@@ -78,8 +77,6 @@ namespace SalaryManager.WPF.Models
             }
 
             this.Refresh();
-
-            CalendarReader.Read();
         }
 
         /// <summary>
