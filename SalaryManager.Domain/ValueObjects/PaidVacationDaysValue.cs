@@ -5,8 +5,14 @@ namespace SalaryManager.Domain.ValueObjects
     /// <summary>
     /// Value Object - 有給日数
     /// </summary>
-    public sealed class PaidVacationDaysValue : ValueObject<PaidVacationDaysValue>
+    public sealed record class PaidVacationDaysValue
     {
+        /// <summary> 上限値 </summary>
+        public static readonly int Maximum = 40;
+
+        /// <summary> 下限値 </summary>
+        public static readonly int Minimum = 0;
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -27,43 +33,20 @@ namespace SalaryManager.Domain.ValueObjects
             this.Value = paidVacationDays;
         }
 
-        /// <summary> 上限値 </summary>
-        public static readonly int Maximum = 40;
-
-        /// <summary> 下限値 </summary>
-        public static readonly int Minimum = 0;
-
         /// <summary> 有給日数 </summary>
         public readonly double Value;
 
         /// <summary>
         /// Text
         /// </summary>
-        public string Text
-        {
-            get
-            {
-                return ($"{this.Value.ToString()}日");
-            }
-        }
+        public string Text 
+            => ($"{this.Value.ToString()}日");
 
         /// <summary>
         /// To String
         /// </summary>
         /// <returns>金額</returns>
-        public override string ToString()
-        {
-            return ($"有給日数：{this.Value}日");
-        }
-
-        /// <summary>
-        /// Equals Core
-        /// </summary>
-        /// <param name="other">有給日数</param>
-        /// <returns>有給日数</returns>
-        protected override bool EqualsCore(PaidVacationDaysValue other)
-        {
-            return (this.Value == other.Value);
-        }
+        public override string ToString() 
+            => ($"有給日数：{this.Value}日");
     }
 }

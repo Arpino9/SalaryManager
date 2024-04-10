@@ -7,7 +7,7 @@ namespace SalaryManager.Domain.ValueObjects
     /// <summary>
     /// Value Object - ファイル拡張子
     /// </summary>
-    public sealed class FileExtensionValue : ValueObject<FileExtensionValue>
+    public sealed record class FileExtensionValue
     {
         /// <summary> JPG形式 </summary>
         private static readonly FileExtensionValue JPG = new FileExtensionValue("jpg");
@@ -34,86 +34,50 @@ namespace SalaryManager.Domain.ValueObjects
             this.Value = rawExtension.ToLower();
         }
 
+        /// <summary> 値 </summary>
+        public string Value;
+
         /// <summary>
         /// PDF形式か
         /// </summary>
-        public bool IsPDF
-        {
-            get
-            {
-                return this.Value == FileExtensionValue.PDF.Value;
-            }
-        }
+        public bool IsPDF 
+            => (this.Value == FileExtensionValue.PDF.Value);
 
         /// <summary>
         /// 画像形式か
         /// </summary>
-        public bool IsImage
-        {
-            get
-            {
-                return this.IsJPG  || 
-                       this.IsGIF  || 
-                       this.IsPNG  || 
-                       this.IsTIFF || 
-                       this.IsExif;
-            }
-        }
+        public bool IsImage 
+            => (this.IsJPG || this.IsGIF || this.IsPNG || this.IsTIFF || this.IsExif);
 
         /// <summary>
         /// JPG形式か
         /// </summary>
         public bool IsJPG
-        {
-            get
-            {
-                return this.Value == FileExtensionValue.JPG.Value;
-            }
-        }
+            => (this.Value == FileExtensionValue.JPG.Value);    
 
         /// <summary>
         /// GIF形式か
         /// </summary>
         public bool IsGIF
-        {
-            get
-            {
-                return this.Value == FileExtensionValue.GIF.Value;
-            }
-        }
+            => (this.Value == FileExtensionValue.GIF.Value);
 
         /// <summary>
         /// PNG形式か
         /// </summary>
         public bool IsPNG
-        {
-            get
-            {
-                return this.Value == FileExtensionValue.PNG.Value;
-            }
-        }
+            => (this.Value == FileExtensionValue.PNG.Value);
 
         /// <summary>
         /// TIFF形式か
         /// </summary>
         public bool IsTIFF
-        {
-            get
-            {
-                return this.Value == FileExtensionValue.TIFF.Value;
-            }
-        }
+            => (this.Value == FileExtensionValue.TIFF.Value);
 
         /// <summary>
         /// Exif形式か
         /// </summary>
         public bool IsExif
-        {
-            get
-            {
-                return this.Value == FileExtensionValue.Exif.Value;
-            }
-        }
+            => (this.Value == FileExtensionValue.Exif.Value);
 
         /// <summary>
         /// 画像フォーマット
@@ -149,14 +113,6 @@ namespace SalaryManager.Domain.ValueObjects
 
                 throw new FormatException("画像フォーマットの変換に失敗しました。");
             }
-        }
-
-        /// <summary> 値 </summary>
-        public string Value;
-
-        protected override bool EqualsCore(FileExtensionValue other)
-        {
-            return this.Value == other.Value;
         }
     }
 }

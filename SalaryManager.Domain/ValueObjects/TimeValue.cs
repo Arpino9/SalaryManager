@@ -5,7 +5,7 @@ namespace SalaryManager.Domain.ValueObjects
     /// <summary>
     /// Value Object - 時刻
     /// </summary>
-    public sealed class TimeValue : ValueObject<TimeValue>
+    public sealed record class TimeValue
     {
         /// <summary>
         /// Constructor
@@ -35,15 +35,7 @@ namespace SalaryManager.Domain.ValueObjects
         /// <summary> 分 </summary>
         public readonly int Minute;
 
-        public override string ToString()
-        {
-            return (string.Format($"{this.Hour:00}:{this.Minute:00}"));
-        }
-
-        protected override bool EqualsCore(TimeValue other)
-        {
-            return (this.Hour   == other.Hour &&
-                    this.Minute == other.Minute);
-        }
+        public override string ToString() 
+            => (string.Format($"{this.Hour:00}:{this.Minute:00}"));
     }
 }

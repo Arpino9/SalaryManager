@@ -3,7 +3,7 @@
     /// <summary>
     /// Value Object - 二者択一
     /// </summary>
-    public class AlternativeValue : ValueObject<AlternativeValue>
+    public sealed record class AlternativeValue
     {
         /// <summary> ○ </summary>
         public static readonly AlternativeValue Valid = new AlternativeValue(true);
@@ -20,34 +20,11 @@
             this.Value = value;
         }
 
-        /// <summary>
-        /// Value 
-        /// </summary>
+        /// <summary> Value </summary>
         public bool Value { get; }
 
-        /// <summary>
-        /// Text
-        /// </summary>
-        public string Text
-        {
-            get
-            {
-                return (this == AlternativeValue.Valid ? "○" : "×");
-            }
-        }
-
-        /// <summary>
-        /// To String
-        /// </summary>
-        /// <returns>文字列</returns>
-        public override string ToString()
-        {
-            return this.Text;
-        }
-
-        protected override bool EqualsCore(AlternativeValue other)
-        {
-            return (this.Value == other.Value);
-        }
+        /// <summary> Text </summary>
+        public string Text 
+            => (this == AlternativeValue.Valid ? "○" : "×");
     }
 }

@@ -10,7 +10,7 @@ namespace SalaryManager.Domain.ValueObjects
     /// <remarks>
     /// 西暦と和暦の変換用。
     /// </remarks>
-    public sealed class YearValue : ValueObject<YearValue>
+    public sealed record class YearValue
     {
         /// <summary>
         /// Constructor
@@ -42,24 +42,13 @@ namespace SalaryManager.Domain.ValueObjects
             this.Value = dateTime;
         }
 
-        /// <summary>
-        /// 日付
-        /// </summary>
+        /// <summary> 日付 </summary>
         public readonly DateTime Value;
 
-        /// <summary>
-        /// 年
-        /// </summary>
-        /// <remarks>
-        /// ex) 2023年
-        /// </remarks>
-        public string Year
-        {
-            get
-            {
-                return (this.Value.Year.ToString() + "年");
-            }
-        }
+        /// <summary> 年 </summary>
+        /// <remarks> ex) 2023年 </remarks>
+        public string Text
+            => (this.Value.Year.ToString() + "年");
 
         /// <summary>
         /// 和暦
@@ -78,28 +67,9 @@ namespace SalaryManager.Domain.ValueObjects
             }
         }
 
-        /// <summary>
-        /// 西暦 + 和暦
-        /// </summary>
-        /// <remarks>
-        /// ex) 2023年(令和5年)
-        /// </remarks>
+        /// <summary> 西暦 + 和暦 </summary>
+        /// <remarks> ex) 2023年(令和5年) </remarks>
         public string YearWithJapaneseCalendar
-        {
-            get
-            {
-                return this.Year + " (" + this.JapaneseCalendar + ")";
-            }
-        }
-
-        /// <summary>
-        /// Equals Core
-        /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
-        protected override bool EqualsCore(YearValue other)
-        {
-            return (this.Value == other.Value);
-        }
+            => (this.Text + " (" + this.JapaneseCalendar + ")");
     }
 }

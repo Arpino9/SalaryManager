@@ -7,7 +7,7 @@ namespace SalaryManager.Domain.ValueObjects
     /// <summary>
     /// Value Object - 都道府県名
     /// </summary>
-    public sealed class PrefectureValue : ValueObject<PrefectureValue>
+    public sealed record class PrefectureValue
     {
         /// <summary>
         /// Constructor
@@ -20,8 +20,15 @@ namespace SalaryManager.Domain.ValueObjects
                 throw new ArgumentException("都道府県名ではありません。");
             }
 
-            this.Value = prefecture;
+            this.Text = prefecture;
         }
+
+        #region Key
+
+        /// <summary> Text </summary>
+        public string Text { get; }
+
+        #endregion
 
         #region Definition
 
@@ -38,7 +45,7 @@ namespace SalaryManager.Domain.ValueObjects
                 var prefecture = new List<string>();
 
                 prefecture.Add(string.Empty);
-                prefecture.Add(Hokkaido.Value);
+                prefecture.Add(Hokkaido.Text);
                 prefecture.AddRange(Touhoku);
                 prefecture.AddRange(Kanto);
                 prefecture.AddRange(Hokutiku);
@@ -47,7 +54,7 @@ namespace SalaryManager.Domain.ValueObjects
                 prefecture.AddRange(Tyuugoku);
                 prefecture.AddRange(Sikoku);
                 prefecture.AddRange(Kyusyu);
-                prefecture.Add(Okinawa.Value);
+                prefecture.Add(Okinawa.Text);
 
                 return prefecture;
             }
@@ -64,24 +71,10 @@ namespace SalaryManager.Domain.ValueObjects
 
         #region Definition - 東北
 
-        /// <summary>
-        /// 東北地方
-        /// </summary>
-        private static IList<string> Touhoku
-        {
-            get
-            {
-                return new List<string>()
-                {
-                    Aomori.Value,
-                    Iwate.Value,
-                    Miyagi.Value,
-                    Akita.Value,
-                    Yamagata.Value,
-                    Fukushima.Value
-                };
-            }
-        }
+        /// <summary> 東北 </summary>
+        private static IList<string> Touhoku 
+            => new List<string>() { Aomori.Text, Iwate.Text, Miyagi.Text, Akita.Text,
+                                    Yamagata.Text, Fukushima.Text };
 
         /// <summary> 青森県 </summary>
         private static PrefectureValue Aomori = new PrefectureValue("青森県");
@@ -105,27 +98,11 @@ namespace SalaryManager.Domain.ValueObjects
 
         #region Definition - 関東・甲信
 
-        /// <summary>
-        /// 関東・甲信
-        /// </summary>
+        /// <summary> 関東・甲信 </summary>
         private static IList<string> Kanto
-        {
-            get
-            {
-                return new List<string>()
-                {
-                    Tokyo.Value,
-                    Kanagawa.Value,
-                    Saitama.Value,
-                    Chiba.Value,
-                    Ibaraki.Value,
-                    Tochigi.Value,
-                    Gunma.Value,
-                    Yamanashi.Value,
-                    Nagano.Value,
-                };
-            }
-        }
+            => new List<string>() { Tokyo.Text, Kanagawa.Text, Saitama.Text, Chiba.Text,
+                                    Ibaraki.Text, Tochigi.Text, Gunma.Text, Yamanashi.Text,
+                                    Nagano.Text, };
 
         /// <summary> 東京都 </summary>
         private static PrefectureValue Tokyo = new PrefectureValue("東京都");
@@ -158,22 +135,9 @@ namespace SalaryManager.Domain.ValueObjects
 
         #region Definition - 北陸
 
-        /// <summary>
-        /// 北陸
-        /// </summary>
+        /// <summary> 北陸 </summary>
         private static IList<string> Hokutiku
-        {
-            get
-            {
-                return new List<string>()
-                {
-                    Niigata.Value,
-                    Toyama.Value,
-                    Ishikawa.Value,
-                    Fukui.Value,
-                };
-            }
-        }
+            => new List<string>() { Niigata.Text, Toyama.Text, Ishikawa.Text, Fukui.Text, };
 
         /// <summary> 新潟県 </summary>
         private static PrefectureValue Niigata = new PrefectureValue("新潟県");
@@ -191,22 +155,9 @@ namespace SalaryManager.Domain.ValueObjects
 
         #region Definition - 東海
 
-        /// <summary>
-        /// 東海
-        /// </summary>
-        private static IList<string> Toukai
-        {
-            get
-            {
-                return new List<string>()
-                {
-                    Aichi.Value,
-                    Gifu.Value,
-                    Shizuoka.Value,
-                    Mie.Value,
-                };
-            }
-        }
+        /// <summary> 東海 </summary>
+        private static IList<string> Toukai 
+            => new List<string>() { Aichi.Text, Gifu.Text, Shizuoka.Text, Mie.Text, };
 
         /// <summary> 愛知県 </summary>
         private static PrefectureValue Aichi = new PrefectureValue("愛知県");
@@ -224,24 +175,10 @@ namespace SalaryManager.Domain.ValueObjects
 
         #region Definition - 近畿
 
-        /// <summary>
-        /// 近畿
-        /// </summary>
+        /// <summary> 近畿 </summary>
         private static IList<string> Kinkki
-        {
-            get
-            {
-                return new List<string>()
-                {
-                    Osaka.Value,
-                    Hyogo.Value,
-                    Kyoto.Value,
-                    Shiga.Value,
-                    Nara.Value,
-                    Wakayama.Value,
-                };
-            }
-        }
+            => new List<string>() { Osaka.Text, Hyogo.Text, Kyoto.Text, Shiga.Text, 
+                                    Nara.Text, Wakayama.Text, };
 
         /// <summary> 大阪府 </summary>
         private static PrefectureValue Osaka = new PrefectureValue("大阪府");
@@ -265,23 +202,10 @@ namespace SalaryManager.Domain.ValueObjects
 
         #region Definition - 中国
 
-        /// <summary>
-        /// 中国
-        /// </summary>
+        /// <summary> 中国 </summary>
         private static IList<string> Tyuugoku
-        {
-            get
-            {
-                return new List<string>()
-                {
-                    Tottori.Value,
-                    Shimane.Value,
-                    Okayama.Value,
-                    Hiroshima.Value,
-                    Yamaguchi.Value,
-                };
-            }
-        }
+            => new List<string>() { Tottori.Text, Shimane.Text, Okayama.Text, 
+                                    Hiroshima.Text, Yamaguchi.Text, };
 
         /// <summary> 鳥取県 </summary>
         private static PrefectureValue Tottori = new PrefectureValue("鳥取県");
@@ -302,22 +226,9 @@ namespace SalaryManager.Domain.ValueObjects
 
         #region Definition - 四国
 
-        /// <summary>
-        /// 四国
-        /// </summary>
+        /// <summary> 四国 </summary>
         private static IList<string> Sikoku
-        {
-            get
-            {
-                return new List<string>()
-                {
-                    Tokushima.Value,
-                    Kagawa.Value,
-                    Ehime.Value,
-                    Kochi.Value,
-                };
-            }
-        }
+            => new List<string>() { Tokushima.Text, Kagawa.Text, Ehime.Text, Kochi.Text, };
 
         /// <summary> 徳島県 </summary>
         private static PrefectureValue Tokushima = new PrefectureValue("徳島県");
@@ -335,25 +246,10 @@ namespace SalaryManager.Domain.ValueObjects
 
         #region Definition - 九州
 
-        /// <summary>
-        /// 九州
-        /// </summary>
+        /// <summary> 九州 </summary>
         private static IList<string> Kyusyu
-        {
-            get
-            {
-                return new List<string>()
-                {
-                    Fukuoka.Value,
-                    Saga.Value,
-                    Nagasaki.Value,
-                    Kumamoto.Value,
-                    Oita.Value,
-                    Miyazaki.Value,
-                    Kagoshima.Value,
-                };
-            }
-        }
+            => new List<string>() { Fukuoka.Text, Saga.Text, Nagasaki.Text, Kumamoto.Text,
+                                    Oita.Text, Miyazaki.Text, Kagoshima.Text, };
 
         /// <summary> 福岡県 </summary>
         private static PrefectureValue Fukuoka = new PrefectureValue("福岡県");
@@ -395,234 +291,153 @@ namespace SalaryManager.Domain.ValueObjects
         public static string ConvertTextToFileName(string text)
         {
             // 北海道
-            if (text == Hokkaido.Value) return nameof(Hokkaido);
+            if (text == Hokkaido.Text) return nameof(Hokkaido);
 
             // 東北
-            if (text == Aomori.Value) return nameof(Aomori);
-            if (text == Iwate.Value) return nameof(Iwate);
-            if (text == Miyagi.Value) return nameof(Miyagi);
-            if (text == Akita.Value) return nameof(Akita);
-            if (text == Yamagata.Value) return nameof(Yamagata);
-            if (text == Fukushima.Value) return nameof(Fukushima);
+            if (text == Aomori.Text) return nameof(Aomori);
+            if (text == Iwate.Text) return nameof(Iwate);
+            if (text == Miyagi.Text) return nameof(Miyagi);
+            if (text == Akita.Text) return nameof(Akita);
+            if (text == Yamagata.Text) return nameof(Yamagata);
+            if (text == Fukushima.Text) return nameof(Fukushima);
 
             // 関東
-            if (text == Tokyo.Value) return nameof(Tokyo);
-            if (text == Kanagawa.Value) return nameof(Kanagawa);
-            if (text == Saitama.Value) return nameof(Saitama);
-            if (text == Chiba.Value) return nameof(Chiba);
-            if (text == Ibaraki.Value) return nameof(Ibaraki);
-            if (text == Tochigi.Value) return nameof(Tochigi);
-            if (text == Gunma.Value) return nameof(Gunma);
-            if (text == Yamanashi.Value) return nameof(Yamanashi);
-            if (text == Nagano.Value) return nameof(Nagano);
+            if (text == Tokyo.Text) return nameof(Tokyo);
+            if (text == Kanagawa.Text) return nameof(Kanagawa);
+            if (text == Saitama.Text) return nameof(Saitama);
+            if (text == Chiba.Text) return nameof(Chiba);
+            if (text == Ibaraki.Text) return nameof(Ibaraki);
+            if (text == Tochigi.Text) return nameof(Tochigi);
+            if (text == Gunma.Text) return nameof(Gunma);
+            if (text == Yamanashi.Text) return nameof(Yamanashi);
+            if (text == Nagano.Text) return nameof(Nagano);
 
             // 北陸
-            if (text == Niigata.Value) return nameof(Niigata);
-            if (text == Toyama.Value) return nameof(Toyama);
-            if (text == Ishikawa.Value) return nameof(Ishikawa);
-            if (text == Fukui.Value) return nameof(Fukui);
+            if (text == Niigata.Text) return nameof(Niigata);
+            if (text == Toyama.Text) return nameof(Toyama);
+            if (text == Ishikawa.Text) return nameof(Ishikawa);
+            if (text == Fukui.Text) return nameof(Fukui);
 
             // 東海
-            if (text == Aichi.Value) return nameof(Aichi);
-            if (text == Gifu.Value) return nameof(Gifu);
-            if (text == Mie.Value) return nameof(Mie);
-            if (text == Shizuoka.Value) return nameof(Shizuoka);
+            if (text == Aichi.Text) return nameof(Aichi);
+            if (text == Gifu.Text) return nameof(Gifu);
+            if (text == Mie.Text) return nameof(Mie);
+            if (text == Shizuoka.Text) return nameof(Shizuoka);
 
             // 近畿
-            if (text == Osaka.Value) return nameof(Osaka);
-            if (text == Hyogo.Value) return nameof(Hyogo);
-            if (text == Kyoto.Value) return nameof(Kyoto);
-            if (text == Shiga.Value) return nameof(Shiga);
-            if (text == Nara.Value) return nameof(Nara);
-            if (text == Wakayama.Value) return nameof(Wakayama);
+            if (text == Osaka.Text) return nameof(Osaka);
+            if (text == Hyogo.Text) return nameof(Hyogo);
+            if (text == Kyoto.Text) return nameof(Kyoto);
+            if (text == Shiga.Text) return nameof(Shiga);
+            if (text == Nara.Text) return nameof(Nara);
+            if (text == Wakayama.Text) return nameof(Wakayama);
 
             // 中国
-            if (text == Tottori.Value) return nameof(Tottori);
-            if (text == Shimane.Value) return nameof(Shimane);
-            if (text == Okayama.Value) return nameof(Okayama);
-            if (text == Hiroshima.Value) return nameof(Hiroshima);
-            if (text == Yamaguchi.Value) return nameof(Yamaguchi);
+            if (text == Tottori.Text) return nameof(Tottori);
+            if (text == Shimane.Text) return nameof(Shimane);
+            if (text == Okayama.Text) return nameof(Okayama);
+            if (text == Hiroshima.Text) return nameof(Hiroshima);
+            if (text == Yamaguchi.Text) return nameof(Yamaguchi);
 
             // 四国
-            if (text == Tokushima.Value) return nameof(Tokushima);
-            if (text == Kagawa.Value) return nameof(Kagawa);
-            if (text == Ehime.Value) return nameof(Ehime);
-            if (text == Kochi.Value) return nameof(Kochi);
+            if (text == Tokushima.Text) return nameof(Tokushima);
+            if (text == Kagawa.Text) return nameof(Kagawa);
+            if (text == Ehime.Text) return nameof(Ehime);
+            if (text == Kochi.Text) return nameof(Kochi);
 
             // 四国
-            if (text == Fukuoka.Value) return nameof(Fukuoka);
-            if (text == Saga.Value) return nameof(Saga);
-            if (text == Nagasaki.Value) return nameof(Nagasaki);
-            if (text == Kumamoto.Value) return nameof(Kumamoto);
-            if (text == Oita.Value) return nameof(Oita);
-            if (text == Miyazaki.Value) return nameof(Miyazaki);
-            if (text == Kagoshima.Value) return nameof(Kagoshima);
+            if (text == Fukuoka.Text) return nameof(Fukuoka);
+            if (text == Saga.Text) return nameof(Saga);
+            if (text == Nagasaki.Text) return nameof(Nagasaki);
+            if (text == Kumamoto.Text) return nameof(Kumamoto);
+            if (text == Oita.Text) return nameof(Oita);
+            if (text == Miyazaki.Text) return nameof(Miyazaki);
+            if (text == Kagoshima.Text) return nameof(Kagoshima);
 
             // 沖縄
-            if (text == Okinawa.Value) return nameof(Okinawa);
+            if (text == Okinawa.Text) return nameof(Okinawa);
 
             return string.Empty;
         }
 
-        /// <summary>
-        /// 北海道か
-        /// </summary>
+        /// <summary> 北海道か </summary>
         public bool IsHokkaido
-        {
-            get
-            {
-                return (this == PrefectureValue.Hokkaido);
-            }
-        }
+            => (this == PrefectureValue.Hokkaido);
 
-        /// <summary>
-        /// 東北か
-        /// </summary>
+        /// <summary> 東北か </summary>
         public bool IsTouhoku
-        {
-            get
-            {
-                return (this == PrefectureValue.Aomori ||
-                        this == PrefectureValue.Iwate ||
-                        this == PrefectureValue.Miyagi ||
-                        this == PrefectureValue.Akita ||
-                        this == PrefectureValue.Yamagata ||
-                        this == PrefectureValue.Fukushima);
-            }
-        }
+            => (this == PrefectureValue.Aomori ||
+                this == PrefectureValue.Iwate ||
+                this == PrefectureValue.Miyagi ||
+                this == PrefectureValue.Akita ||
+                this == PrefectureValue.Yamagata ||
+                this == PrefectureValue.Fukushima);
 
-        /// <summary>
-        /// 関東・甲信か
-        /// </summary>
+        /// <summary> 関東・甲信か </summary>
         public bool IsKanto
-        {
-            get
-            {
-                return (this == PrefectureValue.Tokyo ||
-                        this == PrefectureValue.Kanagawa ||
-                        this == PrefectureValue.Saitama ||
-                        this == PrefectureValue.Chiba ||
-                        this == PrefectureValue.Ibaraki ||
-                        this == PrefectureValue.Tochigi ||
-                        this == PrefectureValue.Gunma ||
-                        this == PrefectureValue.Yamanashi ||
-                        this == PrefectureValue.Nagano);
-            }
-        }
+            => (this == PrefectureValue.Tokyo ||
+                this == PrefectureValue.Kanagawa ||
+                this == PrefectureValue.Saitama ||
+                this == PrefectureValue.Chiba ||
+                this == PrefectureValue.Ibaraki ||
+                this == PrefectureValue.Tochigi ||
+                this == PrefectureValue.Gunma ||
+                this == PrefectureValue.Yamanashi ||
+                this == PrefectureValue.Nagano);
 
-        /// <summary>
-        /// 北陸か
-        /// </summary>
+        /// <summary> 北陸か </summary>
         public bool IsHokuriku
-        {
-            get
-            {
-                return (this == PrefectureValue.Niigata ||
-                        this == PrefectureValue.Toyama ||
-                        this == PrefectureValue.Ishikawa ||
-                        this == PrefectureValue.Fukui);
-            }
-        }
+            => (this == PrefectureValue.Niigata ||
+                this == PrefectureValue.Toyama ||
+                this == PrefectureValue.Ishikawa ||
+                this == PrefectureValue.Fukui);
 
-        /// <summary>
-        /// 東海か
-        /// </summary>
+        /// <summary> 東海か </summary>
         public bool IsToukai
-        {
-            get
-            {
-                return (this == PrefectureValue.Aichi ||
-                        this == PrefectureValue.Gifu ||
-                        this == PrefectureValue.Shizuoka ||
-                        this == PrefectureValue.Mie);
-            }
-        }
+            => (this == PrefectureValue.Aichi ||
+                this == PrefectureValue.Gifu ||
+                this == PrefectureValue.Shizuoka ||
+                this == PrefectureValue.Mie);
 
-        /// <summary>
-        /// 近畿か
-        /// </summary>
+        /// <summary> 近畿か </summary>
         public bool IsKinkki
-        {
-            get
-            {
-                return (this == PrefectureValue.Osaka ||
-                        this == PrefectureValue.Hyogo ||
-                        this == PrefectureValue.Kyoto ||
-                        this == PrefectureValue.Shiga ||
-                        this == PrefectureValue.Nara ||
-                        this == PrefectureValue.Wakayama);
-            }
-        }
+            => (this == PrefectureValue.Osaka ||
+                this == PrefectureValue.Hyogo ||
+                this == PrefectureValue.Kyoto ||
+                this == PrefectureValue.Shiga ||
+                this == PrefectureValue.Nara ||
+                this == PrefectureValue.Wakayama);
 
-        /// <summary>
-        /// 中国か
-        /// </summary>
+        /// <summary> 中国か </summary>
         public bool IsTyuugoku
-        {
-            get
-            {
-                return (this == PrefectureValue.Tottori ||
-                        this == PrefectureValue.Shimane ||
-                        this == PrefectureValue.Okayama ||
-                        this == PrefectureValue.Hiroshima ||
-                        this == PrefectureValue.Yamaguchi);
-            }
-        }
+            => (this == PrefectureValue.Tottori ||
+                this == PrefectureValue.Shimane ||
+                this == PrefectureValue.Okayama ||
+                this == PrefectureValue.Hiroshima ||
+                this == PrefectureValue.Yamaguchi);
 
-        /// <summary>
-        /// 四国か
-        /// </summary>
+        /// <summary> 四国か </summary>
         public bool IsSikoku
-        {
-            get
-            {
-                return (this == PrefectureValue.Tokushima ||
-                        this == PrefectureValue.Kagawa ||
-                        this == PrefectureValue.Ehime ||
-                        this == PrefectureValue.Kochi);
-            }
-        }
+            => (this == PrefectureValue.Tokushima ||
+                this == PrefectureValue.Kagawa ||
+                this == PrefectureValue.Ehime ||
+                this == PrefectureValue.Kochi);
 
-        /// <summary>
-        /// 九州か
-        /// </summary>
+        /// <summary> 九州か </summary>
         public bool IsKyusyu
-        {
-            get
-            {
-                return (this == PrefectureValue.Fukuoka ||
-                        this == PrefectureValue.Saga ||
-                        this == PrefectureValue.Nagasaki ||
-                        this == PrefectureValue.Kumamoto ||
-                        this == PrefectureValue.Oita ||
-                        this == PrefectureValue.Miyazaki ||
-                        this == PrefectureValue.Kagoshima);
-            }
-        }
+            => (this == PrefectureValue.Fukuoka || 
+                this == PrefectureValue.Saga || 
+                this == PrefectureValue.Nagasaki || 
+                this == PrefectureValue.Kumamoto || 
+                this == PrefectureValue.Oita || 
+                this == PrefectureValue.Miyazaki || 
+                this == PrefectureValue.Kagoshima);
 
-        /// <summary>
-        /// 沖縄か
-        /// </summary>
+        /// <summary> 沖縄か </summary>
         public bool IsOkinawa
-        {
-            get
-            {
-                return (this == PrefectureValue.Okinawa);
-            }
-        }
+            => (this == PrefectureValue.Okinawa);
 
         #endregion
 
-        #region Key
-
-        /// <summary> Value </summary>
-        public string Value { get; }
-
-        #endregion
-
-        protected override bool EqualsCore(PrefectureValue other)
-        {
-            return (this.Value.Equals(other.Value));
-        }
     }
 }

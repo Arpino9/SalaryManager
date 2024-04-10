@@ -8,7 +8,7 @@ namespace SalaryManager.Domain.ValueObjects
     /// <remarks>
     /// 負数があり得る場合はプリミティブ型でよい。
     /// </remarks>
-    public sealed class MoneyValue : ValueObject<MoneyValue>
+    public sealed record class MoneyValue
     {
         /// <summary>
         /// Constructor
@@ -25,19 +25,14 @@ namespace SalaryManager.Domain.ValueObjects
             this.Value = money;
         }
 
-        /// <summary>
-        /// 金額
-        /// </summary>
+        /// <summary> 金額 </summary>
         public readonly double Value;
 
-        public override string ToString()
-        {
-            return (this.Value.ToString("C"));
-        }
-
-        protected override bool EqualsCore(MoneyValue other)
-        {
-            return (this.Value == other.Value);
-        }
+        /// <summary>
+        /// ToString
+        /// </summary>
+        /// <returns>¥マーク付の値</returns>
+        public override string ToString() 
+            => (this.Value.ToString("C"));
     }
 }

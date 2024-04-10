@@ -3,7 +3,7 @@
     /// <summary>
     /// Value Object - 会社
     /// </summary>
-    public class CompanyNameValue : ValueObject<CompanyNameValue>
+    public sealed record class CompanyNameValue
     {
         /// <summary>
         /// Constructor
@@ -23,43 +23,23 @@
         /// <summary>
         /// 株式会社か
         /// </summary>
-        public bool IsInc
-        {
-            get
-            {
-                return (this.Text.Contains("株式会社") || 
-                        this.Text.Contains("(株)") ||
-                        this.Text.Contains("（株）"));
-            }
-        }
+        public bool IsInc 
+            => (this.Text.Contains("株式会社") || 
+                this.Text.Contains("(株)") || 
+                this.Text.Contains("（株）"));
 
-        /// <summary>
+        // <summary>
         /// 有限会社か
         /// </summary>
-        public bool IsLimited
-        {
-            get
-            {
-                return (this.Text.Contains("有限会社") ||
-                        this.Text.Contains("(有)") ||
-                        this.Text.Contains("（有）"));
-            }
-        }
+        public bool IsLimited 
+            => (this.Text.Contains("有限会社") ||
+                this.Text.Contains("(有)") ||
+                this.Text.Contains("（有）"));
 
         /// <summary>
         /// 表示用
         /// </summary>
-        public string DisplayValue
-        {
-            get
-            {
-                return (this == CompanyNameValue.Undefined ? "<未登録>" : this.Text);
-            }
-        }
-
-        protected override bool EqualsCore(CompanyNameValue other)
-        {
-            return (this.Text == other.Text);
-        }
+        public string DisplayValue 
+            => (this == CompanyNameValue.Undefined ? "<未登録>" : this.Text);
     }
 }

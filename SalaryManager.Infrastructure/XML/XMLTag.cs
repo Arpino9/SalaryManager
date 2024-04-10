@@ -6,7 +6,7 @@
     /// <remarks>
     /// XML生成時に出力されるタグの一覧。適宜追加すること。
     /// </remarks>
-    public sealed class XMLTag
+    public sealed record class XMLTag
     {
         /// <summary> Excelテンプレートのパス </summary>
         public string ExcelTemplatePath;
