@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Collections.Generic;
 using SalaryManager.Infrastructure.XML;
 using static SalaryManager.WPF.ViewModels.ViewModel_GeneralOption;
+using SalaryManager.Infrastructure.JSON;
 
 namespace SalaryManager.WPF.Models
 {
@@ -47,35 +48,69 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         internal void Initialize_General()
         {
-            // Excelテンプレート
-            this.GeneralOption.SelectExcelTempletePath_Text = XMLLoader.FetchExcelTemplatePath();
-            // SQLite
-            this.GeneralOption.SelectSQLite_Text            = XMLLoader.FetchSQLitePath();
-
             // フォントファミリ
-            var fonts =  new InstalledFontCollection();
+            var fonts = new InstalledFontCollection();
             this.GeneralOption.FontFamily_ItemSource = ListUtils.ToObservableCollection<string>(fonts.Families.Select(x => x.Name).ToList());
-            this.GeneralOption.FontFamily_Text       = XMLLoader.FetchFontFamilyText();
 
-            // 初期表示時にデフォルト明細を表示する
-            this.GeneralOption.ShowDefaultPayslip_IsChecked = XMLLoader.FetchShowDefaultPayslip();
-
-            // フォント
-            this.GeneralOption.Preview_FontFamily     = XMLLoader.FetchFontFamily();
-            this.GeneralOption.FontSize_Value         = XMLLoader.FetchFontSize();
-
-            var obj = EnumUtils.ToEnum(this.GeneralOption.HowToSaveImage_IsChecked.GetType(), XMLLoader.FetchHowToSaveImage());
-            if (obj != null)
+            if (Shared.SavingExtension == "XML")
             {
-                this.GeneralOption.HowToSaveImage_IsChecked = (HowToSaveImage)obj;
+                // Excelテンプレート
+                this.GeneralOption.SelectExcelTempletePath_Text = XMLLoader.FetchExcelTemplatePath();
+                // SQLite
+                this.GeneralOption.SelectSQLite_Text = XMLLoader.FetchSQLitePath();
+
+                this.GeneralOption.FontFamily_Text = XMLLoader.FetchFontFamilyText();
+
+                // 初期表示時にデフォルト明細を表示する
+                this.GeneralOption.ShowDefaultPayslip_IsChecked = XMLLoader.FetchShowDefaultPayslip();
+
+                // フォント
+                this.GeneralOption.Preview_FontFamily = XMLLoader.FetchFontFamily();
+                this.GeneralOption.FontSize_Value = XMLLoader.FetchFontSize();
+
+                var obj = EnumUtils.ToEnum(this.GeneralOption.HowToSaveImage_IsChecked.GetType(), XMLLoader.FetchHowToSaveImage());
+                if (obj != null)
+                {
+                    this.GeneralOption.HowToSaveImage_IsChecked = (HowToSaveImage)obj;
+                }
+
+                this.GeneralOption.ImageFolderPath_Text = XMLLoader.FetchImageFolder();
+                
+                // 背景色
+                this.GeneralOption.Window_BackgroundColor = XMLLoader.FetchBackgroundColor();
+                this.GeneralOption.Window_Background = XMLLoader.FetchBackgroundColorBrush();
+            }
+            else
+            {
+                var json = JSONExtension.DeserializeSettings();
+
+                // Excelテンプレート
+                this.GeneralOption.SelectExcelTempletePath_Text = json.Excel.TemplatePath;
+                // SQLite
+                this.GeneralOption.SelectSQLite_Text = json.SQLite.Path;
+
+                // フォントファミリ
+                this.GeneralOption.FontFamily_Text = json.General.FontFamily;
+
+                // 初期表示時にデフォルト明細を表示する
+                this.GeneralOption.ShowDefaultPayslip_IsChecked = json.General.ShowDefaultPayslip;
+
+                // フォント
+                this.GeneralOption.FontSize_Value = json.General.FontSize;
+
+                var obj = EnumUtils.ToEnum(this.GeneralOption.HowToSaveImage_IsChecked.GetType(), json.General.HowToSaveImage);
+                if (obj != null)
+                {
+                    this.GeneralOption.HowToSaveImage_IsChecked = (HowToSaveImage)obj;
+                }
+
+                this.GeneralOption.ImageFolderPath_Text = json.General.ImageFolderPath;
+
+                //this.GeneralOption.Window_BackgroundColor = json.General.BackgroundColor_ColorCode;
+                //this.GeneralOption.Window_Background = json.General.BackgroundColor;
             }
 
-            this.GeneralOption.ImageFolderPath_Text   = XMLLoader.FetchImageFolder();
             this.GeneralOption.SelectFolder_IsEnabled = this.GeneralOption.HowToSaveImage_IsChecked == HowToSaveImage.SavePath;
-
-            // 背景色
-            this.GeneralOption.Window_BackgroundColor = XMLLoader.FetchBackgroundColor();
-            this.GeneralOption.Window_Background      = XMLLoader.FetchBackgroundColorBrush();
         }
 
         /// <summary>
@@ -237,9 +272,9 @@ namespace SalaryManager.WPF.Models
         #region 保存
 
         /// <summary>
-        /// 保存
+        /// XML保存
         /// </summary>
-        internal void Save()
+        internal void SaveXML()
         {
             if (!Domain.Modules.Logics.Message.ShowConfirmingMessage("設定内容を保存しますか？", "保存"))
             {
@@ -296,6 +331,58 @@ namespace SalaryManager.WPF.Models
             }
 
             this.GeneralOption.ImageFolderPath_Text = directory;
+        }
+
+        /// <summary>
+        /// JSON保存
+        /// </summary>
+        internal void SaveJSON()
+        {
+            var list = new List<string>()
+            {
+                this.GeneralOption.Window_BackgroundColor.A.ToString(),
+                this.GeneralOption.Window_BackgroundColor.R.ToString(),
+                this.GeneralOption.Window_BackgroundColor.G.ToString(),
+                this.GeneralOption.Window_BackgroundColor.B.ToString()
+            };
+
+            var property = new JSONProperty_Settings()
+            {
+                General = new General
+                {
+                    FontFamily = this.GeneralOption.FontFamily_Text,
+                    FontSize = this.GeneralOption.FontSize_Value,
+                    BackgroundColor = StringUtils.Aggregate(list),
+                    BackgroundColor_ColorCode = this.GeneralOption.Window_BackgroundColor.Name,
+                    ShowDefaultPayslip = this.GeneralOption.ShowDefaultPayslip_IsChecked,
+                    HowToSaveImage = this.GeneralOption.HowToSaveImage_IsChecked.ToString(),
+                    ImageFolderPath = this.GeneralOption.ImageFolderPath_Text,
+                },
+                SpreadSheet = new SpreadSheet
+                {
+                    PrivateKeyPath = this.SpreadSheetOption.SelectPrivateKey_Text,
+                    ID             = this.SpreadSheetOption.SheetId_Text,
+                },
+                SQLite = new SQLite
+                {
+                    Path = this.GeneralOption.SelectSQLite_Text,
+                },
+                Excel = new Excel
+                {
+                    TemplatePath = this.GeneralOption.SelectExcelTempletePath_Text,
+                },
+                GoogleCalendar = new GoogleCalendar
+                {
+                    PrivateKeyPath = this.CalendarOption.SelectPrivateKey_Text,
+                    ID             = this.CalendarOption.SelectCalendarID_Text,
+                },
+                PDF = new PDF
+                {
+                    Password = string.Empty,
+                }
+            };
+
+            property.SerializeToFile(FilePath.GetJSONDefaultPath());
         }
 
         #endregion

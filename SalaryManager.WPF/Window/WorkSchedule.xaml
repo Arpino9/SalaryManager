@@ -1,0 +1,19 @@
+﻿<Window x:Class="SalaryManager.WPF.Window.WorkSchedule"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SalaryManager.WPF.Window"
+        xmlns:userControl="clr-namespace:SalaryManager.WPF.UserControls"
+        mc:Ignorable="d"
+        Title="WorkSchedule" Height="1000" Width="1000">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        
+        <userControl:WorkSchedule_Header />
+        <userControl:WorkSchedule_Table Grid.Row="1" />
+    </Grid>
+</Window>

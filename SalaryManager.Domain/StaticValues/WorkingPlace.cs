@@ -30,61 +30,14 @@ namespace SalaryManager.Domain.StaticValues
         }
 
         /// <summary>
-        /// 職歴を取得
+        /// 就業場所を取得
         /// </summary>
         /// <param name="id">ID</param>
-        /// <returns>職歴</returns>
+        /// <returns>就業場所</returns>
         public static WorkingPlaceEntity Fetch(int id)
         {
             return _entities.Find(x => x.ID == id);
         }
-
-        /*/// <summary>
-        /// 会社名を取得
-        /// </summary>
-        /// <param name="date">日付</param>
-        /// <returns>会社名</returns>
-        public static string FetchCompany(DateTime date)
-        {
-            var entity = _entities.Find(x => x.WorkingStartDate.Value <= date &&
-                                             date <= x.WorkingEndDate.Value);
-
-            if (entity == null) 
-            {
-                return CompanyNameValue.Undefined.DisplayValue;
-            }
-
-            return entity.CompanyName.DisplayValue;
-        }
-
-        /// <summary>
-        /// 会社名から社員番号を取得
-        /// </summary>
-        /// <param name="company">会社名</param>
-        /// <returns>社員番号</returns>
-        public static string FetchEmployeeNumber(CompanyNameValue company)
-        {
-            var entity = _entities.Find(x => x.CompanyName == company);
-
-            if (entity == null)
-            {
-                return string.Empty;
-            }
-
-            return entity.EmployeeNumber;
-        }
-
-        /// <summary>
-        /// 会社名から支給有無を取得
-        /// </summary>
-        /// <param name="company">会社名</param>
-        /// <returns>支給有無</returns>
-        public static AllowanceExistenceEntity FetchAllowanceExistence(CompanyNameValue company)
-        {
-            var entity = _entities.Find(x => x.CompanyName == company);
-
-            return entity?.AllowanceExistence;
-        }*/
 
         /// <summary>
         /// 昇順で取得する

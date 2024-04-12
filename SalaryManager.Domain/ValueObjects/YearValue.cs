@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Bibliography;
+using System;
 using System.Globalization;
 using FormatException = SalaryManager.Domain.Exceptions.FormatException;
 
@@ -38,7 +39,6 @@ namespace SalaryManager.Domain.ValueObjects
             {
                 throw new FormatException("日付書式が不正です。");
             }
-
             this.Value = dateTime;
         }
 

@@ -142,6 +142,7 @@
     <Compile Include="Models\Model_SideBusiness.cs" />
     <Compile Include="Models\Model_WorkingReference.cs" />
     <Compile Include="Models\Model_WorkPlace.cs" />
+    <Compile Include="Models\Model_WorkSchedule_Table.cs" />
     <Compile Include="UserControls\AnnualChart.xaml.cs">
       <DependentUpon>AnnualChart.xaml</DependentUpon>
     </Compile>
@@ -160,6 +161,12 @@
     <Compile Include="UserControls\Option_SpreadSheet.xaml.cs">
       <DependentUpon>Option_SpreadSheet.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\WorkSchedule_Header.xaml.cs">
+      <DependentUpon>WorkSchedule_Header.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\WorkSchedule_Table.xaml.cs">
+      <DependentUpon>WorkSchedule_Table.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\ViewModel_CalendarOption.cs" />
     <Compile Include="ViewModels\ViewModel_WorkingPlace.cs" />
     <Compile Include="ViewModels\ViewModel_FileStorage.cs" />
@@ -167,6 +174,7 @@
     <Compile Include="ViewModels\ViewModel_ImageViewer.cs" />
     <Compile Include="ViewModels\ViewModel_PDFOption.cs" />
     <Compile Include="ViewModels\ViewModel_SpreadSheetOption.cs" />
+    <Compile Include="ViewModels\ViewModel_WorkSchedule_Table.cs" />
     <Compile Include="Window\Career.xaml.cs">
       <DependentUpon>Career.xaml</DependentUpon>
     </Compile>
@@ -209,6 +217,9 @@
     <Compile Include="Window\WorkingPlace.xaml.cs">
       <DependentUpon>WorkingPlace.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Window\WorkSchedule.xaml.cs">
+      <DependentUpon>WorkSchedule.xaml</DependentUpon>
+    </Compile>
     <Page Include="Dictionary1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -234,6 +245,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Option_SpreadSheet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\WorkSchedule_Header.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\WorkSchedule_Table.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -290,6 +309,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Window\WorkingPlace.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\WorkSchedule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

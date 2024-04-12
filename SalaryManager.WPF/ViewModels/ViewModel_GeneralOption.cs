@@ -1,4 +1,5 @@
-﻿using SalaryManager.WPF.Converter;
+﻿using SalaryManager.Domain;
+using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -384,7 +385,14 @@ namespace SalaryManager.WPF.ViewModels
             {
                 if (this._save_Command == null)
                 {
-                    this._save_Command = new RelayCommand(this.Model.Save);
+                    if (Shared.SavingExtension == "XML")
+                    {
+                        this._save_Command = new RelayCommand(this.Model.SaveXML);
+                    }
+                    else
+                    {
+                        this._save_Command = new RelayCommand(this.Model.SaveJSON);
+                    }
                 }
                 return this._save_Command;
             }

@@ -25,6 +25,9 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public ViewModel_WorkPlace()
         {
             this.Model.ViewModel               = this;

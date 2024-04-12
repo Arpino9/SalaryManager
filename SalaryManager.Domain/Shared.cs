@@ -3,7 +3,7 @@
 namespace SalaryManager.Domain
 {
     /// <summary>
-    /// Share
+    /// Shared
     /// </summary>
     /// <remarks>
     /// configファイルとDomain, Infrastructure層の橋渡しクラス。
@@ -19,9 +19,15 @@ namespace SalaryManager.Domain
         /// <summary> 給与明細Excelのテンプレートファイル名 </summary>
         public static string ExcelTemplateName = ConfigurationManager.AppSettings["ExcelTemplateName"];
 
+        /// <summary> オプションの保存形式 </summary>
+        public static string SavingExtension = ConfigurationManager.AppSettings["SavingExtension"];
+
         /// <summary> XMLのファイル名 </summary>
         public static string XMLName = ConfigurationManager.AppSettings["XMLName"];
-       
+
+        /// <summary> JSONのファイル名 </summary>
+        public static string JSONName = ConfigurationManager.AppSettings["JSONName"];
+
         /// <summary> フォントファミリ </summary>
         public static string FontFamily = ConfigurationManager.AppSettings["FontFamily"];
 

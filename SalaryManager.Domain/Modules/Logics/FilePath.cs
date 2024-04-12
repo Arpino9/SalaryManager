@@ -119,10 +119,23 @@ namespace SalaryManager.Domain.Modules.Logics
         /// <summary>
         /// XMLの初期パスを取得する
         /// </summary>
-        /// <returns>SQLiteの初期パス</returns>
+        /// <returns>XMLの初期パス</returns>
         public static string GetXMLDefaultPath()
         {
             return $"{FilePath.GetProjectPath(ProjectName.Infrastructure)}\\{Shared.XMLName}.xml";
+        }
+
+        #endregion
+
+        #region JSON
+
+        /// <summary>
+        /// JSONの初期パスを取得する
+        /// </summary>
+        /// <returns>JSONの初期パス</returns>
+        public static string GetJSONDefaultPath()
+        {
+            return $"{FilePath.GetProjectPath(ProjectName.Infrastructure)}\\{Shared.JSONName}.json";
         }
 
         #endregion
