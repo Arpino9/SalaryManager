@@ -1,12 +1,11 @@
-﻿using Aspose.Pdf;
+﻿using System;
+using System.Collections.Generic;
+using Aspose.Pdf;
 using Aspose.Pdf.Devices;
-using SalaryManager.Domain;
 using SalaryManager.Domain.Exceptions;
 using SalaryManager.Domain.Modules.Helpers;
 using SalaryManager.Domain.Repositories;
 using SalaryManager.Infrastructure.XML;
-using System;
-using System.Collections.Generic;
 
 namespace SalaryManager.Infrastructure.PDF
 {

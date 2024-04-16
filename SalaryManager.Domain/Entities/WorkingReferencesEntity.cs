@@ -14,7 +14,7 @@ namespace SalaryManager.Domain.Entities
         /// </summary>
         /// <param name="id">ID</param>
         /// <param name="yearMonth">年月</param>
-        /// <param name="overtimeTime">時間外時間</param>
+        /// <param name="OvertimeTime">時間外時間</param>
         /// <param name="weekendWorktime">休出時間</param>
         /// <param name="midnightWorktime">深夜時間</param>
         /// <param name="lateAbsentH">遅刻早退欠勤H</param>
@@ -28,7 +28,7 @@ namespace SalaryManager.Domain.Entities
         public WorkingReferencesEntity(
             int id,
             DateTime yearMonth,
-            double overtimeTime,
+            double OvertimeTime,
             double weekendWorktime,
             double midnightWorktime,
             double lateAbsentH,
@@ -42,7 +42,7 @@ namespace SalaryManager.Domain.Entities
         {
             this.ID                = id;
             this.YearMonth         = yearMonth;
-            this.OvertimeTime      = overtimeTime;
+            this.OvertimeTime      = OvertimeTime;
             this.WeekendWorktime   = weekendWorktime;
             this.MidnightWorktime  = midnightWorktime;
             this.LateAbsentH       = lateAbsentH;

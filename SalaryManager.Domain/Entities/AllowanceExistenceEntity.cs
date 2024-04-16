@@ -14,7 +14,7 @@ namespace SalaryManager.Domain.Entities
         /// <param name="education">教育手当</param>
         /// <param name="electricity">在宅手当</param>
         /// <param name="certification">資格手当</param>
-        /// <param name="overtime">時間外手当</param>
+        /// <param name="Overtime">時間外手当</param>
         /// <param name="travel">出張手当</param>
         /// <param name="housing">住宅手当</param>
         /// <param name="food">食事手当</param>
@@ -29,7 +29,7 @@ namespace SalaryManager.Domain.Entities
             bool education,
             bool electricity,
             bool certification,
-            bool overtime,
+            bool Overtime,
             bool travel,
             bool housing,
             bool food,
@@ -45,7 +45,7 @@ namespace SalaryManager.Domain.Entities
             this.Education         = new AlternativeValue(education);
             this.Electricity       = new AlternativeValue(electricity);
             this.Certification     = new AlternativeValue(certification);
-            this.Overtime          = new AlternativeValue(overtime);
+            this.Overtime          = new AlternativeValue(Overtime);
             this.Travel            = new AlternativeValue(travel);
             this.Housing           = new AlternativeValue(housing);
             this.Food              = new AlternativeValue(food);

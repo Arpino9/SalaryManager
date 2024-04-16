@@ -186,6 +186,27 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
+        #region 勤怠表
+
+        private RelayCommand _getWorkSchedule_Command;
+
+        /// <summary>
+        /// 勤怠表 - Command
+        /// </summary>
+        public RelayCommand GetWorkSchedule_Command
+        {
+            get
+            {
+                if (this._getWorkSchedule_Command == null)
+                {
+                    this._getWorkSchedule_Command = new RelayCommand(this.Model.GetWorkSchedule);
+                }
+                return this._getWorkSchedule_Command;
+            }
+        }
+
+        #endregion
+
         #region デフォルトから取得
 
         private RelayCommand _getDefault_Command;

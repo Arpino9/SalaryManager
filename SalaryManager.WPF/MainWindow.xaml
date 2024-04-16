@@ -51,6 +51,12 @@
                 </MenuItem>
 
                 <MenuItem Header="読込">
+                    <MenuItem Header="勤怠表" Command="{Binding GetWorkSchedule_Command}">
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="登録されているデフォルト明細を取得します。"/>
+                        </ToolTipService.ToolTip>
+                    </MenuItem>
+                    
                     <MenuItem Header="デフォルト明細を取得" Command="{Binding GetDefault_Command}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="登録されているデフォルト明細を取得します。"/>

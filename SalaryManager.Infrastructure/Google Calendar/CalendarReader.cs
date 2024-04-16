@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Common.CommandTrees;
 using System.Linq;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Calendar.v3;
@@ -14,25 +15,22 @@ namespace SalaryManager.Infrastructure.Google_Calendar
     /// <summary>
     /// Google Calendar 読込
     /// </summary>
-    public sealed class CalendarReader
+    /// <remarks>
+    /// やや読込に時間がかかるため、起動時に非同期でロードしておくこと。
+    /// </remarks>
+    public static class CalendarReader
     {
         /// <summary> Googleカレンダーのイベント </summary>
         private static List<CalendarEventEntity> CalendarEvents = new List<CalendarEventEntity>();
-
-        
-        /// <summary> Repository </summary>
-        //private static IWorkingPlaceRepository _repository;
 
         /// <summary>
         /// 読込
         /// </summary>
         public static void Read()
         {
-            CalendarReader.CalendarEvents.Clear();
+            CalendarEvents.Clear();
 
             var events = GetEvents(Initialize());
-
-            //WorkingPlace.Create(_repository);
 
             foreach (var eventItem in events)
             {
@@ -44,10 +42,8 @@ namespace SalaryManager.Infrastructure.Google_Calendar
 
                 var eventEntity = new CalendarEventEntity(eventItem.Summary, eventItem.Start.DateTime.Value, eventItem.End.DateTime.Value, eventItem.Location, eventItem.Description);
 
-                CalendarReader.CalendarEvents.Add(eventEntity);
+                CalendarEvents.Add(eventEntity);
             }
-
-            Console.Read();
         }
 
         /// <summary>
@@ -136,6 +132,10 @@ namespace SalaryManager.Infrastructure.Google_Calendar
             return schedules.OrderBy(x => x.Start.DateTime).ToList().AsReadOnly();
         }
 
+        /// <summary> 空か </summary>
+        /// <returns>リストが空であるか</returns>
+        public static bool IsEmpty() => (CalendarEvents.Any() == false);
+
         /// <summary>
         /// イベントを取得する
         /// </summary>
@@ -144,25 +144,24 @@ namespace SalaryManager.Infrastructure.Google_Calendar
         /// <remarks>
         /// 指定された住所と一致するイベントを抽出する。
         /// </remarks>
-        public static IReadOnlyList<CalendarEventEntity> GetEvents(string address)
-            => CalendarReader.CalendarEvents.Any() ?
-               CalendarReader.CalendarEvents.Where(x => x.Place.Contains(address)).ToList().AsReadOnly() :
+        public static IReadOnlyList<CalendarEventEntity> FindByAddress(string address)
+            => CalendarEvents.Any() ?
+               CalendarEvents.Where(x => x.Place.Contains(address)).ToList().AsReadOnly() :
                new List<CalendarEventEntity>();
 
         /// <summary>
         /// イベントを取得する
         /// </summary>
-        /// <param name="address">住所</param>
         /// <param name="startDate">開始日付</param>
         /// <param name="endDate">終了日付</param>
         /// <returns>イベント</returns>
         /// <remarks>
         /// 指定された開始日、終了日と一致するイベントを取得する。
         /// </remarks>
-        public static IReadOnlyList<CalendarEventEntity> GetEvents(DateTime startDate, DateTime endDate)
-            => CalendarReader.CalendarEvents.Any() ?
-               CalendarReader.CalendarEvents.Where(x => x.StartDate >= startDate &&
-                                                        x.EndDate <= endDate).ToList().AsReadOnly() :
+        public static IReadOnlyList<CalendarEventEntity> FindByDate(DateTime startDate, DateTime endDate)
+            => CalendarEvents.Any() ?
+               CalendarEvents.Where(x => x.StartDate >= startDate &&
+                                         x.EndDate   <= endDate).ToList().AsReadOnly() :
                new List<CalendarEventEntity>();
 
         /// <summary>
@@ -175,11 +174,29 @@ namespace SalaryManager.Infrastructure.Google_Calendar
         /// <remarks>
         /// 指定された住所、開始日、終了日と一致するイベントを取得する。
         /// </remarks>
-        public static IReadOnlyList<CalendarEventEntity> GetEvents(string address, DateTime startDate, DateTime endDate)
-            => CalendarReader.CalendarEvents.Any()?
-               CalendarReader.CalendarEvents.Where(x => x.Place.Contains(address) &&
-                                                        x.StartDate >= startDate &&
-                                                        x.EndDate   <= endDate).ToList().AsReadOnly() : 
+        public static IReadOnlyList<CalendarEventEntity> FindByAddress(string address, DateTime startDate, DateTime endDate)
+            => CalendarEvents.Any()?
+               CalendarEvents.Where(x => x.Place.Contains(address) &&
+                                         x.StartDate >= startDate &&
+                                         x.EndDate   <= endDate).ToList().AsReadOnly() : 
+               new List<CalendarEventEntity>();
+
+        /// <summary>
+        /// イベントを取得する
+        /// </summary>
+        /// <param name="title">タイトル</param>
+        /// <param name="startDate">開始日付</param>
+        /// <param name="endDate">終了日付</param>
+        /// <returns>イベント</returns>
+        /// <remarks>
+        /// 指定されたタイトル、開始日、終了日と一致するイベントを取得する。
+        /// </remarks>
+        public static IReadOnlyList<CalendarEventEntity> FindByTitle(string title, DateTime startDate, DateTime endDate)
+            => CalendarEvents.Any() ?
+               CalendarEvents.Where(x => x.Title != null &&
+                                         x.Title.Contains(title) &&
+                                         x.StartDate >= startDate &&
+                                         x.EndDate <= endDate).ToList().AsReadOnly() :
                new List<CalendarEventEntity>();
 
         /// <summary>
@@ -192,13 +209,13 @@ namespace SalaryManager.Infrastructure.Google_Calendar
         /// <remarks>
         /// 指定された住所、開始時刻、終了時刻と一致するイベントを取得する。
         /// </remarks>
-        public static IReadOnlyList<CalendarEventEntity> GetEvents(string address, TimeValue startTime, TimeValue endTime)
-            => CalendarReader.CalendarEvents.Any() ?
-               CalendarReader.CalendarEvents.Where(x => x.Place.Contains(address) &&
-                                                        x.StartDate.Hour   >= startTime.Hour &&
-                                                        x.EndDate.Hour     <= endTime.Hour &&
-                                                        x.StartDate.Minute >= startTime.Minute &&
-                                                        x.EndDate.Minute   <= endTime.Minute).ToList().AsReadOnly() :
+        public static IReadOnlyList<CalendarEventEntity> FindByAddress(string address, TimeValue startTime, TimeValue endTime)
+            => CalendarEvents.Any() ?
+               CalendarEvents.Where(x => x.Place.Contains(address) &&
+                                         x.StartDate.Hour   >= startTime.Hour &&
+                                         x.StartDate.Minute >= startTime.Minute &&
+                                         x.EndDate.Hour     <= endTime.Hour &&
+                                         x.EndDate.Minute   <= endTime.Minute).ToList().AsReadOnly() :
                new List<CalendarEventEntity>();
 
         /// <summary>
@@ -211,17 +228,17 @@ namespace SalaryManager.Infrastructure.Google_Calendar
         /// <param name="endTime">終了時刻</param>
         /// <returns>イベント</returns>
         /// <remarks>
-        /// 指定された住所、開始日、終了日と一致するイベントを取得する。
+        /// 指定された住所、開始日時、終了日時と一致するイベントを取得する。
         /// </remarks>
-        public static IReadOnlyList<CalendarEventEntity> GetEvents(string address, DateTime startDate, DateTime endDate, TimeValue startTime, TimeValue endTime)
-            => CalendarReader.CalendarEvents.Any() ?
-               CalendarReader.CalendarEvents.Where(x => x.Place.Contains(address) &&
-                                                        x.StartDate        >= startDate &&
-                                                        x.EndDate          <= endDate &&
-                                                        x.StartDate.Hour   >= startTime.Hour &&
-                                                        x.EndDate.Hour     <= endTime.Hour &&
-                                                        x.StartDate.Minute >= startTime.Minute &&
-                                                        x.EndDate.Minute   <= endTime.Minute).ToList().AsReadOnly() :
+        public static IReadOnlyList<CalendarEventEntity> FindByAddress(string address, DateTime startDate, DateTime endDate, TimeValue startTime, TimeValue endTime)
+            => CalendarEvents.Any() ?
+               CalendarEvents.Where(x => x.Place.Contains(address) &&
+                                         x.StartDate        >= startDate &&
+                                         x.StartDate.Hour   >= startTime.Hour &&
+                                         x.StartDate.Minute >= startTime.Minute &&
+                                         x.EndDate          <= endDate &&
+                                         x.EndDate.Hour     <= endTime.Hour &&
+                                         x.EndDate.Minute   <= endTime.Minute).ToList().AsReadOnly() :
                new List<CalendarEventEntity>();
     }
 }

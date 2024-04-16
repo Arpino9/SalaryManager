@@ -72,6 +72,11 @@ namespace SalaryManager.Infrastructure.XML
         /// <returns>フォントファミリ</returns>
         public static System.Windows.Media.FontFamily FetchFontFamily()
         {
+            if (string.IsNullOrEmpty(XMLLoader.FetchFontFamilyText()))
+            {
+                return new System.Windows.Media.FontFamily(Shared.FontFamily);
+            }
+
             return new System.Windows.Media.FontFamily(XMLLoader.FetchFontFamilyText());
         }
 

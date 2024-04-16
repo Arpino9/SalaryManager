@@ -55,13 +55,9 @@ namespace SalaryManager.WPF.ViewModels
 
         #region タイトル
 
-        /// <summary>
-        /// タイトル
-        /// </summary>
+        /// <summary> タイトル </summary>
         public string Title
-        {
-            get => "経歴編集";
-        }
+            => "経歴編集";
 
         #endregion
 
@@ -167,9 +163,7 @@ namespace SalaryManager.WPF.ViewModels
         /// 雇用形態 - ItemSource
         /// </summary>
         public ObservableCollection<string> WorkingStatus_ItemSource
-        {
-            get => new ObservableCollection<string> {"正社員", "契約社員", "派遣社員", "業務委託", "アルバイト"};
-        }
+            => new ObservableCollection<string> { "正社員", "契約社員", "派遣社員", "業務委託", "アルバイト" };
 
         private int _workingStatus_SelectedIndex;
 
@@ -401,17 +395,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 時間外手当
 
-        private bool _overtimeAllowance_IsChecked;
+        private bool _OvertimeAllowance_IsChecked;
 
         /// <summary>
         /// 時間外手当 - IsChecked
         /// </summary>
         public bool OvertimeAllowance_IsChecked
         {
-            get => this._overtimeAllowance_IsChecked;
+            get => this._OvertimeAllowance_IsChecked;
             set
             {
-                this._overtimeAllowance_IsChecked = value;
+                this._OvertimeAllowance_IsChecked = value;
                 this.RaisePropertyChanged();
             }
         }

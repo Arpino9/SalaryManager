@@ -71,17 +71,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 時間外時間
 
-        private double _overtimeTime_Value;
+        private double _OvertimeTime_Value;
 
         /// <summary>
         /// 時間外時間 - Value
         /// </summary>
         public double OvertimeTime_Value
         {
-            get => this._overtimeTime_Value;
+            get => this._OvertimeTime_Value;
             set
             {
-                this._overtimeTime_Value = value;
+                this._OvertimeTime_Value = value;
                 this.RaisePropertyChanged();
             }
         }

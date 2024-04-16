@@ -6,14 +6,17 @@
         xmlns:local="clr-namespace:SalaryManager.WPF.Window"
         xmlns:userControl="clr-namespace:SalaryManager.WPF.UserControls"
         mc:Ignorable="d"
-        Title="WorkSchedule" Height="1000" Width="1000">
+        Title="WorkSchedule" Height="800" Width="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
+            <RowDefinition Height="250" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        
+
         <userControl:WorkSchedule_Header />
-        <userControl:WorkSchedule_Table Grid.Row="1" />
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
+            <userControl:WorkSchedule_Table />
+        </ScrollViewer>
     </Grid>
 </Window>

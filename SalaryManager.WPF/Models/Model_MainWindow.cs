@@ -16,6 +16,8 @@ using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Infrastructure.Excel;
 using SalaryManager.Infrastructure.SpreadSheet;
 using WorkingPlace = SalaryManager.WPF.Window.WorkingPlace;
+using System.Threading.Tasks;
+using SalaryManager.Infrastructure.Google_Calendar;
 
 namespace SalaryManager.WPF.Models
 {
@@ -78,10 +80,13 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 初期化
         /// </summary>
-        internal void Initialize()
+        internal async void Initialize()
         {
             this.InitializeSQLite();
             this.Window_Activated();
+
+            // Googleカレンダーを取得
+            await Task.Run(() => CalendarReader.Read());
         }
 
         /// <summary>
@@ -277,7 +282,20 @@ namespace SalaryManager.WPF.Models
 
             File.Copy(XMLLoader.FetchSQLitePath(), directory);
         }
-        
+
+        #endregion
+
+        #region 勤怠表
+
+        /// <summary>
+        /// 勤怠表を開く
+        /// </summary>
+        internal void GetWorkSchedule()
+        {
+            var workSchedule = new WorkSchedule();
+            workSchedule.Show();
+        }
+
         #endregion
 
         #region デフォルトから取得

@@ -299,11 +299,11 @@ namespace SalaryManager.WPF.Models
                 this.ViewModel.CompanyName_Text,
                 this.ViewModel.Address_Text,
                 (this.ViewModel.WorkingTime_Start_Hour, this.ViewModel.WorkingTime_Start_Minute),
-                (this.ViewModel.WorkingTime_End_Hour,   this.ViewModel.WorkingTime_End_Hour),
-                (this.ViewModel.LunchTime_Start_Hour, this.ViewModel.LunchTime_Start_Minute),
-                (this.ViewModel.LunchTime_End_Hour, this.ViewModel.LunchTime_End_Minute),
-                (this.ViewModel.BreakTime_Start_Hour, this.ViewModel.BreakTime_Start_Minute),
-                (this.ViewModel.BreakTime_End_Hour, this.ViewModel.BreakTime_End_Minute),
+                (this.ViewModel.WorkingTime_End_Hour,   this.ViewModel.WorkingTime_End_Minute),
+                (this.ViewModel.LunchTime_Start_Hour,   this.ViewModel.LunchTime_Start_Minute),
+                (this.ViewModel.LunchTime_End_Hour,     this.ViewModel.LunchTime_End_Minute),
+                (this.ViewModel.BreakTime_Start_Hour,   this.ViewModel.BreakTime_Start_Minute),
+                (this.ViewModel.BreakTime_End_Hour,     this.ViewModel.BreakTime_End_Minute),
                 this.ViewModel.Remarks);
         }
 

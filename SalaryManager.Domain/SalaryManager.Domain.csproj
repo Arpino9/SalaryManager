@@ -152,7 +152,7 @@
     <Compile Include="ValueObjects\PrefectureValue.cs" />
     <Compile Include="ValueObjects\TimeValue.cs" />
     <Compile Include="ValueObjects\WorkingDateValue.cs" />
-    <Compile Include="ValueObjects\YearValue.cs" />
+    <Compile Include="ValueObjects\DateValue.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

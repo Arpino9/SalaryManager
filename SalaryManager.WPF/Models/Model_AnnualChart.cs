@@ -61,7 +61,7 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
-            var yearValue = new YearValue(this.Header.Year_Value, this.Header.Month_Value);
+            var yearValue = new DateValue(this.Header.Year_Value, this.Header.Month_Value);
             this.ViewModel.TargetDate = yearValue?.YearWithJapaneseCalendar;
 
             if (this.ViewModel.TargetDate is null)

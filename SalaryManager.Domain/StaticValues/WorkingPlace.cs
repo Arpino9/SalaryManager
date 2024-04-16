@@ -30,31 +30,33 @@ namespace SalaryManager.Domain.StaticValues
         }
 
         /// <summary>
-        /// 就業場所を取得
+        /// IDから就業場所を取得
         /// </summary>
         /// <param name="id">ID</param>
         /// <returns>就業場所</returns>
-        public static WorkingPlaceEntity Fetch(int id)
-        {
-            return _entities.Find(x => x.ID == id);
-        }
+        public static WorkingPlaceEntity FetchByID(int id)
+            => _entities.Find(x => x.ID == id);
+
+        /// <summary>
+        /// 会社名から就業場所を取得
+        /// </summary>
+        /// <param name="companyName">ID</param>
+        /// <returns>就業場所</returns>
+        public static WorkingPlaceEntity FetchByCompany(string companyName)
+            => _entities.Find(x => x.CompanyName.Text == companyName);
 
         /// <summary>
         /// 昇順で取得する
         /// </summary>
-        /// <returns>職歴</returns>
+        /// <returns>就業場所</returns>
         public static IReadOnlyList<WorkingPlaceEntity> FetchByAscending()
-        {
-            return _entities.OrderBy(x => x.ID).ToList().AsReadOnly();
-        }
+            => _entities.OrderBy(x => x.ID).ToList().AsReadOnly();
 
         /// <summary>
         /// 降順で取得する
         /// </summary>
-        /// <returns>職歴</returns>
+        /// <returns>就業場所</returns>
         public static IReadOnlyList<WorkingPlaceEntity> FetchByDescending()
-        {
-            return _entities.OrderByDescending(x => x.ID).ToList().AsReadOnly();
-        }
+            => _entities.OrderByDescending(x => x.ID).ToList().AsReadOnly();
     }
 }

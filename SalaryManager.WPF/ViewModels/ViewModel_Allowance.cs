@@ -239,32 +239,32 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 時間外手当
 
-        private bool _overtimeAllowance_IsEnabled;
+        private bool _OvertimeAllowance_IsEnabled;
 
         /// <summary>
         /// 時間外手当 - IsEnabled
         /// </summary>
         public bool OvertimeAllowance_IsEnabled
         {
-            get => this._overtimeAllowance_IsEnabled;
+            get => this._OvertimeAllowance_IsEnabled;
             set
             {
-                this._overtimeAllowance_IsEnabled = value;
+                this._OvertimeAllowance_IsEnabled = value;
                 this.RaisePropertyChanged();
             }
         }
 
-        private double _overtimeAllowance_Value;
+        private double _OvertimeAllowance_Value;
 
         /// <summary>
         /// 時間外手当 - Value
         /// </summary>
         public double OvertimeAllowance_Value
         {
-            get => this._overtimeAllowance_Value;
+            get => this._OvertimeAllowance_Value;
             set
             {
-                this._overtimeAllowance_Value = value;
+                this._OvertimeAllowance_Value = value;
                 this.RaisePropertyChanged();
 
                 this.Model.ReCaluculate();

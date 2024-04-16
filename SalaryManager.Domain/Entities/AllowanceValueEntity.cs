@@ -15,7 +15,7 @@ namespace SalaryManager.Domain.Entities
         /// <param name="basicSalary">基本給</param>
         /// <param name="executiveAllowance">役職手当</param>
         /// <param name="dependencyAllowance">扶養手当</param>
-        /// <param name="overtimeAllowance">時間外手当</param>
+        /// <param name="OvertimeAllowance">時間外手当</param>
         /// <param name="daysoffIncreased">休日割増</param>
         /// <param name="nightworkIncreased">深夜割増</param>
         /// <param name="housingAllowance">住宅手当</param>
@@ -34,7 +34,7 @@ namespace SalaryManager.Domain.Entities
             double basicSalary, 
             double executiveAllowance,
             double dependencyAllowance,
-            double overtimeAllowance,
+            double OvertimeAllowance,
             double daysoffIncreased,
             double nightworkIncreased,
             double housingAllowance,
@@ -53,7 +53,7 @@ namespace SalaryManager.Domain.Entities
             this.BasicSalary              = new MoneyValue(basicSalary);
             this.ExecutiveAllowance       = new MoneyValue(executiveAllowance);
             this.DependencyAllowance      = new MoneyValue(dependencyAllowance);
-            this.OvertimeAllowance        = new MoneyValue(overtimeAllowance);
+            this.OvertimeAllowance        = new MoneyValue(OvertimeAllowance);
             this.DaysoffIncreased         = new MoneyValue(daysoffIncreased);
             this.NightworkIncreased       = new MoneyValue(nightworkIncreased);
             this.HousingAllowance         = new MoneyValue(housingAllowance);
