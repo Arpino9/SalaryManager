@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SalaryManager.Domain.Entities;
+using SalaryManager.Domain.Exceptions;
 using SalaryManager.Domain.StaticValues;
 using SalaryManager.Domain.ValueObjects;
 using SalaryManager.Infrastructure.Google_Calendar;
@@ -44,19 +45,23 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         public async void Initialize()
         {
-            WorkingPlace.Create(new WorkingPlaceSQLite());
-            
-            if (CalendarReader.IsEmpty())
+            if (CalendarReader.Loading)
             {
-                // 読込中
                 System.Threading.Thread.Sleep(3000);
                 this.Initialize();
             }
 
-            var schedules    = GetScheduleEvents(new DateTime(2024, 4, 1), new DateTime(2024, 4, 30));
-            var lastMonthDay = new DateValue(schedules.Noon.First().StartDate).LastMonthDay;
+            var (Noon, Lunch, Afternoon) = GetScheduleEvents(new DateTime(2024, 4, 1), new DateTime(2024, 4, 30));
 
-            var date = new DateTime(schedules.Noon.First().StartDate.Year, schedules.Noon.First().StartDate.Month, 1);
+            if (Noon.Any()      == false || 
+                Afternoon.Any() == false) 
+            {
+                throw new DatabaseException("スケジュールの取得に失敗しました。");
+            }
+
+            var lastMonthDay = new DateValue(Noon.First().StartDate).LastMonthDay;
+
+            var date = new DateTime(Noon.First().StartDate.Year, Noon.First().StartDate.Month, 1);
 
             for (var i = 1; i <= lastMonthDay; i++)
             {
@@ -67,11 +72,12 @@ namespace SalaryManager.WPF.Models
 
             for (var day = 1; day <= lastMonthDay; day++)
             {
-                var entities = schedules.Noon.Union(schedules.Afternoon).Union(schedules.Lunch)
-                                             .Where(x => x.StartDate.Day == day).ToList();
+                var entities = Noon.Union(Afternoon).Union(Lunch)
+                                   .Where(x => x.StartDate.Day == day).ToList();
 
                 if (entities.Count < 2)
                 {
+                    // 休祝日
                     continue;
                 }
 
@@ -95,6 +101,31 @@ namespace SalaryManager.WPF.Models
         }
 
         /// <summary>
+        /// 就業場所を取得する
+        /// </summary>
+        /// <returns>就業場所</returns>
+        private List<WorkingPlaceEntity> GetWorkPlaces()
+        {
+            WorkingPlace.Create(new WorkingPlaceSQLite());
+            Careers.Create(new CareerSQLite());
+
+            var workingPlace = WorkingPlace.FetchByDescending();
+            var company      = Careers.FetchBelongingCompany(new DateTime(2024, 4, 1));
+
+            var list = new List<WorkingPlaceEntity>();
+
+            foreach(var entity in workingPlace)
+            {
+                if (company.Where(x => x.CompanyName == entity.DispatchingCompany).Any())
+                {
+                    list.Add(entity);
+                }
+            }
+
+            return list;
+        }
+
+        /// <summary>
         /// スケジュールのイベントを取得する
         /// </summary>
         /// <param name="startDate">開始日付</param>
@@ -102,7 +133,7 @@ namespace SalaryManager.WPF.Models
         /// <returns>(午前, 昼休憩, 午後)</returns>
         private (List<CalendarEventEntity> Noon, List<CalendarEventEntity> Lunch, List<CalendarEventEntity> Afternoon) GetScheduleEvents(DateTime startDate, DateTime endDate)
         {
-            var workingPlaces = WorkingPlace.FetchByDescending();
+            var workingPlaces = this.GetWorkPlaces();
 
             var noon      = new List<CalendarEventEntity>();
             var lunch     = new List<CalendarEventEntity>();
@@ -119,7 +150,7 @@ namespace SalaryManager.WPF.Models
 
                 // 午後
                 afternoon.AddRange(CalendarReader.FindByAddress(entity.Address, startDate, endDate,
-                                                                entity.LunchTime.End, entity.WorkingTime.End));
+                                                                entity.LunchTime.End));
             }
 
             return (noon, lunch, afternoon);

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Core.Common.CommandTrees;
 using System.Linq;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Calendar.v3;
 using Google.Apis.Calendar.v3.Data;
 using Google.Apis.Services;
 using SalaryManager.Domain.Entities;
+using SalaryManager.Domain.Exceptions;
 using SalaryManager.Domain.ValueObjects;
 using SalaryManager.Infrastructure.XML;
 
@@ -23,11 +23,15 @@ namespace SalaryManager.Infrastructure.Google_Calendar
         /// <summary> Googleカレンダーのイベント </summary>
         private static List<CalendarEventEntity> CalendarEvents = new List<CalendarEventEntity>();
 
+        /// <summary> 取得中フラグ </summary>
+        public static bool Loading;
+
         /// <summary>
         /// 読込
         /// </summary>
         public static void Read()
         {
+            Loading = true;
             CalendarEvents.Clear();
 
             var events = GetEvents(Initialize());
@@ -80,6 +84,8 @@ namespace SalaryManager.Infrastructure.Google_Calendar
             return service;
         }
 
+        
+
         /// <summary>
         /// イベントの取得
         /// </summary>
@@ -109,10 +115,9 @@ namespace SalaryManager.Infrastructure.Google_Calendar
                 // イベントを取得
                 Events events = request.Execute();
 
-                if (events is null || !events.Items.Any())
+                if (events is null || events.Items.Any() == false)
                 {
-                    Console.WriteLine("No upcoming events found.");
-                    return new List<Event>();
+                    throw new DatabaseException("スケジュールの取得に失敗しました。");
                 }
 
                 // イベントの処理
@@ -128,6 +133,9 @@ namespace SalaryManager.Infrastructure.Google_Calendar
                 // 次のページのトークンを設定
                 request.PageToken = events.NextPageToken;
             } while (!String.IsNullOrEmpty(request.PageToken));
+
+            // 取得完了
+            Loading = false;
 
             return schedules.OrderBy(x => x.Start.DateTime).ToList().AsReadOnly();
         }
@@ -196,7 +204,7 @@ namespace SalaryManager.Infrastructure.Google_Calendar
                CalendarEvents.Where(x => x.Title != null &&
                                          x.Title.Contains(title) &&
                                          x.StartDate >= startDate &&
-                                         x.EndDate <= endDate).ToList().AsReadOnly() :
+                                         x.EndDate   <= endDate).ToList().AsReadOnly() :
                new List<CalendarEventEntity>();
 
         /// <summary>
@@ -216,6 +224,26 @@ namespace SalaryManager.Infrastructure.Google_Calendar
                                          x.StartDate.Minute >= startTime.Minute &&
                                          x.EndDate.Hour     <= endTime.Hour &&
                                          x.EndDate.Minute   <= endTime.Minute).ToList().AsReadOnly() :
+               new List<CalendarEventEntity>();
+
+        /// <summary>
+        /// イベントを取得する
+        /// </summary>
+        /// <param name="address">住所</param>
+        /// <param name="startDate">開始日付</param>
+        /// <param name="endDate">終了日付</param>
+        /// <param name="startTime">開始時刻</param>
+        /// <returns>イベント</returns>
+        /// <remarks>
+        /// 指定された住所、開始日時、終了日と一致するイベントを取得する。
+        /// </remarks>
+        public static IReadOnlyList<CalendarEventEntity> FindByAddress(string address, DateTime startDate, DateTime endDate, TimeValue startTime)
+            => CalendarEvents.Any() ?
+               CalendarEvents.Where(x => x.Place.Contains(address) &&
+                                         x.StartDate        >= startDate &&
+                                         x.StartDate.Hour   >= startTime.Hour &&
+                                         x.StartDate.Minute >= startTime.Minute &&
+                                         x.EndDate          <= endDate).ToList().AsReadOnly() :
                new List<CalendarEventEntity>();
 
         /// <summary>

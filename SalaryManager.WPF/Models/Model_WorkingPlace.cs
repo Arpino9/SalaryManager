@@ -134,6 +134,9 @@ namespace SalaryManager.WPF.Models
             }
 
             var entity = this.ViewModel.WorkingPlaces_ItemSource[this.ViewModel.WorkingPlaces_SelectedIndex];
+            
+            // 派遣元会社名
+            this.ViewModel.DispatchingCompanyName_Text = entity.DispatchingCompany.Text;
             // 会社名
             this.ViewModel.CompanyName_Text = entity.CompanyName.Text;
 
@@ -220,6 +223,9 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         public void Clear_InputForm()
         {
+            // 派遣元会社
+            this.ViewModel.DispatchingCompanyName_Text = default(string);
+
             // 会社名
             this.ViewModel.CompanyName_Text   = default(string);
 
@@ -296,6 +302,7 @@ namespace SalaryManager.WPF.Models
         {
             return new WorkingPlaceEntity(
                 id,
+                this.ViewModel.DispatchingCompanyName_Text,
                 this.ViewModel.CompanyName_Text,
                 this.ViewModel.Address_Text,
                 (this.ViewModel.WorkingTime_Start_Hour, this.ViewModel.WorkingTime_Start_Minute),

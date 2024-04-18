@@ -15,6 +15,7 @@ namespace SalaryManager.Infrastructure.SQLite
         {
             string sql = @"
 SELECT ID, 
+DispatchingCompany, 
 CompanyName, 
 Address, 
 WorkingStartTime_Hour, 
@@ -38,6 +39,7 @@ FROM WorkingPlace";
                 {
                     return new WorkingPlaceEntity(
                                Convert.ToInt32(reader["ID"]),
+                               Convert.ToString(reader["DispatchingCompany"]),
                                Convert.ToString(reader["CompanyName"]),
                                Convert.ToString(reader["Address"]),
                                Convert.ToInt32(reader["WorkingStartTime_Hour"]), 
@@ -65,6 +67,7 @@ FROM WorkingPlace";
         {
             string sql = @"
 SELECT ID, 
+DispatchingCompany, 
 CompanyName, 
 Address, 
 WorkingStartTime_Hour, 
@@ -95,6 +98,7 @@ Where ID = @ID";
                 {
                     return new WorkingPlaceEntity(
                                Convert.ToInt32(reader["ID"]),
+                               Convert.ToString(reader["DispatchingCompany"]),
                                Convert.ToString(reader["CompanyName"]),
                                Convert.ToString(reader["Address"]),
                                Convert.ToInt32(reader["WorkingStartTime_Hour"]), 
@@ -120,6 +124,7 @@ Where ID = @ID";
             string insert = @"
 insert into WorkingPlace
 (ID,
+DispatchingCompany,
 CompanyName, 
 Address, 
 WorkingStartTime_Hour, 
@@ -138,6 +143,7 @@ Remarks)
 values
 (@ID, 
 @CompanyName, 
+@DispatchingCompany,
 @Address, 
 @WorkingStartTime_Hour, 
 @WorkingStartTime_Minute, 
@@ -158,6 +164,7 @@ values
 update WorkingPlace
 set ID                      = @ID, 
     CompanyName             = @CompanyName, 
+    DispatchingCompany      = @DispatchingCompany,
     Address                 = @Address, 
     WorkingStartTime_Hour   = @WorkingStartTime_Hour, 
     WorkingStartTime_Minute = @WorkingStartTime_Minute, 
@@ -181,6 +188,7 @@ where ID = @ID
             var args = new List<SQLiteParameter>()
             {
                 new SQLiteParameter("ID",                      entity.ID),
+                new SQLiteParameter("DispatchingCompany",      entity.DispatchingCompany.Text),
                 new SQLiteParameter("CompanyName",             entity.CompanyName.Text),
                 new SQLiteParameter("Address",                 entity.Address),
                 new SQLiteParameter("WorkingStartTime_Hour",   workingTime.Start.Hour),

@@ -37,9 +37,7 @@ namespace SalaryManager.Domain.StaticValues
         /// <param name="id">ID</param>
         /// <returns>職歴</returns>
         public static CareerEntity Fetch(int id)
-        {
-            return _entities.Find(x => x.ID == id);
-        }
+            => _entities.Find(x => x.ID == id);
 
         /// <summary>
         /// 会社名を取得
@@ -82,28 +80,29 @@ namespace SalaryManager.Domain.StaticValues
         /// <param name="company">会社名</param>
         /// <returns>支給有無</returns>
         public static AllowanceExistenceEntity FetchAllowanceExistence(CompanyNameValue company)
-        {
-            var entity = _entities.Find(x => x.CompanyName == company);
-
-            return entity?.AllowanceExistence;
-        }
+            => _entities.Find(x => x.CompanyName == company)?.AllowanceExistence;
 
         /// <summary>
         /// 昇順で取得する
         /// </summary>
         /// <returns>職歴</returns>
         public static IReadOnlyList<CareerEntity> FetchByAscending()
-        {
-            return _entities.OrderBy(x => x.WorkingStartDate.Value).ToList().AsReadOnly();
-        }
+            => _entities.OrderBy(x => x.WorkingStartDate.Value).ToList().AsReadOnly();
 
         /// <summary>
         /// 降順で取得する
         /// </summary>
         /// <returns>職歴</returns>
         public static IReadOnlyList<CareerEntity> FetchByDescending()
-        {
-            return _entities.OrderByDescending(x => x.WorkingStartDate.Value).ToList().AsReadOnly();
-        }
+            => _entities.OrderByDescending(x => x.WorkingStartDate.Value).ToList().AsReadOnly();
+
+        /// <summary>
+        /// 所属する会社名を取得する
+        /// </summary>
+        /// <param name="date">対象日</param>
+        /// <returns>職歴</returns>
+        public static IReadOnlyList<CareerEntity> FetchBelongingCompany(DateTime date)
+            => _entities.Where(x => x.WorkingStartDate.Value <= date &&
+                                    x.WorkingEndDate.Value   >= date).ToList().AsReadOnly();
     }
 }

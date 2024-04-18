@@ -11,7 +11,8 @@ namespace SalaryManager.Domain.Entities
         /// Constructor
         /// </summary>
         /// <param name="id">ID</param>
-        /// <param name="name">会社名</param>
+        /// <param name="dispatchingCompany">派遣元会社</param>
+        /// <param name="company">会社名</param>
         /// <param name="address">住所</param>
         /// <param name="workingStartTime">労働時間(始業)</param>
         /// <param name="workingEndTime">労働時間(終業)</param>
@@ -22,7 +23,8 @@ namespace SalaryManager.Domain.Entities
         /// <param name="remarks">備考</param>
         public WorkingPlaceEntity(
             int id,
-            string name,
+            string dispatchingCompany,
+            string company,
             string address,
             (int Hour, int Minute) workingStartTime,
             (int Hour, int Minute) workingEndTime,
@@ -33,7 +35,8 @@ namespace SalaryManager.Domain.Entities
             string remarks) 
         {
             this.ID = id;
-            this.CompanyName = new CompanyNameValue(name);
+            this.DispatchingCompany = new CompanyNameValue(dispatchingCompany);
+            this.CompanyName = new CompanyNameValue(company);
             this.Address = address;
 
             this.WorkingTime = (new TimeValue(workingStartTime.Hour, workingStartTime.Minute),
@@ -51,6 +54,7 @@ namespace SalaryManager.Domain.Entities
         /// Constructor
         /// </summary>
         /// <param name="id">ID</param>
+        /// <param name="dispatchingCompany">派遣元会社</param>
         /// <param name="name">会社名</param>
         /// <param name="address">住所</param>
         /// <param name="working_Start_Hour">労働 - 開始 - 時</param>
@@ -69,6 +73,7 @@ namespace SalaryManager.Domain.Entities
         public WorkingPlaceEntity(
             int id,
             string name,
+            string dispatchingCompany,
             string address,
             int working_Start_Hour,
             int working_Start_Minute,
@@ -82,7 +87,7 @@ namespace SalaryManager.Domain.Entities
             int break_Start_Minute,
             int break_End_Hour,
             int break_End_Minute,
-            string remarks) : this(id, name, address,
+            string remarks) : this(id, name, dispatchingCompany, address,
                                   (working_Start_Hour, working_Start_Minute),
                                   (working_End_Hour, working_End_Minute),
                                   (lunch_Start_Hour, lunch_Start_Minute),
@@ -96,6 +101,9 @@ namespace SalaryManager.Domain.Entities
 
         /// <summary> ID </summary>
         public int ID { get; }
+
+        /// <summary> 派遣元会社 </summary>
+        public CompanyNameValue DispatchingCompany { get; }
 
         /// <summary> 会社名 </summary>
         public CompanyNameValue CompanyName { get; }

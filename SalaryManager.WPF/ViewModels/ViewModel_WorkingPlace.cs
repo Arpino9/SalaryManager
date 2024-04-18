@@ -41,7 +41,7 @@ namespace SalaryManager.WPF.ViewModels
         private void BindEvent()
         {
             // 会社名
-            this.CompanyName_TextChanged  = new RelayCommand(this.Model.EnableAddButton);
+            this.AssignedCompanyName_TextChanged = new RelayCommand(this.Model.EnableAddButton);
             // 住所
             this.Address_TextChanged      = new RelayCommand(this.Model.EnableAddButton);
             // 経歴一覧
@@ -160,6 +160,30 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
+        #region 派遣元会社名
+
+        private string _dispacthingCompanyName_Text;
+
+        /// <summary>
+        /// 派遣元会社名 - Text
+        /// </summary>
+        public string DispatchingCompanyName_Text
+        {
+            get => this._dispacthingCompanyName_Text;
+            set
+            {
+                this._dispacthingCompanyName_Text = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// 会社名 - TextChanged
+        /// </summary>
+        public RelayCommand CompanyName_TextChanged { get; private set; }
+
+        #endregion
+
         #region 会社名
 
         private string _companyName_Text;
@@ -180,7 +204,7 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary>
         /// 会社名 - TextChanged
         /// </summary>
-        public RelayCommand CompanyName_TextChanged { get; private set; }
+        public RelayCommand AssignedCompanyName_TextChanged { get; private set; }
 
         #endregion
 
