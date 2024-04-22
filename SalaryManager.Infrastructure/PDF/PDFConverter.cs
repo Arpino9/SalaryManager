@@ -26,7 +26,7 @@ namespace SalaryManager.Infrastructure.PDF
                 // パスワードなし
                 return this.AddPDFToImage(path, new Document(path));
             } 
-            catch(InvalidPasswordException _) 
+            catch(InvalidPasswordException) 
             {
                 // パスワードあり
                 return this.AddPDFToImage(path, new Document(path, XMLLoader.FetchPDFPassword()));

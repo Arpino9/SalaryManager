@@ -145,6 +145,7 @@
     <Compile Include="StaticValues\SideBusinesses.cs" />
     <Compile Include="StaticValues\WorkingReferences.cs" />
     <Compile Include="ValueObjects\AlternativeValue.cs" />
+    <Compile Include="ValueObjects\BusinessCategoryValue.cs" />
     <Compile Include="ValueObjects\CompanyNameValue.cs" />
     <Compile Include="ValueObjects\FileExtensionValue.cs" />
     <Compile Include="ValueObjects\MoneyValue.cs" />

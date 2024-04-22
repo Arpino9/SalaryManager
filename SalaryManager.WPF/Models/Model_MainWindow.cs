@@ -85,7 +85,7 @@ namespace SalaryManager.WPF.Models
             this.InitializeSQLite();
             this.Window_Activated();
 
-            // Googleカレンダーを取得
+            // Googleカレンダー
             await Task.Run(() => CalendarReader.Read());
         }
 
@@ -176,7 +176,7 @@ namespace SalaryManager.WPF.Models
                     this.WorkingReference.ViewModel.PaidVacation_Value = paidVacation;
                 }
             }
-            catch(FileNotFoundException _)
+            catch (FileNotFoundException)
             {
                 var message = $"「{Shared.DirectoryCSV}」に{this.Header.ViewModel.Year_Value}年{this.Header.ViewModel.Month_Value}月分のCSVが\n保存されていません。読み込みを中断します。";
                 Message.ShowResultMessage(message, this.ViewModel.Window_Title);
@@ -443,12 +443,25 @@ namespace SalaryManager.WPF.Models
 
         #endregion
 
-        #region 会社入力
+        #region 会社マスタ
 
         /// <summary>
-        /// 会社管理画面を開く
+        /// 会社マスタを開く
         /// </summary>
         internal void ShowCompanyManager()
+        {
+            var company = new Company();
+            company.Show();
+        }
+
+        #endregion
+
+        #region 就業時間マスタ
+
+        /// <summary>
+        /// 就業時間マスタを開く
+        /// </summary>
+        internal void ShowWorkingPlace()
         {
             var career = new WorkingPlace();
             career.Show();

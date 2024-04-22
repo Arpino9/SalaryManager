@@ -55,7 +55,9 @@ namespace SalaryManager.WPF.ViewModels
 
         #region タイトル
 
-        /// <summary> タイトル </summary>
+        /// <summary> 
+        /// タイトル 
+        /// </summary>
         public string Title
             => "経歴編集";
 

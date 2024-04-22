@@ -25,15 +25,21 @@
         <Controls:WindowCommands>
             <Menu>
                 <MenuItem Header="編集">
-                    <MenuItem Header="勤務場所" Command="{Binding ShowCompanyManager_Command}">
+                    <MenuItem Header="会社マスタ" Command="{Binding ShowCompany_Command}">
                         <ToolTipService.ToolTip>
-                            <ToolTip Content="勤務場所編集画面を開きます。"/>
+                            <ToolTip Content="会社マスタを開きます。"/>
                         </ToolTipService.ToolTip>
                     </MenuItem>
-                    
-                    <MenuItem Header="経歴" Command="{Binding ShowCareerManager_Command}">
+
+                    <MenuItem Header="経歴マスタ" Command="{Binding ShowCareerManager_Command}">
                         <ToolTipService.ToolTip>
-                            <ToolTip Content="経歴編集画面を開きます。"/>
+                            <ToolTip Content="経歴マスタを開きます。"/>
+                        </ToolTipService.ToolTip>
+                    </MenuItem>
+
+                    <MenuItem Header="勤務マスタ" Command="{Binding ShowCompanyManager_Command}">
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="勤務マスタを開きます。"/>
                         </ToolTipService.ToolTip>
                     </MenuItem>
 

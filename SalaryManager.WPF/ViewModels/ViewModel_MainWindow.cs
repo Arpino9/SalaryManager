@@ -228,33 +228,33 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
-        #region 会社管理画面を開く
+        #region 会社マスタを開く
 
-        private RelayCommand _showCompanyManager_Command;
+        private RelayCommand _showCompany_Command;
 
         /// <summary>
-        /// 会社管理画面を開く - Command
+        /// 会社マスタを開く - Command
         /// </summary>
-        public RelayCommand ShowCompanyManager_Command
+        public RelayCommand ShowCompany_Command
         {
             get
             {
-                if (this._showCompanyManager_Command == null)
+                if (this._showCompany_Command == null)
                 {
-                    this._showCompanyManager_Command = new RelayCommand(this.Model.ShowCompanyManager);
+                    this._showCompany_Command = new RelayCommand(this.Model.ShowCompanyManager);
                 }
-                return this._showCompanyManager_Command;
+                return this._showCompany_Command;
             }
         }
 
         #endregion
 
-        #region 経歴管理画面を開く
+        #region 経歴マスタを開く
 
         private RelayCommand _showCareerManager_Command;
 
         /// <summary>
-        /// 経歴管理画面を開く - Command
+        /// 経歴マスタを開く - Command
         /// </summary>
         public RelayCommand ShowCareerManager_Command
         {
@@ -265,6 +265,27 @@ namespace SalaryManager.WPF.ViewModels
                     this._showCareerManager_Command = new RelayCommand(this.Model.ShowCareerManager);
                 }
                 return this._showCareerManager_Command;
+            }
+        }
+
+        #endregion
+
+        #region 就業時間マスタを開く
+
+        private RelayCommand _showCompanyManager_Command;
+
+        /// <summary>
+        /// 就業時間マスタを開く - Command
+        /// </summary>
+        public RelayCommand ShowCompanyManager_Command
+        {
+            get
+            {
+                if (this._showCompanyManager_Command == null)
+                {
+                    this._showCompanyManager_Command = new RelayCommand(this.Model.ShowWorkingPlace);
+                }
+                return this._showCompanyManager_Command;
             }
         }
 

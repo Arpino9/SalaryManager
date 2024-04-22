@@ -61,7 +61,7 @@ namespace SalaryManager.Infrastructure.Excel
             {
                 this.Workbook.SaveAs($@"{directory}\Payslips_{year}{month}{day}.xlsx");
             }
-            catch (IOException ex)
+            catch (IOException)
             {
                 Message.ShowErrorMessage("更新先のExcelが開いたままです。Excelを閉じて再度出力してください。", "Excel出力エラー");
             }

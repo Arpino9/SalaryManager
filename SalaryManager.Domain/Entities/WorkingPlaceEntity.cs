@@ -34,19 +34,19 @@ namespace SalaryManager.Domain.Entities
             (int Hour, int Minute) breakEndTime,
             string remarks) 
         {
-            this.ID = id;
+            this.ID                 = id;
             this.DispatchingCompany = new CompanyNameValue(dispatchingCompany);
-            this.CompanyName = new CompanyNameValue(company);
-            this.Address = address;
+            this.CompanyName        = new CompanyNameValue(company);
+            this.Address            = address;
 
             this.WorkingTime = (new TimeValue(workingStartTime.Hour, workingStartTime.Minute),
-                                new TimeValue(workingEndTime.Hour, workingEndTime.Minute));
+                                new TimeValue(workingEndTime.Hour,   workingEndTime.Minute));
 
             this.LunchTime = (new TimeValue(lunchStartTime.Hour, lunchStartTime.Minute),
-                                new TimeValue(lunchEndTime.Hour, lunchEndTime.Minute));
+                              new TimeValue(lunchEndTime.Hour,   lunchEndTime.Minute));
 
             this.BreakTime = (new TimeValue(breakStartTime.Hour, breakStartTime.Minute),
-                                new TimeValue(breakEndTime.Hour, breakEndTime.Minute));
+                              new TimeValue(breakEndTime.Hour,   breakEndTime.Minute));
             this.Remarks = remarks;
         }
 

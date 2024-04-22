@@ -1,9 +1,12 @@
-﻿namespace SalaryManager.WPF.Window
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using System.Windows.Forms;
+
+namespace SalaryManager.WPF.Window
 {
     /// <summary>
     /// CareerInput.xaml の相互作用ロジック
     /// </summary>
-    public partial class Career : MahApps.Metro.Controls.MetroWindow
+    public partial class Career : System.Windows.Window
     {
         public Career()
         {
