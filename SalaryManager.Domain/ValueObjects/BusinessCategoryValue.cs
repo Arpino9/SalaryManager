@@ -99,11 +99,35 @@ namespace SalaryManager.Domain.ValueObjects
         /// <param name="largeCategory">大区分</param>
         public BusinessCategoryValue(string largeCategory)
         {
-            this.Value = largeCategory;
+            this.LargeName  = largeCategory;
+            this.MiddleList = this.GetMiddleCategoryList(this.LargeName);
+            this.MiddleName = this.MiddleList.FirstOrDefault().Value;
+            this.MiddleNo   = this.GetMiddleCategoryKey(this.MiddleName);
         }
 
-        /// <summary> Value </summary>
-        public string Value { get; }
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="middleCategoryNo">中区分</param>
+        public BusinessCategoryValue(int middleCategoryNo)
+        {
+            this.LargeName  = this.GetLargeCategory(middleCategoryNo);
+            this.MiddleList = this.GetMiddleCategoryList(this.LargeName);
+            this.MiddleNo   = middleCategoryNo.ToString("0000");
+            this.MiddleName = this.GetMiddleCategoryValue(middleCategoryNo);
+        }
+
+        /// <summary> 業種 (大区分) - Name </summary>
+        public string LargeName { get; }
+
+        /// <summary> 業種 (中区分) - List </summary>
+        public IDictionary<string, string> MiddleList { get; }
+
+        /// <summary> 業種 (中区分) - No </summary>
+        public string MiddleNo { get; }
+
+        /// <summary> 業種 (中区分) - Name </summary>
+        public string MiddleName { get; }
 
         /// <summary>
         /// 業種(大分類)
@@ -120,8 +144,7 @@ namespace SalaryManager.Domain.ValueObjects
         /// 業種(中分類)
         /// </summary>
         private IDictionary<string, string> MiddleCategory
-            => MiddleCategory_Agriculture.Union(MiddleCategory_Agriculture)
-                                         .Union(MiddleCategory_Mining)
+            => MiddleCategory_Agriculture.Union(MiddleCategory_Mining)
                                          .Union(MiddleCategory_Construct1ion)
                                          .Union(MiddleCategory_Food)
                                          .Union(MiddleCategory_Textile)
@@ -151,6 +174,17 @@ namespace SalaryManager.Domain.ValueObjects
                                          .ToDictionary(x => x.Key, x => x.Value);
 
         /// <summary>
+        /// 業種(中区分)に含まれているか
+        /// </summary>
+        /// <param name="category">業種(中区分)</param>
+        /// <param name="searchNo">検索する業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool ContainsCategory(IDictionary<string, string> category, int searchNo)
+            => category.Where(x => x.Key.Contains(searchNo.ToString("0000"))).Any();
+
+        #region 農業、林業、漁業
+
+        /// <summary>
         /// 農業、林業、漁業 
         /// </summary>
         private IDictionary<string, string> MiddleCategory_Agriculture
@@ -161,6 +195,18 @@ namespace SalaryManager.Domain.ValueObjects
                     ("0103", "漁業・水産養殖業"),
                 }.ToDictionary(x => x.No, x => x.Name);
 
+        /// <summary>
+        /// 農業、林業、漁業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        public bool IsAgriculture(int no)
+            => ContainsCategory(MiddleCategory_Agriculture, no);
+
+        #endregion
+
+        #region 農業、林業、漁業
+
         /// <summary> 
         /// 鉱業、採石業、砂利採取業 
         /// </summary>
@@ -170,6 +216,18 @@ namespace SalaryManager.Domain.ValueObjects
                     ("0201", "鉱業、採石業、砂利採取業"),
                 }.ToDictionary(x => x.No, x => x.Name);
 
+        /// <summary>
+        /// 鉱業、採石業、砂利採取業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool IsMining(int no)
+            => ContainsCategory(MiddleCategory_Mining, no);
+
+        #endregion
+
+        #region 建設業
+
         /// <summary> 
         /// 建設業 
         /// </summary>
@@ -178,6 +236,18 @@ namespace SalaryManager.Domain.ValueObjects
                 { 
                     ("0301", "建設業"),
                 }.ToDictionary(x => x.No, x => x.Name);
+
+        /// <summary>
+        /// 建設業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool IsConstruction(int no)
+            => ContainsCategory(MiddleCategory_Construct1ion, no);
+
+        #endregion
+
+        #region 食料品、飲料・たばこ・飼料製造業
 
         /// <summary> 
         /// 食料品、飲料・たばこ・飼料製造業 
@@ -191,6 +261,18 @@ namespace SalaryManager.Domain.ValueObjects
                     ("0404", "飼料・有機質肥料製造業"),
                 }.ToDictionary(x => x.No, x => x.Name);
 
+        /// <summary>
+        /// 食料品、飲料・たばこ・飼料製造業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool IsFood(int no)
+            => ContainsCategory(MiddleCategory_Food, no);
+
+        #endregion
+
+        #region 繊維工業
+
         /// <summary> 
         /// 繊維工業 
         /// </summary>
@@ -203,6 +285,18 @@ namespace SalaryManager.Domain.ValueObjects
                 ("0504", "衣服・その他の繊維製品製造業"),
             }.ToDictionary(x => x.No, x => x.Name);
 
+        /// <summary>
+        /// 繊維工業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool IsTextile(int no)
+            => ContainsCategory(MiddleCategory_Textile, no);
+
+        #endregion
+
+        #region 木材・木製品、パルプ・紙・紙加工品製造業
+
         /// <summary> 
         /// 木材・木製品、パルプ・紙・紙加工品製造業 
         /// </summary>
@@ -213,6 +307,18 @@ namespace SalaryManager.Domain.ValueObjects
                 ("0602", "パルプ・紙製造業"),
                 ("0603", "紙加工品製造業"),
             }.ToDictionary(x => x.No, x => x.Name);
+
+        /// <summary>
+        /// 木材・木製品、パルプ・紙・紙加工品製造業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool IsTimber(int no)
+            => ContainsCategory(MiddleCategory_Timber, no);
+
+        #endregion
+
+        #region 化学工業
 
         /// <summary> 
         /// 化学工業
@@ -229,6 +335,18 @@ namespace SalaryManager.Domain.ValueObjects
                 ("0707", "その他の化学工業"),
             }.ToDictionary(x => x.No, x => x.Name);
 
+        /// <summary>
+        /// 化学工業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool IsChemistry(int no)
+            => ContainsCategory(MiddleCategory_Chemistry, no);
+
+        #endregion
+
+        #region 石油製品・石炭製品製造業
+
         /// <summary> 
         /// 石油製品・石炭製品製造業
         /// </summary>
@@ -238,6 +356,18 @@ namespace SalaryManager.Domain.ValueObjects
                 ("0801", "石油精製業"),
                 ("0802", "その他の石油製品・石炭製品製造業"),
             }.ToDictionary(x => x.No, x => x.Name);
+
+        /// <summary>
+        /// 石炭製品製造業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool IsPetroleum(int no)
+            => ContainsCategory(MiddleCategory_Petroleum, no);
+
+        #endregion
+
+        #region 窯業・土石製品製造業
 
         /// <summary> 
         /// 窯業・土石製品製造業
@@ -250,6 +380,18 @@ namespace SalaryManager.Domain.ValueObjects
                 ("0903", "その他の窯業・土石製品製造業"),
             }.ToDictionary(x => x.No, x => x.Name);
 
+        /// <summary>
+        /// 窯業・土石製品製造業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool IsPottery(int no)
+            => ContainsCategory(MiddleCategory_Pottery, no);
+
+        #endregion
+
+        #region 鉄鋼業
+
         /// <summary> 
         /// 鉄鋼業
         /// </summary>
@@ -259,6 +401,18 @@ namespace SalaryManager.Domain.ValueObjects
                 ("1001", "銑鉄・粗鋼・鋼材製造業"),
                 ("1002", "鋳鍛造品・その他の鉄鋼製品製造業"),
             }.ToDictionary(x => x.No, x => x.Name);
+
+        /// <summary>
+        /// 鉄鋼業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool IsSteel(int no)
+            => ContainsCategory(MiddleCategory_Steel, no);
+
+        #endregion
+
+        #region 非鉄金属製造業
 
         /// <summary> 
         /// 非鉄金属製造業
@@ -270,6 +424,18 @@ namespace SalaryManager.Domain.ValueObjects
                 ("1102", "その他の非鉄金属製品製造業"),
             }.ToDictionary(x => x.No, x => x.Name);
 
+        /// <summary>
+        /// 鉄鋼業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool IsNonFerrousMetalworking(int no)
+            => ContainsCategory(MiddleCategory_NonFerrousMetalworking, no);
+
+        #endregion
+
+        #region 金属製品製造業
+
         /// <summary> 
         /// 金属製品製造業
         /// </summary>
@@ -280,6 +446,18 @@ namespace SalaryManager.Domain.ValueObjects
                 ("1202", "その他の金属製品製造業"),
             }.ToDictionary(x => x.No, x => x.Name);
 
+        /// <summary>
+        /// 金属製品製造業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool IsMetalware(int no)
+            => ContainsCategory(MiddleCategory_Metalware, no);
+
+        #endregion
+
+        #region はん用機械器具製造業
+
         /// <summary> 
         /// はん用機械器具製造業
         /// </summary>
@@ -289,6 +467,18 @@ namespace SalaryManager.Domain.ValueObjects
                 ("1301", "一般産業用機械・装置製造業"),
                 ("1302", "その他のはん用機械器具製造業"),
             }.ToDictionary(x => x.No, x => x.Name);
+
+        /// <summary>
+        /// はん用機械器具製造業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool IsGeneralMetalware(int no)
+            => ContainsCategory(MiddleCategory_GeneralMetalware, no);
+
+        #endregion
+
+        #region 生産用機械器具製造業
 
         /// <summary> 
         /// 生産用機械器具製造業
@@ -303,6 +493,18 @@ namespace SalaryManager.Domain.ValueObjects
                 ("1405", "その他の生産用機械器具製造業"),
             }.ToDictionary(x => x.No, x => x.Name);
 
+        /// <summary>
+        /// 生産用機械器具製造業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool IsProduction(int no)
+            => ContainsCategory(MiddleCategory_Production, no);
+
+        #endregion
+
+        #region 業務用機械器具製造業
+
         /// <summary> 
         /// 業務用機械器具製造業
         /// </summary>
@@ -313,6 +515,18 @@ namespace SalaryManager.Domain.ValueObjects
                 ("1502", "光学機械器具・レンズ製造業"),
                 ("1503", "その他の業務用機械器具製造業"),
             }.ToDictionary(x => x.No, x => x.Name);
+
+        /// <summary>
+        /// 業務用機械器具製造業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool IsOperation(int no)
+            => ContainsCategory(MiddleCategory_Operation, no);
+
+        #endregion
+
+        #region 電気機械器具製造業
 
         /// <summary> 
         /// 電気機械器具製造業
@@ -326,6 +540,18 @@ namespace SalaryManager.Domain.ValueObjects
                 ("1604", "その他の電気機械器具製造業 "),
             }.ToDictionary(x => x.No, x => x.Name);
 
+        /// <summary>
+        /// 電気機械器具製造業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool IsElectrodynamic(int no)
+            => ContainsCategory(MiddleCategory_Electrodynamic, no);
+
+        #endregion
+
+        #region 情報通信機械器具、電子部品・デバイス・電子回路製造業
+
         /// <summary> 
         /// 情報通信機械器具、電子部品・デバイス・電子回路製造業
         /// </summary>
@@ -337,6 +563,18 @@ namespace SalaryManager.Domain.ValueObjects
                 ("1703", "電子部品・デバイス・電子回路製造業"),
             }.ToDictionary(x => x.No, x => x.Name);
 
+        /// <summary>
+        /// 情報通信機械器具、電子部品・デバイス・電子回路製造業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool IsDevice(int no)
+            => ContainsCategory(MiddleCategory_Device, no);
+
+        #endregion
+
+        #region 輸送機械器具製造業
+
         /// <summary> 
         /// 輸送機械器具製造業
         /// </summary>
@@ -347,6 +585,18 @@ namespace SalaryManager.Domain.ValueObjects
                 ("1802", "自動車部分品・附属品製造業"),
                 ("1803", "その他の輸送用機械器具製造業"),
             }.ToDictionary(x => x.No, x => x.Name);
+
+        /// <summary>
+        /// 輸送機械器具製造業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool IsTransportMachinery(int no)
+            => ContainsCategory(MiddleCategory_TransportMachinery, no);
+
+        #endregion
+
+        #region その他の製造業
 
         /// <summary> 
         /// その他の製造業
@@ -362,6 +612,18 @@ namespace SalaryManager.Domain.ValueObjects
                 ("1906", "その他の製造業"),
             }.ToDictionary(x => x.No, x => x.Name);
 
+        /// <summary>
+        /// その他の製造業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool IsOtherManufacture(int no)
+            => ContainsCategory(MiddleCategory_OtherManufacture, no);
+
+        #endregion
+
+        #region 電気・ガス・熱供給・水道業
+
         /// <summary> 
         /// 電気・ガス・熱供給・水道業
         /// </summary>
@@ -370,6 +632,18 @@ namespace SalaryManager.Domain.ValueObjects
             {
                 ("2001", "電気業、ガス業、熱供給業、水道業"),
             }.ToDictionary(x => x.No, x => x.Name);
+
+        /// <summary>
+        /// その他の製造業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool IsElectricity(int no)
+            => ContainsCategory(MiddleCategory_Electricity, no);
+
+        #endregion
+
+        #region 情報通信業
 
         /// <summary> 
         /// 情報通信業
@@ -383,6 +657,18 @@ namespace SalaryManager.Domain.ValueObjects
                 ("2104", "インターネット附随サービス業"),
             }.ToDictionary(x => x.No, x => x.Name);
 
+        /// <summary>
+        /// 情報通信業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool IsTelecommunications(int no)
+            => ContainsCategory(MiddleCategory_Telecommunications, no);
+
+        #endregion
+
+        #region 運輸業
+
         // <summary> 
         /// 運輸業
         /// </summary>
@@ -392,6 +678,18 @@ namespace SalaryManager.Domain.ValueObjects
                 ("2201", "鉄道業、道路旅客運送業、道路貨物運送業、水運業、航空運輸業、郵便業"),
                 ("2202", "倉庫業・運輸に附帯するサービス業"),
             }.ToDictionary(x => x.No, x => x.Name);
+
+        /// <summary>
+        /// 運輸業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool IsTransportation(int no)
+            => ContainsCategory(MiddleCategory_Transportation, no);
+
+        #endregion
+
+        #region 卸売業、小売業
 
         // <summary> 
         /// 卸売業、小売業
@@ -403,6 +701,18 @@ namespace SalaryManager.Domain.ValueObjects
                 ("2302", "小売業"),
             }.ToDictionary(x => x.No, x => x.Name);
 
+        /// <summary>
+        /// 卸売業、小売業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool IsWholesale(int no)
+            => ContainsCategory(MiddleCategory_Wholesale, no);
+
+        #endregion
+
+        #region 金融業、保険業
+
         // <summary> 
         /// 金融業、保険業
         /// </summary>
@@ -412,6 +722,18 @@ namespace SalaryManager.Domain.ValueObjects
                 ("2401", "金融業、保険業"),
             }.ToDictionary(x => x.No, x => x.Name);
 
+        /// <summary>
+        /// 金融業、保険業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool IsFinance(int no)
+            => ContainsCategory(MiddleCategory_Finance, no);
+
+        #endregion
+
+        #region 不動産業
+
         // <summary> 
         /// 不動産業
         /// </summary>
@@ -420,6 +742,18 @@ namespace SalaryManager.Domain.ValueObjects
             {
                 ("2501", "不動産業"),
             }.ToDictionary(x => x.No, x => x.Name);
+
+        /// <summary>
+        /// 不動産業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool IsRealEstate(int no)
+            => ContainsCategory(MiddleCategory_RealEstate, no);
+
+        #endregion
+
+        #region 宿泊業、飲食サービス業
 
         // <summary> 
         /// 宿泊業、飲食サービス業
@@ -432,6 +766,18 @@ namespace SalaryManager.Domain.ValueObjects
                 ("2703", "持ち帰り・配達飲食サービス業"),
             }.ToDictionary(x => x.No, x => x.Name);
 
+        /// <summary>
+        /// 宿泊業、飲食サービス業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool IsLodgingAndFood(int no)
+            => ContainsCategory(MiddleCategory_LodgingAndFood, no);
+
+        #endregion
+
+        #region 教育、学習支援、医療、福祉、複合サービス業
+
         // <summary> 
         /// 教育、学習支援、医療、福祉、複合サービス業
         /// </summary>
@@ -442,6 +788,18 @@ namespace SalaryManager.Domain.ValueObjects
                 ("2802", "医療、福祉"),
                 ("2803", "複合サービス業"),
             }.ToDictionary(x => x.No, x => x.Name);
+
+        /// <summary>
+        /// 教育、学習支援、医療、福祉、複合サービス業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool IsEducation(int no)
+            => ContainsCategory(MiddleCategory_Education, no);
+
+        #endregion
+
+        #region サービス業
 
         // <summary> 
         /// サービス業
@@ -456,53 +814,129 @@ namespace SalaryManager.Domain.ValueObjects
                 ("2905", "その他のサービス業"),
             }.ToDictionary(x => x.No, x => x.Name);
 
+        /// <summary>
+        /// サービス業か
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>リストに含まれるか</returns>
+        private bool IsService(int no)
+            => ContainsCategory(MiddleCategory_Service, no);
+
+        #endregion
+
+        /// <summary>
+        /// 業種 (中区分)の名前を取得する
+        /// </summary>
+        /// <param name="number">業種番号</param>
+        /// <returns>中区分</returns>
         public string GetMiddleCategoryValue(string number)
         {
             MiddleCategory.TryGetValue(number, out var value);
             return value;
         }
 
+        /// <summary>
+        /// 業種 (中区分)の名前を取得する
+        /// </summary>
+        /// <param name="number">業種番号</param>
+        /// <returns>中区分</returns>
+        public string GetMiddleCategoryValue(int number)
+            => GetMiddleCategoryValue(number.ToString("0000"));
+
+        /// <summary>
+        /// 中区分の業種番号を取得する
+        /// </summary>
+        /// <param name="value">中区分</param>
+        /// <returns>業種番号</returns>
         public string GetMiddleCategoryKey(string value)
             => MiddleCategory.Where(x => x.Value == value).Select(x => x.Key).FirstOrDefault();
 
+        /// <summary>
+        /// 大区分の業種名を取得する
+        /// </summary>
+        /// <param name="no">業種番号</param>
+        /// <returns>業種名</returns>
+        /// <exception cref="FormatException">形式エラー</exception>
+        public string GetLargeCategory(int no)
+        {
+            if (no == 0) throw new FormatException("業種の中区分が不正値です。");
+
+            if (IsAgriculture(no))            return Agriculture.LargeName;
+            if (IsMining(no))                 return Mining.LargeName;
+            if (IsConstruction(no))           return Construction.LargeName;
+            if (IsFood(no))                   return Food.LargeName;
+            if (IsTextile(no))                return Textile.LargeName;
+            if (IsTimber(no))                 return Timber.LargeName;
+            if (IsChemistry(no))              return Chemistry.LargeName;
+            if (IsPetroleum(no))              return Petroleum.LargeName;
+            if (IsPottery(no))                return Pottery.LargeName;
+            if (IsSteel(no))                  return Steel.LargeName;
+            if (IsNonFerrousMetalworking(no)) return NonFerrousMetalworking.LargeName;
+            if (IsMetalware(no))              return Metalware.LargeName;
+            if (IsGeneralMetalware(no))       return GeneralMetalware.LargeName;
+            if (IsProduction(no))             return Production.LargeName;
+            if (IsOperation(no))              return Operation.LargeName;
+            if (IsElectrodynamic(no))         return Electrodynamic.LargeName;
+            if (IsDevice(no))                 return Device.LargeName;
+            if (IsTransportMachinery(no))     return TransportMachinery.LargeName;
+            if (IsOtherManufacture(no))       return OtherManufacture.LargeName;
+            if (IsElectricity(no))            return Electricity.LargeName;
+            if (IsTelecommunications(no))     return Telecommunications.LargeName;
+            if (IsTransportation(no))         return Transportation.LargeName;
+            if (IsWholesale(no))              return Wholesale.LargeName;
+            if (IsFinance(no))                return Finance.LargeName;
+            if (IsRealEstate(no))             return RealEstate.LargeName;
+            if (IsLodgingAndFood(no))         return LodgingAndFood.LargeName;
+            if (IsEducation(no))              return Education.LargeName;
+            if (IsService(no))                return Service.LargeName;
+
+            throw new FormatException("業種の中区分が登録されていません。");
+        }
+
+        /// <summary>
+        /// 大区分から中区分の一覧を取得する
+        /// </summary>
+        /// <param name="largeCategory">大区分</param>
+        /// <returns>中区分の一覧</returns>
+        /// <exception cref="FormatException">形式エラー</exception>
         public IDictionary<string, string> GetMiddleCategoryList(string largeCategory)
         {
-            if (largeCategory == null) { return  null; }
+            if (largeCategory == null) throw new FormatException("業種の大分類が不正値です。");
 
-            if      (largeCategory == Agriculture.Value)            return MiddleCategory_Agriculture;
-            else if (largeCategory == Mining.Value)                 return MiddleCategory_Mining;
-            else if (largeCategory == Construction.Value)           return MiddleCategory_Construct1ion;
-            else if (largeCategory == Food.Value)                   return MiddleCategory_Food;
-            else if (largeCategory == Construction.Value)           return MiddleCategory_Construct1ion;
-            else if (largeCategory == Textile.Value)                return MiddleCategory_Textile;
-            else if (largeCategory == Timber.Value)                 return MiddleCategory_Timber;
-            else if (largeCategory == Chemistry.Value)              return MiddleCategory_Chemistry;
-            else if (largeCategory == Petroleum.Value)              return MiddleCategory_Petroleum;
-            else if (largeCategory == Pottery.Value)                return MiddleCategory_Pottery;
-            else if (largeCategory == Steel.Value)                  return MiddleCategory_Steel;
-            else if (largeCategory == NonFerrousMetalworking.Value) return MiddleCategory_NonFerrousMetalworking;
-            else if (largeCategory == Metalware.Value)              return MiddleCategory_Metalware;
-            else if (largeCategory == GeneralMetalware.Value)       return MiddleCategory_GeneralMetalware;
-            else if (largeCategory == Production.Value)             return MiddleCategory_Production;
-            else if (largeCategory == Operation.Value)              return MiddleCategory_Operation;
-            else if (largeCategory == Electrodynamic.Value)         return MiddleCategory_Electrodynamic;
-            else if (largeCategory == Device.Value)                 return MiddleCategory_Device;
-            else if (largeCategory == TransportMachinery.Value)     return MiddleCategory_TransportMachinery;
-            else if (largeCategory == OtherManufacture.Value)       return MiddleCategory_OtherManufacture;
-            else if (largeCategory == Electricity.Value)            return MiddleCategory_Electricity;
-            else if (largeCategory == Telecommunications.Value)     return MiddleCategory_Telecommunications;
-            else if (largeCategory == Transportation.Value)         return MiddleCategory_Transportation;
-            else if (largeCategory == Wholesale.Value)              return MiddleCategory_Wholesale;
-            else if (largeCategory == Finance.Value)                return MiddleCategory_Finance;
-            else if (largeCategory == RealEstate.Value)             return MiddleCategory_RealEstate;
-            else if (largeCategory == LodgingAndFood.Value)         return MiddleCategory_LodgingAndFood;
-            else if (largeCategory == Education.Value)              return MiddleCategory_Education;
-            else if (largeCategory == Service.Value)                return MiddleCategory_Service;
+            if      (largeCategory == Agriculture?.LargeName)            return MiddleCategory_Agriculture;
+            else if (largeCategory == Mining?.LargeName)                 return MiddleCategory_Mining;
+            else if (largeCategory == Construction?.LargeName)           return MiddleCategory_Construct1ion;
+            else if (largeCategory == Food?.LargeName)                   return MiddleCategory_Food;
+            else if (largeCategory == Construction?.LargeName)           return MiddleCategory_Construct1ion;
+            else if (largeCategory == Textile?.LargeName)                return MiddleCategory_Textile;
+            else if (largeCategory == Timber?.LargeName)                 return MiddleCategory_Timber;
+            else if (largeCategory == Chemistry?.LargeName)              return MiddleCategory_Chemistry;
+            else if (largeCategory == Petroleum?.LargeName)              return MiddleCategory_Petroleum;
+            else if (largeCategory == Pottery?.LargeName)                return MiddleCategory_Pottery;
+            else if (largeCategory == Steel?.LargeName)                  return MiddleCategory_Steel;
+            else if (largeCategory == NonFerrousMetalworking?.LargeName) return MiddleCategory_NonFerrousMetalworking;
+            else if (largeCategory == Metalware?.LargeName)              return MiddleCategory_Metalware;
+            else if (largeCategory == GeneralMetalware?.LargeName)       return MiddleCategory_GeneralMetalware;
+            else if (largeCategory == Production?.LargeName)             return MiddleCategory_Production;
+            else if (largeCategory == Operation?.LargeName)              return MiddleCategory_Operation;
+            else if (largeCategory == Electrodynamic?.LargeName)         return MiddleCategory_Electrodynamic;
+            else if (largeCategory == Device?.LargeName)                 return MiddleCategory_Device;
+            else if (largeCategory == TransportMachinery?.LargeName)     return MiddleCategory_TransportMachinery;
+            else if (largeCategory == OtherManufacture?.LargeName)       return MiddleCategory_OtherManufacture;
+            else if (largeCategory == Electricity?.LargeName)            return MiddleCategory_Electricity;
+            else if (largeCategory == Telecommunications?.LargeName)     return MiddleCategory_Telecommunications;
+            else if (largeCategory == Transportation?.LargeName)         return MiddleCategory_Transportation;
+            else if (largeCategory == Wholesale?.LargeName)              return MiddleCategory_Wholesale;
+            else if (largeCategory == Finance?.LargeName)                return MiddleCategory_Finance;
+            else if (largeCategory == RealEstate?.LargeName)             return MiddleCategory_RealEstate;
+            else if (largeCategory == LodgingAndFood?.LargeName)         return MiddleCategory_LodgingAndFood;
+            else if (largeCategory == Education?.LargeName)              return MiddleCategory_Education;
+            else if (largeCategory == Service?.LargeName)                return MiddleCategory_Service;
 
-            throw new FormatException("業種の大分類が不正値・もしくは登録されていません。");
+            return new List<(string No, string Name)>().ToDictionary(x => x.No, x => x.Name);
         }
 
         public override string ToString()
-            => this.Value;
+            => this.LargeName;
     }
 }

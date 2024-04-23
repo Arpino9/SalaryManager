@@ -24,7 +24,8 @@
         </Grid.RowDefinitions>
 
         <ListView ItemsSource="{Binding Careers_ItemSource}"
-                  SelectedIndex="{Binding Careers_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                  SelectedIndex="{Binding Careers_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="SelectionChanged">
                     <behaviors:InvokeCommandAction Command="{Binding Careers_SelectionChanged}" />

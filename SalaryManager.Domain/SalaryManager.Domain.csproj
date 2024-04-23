@@ -99,6 +99,7 @@
     <Compile Include="Entities\AnnualChartEntity.cs" />
     <Compile Include="Entities\CalendarEventEntity.cs" />
     <Compile Include="Entities\CareerEntity.cs" />
+    <Compile Include="Entities\CompanyEntity.cs" />
     <Compile Include="Entities\WorkingPlaceEntity.cs" />
     <Compile Include="Entities\FileStorageEntity.cs" />
     <Compile Include="Entities\HeaderEntity.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Modules\Logics\Message.cs" />
     <Compile Include="Modules\Logics\FilePath.cs" />
     <Compile Include="Repositories\IAnnualChartRepository.cs" />
+    <Compile Include="Repositories\ICompanyRepository.cs" />
     <Compile Include="Repositories\IWorkingPlaceRepository.cs" />
     <Compile Include="Repositories\ICareerRepository.cs" />
     <Compile Include="Repositories\IExcelWriterRepository.cs" />
@@ -137,6 +139,7 @@
     <Compile Include="Repositories\IWorkingReferencesRepository.cs" />
     <Compile Include="StaticValues\Allowances.cs" />
     <Compile Include="StaticValues\AnnualCharts.cs" />
+    <Compile Include="StaticValues\Companies.cs" />
     <Compile Include="StaticValues\WorkingPlace.cs" />
     <Compile Include="StaticValues\Careers.cs" />
     <Compile Include="StaticValues\Deductions.cs" />
