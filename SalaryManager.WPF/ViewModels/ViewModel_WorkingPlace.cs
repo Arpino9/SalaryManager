@@ -40,10 +40,10 @@ namespace SalaryManager.WPF.ViewModels
         /// </summary>
         private void BindEvent()
         {
-            // 会社名
-            this.AssignedCompanyName_TextChanged = new RelayCommand(this.Model.EnableAddButton);
+            // 就業場所
+            this.WorkingPlace_TextChanged       = new RelayCommand(this.Model.SearchAddress);
             // 住所
-            this.Address_TextChanged      = new RelayCommand(this.Model.EnableAddButton);
+            this.Address_TextChanged            = new RelayCommand(this.Model.EnableAddButton);
             // 経歴一覧
             this.WorkingPlaces_SelectionChanged = new RelayCommand(this.Model.Careers_SelectionChanged);
         }
@@ -157,12 +157,12 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
-        #region 会社名 - 共通
+        #region 会社名
 
         private ObservableCollection<string> _companyName_ItemSource;
 
         /// <summary>
-        /// 派遣元会社名 - ItemSource
+        /// 会社名 - ItemSource
         /// </summary>
         public ObservableCollection<string> CompanyName_ItemSource
         {
@@ -221,25 +221,40 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 会社名
 
-        private string _workingPlace_Name_Text;
+        private ObservableCollection<string> _workingPlace_ItemSource;
 
         /// <summary>
-        /// 会社名 - Text
+        /// 就業場所 - ItemSource
         /// </summary>
-        public string WorkingPlace_Name_Text
+        public ObservableCollection<string> WorkingPlace_ItemSource
         {
-            get => this._workingPlace_Name_Text;
+            get => this._workingPlace_ItemSource;
             set
             {
-                this._workingPlace_Name_Text = value;
+                this._workingPlace_ItemSource = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _workingPlace_Name_SelectedItem;
+
+        /// <summary>
+        /// 就業場所 - SelectedItem
+        /// </summary>
+        public string WorkingPlace_Name_SelectedItem
+        {
+            get => this._workingPlace_Name_SelectedItem;
+            set
+            {
+                this._workingPlace_Name_SelectedItem = value;
                 this.RaisePropertyChanged();
             }
         }
 
         /// <summary>
-        /// 会社名 - TextChanged
+        /// 就業場所 - TextChanged
         /// </summary>
-        public RelayCommand AssignedCompanyName_TextChanged { get; private set; }
+        public RelayCommand WorkingPlace_TextChanged { get; private set; }
 
         #endregion
 

@@ -98,16 +98,17 @@
             <Label Content="就業場所 (名称)" 
                    Grid.Row="2" 
                    Background="AliceBlue"/>
-            <TextBox Grid.Column="1" 
+            <ComboBox Grid.Column="1" 
                      Grid.Row="2" 
                      Grid.ColumnSpan="7" 
-                     Text="{Binding WorkingPlace_Name_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                     ItemsSource="{Binding WorkingPlace_ItemSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     SelectedItem="{Binding WorkingPlace_Name_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <behaviors:Interaction.Triggers>
-                    <behaviors:EventTrigger EventName="TextChanged">
-                        <behaviors:InvokeCommandAction Command="{Binding AssignedCompanyName_TextChanged}" />
+                    <behaviors:EventTrigger EventName="SelectionChanged">
+                        <behaviors:InvokeCommandAction Command="{Binding WorkingPlace_TextChanged}" />
                     </behaviors:EventTrigger>
                 </behaviors:Interaction.Triggers>
-            </TextBox>
+            </ComboBox>
 
             <Label Content="就業場所 (住所)" 
                    Grid.Row="3" 
@@ -115,7 +116,10 @@
             <TextBox Grid.Column="1" 
                      Grid.Row="3" 
                      Grid.ColumnSpan="7" 
-                     Text="{Binding WorkingPlace_Address_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextAlignment="{Binding Address_Text}">
+                     Text="{Binding WorkingPlace_Address_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                     TextAlignment="{Binding WorkingPlace_Address_Text}"
+                     IsReadOnly="True" 
+                     Background="#d3d3d3">
                 <behaviors:Interaction.Triggers>
                     <behaviors:EventTrigger EventName="TextChanged">
                         <behaviors:InvokeCommandAction Command="{Binding Address_TextChanged}" />

@@ -53,12 +53,17 @@ namespace SalaryManager.WPF.Models
         {
             WorkingPlace.Create(_repository);
             Companies.Create(new CompanySQLite());
+            Homes.Create(new HomeSQLite());
 
-            var companies = Companies.FetchByDescending();
+            var companies = Companies.FetchByDescending().ToList();
 
             if (companies.Any())
             {
-                this.ViewModel.CompanyName_ItemSource = ListUtils.ToObservableCollection(companies.Select(x => x.CompanyName).ToList());
+                var companyNames = companies.Select(x => x.CompanyName).ToList();
+                this.ViewModel.CompanyName_ItemSource  = ListUtils.ToObservableCollection(companyNames);
+ 
+                var workingPlace = companyNames.Union(Homes.FetchByDescending().Select(x => x.DisplayName)).ToList();
+                this.ViewModel.WorkingPlace_ItemSource = ListUtils.ToObservableCollection(workingPlace);
             }
 
             this.ViewModel.FontFamily = XMLLoader.FetchFontFamily();
@@ -149,7 +154,7 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.DispatchingCompanyName_Text = entity.DispatchingCompany.Text;
             this.ViewModel.DispatchedCompanyName_Text  = entity.DispatchedCompany.Text;
             // 会社名
-            this.ViewModel.WorkingPlace_Name_Text = entity.WorkingPlace_Name.Text;
+            this.ViewModel.WorkingPlace_Name_SelectedItem = entity.WorkingPlace_Name.Text;
 
             // 住所
             this.ViewModel.WorkingPlace_Address_Text = entity.WorkingPlace_Address;
@@ -190,9 +195,28 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void EnableAddButton()
         {
-            var inputted = (!string.IsNullOrEmpty(this.ViewModel.WorkingPlace_Name_Text) && !string.IsNullOrEmpty(this.ViewModel.WorkingPlace_Address_Text));
+            var inputted = (!string.IsNullOrEmpty(this.ViewModel.WorkingPlace_Name_SelectedItem) && !string.IsNullOrEmpty(this.ViewModel.WorkingPlace_Address_Text));
 
             this.ViewModel.Add_IsEnabled = inputted;
+        }
+
+        public void SearchAddress()
+        {
+            var companies = Companies.FetchByDescending().ToList();
+            if (companies.Any(x => x.CompanyName.Contains(this.ViewModel.WorkingPlace_Name_SelectedItem)))
+            {
+                this.ViewModel.WorkingPlace_Address_Text = companies.Where(x => x.CompanyName.Contains(this.ViewModel.WorkingPlace_Name_SelectedItem))
+                                                                    .Select(x => x.Address_Google).FirstOrDefault();
+                return;
+            }
+
+            var homes = Homes.FetchByDescending().ToList();
+            if (homes.Any(x => x.DisplayName.Contains(this.ViewModel.WorkingPlace_Name_SelectedItem)))
+            {
+                this.ViewModel.WorkingPlace_Address_Text = homes.Where(x => x.DisplayName.Contains(this.ViewModel.WorkingPlace_Name_SelectedItem))
+                                                                .Select(x => x.Address_Google).FirstOrDefault();
+                return;
+            }
         }
 
         /// <summary>
@@ -240,7 +264,7 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.DispatchedCompanyName_Text  = default(string);
 
             // 会社名
-            this.ViewModel.WorkingPlace_Name_Text   = default(string);
+            this.ViewModel.WorkingPlace_Name_SelectedItem   = default(string);
 
             // 住所
             this.ViewModel.WorkingPlace_Address_Text       = default(string);
@@ -317,7 +341,7 @@ namespace SalaryManager.WPF.Models
                 id,
                 this.ViewModel.DispatchingCompanyName_Text,
                 this.ViewModel.DispatchedCompanyName_Text,
-                this.ViewModel.WorkingPlace_Name_Text,
+                this.ViewModel.WorkingPlace_Name_SelectedItem,
                 this.ViewModel.WorkingPlace_Address_Text,
                 (this.ViewModel.WorkingTime_Start_Hour, this.ViewModel.WorkingTime_Start_Minute),
                 (this.ViewModel.WorkingTime_End_Hour,   this.ViewModel.WorkingTime_End_Minute),
