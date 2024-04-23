@@ -57,10 +57,7 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary>
         /// タイトル
         /// </summary>
-        public string Title
-        {
-            get => "就業場所登録";
-        }
+        public string Title => "就業場所登録";
 
         #endregion
 

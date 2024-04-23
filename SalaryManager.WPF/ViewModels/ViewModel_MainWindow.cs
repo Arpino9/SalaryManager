@@ -291,6 +291,27 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
+        #region 自宅マスタを開く
+
+        private RelayCommand _showHomeManager_Command;
+
+        /// <summary>
+        /// 就業時間マスタを開く - Command
+        /// </summary>
+        public RelayCommand ShowHomeManager_Command
+        {
+            get
+            {
+                if (this._showHomeManager_Command == null)
+                {
+                    this._showHomeManager_Command = new RelayCommand(this.Model.ShowHome);
+                }
+                return this._showHomeManager_Command;
+            }
+        }
+
+        #endregion
+
         #region 添付ファイル管理画面を開く
 
         private RelayCommand _showFileStorage_Command;

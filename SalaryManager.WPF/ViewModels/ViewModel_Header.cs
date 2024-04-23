@@ -12,6 +12,7 @@ namespace SalaryManager.WPF.ViewModels
     /// </summary>
     public class ViewModel_Header : INotifyPropertyChanged
     {
+
         #region Property Changed
 
         public event PropertyChangedEventHandler PropertyChanged;

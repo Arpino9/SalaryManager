@@ -43,6 +43,13 @@
                         </ToolTipService.ToolTip>
                     </MenuItem>
 
+                    <MenuItem Header="自宅マスタ" Command="{Binding ShowHomeManager_Command}">
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="自宅マスタを開きます。"/>
+                        </ToolTipService.ToolTip>
+                    </MenuItem>
+
+
                     <MenuItem Header="添付ファイル" Command="{Binding ShowFileStorage_Command}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="添付ファイル登録画面を開きます。"/>

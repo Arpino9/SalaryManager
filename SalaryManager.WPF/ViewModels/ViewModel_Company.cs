@@ -45,8 +45,7 @@ namespace SalaryManager.WPF.ViewModels
             this.CompanyName_TextChanged    = new RelayCommand(this.Model.EnableAddButton);
             this.Address_Google_TextChanged = new RelayCommand(this.Model.EnableAddButton);
 
-            // 就業中
-            this.BusinessCategory_Large_SelectionChanged = new RelayCommand(this.Model.BusinessCategory_Large_SelectionChanged);
+            this.BusinessCategory_Large_SelectionChanged  = new RelayCommand(this.Model.BusinessCategory_Large_SelectionChanged);
             this.BusinessCategory_Middle_SelectionChanged = new RelayCommand(this.Model.BusinessCategory_Middle_SelectionChanged);
 
             // 会社一覧
@@ -60,8 +59,7 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary> 
         /// タイトル 
         /// </summary>
-        public string Title
-            => "会社マスタ";
+        public string Title => "会社マスタ";
 
         #endregion
 

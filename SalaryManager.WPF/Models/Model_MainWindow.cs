@@ -469,6 +469,19 @@ namespace SalaryManager.WPF.Models
 
         #endregion
 
+        #region 在宅マスタ
+
+        /// <summary>
+        /// 就業時間マスタを開く
+        /// </summary>
+        internal void ShowHome()
+        {
+            var home = new Home();
+            home.Show();
+        }
+
+        #endregion
+
         #region 経歴入力
 
         /// <summary>
