@@ -160,6 +160,25 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
+        #region 会社名 - 共通
+
+        private ObservableCollection<string> _companyName_ItemSource;
+
+        /// <summary>
+        /// 派遣元会社名 - ItemSource
+        /// </summary>
+        public ObservableCollection<string> CompanyName_ItemSource
+        {
+            get => this._companyName_ItemSource;
+            set
+            {
+                this._companyName_ItemSource = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
         #region 派遣元会社名
 
         private string _dispacthingCompanyName_Text;
@@ -184,19 +203,38 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
+        #region 派遣先会社名
+
+        private string _dispacthedCompanyName_Text;
+
+        /// <summary>
+        /// 派遣先会社名 - Text
+        /// </summary>
+        public string DispatchedCompanyName_Text
+        {
+            get => this._dispacthedCompanyName_Text;
+            set
+            {
+                this._dispacthedCompanyName_Text = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
         #region 会社名
 
-        private string _companyName_Text;
+        private string _workingPlace_Name_Text;
 
         /// <summary>
         /// 会社名 - Text
         /// </summary>
-        public string CompanyName_Text
+        public string WorkingPlace_Name_Text
         {
-            get => this._companyName_Text;
+            get => this._workingPlace_Name_Text;
             set
             {
-                this._companyName_Text = value;
+                this._workingPlace_Name_Text = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -210,17 +248,17 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 住所
 
-        private string _address_Text;
+        private string _workingPlace_Address_Text;
 
         /// <summary>
         /// 住所 - Text
         /// </summary>
-        public string Address_Text
+        public string WorkingPlace_Address_Text
         {
-            get => this._address_Text;
+            get => this._workingPlace_Address_Text;
             set
             {
-                this._address_Text = value;
+                this._workingPlace_Address_Text = value;
                 this.RaisePropertyChanged();
             }
         }

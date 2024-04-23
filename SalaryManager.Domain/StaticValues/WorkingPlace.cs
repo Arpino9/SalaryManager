@@ -43,7 +43,7 @@ namespace SalaryManager.Domain.StaticValues
         /// <param name="companyName">ID</param>
         /// <returns>就業場所</returns>
         public static WorkingPlaceEntity FetchByCompany(string companyName)
-            => _entities.Find(x => x.CompanyName.Text == companyName);
+            => _entities.Find(x => x.WorkingPlace_Name.Text == companyName);
 
         /// <summary>
         /// 昇順で取得する

@@ -6,6 +6,8 @@ using SalaryManager.Domain.StaticValues;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.Infrastructure.XML;
 using SalaryManager.Domain.Repositories;
+using SalaryManager.Infrastructure.SQLite;
+using SalaryManager.Domain.Modules.Helpers;
 
 namespace SalaryManager.WPF.Models
 {
@@ -50,6 +52,14 @@ namespace SalaryManager.WPF.Models
         public void Initialize()
         {
             WorkingPlace.Create(_repository);
+            Companies.Create(new CompanySQLite());
+
+            var companies = Companies.FetchByDescending();
+
+            if (companies.Any())
+            {
+                this.ViewModel.CompanyName_ItemSource = ListUtils.ToObservableCollection(companies.Select(x => x.CompanyName).ToList());
+            }
 
             this.ViewModel.FontFamily = XMLLoader.FetchFontFamily();
             this.ViewModel.FontSize   = XMLLoader.FetchFontSize();
@@ -137,11 +147,12 @@ namespace SalaryManager.WPF.Models
             
             // 派遣元会社名
             this.ViewModel.DispatchingCompanyName_Text = entity.DispatchingCompany.Text;
+            this.ViewModel.DispatchedCompanyName_Text  = entity.DispatchedCompany.Text;
             // 会社名
-            this.ViewModel.CompanyName_Text = entity.CompanyName.Text;
+            this.ViewModel.WorkingPlace_Name_Text = entity.WorkingPlace_Name.Text;
 
             // 住所
-            this.ViewModel.Address_Text = entity.Address;
+            this.ViewModel.WorkingPlace_Address_Text = entity.WorkingPlace_Address;
 
             // 勤務開始時間(時)
             this.ViewModel.WorkingTime_Start_Hour   = entity.WorkingTime.Start.Hour;
@@ -179,7 +190,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void EnableAddButton()
         {
-            var inputted = (!string.IsNullOrEmpty(this.ViewModel.CompanyName_Text) && !string.IsNullOrEmpty(this.ViewModel.Address_Text));
+            var inputted = (!string.IsNullOrEmpty(this.ViewModel.WorkingPlace_Name_Text) && !string.IsNullOrEmpty(this.ViewModel.WorkingPlace_Address_Text));
 
             this.ViewModel.Add_IsEnabled = inputted;
         }
@@ -225,12 +236,14 @@ namespace SalaryManager.WPF.Models
         {
             // 派遣元会社
             this.ViewModel.DispatchingCompanyName_Text = default(string);
+            // 派遣先会社
+            this.ViewModel.DispatchedCompanyName_Text  = default(string);
 
             // 会社名
-            this.ViewModel.CompanyName_Text   = default(string);
+            this.ViewModel.WorkingPlace_Name_Text   = default(string);
 
             // 住所
-            this.ViewModel.Address_Text       = default(string);
+            this.ViewModel.WorkingPlace_Address_Text       = default(string);
             
             // 労働 - 開始 - 時
             this.ViewModel.WorkingTime_Start_Hour   = default(int);
@@ -303,8 +316,9 @@ namespace SalaryManager.WPF.Models
             return new WorkingPlaceEntity(
                 id,
                 this.ViewModel.DispatchingCompanyName_Text,
-                this.ViewModel.CompanyName_Text,
-                this.ViewModel.Address_Text,
+                this.ViewModel.DispatchedCompanyName_Text,
+                this.ViewModel.WorkingPlace_Name_Text,
+                this.ViewModel.WorkingPlace_Address_Text,
                 (this.ViewModel.WorkingTime_Start_Hour, this.ViewModel.WorkingTime_Start_Minute),
                 (this.ViewModel.WorkingTime_End_Hour,   this.ViewModel.WorkingTime_End_Minute),
                 (this.ViewModel.LunchTime_Start_Hour,   this.ViewModel.LunchTime_Start_Minute),

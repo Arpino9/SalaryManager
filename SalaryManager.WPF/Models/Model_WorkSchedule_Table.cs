@@ -131,6 +131,9 @@ namespace SalaryManager.WPF.Models
         /// <param name="startDate">開始日付</param>
         /// <param name="endDate">終了日付</param>
         /// <returns>(午前, 昼休憩, 午後)</returns>
+        /// <remarks>
+        /// 登録された就業場所の住所、始業時刻、昼休憩、終業時刻を元にイベントを取得する。
+        /// </remarks>
         private (List<CalendarEventEntity> Noon, List<CalendarEventEntity> Lunch, List<CalendarEventEntity> Afternoon) GetScheduleEvents(DateTime startDate, DateTime endDate)
         {
             var workingPlaces = this.GetWorkPlaces();
@@ -142,14 +145,14 @@ namespace SalaryManager.WPF.Models
             foreach(var entity in workingPlaces)
             {
                 // 午前
-                noon.AddRange(CalendarReader.FindByAddress(entity.Address, startDate, endDate,
+                noon.AddRange(CalendarReader.FindByAddress(entity.WorkingPlace_Address, startDate, endDate,
                                                            entity.WorkingTime.Start, entity.LunchTime.Start));
 
                 // 昼休憩
                 lunch.AddRange(CalendarReader.FindByTitle("昼食", startDate, endDate));
 
                 // 午後
-                afternoon.AddRange(CalendarReader.FindByAddress(entity.Address, startDate, endDate,
+                afternoon.AddRange(CalendarReader.FindByAddress(entity.WorkingPlace_Address, startDate, endDate,
                                                                 entity.LunchTime.End));
             }
 

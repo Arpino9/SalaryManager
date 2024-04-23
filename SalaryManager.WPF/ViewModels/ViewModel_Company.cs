@@ -4,7 +4,6 @@ using SalaryManager.Domain.ValueObjects;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;

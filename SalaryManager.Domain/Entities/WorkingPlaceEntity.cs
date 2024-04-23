@@ -24,6 +24,7 @@ namespace SalaryManager.Domain.Entities
         public WorkingPlaceEntity(
             int id,
             string dispatchingCompany,
+            string dispatchedCompany,
             string company,
             string address,
             (int Hour, int Minute) workingStartTime,
@@ -34,10 +35,11 @@ namespace SalaryManager.Domain.Entities
             (int Hour, int Minute) breakEndTime,
             string remarks) 
         {
-            this.ID                 = id;
-            this.DispatchingCompany = new CompanyNameValue(dispatchingCompany);
-            this.CompanyName        = new CompanyNameValue(company);
-            this.Address            = address;
+            this.ID                   = id;
+            this.DispatchingCompany   = new CompanyNameValue(dispatchingCompany);
+            this.DispatchedCompany    = new CompanyNameValue(dispatchedCompany);
+            this.WorkingPlace_Name    = new CompanyNameValue(company);
+            this.WorkingPlace_Address = address;
 
             this.WorkingTime = (new TimeValue(workingStartTime.Hour, workingStartTime.Minute),
                                 new TimeValue(workingEndTime.Hour,   workingEndTime.Minute));
@@ -74,6 +76,7 @@ namespace SalaryManager.Domain.Entities
             int id,
             string name,
             string dispatchingCompany,
+            string dispatchedCompany,
             string address,
             int working_Start_Hour,
             int working_Start_Minute,
@@ -87,7 +90,7 @@ namespace SalaryManager.Domain.Entities
             int break_Start_Minute,
             int break_End_Hour,
             int break_End_Minute,
-            string remarks) : this(id, name, dispatchingCompany, address,
+            string remarks) : this(id, name, dispatchingCompany, dispatchedCompany, address,
                                   (working_Start_Hour, working_Start_Minute),
                                   (working_End_Hour, working_End_Minute),
                                   (lunch_Start_Hour, lunch_Start_Minute),
@@ -105,11 +108,14 @@ namespace SalaryManager.Domain.Entities
         /// <summary> 派遣元会社 </summary>
         public CompanyNameValue DispatchingCompany { get; }
 
-        /// <summary> 会社名 </summary>
-        public CompanyNameValue CompanyName { get; }
+        /// <summary> 派遣先会社 </summary>
+        public CompanyNameValue DispatchedCompany { get; }
 
-        /// <summary> 住所 </summary>
-        public string Address { get; }
+        /// <summary> 就業先(名称) </summary>
+        public CompanyNameValue WorkingPlace_Name { get; }
+
+        /// <summary> 就業先(住所) </summary>
+        public string WorkingPlace_Address { get; }
 
         /// <summary> 労働時間 </summary>
         /// <remarks> (始業時刻, 終業時刻) </remarks>

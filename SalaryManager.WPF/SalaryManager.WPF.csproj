@@ -77,10 +77,10 @@
       <HintPath>..\packages\log4net.2.0.15\lib\net45\log4net.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro, Version=2.0.0.0, Culture=neutral, PublicKeyToken=51482d6f650b2b3f, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.2.4.9\lib\net47\MahApps.Metro.dll</HintPath>
+      <HintPath>..\packages\MahApps.Metro.2.4.10\lib\net47\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.77\lib\net462\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -131,6 +131,7 @@
     <Compile Include="Interface\IInputPayslip.cs" />
     <Compile Include="Interface\IMaster.cs" />
     <Compile Include="Models\Model_Allowance.cs" />
+    <Compile Include="Models\Model_Company.cs" />
     <Compile Include="Models\Model_WorkingPlace.cs" />
     <Compile Include="Models\Model_Career.cs" />
     <Compile Include="Models\Model_Deduction.cs" />
@@ -168,6 +169,7 @@
       <DependentUpon>WorkSchedule_Table.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ViewModel_CalendarOption.cs" />
+    <Compile Include="ViewModels\ViewModel_Company.cs" />
     <Compile Include="ViewModels\ViewModel_WorkingPlace.cs" />
     <Compile Include="ViewModels\ViewModel_FileStorage.cs" />
     <Compile Include="ViewModels\ViewModel_GeneralOption.cs" />
@@ -213,6 +215,9 @@
     </Compile>
     <Compile Include="Window\Option.xaml.cs">
       <DependentUpon>Option.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Company.xaml.cs">
+      <DependentUpon>Company.xaml</DependentUpon>
     </Compile>
     <Compile Include="Window\WorkingPlace.xaml.cs">
       <DependentUpon>WorkingPlace.xaml</DependentUpon>
@@ -305,6 +310,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Window\Option.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\Company.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
