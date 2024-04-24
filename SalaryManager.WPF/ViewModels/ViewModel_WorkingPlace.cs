@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.Converter;
@@ -40,16 +42,24 @@ namespace SalaryManager.WPF.ViewModels
         /// </summary>
         private void BindEvent()
         {
+            // 派遣元会社
+            this.DispatchingCompanyName_SelectionChanged = new RelayCommand(this.Model.EnableWaitingButton);
+            // 派遣先会社
+            this.DispatchedCompanyName_SelectionChanged  = new RelayCommand(this.Model.EnableWaitingButton);
             // 就業場所
-            this.WorkingPlace_TextChanged       = new RelayCommand(this.Model.SearchAddress);
-            // 住所
-            this.Address_TextChanged            = new RelayCommand(this.Model.EnableAddButton);
+            this.WorkingPlace_TextChanged                = new RelayCommand(this.Model.SearchAddress);
+            // 就業中
+            this.IsWorking_Checked                       = new RelayCommand(this.Model.IsWorking_Checked);
+            // 就業場所の住所
+            this.Address_TextChanged                     = new RelayCommand(this.Model.EnableAddButton);
             // 経歴一覧
-            this.WorkingPlaces_SelectionChanged = new RelayCommand(this.Model.Careers_SelectionChanged);
+            this.WorkingPlaces_SelectionChanged          = new RelayCommand(this.Model.Careers_SelectionChanged);
         }
 
+        /// <summary> Model </summary>
         public Model_WorkingPlace Model { get; set; } = Model_WorkingPlace.GetInstance(new WorkingPlaceSQLite());
 
+        /// <summary> エンティティ </summary>
         public IReadOnlyList<WorkingPlaceEntity> Entities { get; internal set; }
 
         #region タイトル
@@ -178,6 +188,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 派遣元会社名
 
+        private string _dispacthingCompanyName_SelectedItem;
+
+        /// <summary>
+        /// 派遣元会社名 - SelectedItem
+        /// </summary>
+        public string DispatchingCompanyName_SelectedItem
+        {
+            get => this._dispacthingCompanyName_SelectedItem;
+            set
+            {
+                this._dispacthingCompanyName_SelectedItem = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _dispacthingCompanyName_Text;
 
         /// <summary>
@@ -194,13 +219,28 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// 会社名 - TextChanged
+        /// 派遣元会社名 - TextChanged
         /// </summary>
-        public RelayCommand CompanyName_TextChanged { get; private set; }
+        public RelayCommand DispatchingCompanyName_SelectionChanged { get; private set; }
 
         #endregion
 
         #region 派遣先会社名
+
+        private string _dispacthedCompanyName_SelectedItem;
+
+        /// <summary>
+        /// 派遣先会社名 - SelectedItem
+        /// </summary>
+        public string DispatchedCompanyName_SelectedItem
+        {
+            get => this._dispacthedCompanyName_SelectedItem;
+            set
+            {
+                this._dispacthedCompanyName_SelectedItem = value;
+                this.RaisePropertyChanged();
+            }
+        }
 
         private string _dispacthedCompanyName_Text;
 
@@ -216,6 +256,103 @@ namespace SalaryManager.WPF.ViewModels
                 this.RaisePropertyChanged();
             }
         }
+
+        /// <summary>
+        /// 派遣先会社名 - TextChanged
+        /// </summary>
+        public RelayCommand DispatchedCompanyName_SelectionChanged { get; private set; }
+
+        #endregion
+
+        #region 就業期間
+
+        private DateTime _workingStart_SelectedDate;
+
+        /// <summary>
+        /// 就業期間 - 開始 - SelectedDate
+        /// </summary>
+        public DateTime WorkingStart_SelectedDate
+        {
+            get => this._workingStart_SelectedDate;
+            set
+            {
+                this._workingStart_SelectedDate = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private DateTime _workingEnd_SelectedDate;
+
+        /// <summary>
+        /// 就業期間 - 終了 - SelectedDate
+        /// </summary>
+        public DateTime WorkingEnd_SelectedDate
+        {
+            get => this._workingEnd_SelectedDate;
+            set
+            {
+                this._workingEnd_SelectedDate = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #region 待機チェックボックス
+
+        private bool _isWaiting_IsChecked;
+
+        /// <summary>
+        /// 待機 - IsChecked
+        /// </summary>
+        public bool IsWaiting_IsChacked
+        {
+            get => this._isWaiting_IsChecked;
+            set
+            {
+                this._isWaiting_IsChecked = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private Visibility _isWaiting_Visibility;
+
+        /// <summary>
+        /// 待機 - Visibility;
+        /// </summary>
+        public Visibility IsWaiting_Visibility
+        {
+            get => this._isWaiting_Visibility;
+            set
+            {
+                this._isWaiting_Visibility = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #region 就業中
+
+        private bool _isWorking_IsChecked;
+
+        /// <summary>
+        /// 就業中 - IsChecked
+        /// </summary>
+        public bool IsWorking_IsChacked
+        {
+            get => this._isWorking_IsChecked;
+            set
+            {
+                this._isWorking_IsChecked = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// 就業中 - Checked
+        /// </summary>
+        public RelayCommand IsWorking_Checked { get; private set; }
 
         #endregion
 

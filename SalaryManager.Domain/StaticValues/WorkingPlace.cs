@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Repositories;
+using System;
 
 namespace SalaryManager.Domain.StaticValues
 {
@@ -38,12 +39,20 @@ namespace SalaryManager.Domain.StaticValues
             => _entities.Find(x => x.ID == id);
 
         /// <summary>
+        /// 日付から就業場所を取得
+        /// </summary>
+        /// <param name="date">日付</param>
+        /// <returns>就業場所</returns>
+        public static IReadOnlyList<WorkingPlaceEntity> FetchByDate(DateTime date)
+            => _entities.Where(x => x.WorkingStart <= date && date <= x.WorkingEnd).ToList().AsReadOnly();
+
+        /// <summary>
         /// 会社名から就業場所を取得
         /// </summary>
         /// <param name="companyName">ID</param>
         /// <returns>就業場所</returns>
         public static WorkingPlaceEntity FetchByCompany(string companyName)
-            => _entities.Find(x => x.WorkingPlace_Name.Text == companyName);
+            => _entities.Find(x => x.WorkingPlace_Name.Text.Contains(companyName));
 
         /// <summary>
         /// 昇順で取得する

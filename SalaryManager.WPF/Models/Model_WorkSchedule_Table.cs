@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DocumentFormat.OpenXml.Spreadsheet;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Exceptions;
 using SalaryManager.Domain.StaticValues;
@@ -96,7 +97,7 @@ namespace SalaryManager.WPF.Models
                 this.InputWorkingTime(entities);
 
                 // 残業時間
-                this.InputOvertime(entities);
+                this.InputOvertime(entities, day);
             }
         }
 
@@ -108,6 +109,7 @@ namespace SalaryManager.WPF.Models
         {
             WorkingPlace.Create(new WorkingPlaceSQLite());
             Careers.Create(new CareerSQLite());
+            Homes.Create(new HomeSQLite());
 
             var workingPlace = WorkingPlace.FetchByDescending();
             var company      = Careers.FetchBelongingCompany(new DateTime(2024, 4, 1));
@@ -399,11 +401,13 @@ namespace SalaryManager.WPF.Models
         /// 入力 - 残業時間
         /// </summary>
         /// <param name="entities">エンティティ</param>
-        private void InputOvertime(List<CalendarEventEntity> entities)
+        /// <param name="day">日付</param>
+        private void InputOvertime(List<CalendarEventEntity> entities, int day)
         {
-            var workingPlace = WorkingPlace.FetchByCompany("在宅");
+            var startDate = entities.First().StartDate;
+            var workingPlace = this.SearchWorkingPlace(entities, new DateTime(startDate.Year, startDate.Month, day));
 
-            switch (entities.First().StartDate.Day)
+            switch (startDate.Day)
             {
                 case 1:  this.ViewModel.Day_1_Overtime  = Format(); return;
                 case 2:  this.ViewModel.Day_2_Overtime  = Format(); return;
@@ -446,6 +450,29 @@ namespace SalaryManager.WPF.Models
                 return $"{(end.Hour   - start.Hour   - workingPlace.WorkingTime.Start.Hour).ToString("00")}:" +
                        $"{(end.Minute - start.Minute - workingPlace.WorkingTime.End.Minute).ToString("00")}";
             }
+        }
+
+        /// <summary>
+        /// 就業先を検索する
+        /// </summary>
+        /// <param name="entities"></param>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        private WorkingPlaceEntity SearchWorkingPlace(List<CalendarEventEntity> entities, DateTime date)
+        {
+            var workingPlace = WorkingPlace.FetchByDate(date);
+            //var home = Homes.FetchByDate(date);
+
+            if (workingPlace.Count == 1 &&
+                workingPlace.ToList().Any(x => x.IsWaiting))
+            {
+                // 待機
+                return workingPlace.FirstOrDefault();
+            }
+
+            // TODO: 現場対応の場合はどうなる？
+            // 常駐先
+            return workingPlace.Where(x => x.IsWaiting == false).FirstOrDefault();
         }
 
         /// <summary>

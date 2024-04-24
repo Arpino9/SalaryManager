@@ -1,5 +1,6 @@
 ﻿using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Repositories;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,5 +48,13 @@ namespace SalaryManager.Domain.StaticValues
         /// <returns>職歴</returns>
         public static IReadOnlyList<HomeEntity> FetchByDescending()
             => _entities?.OrderByDescending(x => x.ID).ToList().AsReadOnly();
+
+        /// <summary>
+        /// 日付から在住場所を取得
+        /// </summary>
+        /// <param name="date">日付</param>
+        /// <returns>就業場所</returns>
+        public static HomeEntity FetchByDate(DateTime date)
+            => _entities.Where(x => x.LivingStart <= date && date <= x.LivingEnd).FirstOrDefault();
     }
 }

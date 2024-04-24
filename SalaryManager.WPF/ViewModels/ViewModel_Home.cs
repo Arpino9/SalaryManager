@@ -2,6 +2,7 @@
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -46,6 +47,7 @@ namespace SalaryManager.WPF.ViewModels
 
             // 会社一覧
             this.Homes_SelectionChanged = new RelayCommand(this.Model.Homes_SelectionChanged);
+            this.IsLiving_Checked       = new RelayCommand(this.Model.IsLiving_Checked);
         }
 
         /// <summary> Model - 自宅 </summary>
@@ -118,6 +120,56 @@ namespace SalaryManager.WPF.ViewModels
                 this.RaisePropertyChanged();
             }
         }
+
+        private DateTime _livingStart_SelectedDate;
+
+        /// <summary>
+        /// 在住期間 - 開始日 - Text
+        /// </summary>
+        public DateTime LivingStart_SelectedDate
+        {
+            get => this._livingStart_SelectedDate;
+            set
+            {
+                this._livingStart_SelectedDate = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private DateTime _livingEnd_SelectedDate;
+
+        /// <summary>
+        /// 在住期間 - 終了日 - Text
+        /// </summary>
+        public DateTime LivingEnd_SelectedDate
+        {
+            get => this._livingEnd_SelectedDate;
+            set
+            {
+                this._livingEnd_SelectedDate = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private bool _isLiving_IsChecked;
+
+        /// <summary>
+        /// 住所 - IsChecked
+        /// </summary>
+        public bool IsLiving_IsChecked
+        {
+            get => this._isLiving_IsChecked;
+            set
+            {
+                this._isLiving_IsChecked = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// 就業中 - Checked
+        /// </summary>
+        public RelayCommand IsLiving_Checked { get; private set; }
 
         private string _address_Text;
 

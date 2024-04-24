@@ -1,4 +1,5 @@
 ﻿using SalaryManager.Domain.ValueObjects;
+using System;
 
 namespace SalaryManager.Domain.Entities
 {
@@ -12,10 +13,14 @@ namespace SalaryManager.Domain.Entities
         /// </summary>
         /// <param name="id">ID</param>
         /// <param name="dispatchingCompany">派遣元会社</param>
-        /// <param name="company">会社名</param>
-        /// <param name="address">住所</param>
+        /// <param name="workingPlace">会社名</param>
+        /// <param name="workingAddress">住所</param>
+        /// <param name="WorkingStart">労働時間(始業)</param>
         /// <param name="workingStartTime">労働時間(始業)</param>
+        /// <param name="WorkingEnd">労働時間(始業)</param>
         /// <param name="workingEndTime">労働時間(終業)</param>
+        /// <param name="isWaiting">労働時間(終業)</param>
+        /// <param name="isWorking">労働時間(終業)</param>
         /// <param name="lunchStartTime">昼休憩(開始)</param>
         /// <param name="lunchEndTime">昼休憩(終了)</param>
         /// <param name="breakStartTime">休憩(開始)</param>
@@ -25,8 +30,12 @@ namespace SalaryManager.Domain.Entities
             int id,
             string dispatchingCompany,
             string dispatchedCompany,
-            string company,
-            string address,
+            string workingPlace,
+            string workingAddress,
+            DateTime WorkingStart,
+            DateTime WorkingEnd,
+            bool isWaiting,
+            bool isWorking,
             (int Hour, int Minute) workingStartTime,
             (int Hour, int Minute) workingEndTime,
             (int Hour, int Minute) lunchStartTime,
@@ -38,8 +47,14 @@ namespace SalaryManager.Domain.Entities
             this.ID                   = id;
             this.DispatchingCompany   = new CompanyNameValue(dispatchingCompany);
             this.DispatchedCompany    = new CompanyNameValue(dispatchedCompany);
-            this.WorkingPlace_Name    = new CompanyNameValue(company);
-            this.WorkingPlace_Address = address;
+            this.WorkingPlace_Name    = new CompanyNameValue(workingPlace);
+            this.WorkingPlace_Address = workingAddress;
+
+            this.WorkingStart         = WorkingStart;
+            this.WorkingEnd           = WorkingEnd;
+
+            this.IsWaiting            = isWaiting;
+            this.IsWorking            = isWorking;
 
             this.WorkingTime = (new TimeValue(workingStartTime.Hour, workingStartTime.Minute),
                                 new TimeValue(workingEndTime.Hour,   workingEndTime.Minute));
@@ -57,8 +72,9 @@ namespace SalaryManager.Domain.Entities
         /// </summary>
         /// <param name="id">ID</param>
         /// <param name="dispatchingCompany">派遣元会社</param>
-        /// <param name="name">会社名</param>
-        /// <param name="address">住所</param>
+        /// <param name="workingCompanyAddress">住所</param>
+        /// <param name="WorkingPlace">就業先名</param>
+        /// <param name="workingCompanyAddress">就業先住所</param>
         /// <param name="working_Start_Hour">労働 - 開始 - 時</param>
         /// <param name="working_Start_Minute">労働 - 開始 - 分</param>
         /// <param name="working_End_Hour">労働 - 終了 - 時</param>
@@ -74,10 +90,14 @@ namespace SalaryManager.Domain.Entities
         /// <param name="remarks">備考</param>
         public WorkingPlaceEntity(
             int id,
-            string name,
             string dispatchingCompany,
             string dispatchedCompany,
-            string address,
+            string WorkingPlace,
+            string workingCompanyAddress,
+            DateTime WorkingStart,
+            DateTime WorkingEnd,
+            bool isWaiting,
+            bool isWorking,
             int working_Start_Hour,
             int working_Start_Minute,
             int working_End_Hour,
@@ -90,7 +110,8 @@ namespace SalaryManager.Domain.Entities
             int break_Start_Minute,
             int break_End_Hour,
             int break_End_Minute,
-            string remarks) : this(id, name, dispatchingCompany, dispatchedCompany, address,
+            string remarks) : this(id, dispatchingCompany, dispatchedCompany, WorkingPlace, workingCompanyAddress,
+                                   WorkingStart, WorkingEnd, isWaiting, isWorking,
                                   (working_Start_Hour, working_Start_Minute),
                                   (working_End_Hour, working_End_Minute),
                                   (lunch_Start_Hour, lunch_Start_Minute),
@@ -116,6 +137,18 @@ namespace SalaryManager.Domain.Entities
 
         /// <summary> 就業先(住所) </summary>
         public string WorkingPlace_Address { get; }
+
+        /// <summary> 勤務開始 </summary>
+        public DateTime WorkingStart { get; }
+
+        /// <summary> 勤務終了 </summary>
+        public DateTime WorkingEnd { get; }
+
+        /// <summary> 待機中か </summary>
+        public bool IsWaiting { get; }
+
+        /// <summary> 就業中か </summary>
+        public bool IsWorking { get; }
 
         /// <summary> 労働時間 </summary>
         /// <remarks> (始業時刻, 終業時刻) </remarks>

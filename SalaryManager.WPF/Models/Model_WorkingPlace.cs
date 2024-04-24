@@ -8,6 +8,7 @@ using SalaryManager.Infrastructure.XML;
 using SalaryManager.Domain.Repositories;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.Domain.Modules.Helpers;
+using System;
 
 namespace SalaryManager.WPF.Models
 {
@@ -77,6 +78,9 @@ namespace SalaryManager.WPF.Models
 
             this.ViewModel.WorkingPlaces_SelectedIndex = -1;
             this.Clear_InputForm();
+
+            this.EnableWaitingButton();
+            this.IsWorking_Checked();
         }
 
         /// <summary>
@@ -132,6 +136,17 @@ namespace SalaryManager.WPF.Models
         }
 
         /// <summary>
+        /// 就業中 - Checked
+        /// </summary>
+        public void IsWorking_Checked()
+        {
+            if (this.ViewModel.IsWorking_IsChacked)
+            {
+                this.ViewModel.WorkingEnd_SelectedDate = DateTime.Now;
+            }
+        }
+
+        /// <summary>
         /// 経歴 - SelectionChanged
         /// </summary>
         public void Careers_SelectionChanged()
@@ -158,6 +173,14 @@ namespace SalaryManager.WPF.Models
 
             // 住所
             this.ViewModel.WorkingPlace_Address_Text = entity.WorkingPlace_Address;
+
+            this.ViewModel.WorkingStart_SelectedDate = entity.WorkingStart;
+            this.ViewModel.WorkingEnd_SelectedDate   = entity.WorkingEnd;
+
+            // 待機中
+            this.ViewModel.IsWaiting_IsChacked = entity.IsWaiting;
+            // 就業中
+            this.ViewModel.IsWorking_IsChacked = entity.IsWorking;
 
             // 勤務開始時間(時)
             this.ViewModel.WorkingTime_Start_Hour   = entity.WorkingTime.Start.Hour;
@@ -200,6 +223,21 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.Add_IsEnabled = inputted;
         }
 
+        /// <summary>
+        /// Enabled - 待機ボタン
+        /// </summary>
+        public void EnableWaitingButton()
+        {
+            var inputted = (!string.IsNullOrEmpty(this.ViewModel.DispatchedCompanyName_SelectedItem) &&
+                            !string.IsNullOrEmpty(this.ViewModel.DispatchingCompanyName_SelectedItem) &&
+                            this.ViewModel.DispatchedCompanyName_SelectedItem == this.ViewModel.DispatchingCompanyName_SelectedItem);
+
+            this.ViewModel.IsWaiting_Visibility = inputted ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+        }
+
+        /// <summary>
+        /// 就業場所名から住所検索
+        /// </summary>
         public void SearchAddress()
         {
             var companies = Companies.FetchByDescending().ToList();
@@ -264,10 +302,15 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.DispatchedCompanyName_Text  = default(string);
 
             // 会社名
-            this.ViewModel.WorkingPlace_Name_SelectedItem   = default(string);
-
+            this.ViewModel.WorkingPlace_Name_SelectedItem = default(string);
             // 住所
-            this.ViewModel.WorkingPlace_Address_Text       = default(string);
+            this.ViewModel.WorkingPlace_Address_Text      = default(string);
+
+            this.ViewModel.WorkingStart_SelectedDate = DateTime.Now;
+            this.ViewModel.WorkingEnd_SelectedDate   = DateTime.Now;
+
+            this.ViewModel.IsWaiting_IsChacked = false;
+            this.ViewModel.IsWorking_IsChacked = false;
             
             // 労働 - 開始 - 時
             this.ViewModel.WorkingTime_Start_Hour   = default(int);
@@ -343,6 +386,10 @@ namespace SalaryManager.WPF.Models
                 this.ViewModel.DispatchedCompanyName_Text,
                 this.ViewModel.WorkingPlace_Name_SelectedItem,
                 this.ViewModel.WorkingPlace_Address_Text,
+                this.ViewModel.WorkingStart_SelectedDate, 
+                this.ViewModel.WorkingEnd_SelectedDate,
+                this.ViewModel.IsWaiting_IsChacked,
+                this.ViewModel.IsWorking_IsChacked,
                 (this.ViewModel.WorkingTime_Start_Hour, this.ViewModel.WorkingTime_Start_Minute),
                 (this.ViewModel.WorkingTime_End_Hour,   this.ViewModel.WorkingTime_End_Minute),
                 (this.ViewModel.LunchTime_Start_Hour,   this.ViewModel.LunchTime_Start_Minute),

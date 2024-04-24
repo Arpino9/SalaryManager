@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SQLite;
 using SalaryManager.Domain.Entities;
+using SalaryManager.Domain.Modules.Helpers;
 using SalaryManager.Domain.Repositories;
 
 namespace SalaryManager.Infrastructure.SQLite
@@ -16,6 +17,9 @@ namespace SalaryManager.Infrastructure.SQLite
             string sql = @"
 SELECT ID, 
 DisplayName, 
+LivingStart,
+LivingEnd,
+IsLiving,
 PostCode, 
 Address, 
 Address_Google, 
@@ -29,6 +33,9 @@ FROM Home";
                     return new HomeEntity(
                                 Convert.ToInt32(reader["ID"]),
                                 Convert.ToString(reader["DisplayName"]),
+                                Convert.ToDateTime(reader["LivingStart"]),
+                                Convert.ToDateTime(reader["LivingEnd"]),
+                                Convert.ToBoolean(reader["IsLiving"]),
                                 Convert.ToString(reader["PostCode"]),
                                 Convert.ToString(reader["Address"]),
                                 Convert.ToString(reader["Address_Google"]),
@@ -41,6 +48,9 @@ FROM Home";
             string sql = @"
 SELECT ID, 
 DisplayName, 
+LivingStart,
+LivingEnd,
+IsLiving,
 PostCode, 
 Address, 
 Address_Google, 
@@ -61,6 +71,9 @@ Where ID = @ID";
                     return new HomeEntity(
                                 Convert.ToInt32(reader["ID"]),
                                 Convert.ToString(reader["DisplayName"]),
+                                Convert.ToDateTime(reader["LivingStart"]),
+                                Convert.ToDateTime(reader["LivingEnd"]),
+                                Convert.ToBoolean(reader["IsLiving"]),
                                 Convert.ToString(reader["PostCode"]),
                                 Convert.ToString(reader["Address"]),
                                 Convert.ToString(reader["Address_Google"]),
@@ -75,6 +88,9 @@ Where ID = @ID";
 insert into Home
 (ID,
 DisplayName, 
+LivingStart,
+LivingEnd,
+IsLiving,
 PostCode, 
 Address, 
 Address_Google, 
@@ -82,6 +98,9 @@ Remarks)
 values
 (@ID, 
 @DisplayName, 
+@LivingStart, 
+@LivingEnd, 
+@IsLiving, 
 @PostCode, 
 @Address, 
 @Address_Google, 
@@ -92,6 +111,9 @@ values
 update Home
 set ID             = @ID, 
     DisplayName    = @DisplayName, 
+    LivingStart    = @LivingStart, 
+    LivingEnd      = @LivingEnd, 
+    IsLiving       = @IsLiving, 
     PostCode       = @PostCode, 
     Address        = @Address, 
     Address_Google = @Address_Google, 
@@ -103,6 +125,9 @@ where ID = @ID
             {
                 new SQLiteParameter("ID",             entity.ID),
                 new SQLiteParameter("DisplayName",    entity.DisplayName),
+                new SQLiteParameter("LivingStart",    DateUtils.ConvertToSQLiteValue(entity.LivingStart.Year, entity.LivingStart.Month, entity.LivingStart.Day)),
+                new SQLiteParameter("LivingEnd",      DateUtils.ConvertToSQLiteValue(entity.LivingEnd.Year, entity.LivingEnd.Month, entity.LivingEnd.Day)),
+                new SQLiteParameter("IsLiving",       entity.IsLiving),
                 new SQLiteParameter("PostCode",       entity.PostCode),
                 new SQLiteParameter("Address",        entity.Address),
                 new SQLiteParameter("Address_Google", entity.Address_Google),

@@ -5,6 +5,7 @@ using SalaryManager.Domain.Repositories;
 using SalaryManager.Domain.StaticValues;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.WPF.ViewModels;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -40,9 +41,12 @@ namespace SalaryManager.WPF.Models
 
         public void Clear_InputForm()
         {
-            this.ViewModel.DisplayName_Text = string.Empty;
-            this.ViewModel.Address_Text     = string.Empty;
-            this.ViewModel.Remarks_Text     = string.Empty;
+            this.ViewModel.DisplayName_Text         = string.Empty;
+            this.ViewModel.Address_Text             = string.Empty;
+            this.ViewModel.LivingStart_SelectedDate = DateTime.Now;
+            this.ViewModel.LivingEnd_SelectedDate   = DateTime.Now;
+            this.ViewModel.IsLiving_IsChecked       = false;
+            this.ViewModel.Remarks_Text             = string.Empty;
         }
 
         public void Initialize()
@@ -57,6 +61,17 @@ namespace SalaryManager.WPF.Models
         public void Refresh()
         {
             Reflesh_InputForm();
+        }
+
+        /// <summary>
+        /// 在住中 - Checked
+        /// </summary>
+        public void IsLiving_Checked()
+        {
+            if (this.ViewModel.IsLiving_IsChecked)
+            {
+                this.ViewModel.LivingEnd_SelectedDate = DateTime.Now;
+            }
         }
 
         /// <summary>
@@ -91,6 +106,11 @@ namespace SalaryManager.WPF.Models
 
             // 名称
             this.ViewModel.DisplayName_Text    = entity.DisplayName;
+            // 在住期間
+            this.ViewModel.LivingStart_SelectedDate = entity.LivingStart;
+            this.ViewModel.LivingEnd_SelectedDate   = entity.LivingEnd;
+            // 在住中か
+            this.ViewModel.IsLiving_IsChecked       = entity.IsLiving;
             // 住所
             this.ViewModel.Address_Text        = entity.Address;
             // 会社名
@@ -146,6 +166,9 @@ namespace SalaryManager.WPF.Models
             return new HomeEntity(
                 id,
                 this.ViewModel.DisplayName_Text,
+                this.ViewModel.LivingStart_SelectedDate,
+                this.ViewModel.LivingEnd_SelectedDate,
+                this.ViewModel.IsLiving_IsChecked,
                 this.ViewModel.PostCode_Text,
                 this.ViewModel.Address_Text,
                 this.ViewModel.Address_Google_Text,
