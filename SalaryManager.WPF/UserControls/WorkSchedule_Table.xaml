@@ -68,314 +68,314 @@
         <Label Content="欠課時間 " Grid.Column="7"/>
         <Label Content="備考 " Grid.Column="8"/>
 
-        <TextBox Grid.Row="1" Text="{Binding Day_1}"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Day_1_StartTime}" />
-        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Day_1_EndTime}"/>
-        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Day_1_LunchTime}"/>
-        <TextBox Grid.Row="1" Grid.Column="4" Text="{Binding Day_1_WorkingTime}"/>
-        <TextBox Grid.Row="1" Grid.Column="5" Text="{Binding Day_1_Overtime}"/>
-        <TextBox Grid.Row="1" Grid.Column="6" Text="{Binding Day_1_MidnightTime}"/>
-        <TextBox Grid.Row="1" Grid.Column="7" Text="{Binding Day_1_AbsentedTime}"/>
-        <TextBox Grid.Row="1" Grid.Column="8" Text="{Binding Day_1_Remarks}"/>
+        <TextBox Grid.Row="1" Text="{Binding Day_1}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Day_1_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Day_1_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Day_1_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="1" Grid.Column="4" Text="{Binding Day_1_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="1" Grid.Column="5" Text="{Binding Day_1_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="1" Grid.Column="6" Text="{Binding Day_1_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="1" Grid.Column="7" Text="{Binding Day_1_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="1" Grid.Column="8" Text="{Binding Day_1_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="2" Text="{Binding Day_2}"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Day_2_StartTime}"/>
-        <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding Day_2_EndTime}"/>
-        <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding Day_2_LunchTime}"/>
-        <TextBox Grid.Row="2" Grid.Column="4" Text="{Binding Day_2_WorkingTime}"/>
-        <TextBox Grid.Row="2" Grid.Column="5" Text="{Binding Day_2_Overtime}"/>
-        <TextBox Grid.Row="2" Grid.Column="6" Text="{Binding Day_2_MidnightTime}"/>
-        <TextBox Grid.Row="2" Grid.Column="7" Text="{Binding Day_2_AbsentedTime}"/>
-        <TextBox Grid.Row="2" Grid.Column="8" Text="{Binding Day_2_Remarks}"/>
+        <TextBox Grid.Row="2" Text="{Binding Day_2}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Day_2_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding Day_2_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding Day_2_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="2" Grid.Column="4" Text="{Binding Day_2_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="2" Grid.Column="5" Text="{Binding Day_2_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="2" Grid.Column="6" Text="{Binding Day_2_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="2" Grid.Column="7" Text="{Binding Day_2_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="2" Grid.Column="8" Text="{Binding Day_2_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="3" Text="{Binding Day_3}" />
-        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Day_3_StartTime}"/>
-        <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding Day_3_EndTime}"/>
-        <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding Day_3_LunchTime}"/>
-        <TextBox Grid.Row="3" Grid.Column="4" Text="{Binding Day_3_WorkingTime}"/>
-        <TextBox Grid.Row="3" Grid.Column="5" Text="{Binding Day_3_Overtime}"/>
-        <TextBox Grid.Row="3" Grid.Column="6" Text="{Binding Day_3_MidnightTime}"/>
-        <TextBox Grid.Row="3" Grid.Column="7" Text="{Binding Day_3_AbsentedTime}"/>
-        <TextBox Grid.Row="3" Grid.Column="8" Text="{Binding Day_3_Remarks}"/>
+        <TextBox Grid.Row="3" Text="{Binding Day_3}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Day_3_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding Day_3_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding Day_3_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="3" Grid.Column="4" Text="{Binding Day_3_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="3" Grid.Column="5" Text="{Binding Day_3_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="3" Grid.Column="6" Text="{Binding Day_3_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="3" Grid.Column="7" Text="{Binding Day_3_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="3" Grid.Column="8" Text="{Binding Day_3_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="4" Text="{Binding Day_4}"/>
-        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Day_4_StartTime}"/>
-        <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding Day_4_EndTime}"/>
-        <TextBox Grid.Row="4" Grid.Column="3" Text="{Binding Day_4_LunchTime}"/>
-        <TextBox Grid.Row="4" Grid.Column="4" Text="{Binding Day_4_WorkingTime}"/>
-        <TextBox Grid.Row="4" Grid.Column="5" Text="{Binding Day_4_Overtime}"/>
-        <TextBox Grid.Row="4" Grid.Column="6" Text="{Binding Day_4_MidnightTime}"/>
-        <TextBox Grid.Row="4" Grid.Column="7" Text="{Binding Day_4_AbsentedTime}"/>
-        <TextBox Grid.Row="4" Grid.Column="8" Text="{Binding Day_4_Remarks}"/>
+        <TextBox Grid.Row="4" Text="{Binding Day_4}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Day_4_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding Day_4_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="4" Grid.Column="3" Text="{Binding Day_4_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="4" Grid.Column="4" Text="{Binding Day_4_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="4" Grid.Column="5" Text="{Binding Day_4_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="4" Grid.Column="6" Text="{Binding Day_4_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="4" Grid.Column="7" Text="{Binding Day_4_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="4" Grid.Column="8" Text="{Binding Day_4_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="5" Text="{Binding Day_5}"/>
-        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Day_5_StartTime}"/>
-        <TextBox Grid.Row="5" Grid.Column="2" Text="{Binding Day_5_EndTime}"/>
-        <TextBox Grid.Row="5" Grid.Column="3" Text="{Binding Day_5_LunchTime}"/>
-        <TextBox Grid.Row="5" Grid.Column="4" Text="{Binding Day_5_WorkingTime}"/>
-        <TextBox Grid.Row="5" Grid.Column="5" Text="{Binding Day_5_Overtime}"/>
-        <TextBox Grid.Row="5" Grid.Column="6" Text="{Binding Day_5_MidnightTime}"/>
-        <TextBox Grid.Row="5" Grid.Column="7" Text="{Binding Day_5_AbsentedTime}"/>
-        <TextBox Grid.Row="5" Grid.Column="8" Text="{Binding Day_5_Remarks}"/>
+        <TextBox Grid.Row="5" Text="{Binding Day_5}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Day_5_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="5" Grid.Column="2" Text="{Binding Day_5_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="5" Grid.Column="3" Text="{Binding Day_5_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="5" Grid.Column="4" Text="{Binding Day_5_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="5" Grid.Column="5" Text="{Binding Day_5_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="5" Grid.Column="6" Text="{Binding Day_5_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="5" Grid.Column="7" Text="{Binding Day_5_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="5" Grid.Column="8" Text="{Binding Day_5_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="6" Text="{Binding Day_6}"/>
-        <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Day_6_StartTime}"/>
-        <TextBox Grid.Row="6" Grid.Column="2" Text="{Binding Day_6_EndTime}"/>
-        <TextBox Grid.Row="6" Grid.Column="3" Text="{Binding Day_6_LunchTime}"/>
-        <TextBox Grid.Row="6" Grid.Column="4" Text="{Binding Day_6_WorkingTime}"/>
-        <TextBox Grid.Row="6" Grid.Column="5" Text="{Binding Day_6_Overtime}"/>
-        <TextBox Grid.Row="6" Grid.Column="6" Text="{Binding Day_6_MidnightTime}"/>
-        <TextBox Grid.Row="6" Grid.Column="7" Text="{Binding Day_6_AbsentedTime}"/>
-        <TextBox Grid.Row="6" Grid.Column="8" Text="{Binding Day_6_Remarks}"/>
+        <TextBox Grid.Row="6" Text="{Binding Day_6}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Day_6_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="6" Grid.Column="2" Text="{Binding Day_6_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="6" Grid.Column="3" Text="{Binding Day_6_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="6" Grid.Column="4" Text="{Binding Day_6_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="6" Grid.Column="5" Text="{Binding Day_6_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="6" Grid.Column="6" Text="{Binding Day_6_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="6" Grid.Column="7" Text="{Binding Day_6_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="6" Grid.Column="8" Text="{Binding Day_6_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="7" Text="{Binding Day_7}"/>
-        <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding Day_7_StartTime}"/>
-        <TextBox Grid.Row="7" Grid.Column="2" Text="{Binding Day_7_EndTime}"/>
-        <TextBox Grid.Row="7" Grid.Column="3" Text="{Binding Day_7_LunchTime}"/>
-        <TextBox Grid.Row="7" Grid.Column="4" Text="{Binding Day_7_WorkingTime}"/>
-        <TextBox Grid.Row="7" Grid.Column="5" Text="{Binding Day_7_Overtime}"/>
-        <TextBox Grid.Row="7" Grid.Column="6" Text="{Binding Day_7_MidnightTime}"/>
-        <TextBox Grid.Row="7" Grid.Column="7" Text="{Binding Day_7_AbsentedTime}"/>
-        <TextBox Grid.Row="7" Grid.Column="8" Text="{Binding Day_7_Remarks}"/>
+        <TextBox Grid.Row="7" Text="{Binding Day_7}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding Day_7_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="7" Grid.Column="2" Text="{Binding Day_7_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="7" Grid.Column="3" Text="{Binding Day_7_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="7" Grid.Column="4" Text="{Binding Day_7_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="7" Grid.Column="5" Text="{Binding Day_7_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="7" Grid.Column="6" Text="{Binding Day_7_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="7" Grid.Column="7" Text="{Binding Day_7_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="7" Grid.Column="8" Text="{Binding Day_7_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="8" Text="{Binding Day_8}"/>
-        <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding Day_8_StartTime}"/>
-        <TextBox Grid.Row="8" Grid.Column="2" Text="{Binding Day_8_EndTime}"/>
-        <TextBox Grid.Row="8" Grid.Column="3" Text="{Binding Day_8_LunchTime}"/>
-        <TextBox Grid.Row="8" Grid.Column="4" Text="{Binding Day_8_WorkingTime}"/>
-        <TextBox Grid.Row="8" Grid.Column="5" Text="{Binding Day_8_Overtime}"/>
-        <TextBox Grid.Row="8" Grid.Column="6" Text="{Binding Day_8_MidnightTime}"/>
-        <TextBox Grid.Row="8" Grid.Column="7" Text="{Binding Day_8_AbsentedTime}"/>
-        <TextBox Grid.Row="8" Grid.Column="8" Text="{Binding Day_8_Remarks}"/>
+        <TextBox Grid.Row="8" Text="{Binding Day_8}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding Day_8_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="8" Grid.Column="2" Text="{Binding Day_8_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="8" Grid.Column="3" Text="{Binding Day_8_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="8" Grid.Column="4" Text="{Binding Day_8_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="8" Grid.Column="5" Text="{Binding Day_8_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="8" Grid.Column="6" Text="{Binding Day_8_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="8" Grid.Column="7" Text="{Binding Day_8_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="8" Grid.Column="8" Text="{Binding Day_8_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="9" Text="{Binding Day_9}"/>
-        <TextBox Grid.Row="9" Grid.Column="1" Text="{Binding Day_9_StartTime}"/>
-        <TextBox Grid.Row="9" Grid.Column="2" Text="{Binding Day_9_EndTime}"/>
-        <TextBox Grid.Row="9" Grid.Column="3" Text="{Binding Day_9_LunchTime}"/>
-        <TextBox Grid.Row="9" Grid.Column="4" Text="{Binding Day_9_WorkingTime}"/>
-        <TextBox Grid.Row="9" Grid.Column="5" Text="{Binding Day_9_Overtime}"/>
-        <TextBox Grid.Row="9" Grid.Column="6" Text="{Binding Day_9_MidnightTime}"/>
-        <TextBox Grid.Row="9" Grid.Column="7" Text="{Binding Day_9_AbsentedTime}"/>
-        <TextBox Grid.Row="9" Grid.Column="8" Text="{Binding Day_9_Remarks}"/>
+        <TextBox Grid.Row="9" Text="{Binding Day_9}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="9" Grid.Column="1" Text="{Binding Day_9_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="9" Grid.Column="2" Text="{Binding Day_9_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="9" Grid.Column="3" Text="{Binding Day_9_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="9" Grid.Column="4" Text="{Binding Day_9_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="9" Grid.Column="5" Text="{Binding Day_9_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="9" Grid.Column="6" Text="{Binding Day_9_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="9" Grid.Column="7" Text="{Binding Day_9_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="9" Grid.Column="8" Text="{Binding Day_9_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="10" Text="{Binding Day_10}"/>
-        <TextBox Grid.Row="10" Grid.Column="1" Text="{Binding Day_10_StartTime}"/>
-        <TextBox Grid.Row="10" Grid.Column="2" Text="{Binding Day_10_EndTime}"/>
-        <TextBox Grid.Row="10" Grid.Column="3" Text="{Binding Day_10_LunchTime}"/>
-        <TextBox Grid.Row="10" Grid.Column="4" Text="{Binding Day_10_WorkingTime}"/>
-        <TextBox Grid.Row="10" Grid.Column="5" Text="{Binding Day_10_Overtime}"/>
-        <TextBox Grid.Row="10" Grid.Column="6" Text="{Binding Day_10_MidnightTime}"/>
-        <TextBox Grid.Row="10" Grid.Column="7" Text="{Binding Day_10_AbsentedTime}"/>
-        <TextBox Grid.Row="10" Grid.Column="8" Text="{Binding Day_10_Remarks}"/>
+        <TextBox Grid.Row="10" Text="{Binding Day_10}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="10" Grid.Column="1" Text="{Binding Day_10_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="10" Grid.Column="2" Text="{Binding Day_10_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="10" Grid.Column="3" Text="{Binding Day_10_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="10" Grid.Column="4" Text="{Binding Day_10_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="10" Grid.Column="5" Text="{Binding Day_10_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="10" Grid.Column="6" Text="{Binding Day_10_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="10" Grid.Column="7" Text="{Binding Day_10_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="10" Grid.Column="8" Text="{Binding Day_10_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="11" Text="{Binding Day_11}"/>
-        <TextBox Grid.Row="11" Grid.Column="1" Text="{Binding Day_11_StartTime}"/>
-        <TextBox Grid.Row="11" Grid.Column="2" Text="{Binding Day_11_EndTime}"/>
-        <TextBox Grid.Row="11" Grid.Column="3" Text="{Binding Day_11_LunchTime}"/>
-        <TextBox Grid.Row="11" Grid.Column="4" Text="{Binding Day_11_WorkingTime}"/>
-        <TextBox Grid.Row="11" Grid.Column="5" Text="{Binding Day_11_Overtime}"/>
-        <TextBox Grid.Row="11" Grid.Column="6" Text="{Binding Day_11_MidnightTime}"/>
-        <TextBox Grid.Row="11" Grid.Column="7" Text="{Binding Day_11_AbsentedTime}"/>
-        <TextBox Grid.Row="11" Grid.Column="8" Text="{Binding Day_11_Remarks}"/>
+        <TextBox Grid.Row="11" Text="{Binding Day_11}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="11" Grid.Column="1" Text="{Binding Day_11_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="11" Grid.Column="2" Text="{Binding Day_11_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="11" Grid.Column="3" Text="{Binding Day_11_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="11" Grid.Column="4" Text="{Binding Day_11_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="11" Grid.Column="5" Text="{Binding Day_11_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="11" Grid.Column="6" Text="{Binding Day_11_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="11" Grid.Column="7" Text="{Binding Day_11_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="11" Grid.Column="8" Text="{Binding Day_11_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="12" Text="{Binding Day_12}"/>
-        <TextBox Grid.Row="12" Grid.Column="1" Text="{Binding Day_12_StartTime}"/>
-        <TextBox Grid.Row="12" Grid.Column="2" Text="{Binding Day_12_EndTime}"/>
-        <TextBox Grid.Row="12" Grid.Column="3" Text="{Binding Day_12_LunchTime}"/>
-        <TextBox Grid.Row="12" Grid.Column="4" Text="{Binding Day_12_WorkingTime}"/>
-        <TextBox Grid.Row="12" Grid.Column="5" Text="{Binding Day_12_Overtime}"/>
-        <TextBox Grid.Row="12" Grid.Column="6" Text="{Binding Day_12_MidnightTime}"/>
-        <TextBox Grid.Row="12" Grid.Column="7" Text="{Binding Day_12_AbsentedTime}"/>
-        <TextBox Grid.Row="12" Grid.Column="8" Text="{Binding Day_12_Remarks}"/>
+        <TextBox Grid.Row="12" Text="{Binding Day_12}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="12" Grid.Column="1" Text="{Binding Day_12_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="12" Grid.Column="2" Text="{Binding Day_12_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="12" Grid.Column="3" Text="{Binding Day_12_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="12" Grid.Column="4" Text="{Binding Day_12_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="12" Grid.Column="5" Text="{Binding Day_12_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="12" Grid.Column="6" Text="{Binding Day_12_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="12" Grid.Column="7" Text="{Binding Day_12_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="12" Grid.Column="8" Text="{Binding Day_12_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="13" Text="{Binding Day_13}"/>
-        <TextBox Grid.Row="13" Grid.Column="1" Text="{Binding Day_13_StartTime}"/>
-        <TextBox Grid.Row="13" Grid.Column="2" Text="{Binding Day_13_EndTime}"/>
-        <TextBox Grid.Row="13" Grid.Column="3" Text="{Binding Day_13_LunchTime}"/>
-        <TextBox Grid.Row="13" Grid.Column="4" Text="{Binding Day_13_WorkingTime}"/>
-        <TextBox Grid.Row="13" Grid.Column="5" Text="{Binding Day_13_Overtime}"/>
-        <TextBox Grid.Row="13" Grid.Column="6" Text="{Binding Day_13_MidnightTime}"/>
-        <TextBox Grid.Row="13" Grid.Column="7" Text="{Binding Day_13_AbsentedTime}"/>
-        <TextBox Grid.Row="13" Grid.Column="8" Text="{Binding Day_13_Remarks}"/>
+        <TextBox Grid.Row="13" Text="{Binding Day_13}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="13" Grid.Column="1" Text="{Binding Day_13_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="13" Grid.Column="2" Text="{Binding Day_13_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="13" Grid.Column="3" Text="{Binding Day_13_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="13" Grid.Column="4" Text="{Binding Day_13_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="13" Grid.Column="5" Text="{Binding Day_13_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="13" Grid.Column="6" Text="{Binding Day_13_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="13" Grid.Column="7" Text="{Binding Day_13_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="13" Grid.Column="8" Text="{Binding Day_13_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="14" Text="{Binding Day_14}"/>
-        <TextBox Grid.Row="14" Grid.Column="1" Text="{Binding Day_14_StartTime}"/>
-        <TextBox Grid.Row="14" Grid.Column="2" Text="{Binding Day_14_EndTime}"/>
-        <TextBox Grid.Row="14" Grid.Column="3" Text="{Binding Day_14_LunchTime}"/>
-        <TextBox Grid.Row="14" Grid.Column="4" Text="{Binding Day_14_WorkingTime}"/>
-        <TextBox Grid.Row="14" Grid.Column="5" Text="{Binding Day_14_Overtime}"/>
-        <TextBox Grid.Row="14" Grid.Column="6" Text="{Binding Day_14_MidnightTime}"/>
-        <TextBox Grid.Row="14" Grid.Column="7" Text="{Binding Day_14_AbsentedTime}"/>
-        <TextBox Grid.Row="14" Grid.Column="8" Text="{Binding Day_14_Remarks}"/>
+        <TextBox Grid.Row="14" Text="{Binding Day_14}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="14" Grid.Column="1" Text="{Binding Day_14_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="14" Grid.Column="2" Text="{Binding Day_14_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="14" Grid.Column="3" Text="{Binding Day_14_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="14" Grid.Column="4" Text="{Binding Day_14_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="14" Grid.Column="5" Text="{Binding Day_14_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="14" Grid.Column="6" Text="{Binding Day_14_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="14" Grid.Column="7" Text="{Binding Day_14_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="14" Grid.Column="8" Text="{Binding Day_14_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="15" Text="{Binding Day_15}"/>
-        <TextBox Grid.Row="15" Grid.Column="1" Text="{Binding Day_15_StartTime}"/>
-        <TextBox Grid.Row="15" Grid.Column="2" Text="{Binding Day_15_EndTime}"/>
-        <TextBox Grid.Row="15" Grid.Column="3" Text="{Binding Day_15_LunchTime}"/>
-        <TextBox Grid.Row="15" Grid.Column="4" Text="{Binding Day_15_WorkingTime}"/>
-        <TextBox Grid.Row="15" Grid.Column="5" Text="{Binding Day_15_Overtime}"/>
-        <TextBox Grid.Row="15" Grid.Column="6" Text="{Binding Day_15_MidnightTime}"/>
-        <TextBox Grid.Row="15" Grid.Column="7" Text="{Binding Day_15_AbsentedTime}"/>
-        <TextBox Grid.Row="15" Grid.Column="8" Text="{Binding Day_15_Remarks}"/>
+        <TextBox Grid.Row="15" Text="{Binding Day_15}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="15" Grid.Column="1" Text="{Binding Day_15_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="15" Grid.Column="2" Text="{Binding Day_15_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="15" Grid.Column="3" Text="{Binding Day_15_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="15" Grid.Column="4" Text="{Binding Day_15_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="15" Grid.Column="5" Text="{Binding Day_15_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="15" Grid.Column="6" Text="{Binding Day_15_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="15" Grid.Column="7" Text="{Binding Day_15_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="15" Grid.Column="8" Text="{Binding Day_15_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="16" Text="{Binding Day_16}"/>
-        <TextBox Grid.Row="16" Grid.Column="1" Text="{Binding Day_16_StartTime}"/>
-        <TextBox Grid.Row="16" Grid.Column="2" Text="{Binding Day_16_EndTime}"/>
-        <TextBox Grid.Row="16" Grid.Column="3" Text="{Binding Day_16_LunchTime}"/>
-        <TextBox Grid.Row="16" Grid.Column="4" Text="{Binding Day_16_WorkingTime}"/>
-        <TextBox Grid.Row="16" Grid.Column="5" Text="{Binding Day_16_Overtime}"/>
-        <TextBox Grid.Row="16" Grid.Column="6" Text="{Binding Day_16_MidnightTime}"/>
-        <TextBox Grid.Row="16" Grid.Column="7" Text="{Binding Day_16_AbsentedTime}"/>
-        <TextBox Grid.Row="16" Grid.Column="8" Text="{Binding Day_16_Remarks}"/>
+        <TextBox Grid.Row="16" Text="{Binding Day_16}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="16" Grid.Column="1" Text="{Binding Day_16_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="16" Grid.Column="2" Text="{Binding Day_16_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="16" Grid.Column="3" Text="{Binding Day_16_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="16" Grid.Column="4" Text="{Binding Day_16_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="16" Grid.Column="5" Text="{Binding Day_16_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="16" Grid.Column="6" Text="{Binding Day_16_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="16" Grid.Column="7" Text="{Binding Day_16_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="16" Grid.Column="8" Text="{Binding Day_16_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="17" Text="{Binding Day_17}"/>
-        <TextBox Grid.Row="17" Grid.Column="1" Text="{Binding Day_17_StartTime}"/>
-        <TextBox Grid.Row="17" Grid.Column="2" Text="{Binding Day_17_EndTime}"/>
-        <TextBox Grid.Row="17" Grid.Column="3" Text="{Binding Day_17_LunchTime}"/>
-        <TextBox Grid.Row="17" Grid.Column="4" Text="{Binding Day_17_WorkingTime}"/>
-        <TextBox Grid.Row="17" Grid.Column="5" Text="{Binding Day_17_Overtime}"/>
-        <TextBox Grid.Row="17" Grid.Column="6" Text="{Binding Day_17_MidnightTime}"/>
-        <TextBox Grid.Row="17" Grid.Column="7" Text="{Binding Day_17_AbsentedTime}"/>
-        <TextBox Grid.Row="17" Grid.Column="8" Text="{Binding Day_17_Remarks}"/>
+        <TextBox Grid.Row="17" Text="{Binding Day_17}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="17" Grid.Column="1" Text="{Binding Day_17_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="17" Grid.Column="2" Text="{Binding Day_17_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="17" Grid.Column="3" Text="{Binding Day_17_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="17" Grid.Column="4" Text="{Binding Day_17_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="17" Grid.Column="5" Text="{Binding Day_17_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="17" Grid.Column="6" Text="{Binding Day_17_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="17" Grid.Column="7" Text="{Binding Day_17_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="17" Grid.Column="8" Text="{Binding Day_17_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="18" Text="{Binding Day_18}"/>
-        <TextBox Grid.Row="18" Grid.Column="1" Text="{Binding Day_18_StartTime}"/>
-        <TextBox Grid.Row="18" Grid.Column="2" Text="{Binding Day_18_EndTime}"/>
-        <TextBox Grid.Row="18" Grid.Column="3" Text="{Binding Day_18_LunchTime}"/>
-        <TextBox Grid.Row="18" Grid.Column="4" Text="{Binding Day_18_WorkingTime}"/>
-        <TextBox Grid.Row="18" Grid.Column="5" Text="{Binding Day_18_Overtime}"/>
-        <TextBox Grid.Row="18" Grid.Column="6" Text="{Binding Day_18_MidnightTime}"/>
-        <TextBox Grid.Row="18" Grid.Column="7" Text="{Binding Day_18_AbsentedTime}"/>
-        <TextBox Grid.Row="18" Grid.Column="8" Text="{Binding Day_18_Remarks}"/>
+        <TextBox Grid.Row="18" Text="{Binding Day_18}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="18" Grid.Column="1" Text="{Binding Day_18_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="18" Grid.Column="2" Text="{Binding Day_18_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="18" Grid.Column="3" Text="{Binding Day_18_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="18" Grid.Column="4" Text="{Binding Day_18_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="18" Grid.Column="5" Text="{Binding Day_18_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="18" Grid.Column="6" Text="{Binding Day_18_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="18" Grid.Column="7" Text="{Binding Day_18_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="18" Grid.Column="8" Text="{Binding Day_18_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="19" Text="{Binding Day_19}"/>
-        <TextBox Grid.Row="19" Grid.Column="1" Text="{Binding Day_19_StartTime}"/>
-        <TextBox Grid.Row="19" Grid.Column="2" Text="{Binding Day_19_EndTime}"/>
-        <TextBox Grid.Row="19" Grid.Column="3" Text="{Binding Day_19_LunchTime}"/>
-        <TextBox Grid.Row="19" Grid.Column="4" Text="{Binding Day_19_WorkingTime}"/>
-        <TextBox Grid.Row="19" Grid.Column="5" Text="{Binding Day_19_Overtime}"/>
-        <TextBox Grid.Row="19" Grid.Column="6" Text="{Binding Day_19_MidnightTime}"/>
-        <TextBox Grid.Row="19" Grid.Column="7" Text="{Binding Day_19_AbsentedTime}"/>
-        <TextBox Grid.Row="19" Grid.Column="8" Text="{Binding Day_19_Remarks}"/>
+        <TextBox Grid.Row="19" Text="{Binding Day_19}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="19" Grid.Column="1" Text="{Binding Day_19_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="19" Grid.Column="2" Text="{Binding Day_19_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="19" Grid.Column="3" Text="{Binding Day_19_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="19" Grid.Column="4" Text="{Binding Day_19_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="19" Grid.Column="5" Text="{Binding Day_19_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="19" Grid.Column="6" Text="{Binding Day_19_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="19" Grid.Column="7" Text="{Binding Day_19_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="19" Grid.Column="8" Text="{Binding Day_19_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="20" Text="{Binding Day_20}"/>
-        <TextBox Grid.Row="20" Grid.Column="1" Text="{Binding Day_20_StartTime}"/>
-        <TextBox Grid.Row="20" Grid.Column="2" Text="{Binding Day_20_EndTime}"/>
-        <TextBox Grid.Row="20" Grid.Column="3" Text="{Binding Day_20_LunchTime}"/>
-        <TextBox Grid.Row="20" Grid.Column="4" Text="{Binding Day_20_WorkingTime}"/>
-        <TextBox Grid.Row="20" Grid.Column="5" Text="{Binding Day_20_Overtime}"/>
-        <TextBox Grid.Row="20" Grid.Column="6" Text="{Binding Day_20_MidnightTime}"/>
-        <TextBox Grid.Row="20" Grid.Column="7" Text="{Binding Day_20_AbsentedTime}"/>
-        <TextBox Grid.Row="20" Grid.Column="8" Text="{Binding Day_20_Remarks}"/>
+        <TextBox Grid.Row="20" Text="{Binding Day_20}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="20" Grid.Column="1" Text="{Binding Day_20_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="20" Grid.Column="2" Text="{Binding Day_20_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="20" Grid.Column="3" Text="{Binding Day_20_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="20" Grid.Column="4" Text="{Binding Day_20_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="20" Grid.Column="5" Text="{Binding Day_20_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="20" Grid.Column="6" Text="{Binding Day_20_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="20" Grid.Column="7" Text="{Binding Day_20_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="20" Grid.Column="8" Text="{Binding Day_20_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="21" Text="{Binding Day_21}"/>
-        <TextBox Grid.Row="21" Grid.Column="1" Text="{Binding Day_21_StartTime}"/>
-        <TextBox Grid.Row="21" Grid.Column="2" Text="{Binding Day_21_EndTime}"/>
-        <TextBox Grid.Row="21" Grid.Column="3" Text="{Binding Day_21_LunchTime}"/>
-        <TextBox Grid.Row="21" Grid.Column="4" Text="{Binding Day_21_WorkingTime}"/>
-        <TextBox Grid.Row="21" Grid.Column="5" Text="{Binding Day_21_Overtime}"/>
-        <TextBox Grid.Row="21" Grid.Column="6" Text="{Binding Day_21_MidnightTime}"/>
-        <TextBox Grid.Row="21" Grid.Column="7" Text="{Binding Day_21_AbsentedTime}"/>
-        <TextBox Grid.Row="21" Grid.Column="8" Text="{Binding Day_21_Remarks}"/>
+        <TextBox Grid.Row="21" Text="{Binding Day_21}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="21" Grid.Column="1" Text="{Binding Day_21_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="21" Grid.Column="2" Text="{Binding Day_21_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="21" Grid.Column="3" Text="{Binding Day_21_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="21" Grid.Column="4" Text="{Binding Day_21_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="21" Grid.Column="5" Text="{Binding Day_21_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="21" Grid.Column="6" Text="{Binding Day_21_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="21" Grid.Column="7" Text="{Binding Day_21_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="21" Grid.Column="8" Text="{Binding Day_21_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="22" Text="{Binding Day_22}"/>
-        <TextBox Grid.Row="22" Grid.Column="1" Text="{Binding Day_22_StartTime}"/>
-        <TextBox Grid.Row="22" Grid.Column="2" Text="{Binding Day_22_EndTime}"/>
-        <TextBox Grid.Row="22" Grid.Column="3" Text="{Binding Day_22_LunchTime}"/>
-        <TextBox Grid.Row="22" Grid.Column="4" Text="{Binding Day_22_WorkingTime}"/>
-        <TextBox Grid.Row="22" Grid.Column="5" Text="{Binding Day_22_Overtime}"/>
-        <TextBox Grid.Row="22" Grid.Column="6" Text="{Binding Day_22_MidnightTime}"/>
-        <TextBox Grid.Row="22" Grid.Column="7" Text="{Binding Day_22_AbsentedTime}"/>
-        <TextBox Grid.Row="22" Grid.Column="8" Text="{Binding Day_22_Remarks}"/>
+        <TextBox Grid.Row="22" Text="{Binding Day_22}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="22" Grid.Column="1" Text="{Binding Day_22_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="22" Grid.Column="2" Text="{Binding Day_22_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="22" Grid.Column="3" Text="{Binding Day_22_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="22" Grid.Column="4" Text="{Binding Day_22_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="22" Grid.Column="5" Text="{Binding Day_22_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="22" Grid.Column="6" Text="{Binding Day_22_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="22" Grid.Column="7" Text="{Binding Day_22_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="22" Grid.Column="8" Text="{Binding Day_22_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="23" Text="{Binding Day_23}"/>
-        <TextBox Grid.Row="23" Grid.Column="1" Text="{Binding Day_23_StartTime}"/>
-        <TextBox Grid.Row="23" Grid.Column="2" Text="{Binding Day_23_EndTime}"/>
-        <TextBox Grid.Row="23" Grid.Column="3" Text="{Binding Day_23_LunchTime}"/>
-        <TextBox Grid.Row="23" Grid.Column="4" Text="{Binding Day_23_WorkingTime}"/>
-        <TextBox Grid.Row="23" Grid.Column="5" Text="{Binding Day_23_Overtime}"/>
-        <TextBox Grid.Row="23" Grid.Column="6" Text="{Binding Day_23_MidnightTime}"/>
-        <TextBox Grid.Row="23" Grid.Column="7" Text="{Binding Day_23_AbsentedTime}"/>
-        <TextBox Grid.Row="23" Grid.Column="8" Text="{Binding Day_23_Remarks}"/>
+        <TextBox Grid.Row="23" Text="{Binding Day_23}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="23" Grid.Column="1" Text="{Binding Day_23_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="23" Grid.Column="2" Text="{Binding Day_23_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="23" Grid.Column="3" Text="{Binding Day_23_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="23" Grid.Column="4" Text="{Binding Day_23_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="23" Grid.Column="5" Text="{Binding Day_23_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="23" Grid.Column="6" Text="{Binding Day_23_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="23" Grid.Column="7" Text="{Binding Day_23_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="23" Grid.Column="8" Text="{Binding Day_23_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="24" Text="{Binding Day_24}"/>
-        <TextBox Grid.Row="24" Grid.Column="1" Text="{Binding Day_24_StartTime}"/>
-        <TextBox Grid.Row="24" Grid.Column="2" Text="{Binding Day_24_EndTime}"/>
-        <TextBox Grid.Row="24" Grid.Column="3" Text="{Binding Day_24_LunchTime}"/>
-        <TextBox Grid.Row="24" Grid.Column="4" Text="{Binding Day_24_WorkingTime}"/>
-        <TextBox Grid.Row="24" Grid.Column="5" Text="{Binding Day_24_Overtime}"/>
-        <TextBox Grid.Row="24" Grid.Column="6" Text="{Binding Day_24_MidnightTime}"/>
-        <TextBox Grid.Row="24" Grid.Column="7" Text="{Binding Day_24_AbsentedTime}"/>
-        <TextBox Grid.Row="24" Grid.Column="8" Text="{Binding Day_24_Remarks}"/>
+        <TextBox Grid.Row="24" Text="{Binding Day_24}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="24" Grid.Column="1" Text="{Binding Day_24_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="24" Grid.Column="2" Text="{Binding Day_24_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="24" Grid.Column="3" Text="{Binding Day_24_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="24" Grid.Column="4" Text="{Binding Day_24_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="24" Grid.Column="5" Text="{Binding Day_24_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="24" Grid.Column="6" Text="{Binding Day_24_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="24" Grid.Column="7" Text="{Binding Day_24_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="24" Grid.Column="8" Text="{Binding Day_24_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="25" Text="{Binding Day_25}"/>
-        <TextBox Grid.Row="25" Grid.Column="1" Text="{Binding Day_25_StartTime}"/>
-        <TextBox Grid.Row="25" Grid.Column="2" Text="{Binding Day_25_EndTime}"/>
-        <TextBox Grid.Row="25" Grid.Column="3" Text="{Binding Day_25_LunchTime}"/>
-        <TextBox Grid.Row="25" Grid.Column="4" Text="{Binding Day_25_WorkingTime}"/>
-        <TextBox Grid.Row="25" Grid.Column="5" Text="{Binding Day_25_Overtime}"/>
-        <TextBox Grid.Row="25" Grid.Column="6" Text="{Binding Day_25_MidnightTime}"/>
-        <TextBox Grid.Row="25" Grid.Column="7" Text="{Binding Day_25_AbsentedTime}"/>
-        <TextBox Grid.Row="25" Grid.Column="8" Text="{Binding Day_25_Remarks}"/>
+        <TextBox Grid.Row="25" Text="{Binding Day_25}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="25" Grid.Column="1" Text="{Binding Day_25_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="25" Grid.Column="2" Text="{Binding Day_25_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="25" Grid.Column="3" Text="{Binding Day_25_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="25" Grid.Column="4" Text="{Binding Day_25_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="25" Grid.Column="5" Text="{Binding Day_25_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="25" Grid.Column="6" Text="{Binding Day_25_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="25" Grid.Column="7" Text="{Binding Day_25_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="25" Grid.Column="8" Text="{Binding Day_25_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="26" Text="{Binding Day_26}"/>
-        <TextBox Grid.Row="26" Grid.Column="1" Text="{Binding Day_26_StartTime}"/>
-        <TextBox Grid.Row="26" Grid.Column="2" Text="{Binding Day_26_EndTime}"/>
-        <TextBox Grid.Row="26" Grid.Column="3" Text="{Binding Day_26_LunchTime}"/>
-        <TextBox Grid.Row="26" Grid.Column="4" Text="{Binding Day_26_WorkingTime}"/>
-        <TextBox Grid.Row="26" Grid.Column="5" Text="{Binding Day_26_Overtime}"/>
-        <TextBox Grid.Row="26" Grid.Column="6" Text="{Binding Day_26_MidnightTime}"/>
-        <TextBox Grid.Row="26" Grid.Column="7" Text="{Binding Day_26_AbsentedTime}"/>
-        <TextBox Grid.Row="26" Grid.Column="8" Text="{Binding Day_26_Remarks}"/>
+        <TextBox Grid.Row="26" Text="{Binding Day_26}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="26" Grid.Column="1" Text="{Binding Day_26_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="26" Grid.Column="2" Text="{Binding Day_26_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="26" Grid.Column="3" Text="{Binding Day_26_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="26" Grid.Column="4" Text="{Binding Day_26_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="26" Grid.Column="5" Text="{Binding Day_26_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="26" Grid.Column="6" Text="{Binding Day_26_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="26" Grid.Column="7" Text="{Binding Day_26_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="26" Grid.Column="8" Text="{Binding Day_26_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="27" Text="{Binding Day_27}"/>
-        <TextBox Grid.Row="27" Grid.Column="1" Text="{Binding Day_27_StartTime}"/>
-        <TextBox Grid.Row="27" Grid.Column="2" Text="{Binding Day_27_EndTime}"/>
-        <TextBox Grid.Row="27" Grid.Column="3" Text="{Binding Day_27_LunchTime}"/>
-        <TextBox Grid.Row="27" Grid.Column="4" Text="{Binding Day_27_WorkingTime}"/>
-        <TextBox Grid.Row="27" Grid.Column="5" Text="{Binding Day_27_Overtime}"/>
-        <TextBox Grid.Row="27" Grid.Column="6" Text="{Binding Day_27_MidnightTime}"/>
-        <TextBox Grid.Row="27" Grid.Column="7" Text="{Binding Day_27_AbsentedTime}"/>
-        <TextBox Grid.Row="27" Grid.Column="8" Text="{Binding Day_27_Remarks}"/>
+        <TextBox Grid.Row="27" Text="{Binding Day_27}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="27" Grid.Column="1" Text="{Binding Day_27_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="27" Grid.Column="2" Text="{Binding Day_27_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="27" Grid.Column="3" Text="{Binding Day_27_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="27" Grid.Column="4" Text="{Binding Day_27_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="27" Grid.Column="5" Text="{Binding Day_27_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="27" Grid.Column="6" Text="{Binding Day_27_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="27" Grid.Column="7" Text="{Binding Day_27_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="27" Grid.Column="8" Text="{Binding Day_27_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="28" Text="{Binding Day_28}"/>
-        <TextBox Grid.Row="28" Grid.Column="1" Text="{Binding Day_28_StartTime}"/>
-        <TextBox Grid.Row="28" Grid.Column="2" Text="{Binding Day_28_EndTime}"/>
-        <TextBox Grid.Row="28" Grid.Column="3" Text="{Binding Day_28_LunchTime}"/>
-        <TextBox Grid.Row="28" Grid.Column="4" Text="{Binding Day_28_WorkingTime}"/>
-        <TextBox Grid.Row="28" Grid.Column="5" Text="{Binding Day_28_Overtime}"/>
-        <TextBox Grid.Row="28" Grid.Column="6" Text="{Binding Day_28_MidnightTime}"/>
-        <TextBox Grid.Row="28" Grid.Column="7" Text="{Binding Day_28_AbsentedTime}"/>
-        <TextBox Grid.Row="28" Grid.Column="8" Text="{Binding Day_28_Remarks}"/>
+        <TextBox Grid.Row="28" Text="{Binding Day_28}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="28" Grid.Column="1" Text="{Binding Day_28_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="28" Grid.Column="2" Text="{Binding Day_28_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="28" Grid.Column="3" Text="{Binding Day_28_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="28" Grid.Column="4" Text="{Binding Day_28_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="28" Grid.Column="5" Text="{Binding Day_28_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="28" Grid.Column="6" Text="{Binding Day_28_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="28" Grid.Column="7" Text="{Binding Day_28_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="28" Grid.Column="8" Text="{Binding Day_28_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="29" Text="{Binding Day_29}"/>
-        <TextBox Grid.Row="29" Grid.Column="1" Text="{Binding Day_29_StartTime}"/>
-        <TextBox Grid.Row="29" Grid.Column="2" Text="{Binding Day_29_EndTime}"/>
-        <TextBox Grid.Row="29" Grid.Column="3" Text="{Binding Day_29_LunchTime}"/>
-        <TextBox Grid.Row="29" Grid.Column="4" Text="{Binding Day_29_WorkingTime}"/>
-        <TextBox Grid.Row="29" Grid.Column="5" Text="{Binding Day_29_Overtime}"/>
-        <TextBox Grid.Row="29" Grid.Column="6" Text="{Binding Day_29_MidnightTime}"/>
-        <TextBox Grid.Row="29" Grid.Column="7" Text="{Binding Day_29_AbsentedTime}"/>
-        <TextBox Grid.Row="29" Grid.Column="8" Text="{Binding Day_29_Remarks}"/>
+        <TextBox Grid.Row="29" Text="{Binding Day_29}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="29" Grid.Column="1" Text="{Binding Day_29_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="29" Grid.Column="2" Text="{Binding Day_29_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="29" Grid.Column="3" Text="{Binding Day_29_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="29" Grid.Column="4" Text="{Binding Day_29_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="29" Grid.Column="5" Text="{Binding Day_29_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="29" Grid.Column="6" Text="{Binding Day_29_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="29" Grid.Column="7" Text="{Binding Day_29_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="29" Grid.Column="8" Text="{Binding Day_29_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="30" Text="{Binding Day_30}"/>
-        <TextBox Grid.Row="30" Grid.Column="1" Text="{Binding Day_30_StartTime}"/>
-        <TextBox Grid.Row="30" Grid.Column="2" Text="{Binding Day_30_EndTime}"/>
-        <TextBox Grid.Row="30" Grid.Column="3" Text="{Binding Day_30_LunchTime}"/>
-        <TextBox Grid.Row="30" Grid.Column="4" Text="{Binding Day_30_WorkingTime}"/>
-        <TextBox Grid.Row="30" Grid.Column="5" Text="{Binding Day_30_Overtime}"/>
-        <TextBox Grid.Row="30" Grid.Column="6" Text="{Binding Day_30_MidnightTime}"/>
-        <TextBox Grid.Row="30" Grid.Column="7" Text="{Binding Day_30_AbsentedTime}"/>
-        <TextBox Grid.Row="30" Grid.Column="8" Text="{Binding Day_30_Remarks}"/>
+        <TextBox Grid.Row="30" Text="{Binding Day_30}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="30" Grid.Column="1" Text="{Binding Day_30_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="30" Grid.Column="2" Text="{Binding Day_30_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="30" Grid.Column="3" Text="{Binding Day_30_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="30" Grid.Column="4" Text="{Binding Day_30_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="30" Grid.Column="5" Text="{Binding Day_30_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="30" Grid.Column="6" Text="{Binding Day_30_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="30" Grid.Column="7" Text="{Binding Day_30_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="30" Grid.Column="8" Text="{Binding Day_30_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
 
-        <TextBox Grid.Row="31" Text="{Binding Day_31}"/>
-        <TextBox Grid.Row="31" Grid.Column="1" Text="{Binding Day_31_StartTime}"/>
-        <TextBox Grid.Row="31" Grid.Column="2" Text="{Binding Day_31_EndTime}"/>
-        <TextBox Grid.Row="31" Grid.Column="3" Text="{Binding Day_31_LunchTime}"/>
-        <TextBox Grid.Row="31" Grid.Column="4" Text="{Binding Day_31_WorkingTime}"/>
-        <TextBox Grid.Row="31" Grid.Column="5" Text="{Binding Day_31_Overtime}"/>
-        <TextBox Grid.Row="31" Grid.Column="6" Text="{Binding Day_31_MidnightTime}"/>
-        <TextBox Grid.Row="31" Grid.Column="7" Text="{Binding Day_31_AbsentedTime}"/>
-        <TextBox Grid.Row="31" Grid.Column="8" Text="{Binding Day_31_Remarks}"/>
+        <TextBox Grid.Row="31" Text="{Binding Day_31}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="31" Grid.Column="1" Text="{Binding Day_31_StartTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="31" Grid.Column="2" Text="{Binding Day_31_EndTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="31" Grid.Column="3" Text="{Binding Day_31_LunchTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="31" Grid.Column="4" Text="{Binding Day_31_WorkingTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="31" Grid.Column="5" Text="{Binding Day_31_Overtime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="31" Grid.Column="6" Text="{Binding Day_31_MidnightTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="31" Grid.Column="7" Text="{Binding Day_31_AbsentedTime}" Style="{StaticResource WorkSchedule_Style}" />
+        <TextBox Grid.Row="31" Grid.Column="8" Text="{Binding Day_31_Remarks}" Style="{StaticResource WorkSchedule_Style}" />
     </Grid>
 </UserControl>

@@ -98,6 +98,8 @@ namespace SalaryManager.WPF.Models
 
                 // 残業時間
                 this.InputOvertime(entities, day);
+
+                this.InputRemarks(entities, day);
             }
         }
 
@@ -449,6 +451,63 @@ namespace SalaryManager.WPF.Models
 
                 return $"{(end.Hour   - start.Hour   - workingPlace.WorkingTime.Start.Hour).ToString("00")}:" +
                        $"{(end.Minute - start.Minute - workingPlace.WorkingTime.End.Minute).ToString("00")}";
+            }
+        }
+
+        /// <summary>
+        /// Input - 備考
+        /// </summary>
+        /// <param name="entities">エンティティ</param>
+        /// <param name="day">日</param>
+        private void InputRemarks(List<CalendarEventEntity> entities, int day)
+        {
+            var startDate = entities.First().StartDate;
+            var workingPlace = this.SearchWorkingPlace(entities, new DateTime(startDate.Year, startDate.Month, day));
+            var home = Homes.FetchByDate(new DateTime(startDate.Year, startDate.Month, day));
+
+            switch (startDate.Day)
+            {
+                case 1:  this.ViewModel.Day_1_Remarks  = Format(); return;
+                case 2:  this.ViewModel.Day_2_Remarks  = Format(); return;
+                case 3:  this.ViewModel.Day_3_Remarks  = Format(); return;
+                case 4:  this.ViewModel.Day_4_Remarks  = Format(); return;
+                case 5:  this.ViewModel.Day_5_Remarks  = Format(); return;
+                case 6:  this.ViewModel.Day_6_Remarks  = Format(); return;
+                case 7:  this.ViewModel.Day_7_Remarks  = Format(); return;
+                case 8:  this.ViewModel.Day_8_Remarks  = Format(); return;
+                case 9:  this.ViewModel.Day_9_Remarks  = Format(); return;
+                case 10: this.ViewModel.Day_10_Remarks = Format(); return;
+                case 11: this.ViewModel.Day_11_Remarks = Format(); return;
+                case 12: this.ViewModel.Day_12_Remarks = Format(); return;
+                case 13: this.ViewModel.Day_13_Remarks = Format(); return;
+                case 14: this.ViewModel.Day_14_Remarks = Format(); return;
+                case 15: this.ViewModel.Day_15_Remarks = Format(); return;
+                case 16: this.ViewModel.Day_16_Remarks = Format(); return;
+                case 17: this.ViewModel.Day_17_Remarks = Format(); return;
+                case 18: this.ViewModel.Day_18_Remarks = Format(); return;
+                case 19: this.ViewModel.Day_19_Remarks = Format(); return;
+                case 20: this.ViewModel.Day_20_Remarks = Format(); return;
+                case 21: this.ViewModel.Day_21_Remarks = Format(); return;
+                case 22: this.ViewModel.Day_22_Remarks = Format(); return;
+                case 23: this.ViewModel.Day_23_Remarks = Format(); return;
+                case 24: this.ViewModel.Day_24_Remarks = Format(); return;
+                case 25: this.ViewModel.Day_25_Remarks = Format(); return;
+                case 26: this.ViewModel.Day_26_Remarks = Format(); return;
+                case 27: this.ViewModel.Day_27_Remarks = Format(); return;
+                case 28: this.ViewModel.Day_28_Remarks = Format(); return;
+                case 29: this.ViewModel.Day_29_Remarks = Format(); return;
+                case 30: this.ViewModel.Day_30_Remarks = Format(); return;
+                case 31: this.ViewModel.Day_31_Remarks = Format(); return;
+            }
+
+            string Format()
+            {
+                (int Hour, int Minute) start = GetStartTime(entities);
+                (int Hour, int Minute) end   = GetEndTime(entities);
+
+                var isWorkAtHome = (end.Hour - start.Hour >= 8 && entities.First().Place == home.Address_Google);
+
+                return isWorkAtHome ? "在宅所定時間以上" : string.Empty;
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using SalaryManager.Domain.Entities;
 using SalaryManager.WPF.ViewModels;
 using SalaryManager.Domain.Modules.Logics;
@@ -8,7 +9,6 @@ using SalaryManager.Infrastructure.XML;
 using SalaryManager.Domain.Repositories;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.Domain.Modules.Helpers;
-using System;
 
 namespace SalaryManager.WPF.Models
 {

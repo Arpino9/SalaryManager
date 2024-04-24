@@ -44,6 +44,16 @@
             </Style.Triggers>
         </Style>
 
-        
+        <Style TargetType="TextBox" x:Key="WorkSchedule_Style">
+            <Setter Property="IsReadOnly" Value="True" />
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="LightYellow"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+
     </Application.Resources>
 </Application>
