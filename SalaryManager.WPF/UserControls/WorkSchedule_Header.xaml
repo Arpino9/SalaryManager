@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SalaryManager.WPF.UserControls"
-             xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" x:Class="SalaryManager.WPF.UserControls.WorkSchedule_Header"
+             xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" xmlns:Converter="clr-namespace:SalaryManager.WPF.Converter" x:Class="SalaryManager.WPF.UserControls.WorkSchedule_Header"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="800"
              Background="{x:Static SystemColors.ControlLightBrush}">
@@ -35,12 +35,14 @@
         </Grid.ColumnDefinitions>
 
         <Label Content="派遣元"/>
-        <TextBox Grid.Column="1"/>
+        <TextBox Grid.Column="1"
+                 Text="{Binding DispatchingCompany, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Content="派遣先" 
                Grid.Row="1"/>
         <TextBox Grid.Column="1" 
-                 Grid.Row="1"/>
+                 Grid.Row="1"
+                 Text="{Binding DispatchedCompany, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Content="勤務日数" 
                Grid.Column="2"/>

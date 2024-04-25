@@ -1,10 +1,10 @@
-﻿using SalaryManager.Domain.Entities;
-using SalaryManager.Infrastructure.SQLite;
-using SalaryManager.WPF.Models;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
+using SalaryManager.Domain.Entities;
+using SalaryManager.Infrastructure.SQLite;
+using SalaryManager.WPF.Models;
 
 namespace SalaryManager.WPF.ViewModels
 {
@@ -110,6 +110,21 @@ namespace SalaryManager.WPF.ViewModels
         #endregion
 
         #region 勤務先
+
+        private Brush _workPlace_Foreground;
+
+        /// <summary>
+        /// 勤務先 - Foreground
+        /// </summary>
+        public Brush WorkPlace_Foreground
+        {
+            get => _workPlace_Foreground;
+            set
+            {
+                this._workPlace_Foreground = value;
+                this.RaisePropertyChanged();
+            }
+        }
 
         private string _workPlace;
 

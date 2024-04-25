@@ -36,6 +36,7 @@
         <TextBox Grid.Column="1"
                  Grid.Row="1"
                  IsReadOnly="True"
+                 Foreground="{Binding WorkPlace_Foreground}"
                  Style="{StaticResource PayslipItemCharacter_Style}" 
                  Text="{Binding WorkPlace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>

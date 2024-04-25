@@ -38,12 +38,54 @@ namespace SalaryManager.WPF.ViewModels
 
         public DateTime TargetDate;
 
-        private string _year;
+        
+
+        #region 派遣元
+
+        private string _dispatchingCOmpany;
+
+        /// <summary>
+        /// 派遣元
+        /// </summary>
+        public string DispatchingCompany
+        {
+            get => this._dispatchingCOmpany;
+            set
+            {
+                this._dispatchingCOmpany = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #region 派遣先
+
+        private string _dispatchedCOmpany;
+
+        /// <summary>
+        /// 派遣先
+        /// </summary>
+        public string DispatchedCompany
+        {
+            get => this._dispatchedCOmpany;
+            set
+            {
+                this._dispatchedCOmpany = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #region 該当年月
+
+        private int _year;
 
         /// <summary>
         /// 年
         /// </summary>
-        public string Year
+        public int Year
         {
             get => this._year;
             set
@@ -53,12 +95,12 @@ namespace SalaryManager.WPF.ViewModels
             }
         }
 
-        private string _month;
+        private int _month;
 
         /// <summary>
         /// 月
         /// </summary>
-        public string Month
+        public int Month
         {
             get => this._month;
             set
@@ -67,6 +109,8 @@ namespace SalaryManager.WPF.ViewModels
                 this.RaisePropertyChanged();
             }
         }
+
+        #endregion
 
         #region 戻るボタン
 

@@ -69,11 +69,12 @@ namespace SalaryManager.WPF.Models
                 this.Initialize_Table();
             }
 
-            this.ViewModel_Header.Year  = this.ViewModel_Header.TargetDate.Year.ToString();
-            this.ViewModel_Header.Month = this.ViewModel_Header.TargetDate.Month.ToString();
+            // 該当年月
+            this.ViewModel_Header.Year  = this.ViewModel_Header.TargetDate.Year;
+            this.ViewModel_Header.Month = this.ViewModel_Header.TargetDate.Month;
 
-            var year         = int.Parse(this.ViewModel_Header.Year);
-            var month        = int.Parse(this.ViewModel_Header.Month);
+            var year         = this.ViewModel_Header.Year;
+            var month        = this.ViewModel_Header.Month;
             var lastMonthDay = DateTime.DaysInMonth(year, month);
 
             var (Noon, Lunch, Afternoon) = GetScheduleEvents(new DateTime(year, month, 1), new DateTime(year, month, lastMonthDay));
@@ -136,20 +137,9 @@ namespace SalaryManager.WPF.Models
             Careers.Create(new CareerSQLite());
             Homes.Create(new HomeSQLite());
 
-            var workingPlace = WorkingPlace.FetchByDescending();
-            var company      = Careers.FetchBelongingCompany(new DateTime(2024, 4, 1));
+            var workingPlace = WorkingPlace.FetchByDate(new DateTime(this.ViewModel_Header.Year, this.ViewModel_Header.Month, 1));
 
-            var list = new List<WorkingPlaceEntity>();
-
-            foreach(var entity in workingPlace)
-            {
-                if (company.Where(x => x.CompanyName == entity.DispatchingCompany).Any())
-                {
-                    list.Add(entity);
-                }
-            }
-
-            return list;
+            return workingPlace.ToList();
         }
 
         /// <summary>
@@ -169,6 +159,8 @@ namespace SalaryManager.WPF.Models
             var lunch     = new List<CalendarEventEntity>();
             var afternoon = new List<CalendarEventEntity>();
 
+            var test = new List<CalendarEventEntity>();
+
             foreach(var entity in workingPlaces)
             {
                 // 午前
@@ -181,6 +173,8 @@ namespace SalaryManager.WPF.Models
                 // 午後
                 afternoon.AddRange(CalendarReader.FindByAddress(entity.WorkingPlace_Address, startDate, endDate,
                                                                 entity.LunchTime.End));
+
+                test.AddRange(CalendarReader.FindByDate(startDate, endDate, entity.LunchTime.End));
             }
 
             return (noon, lunch, afternoon);
@@ -432,6 +426,11 @@ namespace SalaryManager.WPF.Models
             var startDate = entities.First().StartDate;
             var workingPlace = this.SearchWorkingPlace(entities, new DateTime(startDate.Year, startDate.Month, day));
 
+            var start = new TimeSpan(workingPlace.BreakTime.Start.Hours, workingPlace.BreakTime.Start.Minutes, 0);
+            var end   = new TimeSpan(workingPlace.BreakTime.End.Hours, workingPlace.BreakTime.End.Minutes, 0);
+
+            var span = end.Subtract(start);
+
             switch (startDate.Day)
             {
                 case 1:  this.ViewModel_Table.Day_1_Overtime  = Format(); return;
@@ -469,11 +468,13 @@ namespace SalaryManager.WPF.Models
 
             string Format()
             {
+                var workTime = entities.Where(x => x.Title != "昼食").Sum(x => x.TimeSpan.TotalHours);
+
                 (int Hour, int Minute) start = GetStartTime(entities);
                 (int Hour, int Minute) end   = GetEndTime(entities);
 
-                return $"{(end.Hour   - start.Hour   - workingPlace.WorkingTime.Start.Hour).ToString("00")}:" +
-                       $"{(end.Minute - start.Minute - workingPlace.WorkingTime.End.Minute).ToString("00")}";
+                return $"{(end.Hour   - start.Hour   - workingPlace.WorkingTime.Start.Hours).ToString("00")}:" +
+                       $"{(end.Minute - start.Minute - workingPlace.WorkingTime.End.Minutes).ToString("00")}";
             }
         }
 

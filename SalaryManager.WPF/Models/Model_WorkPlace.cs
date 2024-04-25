@@ -116,15 +116,9 @@ namespace SalaryManager.WPF.Models
                 this.ViewModel.CompanyName = CompanyNameValue.Undefined.DisplayValue;
                 this.ViewModel.WorkPlace   = CompanyNameValue.Undefined.DisplayValue;
             }
-            
-            if (this.ViewModel.CompanyName == CompanyNameValue.Undefined.DisplayValue)
-            {
-                this.ViewModel.CompanyName_Foreground = new SolidColorBrush(Colors.Gray);
-            }
-            else
-            {
-                this.ViewModel.CompanyName_Foreground = new SolidColorBrush(Colors.Black);
-            }
+
+            this.ViewModel.CompanyName_Foreground = new SolidColorBrush(Colors.Black);
+            this.ViewModel.WorkPlace_Foreground   = new SolidColorBrush(Colors.Black);
         }
 
         /// <summary>
@@ -158,7 +152,8 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.CompanyName            = CompanyNameValue.Undefined.DisplayValue;
             this.ViewModel.CompanyName_Foreground = new SolidColorBrush(Colors.Gray);
             // 勤務先
-            this.ViewModel.WorkPlace = default(string);
+            this.ViewModel.WorkPlace              = CompanyNameValue.Undefined.DisplayValue;
+            this.ViewModel.WorkPlace_Foreground   = new SolidColorBrush(Colors.Gray);
         }
 
         /// <summary>

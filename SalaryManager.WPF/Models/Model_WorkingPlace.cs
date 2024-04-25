@@ -183,31 +183,31 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.IsWorking_IsChacked = entity.IsWorking;
 
             // 勤務開始時間(時)
-            this.ViewModel.WorkingTime_Start_Hour   = entity.WorkingTime.Start.Hour;
+            this.ViewModel.WorkingTime_Start_Hour   = entity.WorkingTime.Start.Hours;
             // 勤務開始時間(分)
-            this.ViewModel.WorkingTime_Start_Minute = entity.WorkingTime.Start.Minute;
+            this.ViewModel.WorkingTime_Start_Minute = entity.WorkingTime.Start.Minutes;
             // 勤務終了時間(時)
-            this.ViewModel.WorkingTime_End_Hour     = entity.WorkingTime.End.Hour;
+            this.ViewModel.WorkingTime_End_Hour     = entity.WorkingTime.End.Hours;
             // 勤務終了時間(分)
-            this.ViewModel.WorkingTime_End_Minute   = entity.WorkingTime.End.Minute;
+            this.ViewModel.WorkingTime_End_Minute   = entity.WorkingTime.End.Minutes;
 
             // 昼休憩開始時間(時)
-            this.ViewModel.LunchTime_Start_Hour   = entity.LunchTime.Start.Hour;
+            this.ViewModel.LunchTime_Start_Hour   = entity.LunchTime.Start.Hours;
             // 昼休憩開始時間(分)
-            this.ViewModel.LunchTime_Start_Minute = entity.LunchTime.Start.Minute;
+            this.ViewModel.LunchTime_Start_Minute = entity.LunchTime.Start.Minutes;
             // 昼休憩開始時間(時)
-            this.ViewModel.LunchTime_End_Hour     = entity.LunchTime.End.Hour;
+            this.ViewModel.LunchTime_End_Hour     = entity.LunchTime.End.Hours;
             // 昼休憩開始時間(分)
-            this.ViewModel.LunchTime_End_Minute   = entity.LunchTime.End.Minute;
+            this.ViewModel.LunchTime_End_Minute   = entity.LunchTime.End.Minutes;
 
             // 昼休憩開始時間(時)
-            this.ViewModel.BreakTime_Start_Hour   = entity.BreakTime.Start.Hour;
+            this.ViewModel.BreakTime_Start_Hour   = entity.BreakTime.Start.Hours;
             // 昼休憩開始時間(分)
-            this.ViewModel.BreakTime_Start_Minute = entity.BreakTime.Start.Minute;
+            this.ViewModel.BreakTime_Start_Minute = entity.BreakTime.Start.Minutes;
             // 昼休憩開始時間(時)
-            this.ViewModel.BreakTime_End_Hour     = entity.BreakTime.End.Hour;
+            this.ViewModel.BreakTime_End_Hour     = entity.BreakTime.End.Hours;
             // 昼休憩開始時間(分)
-            this.ViewModel.BreakTime_End_Minute   = entity.BreakTime.End.Minute;
+            this.ViewModel.BreakTime_End_Minute   = entity.BreakTime.End.Minutes;
 
             // 備考
             this.ViewModel.Remarks = entity.Remarks;

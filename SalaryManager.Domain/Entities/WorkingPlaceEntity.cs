@@ -56,14 +56,14 @@ namespace SalaryManager.Domain.Entities
             this.IsWaiting            = isWaiting;
             this.IsWorking            = isWorking;
 
-            this.WorkingTime = (new TimeValue(workingStartTime.Hour, workingStartTime.Minute),
-                                new TimeValue(workingEndTime.Hour,   workingEndTime.Minute));
+            this.WorkingTime = (new TimeSpan(workingStartTime.Hour, workingStartTime.Minute, 0),
+                                new TimeSpan(workingEndTime.Hour,   workingEndTime.Minute, 0));
 
-            this.LunchTime = (new TimeValue(lunchStartTime.Hour, lunchStartTime.Minute),
-                              new TimeValue(lunchEndTime.Hour,   lunchEndTime.Minute));
+            this.LunchTime = (new TimeSpan(lunchStartTime.Hour, lunchStartTime.Minute, 0),
+                              new TimeSpan(lunchEndTime.Hour, lunchEndTime.Minute, 0));
 
-            this.BreakTime = (new TimeValue(breakStartTime.Hour, breakStartTime.Minute),
-                              new TimeValue(breakEndTime.Hour,   breakEndTime.Minute));
+            this.BreakTime = (new TimeSpan(breakStartTime.Hour, breakStartTime.Minute, 0),
+                              new TimeSpan(breakEndTime.Hour,   breakEndTime.Minute, 0));
             this.Remarks = remarks;
         }
 
@@ -152,15 +152,15 @@ namespace SalaryManager.Domain.Entities
 
         /// <summary> 労働時間 </summary>
         /// <remarks> (始業時刻, 終業時刻) </remarks>
-        public (TimeValue Start, TimeValue End) WorkingTime { get; }
+        public (TimeSpan Start, TimeSpan End) WorkingTime { get; }
 
         /// <summary> 昼休憩 </summary>
         /// <remarks> (開始時刻, 終了時刻) </remarks>
-        public (TimeValue Start, TimeValue End) LunchTime { get; }
+        public (TimeSpan Start, TimeSpan End) LunchTime { get; }
 
         /// <summary> 休憩 </summary>
         /// <remarks> (開始時刻, 終了時刻) </remarks>
-        public (TimeValue Start, TimeValue End) BreakTime { get; }
+        public (TimeSpan Start, TimeSpan End) BreakTime { get; }
 
         /// <summary> 備考 </summary>
         public string Remarks { get; }
