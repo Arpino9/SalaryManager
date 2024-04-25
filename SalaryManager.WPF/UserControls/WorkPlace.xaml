@@ -35,6 +35,7 @@
                Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="1"
                  Grid.Row="1"
+                 IsReadOnly="True"
                  Style="{StaticResource PayslipItemCharacter_Style}" 
                  Text="{Binding WorkPlace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DocumentFormat.OpenXml.Spreadsheet;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Exceptions;
 using SalaryManager.Domain.StaticValues;
@@ -38,21 +37,46 @@ namespace SalaryManager.WPF.Models
 
         #endregion
 
+
+        public void Initialize_Header()
+        {
+            this.ViewModel_Header.TargetDate = DateTime.Now;
+        }
+
+        internal void Return_Command()
+        {
+            this.ViewModel_Header.TargetDate = this.ViewModel_Header.TargetDate.AddMonths(-1);
+            Initialize_Table();
+        }
+
+        internal void Proceed_Command()
+        {
+            this.ViewModel_Header.TargetDate = this.ViewModel_Header.TargetDate.AddMonths(1);
+            Initialize_Table();
+        }
+
         /// <summary>
         /// 初期化
         /// </summary>
         /// <remarks>
         /// データの読込が終わるまで再帰させる。
         /// </remarks>
-        public async void Initialize()
+        public async void Initialize_Table()
         {
             if (CalendarReader.Loading)
             {
                 System.Threading.Thread.Sleep(3000);
-                this.Initialize();
+                this.Initialize_Table();
             }
 
-            var (Noon, Lunch, Afternoon) = GetScheduleEvents(new DateTime(2024, 4, 1), new DateTime(2024, 4, 30));
+            this.ViewModel_Header.Year  = this.ViewModel_Header.TargetDate.Year.ToString();
+            this.ViewModel_Header.Month = this.ViewModel_Header.TargetDate.Month.ToString();
+
+            var year         = int.Parse(this.ViewModel_Header.Year);
+            var month        = int.Parse(this.ViewModel_Header.Month);
+            var lastMonthDay = DateTime.DaysInMonth(year, month);
+
+            var (Noon, Lunch, Afternoon) = GetScheduleEvents(new DateTime(year, month, 1), new DateTime(year, month, lastMonthDay));
 
             if (Noon.Any()      == false || 
                 Afternoon.Any() == false) 
@@ -60,9 +84,7 @@ namespace SalaryManager.WPF.Models
                 throw new DatabaseException("スケジュールの取得に失敗しました。");
             }
 
-            var lastMonthDay = new DateValue(Noon.First().StartDate).LastMonthDay;
-
-            var date = new DateTime(Noon.First().StartDate.Year, Noon.First().StartDate.Month, 1);
+            var date = new DateTime(year, month, 1);
 
             for (var i = 1; i <= lastMonthDay; i++)
             {
@@ -99,6 +121,7 @@ namespace SalaryManager.WPF.Models
                 // 残業時間
                 this.InputOvertime(entities, day);
 
+                // 備考
                 this.InputRemarks(entities, day);
             }
         }
@@ -171,37 +194,37 @@ namespace SalaryManager.WPF.Models
         {
             switch (date.Day) 
             {
-                case 1  : this.ViewModel.Day_1  = Format(); return;
-                case 2  : this.ViewModel.Day_2  = Format(); return;
-                case 3  : this.ViewModel.Day_3  = Format(); return;
-                case 4  : this.ViewModel.Day_4  = Format(); return;
-                case 5  : this.ViewModel.Day_5  = Format(); return;
-                case 6  : this.ViewModel.Day_6  = Format(); return;
-                case 7  : this.ViewModel.Day_7  = Format(); return;
-                case 8  : this.ViewModel.Day_8  = Format(); return;
-                case 9  : this.ViewModel.Day_9  = Format(); return;
-                case 10 : this.ViewModel.Day_10 = Format(); return;
-                case 11 : this.ViewModel.Day_11 = Format(); return;
-                case 12 : this.ViewModel.Day_12 = Format(); return;
-                case 13 : this.ViewModel.Day_13 = Format(); return;
-                case 14 : this.ViewModel.Day_14 = Format(); return;
-                case 15 : this.ViewModel.Day_15 = Format(); return;
-                case 16 : this.ViewModel.Day_16 = Format(); return;
-                case 17 : this.ViewModel.Day_17 = Format(); return;
-                case 18 : this.ViewModel.Day_18 = Format(); return;
-                case 19 : this.ViewModel.Day_19 = Format(); return;
-                case 20 : this.ViewModel.Day_20 = Format(); return;
-                case 21 : this.ViewModel.Day_21 = Format(); return;
-                case 22 : this.ViewModel.Day_22 = Format(); return;
-                case 23 : this.ViewModel.Day_23 = Format(); return;
-                case 24 : this.ViewModel.Day_24 = Format(); return;
-                case 25 : this.ViewModel.Day_25 = Format(); return;
-                case 26 : this.ViewModel.Day_26 = Format(); return;
-                case 27 : this.ViewModel.Day_27 = Format(); return;
-                case 28 : this.ViewModel.Day_28 = Format(); return;
-                case 29 : this.ViewModel.Day_29 = Format(); return;
-                case 30 : this.ViewModel.Day_30 = Format(); return;
-                case 31 : this.ViewModel.Day_31 = Format(); return;
+                case 1  : this.ViewModel_Table.Day_1  = Format(); return;
+                case 2  : this.ViewModel_Table.Day_2  = Format(); return;
+                case 3  : this.ViewModel_Table.Day_3  = Format(); return;
+                case 4  : this.ViewModel_Table.Day_4  = Format(); return;
+                case 5  : this.ViewModel_Table.Day_5  = Format(); return;
+                case 6  : this.ViewModel_Table.Day_6  = Format(); return;
+                case 7  : this.ViewModel_Table.Day_7  = Format(); return;
+                case 8  : this.ViewModel_Table.Day_8  = Format(); return;
+                case 9  : this.ViewModel_Table.Day_9  = Format(); return;
+                case 10 : this.ViewModel_Table.Day_10 = Format(); return;
+                case 11 : this.ViewModel_Table.Day_11 = Format(); return;
+                case 12 : this.ViewModel_Table.Day_12 = Format(); return;
+                case 13 : this.ViewModel_Table.Day_13 = Format(); return;
+                case 14 : this.ViewModel_Table.Day_14 = Format(); return;
+                case 15 : this.ViewModel_Table.Day_15 = Format(); return;
+                case 16 : this.ViewModel_Table.Day_16 = Format(); return;
+                case 17 : this.ViewModel_Table.Day_17 = Format(); return;
+                case 18 : this.ViewModel_Table.Day_18 = Format(); return;
+                case 19 : this.ViewModel_Table.Day_19 = Format(); return;
+                case 20 : this.ViewModel_Table.Day_20 = Format(); return;
+                case 21 : this.ViewModel_Table.Day_21 = Format(); return;
+                case 22 : this.ViewModel_Table.Day_22 = Format(); return;
+                case 23 : this.ViewModel_Table.Day_23 = Format(); return;
+                case 24 : this.ViewModel_Table.Day_24 = Format(); return;
+                case 25 : this.ViewModel_Table.Day_25 = Format(); return;
+                case 26 : this.ViewModel_Table.Day_26 = Format(); return;
+                case 27 : this.ViewModel_Table.Day_27 = Format(); return;
+                case 28 : this.ViewModel_Table.Day_28 = Format(); return;
+                case 29 : this.ViewModel_Table.Day_29 = Format(); return;
+                case 30 : this.ViewModel_Table.Day_30 = Format(); return;
+                case 31 : this.ViewModel_Table.Day_31 = Format(); return;
 
                 default: return;
             }
@@ -219,37 +242,37 @@ namespace SalaryManager.WPF.Models
         {
             switch (day)
             {
-                case 1 : this.ViewModel.Day_1_StartTime  = Format(); return;
-                case 2 : this.ViewModel.Day_2_StartTime  = Format(); return;
-                case 3 : this.ViewModel.Day_3_StartTime  = Format(); return;
-                case 4 : this.ViewModel.Day_4_StartTime  = Format(); return;
-                case 5 : this.ViewModel.Day_5_StartTime  = Format(); return;
-                case 6 : this.ViewModel.Day_6_StartTime  = Format(); return;
-                case 7 : this.ViewModel.Day_7_StartTime  = Format(); return;
-                case 8 : this.ViewModel.Day_8_StartTime  = Format(); return;
-                case 9 : this.ViewModel.Day_9_StartTime  = Format(); return;
-                case 10: this.ViewModel.Day_10_StartTime = Format(); return;
-                case 11: this.ViewModel.Day_11_StartTime = Format(); return;
-                case 12: this.ViewModel.Day_12_StartTime = Format(); return;
-                case 13: this.ViewModel.Day_13_StartTime = Format(); return;
-                case 14: this.ViewModel.Day_14_StartTime = Format(); return;
-                case 15: this.ViewModel.Day_15_StartTime = Format(); return;
-                case 16: this.ViewModel.Day_16_StartTime = Format(); return;
-                case 17: this.ViewModel.Day_17_StartTime = Format(); return;
-                case 18: this.ViewModel.Day_18_StartTime = Format(); return;
-                case 19: this.ViewModel.Day_19_StartTime = Format(); return;
-                case 20: this.ViewModel.Day_20_StartTime = Format(); return;
-                case 21: this.ViewModel.Day_21_StartTime = Format(); return;
-                case 22: this.ViewModel.Day_22_StartTime = Format(); return;
-                case 23: this.ViewModel.Day_23_StartTime = Format(); return;
-                case 24: this.ViewModel.Day_24_StartTime = Format(); return;
-                case 25: this.ViewModel.Day_25_StartTime = Format(); return;
-                case 26: this.ViewModel.Day_26_StartTime = Format(); return;
-                case 27: this.ViewModel.Day_27_StartTime = Format(); return;
-                case 28: this.ViewModel.Day_28_StartTime = Format(); return;
-                case 29: this.ViewModel.Day_29_StartTime = Format(); return;
-                case 30: this.ViewModel.Day_30_StartTime = Format(); return;
-                case 31: this.ViewModel.Day_31_StartTime = Format(); return;
+                case 1 : this.ViewModel_Table.Day_1_StartTime  = Format(); return;
+                case 2 : this.ViewModel_Table.Day_2_StartTime  = Format(); return;
+                case 3 : this.ViewModel_Table.Day_3_StartTime  = Format(); return;
+                case 4 : this.ViewModel_Table.Day_4_StartTime  = Format(); return;
+                case 5 : this.ViewModel_Table.Day_5_StartTime  = Format(); return;
+                case 6 : this.ViewModel_Table.Day_6_StartTime  = Format(); return;
+                case 7 : this.ViewModel_Table.Day_7_StartTime  = Format(); return;
+                case 8 : this.ViewModel_Table.Day_8_StartTime  = Format(); return;
+                case 9 : this.ViewModel_Table.Day_9_StartTime  = Format(); return;
+                case 10: this.ViewModel_Table.Day_10_StartTime = Format(); return;
+                case 11: this.ViewModel_Table.Day_11_StartTime = Format(); return;
+                case 12: this.ViewModel_Table.Day_12_StartTime = Format(); return;
+                case 13: this.ViewModel_Table.Day_13_StartTime = Format(); return;
+                case 14: this.ViewModel_Table.Day_14_StartTime = Format(); return;
+                case 15: this.ViewModel_Table.Day_15_StartTime = Format(); return;
+                case 16: this.ViewModel_Table.Day_16_StartTime = Format(); return;
+                case 17: this.ViewModel_Table.Day_17_StartTime = Format(); return;
+                case 18: this.ViewModel_Table.Day_18_StartTime = Format(); return;
+                case 19: this.ViewModel_Table.Day_19_StartTime = Format(); return;
+                case 20: this.ViewModel_Table.Day_20_StartTime = Format(); return;
+                case 21: this.ViewModel_Table.Day_21_StartTime = Format(); return;
+                case 22: this.ViewModel_Table.Day_22_StartTime = Format(); return;
+                case 23: this.ViewModel_Table.Day_23_StartTime = Format(); return;
+                case 24: this.ViewModel_Table.Day_24_StartTime = Format(); return;
+                case 25: this.ViewModel_Table.Day_25_StartTime = Format(); return;
+                case 26: this.ViewModel_Table.Day_26_StartTime = Format(); return;
+                case 27: this.ViewModel_Table.Day_27_StartTime = Format(); return;
+                case 28: this.ViewModel_Table.Day_28_StartTime = Format(); return;
+                case 29: this.ViewModel_Table.Day_29_StartTime = Format(); return;
+                case 30: this.ViewModel_Table.Day_30_StartTime = Format(); return;
+                case 31: this.ViewModel_Table.Day_31_StartTime = Format(); return;
             }
 
             string Format()
@@ -265,37 +288,37 @@ namespace SalaryManager.WPF.Models
         {
             switch (day)
             {
-                case 1:  this.ViewModel.Day_1_EndTime  = Format(); return;
-                case 2:  this.ViewModel.Day_2_EndTime  = Format(); return;
-                case 3:  this.ViewModel.Day_3_EndTime  = Format(); return;
-                case 4:  this.ViewModel.Day_4_EndTime  = Format(); return;
-                case 5:  this.ViewModel.Day_5_EndTime  = Format(); return;
-                case 6:  this.ViewModel.Day_6_EndTime  = Format(); return;
-                case 7:  this.ViewModel.Day_7_EndTime  = Format(); return;
-                case 8:  this.ViewModel.Day_8_EndTime  = Format(); return;
-                case 9:  this.ViewModel.Day_9_EndTime  = Format(); return;
-                case 10: this.ViewModel.Day_10_EndTime = Format(); return;
-                case 11: this.ViewModel.Day_11_EndTime = Format(); return;
-                case 12: this.ViewModel.Day_12_EndTime = Format(); return;
-                case 13: this.ViewModel.Day_13_EndTime = Format(); return;
-                case 14: this.ViewModel.Day_14_EndTime = Format(); return;
-                case 15: this.ViewModel.Day_15_EndTime = Format(); return;
-                case 16: this.ViewModel.Day_16_EndTime = Format(); return;
-                case 17: this.ViewModel.Day_17_EndTime = Format(); return;
-                case 18: this.ViewModel.Day_18_EndTime = Format(); return;
-                case 19: this.ViewModel.Day_19_EndTime = Format(); return;
-                case 20: this.ViewModel.Day_20_EndTime = Format(); return;
-                case 21: this.ViewModel.Day_21_EndTime = Format(); return;
-                case 22: this.ViewModel.Day_22_EndTime = Format(); return;
-                case 23: this.ViewModel.Day_23_EndTime = Format(); return;
-                case 24: this.ViewModel.Day_24_EndTime = Format(); return;
-                case 25: this.ViewModel.Day_25_EndTime = Format(); return;
-                case 26: this.ViewModel.Day_26_EndTime = Format(); return;
-                case 27: this.ViewModel.Day_27_EndTime = Format(); return;
-                case 28: this.ViewModel.Day_28_EndTime = Format(); return;
-                case 29: this.ViewModel.Day_29_EndTime = Format(); return;
-                case 30: this.ViewModel.Day_30_EndTime = Format(); return;
-                case 31: this.ViewModel.Day_31_EndTime = Format(); return;
+                case 1:  this.ViewModel_Table.Day_1_EndTime  = Format(); return;
+                case 2:  this.ViewModel_Table.Day_2_EndTime  = Format(); return;
+                case 3:  this.ViewModel_Table.Day_3_EndTime  = Format(); return;
+                case 4:  this.ViewModel_Table.Day_4_EndTime  = Format(); return;
+                case 5:  this.ViewModel_Table.Day_5_EndTime  = Format(); return;
+                case 6:  this.ViewModel_Table.Day_6_EndTime  = Format(); return;
+                case 7:  this.ViewModel_Table.Day_7_EndTime  = Format(); return;
+                case 8:  this.ViewModel_Table.Day_8_EndTime  = Format(); return;
+                case 9:  this.ViewModel_Table.Day_9_EndTime  = Format(); return;
+                case 10: this.ViewModel_Table.Day_10_EndTime = Format(); return;
+                case 11: this.ViewModel_Table.Day_11_EndTime = Format(); return;
+                case 12: this.ViewModel_Table.Day_12_EndTime = Format(); return;
+                case 13: this.ViewModel_Table.Day_13_EndTime = Format(); return;
+                case 14: this.ViewModel_Table.Day_14_EndTime = Format(); return;
+                case 15: this.ViewModel_Table.Day_15_EndTime = Format(); return;
+                case 16: this.ViewModel_Table.Day_16_EndTime = Format(); return;
+                case 17: this.ViewModel_Table.Day_17_EndTime = Format(); return;
+                case 18: this.ViewModel_Table.Day_18_EndTime = Format(); return;
+                case 19: this.ViewModel_Table.Day_19_EndTime = Format(); return;
+                case 20: this.ViewModel_Table.Day_20_EndTime = Format(); return;
+                case 21: this.ViewModel_Table.Day_21_EndTime = Format(); return;
+                case 22: this.ViewModel_Table.Day_22_EndTime = Format(); return;
+                case 23: this.ViewModel_Table.Day_23_EndTime = Format(); return;
+                case 24: this.ViewModel_Table.Day_24_EndTime = Format(); return;
+                case 25: this.ViewModel_Table.Day_25_EndTime = Format(); return;
+                case 26: this.ViewModel_Table.Day_26_EndTime = Format(); return;
+                case 27: this.ViewModel_Table.Day_27_EndTime = Format(); return;
+                case 28: this.ViewModel_Table.Day_28_EndTime = Format(); return;
+                case 29: this.ViewModel_Table.Day_29_EndTime = Format(); return;
+                case 30: this.ViewModel_Table.Day_30_EndTime = Format(); return;
+                case 31: this.ViewModel_Table.Day_31_EndTime = Format(); return;
             }
             string Format()
                 => $"{endTime.Hour.ToString("00")}:{endTime.Minute.ToString("00")}";
@@ -310,37 +333,37 @@ namespace SalaryManager.WPF.Models
         {
             switch (day)
             {
-                case 1:  this.ViewModel.Day_1_LunchTime  = Format(); return;
-                case 2:  this.ViewModel.Day_2_LunchTime  = Format(); return;
-                case 3:  this.ViewModel.Day_3_LunchTime  = Format(); return;
-                case 4:  this.ViewModel.Day_4_LunchTime  = Format(); return;
-                case 5:  this.ViewModel.Day_5_LunchTime  = Format(); return;
-                case 6:  this.ViewModel.Day_6_LunchTime  = Format(); return;
-                case 7:  this.ViewModel.Day_7_LunchTime  = Format(); return;
-                case 8:  this.ViewModel.Day_8_LunchTime  = Format(); return;
-                case 9:  this.ViewModel.Day_9_LunchTime  = Format(); return;
-                case 10: this.ViewModel.Day_10_LunchTime = Format(); return;
-                case 11: this.ViewModel.Day_11_LunchTime = Format(); return;
-                case 12: this.ViewModel.Day_12_LunchTime = Format(); return;
-                case 13: this.ViewModel.Day_13_LunchTime = Format(); return;
-                case 14: this.ViewModel.Day_14_LunchTime = Format(); return;
-                case 15: this.ViewModel.Day_15_LunchTime = Format(); return;
-                case 16: this.ViewModel.Day_16_LunchTime = Format(); return;
-                case 17: this.ViewModel.Day_17_LunchTime = Format(); return;
-                case 18: this.ViewModel.Day_18_LunchTime = Format(); return;
-                case 19: this.ViewModel.Day_19_LunchTime = Format(); return;
-                case 20: this.ViewModel.Day_20_LunchTime = Format(); return;
-                case 21: this.ViewModel.Day_21_LunchTime = Format(); return;
-                case 22: this.ViewModel.Day_22_LunchTime = Format(); return;
-                case 23: this.ViewModel.Day_23_LunchTime = Format(); return;
-                case 24: this.ViewModel.Day_24_LunchTime = Format(); return;
-                case 25: this.ViewModel.Day_25_LunchTime = Format(); return;
-                case 26: this.ViewModel.Day_26_LunchTime = Format(); return;
-                case 27: this.ViewModel.Day_27_LunchTime = Format(); return;
-                case 28: this.ViewModel.Day_28_LunchTime = Format(); return;
-                case 29: this.ViewModel.Day_29_LunchTime = Format(); return;
-                case 30: this.ViewModel.Day_30_LunchTime = Format(); return;
-                case 31: this.ViewModel.Day_31_LunchTime = Format(); return;
+                case 1:  this.ViewModel_Table.Day_1_LunchTime  = Format(); return;
+                case 2:  this.ViewModel_Table.Day_2_LunchTime  = Format(); return;
+                case 3:  this.ViewModel_Table.Day_3_LunchTime  = Format(); return;
+                case 4:  this.ViewModel_Table.Day_4_LunchTime  = Format(); return;
+                case 5:  this.ViewModel_Table.Day_5_LunchTime  = Format(); return;
+                case 6:  this.ViewModel_Table.Day_6_LunchTime  = Format(); return;
+                case 7:  this.ViewModel_Table.Day_7_LunchTime  = Format(); return;
+                case 8:  this.ViewModel_Table.Day_8_LunchTime  = Format(); return;
+                case 9:  this.ViewModel_Table.Day_9_LunchTime  = Format(); return;
+                case 10: this.ViewModel_Table.Day_10_LunchTime = Format(); return;
+                case 11: this.ViewModel_Table.Day_11_LunchTime = Format(); return;
+                case 12: this.ViewModel_Table.Day_12_LunchTime = Format(); return;
+                case 13: this.ViewModel_Table.Day_13_LunchTime = Format(); return;
+                case 14: this.ViewModel_Table.Day_14_LunchTime = Format(); return;
+                case 15: this.ViewModel_Table.Day_15_LunchTime = Format(); return;
+                case 16: this.ViewModel_Table.Day_16_LunchTime = Format(); return;
+                case 17: this.ViewModel_Table.Day_17_LunchTime = Format(); return;
+                case 18: this.ViewModel_Table.Day_18_LunchTime = Format(); return;
+                case 19: this.ViewModel_Table.Day_19_LunchTime = Format(); return;
+                case 20: this.ViewModel_Table.Day_20_LunchTime = Format(); return;
+                case 21: this.ViewModel_Table.Day_21_LunchTime = Format(); return;
+                case 22: this.ViewModel_Table.Day_22_LunchTime = Format(); return;
+                case 23: this.ViewModel_Table.Day_23_LunchTime = Format(); return;
+                case 24: this.ViewModel_Table.Day_24_LunchTime = Format(); return;
+                case 25: this.ViewModel_Table.Day_25_LunchTime = Format(); return;
+                case 26: this.ViewModel_Table.Day_26_LunchTime = Format(); return;
+                case 27: this.ViewModel_Table.Day_27_LunchTime = Format(); return;
+                case 28: this.ViewModel_Table.Day_28_LunchTime = Format(); return;
+                case 29: this.ViewModel_Table.Day_29_LunchTime = Format(); return;
+                case 30: this.ViewModel_Table.Day_30_LunchTime = Format(); return;
+                case 31: this.ViewModel_Table.Day_31_LunchTime = Format(); return;
             }
 
             string Format()
@@ -355,37 +378,37 @@ namespace SalaryManager.WPF.Models
         {
             switch (entities.First().StartDate.Day)
             {
-                case 1:  this.ViewModel.Day_1_WorkingTime  = Format(); return;
-                case 2:  this.ViewModel.Day_2_WorkingTime  = Format(); return;
-                case 3:  this.ViewModel.Day_3_WorkingTime  = Format(); return;
-                case 4:  this.ViewModel.Day_4_WorkingTime  = Format(); return;
-                case 5:  this.ViewModel.Day_5_WorkingTime  = Format(); return;
-                case 6:  this.ViewModel.Day_6_WorkingTime  = Format(); return;
-                case 7:  this.ViewModel.Day_7_WorkingTime  = Format(); return;
-                case 8:  this.ViewModel.Day_8_WorkingTime  = Format(); return;
-                case 9:  this.ViewModel.Day_9_WorkingTime  = Format(); return;
-                case 10: this.ViewModel.Day_10_WorkingTime = Format(); return;
-                case 11: this.ViewModel.Day_11_WorkingTime = Format(); return;
-                case 12: this.ViewModel.Day_12_WorkingTime = Format(); return;
-                case 13: this.ViewModel.Day_13_WorkingTime = Format(); return;
-                case 14: this.ViewModel.Day_14_WorkingTime = Format(); return;
-                case 15: this.ViewModel.Day_15_WorkingTime = Format(); return;
-                case 16: this.ViewModel.Day_16_WorkingTime = Format(); return;
-                case 17: this.ViewModel.Day_17_WorkingTime = Format(); return;
-                case 18: this.ViewModel.Day_18_WorkingTime = Format(); return;
-                case 19: this.ViewModel.Day_19_WorkingTime = Format(); return;
-                case 20: this.ViewModel.Day_20_WorkingTime = Format(); return;
-                case 21: this.ViewModel.Day_21_WorkingTime = Format(); return;
-                case 22: this.ViewModel.Day_22_WorkingTime = Format(); return;
-                case 23: this.ViewModel.Day_23_WorkingTime = Format(); return;
-                case 24: this.ViewModel.Day_24_WorkingTime = Format(); return;
-                case 25: this.ViewModel.Day_25_WorkingTime = Format(); return;
-                case 26: this.ViewModel.Day_26_WorkingTime = Format(); return;
-                case 27: this.ViewModel.Day_27_WorkingTime = Format(); return;
-                case 28: this.ViewModel.Day_28_WorkingTime = Format(); return;
-                case 29: this.ViewModel.Day_29_WorkingTime = Format(); return;
-                case 30: this.ViewModel.Day_30_WorkingTime = Format(); return;
-                case 31: this.ViewModel.Day_31_WorkingTime = Format(); return;
+                case 1:  this.ViewModel_Table.Day_1_WorkingTime  = Format(); return;
+                case 2:  this.ViewModel_Table.Day_2_WorkingTime  = Format(); return;
+                case 3:  this.ViewModel_Table.Day_3_WorkingTime  = Format(); return;
+                case 4:  this.ViewModel_Table.Day_4_WorkingTime  = Format(); return;
+                case 5:  this.ViewModel_Table.Day_5_WorkingTime  = Format(); return;
+                case 6:  this.ViewModel_Table.Day_6_WorkingTime  = Format(); return;
+                case 7:  this.ViewModel_Table.Day_7_WorkingTime  = Format(); return;
+                case 8:  this.ViewModel_Table.Day_8_WorkingTime  = Format(); return;
+                case 9:  this.ViewModel_Table.Day_9_WorkingTime  = Format(); return;
+                case 10: this.ViewModel_Table.Day_10_WorkingTime = Format(); return;
+                case 11: this.ViewModel_Table.Day_11_WorkingTime = Format(); return;
+                case 12: this.ViewModel_Table.Day_12_WorkingTime = Format(); return;
+                case 13: this.ViewModel_Table.Day_13_WorkingTime = Format(); return;
+                case 14: this.ViewModel_Table.Day_14_WorkingTime = Format(); return;
+                case 15: this.ViewModel_Table.Day_15_WorkingTime = Format(); return;
+                case 16: this.ViewModel_Table.Day_16_WorkingTime = Format(); return;
+                case 17: this.ViewModel_Table.Day_17_WorkingTime = Format(); return;
+                case 18: this.ViewModel_Table.Day_18_WorkingTime = Format(); return;
+                case 19: this.ViewModel_Table.Day_19_WorkingTime = Format(); return;
+                case 20: this.ViewModel_Table.Day_20_WorkingTime = Format(); return;
+                case 21: this.ViewModel_Table.Day_21_WorkingTime = Format(); return;
+                case 22: this.ViewModel_Table.Day_22_WorkingTime = Format(); return;
+                case 23: this.ViewModel_Table.Day_23_WorkingTime = Format(); return;
+                case 24: this.ViewModel_Table.Day_24_WorkingTime = Format(); return;
+                case 25: this.ViewModel_Table.Day_25_WorkingTime = Format(); return;
+                case 26: this.ViewModel_Table.Day_26_WorkingTime = Format(); return;
+                case 27: this.ViewModel_Table.Day_27_WorkingTime = Format(); return;
+                case 28: this.ViewModel_Table.Day_28_WorkingTime = Format(); return;
+                case 29: this.ViewModel_Table.Day_29_WorkingTime = Format(); return;
+                case 30: this.ViewModel_Table.Day_30_WorkingTime = Format(); return;
+                case 31: this.ViewModel_Table.Day_31_WorkingTime = Format(); return;
             }
 
             string Format()
@@ -411,37 +434,37 @@ namespace SalaryManager.WPF.Models
 
             switch (startDate.Day)
             {
-                case 1:  this.ViewModel.Day_1_Overtime  = Format(); return;
-                case 2:  this.ViewModel.Day_2_Overtime  = Format(); return;
-                case 3:  this.ViewModel.Day_3_Overtime  = Format(); return;
-                case 4:  this.ViewModel.Day_4_Overtime  = Format(); return;
-                case 5:  this.ViewModel.Day_5_Overtime  = Format(); return;
-                case 6:  this.ViewModel.Day_6_Overtime  = Format(); return;
-                case 7:  this.ViewModel.Day_7_Overtime  = Format(); return;
-                case 8:  this.ViewModel.Day_8_Overtime  = Format(); return;
-                case 9:  this.ViewModel.Day_9_Overtime  = Format(); return;
-                case 10: this.ViewModel.Day_10_Overtime = Format(); return;
-                case 11: this.ViewModel.Day_11_Overtime = Format(); return;
-                case 12: this.ViewModel.Day_12_Overtime = Format(); return;
-                case 13: this.ViewModel.Day_13_Overtime = Format(); return;
-                case 14: this.ViewModel.Day_14_Overtime = Format(); return;
-                case 15: this.ViewModel.Day_15_Overtime = Format(); return;
-                case 16: this.ViewModel.Day_16_Overtime = Format(); return;
-                case 17: this.ViewModel.Day_17_Overtime = Format(); return;
-                case 18: this.ViewModel.Day_18_Overtime = Format(); return;
-                case 19: this.ViewModel.Day_19_Overtime = Format(); return;
-                case 20: this.ViewModel.Day_20_Overtime = Format(); return;
-                case 21: this.ViewModel.Day_21_Overtime = Format(); return;
-                case 22: this.ViewModel.Day_22_Overtime = Format(); return;
-                case 23: this.ViewModel.Day_23_Overtime = Format(); return;
-                case 24: this.ViewModel.Day_24_Overtime = Format(); return;
-                case 25: this.ViewModel.Day_25_Overtime = Format(); return;
-                case 26: this.ViewModel.Day_26_Overtime = Format(); return;
-                case 27: this.ViewModel.Day_27_Overtime = Format(); return;
-                case 28: this.ViewModel.Day_28_Overtime = Format(); return;
-                case 29: this.ViewModel.Day_29_Overtime = Format(); return;
-                case 30: this.ViewModel.Day_30_Overtime = Format(); return;
-                case 31: this.ViewModel.Day_31_Overtime = Format(); return;
+                case 1:  this.ViewModel_Table.Day_1_Overtime  = Format(); return;
+                case 2:  this.ViewModel_Table.Day_2_Overtime  = Format(); return;
+                case 3:  this.ViewModel_Table.Day_3_Overtime  = Format(); return;
+                case 4:  this.ViewModel_Table.Day_4_Overtime  = Format(); return;
+                case 5:  this.ViewModel_Table.Day_5_Overtime  = Format(); return;
+                case 6:  this.ViewModel_Table.Day_6_Overtime  = Format(); return;
+                case 7:  this.ViewModel_Table.Day_7_Overtime  = Format(); return;
+                case 8:  this.ViewModel_Table.Day_8_Overtime  = Format(); return;
+                case 9:  this.ViewModel_Table.Day_9_Overtime  = Format(); return;
+                case 10: this.ViewModel_Table.Day_10_Overtime = Format(); return;
+                case 11: this.ViewModel_Table.Day_11_Overtime = Format(); return;
+                case 12: this.ViewModel_Table.Day_12_Overtime = Format(); return;
+                case 13: this.ViewModel_Table.Day_13_Overtime = Format(); return;
+                case 14: this.ViewModel_Table.Day_14_Overtime = Format(); return;
+                case 15: this.ViewModel_Table.Day_15_Overtime = Format(); return;
+                case 16: this.ViewModel_Table.Day_16_Overtime = Format(); return;
+                case 17: this.ViewModel_Table.Day_17_Overtime = Format(); return;
+                case 18: this.ViewModel_Table.Day_18_Overtime = Format(); return;
+                case 19: this.ViewModel_Table.Day_19_Overtime = Format(); return;
+                case 20: this.ViewModel_Table.Day_20_Overtime = Format(); return;
+                case 21: this.ViewModel_Table.Day_21_Overtime = Format(); return;
+                case 22: this.ViewModel_Table.Day_22_Overtime = Format(); return;
+                case 23: this.ViewModel_Table.Day_23_Overtime = Format(); return;
+                case 24: this.ViewModel_Table.Day_24_Overtime = Format(); return;
+                case 25: this.ViewModel_Table.Day_25_Overtime = Format(); return;
+                case 26: this.ViewModel_Table.Day_26_Overtime = Format(); return;
+                case 27: this.ViewModel_Table.Day_27_Overtime = Format(); return;
+                case 28: this.ViewModel_Table.Day_28_Overtime = Format(); return;
+                case 29: this.ViewModel_Table.Day_29_Overtime = Format(); return;
+                case 30: this.ViewModel_Table.Day_30_Overtime = Format(); return;
+                case 31: this.ViewModel_Table.Day_31_Overtime = Format(); return;
             }
 
             string Format()
@@ -462,42 +485,42 @@ namespace SalaryManager.WPF.Models
         private void InputRemarks(List<CalendarEventEntity> entities, int day)
         {
             var startDate = entities.First().StartDate;
-            var workingPlace = this.SearchWorkingPlace(entities, new DateTime(startDate.Year, startDate.Month, day));
+            //var workingPlace = this.SearchWorkingPlace(entities, new DateTime(startDate.Year, startDate.Month, day));
             var home = Homes.FetchByDate(new DateTime(startDate.Year, startDate.Month, day));
 
             switch (startDate.Day)
             {
-                case 1:  this.ViewModel.Day_1_Remarks  = Format(); return;
-                case 2:  this.ViewModel.Day_2_Remarks  = Format(); return;
-                case 3:  this.ViewModel.Day_3_Remarks  = Format(); return;
-                case 4:  this.ViewModel.Day_4_Remarks  = Format(); return;
-                case 5:  this.ViewModel.Day_5_Remarks  = Format(); return;
-                case 6:  this.ViewModel.Day_6_Remarks  = Format(); return;
-                case 7:  this.ViewModel.Day_7_Remarks  = Format(); return;
-                case 8:  this.ViewModel.Day_8_Remarks  = Format(); return;
-                case 9:  this.ViewModel.Day_9_Remarks  = Format(); return;
-                case 10: this.ViewModel.Day_10_Remarks = Format(); return;
-                case 11: this.ViewModel.Day_11_Remarks = Format(); return;
-                case 12: this.ViewModel.Day_12_Remarks = Format(); return;
-                case 13: this.ViewModel.Day_13_Remarks = Format(); return;
-                case 14: this.ViewModel.Day_14_Remarks = Format(); return;
-                case 15: this.ViewModel.Day_15_Remarks = Format(); return;
-                case 16: this.ViewModel.Day_16_Remarks = Format(); return;
-                case 17: this.ViewModel.Day_17_Remarks = Format(); return;
-                case 18: this.ViewModel.Day_18_Remarks = Format(); return;
-                case 19: this.ViewModel.Day_19_Remarks = Format(); return;
-                case 20: this.ViewModel.Day_20_Remarks = Format(); return;
-                case 21: this.ViewModel.Day_21_Remarks = Format(); return;
-                case 22: this.ViewModel.Day_22_Remarks = Format(); return;
-                case 23: this.ViewModel.Day_23_Remarks = Format(); return;
-                case 24: this.ViewModel.Day_24_Remarks = Format(); return;
-                case 25: this.ViewModel.Day_25_Remarks = Format(); return;
-                case 26: this.ViewModel.Day_26_Remarks = Format(); return;
-                case 27: this.ViewModel.Day_27_Remarks = Format(); return;
-                case 28: this.ViewModel.Day_28_Remarks = Format(); return;
-                case 29: this.ViewModel.Day_29_Remarks = Format(); return;
-                case 30: this.ViewModel.Day_30_Remarks = Format(); return;
-                case 31: this.ViewModel.Day_31_Remarks = Format(); return;
+                case 1:  this.ViewModel_Table.Day_1_Remarks  = Format(); return;
+                case 2:  this.ViewModel_Table.Day_2_Remarks  = Format(); return;
+                case 3:  this.ViewModel_Table.Day_3_Remarks  = Format(); return;
+                case 4:  this.ViewModel_Table.Day_4_Remarks  = Format(); return;
+                case 5:  this.ViewModel_Table.Day_5_Remarks  = Format(); return;
+                case 6:  this.ViewModel_Table.Day_6_Remarks  = Format(); return;
+                case 7:  this.ViewModel_Table.Day_7_Remarks  = Format(); return;
+                case 8:  this.ViewModel_Table.Day_8_Remarks  = Format(); return;
+                case 9:  this.ViewModel_Table.Day_9_Remarks  = Format(); return;
+                case 10: this.ViewModel_Table.Day_10_Remarks = Format(); return;
+                case 11: this.ViewModel_Table.Day_11_Remarks = Format(); return;
+                case 12: this.ViewModel_Table.Day_12_Remarks = Format(); return;
+                case 13: this.ViewModel_Table.Day_13_Remarks = Format(); return;
+                case 14: this.ViewModel_Table.Day_14_Remarks = Format(); return;
+                case 15: this.ViewModel_Table.Day_15_Remarks = Format(); return;
+                case 16: this.ViewModel_Table.Day_16_Remarks = Format(); return;
+                case 17: this.ViewModel_Table.Day_17_Remarks = Format(); return;
+                case 18: this.ViewModel_Table.Day_18_Remarks = Format(); return;
+                case 19: this.ViewModel_Table.Day_19_Remarks = Format(); return;
+                case 20: this.ViewModel_Table.Day_20_Remarks = Format(); return;
+                case 21: this.ViewModel_Table.Day_21_Remarks = Format(); return;
+                case 22: this.ViewModel_Table.Day_22_Remarks = Format(); return;
+                case 23: this.ViewModel_Table.Day_23_Remarks = Format(); return;
+                case 24: this.ViewModel_Table.Day_24_Remarks = Format(); return;
+                case 25: this.ViewModel_Table.Day_25_Remarks = Format(); return;
+                case 26: this.ViewModel_Table.Day_26_Remarks = Format(); return;
+                case 27: this.ViewModel_Table.Day_27_Remarks = Format(); return;
+                case 28: this.ViewModel_Table.Day_28_Remarks = Format(); return;
+                case 29: this.ViewModel_Table.Day_29_Remarks = Format(); return;
+                case 30: this.ViewModel_Table.Day_30_Remarks = Format(); return;
+                case 31: this.ViewModel_Table.Day_31_Remarks = Format(); return;
             }
 
             string Format()
@@ -560,7 +583,12 @@ namespace SalaryManager.WPF.Models
                         .Select(x => (x.EndDate.Hour - x.StartDate.Hour,
                                                        x.EndDate.Minute - x.StartDate.Minute)).FirstOrDefault());
 
+        
+
         /// <summary> ViewModel - 勤務表 </summary>
-        internal ViewModel_WorkSchedule_Table ViewModel { get; set; }
+        internal ViewModel_WorkSchedule_Table ViewModel_Table { get; set; }
+
+        /// <summary> ViewModel - 勤務表 </summary>
+        internal ViewModel_WorkSchedule_Header ViewModel_Header { get; set; }
     }
 }

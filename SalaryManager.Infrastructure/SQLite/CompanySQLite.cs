@@ -73,7 +73,7 @@ Where ID = @ID";
                 null);
         }
 
-        public void Save(CompanyEntity entity)
+        public void Save(SQLiteTransaction transaction, CompanyEntity entity)
         {
             string insert = @"
 insert into Company
@@ -117,7 +117,25 @@ where ID = @ID
                 new SQLiteParameter("Remarks",           entity.Remarks),
             };
 
-            SQLiteHelper.Execute(insert, update, args.ToArray());
+            transaction.Execute(insert, update, args.ToArray());
+        }
+
+        public void SaveAddress(SQLiteTransaction transaction, CompanyEntity entity)
+        {
+            string update = @"
+update WorkingPlace
+set WorkingPlace_Address    = @WorkingPlace_Address
+where WorkingPlace_Name = @WorkingPlace_Name
+"
+            ;
+
+            var args = new List<SQLiteParameter>()
+            {
+                new SQLiteParameter("WorkingPlace_Address", entity.Address_Google),
+                new SQLiteParameter("WorkingPlace_Name",    entity.CompanyName),
+            };
+
+            transaction.Execute(update, args.ToArray());
         }
 
         public void Delete(int id)
@@ -134,5 +152,11 @@ where ID = @ID
 
             SQLiteHelper.Execute(delete, args.ToArray());
         }
+
+        public void Save(ITransactionRepository transaction, CompanyEntity entity)
+            => this.Save((SQLiteTransaction)transaction, entity);
+
+        public void SaveAddress(ITransactionRepository transaction, CompanyEntity entity)
+            => this.SaveAddress((SQLiteTransaction)transaction, entity);
     }
 }

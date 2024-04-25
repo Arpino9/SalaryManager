@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Media;
 using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Domain.Repositories;
@@ -100,12 +101,23 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.WorkPlace = entity.WorkPlace;
 
             // 所属会社名
+            WorkingPlace.Create(new WorkingPlaceSQLite());
             Careers.Create(new CareerSQLite());
 
-            var company = Careers.FetchCompany(new DateTime(this.Header.Year_Value, this.Header.Month_Value, 1));
-            this.ViewModel.CompanyName = company;
+            var workingPlace = WorkingPlace.FetchByDate(new DateTime(this.Header.Year_Value, this.Header.Month_Value, 1));
 
-            if (company == CompanyNameValue.Undefined.DisplayValue)
+            if (workingPlace.Any()) 
+            {
+                this.ViewModel.CompanyName = workingPlace.FirstOrDefault().DispatchingCompany.Text;
+                this.ViewModel.WorkPlace   = workingPlace.FirstOrDefault().WorkingPlace_Name.Text;
+            }
+            else
+            {
+                this.ViewModel.CompanyName = CompanyNameValue.Undefined.DisplayValue;
+                this.ViewModel.WorkPlace   = CompanyNameValue.Undefined.DisplayValue;
+            }
+            
+            if (this.ViewModel.CompanyName == CompanyNameValue.Undefined.DisplayValue)
             {
                 this.ViewModel.CompanyName_Foreground = new SolidColorBrush(Colors.Gray);
             }

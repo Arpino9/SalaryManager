@@ -20,6 +20,11 @@ namespace SalaryManager.Domain.Repositories
         CompanyEntity GetEntity(int id);
 
         public void Save(
+            ITransactionRepository transaction,
+            CompanyEntity entity);
+
+        public void SaveAddress(
+            ITransactionRepository transaction,
             CompanyEntity entity);
 
         /// <summary>

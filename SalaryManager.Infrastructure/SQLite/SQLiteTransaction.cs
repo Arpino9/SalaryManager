@@ -33,6 +33,27 @@ namespace SalaryManager.Infrastructure.SQLite
             _transaction = _connection.BeginTransaction();
         }
 
+        public void Execute(string update, SQLiteParameter[] parameters)
+        {
+            if (_connection is null)
+            {
+                return;
+            }
+
+            _command = new SQLiteCommand(update, _connection);
+            _command.Parameters.AddRange(parameters);
+            //_command.CommandText = update;
+
+            var result = _command.ExecuteNonQuery();
+
+            /*if (result != 1)
+            {
+                _transaction.Rollback();
+
+                throw new SQLiteException("データが更新できませんでした。");
+            }*/
+        }
+
         /// <summary>
         /// 実行
         /// </summary>
@@ -41,9 +62,9 @@ namespace SalaryManager.Infrastructure.SQLite
         /// <param name="parameters">パラメーター</param>
         /// <exception cref="SQLiteException">追加・更新に失敗した場合</exception>
         public void Execute(
-            string insert,
-            string update,
-            SQLiteParameter[] parameters)
+        string insert,
+        string update,
+        SQLiteParameter[] parameters)
         {
             if (_connection is null)
             {

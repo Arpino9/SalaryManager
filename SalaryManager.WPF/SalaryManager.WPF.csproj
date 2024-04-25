@@ -178,6 +178,7 @@
     <Compile Include="ViewModels\ViewModel_ImageViewer.cs" />
     <Compile Include="ViewModels\ViewModel_PDFOption.cs" />
     <Compile Include="ViewModels\ViewModel_SpreadSheetOption.cs" />
+    <Compile Include="ViewModels\ViewModel_WorkSchedule_Header.cs" />
     <Compile Include="ViewModels\ViewModel_WorkSchedule_Table.cs" />
     <Compile Include="Window\Career.xaml.cs">
       <DependentUpon>Career.xaml</DependentUpon>

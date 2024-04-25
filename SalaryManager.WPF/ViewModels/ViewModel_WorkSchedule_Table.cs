@@ -9,6 +9,7 @@ namespace SalaryManager.WPF.ViewModels
     /// </summary>
     public class ViewModel_WorkSchedule_Table : INotifyPropertyChanged
     {
+
         #region Property Changed
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -23,9 +24,9 @@ namespace SalaryManager.WPF.ViewModels
 
         public ViewModel_WorkSchedule_Table()
         {
-            this.Model.ViewModel = this;
+            this.Model.ViewModel_Table = this;
 
-            this.Model.Initialize();
+            this.Model.Initialize_Table();
         }
 
         /// <summary>

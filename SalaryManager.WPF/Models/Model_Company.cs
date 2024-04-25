@@ -7,6 +7,7 @@ using SalaryManager.Domain.Repositories;
 using SalaryManager.Domain.StaticValues;
 using SalaryManager.Domain.ValueObjects;
 using SalaryManager.Infrastructure.Interface;
+using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.ViewModels;
 
 namespace SalaryManager.WPF.Models
@@ -19,7 +20,6 @@ namespace SalaryManager.WPF.Models
         #region Get Instance
 
         private static Model_Company model = null;
-
 
         public static Model_Company GetInstance(ICompanyRepository repository)
         {
@@ -233,9 +233,15 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Save()
         {
-            foreach (var entity in this.ViewModel.Companies_ItemSource)
+            using (var transaction = new SQLiteTransaction())
             {
-                _repository.Save(entity);
+                foreach (var entity in this.ViewModel.Companies_ItemSource)
+                {
+                    _repository.Save(transaction, entity);
+                    _repository.SaveAddress(transaction, entity);
+                }
+
+                transaction.Commit();
             }
 
             this.Reload();

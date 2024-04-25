@@ -55,7 +55,7 @@ FROM WorkingPlace";
                                Convert.ToBoolean(reader["IsWaiting"]),
                                Convert.ToBoolean(reader["IsWorking"]),
                                Convert.ToInt32(reader["WorkingStartTime_Hour"]), 
-                               Convert.ToInt32(reader["WorkingEndTime_Minute"]),
+                               Convert.ToInt32(reader["WorkingStartTime_Minute"]),
                                Convert.ToInt32(reader["WorkingEndTime_Hour"]), 
                                Convert.ToInt32(reader["WorkingEndTime_Minute"]),
                                Convert.ToInt32(reader["LunchStartTime_Hour"]), 
