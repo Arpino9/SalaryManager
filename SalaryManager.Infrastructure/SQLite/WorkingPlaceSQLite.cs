@@ -4,7 +4,6 @@ using SalaryManager.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Runtime.InteropServices.ComTypes;
 
 namespace SalaryManager.Infrastructure.SQLite
 {
@@ -248,6 +247,111 @@ where ID = @ID
             };
 
             SQLiteHelper.Execute(insert, update, args.ToArray());
+        }
+
+        /// <summary>
+        /// 派遣元会社名の更新
+        /// </summary>
+        /// <param name="transaction">トランザクション</param>
+        /// <param name="oldName">更新前の名称</param>
+        /// <param name="newName">更新後の名称</param>
+        public void UpdateDispatchingCompanyName(SQLiteTransaction transaction, string oldName, string newName)
+        {
+            string update = @"
+update WorkingPlace
+set DispatchingCompany   = @NewCompanyName
+where DispatchingCompany = @OldCompanyName
+";
+
+            this.UpdateCompanyName(transaction, update, oldName, newName);
+        }
+
+        /// <summary>
+        /// 派遣先会社名の更新
+        /// </summary>
+        /// <param name="transaction">トランザクション</param>
+        /// <param name="oldName">更新前の名称</param>
+        /// <param name="newName">更新後の名称</param>
+        public void UpdateDispatchedCompanyName(SQLiteTransaction transaction, string oldName, string newName)
+        {
+            string update = @"
+update WorkingPlace
+set DispatchedCompany   = @NewCompanyName
+where DispatchedCompany = @OldCompanyName
+";
+
+            this.UpdateCompanyName(transaction, update, oldName, newName);
+        }
+
+        /// <summary>
+        /// 就業先(名称)の更新
+        /// </summary>
+        /// <param name="transaction">トランザクション</param>
+        /// <param name="oldName">更新前の名称</param>
+        /// <param name="newName">更新後の名称</param>
+        public void UpdateWorkingPlaceName(SQLiteTransaction transaction, string oldName, string newName)
+        {
+            string update = @"
+update WorkingPlace
+set WorkingPlace_Name   = @NewCompanyName
+where WorkingPlace_Name = @OldCompanyName
+";
+
+            this.UpdateCompanyName(transaction, update, oldName, newName);
+        }
+
+        /// <summary>
+        /// 会社名の更新
+        /// </summary>
+        /// <param name="transaction">トランザクション</param>
+        /// <param name="updateSQL">UPDATE文</param>
+        /// <param name="oldName">更新前の名称</param>
+        /// <param name="newName">更新後の名称</param>
+        public void UpdateCompanyName(
+            SQLiteTransaction transaction, string updateSQL, string oldName, string newName)
+        {
+            var args = new List<SQLiteParameter>()
+            {
+                new SQLiteParameter("OldCompanyName", oldName),
+                new SQLiteParameter("NewCompanyName", newName),
+            };
+
+            transaction.Execute(updateSQL, args.ToArray());
+        }
+
+        /// <summary>
+        /// 会社名の更新
+        /// </summary>
+        /// <param name="transaction">トランザクション</param>
+        /// <param name="oldName">更新前の名称</param>
+        /// <param name="newName">更新後の名称</param>
+        public void UpdateCompanyName(ITransactionRepository transaction, string oldName, string newName)
+        {
+            this.UpdateDispatchingCompanyName((SQLiteTransaction)transaction, oldName, newName);
+            this.UpdateDispatchedCompanyName((SQLiteTransaction)transaction, oldName, newName);
+            this.UpdateWorkingPlaceName((SQLiteTransaction)transaction, oldName, newName);
+        }
+
+        /// <summary>
+        /// 会社の住所の更新
+        /// </summary>
+        /// <param name="oldAddress">更新前の名称</param>
+        /// <param name="newAddress">更新後の名称</param>
+        public void UpdateCompanyAddress(string oldAddress, string newAddress)
+        {
+            string update = @"
+update WorkingPlace
+set WorkingPlace_Address   = @NewCompanyAddress
+where WorkingPlace_Address = @OldCompanyAddress
+";
+
+            var args = new List<SQLiteParameter>()
+            {
+                new SQLiteParameter("OldCompanyAddress", oldAddress),
+                new SQLiteParameter("NewCompanyAddress", newAddress),
+            };
+
+            SQLiteHelper.Execute(update, args.ToArray());
         }
 
         public void Delete(

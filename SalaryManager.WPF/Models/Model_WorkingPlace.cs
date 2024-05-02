@@ -461,5 +461,20 @@ namespace SalaryManager.WPF.Models
 
             this.Reload();
         }
+
+        public void UpdateCompanyName(string oldName, string newName)
+        {
+            using (var transaction = new SQLiteTransaction())
+            {
+                _repository.UpdateCompanyName(transaction, oldName, newName);
+
+                transaction.Commit();
+            }
+        }
+
+        public void UpdateCompanyAddress(string oldAddress, string newAddress)
+        {
+            _repository.UpdateCompanyAddress(oldAddress, newAddress);
+        }
     }
 }

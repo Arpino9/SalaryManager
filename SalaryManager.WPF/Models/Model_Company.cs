@@ -161,8 +161,14 @@ namespace SalaryManager.WPF.Models
             this.EnableControlButton();
         }
 
+        /// <summary> 会社名(更新前) </summary>
+        private string CompanyName_Prev;
+        
+        /// <summary> 会社の住所(更新前) </summary>
+        private string CompanyAddress_Prev;
+
         /// <summary>
-        /// 経歴 - SelectionChanged
+        /// 会社一覧 - SelectionChanged
         /// </summary>
         public void Companies_SelectionChanged()
         {
@@ -186,6 +192,9 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.BusinessCategory_Middle_Text = entity.BusinessCategory.MiddleName;
             // 会社名
             this.ViewModel.CompanyName_Text    = entity.CompanyName;
+            this.CompanyName_Prev              = entity.CompanyName;
+            this.CompanyAddress_Prev           = entity.Address_Google;
+
             // 郵便番号
             this.ViewModel.PostCode_Text       = entity.PostCode;
             // 住所
@@ -244,7 +253,43 @@ namespace SalaryManager.WPF.Models
                 transaction.Commit();
             }
 
+            this.AddtionalUpdate();
+
             this.Reload();
+        }
+
+        /// <summary> Model </summary>
+        public Model_WorkingPlace Model_WorkingPlace { get; set; } = Model_WorkingPlace.GetInstance(new WorkingPlaceSQLite());
+
+        /// <summary>
+        /// 追加更新
+        /// </summary>
+        public void AddtionalUpdate()
+        {
+            IWorkingPlaceRepository workingPlaceRepository = new WorkingPlaceSQLite();
+
+            if (string.IsNullOrEmpty(this.CompanyName_Prev) == false &&
+                string.IsNullOrEmpty(this.ViewModel.CompanyName_Text) == false &&
+                this.CompanyName_Prev != this.ViewModel.CompanyName_Text)
+            {
+                // 会社名が変更された場合
+                this.Model_WorkingPlace.UpdateCompanyName(this.CompanyName_Prev, this.ViewModel.CompanyName_Text);
+
+                using (var transaction = new SQLiteTransaction())
+                {
+                    workingPlaceRepository.UpdateCompanyName(transaction, CompanyName_Prev, this.ViewModel.CompanyName_Text);
+                    
+                    transaction.Commit();
+                }
+            }
+
+            if (string.IsNullOrEmpty(this.CompanyAddress_Prev) == false &&
+                string.IsNullOrEmpty(this.ViewModel.Address_Google_Text) == false &&
+                this.CompanyAddress_Prev != this.ViewModel.Address_Google_Text)
+            {
+                // 会社の住所が変更された場合
+                workingPlaceRepository.UpdateCompanyAddress(this.CompanyAddress_Prev, this.ViewModel.Address_Google_Text);
+            }
         }
 
         /// <summary>

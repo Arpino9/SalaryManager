@@ -235,6 +235,18 @@ namespace SalaryManager.WPF.Models
             return holidays.Where(x => x.Date == date).Any();
         }
 
+        /// <summary>
+        /// 祝日の名称を取得
+        /// </summary>
+        /// <param name="date">日付</param>
+        /// <returns>祝日か</returns>
+        private string GetHolidayName(DateTime date)
+        {
+            var holidays = JSONExtension.DeserializeSettings<IReadOnlyList<JSONProperty_Holiday>>(FilePath.GetJSONHolidayDefaultPath());
+
+            return holidays.Where(x => x.Date == date).FirstOrDefault().Name;
+        }
+
         private void Clear()
         {
             // 日付
@@ -802,7 +814,12 @@ namespace SalaryManager.WPF.Models
             {
                 var date = this.ConvertDayToDate(day);
 
-                if (new DateValue(date).IsWeekend || this.IsHoliday(date))
+                if (this.IsHoliday(date))
+                {
+                    return $"休日 ({this.GetHolidayName(date)})";
+                }
+
+                if (new DateValue(date).IsWeekend)
                 {
                     return "休日";
                 }
@@ -811,7 +828,15 @@ namespace SalaryManager.WPF.Models
 
                 if (this.IsA_Working(workingPlace))
                 {
-                    return this.IsPaidVacation(date) ? "Ａ勤務　年次有給休暇（有休）" : "Ａ勤務";
+                    return this.IsPaidVacation(date) ? "A勤務　年次有給休暇（有休）" : "A勤務";
+                }
+                else if (this.IsB_Working(workingPlace))
+                {
+                    return this.IsPaidVacation(date) ? "B勤務　年次有給休暇（有休）" : "B勤務";
+                }
+                else if (this.IsC_Working(workingPlace))
+                {
+                    return this.IsPaidVacation(date) ? "C勤務　年次有給休暇（有休）" : "C勤務";
                 }
 
                 return string.Empty;
@@ -1052,7 +1077,25 @@ namespace SalaryManager.WPF.Models
         /// <returns>A勤務か</returns>
         private bool IsA_Working(WorkingPlaceEntity workingPlace)
             => workingPlace?.WorkingTime.Start.Hours == 9 &&
-               workingPlace?.WorkingTime.End.Hours   == 18;
+               workingPlace?.WorkingTime.End.Hours   <= 18;
+
+        /// <summary>
+        /// 指定した日がB勤務か
+        /// </summary>
+        /// <param name="workingPlace">就業場所</param>
+        /// <returns>B勤務か</returns>
+        private bool IsB_Working(WorkingPlaceEntity workingPlace)
+            => workingPlace?.WorkingTime.Start.Hours == 10 &&
+               workingPlace?.WorkingTime.End.Hours   <= 19;
+
+        /// <summary>
+        /// 指定した日がC勤務か
+        /// </summary>
+        /// <param name="workingPlace">就業場所</param>
+        /// <returns>B勤務か</returns>
+        private bool IsC_Working(WorkingPlaceEntity workingPlace)
+            => workingPlace?.WorkingTime.Start.Hours == 11 &&
+               workingPlace?.WorkingTime.End.Hours   <= 20;
 
         /// <summary>
         /// 指定した日が年休取得日か 
