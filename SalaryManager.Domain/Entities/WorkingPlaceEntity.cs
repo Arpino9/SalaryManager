@@ -171,8 +171,16 @@ namespace SalaryManager.Domain.Entities
         /// <summary> 備考 </summary>
         public string Remarks { get; }
 
-        /// <summary> 労働時間 </summary>
-        public TimeSpan WorkTime
-            => (WorkingTime.End - WorkingTime.Start) - (LunchTime.End - LunchTime.Start);
+        /// <summary> 名目労働時間 </summary>
+        public TimeSpan NominalWorkTimeSpan
+            => this.WorkingTime.End - this.WorkingTime.Start;
+
+        /// <summary> 実働労働時間 </summary>
+        public TimeSpan ActualWorkTimeSpan
+            => this.NominalWorkTimeSpan - this.LunchTimeSpan;
+
+        /// <summary> 昼休憩時間 </summary>
+        public TimeSpan LunchTimeSpan
+            => (this.LunchTime.End - this.LunchTime.Start);
     }
 }

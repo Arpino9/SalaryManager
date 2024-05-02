@@ -131,14 +131,17 @@ namespace SalaryManager.WPF.Models
                 this.InputEndTime(day, endTime);
 
                 // 勤務時間
-                this.InputWorkingTime(day, startTime, lunchTime, endTime);
+                this.InputWorkingTime(day, startTime, endTime);
 
                 // 残業時間
-                this.InputOvertime(day);
+                this.InputOvertime(day, startTime, endTime);
 
                 // 備考
                 this.InputRemarks(day, startTime, endTime, entities.First().Place);
             }
+
+            // 勤務日数
+            this.ViewModel_Header.WorkDaysTotal_Text = this.WorkDaysTotal.ToString();
 
             // 合計 - 勤務時間
             this.ViewModel_Header.WorkingTimeTotal_Text = Math.Truncate(this.ViewModel_Header.WorkingTimeTotal.TotalHours) + ":" + 
@@ -429,6 +432,7 @@ namespace SalaryManager.WPF.Models
 
             // 勤務時間
             this.ViewModel_Header.WorkingTimeTotal = new TimeSpan();
+            this.WorkDaysTotal = 0;
 
             this.ViewModel_Table.Day_1_WorkingTime  = string.Empty;
             this.ViewModel_Table.Day_2_WorkingTime  = string.Empty;
@@ -868,15 +872,23 @@ namespace SalaryManager.WPF.Models
 
         private TimeSpan WorkingTime_Time;
 
+        public int WorkDaysTotal;
+
         /// <summary>
         /// 入力 - 勤務時間
         /// </summary>
         /// <param name="day">日</param>
         /// <param name="startTime">始業時間</param>
         /// <param name="endTime">就業時間</param>
-        /// <param name="lunchTime">昼休憩時間</param>
-        private void InputWorkingTime(int day, DateTime startTime, TimeSpan lunchTime, DateTime endTime)
+        private void InputWorkingTime(int day, DateTime startTime, DateTime endTime)
         {
+            var workingPlace = this.SearchWorkingPlace(this.ConvertDayToDate(day));
+
+            if (workingPlace is null)
+            {
+                return;
+            }
+
             switch (day)
             {
                 case 1:  this.ViewModel_Table.Day_1_WorkingTime  = Format(); return;
@@ -914,9 +926,17 @@ namespace SalaryManager.WPF.Models
 
             string Format()
             {
-                this.ViewModel_Header.WorkingTimeTotal = this.ViewModel_Header.WorkingTimeTotal.Add((endTime - startTime) - lunchTime);
+                this.WorkDaysTotal += 1;
 
-                this.WorkingTime_Time = (endTime - startTime) - lunchTime;
+                this.WorkingTime_Time = (endTime - startTime) - workingPlace.LunchTimeSpan;
+
+                if (this.WorkingTime_Time > new TimeSpan(8, 0, 0))
+                {
+                    this.WorkingTime_Time = new TimeSpan(8, 0, 0);
+                }
+
+                this.ViewModel_Header.WorkingTimeTotal = this.ViewModel_Header.WorkingTimeTotal.Add(this.WorkingTime_Time);
+
                 return this.WorkingTime_Time.ToString(@"hh\:mm");
             }
         }
@@ -925,10 +945,12 @@ namespace SalaryManager.WPF.Models
         /// 入力 - 残業時間
         /// </summary>
         /// <param name="day">日付</param>
+        /// <param name="startTime">昼休憩</param>
+        /// <param name="endTime">昼休憩</param>
         /// <remarks>
         /// 必ず勤務時間の算出後に指定すること。
         /// </remarks>
-        private void InputOvertime(int day)
+        private void InputOvertime(int day, DateTime startTime, DateTime endTime)
         {
             var workingPlace = this.SearchWorkingPlace(this.ConvertDayToDate(day));
 
@@ -974,7 +996,7 @@ namespace SalaryManager.WPF.Models
 
             string Format()
             {
-                var overTime  = WorkingTime_Time - workingPlace.WorkTime;
+                var overTime  = (endTime - startTime) - workingPlace.LunchTimeSpan - new TimeSpan(8, 0, 0);
 
                 if (overTime.TotalMinutes > 0)
                 {

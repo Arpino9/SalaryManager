@@ -1,10 +1,10 @@
-﻿using SalaryManager.Domain.Entities;
-using SalaryManager.WPF.Converter;
-using SalaryManager.WPF.Models;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SalaryManager.Domain.Entities;
+using SalaryManager.WPF.Converter;
+using SalaryManager.WPF.Models;
 
 namespace SalaryManager.WPF.ViewModels
 {
@@ -43,7 +43,6 @@ namespace SalaryManager.WPF.ViewModels
             this.Name_TextChanged = new RelayCommand(this.Model.EnableAddButton);
             // 会社休日
             this.CompanyHoliday_Checked = new RelayCommand(this.Model.EnableCompanyNameComboBox);
-
             // 祝日一覧
             this.Holidays_SelectionChanged = new RelayCommand(this.Model.Holidays_SelectionChanged);
         }

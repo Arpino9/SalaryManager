@@ -78,8 +78,22 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
-        public TimeSpan OvertimeTotal;
+        private string _workDaysTotal_Text;
 
+        /// <summary>
+        /// 勤務日数 - Text
+        /// </summary>
+        public string WorkDaysTotal_Text
+        {
+            get => this._workDaysTotal_Text;
+            set
+            {
+                this._workDaysTotal_Text = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        public TimeSpan OvertimeTotal;
         private string _overtimeTotal_Text;
 
         /// <summary>
