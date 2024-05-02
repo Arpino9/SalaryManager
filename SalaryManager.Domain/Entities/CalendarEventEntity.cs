@@ -13,6 +13,20 @@ namespace SalaryManager.Domain.Entities
         /// <param name="title">タイトル</param>
         /// <param name="startDate">開始日時</param>
         /// <param name="endDate">終了日時</param>
+        public CalendarEventEntity(
+            string title,
+            DateTime startDate,
+            DateTime endDate) : this(title, startDate, endDate, string.Empty, string.Empty)
+        {
+            
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="title">タイトル</param>
+        /// <param name="startDate">開始日時</param>
+        /// <param name="endDate">終了日時</param>
         /// <param name="place">場所</param>
         /// <param name="description">説明</param>
         public CalendarEventEntity(

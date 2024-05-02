@@ -82,7 +82,7 @@ namespace SalaryManager.WPF.Models
             }
             else
             {
-                var json = JSONExtension.DeserializeSettings();
+                var json = JSONExtension.DeserializeSettings<JSONProperty_Settings>(FilePath.GetJSONDefaultPath());
 
                 // Excelテンプレート
                 this.GeneralOption.SelectExcelTempletePath_Text = json.Excel.TemplatePath;

@@ -39,19 +39,20 @@ namespace SalaryManager.Infrastructure.JSON
         /// <summary>
         /// Jsonファイルの読み込み
         /// </summary>
+        /// <param name="path">ファイルパス</param>
         /// <returns>Jsonデータ</returns>
         /// <exception cref="FileReaderException">読み込み失敗</exception>
-        public static JSONProperty_Settings DeserializeSettings()
+        public static T DeserializeSettings<T>(string path)
         {
             try
             {
-                using (var sr = new StreamReader(FilePath.GetJSONDefaultPath(), System.Text.Encoding.UTF8))
+                using (var sr = new StreamReader(path, System.Text.Encoding.UTF8))
                 {
                     // 変数 jsonReadData にファイルの内容を代入 
                     var jsonReadData = sr.ReadToEnd();
 
                     // デシリアライズして person にセット
-                    return JsonConvert.DeserializeObject<JSONProperty_Settings>(jsonReadData);
+                    return JsonConvert.DeserializeObject<T>(jsonReadData);
                 }
             }
             catch (Exception ex)

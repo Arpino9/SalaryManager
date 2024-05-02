@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Media;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Modules.Logics;
@@ -7,6 +9,7 @@ using SalaryManager.Domain.StaticValues;
 using SalaryManager.Domain.ValueObjects;
 using SalaryManager.Infrastructure.Google_Calendar;
 using SalaryManager.Infrastructure.Interface;
+using SalaryManager.Infrastructure.JSON;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.Infrastructure.XML;
 using SalaryManager.WPF.ViewModels;
@@ -76,8 +79,6 @@ namespace SalaryManager.WPF.Models
                 // デフォルト明細
                 this.ViewModel.Entity = Allowances.FetchDefault();
             }
-
-            this.Refresh();
         }
 
         /// <summary>

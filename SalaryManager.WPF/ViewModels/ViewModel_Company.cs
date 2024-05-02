@@ -52,6 +52,7 @@ namespace SalaryManager.WPF.ViewModels
             this.Companies_SelectionChanged = new RelayCommand(this.Model.Companies_SelectionChanged);
         }
 
+        /// <summary> Model - 会社 </summary>
         public Model_Company Model = Model_Company.GetInstance(new CompanySQLite());
 
         #region タイトル

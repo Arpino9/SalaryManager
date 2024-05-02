@@ -186,6 +186,7 @@
     <Compile Include="Excel\ExcelWriter.cs" />
     <Compile Include="Google Calendar\CalendarReader.cs" />
     <Compile Include="JSON\JSONExtension.cs" />
+    <Compile Include="JSON\JSONProperty_Holiday.cs" />
     <Compile Include="JSON\JSONProperty_Settings.cs" />
     <Compile Include="PDF\PDFConverter.cs" />
     <Compile Include="SpreadSheet\SpreadSheetDefinition.cs" />

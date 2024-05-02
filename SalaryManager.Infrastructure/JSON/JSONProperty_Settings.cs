@@ -3,7 +3,7 @@
 namespace SalaryManager.Infrastructure.JSON
 {
     /// <summary>
-    /// JSON属性
+    /// JSON属性 - 設定ファイル
     /// </summary>
     /// <remarks>
     /// 原則、オプションの区分ごとに設定すること。

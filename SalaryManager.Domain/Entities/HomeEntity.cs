@@ -41,8 +41,14 @@ namespace SalaryManager.Domain.Entities
         /// <summary> 在住開始日 </summary>
         public DateTime LivingStart { get; }
 
+        private DateTime _livingEnd;
+
         /// <summary> 在住終了日 </summary>
-        public DateTime LivingEnd { get; }
+        public DateTime LivingEnd 
+        {
+            get => this.IsLiving ? DateTime.Today : _livingEnd;
+            set => _livingEnd = value;
+        }
 
         /// <summary> 在住中か </summary>
         public bool IsLiving { get; }

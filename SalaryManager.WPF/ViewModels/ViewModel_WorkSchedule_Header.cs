@@ -78,6 +78,40 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
+        public TimeSpan OvertimeTotal;
+
+        private string _overtimeTotal_Text;
+
+        /// <summary>
+        /// 残業時間 - Text
+        /// </summary>
+        public string OvertimeTotal_Text
+        {
+            get => this._overtimeTotal_Text;
+            set
+            {
+                this._overtimeTotal_Text = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        public TimeSpan WorkingTimeTotal;
+
+        private string _workingtimeTotal_Text;
+
+        /// <summary>
+        /// 勤務時間 - Text
+        /// </summary>
+        public string WorkingTimeTotal_Text
+        {
+            get => this._workingtimeTotal_Text;
+            set
+            {
+                this._workingtimeTotal_Text = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         #region 該当年月
 
         private int _year;

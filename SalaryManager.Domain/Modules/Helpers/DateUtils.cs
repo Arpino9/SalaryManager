@@ -36,5 +36,20 @@ namespace SalaryManager.Domain.Modules.Helpers
 
             return date;
         }
+
+        /// <summary>
+        /// 時間を文字列にフォーマット
+        /// </summary>
+        /// <param name="overTime"></param>
+        /// <returns></returns>
+        public static string ConvertValueToTime(double overTime)
+        {
+            // 数値を絶対値に変換して、時間と分に分解
+            double absoluteOverTime = Math.Abs(overTime);
+            int hours = (int)absoluteOverTime;
+            int minutes = (int)((absoluteOverTime - hours) * 60);
+
+            return $"{hours:D2}:{minutes:D2}";
+        }
     }
 }

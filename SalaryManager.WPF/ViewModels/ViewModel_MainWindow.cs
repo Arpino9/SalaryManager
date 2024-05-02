@@ -312,6 +312,27 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
+        #region 祝日マスタを開く
+
+        private RelayCommand _showHolidayManager_Command;
+
+        /// <summary>
+        /// 祝日マスタを開く - Command
+        /// </summary>
+        public RelayCommand ShowHolidayManager_Command
+        {
+            get
+            {
+                if (this._showHolidayManager_Command == null)
+                {
+                    this._showHolidayManager_Command = new RelayCommand(this.Model.ShowHoliday);
+                }
+                return this._showHolidayManager_Command;
+            }
+        }
+
+        #endregion
+
         #region 添付ファイル管理画面を開く
 
         private RelayCommand _showFileStorage_Command;

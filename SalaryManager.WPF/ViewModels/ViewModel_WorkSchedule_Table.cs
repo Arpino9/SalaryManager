@@ -36,6 +36,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)1日
 
+        private System.Windows.Media.Brush _background_1;
+
+        /// <summary>
+        /// (M月)1日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_1
+        {
+            get => this._background_1;
+            set
+            {
+                this._background_1 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_1;
 
         /// <summary>
@@ -92,6 +107,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_1_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_1_Notification;
+
+        /// <summary>
+        /// (M月)1日 - 届出
+        /// </summary>
+        public string Day_1_Notification
+        {
+            get => this._day_1_Notification;
+            set
+            {
+                this._day_1_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -175,6 +205,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)2日
 
+        private System.Windows.Media.Brush _background_2;
+
+        /// <summary>
+        /// (M月)1日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_2
+        {
+            get => this._background_2;
+            set
+            {
+                this._background_2 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_2;
 
         /// <summary>
@@ -231,6 +276,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_2_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_2_Notification;
+
+        /// <summary>
+        /// (M月)2日 - 届出
+        /// </summary>
+        public string Day_2_Notification
+        {
+            get => this._day_2_Notification;
+            set
+            {
+                this._day_2_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -314,6 +374,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)3日
 
+        private System.Windows.Media.Brush _background_3;
+
+        /// <summary>
+        /// (M月)3日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_3
+        {
+            get => this._background_3;
+            set
+            {
+                this._background_3 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_3;
 
         /// <summary>
@@ -370,6 +445,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_3_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_3_Notification;
+
+        /// <summary>
+        /// (M月)3日 - 届出
+        /// </summary>
+        public string Day_3_Notification
+        {
+            get => this._day_3_Notification;
+            set
+            {
+                this._day_3_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -453,6 +543,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)4日
 
+        private System.Windows.Media.Brush _background_4;
+
+        /// <summary>
+        /// (M月)4日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_4
+        {
+            get => this._background_4;
+            set
+            {
+                this._background_4 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_4;
 
         /// <summary>
@@ -509,6 +614,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_4_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_4_Notification;
+
+        /// <summary>
+        /// (M月)4日 - 届出
+        /// </summary>
+        public string Day_4_Notification
+        {
+            get => this._day_4_Notification;
+            set
+            {
+                this._day_4_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -592,6 +712,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)5日
 
+        private System.Windows.Media.Brush _background_5;
+
+        /// <summary>
+        /// (M月)5日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_5
+        {
+            get => this._background_5;
+            set
+            {
+                this._background_5 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_5;
 
         /// <summary>
@@ -648,6 +783,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_5_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_5_Notification;
+
+        /// <summary>
+        /// (M月)5日 - 届出
+        /// </summary>
+        public string Day_5_Notification
+        {
+            get => this._day_5_Notification;
+            set
+            {
+                this._day_5_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -731,6 +881,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)6日
 
+        private System.Windows.Media.Brush _background_6;
+
+        /// <summary>
+        /// (M月)6日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_6
+        {
+            get => this._background_6;
+            set
+            {
+                this._background_6 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_6;
 
         /// <summary>
@@ -787,6 +952,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_6_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_6_Notification;
+
+        /// <summary>
+        /// (M月)6日 - 届出
+        /// </summary>
+        public string Day_6_Notification
+        {
+            get => this._day_6_Notification;
+            set
+            {
+                this._day_6_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -870,6 +1050,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)7日
 
+        private System.Windows.Media.Brush _background_7;
+
+        /// <summary>
+        /// (M月)7日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_7
+        {
+            get => this._background_7;
+            set
+            {
+                this._background_7 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_7;
 
         /// <summary>
@@ -926,6 +1121,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_7_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_7_Notification;
+
+        /// <summary>
+        /// (M月)7日 - 届出
+        /// </summary>
+        public string Day_7_Notification
+        {
+            get => this._day_7_Notification;
+            set
+            {
+                this._day_7_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -1009,6 +1219,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)8日
 
+        private System.Windows.Media.Brush _background_8;
+
+        /// <summary>
+        /// (M月)8日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_8
+        {
+            get => this._background_8;
+            set
+            {
+                this._background_8 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_8;
 
         /// <summary>
@@ -1065,6 +1290,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_8_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_8_Notification;
+        
+        /// <summary>
+        /// (M月)8日 - 届出
+        /// </summary>
+        public string Day_8_Notification
+        {
+            get => this._day_8_Notification;
+            set
+            {
+                this._day_8_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -1148,6 +1388,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)9日
 
+        private System.Windows.Media.Brush _background_9;
+
+        /// <summary>
+        /// (M月)9日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_9
+        {
+            get => this._background_9;
+            set
+            {
+                this._background_9 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_9;
 
         /// <summary>
@@ -1204,6 +1459,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_9_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_9_Notification;
+
+        /// <summary>
+        /// (M月)9日 - 届出
+        /// </summary>
+        public string Day_9_Notification
+        {
+            get => this._day_9_Notification;
+            set
+            {
+                this._day_9_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -1287,6 +1557,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)10日
 
+        private System.Windows.Media.Brush _background_10;
+
+        /// <summary>
+        /// (M月)9日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_10
+        {
+            get => this._background_10;
+            set
+            {
+                this._background_10 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_10;
 
         /// <summary>
@@ -1343,6 +1628,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_10_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_10_Notification;
+
+        /// <summary>
+        /// (M月)10日 - 届出
+        /// </summary>
+        public string Day_10_Notification
+        {
+            get => this._day_10_Notification;
+            set
+            {
+                this._day_10_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -1426,6 +1726,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)11日
 
+        private System.Windows.Media.Brush _background_11;
+
+        /// <summary>
+        /// (M月)11日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_11
+        {
+            get => this._background_11;
+            set
+            {
+                this._background_11 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_11;
 
         /// <summary>
@@ -1482,6 +1797,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_11_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_11_Notification;
+
+        /// <summary>
+        /// (M月)11日 - 届出
+        /// </summary>
+        public string Day_11_Notification
+        {
+            get => this._day_11_Notification;
+            set
+            {
+                this._day_11_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -1565,6 +1895,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)12日
 
+        private System.Windows.Media.Brush _background_12;
+
+        /// <summary>
+        /// (M月)12日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_12
+        {
+            get => this._background_12;
+            set
+            {
+                this._background_12 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_12;
 
         /// <summary>
@@ -1621,6 +1966,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_12_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_12_Notification;
+
+        /// <summary>
+        /// (M月)12日 - 届出
+        /// </summary>
+        public string Day_12_Notification
+        {
+            get => this._day_12_Notification;
+            set
+            {
+                this._day_12_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -1704,6 +2064,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)13日
 
+        private System.Windows.Media.Brush _background_13;
+
+        /// <summary>
+        /// (M月)13日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_13
+        {
+            get => this._background_13;
+            set
+            {
+                this._background_13 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_13;
 
         /// <summary>
@@ -1760,6 +2135,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_13_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_13_Notification;
+
+        /// <summary>
+        /// (M月)13日 - 届出
+        /// </summary>
+        public string Day_13_Notification
+        {
+            get => this._day_13_Notification;
+            set
+            {
+                this._day_13_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -1843,6 +2233,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)14日
 
+        private System.Windows.Media.Brush _background_14;
+
+        /// <summary>
+        /// (M月)14日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_14
+        {
+            get => this._background_14;
+            set
+            {
+                this._background_14 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_14;
 
         /// <summary>
@@ -1899,6 +2304,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_14_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_14_Notification;
+
+        /// <summary>
+        /// (M月)14日 - 届出
+        /// </summary>
+        public string Day_14_Notification
+        {
+            get => this._day_14_Notification;
+            set
+            {
+                this._day_14_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -1982,6 +2402,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)15日
 
+        private System.Windows.Media.Brush _background_15;
+
+        /// <summary>
+        /// (M月)15日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_15
+        {
+            get => this._background_15;
+            set
+            {
+                this._background_15 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_15;
 
         /// <summary>
@@ -2038,6 +2473,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_15_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_15_Notification;
+
+        /// <summary>
+        /// (M月)15日 - 届出
+        /// </summary>
+        public string Day_15_Notification
+        {
+            get => this._day_15_Notification;
+            set
+            {
+                this._day_15_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -2121,6 +2571,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)16日
 
+        private System.Windows.Media.Brush _background_16;
+
+        /// <summary>
+        /// (M月)16日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_16
+        {
+            get => this._background_16;
+            set
+            {
+                this._background_16 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_16;
 
         /// <summary>
@@ -2177,6 +2642,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_16_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_16_Notification;
+
+        /// <summary>
+        /// (M月)16日 - 届出
+        /// </summary>
+        public string Day_16_Notification
+        {
+            get => this._day_16_Notification;
+            set
+            {
+                this._day_16_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -2260,6 +2740,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)17日
 
+        private System.Windows.Media.Brush _background_17;
+
+        /// <summary>
+        /// (M月)17日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_17
+        {
+            get => this._background_17;
+            set
+            {
+                this._background_17 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_17;
 
         /// <summary>
@@ -2316,6 +2811,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_17_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_17_Notification;
+
+        /// <summary>
+        /// (M月)17日 - 届出
+        /// </summary>
+        public string Day_17_Notification
+        {
+            get => this._day_17_Notification;
+            set
+            {
+                this._day_17_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -2399,6 +2909,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)18日
 
+        private System.Windows.Media.Brush _background_18;
+
+        /// <summary>
+        /// (M月)18日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_18
+        {
+            get => this._background_18;
+            set
+            {
+                this._background_18 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_18;
 
         /// <summary>
@@ -2455,6 +2980,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_18_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_18_Notification;
+
+        /// <summary>
+        /// (M月)18日 - 届出
+        /// </summary>
+        public string Day_18_Notification
+        {
+            get => this._day_18_Notification;
+            set
+            {
+                this._day_18_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -2538,6 +3078,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)19日
 
+        private System.Windows.Media.Brush _background_19;
+
+        /// <summary>
+        /// (M月)19日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_19
+        {
+            get => this._background_19;
+            set
+            {
+                this._background_19 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_19;
 
         /// <summary>
@@ -2594,6 +3149,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_19_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_19_Notification;
+
+        /// <summary>
+        /// (M月)19日 - 届出
+        /// </summary>
+        public string Day_19_Notification
+        {
+            get => this._day_19_Notification;
+            set
+            {
+                this._day_19_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -2677,6 +3247,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)20日
 
+        private System.Windows.Media.Brush _background_20;
+
+        /// <summary>
+        /// (M月)20日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_20
+        {
+            get => this._background_20;
+            set
+            {
+                this._background_20 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_20;
 
         /// <summary>
@@ -2733,6 +3318,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_20_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_20_Notification;
+
+        /// <summary>
+        /// (M月)20日 - 届出
+        /// </summary>
+        public string Day_20_Notification
+        {
+            get => this._day_20_Notification;
+            set
+            {
+                this._day_20_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -2816,6 +3416,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)21日
 
+        private System.Windows.Media.Brush _background_21;
+
+        /// <summary>
+        /// (M月)21日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_21
+        {
+            get => this._background_21;
+            set
+            {
+                this._background_21 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_21;
 
         /// <summary>
@@ -2872,6 +3487,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_21_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_21_Notification;
+
+        /// <summary>
+        /// (M月)21日 - 届出
+        /// </summary>
+        public string Day_21_Notification
+        {
+            get => this._day_21_Notification;
+            set
+            {
+                this._day_21_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -2955,6 +3585,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)22日
 
+        private System.Windows.Media.Brush _background_22;
+
+        /// <summary>
+        /// (M月)22日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_22
+        {
+            get => this._background_22;
+            set
+            {
+                this._background_22 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_22;
 
         /// <summary>
@@ -3011,6 +3656,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_22_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_22_Notification;
+
+        /// <summary>
+        /// (M月)22日 - 届出
+        /// </summary>
+        public string Day_22_Notification
+        {
+            get => this._day_22_Notification;
+            set
+            {
+                this._day_22_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -3094,6 +3754,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)23日
 
+        private System.Windows.Media.Brush _background_23;
+
+        /// <summary>
+        /// (M月)23日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_23
+        {
+            get => this._background_23;
+            set
+            {
+                this._background_23 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_23;
 
         /// <summary>
@@ -3150,6 +3825,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_23_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_23_Notification;
+
+        /// <summary>
+        /// (M月)23日 - 届出
+        /// </summary>
+        public string Day_23_Notification
+        {
+            get => this._day_23_Notification;
+            set
+            {
+                this._day_23_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -3233,6 +3923,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)24日
 
+        private System.Windows.Media.Brush _background_24;
+
+        /// <summary>
+        /// (M月)24日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_24
+        {
+            get => this._background_24;
+            set
+            {
+                this._background_24 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_24;
 
         /// <summary>
@@ -3289,6 +3994,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_24_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_24_Notification;
+
+        /// <summary>
+        /// (M月)24日 - 届出
+        /// </summary>
+        public string Day_24_Notification
+        {
+            get => this._day_24_Notification;
+            set
+            {
+                this._day_24_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -3372,6 +4092,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)25日
 
+        private System.Windows.Media.Brush _background_25;
+
+        /// <summary>
+        /// (M月)25日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_25
+        {
+            get => this._background_25;
+            set
+            {
+                this._background_25 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_25;
 
         /// <summary>
@@ -3428,6 +4163,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_25_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_25_Notification;
+
+        /// <summary>
+        /// (M月)25日 - 届出
+        /// </summary>
+        public string Day_25_Notification
+        {
+            get => this._day_25_Notification;
+            set
+            {
+                this._day_25_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -3511,6 +4261,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)26日
 
+        private System.Windows.Media.Brush _background_26;
+
+        /// <summary>
+        /// (M月)26日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_26
+        {
+            get => this._background_26;
+            set
+            {
+                this._background_26 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_26;
 
         /// <summary>
@@ -3567,6 +4332,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_26_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_26_Notification;
+
+        /// <summary>
+        /// (M月)26日 - 届出
+        /// </summary>
+        public string Day_26_Notification
+        {
+            get => this._day_26_Notification;
+            set
+            {
+                this._day_26_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -3650,6 +4430,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)27日
 
+        private System.Windows.Media.Brush _background_27;
+
+        /// <summary>
+        /// (M月)27日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_27
+        {
+            get => this._background_27;
+            set
+            {
+                this._background_27 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_27;
 
         /// <summary>
@@ -3706,6 +4501,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_27_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_27_Notification;
+
+        /// <summary>
+        /// (M月)27日 - 届出
+        /// </summary>
+        public string Day_27_Notification
+        {
+            get => this._day_27_Notification;
+            set
+            {
+                this._day_27_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -3789,6 +4599,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)28日
 
+        private System.Windows.Media.Brush _background_28;
+
+        /// <summary>
+        /// (M月)28日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_28
+        {
+            get => this._background_28;
+            set
+            {
+                this._background_28 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_28;
 
         /// <summary>
@@ -3845,6 +4670,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_28_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_28_Notification;
+
+        /// <summary>
+        /// (M月)28日 - 届出
+        /// </summary>
+        public string Day_28_Notification
+        {
+            get => this._day_28_Notification;
+            set
+            {
+                this._day_28_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -3928,6 +4768,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)29日
 
+        private System.Windows.Media.Brush _background_29;
+
+        /// <summary>
+        /// (M月)29日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_29
+        {
+            get => this._background_29;
+            set
+            {
+                this._background_29 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_29;
 
         /// <summary>
@@ -3984,6 +4839,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_29_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_29_Notification;
+
+        /// <summary>
+        /// (M月)29日 - 届出
+        /// </summary>
+        public string Day_29_Notification
+        {
+            get => this._day_29_Notification;
+            set
+            {
+                this._day_29_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -4067,6 +4937,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)30日
 
+        private System.Windows.Media.Brush _background_30;
+
+        /// <summary>
+        /// (M月)30日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_30
+        {
+            get => this._background_30;
+            set
+            {
+                this._background_30 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_30;
 
         /// <summary>
@@ -4123,6 +5008,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_30_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_30_Notification;
+
+        /// <summary>
+        /// (M月)30日 - 届出
+        /// </summary>
+        public string Day_30_Notification
+        {
+            get => this._day_30_Notification;
+            set
+            {
+                this._day_30_Notification = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -4206,6 +5106,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region (M月)31日
 
+        private System.Windows.Media.Brush _background_31;
+
+        /// <summary>
+        /// (M月)31日 - Background
+        /// </summary>
+        public System.Windows.Media.Brush Background_31
+        {
+            get => this._background_31;
+            set
+            {
+                this._background_31 = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private string _day_31;
 
         /// <summary>
@@ -4262,6 +5177,21 @@ namespace SalaryManager.WPF.ViewModels
             set
             {
                 this._day_31_LunchTime = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _day_31_Notification;
+
+        /// <summary>
+        /// (M月)31日 - 届出
+        /// </summary>
+        public string Day_31_Notification
+        {
+            get => this._day_31_Notification;
+            set
+            {
+                this._day_31_Notification = value;
                 this.RaisePropertyChanged();
             }
         }

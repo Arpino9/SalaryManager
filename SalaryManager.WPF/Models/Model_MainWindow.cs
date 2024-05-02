@@ -482,6 +482,19 @@ namespace SalaryManager.WPF.Models
 
         #endregion
 
+        #region 祝日マスタ
+
+        /// <summary>
+        /// 祝日マスタを開く
+        /// </summary>
+        internal void ShowHoliday()
+        {
+            var holiday = new Holiday();
+            holiday.Show();
+        }
+
+        #endregion
+
         #region 経歴入力
 
         /// <summary>

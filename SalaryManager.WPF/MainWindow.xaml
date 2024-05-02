@@ -49,6 +49,12 @@
                         </ToolTipService.ToolTip>
                     </MenuItem>
 
+                    <MenuItem Header="祝日マスタ" Command="{Binding ShowHolidayManager_Command}">
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="自宅マスタを開きます。"/>
+                        </ToolTipService.ToolTip>
+                    </MenuItem>
+
 
                     <MenuItem Header="添付ファイル" Command="{Binding ShowFileStorage_Command}">
                         <ToolTipService.ToolTip>

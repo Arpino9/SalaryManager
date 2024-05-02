@@ -1,9 +1,9 @@
-﻿using System.Linq;
-using System.Collections;
-using System.Collections.Generic;
-using SalaryManager.Domain.Entities;
+﻿using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Repositories;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SalaryManager.Domain.StaticValues
 {

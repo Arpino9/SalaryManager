@@ -38,6 +38,7 @@ namespace SalaryManager.Domain.ValueObjects
             {
                 throw new FormatException("日付書式が不正です。");
             }
+
             this.Value = dateTime;
         }
 
@@ -72,12 +73,26 @@ namespace SalaryManager.Domain.ValueObjects
             => (this.Text + " (" + this.JapaneseCalendar + ")");
 
         /// <summary> 長い曜日 </summary>
+        /// <remarks> ex) 月曜日 </remarks>
         public string Week_LongName 
             => this.Value.ToString("dddd");
 
         /// <summary> 短い曜日 </summary>
+        /// <remarks> ex) 月 </remarks>
         public string Week_ShortName 
             => this.Value.ToString("ddd");
+
+        /// <summary> 土曜日か </summary>
+        public bool IsSaturday
+            => this.Week_ShortName == "土";
+
+        /// <summary> 日曜日か </summary>
+        public bool IsSunday
+            => this.Week_ShortName == "日";
+
+        /// <summary> 週末か </summary>
+        public bool IsWeekend
+            => this.IsSaturday || this.IsSunday;
 
         /// <summary> 日付 </summary>
         /// <remarks> YYYYMMDD(月 or 火 or 水 or 木 or 金 or 土 or 日) </remarks>
@@ -89,8 +104,22 @@ namespace SalaryManager.Domain.ValueObjects
         public string Date_MMDDWithWeekName
             => string.Format($"{this.Value.Month}/{this.Value.Day}({this.Week_ShortName})");
 
-        /// <summary> 月の最終日 </summary>
-        public int LastMonthDay
+        /// <summary> 
+        /// 月初日付 
+        /// </summary>
+        public DateTime FirstDateOfMonth
+            => new DateTime(this.Value.Year, this.Value.Month, 1);
+
+        /// <summary> 
+        /// 月末日付
+        /// </summary>
+        public DateTime LastDateOfMonth
+            => new DateTime(this.Value.Year, this.Value.Month, this.LastDayOfMonth);
+
+        /// <summary>
+        /// 月末日
+        /// </summary>
+        public int LastDayOfMonth
             => DateTime.DaysInMonth(this.Value.Year, this.Value.Month);
     }
 }

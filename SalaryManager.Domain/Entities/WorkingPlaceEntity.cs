@@ -141,8 +141,14 @@ namespace SalaryManager.Domain.Entities
         /// <summary> 勤務開始 </summary>
         public DateTime WorkingStart { get; }
 
+        private DateTime _workEnd;
+
         /// <summary> 勤務終了 </summary>
-        public DateTime WorkingEnd { get; }
+        public DateTime WorkingEnd 
+        {
+            get => this.IsWorking ? DateTime.Today : _workEnd;
+            set => _workEnd = value;
+        }
 
         /// <summary> 待機中か </summary>
         public bool IsWaiting { get; }
@@ -164,5 +170,9 @@ namespace SalaryManager.Domain.Entities
 
         /// <summary> 備考 </summary>
         public string Remarks { get; }
+
+        /// <summary> 労働時間 </summary>
+        public TimeSpan WorkTime
+            => (WorkingTime.End - WorkingTime.Start) - (LunchTime.End - LunchTime.Start);
     }
 }

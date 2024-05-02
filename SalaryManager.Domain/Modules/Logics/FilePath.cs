@@ -138,6 +138,15 @@ namespace SalaryManager.Domain.Modules.Logics
             return $"{FilePath.GetProjectPath(ProjectName.Infrastructure)}\\{Shared.JSONName}.json";
         }
 
+        /// <summary>
+        /// JSONの初期パスを取得する
+        /// </summary>
+        /// <returns>JSONの初期パス</returns>
+        public static string GetJSONHolidayDefaultPath()
+        {
+            return $"{FilePath.GetProjectPath(ProjectName.Infrastructure)}\\Holiday.json";
+        }
+
         #endregion
 
         /// <summary>

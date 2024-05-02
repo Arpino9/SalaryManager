@@ -132,6 +132,7 @@
     <Compile Include="Interface\IMaster.cs" />
     <Compile Include="Models\Model_Allowance.cs" />
     <Compile Include="Models\Model_Company.cs" />
+    <Compile Include="Models\Model_Holiday.cs" />
     <Compile Include="Models\Model_Home.cs" />
     <Compile Include="Models\Model_WorkingPlace.cs" />
     <Compile Include="Models\Model_Career.cs" />
@@ -171,6 +172,7 @@
     </Compile>
     <Compile Include="ViewModels\ViewModel_CalendarOption.cs" />
     <Compile Include="ViewModels\ViewModel_Company.cs" />
+    <Compile Include="ViewModels\ViewModel_Holiday.cs" />
     <Compile Include="ViewModels\ViewModel_Home.cs" />
     <Compile Include="ViewModels\ViewModel_WorkingPlace.cs" />
     <Compile Include="ViewModels\ViewModel_FileStorage.cs" />
@@ -212,6 +214,9 @@
     <Compile Include="ViewModels\ViewModel_WorkPlace.cs" />
     <Compile Include="Window\FileStorage.xaml.cs">
       <DependentUpon>FileStorage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Holiday.xaml.cs">
+      <DependentUpon>Holiday.xaml</DependentUpon>
     </Compile>
     <Compile Include="Window\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
@@ -308,6 +313,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Window\FileStorage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\Holiday.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

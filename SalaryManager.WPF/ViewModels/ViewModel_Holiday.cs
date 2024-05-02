@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using SalaryManager.Domain.Entities;
+﻿using SalaryManager.Domain.Entities;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace SalaryManager.WPF.ViewModels
 {
-    /// <summary>
-    /// ViewModel - 自宅
-    /// </summary>
-    public class ViewModel_Home : INotifyPropertyChanged
+    public class ViewModel_Holiday : INotifyPropertyChanged
     {
 
         #region Property Changed
@@ -27,14 +24,13 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
-        public ViewModel_Home()
+        public ViewModel_Holiday()
         {
             this.Model.ViewModel = this;
 
-            this.Homes_ItemSource = new ObservableCollection<HomeEntity>();
+            this.Holidays_ItemSource = new ObservableCollection<HolidayEntity>();
 
-            BindEvent();
-
+            this.BindEvent();
             this.Model.Initialize();
         }
 
@@ -43,168 +39,88 @@ namespace SalaryManager.WPF.ViewModels
         /// </summary>
         private void BindEvent()
         {
-            this.Address_Google_TextChanged = new RelayCommand(this.Model.EnableAddButton);
+            // 祝日名
+            this.Name_TextChanged = new RelayCommand(this.Model.EnableAddButton);
 
-            // 会社一覧
-            this.Homes_SelectionChanged = new RelayCommand(this.Model.Homes_SelectionChanged);
-            this.IsLiving_Checked       = new RelayCommand(this.Model.IsLiving_Checked);
+            // 祝日一覧
+            this.Holidays_SelectionChanged = new RelayCommand(this.Model.Holidays_SelectionChanged);
         }
 
         /// <summary> Model - 自宅 </summary>
-        public Model_Home Model { get; set; } = Model_Home.GetInstance(new HomeSQLite());
+        public Model_Holiday Model { get; set; } = new Model_Holiday();
 
         /// <summary> タイトル </summary>
-        public string Title => "自宅マスタ";
+        public string Title => "祝日マスタ";
 
-        private ObservableCollection<HomeEntity> _home_itemSource;
+        private ObservableCollection<HolidayEntity> _holidays_itemSource;
 
         /// <summary>
-        /// 自宅一覧 - ItemSource
+        /// 祝日一覧 - ItemSource
         /// </summary>
-        public ObservableCollection<HomeEntity> Homes_ItemSource
+        public ObservableCollection<HolidayEntity> Holidays_ItemSource
         {
-            get => this._home_itemSource;
+            get => this._holidays_itemSource;
             set
             {
-                this._home_itemSource = value;
+                this._holidays_itemSource = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private int _holidays_SelectedIndex;
+
+        /// <summary>
+        /// 祝日一覧 - SelectedIndex
+        /// </summary>
+        public int Holidays_SelectedIndex
+        {
+            get => this._holidays_SelectedIndex;
+            set
+            {
+                this._holidays_SelectedIndex = value;
                 this.RaisePropertyChanged();
             }
         }
 
         /// <summary>
-        /// 自宅一覧 - SelectionChanged
+        /// 祝日一覧 - SelectionChanged
         /// </summary>
-        public RelayCommand Homes_SelectionChanged { get; private set; }
+        public RelayCommand Holidays_SelectionChanged { get; private set; }
 
-        private int _homes_SelectedIndex;
+        private DateTime _date_SelectedDate;
 
         /// <summary>
-        /// 自宅 - SelectedIndex
+        /// 日付 - Text
         /// </summary>
-        public int Homes_SelectedIndex
+        public DateTime Date_SelectedDate
         {
-            get => this._homes_SelectedIndex;
+            get => this._date_SelectedDate;
             set
             {
-                this._homes_SelectedIndex = value;
+                this._date_SelectedDate = value;
                 this.RaisePropertyChanged();
             }
         }
 
-        private string _displayName_Text;
+        private string _name_Text;
 
         /// <summary>
-        /// 名称 - Text
+        /// 祝日名 - Text
         /// </summary>
-        public string DisplayName_Text
+        public string Name_Text
         {
-            get => this._displayName_Text;
+            get => this._name_Text;
             set
             {
-                this._displayName_Text = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private string _postCode_Text;
-
-        /// <summary>
-        /// 郵便番号 - Text
-        /// </summary>
-        public string PostCode_Text
-        {
-            get => this._postCode_Text;
-            set
-            {
-                this._postCode_Text = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private DateTime _livingStart_SelectedDate;
-
-        /// <summary>
-        /// 在住期間 - 開始日 - Text
-        /// </summary>
-        public DateTime LivingStart_SelectedDate
-        {
-            get => this._livingStart_SelectedDate;
-            set
-            {
-                this._livingStart_SelectedDate = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private DateTime _livingEnd_SelectedDate;
-
-        /// <summary>
-        /// 在住期間 - 終了日 - Text
-        /// </summary>
-        public DateTime LivingEnd_SelectedDate
-        {
-            get => this._livingEnd_SelectedDate;
-            set
-            {
-                this._livingEnd_SelectedDate = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private bool _isLiving_IsChecked;
-
-        /// <summary>
-        /// 住所 - IsChecked
-        /// </summary>
-        public bool IsLiving_IsChecked
-        {
-            get => this._isLiving_IsChecked;
-            set
-            {
-                this._isLiving_IsChecked = value;
+                this._name_Text = value;
                 this.RaisePropertyChanged();
             }
         }
 
         /// <summary>
-        /// 就業中 - Checked
+        /// 祝日名 - TextChanged
         /// </summary>
-        public RelayCommand IsLiving_Checked { get; private set; }
-
-        private string _address_Text;
-
-        /// <summary>
-        /// 住所 - Text
-        /// </summary>
-        public string Address_Text
-        {
-            get => this._address_Text;
-            set
-            {
-                this._address_Text = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private string _address_Google_Text;
-
-        /// <summary>
-        /// 住所 (Google) - Text
-        /// </summary>
-        public string Address_Google_Text
-        {
-            get => this._address_Google_Text;
-            set
-            {
-                this._address_Google_Text = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// 会社名 - TextChanged
-        /// </summary>
-        public RelayCommand Address_Google_TextChanged { get; private set; }
+        public RelayCommand Name_TextChanged { get; private set; }
 
         private string _remarks_Text;
 
@@ -328,6 +244,5 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         #endregion
-
     }
 }

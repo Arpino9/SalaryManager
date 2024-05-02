@@ -67,7 +67,8 @@
             <Label Content="名称" 
                    Background="AliceBlue"/>
             <TextBox Grid.Column="1" 
-                     Grid.ColumnSpan="2" Text="{Binding DisplayName_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                     Grid.ColumnSpan="2" 
+                     Text="{Binding DisplayName_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Label Content="郵便番号" 
                    Grid.Row="3" 
@@ -116,7 +117,8 @@
                    Background="AliceBlue"/>
             <TextBox Grid.Column="1"
                      Grid.ColumnSpan="3" 
-                     Grid.Row="5" Text="{Binding Address_Google_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                     Grid.Row="5" 
+                     Text="{Binding Address_Google_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <behaviors:Interaction.Triggers>
                     <behaviors:EventTrigger EventName="TextChanged">
                         <behaviors:InvokeCommandAction Command="{Binding Address_Google_TextChanged}" />
@@ -129,7 +131,8 @@
                    Background="AliceBlue"/>
             <TextBox Grid.Column="1"
                      Grid.Row="6" 
-                     Grid.ColumnSpan="3" Text="{Binding Remarks_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                     Grid.ColumnSpan="3" 
+                     Text="{Binding Remarks_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
             <Button Content="追加" 
                     Grid.Row="7"

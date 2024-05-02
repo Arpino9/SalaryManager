@@ -52,12 +52,12 @@
         <Label Content="勤務時間[内深夜]" 
                Grid.Column="3"/>
         <TextBox Grid.Column="3" 
-                 Grid.Row="1"/>
+                 Grid.Row="1" Text="{Binding WorkingTimeTotal_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Content="普通残業" 
                Grid.Column="4"/>
         <TextBox Grid.Column="4" 
-                 Grid.Row="1"/>
+                 Grid.Row="1" Text="{Binding OvertimeTotal_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <Label Content="深夜残業" 
                Grid.Column="5"/>
