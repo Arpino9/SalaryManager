@@ -14,7 +14,7 @@
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="310" />
+            <RowDefinition Height="250" />
             <RowDefinition />
         </Grid.RowDefinitions>
         
@@ -36,6 +36,10 @@
                         <GridViewColumnHeader Content="名称"/>
                     </GridViewColumn>
 
+                    <GridViewColumn DisplayMemberBinding="{Binding CompanyName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="150">
+                        <GridViewColumnHeader Content="会社休日の会社名"/>
+                    </GridViewColumn>
+
                     <GridViewColumn DisplayMemberBinding="{Binding Remarks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200">
                         <GridViewColumnHeader Content="備考"/>
                     </GridViewColumn>
@@ -50,6 +54,7 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
@@ -76,25 +81,50 @@
                 </behaviors:Interaction.Triggers>
             </TextBox>
 
-            <Label Content="備考" 
+            <Label Content="会社休日設定" 
                    Grid.Row="2" 
                    Background="AliceBlue"/>
+            <CheckBox Content="会社休日"
+                      Grid.Row="2"
+                      Grid.Column="1"
+                      VerticalAlignment="Center"
+                      IsChecked="{Binding CompanyHoliday_IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <behaviors:Interaction.Triggers>
+                    <behaviors:EventTrigger EventName="Checked">
+                        <behaviors:InvokeCommandAction Command="{Binding CompanyHoliday_Checked}" />
+                    </behaviors:EventTrigger>
+                    <behaviors:EventTrigger EventName="Unchecked">
+                        <behaviors:InvokeCommandAction Command="{Binding CompanyHoliday_Checked}" />
+                    </behaviors:EventTrigger>
+                </behaviors:Interaction.Triggers>
+            </CheckBox>
+            <ComboBox Grid.Row="2" 
+                      Grid.Column="2"
+                      ItemsSource="{Binding CompanyName_ItemSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      DisplayMemberPath="CompanyName"
+                      SelectedIndex="{Binding CompanyName_SelectedIndex,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      Text="{Binding CompanyName_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      IsEnabled="{Binding CompanyName_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Label Content="備考" 
+                   Grid.Row="3" 
+                   Background="AliceBlue"/>
             <TextBox Grid.Column="1"
-                     Grid.Row="2" 
+                     Grid.Row="3" 
                      Grid.ColumnSpan="2" Text="{Binding Remarks_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
             <Button Content="追加" 
-                    Grid.Row="3"
+                    Grid.Row="4"
                     Command="{Binding Add_Command}"
                     IsEnabled="{Binding Add_IsEnabled}"/>
             <Button Content="更新" 
-                    Grid.Row="3"
+                    Grid.Row="4"
                     Grid.Column="1"
                     Command="{Binding Update_Command}"
                     IsEnabled="{Binding Update_IsEnabled}"/>
             <Button Content="削除" 
                     Grid.Column="2" 
-                    Grid.Row="3"
+                    Grid.Row="4"
                     Command="{Binding Delete_Command}"
                     IsEnabled="{Binding Delete_IsEnabled}"/>
         </Grid>

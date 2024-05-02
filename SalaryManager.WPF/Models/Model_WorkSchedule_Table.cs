@@ -13,6 +13,7 @@ using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Infrastructure.JSON;
 using WorkingPlace = SalaryManager.Domain.StaticValues.WorkingPlace;
 using DocumentFormat.OpenXml.Bibliography;
+using SalaryManager.WPF.Window;
 
 namespace SalaryManager.WPF.Models
 {
@@ -239,12 +240,24 @@ namespace SalaryManager.WPF.Models
         /// 祝日の名称を取得
         /// </summary>
         /// <param name="date">日付</param>
-        /// <returns>祝日か</returns>
+        /// <returns>祝日名</returns>
         private string GetHolidayName(DateTime date)
         {
             var holidays = JSONExtension.DeserializeSettings<IReadOnlyList<JSONProperty_Holiday>>(FilePath.GetJSONHolidayDefaultPath());
 
-            return holidays.Where(x => x.Date == date).FirstOrDefault().Name;
+            var holiday = holidays.Where(x => x.Date == date).FirstOrDefault();
+
+            if (string.IsNullOrEmpty(holiday.CompanyName) == false)
+            {
+                // 会社休日
+                if (holiday.CompanyName == this.ViewModel_Header.DispatchingCompany ||
+                    holiday.CompanyName == this.ViewModel_Header.DispatchedCompany)
+                {
+                    return $"会社休日：{holiday.CompanyName}";
+                }
+            }
+
+            return holiday.Name;
         }
 
         private void Clear()
@@ -816,7 +829,17 @@ namespace SalaryManager.WPF.Models
 
                 if (this.IsHoliday(date))
                 {
-                    return $"休日 ({this.GetHolidayName(date)})";
+                    // 祝日マスタに登録あり
+                    var holidayName = this.GetHolidayName(date);
+                    if (holidayName.Contains("会社休日"))
+                    {
+                        holidayName = holidayName.Replace("会社休日：", string.Empty);
+                        return $"会社休日（{holidayName}）";
+                    }
+                    else
+                    {
+                        return $"祝日（{holidayName}）";
+                    }
                 }
 
                 if (new DateValue(date).IsWeekend)

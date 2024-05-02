@@ -16,6 +16,10 @@ namespace SalaryManager.Infrastructure.JSON
         [JsonProperty("name")]
         public string Name { get; set; }
 
+        /// <summary> 会社名 </summary>
+        [JsonProperty("companyName")]
+        public string CompanyName { get; set; }
+
         /// <summary> 備考 </summary>
         [JsonProperty("remarks")]
         public string Remarks { get; set; }

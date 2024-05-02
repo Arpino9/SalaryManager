@@ -257,8 +257,12 @@ namespace SalaryManager.Infrastructure.Google_Calendar
             => CalendarEvents.Any() ?
                CalendarEvents.Where(x => x.Title != null &&
                                          x.Title.Contains(title) &&
-                                         x.StartDate >= startDate &&
-                                         x.EndDate   <= endDate).ToList().AsReadOnly() :
+                                         x.StartDate.Year  >= startDate.Year &&
+                                         x.StartDate.Month >= startDate.Month &&
+                                         x.StartDate.Day   >= startDate.Day &&
+                                         x.EndDate.Year    <= endDate.Year &&
+                                         x.EndDate.Month   <= endDate.Month &&
+                                         x.EndDate.Day     <= endDate.Day ).ToList().AsReadOnly() :
                new List<CalendarEventEntity>();
 
         /// <summary>
@@ -296,9 +300,13 @@ namespace SalaryManager.Infrastructure.Google_Calendar
             => CalendarEvents.Any() ?
                CalendarEvents.Where(x => x.Place != null && 
                                          x.Place.Contains(address) &&
-                                         x.StartDate >= startDate &&
+                                         x.StartDate.Year  >= startDate.Year &&
+                                         x.StartDate.Month >= startDate.Month &&
+                                         x.StartDate.Day   >= startDate.Day &&
                                          new TimeSpan(x.StartDate.Hour, x.StartDate.Minute, 0) >= new TimeSpan(startTime.Hours, startTime.Minutes, 0) &&
-                                         x.EndDate   <= endDate).ToList().AsReadOnly() :
+                                         x.EndDate.Year   <= endDate.Year &&
+                                         x.EndDate.Month  <= endDate.Month &&
+                                         x.EndDate.Day    <= endDate.Day).ToList().AsReadOnly() :
                new List<CalendarEventEntity>();
 
         /// <summary>
@@ -317,10 +325,14 @@ namespace SalaryManager.Infrastructure.Google_Calendar
             => CalendarEvents.Any() ?
                CalendarEvents.Where(x => x.Place != null &&
                                          x.Place.Contains(address) &&
-                                         x.StartDate        >= startDate &&
+                                         x.StartDate.Year   >= startDate.Year &&
+                                         x.StartDate.Month  >= startDate.Month &&
+                                         x.StartDate.Day    >= startDate.Day &&
                                          x.StartDate.Hour   >= startTime.Hours &&
                                          x.StartDate.Minute >= startTime.Minutes &&
-                                         x.EndDate          <= endDate &&
+                                         x.EndDate.Year     <= endDate.Year &&
+                                         x.EndDate.Month    <= endDate.Month &&
+                                         x.EndDate.Day      <= endDate.Day &&
                                          x.EndDate.Hour     <= endTime.Hours &&
                                          x.EndDate.Minute   <= endTime.Minutes).ToList().AsReadOnly() :
                new List<CalendarEventEntity>();

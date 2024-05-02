@@ -1,5 +1,4 @@
 ﻿using SalaryManager.Domain.Entities;
-using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
 using System;
@@ -29,6 +28,7 @@ namespace SalaryManager.WPF.ViewModels
             this.Model.ViewModel = this;
 
             this.Holidays_ItemSource = new ObservableCollection<HolidayEntity>();
+            this.CompanyName_ItemSource = new ObservableCollection<CompanyEntity>();
 
             this.BindEvent();
             this.Model.Initialize();
@@ -41,6 +41,8 @@ namespace SalaryManager.WPF.ViewModels
         {
             // 祝日名
             this.Name_TextChanged = new RelayCommand(this.Model.EnableAddButton);
+            // 会社休日
+            this.CompanyHoliday_Checked = new RelayCommand(this.Model.EnableCompanyNameComboBox);
 
             // 祝日一覧
             this.Holidays_SelectionChanged = new RelayCommand(this.Model.Holidays_SelectionChanged);
@@ -121,6 +123,86 @@ namespace SalaryManager.WPF.ViewModels
         /// 祝日名 - TextChanged
         /// </summary>
         public RelayCommand Name_TextChanged { get; private set; }
+
+        private bool _companyHoliday_IsChecked;
+
+        /// <summary>
+        /// 会社休日 - IsChecked
+        /// </summary>
+        public bool CompanyHoliday_IsChecked
+        {
+            get => this._companyHoliday_IsChecked;
+            set
+            {
+                this._companyHoliday_IsChecked = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// 会社休日 - Checked
+        /// </summary>
+        public RelayCommand CompanyHoliday_Checked { get; private set; }
+
+        private bool _companyName_IsEnabled;
+
+        /// <summary>
+        /// 会社名 - ItemSource
+        /// </summary>
+        public bool CompanyName_IsEnabled
+        {
+            get => this._companyName_IsEnabled;
+            set
+            {
+                this._companyName_IsEnabled = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private ObservableCollection<CompanyEntity> _companyName_ItemSource;
+
+        /// <summary>
+        /// 会社名 - ItemSource
+        /// </summary>
+        public ObservableCollection<CompanyEntity> CompanyName_ItemSource
+        {
+            get => this._companyName_ItemSource;
+            set
+            {
+                this._companyName_ItemSource = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private int _companyName_SelectedIndex;
+
+        /// <summary>
+        /// 会社名 - SelectedIndex
+        /// </summary>
+        public int CompanyName_SelectedIndex
+        {
+            get => this._companyName_SelectedIndex;
+            set
+            {
+                this._companyName_SelectedIndex = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private string _companyName_Text;
+
+        /// <summary>
+        /// 会社名 - Text
+        /// </summary>
+        public string CompanyName_Text
+        {
+            get => this._companyName_Text;
+            set
+            {
+                this._companyName_Text = value;
+                this.RaisePropertyChanged();
+            }
+        }
 
         private string _remarks_Text;
 

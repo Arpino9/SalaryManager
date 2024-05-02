@@ -5,9 +5,12 @@ using System.Linq;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Modules.Helpers;
 using SalaryManager.Domain.Modules.Logics;
+using SalaryManager.Domain.StaticValues;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.Infrastructure.JSON;
+using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.ViewModels;
+using SalaryManager.WPF.Window;
 
 namespace SalaryManager.WPF.Models
 {
@@ -29,6 +32,9 @@ namespace SalaryManager.WPF.Models
         {
             this.ViewModel.Date_SelectedDate = DateTime.Today;
             this.ViewModel.Name_Text         = string.Empty;
+            this.ViewModel.CompanyHoliday_IsChecked = false;
+            this.ViewModel.CompanyName_SelectedIndex = 0;
+            this.ViewModel.CompanyName_Text = string.Empty;
             this.ViewModel.Remarks_Text      = string.Empty;
         }
 
@@ -37,12 +43,18 @@ namespace SalaryManager.WPF.Models
             this.Clear_InputForm();
             this.Reload();
 
+            Companies.Create(new CompanySQLite());
+            this.ViewModel.CompanyName_ItemSource = new ObservableCollection<CompanyEntity>(Companies.FetchByAscending());
+            this.ViewModel.CompanyName_SelectedIndex = 0;
+
             if (this.ViewModel.Holidays_ItemSource.Any())
             {
                 var holiday = this.ViewModel.Holidays_ItemSource[this.ViewModel.Holidays_SelectedIndex];
 
                 this.ViewModel.Date_SelectedDate = holiday.Date;
                 this.ViewModel.Name_Text         = holiday.Name;
+                this.ViewModel.CompanyHoliday_IsChecked = string.IsNullOrEmpty(holiday.CompanyName) == false;
+                this.ViewModel.CompanyName_Text  = holiday.CompanyName;
                 this.ViewModel.Remarks_Text      = holiday.Remarks;
             }
         }
@@ -80,6 +92,10 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.Date_SelectedDate = entity.Date;
             // 名称
             this.ViewModel.Name_Text         = entity.Name;
+            // 会社休日
+            this.ViewModel.CompanyHoliday_IsChecked = string.IsNullOrEmpty(entity.CompanyName) == false;
+            // 会社名
+            this.ViewModel.CompanyName_Text  = entity.CompanyName;
             // 備考
             this.ViewModel.Remarks_Text      = entity.Remarks;
         }
@@ -111,6 +127,14 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.Add_IsEnabled = inputted;
         }
 
+        /// <summary>
+        /// 会社休日 - Checked
+        /// </summary>
+        public void EnableCompanyNameComboBox()
+        {
+            this.ViewModel.CompanyName_IsEnabled = this.ViewModel.CompanyHoliday_IsChecked;
+        }
+
         public void Reload()
         {
             var holidays = JSONExtension.DeserializeSettings<IReadOnlyList<JSONProperty_Holiday>>(FilePath.GetJSONHolidayDefaultPath());
@@ -126,7 +150,7 @@ namespace SalaryManager.WPF.Models
 
             foreach (var holiday in holidays)
             {
-                list.Add(new HolidayEntity(holiday.Date, holiday.Name, holiday.Remarks));
+                list.Add(new HolidayEntity(holiday.Date, holiday.Name, holiday.CompanyName, holiday.Remarks));
             }
 
             this.ViewModel.Holidays_ItemSource = ListUtils.ToObservableCollection(list);
@@ -142,9 +166,10 @@ namespace SalaryManager.WPF.Models
             foreach (var holiday in this.ViewModel.Holidays_ItemSource)
             {
                 var json = new JSONProperty_Holiday { 
-                                                        Date    = holiday.Date, 
-                                                        Name    = holiday.Name, 
-                                                        Remarks = holiday.Remarks 
+                                                        Date        = holiday.Date, 
+                                                        Name        = holiday.Name, 
+                                                        CompanyName = holiday.CompanyName,
+                                                        Remarks     = holiday.Remarks 
                                                     };
 
                 list.Add(json);
@@ -163,6 +188,7 @@ namespace SalaryManager.WPF.Models
             return new HolidayEntity(
                 this.ViewModel.Date_SelectedDate,
                 this.ViewModel.Name_Text,
+                this.ViewModel.CompanyName_Text,
                 this.ViewModel.Remarks_Text);
         }
 
