@@ -1,10 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows.Media;
+using Reactive.Bindings;
 using SalaryManager.Domain;
 using SalaryManager.Infrastructure.SQLite;
-using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
 
 namespace SalaryManager.WPF.ViewModels
@@ -14,507 +13,198 @@ namespace SalaryManager.WPF.ViewModels
     /// </summary>
     public class ViewModel_MainWindow : INotifyPropertyChanged
     {
-        #region Property Changed
-
         public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            var d = PropertyChanged;
-            d?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
-
+        
         public ViewModel_MainWindow()
         {
-            _windowAction += this.Model.Window_Activated;
-            _windowAction += this.Header.Window_Activated;
-            _windowAction += this.WorkPlace.Window_Activated;
-            _windowAction += this.AnnualChart.Window_Activated;
-            this.Window_Activated = new RelayCommand(_windowAction);
-
-            // 保存
-            this._save_Action += this.Model.Save;
-            this._save_Action += this.AnnualChart.Reload;
-
-            this._createBackup_Action += this.Model.CreateBackup;
-
-            // デフォルトに設定
-            this._setDefault_Action += this.Header.SetDefault;
-            this._setDefault_Action += this.Header.Save;
-
             this.Model.ViewModel   = this;
             this.Header.MainWindow = this;
             this.WorkingReference.MainWindow = this;
 
             this.Model.Initialize();
+ 
+            this.BindEvents();
+        }
+
+        /// <summary>
+        /// イベント登録
+        /// </summary>
+        /// <remarks>
+        /// Viewの指定したイベントと、発火させるメソッドを紐付ける。
+        /// </remarks>
+        public void BindEvents()
+        {
+            // 画面遷移時
+            this.Window_Activated.Subscribe(_ => this.Model.Window_Activated());
+            this.Window_Activated.Subscribe(_ => this.Header.Window_Activated());
+            this.Window_Activated.Subscribe(_ => this.WorkPlace.Window_Activated());
+            this.Window_Activated.Subscribe(_ => this.AnnualChart.Window_Activated());
+
+            // メニュー - 編集
+            this.EditCompany_Command.Subscribe(_ => this.Model.EditCompany());
+            this.EditCareer_Command.Subscribe(_ => this.Model.EditCareer());
+            this.EditWorkingPlace_Command.Subscribe(_ => this.Model.EditWorkingPlace());
+            this.EditHome_Command.Subscribe(_ => this.Model.EditHome());
+            this.EditHoliday_Command.Subscribe(_ => this.Model.EditHoliday());
+            this.EditFileStorage_Command.Subscribe(_ => this.Model.EditFileSotrage());
+            this.EditOption_Command.Subscribe(_ => this.Model.EditOption());
+
+            // 読込
+            this.ReadWorkSchedule_Command.Subscribe(_ => this.Model.ReadWorkSchedule());
+            this.ReadDefaultPayslip_Command.Subscribe(_ => this.Model.ReadDefaultPayslip());
+            this.ReadCSV_Command.Subscribe(_ => this.Model.ReadCSV());
+
+            // 表示
+            this.ShowCurrentPayslip_Command.Subscribe(_ => this.Model.ShowCurrentPayslip());
+
+            // 出力
+            this.OutputExcel_Command.Subscribe(_ => this.Model.OutputExcel());
+            this.OutputSpreadSheet_Command.Subscribe(_ => this.Model.OutputSpreadSheet());
+
+            // 保存
+            this.SavePayslip_Command.Subscribe(_ => this.Model.Save());
+            this.SavePayslip_Command.Subscribe(_ => this.AnnualChart.Reload());
+            this.SaveDefaultPayslip_Command.Subscribe(_ => this.Header.SetDefaultPayslip());
+            this.SaveDBBackup_Command.Subscribe(_ => this.Model.SaveDBBackup());
         }
 
         /// <summary> Model - ヘッダー </summary>
-        public Model_MainWindow Model { get; set; } = Model_MainWindow.GetInstance();
+        public Model_MainWindow Model { get; set; } 
+            = Model_MainWindow.GetInstance();
 
         /// <summary> Model - ヘッダ </summary>
-        public Model_Header Header { get; set; } = Model_Header.GetInstance(new HeaderSQLite());
+        public Model_Header Header { get; set; } 
+            = Model_Header.GetInstance(new HeaderSQLite());
 
         /// <summary> Model - 勤務場所 </summary>
-        private Model_WorkPlace WorkPlace { get; set; } = Model_WorkPlace.GetInstance();
+        private Model_WorkPlace WorkPlace { get; set; } 
+            = Model_WorkPlace.GetInstance();
 
         /// <summary> Model - 月収一覧 </summary>
-        private Model_AnnualChart AnnualChart { get; set; } = Model_AnnualChart.GetInstance();
+        private Model_AnnualChart AnnualChart { get; set; } 
+            = Model_AnnualChart.GetInstance();
 
         /// <summary> Model - 勤怠備考 </summary>
-        private Model_WorkingReference WorkingReference { get; set; } = Model_WorkingReference.GetInstance(new WorkingReferenceSQLite());
+        private Model_WorkingReference WorkingReference { get; set; } 
+            = Model_WorkingReference.GetInstance(new WorkingReferenceSQLite());
 
-        #region 画面遷移時
+        #region Window
 
-        /// <summary>
-        /// Window - Activated
-        /// </summary>
-        public RelayCommand Window_Activated { get; private set; }
+        /// <summary> Window - Background </summary>
+        public ReactiveProperty<SolidColorBrush> Window_Background { get; }
+            = new ReactiveProperty<SolidColorBrush>(new SolidColorBrush());
 
-        private Action _windowAction;
+        /// <summary> Window - FontFamily </summary>
+        public ReactiveProperty<FontFamily> Window_FontFamily { get; set; }
+            = new ReactiveProperty<FontFamily>();
 
-        #endregion
+        /// <summary> Window - FontSize </summary>
+        public ReactiveProperty<decimal> Window_FontSize { get; set; }
+            = new ReactiveProperty<decimal>();
 
-        /// <summary>
-        /// フォントファミリ - FontFamily
-        /// </summary>
-        public string Window_Title
-        {
-            get => Shared.SystemName;
-        }
+        /// <summary> Window - FontFamily </summary>
+        public ReactiveProperty<string> Window_Title { get; set; }
+            = new ReactiveProperty<string>(Shared.SystemName);
 
-        #region フォントファミリ
-
-        private System.Windows.Media.FontFamily _FontFamily;
-
-        /// <summary>
-        /// フォントファミリ - FontFamily
-        /// </summary>
-        public System.Windows.Media.FontFamily FontFamily
-        {
-            get => this._FontFamily;
-            set
-            {
-                this._FontFamily = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> Window - Activated </summary>
+        public ReactiveCommand Window_Activated { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
-        #region フォントサイズ
+        #region メニュー - 編集
 
-        private decimal _FontSize;
+        /// <summary> 会社マスタ - Command  </summary>
+        public ReactiveCommand EditCompany_Command { get; private set; }
+            = new ReactiveCommand();
 
-        /// <summary>
-        /// フォントサイズ - FontSize
-        /// </summary>
-        public decimal FontSize
-        {
-            get => this._FontSize;
-            set
-            {
-                this._FontSize = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 経歴マスタ - Command </summary>
+        public ReactiveCommand EditCareer_Command { get; private set; }
+            = new ReactiveCommand();
 
-        #endregion
+        /// <summary> 就業時間マスタ - Command </summary>
+        public ReactiveCommand EditWorkingPlace_Command { get; private set; } 
+            = new ReactiveCommand();
 
-        #region 背景色
+        /// <summary> 自宅マスタ - Command </summary>
+        public ReactiveCommand EditHome_Command { get; private set; }
+            = new ReactiveCommand();
 
-        private System.Windows.Media.Brush _window_Background;
+        /// <summary> 祝日マスタ - Command </summary>
+        public ReactiveCommand EditHoliday_Command { get; private set; }
+            = new ReactiveCommand();
 
-        /// <summary>
-        /// 背景色 - Background
-        /// </summary>
-        public System.Windows.Media.Brush Window_Background
-        {
-            get => this._window_Background;
-            set
-            {
-                this._window_Background = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 添付ファイル - Command </summary>
+        public ReactiveCommand EditFileStorage_Command { get; private set; }
+            = new ReactiveCommand();
+
+        /// <summary> オプション - Command </summary>
+        public ReactiveCommand EditOption_Command { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
-        #region CSV読込
+        #region メニュー - 読込
 
-        private RelayCommand _readCSV_Command;
+        /// <summary> 勤怠表 - Command </summary>
+        public ReactiveCommand ReadWorkSchedule_Command { get; private set; }
+            = new ReactiveCommand();
 
-        /// <summary>
-        /// CSV読込ボタン
-        /// </summary>
-        public RelayCommand ReadCSV_Command
-        {
-            get
-            {
-                if (this._readCSV_Command == null)
-                {
-                    this._readCSV_Command = new RelayCommand(this.Model.ReadCSV);
-                }
-                return this._readCSV_Command;
-            }
-        }
+        /// <summary> デフォルト明細を取得 - Command </summary>
+        public ReactiveCommand ReadDefaultPayslip_Command { get; private set; }
+            = new ReactiveCommand();
+
+        /// <summary> CSV読込 - Command </summary>
+        public ReactiveCommand ReadCSV_Command { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
-        #region デフォルトに設定
+        #region メニュー - 表示
 
-        private RelayCommand _setDefault_Command;
-
-        private Action _setDefault_Action;
-
-        /// <summary>
-        /// デフォルトに設定 - Command
-        /// </summary>
-        public RelayCommand SetDefault_Command
-        {
-            get
-            {
-                if (this._setDefault_Command == null)
-                {
-                    this._setDefault_Command = new RelayCommand(this._setDefault_Action);
-                }
-                return this._setDefault_Command;
-            }
-        }
+        /// <summary> 今月の明細 - Command </summary>
+        public ReactiveCommand ShowCurrentPayslip_Command { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
-        #region 勤怠表
+        #region メニュー - 出力
 
-        private RelayCommand _getWorkSchedule_Command;
+        /// <summary> Excel - Command </summary>
+        public ReactiveCommand OutputExcel_Command { get; private set; }
+            = new ReactiveCommand();
 
-        /// <summary>
-        /// 勤怠表 - Command
-        /// </summary>
-        public RelayCommand GetWorkSchedule_Command
-        {
-            get
-            {
-                if (this._getWorkSchedule_Command == null)
-                {
-                    this._getWorkSchedule_Command = new RelayCommand(this.Model.GetWorkSchedule);
-                }
-                return this._getWorkSchedule_Command;
-            }
-        }
+        /// <summary> SpreadSheet - Command </summary>
+        public ReactiveCommand OutputSpreadSheet_Command { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
-        #region デフォルトから取得
+        #region メニュー - 保存
 
-        private RelayCommand _getDefault_Command;
+        /// <summary> 給与明細 - Command </summary>
+        public ReactiveCommand SavePayslip_Command { get; private set; }
+            = new ReactiveCommand();
 
-        /// <summary>
-        /// デフォルトに設定 - Command
-        /// </summary>
-        public RelayCommand GetDefault_Command
-        {
-            get
-            {
-                if (this._getDefault_Command == null)
-                {
-                    this._getDefault_Command = new RelayCommand(this.Model.FetchDefault);
-                }
-                return this._getDefault_Command;
-            }
-        }
+        /// <summary> デフォルト明細 - Command </summary>
+        public ReactiveCommand SaveDefaultPayslip_Command { get; private set; }
+            = new ReactiveCommand();
 
-        #endregion
-
-        #region 会社マスタを開く
-
-        private RelayCommand _showCompany_Command;
-
-        /// <summary>
-        /// 会社マスタを開く - Command
-        /// </summary>
-        public RelayCommand ShowCompany_Command
-        {
-            get
-            {
-                if (this._showCompany_Command == null)
-                {
-                    this._showCompany_Command = new RelayCommand(this.Model.ShowCompanyManager);
-                }
-                return this._showCompany_Command;
-            }
-        }
-
-        #endregion
-
-        #region 経歴マスタを開く
-
-        private RelayCommand _showCareerManager_Command;
-
-        /// <summary>
-        /// 経歴マスタを開く - Command
-        /// </summary>
-        public RelayCommand ShowCareerManager_Command
-        {
-            get
-            {
-                if (this._showCareerManager_Command == null)
-                {
-                    this._showCareerManager_Command = new RelayCommand(this.Model.ShowCareerManager);
-                }
-                return this._showCareerManager_Command;
-            }
-        }
-
-        #endregion
-
-        #region 就業時間マスタを開く
-
-        private RelayCommand _showCompanyManager_Command;
-
-        /// <summary>
-        /// 就業時間マスタを開く - Command
-        /// </summary>
-        public RelayCommand ShowCompanyManager_Command
-        {
-            get
-            {
-                if (this._showCompanyManager_Command == null)
-                {
-                    this._showCompanyManager_Command = new RelayCommand(this.Model.ShowWorkingPlace);
-                }
-                return this._showCompanyManager_Command;
-            }
-        }
-
-        #endregion
-
-        #region 自宅マスタを開く
-
-        private RelayCommand _showHomeManager_Command;
-
-        /// <summary>
-        /// 就業時間マスタを開く - Command
-        /// </summary>
-        public RelayCommand ShowHomeManager_Command
-        {
-            get
-            {
-                if (this._showHomeManager_Command == null)
-                {
-                    this._showHomeManager_Command = new RelayCommand(this.Model.ShowHome);
-                }
-                return this._showHomeManager_Command;
-            }
-        }
-
-        #endregion
-
-        #region 祝日マスタを開く
-
-        private RelayCommand _showHolidayManager_Command;
-
-        /// <summary>
-        /// 祝日マスタを開く - Command
-        /// </summary>
-        public RelayCommand ShowHolidayManager_Command
-        {
-            get
-            {
-                if (this._showHolidayManager_Command == null)
-                {
-                    this._showHolidayManager_Command = new RelayCommand(this.Model.ShowHoliday);
-                }
-                return this._showHolidayManager_Command;
-            }
-        }
-
-        #endregion
-
-        #region 添付ファイル管理画面を開く
-
-        private RelayCommand _showFileStorage_Command;
-
-        /// <summary>
-        /// 添付ファイル画面を開く - Command
-        /// </summary>
-        public RelayCommand ShowFileStorage_Command
-        {
-            get
-            {
-                if (this._showFileStorage_Command == null)
-                {
-                    this._showFileStorage_Command = new RelayCommand(this.Model.ShowFileSotrage);
-                }
-                return this._showFileStorage_Command;
-            }
-        }
-
-        #endregion
-
-        #region オプション
-
-        private RelayCommand _showOption_Command;
-
-        /// <summary>
-        /// 今月の明細を表示 - Command
-        /// </summary>
-        public RelayCommand ShowOption_Command
-        {
-            get
-            {
-                if (this._showOption_Command == null)
-                {
-                    this._showOption_Command = new RelayCommand(this.Model.ShowOption);
-                }
-                return this._showOption_Command;
-            }
-        }
-
-        #endregion
-
-        #region 今月の明細を表示
-
-        private RelayCommand _showCurrentPayslip_Command;
-
-        /// <summary>
-        /// 今月の明細を表示 - Command
-        /// </summary>
-        public RelayCommand ShowCurrentPayslip_Command
-        {
-            get
-            {
-                if (this._showCurrentPayslip_Command == null)
-                {
-                    this._showCurrentPayslip_Command = new RelayCommand(this.Model.ShowCurrentPayslip);
-                }
-                return this._showCurrentPayslip_Command;
-            }
-        }
-
-        #endregion
-
-        #region 保存
-
-        private RelayCommand _save_Command;
-
-        private Action _save_Action;
-
-        /// <summary>
-        /// 保存 - Command
-        /// </summary>
-        public RelayCommand Save_Command
-        {
-            get
-            {
-                if (this._save_Command == null)
-                {
-                    this._save_Command = new RelayCommand(this._save_Action);
-                }
-                return this._save_Command;
-            }
-        }
-
-        #endregion
-
-        #region 保存
-
-        private RelayCommand _createBackup_Command;
-
-        private Action _createBackup_Action;
-
-        /// <summary>
-        /// 保存 - Command
-        /// </summary>
-        public RelayCommand CreateBackup_Command
-        {
-            get
-            {
-                if (this._createBackup_Command == null)
-                {
-                    this._createBackup_Command = new RelayCommand(this._createBackup_Action);
-                }
-                return this._createBackup_Command;
-            }
-        }
-
-        #endregion
-
-        #region Excel出力
-
-        private RelayCommand _outputExcel_Command;
-
-        /// <summary>
-        /// Excel出力 - Command
-        /// </summary>
-        public RelayCommand OutputExcel_Command
-        {
-            get
-            {
-                if (this._outputExcel_Command == null)
-                {
-                    this._outputExcel_Command = new RelayCommand(this.Model.OutputExcel);
-                }
-                return this._outputExcel_Command;
-            }
-        }
-
-        #endregion
-
-        #region スプレッドシート出力
-
-        private RelayCommand _outputSpreadSheet_Command;
-
-        /// <summary>
-        /// スプレッドシート出力 - Command
-        /// </summary>
-        public RelayCommand OutputSpreadSheet_Command
-        {
-            get
-            {
-                if (this._outputSpreadSheet_Command == null)
-                {
-                    this._outputSpreadSheet_Command = new RelayCommand(this.Model.OutputSpreadSheet);
-                }
-                return this._outputSpreadSheet_Command;
-            }
-        }
+        /// <summary> DBのバックアップを作成する - Command </summary>
+        public ReactiveCommand SaveDBBackup_Command { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
         #region 金額の比較用
 
-        private Brush _priceUpDown_Foreground;
+        /// <summary> 金額の比較用 - Content </summary>
+        public ReactiveProperty<string> PriceUpdown_Content { get; set; }
+            = new ReactiveProperty<string>();
 
-        /// <summary>
-        /// 金額の比較用 - Foreground
-        /// </summary>
-        public Brush PriceUpdown_Foreground
-        {
-            get => this._priceUpDown_Foreground;
-            set
-            {
-                this._priceUpDown_Foreground = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private string _priceUpDown_Content;
-
-        /// <summary>
-        /// 金額の比較用 - Content
-        /// </summary>
-        public string PriceUpdown_Content
-        {
-            get => this._priceUpDown_Content;
-            set
-            {
-                this._priceUpDown_Content = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 金額の比較用 - Foreground </summary>
+        public ReactiveProperty<SolidColorBrush> PriceUpdown_Foreground { get; set; }
+            = new ReactiveProperty<SolidColorBrush>();
 
         #endregion
 

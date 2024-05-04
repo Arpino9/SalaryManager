@@ -9,12 +9,12 @@
         xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" 
         x:Class="SalaryManager.WPF.MainWindow"
         mc:Ignorable="d"
-        Title="{Binding Window_Title, Mode=OneWay}" Height="550" Width="700"
-        Background="{Binding Window_Background}"
+        Title="{Binding Window_Title.Value, Mode=OneWay}" Height="550" Width="700"
+        Background="{Binding Window_Background.Value}"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize" 
-        FontFamily="{Binding FontFamily}" 
-        FontSize="{Binding FontSize}">
+        FontFamily="{Binding Window_FontFamily.Value}" 
+        FontSize="{Binding Window_FontSize.Value}">
     <behaviors:Interaction.Triggers>
         <behaviors:EventTrigger EventName="Activated">
             <behaviors:InvokeCommandAction Command="{Binding Window_Activated}" />
@@ -25,44 +25,44 @@
         <Controls:WindowCommands>
             <Menu>
                 <MenuItem Header="編集">
-                    <MenuItem Header="会社マスタ" Command="{Binding ShowCompany_Command}">
+                    <MenuItem Header="会社マスタ" Command="{Binding EditCompany_Command}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="会社マスタを開きます。"/>
                         </ToolTipService.ToolTip>
                     </MenuItem>
 
-                    <MenuItem Header="経歴マスタ" Command="{Binding ShowCareerManager_Command}">
+                    <MenuItem Header="経歴マスタ" Command="{Binding EditCareer_Command}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="経歴マスタを開きます。"/>
                         </ToolTipService.ToolTip>
                     </MenuItem>
 
-                    <MenuItem Header="勤務マスタ" Command="{Binding ShowCompanyManager_Command}">
+                    <MenuItem Header="勤務マスタ" Command="{Binding EditWorkingPlace_Command}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="勤務マスタを開きます。"/>
                         </ToolTipService.ToolTip>
                     </MenuItem>
 
-                    <MenuItem Header="自宅マスタ" Command="{Binding ShowHomeManager_Command}">
+                    <MenuItem Header="自宅マスタ" Command="{Binding EditHome_Command}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="自宅マスタを開きます。"/>
                         </ToolTipService.ToolTip>
                     </MenuItem>
 
-                    <MenuItem Header="祝日マスタ" Command="{Binding ShowHolidayManager_Command}">
+                    <MenuItem Header="祝日マスタ" Command="{Binding EditHoliday_Command}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="自宅マスタを開きます。"/>
                         </ToolTipService.ToolTip>
                     </MenuItem>
 
 
-                    <MenuItem Header="添付ファイル" Command="{Binding ShowFileStorage_Command}">
+                    <MenuItem Header="添付ファイル" Command="{Binding EditFileStorage_Command}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="添付ファイル登録画面を開きます。"/>
                         </ToolTipService.ToolTip>
                     </MenuItem>
 
-                    <MenuItem Header="オプション" Command="{Binding ShowOption_Command}">
+                    <MenuItem Header="オプション" Command="{Binding EditOption_Command}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="アプリケーション設定画面を開きます。"/>
                         </ToolTipService.ToolTip>
@@ -70,13 +70,13 @@
                 </MenuItem>
 
                 <MenuItem Header="読込">
-                    <MenuItem Header="勤怠表" Command="{Binding GetWorkSchedule_Command}">
+                    <MenuItem Header="勤怠表" Command="{Binding ReadWorkSchedule_Command}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="登録されているデフォルト明細を取得します。"/>
                         </ToolTipService.ToolTip>
                     </MenuItem>
-                    
-                    <MenuItem Header="デフォルト明細を取得" Command="{Binding GetDefault_Command}">
+
+                    <MenuItem Header="デフォルト明細を取得" Command="{Binding ReadDefaultPayslip_Command}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="登録されているデフォルト明細を取得します。"/>
                         </ToolTipService.ToolTip>
@@ -112,7 +112,7 @@
                 </MenuItem>
 
                 <MenuItem Header="保存">
-                    <MenuItem Header="給与明細を保存する" Command="{Binding Save_Command}">
+                    <MenuItem Header="給与明細" Command="{Binding SavePayslip_Command}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="入力された給与明細を保存します。"/>
                         </ToolTipService.ToolTip>
@@ -124,7 +124,7 @@
                         </ToolTipService.ToolTip>
                     </MenuItem>
 
-                    <MenuItem Header="DBのバックアップを作成する" Command="{Binding CreateBackup_Command}">
+                    <MenuItem Header="DBのバックアップを作成する" Command="{Binding SaveDBBackup_Command}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="SQLiteのバックアップを作成します。"/>
                         </ToolTipService.ToolTip>
@@ -194,9 +194,9 @@
                            Grid.Row="2" 
                            Grid.RowSpan="2" />
 
-        <StatusBar Grid.Row="3" VerticalAlignment="Bottom" Background="{Binding Window_Background}">
-            <Label Content="{Binding PriceUpdown_Content}" 
-                   Foreground="{Binding PriceUpdown_Foreground}" />
+        <StatusBar Grid.Row="3" VerticalAlignment="Bottom" Background="{Binding Window_Background.Value}">
+            <Label Content="{Binding PriceUpdown_Content.Value}" 
+                   Foreground="{Binding PriceUpdown_Foreground.Value}" />
         </StatusBar>
     </Grid>
 </Controls:MetroWindow>

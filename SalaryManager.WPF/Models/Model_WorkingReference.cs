@@ -185,7 +185,7 @@ namespace SalaryManager.WPF.Models
             {
                 Message.ShowErrorMessage(
                     $"有給休暇は{PaidVacationDaysValue.Minimum}から{PaidVacationDaysValue.Maximum}までの日数で入力して下さい。",
-                    this.MainWindow.Window_Title);
+                    this.MainWindow.Window_Title.Value);
 
                 return false;
             }

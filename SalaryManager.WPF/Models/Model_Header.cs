@@ -190,7 +190,7 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 保存
         /// </summary>
-        public void Save()
+        public void SaveDefaultPayslip()
         {
             var entity = new HeaderEntity(            
                 this.ViewModel.ID,
@@ -224,10 +224,10 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// デフォルトに設定
         /// </summary>
-        internal void SetDefault()
+        internal void SetDefaultPayslip()
         {
             var confirmingMessage = $"{this.ViewModel.Year_Text.Value}年{this.ViewModel.Month_Text.Value}月の給与明細をデフォルト明細として設定しますか？";
-            if (!Message.ShowConfirmingMessage(confirmingMessage, this.MainWindow.Window_Title))
+            if (!Message.ShowConfirmingMessage(confirmingMessage, this.MainWindow.Window_Title.Value))
             {
                 // キャンセル
                 return;
@@ -244,6 +244,8 @@ namespace SalaryManager.WPF.Models
 
             // 今回のデフォルト設定を登録する
             this.ViewModel.IsDefault = true;
+
+            this.SaveDefaultPayslip();
         }
 
         /// <summary>

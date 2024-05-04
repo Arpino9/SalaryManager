@@ -12,8 +12,6 @@ using SalaryManager.WPF.ViewModels;
 using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Infrastructure.JSON;
 using WorkingPlace = SalaryManager.Domain.StaticValues.WorkingPlace;
-using DocumentFormat.OpenXml.Bibliography;
-using SalaryManager.WPF.Window;
 
 namespace SalaryManager.WPF.Models
 {

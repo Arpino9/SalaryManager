@@ -5,6 +5,9 @@ using System.Runtime.CompilerServices;
 
 namespace SalaryManager.WPF.ViewModels
 {
+    /// <summary>
+    /// ViewModel - オプション - カレンダー
+    /// </summary>
     public class ViewModel_CalendarOption : INotifyPropertyChanged
     {
 

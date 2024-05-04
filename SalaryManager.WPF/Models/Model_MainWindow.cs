@@ -122,9 +122,9 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void Window_Activated()
         {
-            this.ViewModel.FontFamily        = XMLLoader.FetchFontFamily();
-            this.ViewModel.FontSize          = XMLLoader.FetchFontSize();
-            this.ViewModel.Window_Background = XMLLoader.FetchBackgroundColorBrush();
+            this.ViewModel.Window_FontFamily.Value = XMLLoader.FetchFontFamily();
+            this.ViewModel.Window_FontSize.Value   = XMLLoader.FetchFontSize();
+            this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
         }
 
         #endregion
@@ -140,7 +140,7 @@ namespace SalaryManager.WPF.Models
         internal void ReadCSV()
         {
             var confirmingMessage = $"{this.Header.ViewModel.Year_Text.Value}年{this.Header.ViewModel.Month_Text.Value}月のCSVを読み込みますか？";
-            if (!Message.ShowConfirmingMessage(confirmingMessage, this.ViewModel.Window_Title))
+            if (!Message.ShowConfirmingMessage(confirmingMessage, this.ViewModel.Window_Title.Value))
             {
                 // キャンセル
                 return;
@@ -179,7 +179,7 @@ namespace SalaryManager.WPF.Models
             catch (FileNotFoundException)
             {
                 var message = $"「{Shared.DirectoryCSV}」に{this.Header.ViewModel.Year_Text.Value}年{this.Header.ViewModel.Month_Text.Value}月分のCSVが\n保存されていません。読み込みを中断します。";
-                Message.ShowResultMessage(message, this.ViewModel.Window_Title);
+                Message.ShowResultMessage(message, this.ViewModel.Window_Title.Value);
             }
         }
 
@@ -207,19 +207,19 @@ namespace SalaryManager.WPF.Models
                 difference == 0)
             {
                 // 変更なし
-                this.ViewModel.PriceUpdown_Content = string.Empty;
+                this.ViewModel.PriceUpdown_Content.Value = string.Empty;
                 return;
             }
 
             if (difference > 0) 
             {
-                this.ViewModel.PriceUpdown_Foreground = new SolidColorBrush(Colors.Blue);
-                this.ViewModel.PriceUpdown_Content    = $"+{difference.ToString()}";
+                this.ViewModel.PriceUpdown_Foreground.Value = new SolidColorBrush(Colors.Blue);
+                this.ViewModel.PriceUpdown_Content.Value    = $"+{difference.ToString()}";
             }
             else
             {
-                this.ViewModel.PriceUpdown_Foreground = new SolidColorBrush(Colors.Red);
-                this.ViewModel.PriceUpdown_Content    = difference.ToString();
+                this.ViewModel.PriceUpdown_Foreground.Value = new SolidColorBrush(Colors.Red);
+                this.ViewModel.PriceUpdown_Content.Value    = difference.ToString();
             }
         }
 
@@ -234,7 +234,7 @@ namespace SalaryManager.WPF.Models
         internal void Save()
         {
             var message = $"{this.Header.ViewModel.Year_Text.Value}年{this.Header.ViewModel.Month_Text.Value}月の給与明細を保存しますか？";
-            if (!Message.ShowConfirmingMessage(message, this.ViewModel.Window_Title))
+            if (!Message.ShowConfirmingMessage(message, this.ViewModel.Window_Title.Value))
             {
                 // キャンセル
                 return;
@@ -269,7 +269,7 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// DBバックアップ
         /// </summary>
-        internal void CreateBackup()
+        internal void SaveDBBackup()
         {
             var filter = "Databaseファイル(*.db)|*.db|すべてのファイル(*.*)|*.*";
 
@@ -290,7 +290,7 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 勤怠表を開く
         /// </summary>
-        internal void GetWorkSchedule()
+        internal void ReadWorkSchedule()
         {
             var workSchedule = new WorkSchedule();
             workSchedule.Show();
@@ -303,13 +303,13 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// デフォルト明細を取得する
         /// </summary>
-        internal void FetchDefault()
+        internal void ReadDefaultPayslip()
         {
             Headers.Create(new HeaderSQLite());
 
             if (Headers.FetchDefault() == null)
             {
-                Message.ShowResultMessage("デフォルト明細が登録されていません。", this.ViewModel.Window_Title);
+                Message.ShowResultMessage("デフォルト明細が登録されていません。", this.ViewModel.Window_Title.Value);
                 return;
             }
 
@@ -448,7 +448,7 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 会社マスタを開く
         /// </summary>
-        internal void ShowCompanyManager()
+        internal void EditCompany()
         {
             var company = new Company();
             company.Show();
@@ -461,7 +461,7 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 就業時間マスタを開く
         /// </summary>
-        internal void ShowWorkingPlace()
+        internal void EditWorkingPlace()
         {
             var career = new WorkingPlace();
             career.Show();
@@ -474,7 +474,7 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 就業時間マスタを開く
         /// </summary>
-        internal void ShowHome()
+        internal void EditHome()
         {
             var home = new Home();
             home.Show();
@@ -487,7 +487,7 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 祝日マスタを開く
         /// </summary>
-        internal void ShowHoliday()
+        internal void EditHoliday()
         {
             var holiday = new Holiday();
             holiday.Show();
@@ -500,7 +500,7 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 経歴管理画面を開く
         /// </summary>
-        internal void ShowCareerManager()
+        internal void EditCareer()
         {
             var career = new Career();
             career.Show();
@@ -513,7 +513,7 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// オプション画面を開く
         /// </summary>
-        internal void ShowOption()
+        internal void EditOption()
         {
             var career = new Option();
             career.Show();
@@ -526,7 +526,7 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 添付ファイル管理画面を開く
         /// </summary>
-        internal void ShowFileSotrage()
+        internal void EditFileSotrage()
         {
             var storage = new FileStorage();
             storage.Show();
