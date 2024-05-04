@@ -263,6 +263,9 @@ namespace SalaryManager.WPF.Models
             return holiday.Name;
         }
 
+        /// <summary>
+        /// クリア
+        /// </summary>
         private void Clear()
         {
             // 日付
@@ -648,6 +651,9 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         /// <param name="day">対象日</param>
         /// <param name="startTime">始業時刻</param>
+        /// <remarks>
+        /// 「hh:mm」形式で始業時間を求める
+        /// </remarks>
         private void InputStartTime(int day, DateTime startTime)
         {
             switch (day)
@@ -694,6 +700,9 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         /// <param name="day">対象日</param>
         /// <param name="endTime">終業時刻</param>
+        /// <remarks>
+        /// 「hh:mm」形式で終業時間を求める
+        /// </remarks>
         private void InputEndTime(int day, DateTime endTime)
         {
             switch (day)
@@ -783,7 +792,7 @@ namespace SalaryManager.WPF.Models
             }
 
             string Format()
-                => $"{(workingPlace.LunchTime.End - workingPlace.LunchTime.Start).ToString(@"hh\:mm")}";
+                => workingPlace.LunchTimeSpan.ToString(@"hh\:mm");
         }
 
         /// <summary>

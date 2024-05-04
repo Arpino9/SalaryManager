@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using System.Windows.Media;
+using Reactive.Bindings;
 using SalaryManager.Infrastructure.SQLite;
-using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
 
 namespace SalaryManager.WPF.ViewModels
@@ -12,19 +12,7 @@ namespace SalaryManager.WPF.ViewModels
     /// </summary>
     public class ViewModel_Header : INotifyPropertyChanged
     {
-
-        #region Property Changed
-
         public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void RaisePropertyChanged(
-            [CallerMemberName] string propertyName = null)
-        {
-            var d = PropertyChanged;
-            d?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
 
         public ViewModel_Header()
         {
@@ -44,272 +32,144 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary>
-        /// Bind Events
+        /// イベント登録
         /// </summary>
+        /// <remarks>
+        /// Viewの指定したイベントと、発火させるメソッドを紐付ける。
+        /// </remarks>
         private void BindEvents()
         {
             // ←(戻る)
-            this._returnAction += this.Model.Return;
-            this._returnAction += this.Allowance.Reload;
-            this._returnAction += this.Deduction.Reload;
-            this._returnAction += this.WorkingReference.Reload;
-            this._returnAction += this.SideBusiness.Reload;
-            this._returnAction += this.WorkPlace.Reload;
-            this._returnAction += this.AnnualCharts.Reload;
+            this.Return_Command.Subscribe(_ => this.Model.Return());
+            this.Return_Command.Subscribe(_ => this.Allowance.Reload());
+            this.Return_Command.Subscribe(_ => this.Deduction.Reload());
+            this.Return_Command.Subscribe(_ => this.WorkingReference.Reload());
+            this.Return_Command.Subscribe(_ => this.SideBusiness.Reload());
+            this.Return_Command.Subscribe(_ => this.WorkPlace.Reload());
+            this.Return_Command.Subscribe(_ => this.AnnualCharts.Reload());
 
             // →(進む)
-            this._proceedAction += this.Model.Proceed;
-            this._proceedAction += this.Allowance.Reload;
-            this._proceedAction += this.Deduction.Reload;
-            this._proceedAction += this.WorkingReference.Reload;
-            this._proceedAction += this.SideBusiness.Reload;
-            this._proceedAction += this.WorkPlace.Reload;
-            this._proceedAction += this.AnnualCharts.Reload;
+            this.Proceed_Command.Subscribe(_ => this.Model.Proceed());
+            this.Proceed_Command.Subscribe(_ => this.Allowance.Reload());
+            this.Proceed_Command.Subscribe(_ => this.Deduction.Reload());
+            this.Proceed_Command.Subscribe(_ => this.WorkingReference.Reload());
+            this.Proceed_Command.Subscribe(_ => this.SideBusiness.Reload());
+            this.Proceed_Command.Subscribe(_ => this.WorkPlace.Reload());
+            this.Proceed_Command.Subscribe(_ => this.AnnualCharts.Reload());
 
             // 年
-            this._yearAction += this.Model.Reload;
-            this._yearAction += this.Allowance.Reload;
-            this._yearAction += this.Deduction.Reload;
-            this._yearAction += this.WorkingReference.Reload;
-            this._yearAction += this.SideBusiness.Reload;
-            this._yearAction += this.WorkPlace.Reload;
-            this._yearAction += this.AnnualCharts.Reload;
-            this.Year_TextChanged = new RelayCommand(_yearAction);
+            this.Year_Text.Subscribe(_ => this.Model.IsValid_Year());
+            this.Year_TextChanged.Subscribe(_ => this.Model.Reload());
+            this.Year_TextChanged.Subscribe(_ => this.Allowance.Reload());
+            this.Year_TextChanged.Subscribe(_ => this.Deduction.Reload());
+            this.Year_TextChanged.Subscribe(_ => this.WorkingReference.Reload());
+            this.Year_TextChanged.Subscribe(_ => this.SideBusiness.Reload());
+            this.Year_TextChanged.Subscribe(_ => this.WorkPlace.Reload());
+            this.Year_TextChanged.Subscribe(_ => this.AnnualCharts.Reload());
 
             // 月
-            this._monthAction += this.Model.Reload;
-            this._monthAction += this.Allowance.Reload;
-            this._monthAction += this.Deduction.Reload;
-            this._monthAction += this.WorkingReference.Reload;
-            this._monthAction += this.SideBusiness.Reload;
-            this._monthAction += this.WorkPlace.Reload;
-            this._monthAction += this.AnnualCharts.Reload;
-            this.Month_TextChanged = new RelayCommand(_monthAction);
+            this.Month_Text.Subscribe(_ => this.Model.IsValid_Month());
+            this.Month_TextChanged.Subscribe(_ => this.Model.Reload());
+            this.Month_TextChanged.Subscribe(_ => this.Allowance.Reload());
+            this.Month_TextChanged.Subscribe(_ => this.Deduction.Reload());
+            this.Month_TextChanged.Subscribe(_ => this.WorkingReference.Reload());
+            this.Month_TextChanged.Subscribe(_ => this.SideBusiness.Reload());
+            this.Month_TextChanged.Subscribe(_ => this.WorkPlace.Reload());
+            this.Month_TextChanged.Subscribe(_ => this.AnnualCharts.Reload());
         }
 
         /// <summary> Model - ヘッダー </summary>
-        public Model_Header Model { get; set; } = Model_Header.GetInstance(new HeaderSQLite());
+        public Model_Header Model { get; set; } 
+            = Model_Header.GetInstance(new HeaderSQLite());
 
         /// <summary> Model - メイン画面 </summary>
-        public Model_MainWindow MainWindow { get; set; } = Model_MainWindow.GetInstance();
+        public Model_MainWindow MainWindow { get; set; } 
+            = Model_MainWindow.GetInstance();
 
         /// <summary> Model - 月収一覧 </summary>
-        public Model_AnnualChart AnnualCharts { get; set; } = Model_AnnualChart.GetInstance();
+        public Model_AnnualChart AnnualCharts { get; set; } 
+            = Model_AnnualChart.GetInstance();
 
         /// <summary> Model - 支給額 </summary>
-        public Model_Allowance Allowance { get; set; } = Model_Allowance.GetInstance(new AllowanceSQLite());
+        public Model_Allowance Allowance { get; set; } 
+            = Model_Allowance.GetInstance(new AllowanceSQLite());
 
         /// <summary> Model - 控除額 </summary>
-        public Model_Deduction Deduction { get; set; } = Model_Deduction.GetInstance(new DeductionSQLite());
+        public Model_Deduction Deduction { get; set; } 
+            = Model_Deduction.GetInstance(new DeductionSQLite());
 
         /// <summary> Model - 勤務備考 </summary>
-        public Model_WorkingReference WorkingReference { get; set; } = Model_WorkingReference.GetInstance(new WorkingReferenceSQLite());
+        public Model_WorkingReference WorkingReference { get; set; } 
+            = Model_WorkingReference.GetInstance(new WorkingReferenceSQLite());
 
         /// <summary> Model - 勤務場所 </summary>
-        public Model_WorkPlace WorkPlace { get; set; } = Model_WorkPlace.GetInstance();
+        public Model_WorkPlace WorkPlace { get; set; } 
+            = Model_WorkPlace.GetInstance();
 
         /// <summary> Model - 副業 </summary>
-        public Model_SideBusiness SideBusiness { get; set; } = Model_SideBusiness.GetInstance(new SideBusinessSQLite());
+        public Model_SideBusiness SideBusiness { get; set; } 
+            = Model_SideBusiness.GetInstance(new SideBusinessSQLite());
 
         #region 背景色
 
-        private System.Windows.Media.Brush _window_Background;
-
-        /// <summary>
-        /// 背景色 - Background
-        /// </summary>
-        public System.Windows.Media.Brush Window_Background
-        {
-            get => this._window_Background;
-            set
-            {
-                this._window_Background = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 背景色 - Background </summary>
+        public ReactiveProperty<SolidColorBrush> Window_Background { get; set; }
+            = new ReactiveProperty<SolidColorBrush>();
 
         #endregion
 
-        #region ID
-
-        /// <summary>
-        /// ID
-        /// </summary>
+        /// <summary> ID </summary>
         public int ID { get; internal set; }
 
-        #endregion
-
-        #region 年月
-
-        /// <summary>
-        /// 年月
-        /// </summary>
+        /// <summary> 年月 </summary>
         public DateTime YearMonth { get; set; } = DateTime.Today;
 
-        private int _year_Value = DateTime.Now.Year;
+        #region 年
 
-        /// <summary>
-        /// 年 - Value
-        /// </summary>
-        public int Year_Value
-        {
-            get => this._year_Value;
-            set
-            {
-                if (value.ToString().Length != 4)
-                {
-                    return;
-                }
+        /// <summary> 年 - Text </summary>
+        public ReactiveProperty<int> Year_Text { get; set; }
+            = new ReactiveProperty<int>(DateTime.Now.Year);
 
-                this._year_Value = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private event Action _yearAction;
-
-        /// <summary>
-        /// 年 - TextChanged
-        /// </summary>
-        public RelayCommand Year_TextChanged { get; private set; }
-
-        private int _month_Value = DateTime.Now.Month;
-
-        /// <summary>
-        /// 月 - Value
-        /// </summary>
-        public int Month_Value
-        {
-            get => this._month_Value;
-            set
-            {
-                if (value < 1)
-                {
-                    this._month_Value = 1;
-                } 
-                else if (value > 12)
-                {
-                    this._month_Value = 12;
-                }
-                else
-                {
-                    this._month_Value = value;
-                }
-                
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private event Action _monthAction;
-
-        /// <summary>
-        /// 月 - TextChanged
-        /// </summary>
-        public RelayCommand Month_TextChanged { get; private set; }
+        /// <summary> 年 - TextChanged </summary>
+        public ReactiveCommand Year_TextChanged { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
-        #region デフォルトか
+        #region 月
 
-        private bool _isDefault;
+        /// <summary> 月 - Text </summary>
+        public ReactiveProperty<int> Month_Text { get; set; }
+            = new ReactiveProperty<int>(DateTime.Now.Month);
 
-        /// <summary>
-        /// デフォルトか
-        /// </summary>
-        public bool IsDefault 
-        {
-            get => this._isDefault;
-            set
-            {
-                this._isDefault = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 月 - TextChanged </summary>
+        public ReactiveCommand Month_TextChanged { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
-        #region 作成日
+        /// <summary> デフォルトか </summary>
+        public bool IsDefault { get; set; }
 
-        private DateTime _createDate;
+        /// <summary> 作成日 </summary>
+        public DateTime CreateDate { get; set; }
 
-        /// <summary>
-        /// 作成日
-        /// </summary>
-        public DateTime CreateDate
-        {
-            get => this._createDate;
-            set
-            {
-                this._createDate = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        #endregion
-
-        #region 更新日
-
-        private DateTime _updateDate;
-
-        /// <summary>
-        /// 更新日
-        /// </summary>
-        public DateTime UpdateDate
-        {
-            get => this._updateDate;
-            set
-            {
-                this._updateDate = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        #endregion
+        /// <summary> 更新日 </summary>
+        public DateTime UpdateDate { get; set; }
 
         #region 戻るボタン
 
-        private RelayCommand _return_Command;
-
-        private Action _returnAction;
-
-        /// <summary>
-        /// 戻るボタン
-        /// </summary>
-        public RelayCommand Return_Command
-        {
-            get
-            {
-                if (this._return_Command == null)
-                {
-                    this._return_Command = new RelayCommand(this._returnAction);
-
-                }
-                return this._return_Command;
-            }
-        }
+        /// <summary> 戻る - Command </summary>
+        public ReactiveCommand Return_Command { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
         #region 進むボタン
 
-        private RelayCommand _proceed_Command;
-
-        private Action _proceedAction;
-
-        /// <summary>
-        /// 戻るボタン
-        /// </summary>
-        public RelayCommand Proceed_Command
-        {
-            get
-            {
-                if (this._proceed_Command == null)
-                {
-                    this._proceed_Command = new RelayCommand(this._proceedAction);
-                }
-                return this._proceed_Command;
-            }
-        }
+        /// <summary> 進む - Command </summary>
+        public ReactiveCommand Proceed_Command { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 

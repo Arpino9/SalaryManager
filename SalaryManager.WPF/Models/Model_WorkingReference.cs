@@ -91,8 +91,8 @@ namespace SalaryManager.WPF.Models
             {
                 WorkingReferences.Create(_repository);
 
-                this.ViewModel.Entity          = WorkingReferences.Fetch(this.Header.Year_Value,     this.Header.Month_Value);
-                this.ViewModel.Entity_LastYear = WorkingReferences.Fetch(this.Header.Year_Value - 1, this.Header.Month_Value);
+                this.ViewModel.Entity          = WorkingReferences.Fetch(this.Header.Year_Text.Value,     this.Header.Month_Text.Value);
+                this.ViewModel.Entity_LastYear = WorkingReferences.Fetch(this.Header.Year_Text.Value - 1, this.Header.Month_Text.Value);
 
                 this.Refresh();
             }   
@@ -214,7 +214,7 @@ namespace SalaryManager.WPF.Models
                 this.ViewModel.NumberOfDependent_Value,
                 this.ViewModel.PaidVacation_Value,
                 this.ViewModel.WorkingHours_Value,
-                this.WorkPlace.WorkPlace,
+                this.WorkPlace.WorkPlace_Text.Value,
                 this.ViewModel.Remarks_Text);
 
             _repository.Save(transaction, entity);

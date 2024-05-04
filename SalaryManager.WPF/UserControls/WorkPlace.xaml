@@ -8,7 +8,7 @@
              x:Class="SalaryManager.WPF.UserControls.WorkPlace"
              mc:Ignorable="d" 
              d:DesignHeight="70" d:DesignWidth="300"
-             Background="{Binding Window_Background}">
+             Background="{Binding Window_Background.Value}">
     <UserControl.DataContext>
         <ViewModels:ViewModel_WorkPlace/>
     </UserControl.DataContext>
@@ -27,8 +27,8 @@
         <TextBox Grid.Column="1"
                  IsReadOnly="True"
                  Style="{StaticResource PayslipItemCharacter_Style}"
-                 Text="{Binding CompanyName}"
-                 Foreground="{Binding CompanyName_Foreground}"/>
+                 Text="{Binding CompanyName_Text.Value}"
+                 Foreground="{Binding CompanyName_Foreground.Value}"/>
 
         <Label Content="勤務先" 
                Grid.Row="1"
@@ -36,8 +36,8 @@
         <TextBox Grid.Column="1"
                  Grid.Row="1"
                  IsReadOnly="True"
-                 Foreground="{Binding WorkPlace_Foreground}"
+                 Foreground="{Binding WorkPlace_Foreground.Value}"
                  Style="{StaticResource PayslipItemCharacter_Style}" 
-                 Text="{Binding WorkPlace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                 Text="{Binding WorkPlace_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
 </UserControl>

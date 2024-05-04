@@ -78,7 +78,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void Window_Activated()
         {
-            this.ViewModel.Window_Background = XMLLoader.FetchBackgroundColorBrush();
+            this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
         }
 
         /// <summary>
@@ -98,27 +98,27 @@ namespace SalaryManager.WPF.Models
             }
 
             // 勤務先
-            this.ViewModel.WorkPlace = entity.WorkPlace;
+            this.ViewModel.WorkPlace_Text.Value = entity.WorkPlace;
 
             // 所属会社名
             WorkingPlace.Create(new WorkingPlaceSQLite());
             Careers.Create(new CareerSQLite());
 
-            var workingPlace = WorkingPlace.FetchByDate(new DateTime(this.Header.Year_Value, this.Header.Month_Value, 1));
+            var workingPlace = WorkingPlace.FetchByDate(new DateTime(this.Header.Year_Text.Value, this.Header.Month_Text.Value, 1));
 
             if (workingPlace.Any()) 
             {
-                this.ViewModel.CompanyName = workingPlace.FirstOrDefault().DispatchingCompany.Text;
-                this.ViewModel.WorkPlace   = workingPlace.FirstOrDefault().WorkingPlace_Name.Text;
+                this.ViewModel.CompanyName_Text.Value = workingPlace.FirstOrDefault().DispatchingCompany.Text;
+                this.ViewModel.WorkPlace_Text.Value   = workingPlace.FirstOrDefault().DispatchedCompany.Text;
             }
             else
             {
-                this.ViewModel.CompanyName = CompanyNameValue.Undefined.DisplayValue;
-                this.ViewModel.WorkPlace   = CompanyNameValue.Undefined.DisplayValue;
+                this.ViewModel.CompanyName_Text.Value = CompanyNameValue.Undefined.DisplayValue;
+                this.ViewModel.WorkPlace_Text.Value   = CompanyNameValue.Undefined.DisplayValue;
             }
 
-            this.ViewModel.CompanyName_Foreground = new SolidColorBrush(Colors.Black);
-            this.ViewModel.WorkPlace_Foreground   = new SolidColorBrush(Colors.Black);
+            this.ViewModel.CompanyName_Foreground.Value = new SolidColorBrush(Colors.Black);
+            this.ViewModel.WorkPlace_Foreground.Value   = new SolidColorBrush(Colors.Black);
         }
 
         /// <summary>
@@ -129,12 +129,14 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         public void Reload()
         {
+            if (this.ViewModel is null) return;
+
             using (var cursor = new CursorWaiting())
             {
                 WorkingReferences.Create(new WorkingReferenceSQLite());
 
-                this.ViewModel.Entity          = WorkingReferences.Fetch(this.Header.Year_Value, this.Header.Month_Value);
-                this.ViewModel.Entity_LastYear = WorkingReferences.Fetch(this.Header.Year_Value - 1, this.Header.Month_Value);
+                this.ViewModel.Entity          = WorkingReferences.Fetch(this.Header.Year_Text.Value, this.Header.Month_Text.Value);
+                this.ViewModel.Entity_LastYear = WorkingReferences.Fetch(this.Header.Year_Text.Value - 1, this.Header.Month_Text.Value);
 
                 this.Refresh();
             }
@@ -149,11 +151,11 @@ namespace SalaryManager.WPF.Models
         public void Clear()
         {
             // 所属会社名
-            this.ViewModel.CompanyName            = CompanyNameValue.Undefined.DisplayValue;
-            this.ViewModel.CompanyName_Foreground = new SolidColorBrush(Colors.Gray);
+            this.ViewModel.CompanyName_Text.Value       = CompanyNameValue.Undefined.DisplayValue;
+            this.ViewModel.CompanyName_Foreground.Value = new SolidColorBrush(Colors.Gray);
             // 勤務先
-            this.ViewModel.WorkPlace              = CompanyNameValue.Undefined.DisplayValue;
-            this.ViewModel.WorkPlace_Foreground   = new SolidColorBrush(Colors.Gray);
+            this.ViewModel.WorkPlace_Text.Value = CompanyNameValue.Undefined.DisplayValue;
+            this.ViewModel.WorkPlace_Foreground.Value = new SolidColorBrush(Colors.Gray);
         }
 
         /// <summary>

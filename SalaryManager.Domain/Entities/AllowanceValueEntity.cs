@@ -101,7 +101,7 @@ namespace SalaryManager.Domain.Entities
         /// <summary> 交通費 </summary>
         public MoneyValue TransportationExpenses { get; }
 
-        /// <summary> 交通費 </summary>
+        /// <summary> 在宅手当 </summary>
         public MoneyValue ElectricityAllowance { get; }
 
         /// <summary> 前払退職金 </summary>

@@ -10,7 +10,7 @@
              x:Class="SalaryManager.WPF.UserControls.Header"
              mc:Ignorable="d" 
              d:DesignHeight="25" d:DesignWidth="200"
-             Background="{Binding Window_Background}">
+             Background="{Binding Window_Background.Value}">
     <UserControl.DataContext>
         <ViewModels:ViewModel_Header/>
     </UserControl.DataContext>
@@ -28,7 +28,7 @@
                 Command="{Binding Return_Command, Mode=OneWay}"
                 Style="{DynamicResource MahApps.Styles.Button.Circle}" />
         <TextBox Grid.Column="1" 
-                 Grid.Row="1" Text="{Binding Year_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Grid.Row="1" Text="{Binding Year_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  TextAlignment="Right">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="TextChanged">
@@ -40,7 +40,7 @@
                Grid.Column="2" />
 
         <TextBox Grid.Column="3" 
-                 Text="{Binding Month_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Text="{Binding Month_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  TextAlignment="Right">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="TextChanged">

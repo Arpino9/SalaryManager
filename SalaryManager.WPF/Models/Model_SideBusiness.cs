@@ -82,8 +82,8 @@ namespace SalaryManager.WPF.Models
             {
                 SideBusinesses.Create(_repository);
 
-                this.ViewModel.Entity          = SideBusinesses.Fetch(this.Header.Year_Value, this.Header.Month_Value);
-                this.ViewModel.Entity_LastYear = SideBusinesses.Fetch(this.Header.Year_Value - 1, this.Header.Month_Value);
+                this.ViewModel.Entity          = SideBusinesses.Fetch(this.Header.Year_Text.Value, this.Header.Month_Text.Value);
+                this.ViewModel.Entity_LastYear = SideBusinesses.Fetch(this.Header.Year_Text.Value - 1, this.Header.Month_Text.Value);
             
                 this.Refresh();
             }   

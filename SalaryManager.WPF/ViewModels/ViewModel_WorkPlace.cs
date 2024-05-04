@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows.Media;
+using Reactive.Bindings;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.Models;
@@ -13,17 +13,7 @@ namespace SalaryManager.WPF.ViewModels
     /// </summary>
     public class ViewModel_WorkPlace : INotifyPropertyChanged
     {
-        #region Property Changed
-
         public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            var d = PropertyChanged;
-            d?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
 
         /// <summary>
         /// Constructor
@@ -39,16 +29,20 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary> Model </summary>
-        public Model_WorkPlace Model { get; set; } = Model_WorkPlace.GetInstance();
+        public Model_WorkPlace Model { get; set; } 
+            = Model_WorkPlace.GetInstance();
 
         /// <summary> Model - 勤怠備考 </summary>
-        public Model_WorkingReference WorkingReference { get; set; } = Model_WorkingReference.GetInstance(new WorkingReferenceSQLite());
+        public Model_WorkingReference WorkingReference { get; set; } 
+            = Model_WorkingReference.GetInstance(new WorkingReferenceSQLite());
 
         /// <summary> メイン画面 </summary>
-        public Model_MainWindow MainWindow { get; set; } = Model_MainWindow.GetInstance();
+        public Model_MainWindow MainWindow { get; set; } 
+            = Model_MainWindow.GetInstance();
         
         /// <summary> 手当 </summary>
-        public Model_Allowance Allowance { get; set; } = Model_Allowance.GetInstance(new AllowanceSQLite());
+        public Model_Allowance Allowance { get; set; } 
+            = Model_Allowance.GetInstance(new AllowanceSQLite());
 
         /// <summary> Entity - 勤務備考 </summary>
         public WorkingReferencesEntity Entity { get; set; }
@@ -58,88 +52,33 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 背景色
 
-        private Brush _window_Background;
-
-        /// <summary>
-        /// 背景色 - Background
-        /// </summary>
-        public Brush Window_Background
-        {
-            get => this._window_Background;
-            set
-            {
-                this._window_Background = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 背景色 - Background </summary>
+        public ReactiveProperty<SolidColorBrush> Window_Background { get; set; }
+            = new ReactiveProperty<SolidColorBrush>();
 
         #endregion
 
         #region 所属会社名
 
-        private Brush _companyName_Foreground;
+        /// <summary> 所属会社名 - Foreground </summary>
+        public ReactiveProperty<SolidColorBrush> CompanyName_Foreground { get; set; }
+            = new ReactiveProperty<SolidColorBrush>();
 
-        /// <summary>
-        /// 所属会社名 - Foreground
-        /// </summary>
-        public Brush CompanyName_Foreground
-        {
-            get => _companyName_Foreground;
-            set
-            {
-                this._companyName_Foreground = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private string _companyName;
-
-        /// <summary>
-        /// 所属会社名
-        /// </summary>
-        public string CompanyName
-        {
-            get => this._companyName;
-            set
-            {
-                this._companyName = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 所属会社名 - Text </summary>
+        public ReactiveProperty<string> CompanyName_Text { get; set; }
+            = new ReactiveProperty<string>();
 
         #endregion
 
         #region 勤務先
 
-        private Brush _workPlace_Foreground;
+        /// <summary> 所属会社名 - Foreground </summary>
+        public ReactiveProperty<SolidColorBrush> WorkPlace_Foreground { get; set; }
+            = new ReactiveProperty<SolidColorBrush>();
 
-        /// <summary>
-        /// 勤務先 - Foreground
-        /// </summary>
-        public Brush WorkPlace_Foreground
-        {
-            get => _workPlace_Foreground;
-            set
-            {
-                this._workPlace_Foreground = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private string _workPlace;
-
-        /// <summary>
-        /// 勤務先
-        /// </summary>
-        public string WorkPlace
-        {
-            get => this._workPlace;
-            set
-            {
-                this._workPlace = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 勤務先 - Text </summary>
+        public ReactiveProperty<string> WorkPlace_Text { get; set; }
+            = new ReactiveProperty<string>();
 
         #endregion
 

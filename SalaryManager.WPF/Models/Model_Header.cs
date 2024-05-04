@@ -55,8 +55,8 @@ namespace SalaryManager.WPF.Models
         {
             var yearMonth = this.ViewModel.YearMonth.AddMonths(-1);
 
-            this.ViewModel.Year_Value  = yearMonth.Year;
-            this.ViewModel.Month_Value = yearMonth.Month;
+            this.ViewModel.Year_Text.Value  = yearMonth.Year;
+            this.ViewModel.Month_Text.Value = yearMonth.Month;
 
             this.Reload();
         }
@@ -68,8 +68,8 @@ namespace SalaryManager.WPF.Models
         {
             var yearMonth = this.ViewModel.YearMonth.AddMonths(1);
 
-            this.ViewModel.Year_Value  = yearMonth.Year;
-            this.ViewModel.Month_Value = yearMonth.Month;
+            this.ViewModel.Year_Text.Value  = yearMonth.Year;
+            this.ViewModel.Month_Text.Value = yearMonth.Month;
 
             this.Reload();
         }
@@ -104,7 +104,7 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         public void Reload()
         {
-            this.FetchEntity(this.ViewModel.Year_Value, this.ViewModel.Month_Value);
+            this.FetchEntity(this.ViewModel.Year_Text.Value, this.ViewModel.Month_Text.Value);
 
             if (this.Entity is null)
             {
@@ -120,7 +120,7 @@ namespace SalaryManager.WPF.Models
                 this.ViewModel.UpdateDate = this.Entity.UpdateDate;
             }
 
-            this.ViewModel.YearMonth = new DateTime(this.ViewModel.Year_Value, this.ViewModel.Month_Value, 1);
+            this.ViewModel.YearMonth = new DateTime(this.ViewModel.Year_Text.Value, this.ViewModel.Month_Text.Value, 1);
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void Window_Activated()
         {
-            this.ViewModel.Window_Background = XMLLoader.FetchBackgroundColorBrush();
+            this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
         }
 
         /// <summary>
@@ -167,8 +167,8 @@ namespace SalaryManager.WPF.Models
             }
 
             this.ViewModel.ID          = this.Entity.ID;
-            this.ViewModel.Year_Value  = this.Entity.YearMonth.Year;
-            this.ViewModel.Month_Value = this.Entity.YearMonth.Month;
+            this.ViewModel.Year_Text.Value  = this.Entity.YearMonth.Year;
+            this.ViewModel.Month_Text.Value = this.Entity.YearMonth.Month;
             this.ViewModel.CreateDate  = this.Entity.CreateDate;
             this.ViewModel.UpdateDate  = this.Entity.UpdateDate;
         }
@@ -181,8 +181,8 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         public void Clear()
         {
-            this.ViewModel.Year_Value  = this.ViewModel.YearMonth.Year;
-            this.ViewModel.Month_Value = this.ViewModel.YearMonth.Month;
+            this.ViewModel.Year_Text.Value  = this.ViewModel.YearMonth.Year;
+            this.ViewModel.Month_Text.Value = this.ViewModel.YearMonth.Month;
             this.ViewModel.CreateDate  = DateTime.Today;
             this.ViewModel.UpdateDate  = DateTime.Today;
         }
@@ -214,8 +214,7 @@ namespace SalaryManager.WPF.Models
                  this.ViewModel.YearMonth,
                  this.ViewModel.IsDefault,
                  this.ViewModel.CreateDate,
-                 this.ViewModel.UpdateDate
-             );
+                 this.ViewModel.UpdateDate);
 
             _repository.Save(transaction, entity);
         }
@@ -227,7 +226,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void SetDefault()
         {
-            var confirmingMessage = $"{this.ViewModel.Year_Value}年{this.ViewModel.Month_Value}月の給与明細をデフォルト明細として設定しますか？";
+            var confirmingMessage = $"{this.ViewModel.Year_Text.Value}年{this.ViewModel.Month_Text.Value}月の給与明細をデフォルト明細として設定しますか？";
             if (!Message.ShowConfirmingMessage(confirmingMessage, this.MainWindow.Window_Title))
             {
                 // キャンセル
@@ -245,6 +244,41 @@ namespace SalaryManager.WPF.Models
 
             // 今回のデフォルト設定を登録する
             this.ViewModel.IsDefault = true;
+        }
+
+        /// <summary>
+        /// IsValid - 年
+        /// </summary>
+        internal void IsValid_Year()
+        {
+            var value = this.ViewModel.Year_Text.Value;
+            if (value.ToString().Length != 4)
+            {
+                return;
+            }
+
+            this.ViewModel.Year_Text.Value = value;
+        }
+
+        /// <summary>
+        /// IsValid - 月
+        /// </summary>
+        internal void IsValid_Month()
+        {
+            var value = this.ViewModel.Month_Text.Value;
+
+            if (value < 1)
+            {
+                this.ViewModel.Month_Text.Value = 1;
+            }
+            else if (value > 12)
+            {
+                this.ViewModel.Month_Text.Value = 12;
+            }
+            else
+            {
+                this.ViewModel.Month_Text.Value = value;
+            }
         }
 
         #endregion

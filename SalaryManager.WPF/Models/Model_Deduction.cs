@@ -90,25 +90,25 @@ namespace SalaryManager.WPF.Models
             }
 
             // 健康保険
-            this.ViewModel.HealthInsurance_Value       = entity.HealthInsurance.Value;
+            this.ViewModel.HealthInsurance_Text.Value       = entity.HealthInsurance.Value;
             // 介護保険
-            this.ViewModel.NursingInsurance_Value      = entity.NursingInsurance.Value;
+            this.ViewModel.NursingInsurance_Text.Value      = entity.NursingInsurance.Value;
             // 厚生年金
-            this.ViewModel.WelfareAnnuity_Value        = entity.WelfareAnnuity.Value;
+            this.ViewModel.WelfareAnnuity_Text.Value        = entity.WelfareAnnuity.Value;
             // 雇用保険
-            this.ViewModel.EmploymentInsurance_Value   = entity.EmploymentInsurance.Value;
+            this.ViewModel.EmploymentInsurance_Text.Value   = entity.EmploymentInsurance.Value;
             // 所得税
-            this.ViewModel.IncomeTax_Value             = entity.IncomeTax.Value;
+            this.ViewModel.IncomeTax_Text.Value             = entity.IncomeTax.Value;
             // 市町村税
-            this.ViewModel.MunicipalTax_Value          = entity.MunicipalTax.Value;
+            this.ViewModel.MunicipalTax_Text.Value          = entity.MunicipalTax.Value;
             // 互助会
-            this.ViewModel.FriendshipAssociation_Value = entity.FriendshipAssociation.Value;
+            this.ViewModel.FriendshipAssociation_Text.Value = entity.FriendshipAssociation.Value;
             // 年末調整他
-            this.ViewModel.YearEndTaxAdjustment_Value  = entity.YearEndTaxAdjustment;
+            this.ViewModel.YearEndTaxAdjustment_Text.Value  = entity.YearEndTaxAdjustment;
             // 備考
-            this.ViewModel.Remarks_Text                = entity.Remarks;
+            this.ViewModel.Remarks_Text.Value               = entity.Remarks;
             // 控除額計
-            this.ViewModel.TotalDeduct_Value           = entity.TotalDeduct.Value;
+            this.ViewModel.TotalDeduct_Text.Value           = entity.TotalDeduct.Value;
         }
 
         /// <summary>
@@ -123,8 +123,8 @@ namespace SalaryManager.WPF.Models
             {
                 Deductions.Create(_repository);
 
-                this.ViewModel.Entity          = Deductions.Fetch(this.Header.Year_Value,     this.Header.Month_Value);
-                this.ViewModel.Entity_LastYear = Deductions.Fetch(this.Header.Year_Value - 1, this.Header.Month_Value);
+                this.ViewModel.Entity          = Deductions.Fetch(this.Header.Year_Text.Value,     this.Header.Month_Text.Value);
+                this.ViewModel.Entity_LastYear = Deductions.Fetch(this.Header.Year_Text.Value - 1, this.Header.Month_Text.Value);
 
                 this.Refresh();
             }   
@@ -139,25 +139,25 @@ namespace SalaryManager.WPF.Models
         public void Clear()
         {
             // 健康保険
-            this.ViewModel.HealthInsurance_Value       = default(double);
+            this.ViewModel.HealthInsurance_Text.Value       = default(double);
             // 介護保険
-            this.ViewModel.NursingInsurance_Value      = default(double);
+            this.ViewModel.NursingInsurance_Text.Value      = default(double);
             // 厚生年金
-            this.ViewModel.WelfareAnnuity_Value        = default(double);
+            this.ViewModel.WelfareAnnuity_Text.Value        = default(double);
             // 雇用保険
-            this.ViewModel.EmploymentInsurance_Value   = default(double);
+            this.ViewModel.EmploymentInsurance_Text.Value   = default(double);
             // 所得税
-            this.ViewModel.IncomeTax_Value             = default(double);
+            this.ViewModel.IncomeTax_Text.Value             = default(double);
             // 市町村税
-            this.ViewModel.MunicipalTax_Value          = default(double);
+            this.ViewModel.MunicipalTax_Text.Value          = default(double);
             // 互助会
-            this.ViewModel.FriendshipAssociation_Value = default(double);
+            this.ViewModel.FriendshipAssociation_Text.Value = default(double);
             // 年末調整他
-            this.ViewModel.YearEndTaxAdjustment_Value  = default(double);
+            this.ViewModel.YearEndTaxAdjustment_Text.Value  = default(double);
             // 備考
-            this.ViewModel.Remarks_Text                = default(string);
+            this.ViewModel.Remarks_Text.Value               = default(string);
             // 控除額計
-            this.ViewModel.TotalDeduct_Value           = default(double);
+            this.ViewModel.TotalDeduct_Text.Value           = default(double);
         }
 
         /// <summary>
@@ -172,16 +172,16 @@ namespace SalaryManager.WPF.Models
             var entity = new DeductionEntity(
                             this.Header.ID,
                             this.Header.YearMonth,
-                            this.ViewModel.HealthInsurance_Value,
-                            this.ViewModel.NursingInsurance_Value,
-                            this.ViewModel.WelfareAnnuity_Value,
-                            this.ViewModel.EmploymentInsurance_Value,
-                            this.ViewModel.IncomeTax_Value,
-                            this.ViewModel.MunicipalTax_Value,
-                            this.ViewModel.FriendshipAssociation_Value,
-                            this.ViewModel.YearEndTaxAdjustment_Value,
-                            this.ViewModel.Remarks_Text,
-                            this.ViewModel.TotalDeduct_Value);
+                            this.ViewModel.HealthInsurance_Text.Value,
+                            this.ViewModel.NursingInsurance_Text.Value,
+                            this.ViewModel.WelfareAnnuity_Text.Value,
+                            this.ViewModel.EmploymentInsurance_Text.Value,
+                            this.ViewModel.IncomeTax_Text.Value,
+                            this.ViewModel.MunicipalTax_Text.Value,
+                            this.ViewModel.FriendshipAssociation_Text.Value,
+                            this.ViewModel.YearEndTaxAdjustment_Text.Value,
+                            this.ViewModel.Remarks_Text.Value,
+                            this.ViewModel.TotalDeduct_Text.Value);
 
             _repository.Save(transaction, entity);
         }
@@ -199,14 +199,14 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
-            this.ViewModel.TotalDeduct_Value = this.ViewModel.HealthInsurance_Value
-                                             + this.ViewModel.NursingInsurance_Value
-                                             + this.ViewModel.WelfareAnnuity_Value
-                                             + this.ViewModel.EmploymentInsurance_Value
-                                             + this.ViewModel.IncomeTax_Value
-                                             + this.ViewModel.MunicipalTax_Value
-                                             + this.ViewModel.FriendshipAssociation_Value
-                                             + this.ViewModel.YearEndTaxAdjustment_Value;
+            this.ViewModel.TotalDeduct_Text.Value = this.ViewModel.HealthInsurance_Text.Value
+                                                  + this.ViewModel.NursingInsurance_Text.Value
+                                                  + this.ViewModel.WelfareAnnuity_Text.Value
+                                                  + this.ViewModel.EmploymentInsurance_Text.Value
+                                                  + this.ViewModel.IncomeTax_Text.Value
+                                                  + this.ViewModel.MunicipalTax_Text.Value
+                                                  + this.ViewModel.FriendshipAssociation_Text.Value
+                                                  + this.ViewModel.YearEndTaxAdjustment_Text.Value;
 
             this.Allowance.ReCaluculate();
         }

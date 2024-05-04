@@ -39,6 +39,7 @@ namespace SalaryManager.Domain.Entities
             this.Remarks            = remarks;
         }
 
+        /// <summary> ID </summary>
         public int ID { get; }
 
         /// <summary> 雇用形態 </summary>

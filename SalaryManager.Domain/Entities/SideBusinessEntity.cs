@@ -16,6 +16,7 @@ namespace SalaryManager.Domain.Entities
         /// <param name="sideBusiness">副業収入</param>
         /// <param name="perquisite">臨時収入</param>
         /// <param name="other">その他</param>
+        /// <param name="remarks">備考</param>
         public SideBusinessEntity(
             int id,
             DateTime yearMonth,

@@ -139,14 +139,14 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         internal void ReadCSV()
         {
-            var confirmingMessage = $"{this.Header.ViewModel.Year_Value}年{this.Header.ViewModel.Month_Value}月のCSVを読み込みますか？";
+            var confirmingMessage = $"{this.Header.ViewModel.Year_Text.Value}年{this.Header.ViewModel.Month_Text.Value}月のCSVを読み込みますか？";
             if (!Message.ShowConfirmingMessage(confirmingMessage, this.ViewModel.Window_Title))
             {
                 // キャンセル
                 return;
             }
 
-            var employeeID = Careers.FetchEmployeeNumber(new CompanyNameValue(this.WorkPlace.CompanyName));
+            var employeeID = Careers.FetchEmployeeNumber(new CompanyNameValue(this.WorkPlace.CompanyName_Text.Value));
 
             if (string.IsNullOrEmpty(employeeID)) 
             {
@@ -156,7 +156,7 @@ namespace SalaryManager.WPF.Models
 
             var encode = System.Text.Encoding.GetEncoding("shift_jis");
 ;
-            var path = $"{Shared.DirectoryCSV}\\{employeeID}-{this.Header.ViewModel.Year_Value}-{this.Header.ViewModel.Month_Value}.csv";
+            var path = $"{Shared.DirectoryCSV}\\{employeeID}-{this.Header.ViewModel.Year_Text.Value}-{this.Header.ViewModel.Month_Text.Value}.csv";
             
             try
             {
@@ -169,7 +169,7 @@ namespace SalaryManager.WPF.Models
                     lists.AddRange(values);
 
                     // 勤務先
-                    this.WorkPlace.WorkPlace = values[3];
+                    this.WorkPlace.WorkPlace_Text.Value = values[3];
 
                     // 有給残日数
                     var paidVacation = Convert.ToDouble(values[17]) + Convert.ToDouble(values[25]);
@@ -178,7 +178,7 @@ namespace SalaryManager.WPF.Models
             }
             catch (FileNotFoundException)
             {
-                var message = $"「{Shared.DirectoryCSV}」に{this.Header.ViewModel.Year_Value}年{this.Header.ViewModel.Month_Value}月分のCSVが\n保存されていません。読み込みを中断します。";
+                var message = $"「{Shared.DirectoryCSV}」に{this.Header.ViewModel.Year_Text.Value}年{this.Header.ViewModel.Month_Text.Value}月分のCSVが\n保存されていません。読み込みを中断します。";
                 Message.ShowResultMessage(message, this.ViewModel.Window_Title);
             }
         }
@@ -233,7 +233,7 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         internal void Save()
         {
-            var message = $"{this.Header.ViewModel.Year_Value}年{this.Header.ViewModel.Month_Value}月の給与明細を保存しますか？";
+            var message = $"{this.Header.ViewModel.Year_Text.Value}年{this.Header.ViewModel.Month_Text.Value}月の給与明細を保存しますか？";
             if (!Message.ShowConfirmingMessage(message, this.ViewModel.Window_Title))
             {
                 // キャンセル
@@ -344,8 +344,8 @@ namespace SalaryManager.WPF.Models
         internal void ShowCurrentPayslip()
         {
             // ヘッダ
-            this.Header.ViewModel.Year_Value  = DateTime.Today.Year;
-            this.Header.ViewModel.Month_Value = DateTime.Today.Month;
+            this.Header.ViewModel.Year_Text.Value  = DateTime.Today.Year;
+            this.Header.ViewModel.Month_Text.Value = DateTime.Today.Month;
             // 支給額
             this.Allowance.Initialize(DateTime.Today);
             // 控除額
