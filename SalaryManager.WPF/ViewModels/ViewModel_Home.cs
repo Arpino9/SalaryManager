@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using Reactive.Bindings;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Infrastructure.SQLite;
-using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
 
 namespace SalaryManager.WPF.ViewModels
@@ -14,318 +13,159 @@ namespace SalaryManager.WPF.ViewModels
     /// </summary>
     public class ViewModel_Home : INotifyPropertyChanged
     {
-
-        #region Property Changed
-
         public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            var d = PropertyChanged;
-            d?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
 
         public ViewModel_Home()
         {
             this.Model.ViewModel = this;
 
-            this.Homes_ItemSource = new ObservableCollection<HomeEntity>();
-
-            BindEvent();
-
             this.Model.Initialize();
+            
+            this.BindEvent();
         }
 
         /// <summary>
         /// イベント登録
         /// </summary>
+        /// <remarks>
+        /// Viewの指定したイベントと、発火させるメソッドを紐付ける。
+        /// </remarks>
         private void BindEvent()
         {
-            this.Address_Google_TextChanged = new RelayCommand(this.Model.EnableAddButton);
+            this.Homes_SelectionChanged.Subscribe(_ => this.Model.Homes_SelectionChanged());
+            this.IsLiving_Checked.Subscribe(_ => this.Model.IsLiving_Checked());
+            this.Address_Google_TextChanged.Subscribe(_ => this.Model.EnableAddButton());
 
-            // 会社一覧
-            this.Homes_SelectionChanged = new RelayCommand(this.Model.Homes_SelectionChanged);
-            this.IsLiving_Checked       = new RelayCommand(this.Model.IsLiving_Checked);
+            this.Add_Command.Subscribe(_ => this.Model.Add());
+            this.Update_Command.Subscribe(_ => this.Model.Update());
+            this.Delete_Command.Subscribe(_ => this.Model.Delete());
         }
 
         /// <summary> Model - 自宅 </summary>
-        public Model_Home Model { get; set; } = Model_Home.GetInstance(new HomeSQLite());
+        public Model_Home Model { get; set; } 
+            = Model_Home.GetInstance(new HomeSQLite());
 
-        /// <summary> タイトル </summary>
-        public string Title => "自宅マスタ";
+        #region Window
 
-        private ObservableCollection<HomeEntity> _home_itemSource;
+        /// <summary> Window - Title </summary>
+        public ReactiveProperty<string> Window_Title { get; set; }
+            = new ReactiveProperty<string>("自宅マスタ");
 
-        /// <summary>
-        /// 自宅一覧 - ItemSource
-        /// </summary>
-        public ObservableCollection<HomeEntity> Homes_ItemSource
-        {
-            get => this._home_itemSource;
-            set
-            {
-                this._home_itemSource = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        #endregion
 
-        /// <summary>
-        /// 自宅一覧 - SelectionChanged
-        /// </summary>
-        public RelayCommand Homes_SelectionChanged { get; private set; }
+        #region 自宅一覧
 
-        private int _homes_SelectedIndex;
+        /// <summary> 自宅一覧 - ItemSource </summary>
+        public ReactiveProperty<ObservableCollection<HomeEntity>> Homes_ItemSource { get; set; }
+            = new ReactiveProperty<ObservableCollection<HomeEntity>>();
 
-        /// <summary>
-        /// 自宅 - SelectedIndex
-        /// </summary>
-        public int Homes_SelectedIndex
-        {
-            get => this._homes_SelectedIndex;
-            set
-            {
-                this._homes_SelectedIndex = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 自宅一覧 - SelectionChanged </summary>
+        public ReactiveCommand Homes_SelectionChanged { get; private set; }
+            = new ReactiveCommand();
 
-        private string _displayName_Text;
+        /// <summary> 自宅 - SelectedIndex </summary>
+        public ReactiveProperty<int> Homes_SelectedIndex { get; set; }
+            = new ReactiveProperty<int>();
 
-        /// <summary>
-        /// 名称 - Text
-        /// </summary>
-        public string DisplayName_Text
-        {
-            get => this._displayName_Text;
-            set
-            {
-                this._displayName_Text = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        #endregion
 
-        private string _postCode_Text;
+        #region 名称
 
-        /// <summary>
-        /// 郵便番号 - Text
-        /// </summary>
-        public string PostCode_Text
-        {
-            get => this._postCode_Text;
-            set
-            {
-                this._postCode_Text = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 名称 - Text </summary>
+        public ReactiveProperty<string> DisplayName_Text { get; set; }
+            = new ReactiveProperty<string>();
 
-        private DateTime _livingStart_SelectedDate;
+        #endregion
 
-        /// <summary>
-        /// 在住期間 - 開始日 - Text
-        /// </summary>
-        public DateTime LivingStart_SelectedDate
-        {
-            get => this._livingStart_SelectedDate;
-            set
-            {
-                this._livingStart_SelectedDate = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        #region 郵便番号
 
-        private DateTime _livingEnd_SelectedDate;
+        /// <summary> 郵便番号 - Text </summary>
+        public ReactiveProperty<string> PostCode_Text { get; set; }
+            = new ReactiveProperty<string>();
 
-        /// <summary>
-        /// 在住期間 - 終了日 - Text
-        /// </summary>
-        public DateTime LivingEnd_SelectedDate
-        {
-            get => this._livingEnd_SelectedDate;
-            set
-            {
-                this._livingEnd_SelectedDate = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        #endregion
 
-        private bool _isLiving_IsChecked;
+        #region 在住期間
 
-        /// <summary>
-        /// 住所 - IsChecked
-        /// </summary>
-        public bool IsLiving_IsChecked
-        {
-            get => this._isLiving_IsChecked;
-            set
-            {
-                this._isLiving_IsChecked = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 在住期間 - 開始日 - Text </summary>
+        public ReactiveProperty<DateTime> LivingStart_SelectedDate { get; set; }
+            = new ReactiveProperty<DateTime>();
 
-        /// <summary>
-        /// 就業中 - Checked
-        /// </summary>
-        public RelayCommand IsLiving_Checked { get; private set; }
+        /// <summary> 在住期間 - 終了日 - Text </summary>
+        public ReactiveProperty<DateTime> LivingEnd_SelectedDate { get; set; }
+            = new ReactiveProperty<DateTime>();
 
-        private string _address_Text;
+        #endregion
 
-        /// <summary>
-        /// 住所 - Text
-        /// </summary>
-        public string Address_Text
-        {
-            get => this._address_Text;
-            set
-            {
-                this._address_Text = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        #region 就業中
 
-        private string _address_Google_Text;
+        /// <summary> 就業中 - IsChecked </summary>
+        public ReactiveProperty<bool> IsLiving_IsChecked { get; set; }
+            = new ReactiveProperty<bool>();
 
-        /// <summary>
-        /// 住所 (Google) - Text
-        /// </summary>
-        public string Address_Google_Text
-        {
-            get => this._address_Google_Text;
-            set
-            {
-                this._address_Google_Text = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 就業中 - Checked </summary>
+        public ReactiveCommand IsLiving_Checked { get; private set; }
+            = new ReactiveCommand();
 
-        /// <summary>
-        /// 会社名 - TextChanged
-        /// </summary>
-        public RelayCommand Address_Google_TextChanged { get; private set; }
+        #endregion
 
-        private string _remarks_Text;
+        #region 住所
 
-        /// <summary>
-        /// 備考 - Text
-        /// </summary>
-        public string Remarks_Text
-        {
-            get => this._remarks_Text;
-            set
-            {
-                this._remarks_Text = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 住所 - Text </summary>
+        public ReactiveProperty<string> Address_Text { get; set; }
+            = new ReactiveProperty<string>();
+
+        /// <summary> 住所 (Google) - Text </summary>
+        public ReactiveProperty<string> Address_Google_Text { get; set; }
+            = new ReactiveProperty<string>();
+
+        /// <summary> 住所 (Google) - TextChanged </summary>
+        public ReactiveProperty<bool> Address_Google_TextChanged { get; set; }
+            = new ReactiveProperty<bool>();
+
+        #endregion
+
+        #region 備考
+
+        /// <summary> 備考 - Text </summary>
+        public ReactiveProperty<string> Remarks_Text { get; set; }
+            = new ReactiveProperty<string>();
+
+        #endregion
 
         #region 追加
 
-        private bool _add_IsEnabled;
+        /// <summary> 追加 - IsEnabled </summary>
+        public ReactiveProperty<bool> Add_IsEnabled { get; set; }
+            = new ReactiveProperty<bool>();
 
-        /// <summary>
-        /// 追加 - IsEnabled
-        /// </summary>
-        public bool Add_IsEnabled
-        {
-            get => this._add_IsEnabled;
-            set
-            {
-                this._add_IsEnabled = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private RelayCommand _add_Command;
-
-        /// <summary>
-        /// 追加ボタン - Command
-        /// </summary>
-        public RelayCommand Add_Command
-        {
-            get
-            {
-                if (this._add_Command == null)
-                {
-                    this._add_Command = new RelayCommand(this.Model.Add);
-                }
-                return this._add_Command;
-            }
-        }
+        /// <summary> 追加 - Command </summary>
+        public ReactiveCommand Add_Command { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
         #region 更新
 
-        private bool _update_IsEnabled;
+        /// <summary> 更新 - IsEnabled </summary>
+        public ReactiveProperty<bool> Update_IsEnabled { get; set; }
+            = new ReactiveProperty<bool>();
 
-        /// <summary>
-        /// 更新 - IsEnabled
-        /// </summary>
-        public bool Update_IsEnabled
-        {
-            get => this._update_IsEnabled;
-            set
-            {
-                this._update_IsEnabled = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private RelayCommand _update_Command;
-
-        /// <summary>
-        /// 更新ボタン - Command
-        /// </summary>
-        public RelayCommand Update_Command
-        {
-            get
-            {
-                if (this._update_Command == null)
-                {
-                    this._update_Command = new RelayCommand(this.Model.Update);
-                }
-                return this._update_Command;
-            }
-        }
+        /// <summary> 更新 - Command </summary>
+        public ReactiveCommand Update_Command { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
         #region 削除
 
-        private bool _delete_IsEnabled;
+        /// <summary> 削除 - IsEnabled </summary>
+        public ReactiveProperty<bool> Delete_IsEnabled { get; set; }
+            = new ReactiveProperty<bool>();
 
-        /// <summary>
-        /// 削除 - IsEnabled
-        /// </summary>
-        public bool Delete_IsEnabled
-        {
-            get => this._delete_IsEnabled;
-            set
-            {
-                this._delete_IsEnabled = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private RelayCommand _delete_Command;
-
-        /// <summary>
-        /// 削除 - Command
-        /// </summary>
-        public RelayCommand Delete_Command
-        {
-            get
-            {
-                if (this._delete_Command == null)
-                {
-                    this._delete_Command = new RelayCommand(this.Model.Delete);
-                }
-                return this._delete_Command;
-            }
-        }
+        /// <summary> 削除 - Command </summary>
+        public ReactiveCommand Delete_Command { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 

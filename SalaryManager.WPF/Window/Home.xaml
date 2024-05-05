@@ -7,7 +7,7 @@
         xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" x:Class="SalaryManager.WPF.Window.Home"
         xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"    
         mc:Ignorable="d"
-        Title="Home" Height="450" Width="800">
+        Title="{Binding Window_Title.Value}" Height="450" Width="800">
     <Window.DataContext>
         <ViewModels:ViewModel_Home/>
     </Window.DataContext>
@@ -17,8 +17,8 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <ListView ItemsSource="{Binding Homes_ItemSource}" 
-                  SelectedIndex="{Binding Homes_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        <ListView ItemsSource="{Binding Homes_ItemSource.Value}" 
+                  SelectedIndex="{Binding Homes_SelectedIndex.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="SelectionChanged">
@@ -68,13 +68,13 @@
                    Background="AliceBlue"/>
             <TextBox Grid.Column="1" 
                      Grid.ColumnSpan="2" 
-                     Text="{Binding DisplayName_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                     Text="{Binding DisplayName_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Label Content="郵便番号" 
                    Grid.Row="3" 
                    Background="AliceBlue"/>
             <TextBox Grid.Column="1" 
-                     Grid.Row="3" Text="{Binding PostCode_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                     Grid.Row="3" Text="{Binding PostCode_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             
             <Label Content="在住期間" 
                    Grid.Row="1" 
@@ -82,7 +82,7 @@
                    Background="AliceBlue"/>
             <DatePicker Grid.Row="1" 
                         Grid.Column="1" 
-                        SelectedDate="{Binding LivingStart_SelectedDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        SelectedDate="{Binding LivingStart_SelectedDate.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <Label Content="～" 
                    Grid.Row="1" 
                    Grid.Column="2" 
@@ -91,13 +91,13 @@
                    Background="AliceBlue"/>
             <DatePicker Grid.Row="1" 
                         Grid.Column="3" 
-                        SelectedDate="{Binding LivingEnd_SelectedDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        SelectedDate="{Binding LivingEnd_SelectedDate.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <CheckBox Content="在住中"
                       Grid.Column="1"
                       Grid.Row="2"
                       VerticalAlignment="Center"
-                      IsChecked="{Binding IsLiving_IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                      IsChecked="{Binding IsLiving_IsChecked.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <behaviors:Interaction.Triggers>
                     <behaviors:EventTrigger EventName="Checked">
                         <behaviors:InvokeCommandAction Command="{Binding IsLiving_Checked}" />
@@ -110,7 +110,7 @@
                    Background="AliceBlue"/>
             <TextBox Grid.Column="1" 
                      Grid.ColumnSpan="3"
-                     Grid.Row="4" Text="{Binding Address_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                     Grid.Row="4" Text="{Binding Address_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
             <Label Content="住所 (Google)" 
                    Grid.Row="5" 
@@ -118,7 +118,7 @@
             <TextBox Grid.Column="1"
                      Grid.ColumnSpan="3" 
                      Grid.Row="5" 
-                     Text="{Binding Address_Google_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                     Text="{Binding Address_Google_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <behaviors:Interaction.Triggers>
                     <behaviors:EventTrigger EventName="TextChanged">
                         <behaviors:InvokeCommandAction Command="{Binding Address_Google_TextChanged}" />
@@ -132,23 +132,23 @@
             <TextBox Grid.Column="1"
                      Grid.Row="6" 
                      Grid.ColumnSpan="3" 
-                     Text="{Binding Remarks_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                     Text="{Binding Remarks_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
             <Button Content="追加" 
                     Grid.Row="7"
                     Command="{Binding Add_Command}"
-                    IsEnabled="{Binding Add_IsEnabled}"/>
+                    IsEnabled="{Binding Add_IsEnabled.Value}"/>
             <Button Content="更新" 
                     Grid.Row="7"
                     Grid.Column="1"
                     Grid.ColumnSpan="2"
                     Command="{Binding Update_Command}"
-                    IsEnabled="{Binding Update_IsEnabled}"/>
+                    IsEnabled="{Binding Update_IsEnabled.Value}"/>
             <Button Content="削除" 
                     Grid.Column="3" 
                     Grid.Row="7"
                     Command="{Binding Delete_Command}"
-                    IsEnabled="{Binding Delete_IsEnabled}"/>
+                    IsEnabled="{Binding Delete_IsEnabled.Value}"/>
         </Grid>
     </Grid>
 </Window>

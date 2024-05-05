@@ -62,7 +62,7 @@ namespace SalaryManager.WPF.ViewModels
             this.OutputSpreadSheet_Command.Subscribe(_ => this.Model.OutputSpreadSheet());
 
             // 保存
-            this.SavePayslip_Command.Subscribe(_ => this.Model.Save());
+            this.SavePayslip_Command.Subscribe(_ => this.Model.SavePayslip());
             this.SavePayslip_Command.Subscribe(_ => this.AnnualChart.Reload());
             this.SaveDefaultPayslip_Command.Subscribe(_ => this.Header.SetDefaultPayslip());
             this.SaveDBBackup_Command.Subscribe(_ => this.Model.SaveDBBackup());
@@ -102,7 +102,7 @@ namespace SalaryManager.WPF.ViewModels
         public ReactiveProperty<decimal> Window_FontSize { get; set; }
             = new ReactiveProperty<decimal>();
 
-        /// <summary> Window - FontFamily </summary>
+        /// <summary> Window - Title </summary>
         public ReactiveProperty<string> Window_Title { get; set; }
             = new ReactiveProperty<string>(Shared.SystemName);
 
