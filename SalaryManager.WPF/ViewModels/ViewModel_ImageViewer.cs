@@ -19,7 +19,8 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary> Model - 添付ファイル管理 </summary>
-        public Model_FileStorage Model { get; set; } = Model_FileStorage.GetInstance(new FileStorageSQLite());
+        public Model_FileStorage Model { get; set; } 
+            = Model_FileStorage.GetInstance(new FileStorageSQLite());
 
         /// <summary> Window - Title </summary>
         public ReactiveProperty<string> Window_Title { get; }
