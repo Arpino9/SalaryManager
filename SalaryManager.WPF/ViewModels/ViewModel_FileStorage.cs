@@ -11,6 +11,9 @@ using static SalaryManager.WPF.ViewModels.ViewModel_GeneralOption;
 
 namespace SalaryManager.WPF.ViewModels
 {
+    /// <summary>
+    /// ViewModel - 添付ファイル
+    /// </summary>
     public class ViewModel_FileStorage : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

@@ -9,6 +9,9 @@ using SalaryManager.WPF.Models;
 
 namespace SalaryManager.WPF.ViewModels
 {
+    /// <summary>
+    /// ViewModel - 経歴
+    /// </summary>
     [EditorBrowsable(EditorBrowsableState.Always)]
     public class ViewModel_Career : INotifyPropertyChanged
     {
@@ -45,15 +48,13 @@ namespace SalaryManager.WPF.ViewModels
             this.Delete_Command.Subscribe(_ => this.Model.Delete());
         }
 
+        /// <summary> Model - 経歴 </summary>
         public Model_Career Model { get; set; } = Model_Career.GetInstance(new CareerSQLite());
 
+        /// <summary> Entity - 経歴 </summary>
         public IReadOnlyList<CareerEntity> Entities { get; internal set; }
 
         #region Window
-
-        /// <summary> Window - Title </summary>
-        public ReactiveProperty<string> Window_Title { get; }
-            = new ReactiveProperty<string>("経歴編集");
 
         /// <summary> Window - FontFamily </summary>
         public ReactiveProperty<System.Windows.Media.FontFamily> Window_FontFamily { get; set; }
@@ -66,6 +67,10 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary> Window - Background </summary>
         public ReactiveProperty<System.Windows.Media.Brush> Window_Background { get; set; }
             = new ReactiveProperty<System.Windows.Media.Brush>();
+
+        /// <summary> Window - Title </summary>
+        public ReactiveProperty<string> Window_Title { get; }
+            = new ReactiveProperty<string>("経歴編集");
 
         #endregion
 

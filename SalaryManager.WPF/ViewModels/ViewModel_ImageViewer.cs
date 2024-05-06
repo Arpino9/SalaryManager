@@ -1,7 +1,7 @@
-﻿using SalaryManager.Infrastructure.SQLite;
+﻿using Reactive.Bindings;
+using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.Models;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows.Media;
 
 namespace SalaryManager.WPF.ViewModels
@@ -11,18 +11,7 @@ namespace SalaryManager.WPF.ViewModels
     /// </summary>
     public class ViewModel_ImageViewer : INotifyPropertyChanged
     {
-
-        #region Property Changed
-
         public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            var d = PropertyChanged;
-            d?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
 
         public ViewModel_ImageViewer()
         {
@@ -32,58 +21,20 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary> Model - 添付ファイル管理 </summary>
         public Model_FileStorage Model { get; set; } = Model_FileStorage.GetInstance(new FileStorageSQLite());
 
-        private double _fileImage_Height;
+        /// <summary> Window - Title </summary>
+        public ReactiveProperty<string> Window_Title { get; }
+            = new ReactiveProperty<string>("イメージビューワー");
 
-        #region 画面サイズ
+        /// <summary> 画像 - Height </summary>
+        public ReactiveProperty<double> FileImage_Height { get; set; }
+            = new ReactiveProperty<double>();
 
-        /// <summary>
-        /// 画像 - Height
-        /// </summary>
-        public double FileImage_Height
-        {
-            get => this._fileImage_Height;
-            set
-            {
-                this._fileImage_Height = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 画像 - Width </summary>
+        public ReactiveProperty<double> FileImage_Width { get; set; }
+            = new ReactiveProperty<double>();
 
-        private double _fileImage_Width;
-
-        /// <summary>
-        /// 画像 - Width
-        /// </summary>
-        public double FileImage_Width
-        {
-            get => this._fileImage_Width;
-            set
-            {
-                this._fileImage_Width = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        #endregion
-
-        #region 画像
-
-        private ImageSource _fileImage_Image;
-
-        /// <summary>
-        /// 画像 - Image
-        /// </summary>
-        public ImageSource FileImage_Image
-        {
-            get => this._fileImage_Image;
-            set
-            {
-                this._fileImage_Image = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        #endregion
-
+        /// <summary> 画像 - Image </summary>
+        public ReactiveProperty<ImageSource> FileImage_Image { get; set; }
+            = new ReactiveProperty<ImageSource>();
     }
 }

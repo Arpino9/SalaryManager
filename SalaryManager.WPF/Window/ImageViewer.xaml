@@ -9,13 +9,13 @@
         x:Class="SalaryManager.WPF.Window.ImageViewer"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="イメージビューワー" 
-        Height="{Binding FileImage_Height}" 
-        Width="{Binding FileImage_Width}">
+        Title="{Binding Window_Title.Value}" 
+        Height="{Binding FileImage_Height.Value}" 
+        Width="{Binding FileImage_Width.Value}">
     <Window.DataContext>
         <ViewModels:ViewModel_ImageViewer/>
     </Window.DataContext>
     <Grid>
-        <Image Source="{Binding FileImage_Image}"/>
+        <Image Source="{Binding FileImage_Image.Value}"/>
     </Grid>
 </Controls:MetroWindow>

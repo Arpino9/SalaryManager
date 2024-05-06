@@ -18,8 +18,8 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <ListView ItemsSource="{Binding Companies_ItemSource.Value}" 
-                  SelectedIndex="{Binding Companies_SelectedIndex.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        <ListView ItemsSource="{Binding Companies_ItemSource}" 
+                  SelectedIndex="{Binding Companies_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="SelectionChanged">

@@ -377,9 +377,9 @@ namespace SalaryManager.WPF.Models
 
             var viewer = new ImageViewer();
 
-            this.ViewModel_ImageViewer.FileImage_Height = this.ViewModel.FileImage_Image.Value.Height;
-            this.ViewModel_ImageViewer.FileImage_Width  = this.ViewModel.FileImage_Image.Value.Width;
-            this.ViewModel_ImageViewer.FileImage_Image  = this.ViewModel.FileImage_Image.Value;
+            this.ViewModel_ImageViewer.FileImage_Height.Value = this.ViewModel.FileImage_Image.Value.Height;
+            this.ViewModel_ImageViewer.FileImage_Width.Value  = this.ViewModel.FileImage_Image.Value.Width;
+            this.ViewModel_ImageViewer.FileImage_Image.Value  = this.ViewModel.FileImage_Image.Value;
             
             viewer.Show();
         }
