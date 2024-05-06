@@ -48,7 +48,7 @@ namespace SalaryManager.WPF.ViewModels
         #region Window
 
         /// <summary> Window - Title </summary>
-        public ReactiveProperty<string> Window_Title { get; set; }
+        public ReactiveProperty<string> Window_Title { get; }
             = new ReactiveProperty<string>("自宅マスタ");
 
         #endregion

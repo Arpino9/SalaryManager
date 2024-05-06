@@ -39,6 +39,9 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary>
         /// イベント登録
         /// </summary>
+        /// <remarks>
+        /// Viewの指定したイベントと、発火させるメソッドを紐付ける。
+        /// </remarks>
         private void BindEvent()
         {
             // 就業中

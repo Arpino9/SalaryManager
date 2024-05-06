@@ -9,7 +9,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
         WindowStartupLocation="CenterScreen"
-        Title="{Binding Window_Title, Mode=OneWay}" Height="450" Width="800"
+        Title="{Binding Window_Title.Value, Mode=OneWay}" Height="450" Width="800"
         Background="AliceBlue">
     <Window.DataContext>
         <ViewModels:ViewModel_FileStorage/>
@@ -31,8 +31,8 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <ListView Grid.ColumnSpan="3" 
-                  ItemsSource="{Binding AttachedFile_ItemSource}" 
-                  SelectedIndex="{Binding AttachedFile_SelectedIndex}">
+                  ItemsSource="{Binding AttachedFile_ItemSource.Value}" 
+                  SelectedIndex="{Binding AttachedFile_SelectedIndex.Value}">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="SelectionChanged">
                     <behaviors:InvokeCommandAction Command="{Binding AttachedFile_SelectionChanged}" />
@@ -61,50 +61,54 @@
             </ListView.View>
         </ListView>
 
-        <Button Content="ファイルを開く" Grid.Row="1" Grid.Column="1" Command="{Binding SelectFile_Command}" IsEnabled="{Binding SelectFile_IsEnabled}"/>
+        <Button Content="ファイルを開く" 
+                Grid.Row="1" 
+                Grid.Column="1" 
+                Command="{Binding SelectFile_Command}" 
+                IsEnabled="{Binding SelectFile_IsEnabled.Value}"/>
         
-        <Image Grid.Column="1" Grid.Row="2" Source="{Binding FileImage_Image}"/>
+        <Image Grid.Column="1" Grid.Row="2" Source="{Binding FileImage_Image.Value}"/>
         <Button Content="画像を拡大表示する" 
                 Grid.Column="2" 
                 Grid.Row="2" 
                 Command="{Binding OpenImageViewer_Command}"
-                IsEnabled="{Binding OpenImageViewer_IsEnabled}"/>
+                IsEnabled="{Binding OpenImageViewer_IsEnabled.Value}"/>
 
         <Label Grid.Row="3" Content="タイトル"/>
         <TextBox Grid.Column="1" 
                  Grid.Row="3" 
-                 IsEnabled="{Binding Title_IsEnabled}"
-                 Text="{Binding Title_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                 IsEnabled="{Binding Title_IsEnabled.Value}"
+                 Text="{Binding Title_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <Label Grid.Row="4" Content="ファイル名"/>
         <TextBox Grid.Column="1" 
                  Grid.Row="4" 
                  IsEnabled="False"
-                 Text="{Binding FileName_Text}" >
+                 Text="{Binding FileName_Text.Value}" >
         </TextBox>
 
         <Label Content="備考" 
                Grid.Row="5" />
         <TextBox Grid.Column="1" 
                  Grid.Row="5" 
-                 IsEnabled="{Binding Remarks_IsEnabled}"
-                 Text="{Binding Remarks_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                 IsEnabled="{Binding Remarks_IsEnabled.Value}"
+                 Text="{Binding Remarks_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <Button Content="追加" 
                 Grid.Row="6" 
                 Command="{Binding Add_Command}"
-                IsEnabled="{Binding Add_IsEnabled}"/>
+                IsEnabled="{Binding Add_IsEnabled.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         
         <Button Content="変更" 
                 Grid.Row="6" 
                 Grid.Column="1" 
                 Command="{Binding Update_Command}"
-                IsEnabled="{Binding Update_IsEnabled}"/>
+                IsEnabled="{Binding Update_IsEnabled.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Button Content="削除" 
                 Grid.Row="6" 
                 Grid.Column="2"
                 Command="{Binding Delete_Command}"
-                IsEnabled="{Binding Delete_IsEnabled}"/>
+                IsEnabled="{Binding Delete_IsEnabled.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </Controls:MetroWindow>

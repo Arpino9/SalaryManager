@@ -8,7 +8,7 @@
         x:Class="SalaryManager.WPF.Window.Company"
         xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"    
         mc:Ignorable="d"
-        Title="{Binding Title, Mode=OneWay}" Height="450" Width="800">
+        Title="{Binding Window_Title.Value, Mode=OneWay}" Height="450" Width="800">
     <Window.DataContext>
         <ViewModels:ViewModel_Company/>
     </Window.DataContext>
@@ -18,8 +18,8 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <ListView ItemsSource="{Binding Companies_ItemSource}" 
-                  SelectedIndex="{Binding Companies_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        <ListView ItemsSource="{Binding Companies_ItemSource.Value}" 
+                  SelectedIndex="{Binding Companies_SelectedIndex.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="SelectionChanged">
