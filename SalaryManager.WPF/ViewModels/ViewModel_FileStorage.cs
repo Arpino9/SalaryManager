@@ -19,7 +19,6 @@ namespace SalaryManager.WPF.ViewModels
         {
             this.Model.ViewModel = this;
 
-            
             this.AttachedFile_ItemSource.Value = new ObservableCollection<FileStorageEntity>();
 
             this.Model.Initialize();

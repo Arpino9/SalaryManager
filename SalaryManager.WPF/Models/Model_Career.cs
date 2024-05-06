@@ -53,16 +53,16 @@ namespace SalaryManager.WPF.Models
         {
             Careers.Create(_repository);
 
-            this.ViewModel.FontFamily = XMLLoader.FetchFontFamily();
-            this.ViewModel.FontSize   = XMLLoader.FetchFontSize();
+            this.ViewModel.Window_FontFamily.Value = XMLLoader.FetchFontFamily();
+            this.ViewModel.Window_FontSize.Value   = XMLLoader.FetchFontSize();
 
-            this.ViewModel.Window_Background = XMLLoader.FetchBackgroundColorBrush();
+            this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
 
             this.ViewModel.Entities = Careers.FetchByDescending();
 
             this.Reflesh_ListView();
 
-            this.ViewModel.Careers_SelectedIndex = -1;
+            this.ViewModel.Careers_SelectedIndex.Value = -1;
             this.Clear_InputForm();
         }
 
@@ -85,7 +85,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         private void Reflesh_ListView()
         {
-            this.ViewModel.Careers_ItemSource.Clear();
+            this.ViewModel.Careers_ItemSource.Value.Clear();
 
             var entities = this.ViewModel.Entities;
 
@@ -97,7 +97,7 @@ namespace SalaryManager.WPF.Models
 
             foreach (var entity in entities)
             {
-                this.ViewModel.Careers_ItemSource.Add(entity);
+                this.ViewModel.Careers_ItemSource.Value.Add(entity);
             }
         }
 
@@ -109,13 +109,13 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         private void EnableControlButton()
         {
-            var selected = this.ViewModel.Careers_ItemSource.Any() 
-                        && this.ViewModel.Careers_SelectedIndex >= 0;
+            var selected = this.ViewModel.Careers_ItemSource.Value.Any() 
+                        && this.ViewModel.Careers_SelectedIndex.Value >= 0;
 
             // 更新ボタン
-            this.ViewModel.Update_IsEnabled = selected;
+            this.ViewModel.Update_IsEnabled.Value = selected;
             // 削除ボタン
-            this.ViewModel.Delete_IsEnabled = selected;
+            this.ViewModel.Delete_IsEnabled.Value = selected;
         }
 
         /// <summary>
@@ -123,65 +123,65 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Careers_SelectionChanged()
         {
-            if (this.ViewModel.Careers_SelectedIndex == -1)
+            if (this.ViewModel.Careers_SelectedIndex.Value == -1)
             {
                 return;
             }
 
             this.EnableControlButton();
 
-            if (!this.ViewModel.Careers_ItemSource.Any())
+            if (!this.ViewModel.Careers_ItemSource.Value.Any())
             {
                 return;
             }
 
-            var entity = this.ViewModel.Careers_ItemSource[this.ViewModel.Careers_SelectedIndex];
+            var entity = this.ViewModel.Careers_ItemSource.Value[this.ViewModel.Careers_SelectedIndex.Value];
             // 雇用形態
-            this.ViewModel.WorkingStatus_Text = entity.WorkingStatus;
+            this.ViewModel.WorkingStatus_Text.Value = entity.WorkingStatus;
             // 会社名
-            this.ViewModel.CompanyName_Text   = entity.CompanyName.Text;
+            this.ViewModel.CompanyName_Text.Value   = entity.CompanyName.Text;
             // 社員番号
-            this.ViewModel.EmployeeNumber     = entity.EmployeeNumber;
+            this.ViewModel.EmployeeNumber_Text.Value     = entity.EmployeeNumber;
             // 勤務開始日
-            this.ViewModel.WorkingStartDate   = entity.WorkingStartDate.Value;
+            this.ViewModel.WorkingStart_SelectedDate.Value = entity.WorkingStartDate.Value;
             // 勤務終了日
-            this.ViewModel.WorkingEndDate     = entity.WorkingEndDate.IsWorking ? DateTime.Today : entity.WorkingEndDate.Value;
+            this.ViewModel.WorkingEnd_SelectedDate.Value = entity.WorkingEndDate.IsWorking ? DateTime.Today : entity.WorkingEndDate.Value;
             // 就業中か
-            this.ViewModel.IsWorking          = entity.WorkingEndDate.IsWorking;
+            this.ViewModel.Working_IsChecked.Value = entity.WorkingEndDate.IsWorking;
             // 備考
-            this.ViewModel.Remarks            = entity.Remarks;
+            this.ViewModel.Remarks_Text.Value            = entity.Remarks;
 
             var allowance = entity.AllowanceExistence;
             // 皆勤手当
-            this.ViewModel.PerfectAttendanceAllowance_IsChecked = allowance.PerfectAttendance.Value;
+            this.ViewModel.PerfectAttendanceAllowance_IsChecked.Value = allowance.PerfectAttendance.Value;
             // 教育手当
-            this.ViewModel.EducationAllowance_IsChecked         = allowance.Education.Value;
+            this.ViewModel.EducationAllowance_IsChecked.Value         = allowance.Education.Value;
             // 在宅手当
-            this.ViewModel.ElectricityAllowance_IsChecked       = allowance.Electricity.Value;
+            this.ViewModel.ElectricityAllowance_IsChecked.Value       = allowance.Electricity.Value;
             // 資格手当
-            this.ViewModel.CertificationAllowance_IsChecked     = allowance.Certification.Value;
+            this.ViewModel.CertificationAllowance_IsChecked.Value     = allowance.Certification.Value;
             // 時間外手当
-            this.ViewModel.OvertimeAllowance_IsChecked          = allowance.Overtime.Value;
+            this.ViewModel.OvertimeAllowance_IsChecked.Value          = allowance.Overtime.Value;
             // 出張手当
-            this.ViewModel.TravelAllowance_IsChecked            = allowance.Travel.Value;
+            this.ViewModel.TravelAllowance_IsChecked.Value            = allowance.Travel.Value;
             // 住宅手当
-            this.ViewModel.HousingAllowance_IsChecked           = allowance.Housing.Value;
+            this.ViewModel.HousingAllowance_IsChecked.Value           = allowance.Housing.Value;
             // 食事手当
-            this.ViewModel.FoodAllowance_IsChecked              = allowance.Food.Value;
+            this.ViewModel.FoodAllowance_IsChecked.Value              = allowance.Food.Value;
             // 深夜手当
-            this.ViewModel.LateNightAllowance_IsChecked         = allowance.LateNight.Value;
+            this.ViewModel.LateNightAllowance_IsChecked.Value         = allowance.LateNight.Value;
             // 地域手当
-            this.ViewModel.AreaAllowance_IsChecked              = allowance.Area.Value;
+            this.ViewModel.AreaAllowance_IsChecked.Value              = allowance.Area.Value;
             // 通勤手当
-            this.ViewModel.CommutingAllowance_IsChecked         = allowance.Commution.Value;
+            this.ViewModel.CommutingAllowance_IsChecked.Value         = allowance.Commution.Value;
             // 前払退職金
-            this.ViewModel.PrepaidRetirementPayment_IsChecked   = allowance.PrepaidRetirement.Value;
+            this.ViewModel.PrepaidRetirementPayment_IsChecked.Value   = allowance.PrepaidRetirement.Value;
             // 扶養手当
-            this.ViewModel.DependencyAllowance_IsChecked        = allowance.Dependency.Value;
+            this.ViewModel.DependencyAllowance_IsChecked.Value        = allowance.Dependency.Value;
             // 役職手当
-            this.ViewModel.ExecutiveAllowance_IsChecked         = allowance.Executive.Value;
+            this.ViewModel.ExecutiveAllowance_IsChecked.Value         = allowance.Executive.Value;
             // 特別手当
-            this.ViewModel.SpecialAllowance_IsChecked           = allowance.Special.Value;
+            this.ViewModel.SpecialAllowance_IsChecked.Value           = allowance.Special.Value;
         }
 
         /// <summary>
@@ -189,11 +189,11 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void IsWorking_Checked()
         {
-            this.ViewModel.WorkingEndDate_IsEnabled = this.ViewModel.IsWorking ? false : true;
+            this.ViewModel.WorkingEnd_IsEnabled.Value = this.ViewModel.Working_IsChecked.Value ? false : true;
 
-            if (this.ViewModel.IsWorking)
+            if (this.ViewModel.Working_IsChecked.Value)
             {
-                this.ViewModel.WorkingEndDate = DateTime.Today;
+                this.ViewModel.WorkingEnd_SelectedDate.Value = DateTime.Today;
             }            
         }
 
@@ -202,9 +202,9 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void EnableAddButton()
         {
-            var inputted = !string.IsNullOrEmpty(this.ViewModel.CompanyName_Text);
+            var inputted = !string.IsNullOrEmpty(this.ViewModel.CompanyName_Text.Value);
 
-            this.ViewModel.Add_IsEnabled = inputted;
+            this.ViewModel.Add_IsEnabled.Value = inputted;
         }
 
         /// <summary>
@@ -249,56 +249,56 @@ namespace SalaryManager.WPF.Models
         public void Clear_InputForm()
         {
             // 雇用形態
-            this.ViewModel.WorkingStatus_Text = this.ViewModel.WorkingStatus_ItemSource.First();
+            this.ViewModel.WorkingStatus_Text.Value = this.ViewModel.WorkingStatus_ItemSource.Value.First();
             // 会社名
-            this.ViewModel.CompanyName_Text   = default(string);
+            this.ViewModel.CompanyName_Text.Value   = default(string);
             // 勤務開始日
-            this.ViewModel.WorkingStartDate   = DateTime.Now;
+            this.ViewModel.WorkingStart_SelectedDate.Value = DateTime.Now;
             // 勤務終了日
-            this.ViewModel.WorkingEndDate     = DateTime.Now;
+            this.ViewModel.WorkingEnd_SelectedDate.Value   = DateTime.Now;
             this.IsWorking_Checked();
             // 社員番号
-            this.ViewModel.EmployeeNumber     = default(string);
+            this.ViewModel.EmployeeNumber_Text.Value     = default(string);
             // 備考
-            this.ViewModel.Remarks            = default(string);
+            this.ViewModel.Remarks_Text.Value            = default(string);
 
             // 皆勤手当
-            this.ViewModel.PerfectAttendanceAllowance_IsChecked = default(bool);
+            this.ViewModel.PerfectAttendanceAllowance_IsChecked.Value = default(bool);
             // 教育手当
-            this.ViewModel.EducationAllowance_IsChecked         = default(bool);
+            this.ViewModel.EducationAllowance_IsChecked.Value         = default(bool);
             // 在宅手当
-            this.ViewModel.ElectricityAllowance_IsChecked       = default(bool);
+            this.ViewModel.ElectricityAllowance_IsChecked.Value       = default(bool);
             // 資格手当
-            this.ViewModel.CertificationAllowance_IsChecked     = default(bool);
+            this.ViewModel.CertificationAllowance_IsChecked.Value     = default(bool);
             // 時間外手当
-            this.ViewModel.OvertimeAllowance_IsChecked          = default(bool);
+            this.ViewModel.OvertimeAllowance_IsChecked.Value          = default(bool);
             // 出張手当
-            this.ViewModel.TravelAllowance_IsChecked            = default(bool);
+            this.ViewModel.TravelAllowance_IsChecked.Value            = default(bool);
             // 住宅手当
-            this.ViewModel.HousingAllowance_IsChecked           = default(bool);
+            this.ViewModel.HousingAllowance_IsChecked.Value           = default(bool);
             // 食事手当
-            this.ViewModel.FoodAllowance_IsChecked              = default(bool);
+            this.ViewModel.FoodAllowance_IsChecked.Value              = default(bool);
             // 深夜手当
-            this.ViewModel.LateNightAllowance_IsChecked         = default(bool);
+            this.ViewModel.LateNightAllowance_IsChecked.Value         = default(bool);
             // 地域手当
-            this.ViewModel.AreaAllowance_IsChecked              = default(bool);
+            this.ViewModel.AreaAllowance_IsChecked.Value              = default(bool);
             // 通勤手当
-            this.ViewModel.CommutingAllowance_IsChecked         = default(bool);
+            this.ViewModel.CommutingAllowance_IsChecked.Value         = default(bool);
             // 前払退職金
-            this.ViewModel.PrepaidRetirementPayment_IsChecked   = default(bool);
+            this.ViewModel.PrepaidRetirementPayment_IsChecked.Value   = default(bool);
             // 扶養手当
-            this.ViewModel.DependencyAllowance_IsChecked        = default(bool);
+            this.ViewModel.DependencyAllowance_IsChecked.Value        = default(bool);
             // 役職手当
-            this.ViewModel.ExecutiveAllowance_IsChecked         = default(bool);
+            this.ViewModel.ExecutiveAllowance_IsChecked.Value         = default(bool);
             // 特別手当
-            this.ViewModel.SpecialAllowance_IsChecked           = default(bool);
+            this.ViewModel.SpecialAllowance_IsChecked.Value           = default(bool);
 
             // 追加ボタン
-            this.ViewModel.Add_IsEnabled    = false;
+            this.ViewModel.Add_IsEnabled.Value    = false;
             // 更新ボタン
-            this.ViewModel.Update_IsEnabled = false;
+            this.ViewModel.Update_IsEnabled.Value = false;
             // 削除ボタン
-            this.ViewModel.Delete_IsEnabled = false;
+            this.ViewModel.Delete_IsEnabled.Value = false;
         }
 
         /// <summary>
@@ -306,7 +306,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Add()
         {
-            if (!Message.ShowConfirmingMessage($"入力された職歴を追加しますか？", this.ViewModel.Title))
+            if (!Message.ShowConfirmingMessage($"入力された職歴を追加しますか？", this.ViewModel.Window_Title.Value))
             {
                 // キャンセル
                 return;
@@ -314,14 +314,14 @@ namespace SalaryManager.WPF.Models
 
             using (var cursor = new CursorWaiting())
             {
-                this.ViewModel.Delete_IsEnabled = true;
+                this.ViewModel.Delete_IsEnabled.Value = true;
 
                 var entity = this.CreateEntity(this.ViewModel.Entities.Count + 1);
-                this.ViewModel.Careers_ItemSource.Add(entity);
+                this.ViewModel.Careers_ItemSource.Value.Add(entity);
                 this.Save();
 
                 // 並び変え
-                this.ViewModel.Careers_ItemSource = new ObservableCollection<CareerEntity>(this.ViewModel.Careers_ItemSource.OrderByDescending(x => x.WorkingStartDate.ToString()));
+                this.ViewModel.Careers_ItemSource.Value = new ObservableCollection<CareerEntity>(this.ViewModel.Careers_ItemSource.Value.OrderByDescending(x => x.WorkingStartDate.ToString()));
             }   
         }
 
@@ -332,37 +332,37 @@ namespace SalaryManager.WPF.Models
         /// <returns>職歴</returns>
         private CareerEntity CreateEntity(int id)
         {
-            var workingEndDate = this.ViewModel.IsWorking ? DateTime.MaxValue : this.ViewModel.WorkingEndDate;
+            var workingEndDate = this.ViewModel.Working_IsChecked.Value ? DateTime.MaxValue : this.ViewModel.WorkingEnd_SelectedDate.Value;
 
             return new CareerEntity(
                 id,
-                this.ViewModel.WorkingStatus_Text,
-                this.ViewModel.CompanyName_Text,
-                this.ViewModel.EmployeeNumber,
-                this.ViewModel.WorkingStartDate,
+                this.ViewModel.WorkingStatus_Text.Value,
+                this.ViewModel.CompanyName_Text.Value,
+                this.ViewModel.EmployeeNumber_Text.Value,
+                this.ViewModel.WorkingStart_SelectedDate.Value,
                 workingEndDate,
                 CreateAllowanceExistenceEntity(),
-                this.ViewModel.Remarks);
+                this.ViewModel.Remarks_Text.Value);
 
             // 手当有無の作成
             AllowanceExistenceEntity CreateAllowanceExistenceEntity()
             {
                 return new AllowanceExistenceEntity(
-                    this.ViewModel.PerfectAttendanceAllowance_IsChecked,
-                    this.ViewModel.EducationAllowance_IsChecked,
-                    this.ViewModel.ElectricityAllowance_IsChecked,
-                    this.ViewModel.CertificationAllowance_IsChecked,
-                    this.ViewModel.OvertimeAllowance_IsChecked,
-                    this.ViewModel.TravelAllowance_IsChecked,
-                    this.ViewModel.HousingAllowance_IsChecked,
-                    this.ViewModel.FoodAllowance_IsChecked,
-                    this.ViewModel.LateNightAllowance_IsChecked,
-                    this.ViewModel.AreaAllowance_IsChecked,
-                    this.ViewModel.CommutingAllowance_IsChecked,
-                    this.ViewModel.PrepaidRetirementPayment_IsChecked,
-                    this.ViewModel.DependencyAllowance_IsChecked,
-                    this.ViewModel.ExecutiveAllowance_IsChecked,
-                    this.ViewModel.SpecialAllowance_IsChecked);
+                    this.ViewModel.PerfectAttendanceAllowance_IsChecked.Value,
+                    this.ViewModel.EducationAllowance_IsChecked.Value,
+                    this.ViewModel.ElectricityAllowance_IsChecked.Value,
+                    this.ViewModel.CertificationAllowance_IsChecked.Value,
+                    this.ViewModel.OvertimeAllowance_IsChecked.Value,
+                    this.ViewModel.TravelAllowance_IsChecked.Value,
+                    this.ViewModel.HousingAllowance_IsChecked.Value,
+                    this.ViewModel.FoodAllowance_IsChecked.Value,
+                    this.ViewModel.LateNightAllowance_IsChecked.Value,
+                    this.ViewModel.AreaAllowance_IsChecked.Value,
+                    this.ViewModel.CommutingAllowance_IsChecked.Value,
+                    this.ViewModel.PrepaidRetirementPayment_IsChecked.Value,
+                    this.ViewModel.DependencyAllowance_IsChecked.Value,
+                    this.ViewModel.ExecutiveAllowance_IsChecked.Value,
+                    this.ViewModel.SpecialAllowance_IsChecked.Value);
             }
         }
 
@@ -371,7 +371,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Update()
         {
-            if (!Message.ShowConfirmingMessage($"選択中の職歴を更新しますか？", this.ViewModel.Title))
+            if (!Message.ShowConfirmingMessage($"選択中の職歴を更新しますか？", this.ViewModel.Window_Title.Value))
             {
                 // キャンセル
                 return;
@@ -379,10 +379,10 @@ namespace SalaryManager.WPF.Models
 
             using (var cursor = new CursorWaiting())
             {
-                var id = this.ViewModel.Careers_ItemSource[this.ViewModel.Careers_SelectedIndex].ID;
+                var id = this.ViewModel.Careers_ItemSource.Value[this.ViewModel.Careers_SelectedIndex.Value].ID;
 
                 var entity = this.CreateEntity(id);
-                this.ViewModel.Careers_ItemSource[this.ViewModel.Careers_SelectedIndex] = entity;
+                this.ViewModel.Careers_ItemSource.Value[this.ViewModel.Careers_SelectedIndex.Value] = entity;
 
                 this.Save();
             }   
@@ -393,13 +393,13 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Delete()
         {
-            if (this.ViewModel.Careers_SelectedIndex == -1 ||
-                !this.ViewModel.Careers_ItemSource.Any()) 
+            if (this.ViewModel.Careers_SelectedIndex.Value == -1 ||
+                !this.ViewModel.Careers_ItemSource.Value.Any()) 
             {
                 return;
             }
 
-            if (!Message.ShowConfirmingMessage($"選択中の職歴を削除しますか？", this.ViewModel.Title))
+            if (!Message.ShowConfirmingMessage($"選択中の職歴を削除しますか？", this.ViewModel.Window_Title.Value))
             {
                 // キャンセル
                 return;
@@ -407,9 +407,9 @@ namespace SalaryManager.WPF.Models
 
             using (var cursor = new CursorWaiting())
             {
-                _repository.Delete(this.ViewModel.Careers_SelectedIndex + 1);
+                _repository.Delete(this.ViewModel.Careers_SelectedIndex.Value + 1);
 
-                this.ViewModel.Careers_ItemSource.RemoveAt(this.ViewModel.Careers_SelectedIndex);
+                this.ViewModel.Careers_ItemSource.Value.RemoveAt(this.ViewModel.Careers_SelectedIndex.Value);
 
                 this.Reload();
                 this.EnableControlButton();
@@ -421,7 +421,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Save()
         {
-            foreach (var entity in this.ViewModel.Careers_ItemSource)
+            foreach (var entity in this.ViewModel.Careers_ItemSource.Value)
             {
                 _repository.Save(entity);
             }

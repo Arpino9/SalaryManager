@@ -10,9 +10,9 @@
         x:Class="SalaryManager.WPF.Window.Career"
         mc:Ignorable="d"
         Height="440" Width="600" 
-        FontFamily="{Binding FontFamily}" 
-        Background="{Binding Window_Background}" 
-        FontSize="{Binding FontSize}" Title="{Binding Title, Mode=OneWay}">
+        FontFamily="{Binding Window_FontFamily.Value}" 
+        Background="{Binding Window_Background.Value}" 
+        FontSize="{Binding Window_FontSize.Value}" Title="{Binding Window_Title.Value, Mode=OneWay}">
     <Window.DataContext>
         <ViewModels:ViewModel_Career/>
     </Window.DataContext>
@@ -23,8 +23,8 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <ListView ItemsSource="{Binding Careers_ItemSource}"
-                  SelectedIndex="{Binding Careers_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+        <ListView ItemsSource="{Binding Careers_ItemSource.Value}"
+                  SelectedIndex="{Binding Careers_SelectedIndex.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                   ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="SelectionChanged">
@@ -133,9 +133,9 @@
             <Label Content="雇用形態" 
                    Background="AliceBlue"/>
             <ComboBox Grid.Column="1" 
-                      ItemsSource="{Binding WorkingStatus_ItemSource}" 
-                      SelectedIndex="{Binding WorkingStatus_SelectedIndex}"
-                      Text="{Binding WorkingStatus_Text}"/>
+                      ItemsSource="{Binding WorkingStatus_ItemSource.Value}" 
+                      SelectedIndex="{Binding WorkingStatus_SelectedIndex.Value}"
+                      Text="{Binding WorkingStatus_Text.Value}"/>
 
             <Label Content="会社名" 
                    Grid.Row="1" 
@@ -143,7 +143,7 @@
             <TextBox Grid.Column="1" 
                      Grid.Row="1" 
                      Grid.ColumnSpan="4" 
-                     Text="{Binding CompanyName_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                     Text="{Binding CompanyName_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <behaviors:Interaction.Triggers>
                     <behaviors:EventTrigger EventName="TextChanged">
                         <behaviors:InvokeCommandAction Command="{Binding CompanyName_TextChanged}" />
@@ -157,7 +157,7 @@
                    Background="AliceBlue"/>
             <DatePicker Grid.Column="1" 
                         Grid.Row="2" 
-                        SelectedDate="{Binding WorkingStartDate}" />
+                        SelectedDate="{Binding WorkingStart_SelectedDate.Value}" />
             <Label Content="～" 
                    Grid.Column="2" 
                    Grid.Row="2"
@@ -167,19 +167,19 @@
             <DatePicker
                         Grid.Column="3" 
                         Grid.Row="2" 
-                        SelectedDate="{Binding WorkingEndDate}" 
-                        IsEnabled="{Binding WorkingEndDate_IsEnabled}" />
+                        SelectedDate="{Binding WorkingEnd_SelectedDate.Value}" 
+                        IsEnabled="{Binding WorkingEnd_IsEnabled.Value}" />
             <CheckBox Content="就業中" 
                       Grid.Column="3" 
                       Grid.Row="3"
-                      IsChecked="{Binding IsWorking}">
+                      IsChecked="{Binding Working_IsChecked.Value}">
                 <behaviors:Interaction.Triggers>
                     <behaviors:EventTrigger EventName="Checked">
-                        <behaviors:InvokeCommandAction Command="{Binding Isworking_Checked}" />
+                        <behaviors:InvokeCommandAction Command="{Binding Working_Checked}" />
                     </behaviors:EventTrigger>
 
                     <behaviors:EventTrigger EventName="Unchecked">
-                        <behaviors:InvokeCommandAction Command="{Binding Isworking_Checked}" />
+                        <behaviors:InvokeCommandAction Command="{Binding Working_Checked}" />
                     </behaviors:EventTrigger>
                 </behaviors:Interaction.Triggers>
             </CheckBox>
@@ -190,7 +190,7 @@
             <TextBox Grid.Column="1" 
                      Grid.Row="4" 
                      Grid.ColumnSpan="3" 
-                     Text="{Binding EmployeeNumber}" />
+                     Text="{Binding EmployeeNumber_Text.Value}" />
 
             <Label Content="手当" 
                    Grid.Row="5" 
@@ -199,21 +199,21 @@
                           Grid.Row="5"
                           Width="150">
                 <StackPanel>
-                    <CheckBox Content="皆勤手当" IsChecked="{Binding PerfectAttendanceAllowance_IsChecked}" />
-                    <CheckBox Content="教育手当" IsChecked="{Binding EducationAllowance_IsChecked}" />
-                    <CheckBox Content="在宅手当" IsChecked="{Binding ElectricityAllowance_IsChecked}" />
-                    <CheckBox Content="資格手当" IsChecked="{Binding CertificationAllowance_IsChecked}" />
-                    <CheckBox Content="時間外手当・超過勤務手当" IsChecked="{Binding OvertimeAllowance_IsChecked}" />
-                    <CheckBox Content="地域手当" IsChecked="{Binding AreaAllowance_IsChecked}" />
-                    <CheckBox Content="住居手当" IsChecked="{Binding HousingAllowance_IsChecked}" />
-                    <CheckBox Content="出張手当" IsChecked="{Binding TravelAllowance_IsChecked}" />
-                    <CheckBox Content="食事手当" IsChecked="{Binding FoodAllowance_IsChecked}" />
-                    <CheckBox Content="深夜手当" IsChecked="{Binding LateNightAllowance_IsChecked}" />
-                    <CheckBox Content="通勤手当" IsChecked="{Binding CommutingAllowance_IsChecked}" />
-                    <CheckBox Content="前払退職金" IsChecked="{Binding PrepaidRetirementPayment_IsChecked}" />
-                    <CheckBox Content="特別手当" IsChecked="{Binding SpecialAllowance_IsChecked}"/>
-                    <CheckBox Content="扶養手当・家族手当" IsChecked="{Binding DependencyAllowance_IsChecked}" />
-                    <CheckBox Content="役職手当" IsChecked="{Binding ExecutiveAllowance_IsChecked}"/>
+                    <CheckBox Content="皆勤手当" IsChecked="{Binding PerfectAttendanceAllowance_IsChecked.Value}" />
+                    <CheckBox Content="教育手当" IsChecked="{Binding EducationAllowance_IsChecked.Value}" />
+                    <CheckBox Content="在宅手当" IsChecked="{Binding ElectricityAllowance_IsChecked.Value}" />
+                    <CheckBox Content="資格手当" IsChecked="{Binding CertificationAllowance_IsChecked.Value}" />
+                    <CheckBox Content="時間外手当・超過勤務手当" IsChecked="{Binding OvertimeAllowance_IsChecked.Value}" />
+                    <CheckBox Content="出張手当" IsChecked="{Binding TravelAllowance_IsChecked.Value}" />
+                    <CheckBox Content="住居手当" IsChecked="{Binding HousingAllowance_IsChecked.Value}" />
+                    <CheckBox Content="食事手当" IsChecked="{Binding FoodAllowance_IsChecked.Value}" />
+                    <CheckBox Content="地域手当" IsChecked="{Binding AreaAllowance_IsChecked.Value}" />
+                    <CheckBox Content="深夜手当" IsChecked="{Binding LateNightAllowance_IsChecked.Value}" />
+                    <CheckBox Content="通勤手当" IsChecked="{Binding CommutingAllowance_IsChecked.Value}" />
+                    <CheckBox Content="前払退職金" IsChecked="{Binding PrepaidRetirementPayment_IsChecked.Value}" />
+                    <CheckBox Content="扶養手当・家族手当" IsChecked="{Binding DependencyAllowance_IsChecked.Value}" />
+                    <CheckBox Content="役職手当" IsChecked="{Binding ExecutiveAllowance_IsChecked.Value}"/>
+                    <CheckBox Content="特別手当" IsChecked="{Binding SpecialAllowance_IsChecked.Value}"/>
                 </StackPanel>
             </ScrollViewer>
 
@@ -223,23 +223,23 @@
             <TextBox Grid.Column="1" 
                      Grid.ColumnSpan="3"
                      Grid.Row="6"
-                     Text="{Binding Remarks}"/>
+                     Text="{Binding Remarks_Text.Value}"/>
 
             <Button Content="追加" 
                     Grid.Row="7" 
                     Command="{Binding Add_Command}"
-                    IsEnabled="{Binding Add_IsEnabled}" />
+                    IsEnabled="{Binding Add_IsEnabled.Value}" />
             <Button Content="更新" 
                     Grid.Row="7"
                     Grid.Column="1"
                     Grid.ColumnSpan="2"
                     Command="{Binding Update_Command}"
-                    IsEnabled="{Binding Update_IsEnabled}"/>
+                    IsEnabled="{Binding Update_IsEnabled.Value}"/>
             <Button Content="削除" 
                     Grid.Column="3" 
                     Grid.Row="7" 
                     Command="{Binding Delete_Command}" 
-                    IsEnabled="{Binding Delete_IsEnabled}"/>
+                    IsEnabled="{Binding Delete_IsEnabled.Value}"/>
         </Grid>
     </Grid>
 </Window>
