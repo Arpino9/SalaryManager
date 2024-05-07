@@ -135,7 +135,6 @@ namespace SalaryManager.WPF.ViewModels
         public ReactiveProperty<SolidColorBrush> Window_Background { get; set; }
             = new ReactiveProperty<SolidColorBrush>();
 
-
         /// <summary> 背景色 - Command </summary>
         public ReactiveCommand ChangeWindowBackground_Command { get; private set; }
             = new ReactiveCommand();

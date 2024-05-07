@@ -98,13 +98,13 @@ namespace SalaryManager.WPF.Models
         public void Clear()
         {
             // 副業
-            this.ViewModel.SideBusiness_Value = default(double);
+            this.ViewModel.SideBusiness_Text.Value = default(double);
             // 臨時収入
-            this.ViewModel.Perquisite_Value   = default(double);
+            this.ViewModel.Perquisite_Text.Value   = default(double);
             // その他
-            this.ViewModel.Others_Value       = default(double);
+            this.ViewModel.Others_Text.Value       = default(double);
             // 備考
-            this.ViewModel.Remarks_Text       = default(string);
+            this.ViewModel.Remarks_Text.Value      = default(string);
         }
 
         /// <summary>
@@ -124,13 +124,13 @@ namespace SalaryManager.WPF.Models
             }
 
             // 副業
-            this.ViewModel.SideBusiness_Value = entity.SideBusiness;
+            this.ViewModel.SideBusiness_Text.Value = entity.SideBusiness;
             // 臨時収入
-            this.ViewModel.Perquisite_Value   = entity.Perquisite;
+            this.ViewModel.Perquisite_Text.Value   = entity.Perquisite;
             // その他
-            this.ViewModel.Others_Value       = entity.Others;
+            this.ViewModel.Others_Text.Value       = entity.Others;
             // 備考
-            this.ViewModel.Remarks_Text       = entity.Remarks;
+            this.ViewModel.Remarks_Text.Value      = entity.Remarks;
         }
 
         /// <summary>
@@ -145,10 +145,10 @@ namespace SalaryManager.WPF.Models
             var entity = new SideBusinessEntity(
                 this.Header.ID,
                 this.Header.YearMonth,
-                this.ViewModel.SideBusiness_Value,
-                this.ViewModel.Perquisite_Value,
-                this.ViewModel.Others_Value,
-                this.ViewModel.Remarks_Text);
+                this.ViewModel.SideBusiness_Text.Value,
+                this.ViewModel.Perquisite_Text.Value,
+                this.ViewModel.Others_Text.Value,
+                this.ViewModel.Remarks_Text.Value);
 
             _repository.Save(transaction, entity);
         }

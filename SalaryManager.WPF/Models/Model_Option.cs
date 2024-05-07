@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using SalaryManager.Infrastructure.XML;
 using static SalaryManager.WPF.ViewModels.ViewModel_GeneralOption;
 using SalaryManager.Infrastructure.JSON;
-using SalaryManager.WPF.Converter;
 
 namespace SalaryManager.WPF.Models
 {

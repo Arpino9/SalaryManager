@@ -107,25 +107,25 @@ namespace SalaryManager.WPF.Models
         public void Clear()
         {
             // 時間外時間
-            this.ViewModel.OvertimeTime_Value      = default(double);
+            this.ViewModel.OvertimeTime_Text.Value      = default(double);
             // 休出時間
-            this.ViewModel.WeekendWorktime_Value   = default(double);
+            this.ViewModel.WeekendWorktime_Text.Value   = default(double);
             // 深夜時間
-            this.ViewModel.MidnightWorktime_Value  = default(double);
+            this.ViewModel.MidnightWorktime_Text.Value  = default(double);
             // 遅刻早退欠勤H
-            this.ViewModel.LateAbsentH_Value       = default(double);
+            this.ViewModel.LateAbsentH_Text.Value       = default(double);
             // 支給額-保険
-            this.ViewModel.Insurance_Value         = default(double);
+            this.ViewModel.Insurance_Text.Value         = default(double);
             // 標準月額千円
-            this.ViewModel.Norm_Value              = default(double);
+            this.ViewModel.Norm_Text.Value              = default(double);
             // 扶養人数
-            this.ViewModel.NumberOfDependent_Value = default(double);
+            this.ViewModel.NumberOfDependent_Text.Value = default(double);
             // 有給残日数
-            this.ViewModel.PaidVacation_Value      = default(double);
+            this.ViewModel.PaidVacation_Text.Value      = default(double);
             // 勤務時間
-            this.ViewModel.WorkingHours_Value      = default(double);
+            this.ViewModel.WorkingHours_Text.Value      = default(double);
             // 備考
-            this.ViewModel.Remarks_Text            = default(string);
+            this.ViewModel.Remarks_Text.Value            = default(string);
         }
 
         /// <summary>
@@ -145,25 +145,25 @@ namespace SalaryManager.WPF.Models
             }
 
             // 時間外時間
-            this.ViewModel.OvertimeTime_Value      = entity.OvertimeTime;
+            this.ViewModel.OvertimeTime_Text.Value      = entity.OvertimeTime;
             // 休出時間
-            this.ViewModel.WeekendWorktime_Value   = entity.WeekendWorktime;
+            this.ViewModel.WeekendWorktime_Text.Value   = entity.WeekendWorktime;
             // 深夜時間
-            this.ViewModel.MidnightWorktime_Value  = entity.MidnightWorktime;
+            this.ViewModel.MidnightWorktime_Text.Value  = entity.MidnightWorktime;
             // 遅刻早退欠勤H
-            this.ViewModel.LateAbsentH_Value       = entity.LateAbsentH;
+            this.ViewModel.LateAbsentH_Text.Value       = entity.LateAbsentH;
             // 支給額-保険
-            this.ViewModel.Insurance_Value         = entity.Insurance.Value;
+            this.ViewModel.Insurance_Text.Value         = entity.Insurance.Value;
             // 標準月額千円
-            this.ViewModel.Norm_Value              = entity.Norm;
+            this.ViewModel.Norm_Text.Value              = entity.Norm;
             // 扶養人数
-            this.ViewModel.NumberOfDependent_Value = entity.NumberOfDependent;
+            this.ViewModel.NumberOfDependent_Text.Value = entity.NumberOfDependent;
             // 有給残日数
-            this.ViewModel.PaidVacation_Value      = entity.PaidVacation.Value;
+            this.ViewModel.PaidVacation_Text.Value      = entity.PaidVacation.Value;
             // 勤務時間
-            this.ViewModel.WorkingHours_Value      = entity.WorkingHours;
+            this.ViewModel.WorkingHours_Text.Value      = entity.WorkingHours;
             // 備考
-            this.ViewModel.Remarks_Text            = entity.Remarks;
+            this.ViewModel.Remarks_Text.Value           = entity.Remarks;
         }
 
         /// <summary>
@@ -205,17 +205,17 @@ namespace SalaryManager.WPF.Models
             var entity = new WorkingReferencesEntity(
                 this.Header.ID,
                 this.Header.YearMonth,
-                this.ViewModel.OvertimeTime_Value,
-                this.ViewModel.WeekendWorktime_Value,
-                this.ViewModel.MidnightWorktime_Value,
-                this.ViewModel.LateAbsentH_Value,
-                this.ViewModel.Insurance_Value,
-                this.ViewModel.Norm_Value,
-                this.ViewModel.NumberOfDependent_Value,
-                this.ViewModel.PaidVacation_Value,
-                this.ViewModel.WorkingHours_Value,
+                this.ViewModel.OvertimeTime_Text.Value,
+                this.ViewModel.WeekendWorktime_Text.Value,
+                this.ViewModel.MidnightWorktime_Text.Value,
+                this.ViewModel.LateAbsentH_Text.Value,
+                this.ViewModel.Insurance_Text.Value,
+                this.ViewModel.Norm_Text.Value,
+                this.ViewModel.NumberOfDependent_Text.Value,
+                this.ViewModel.PaidVacation_Text.Value,
+                this.ViewModel.WorkingHours_Text.Value,
                 this.WorkPlace.WorkPlace_Text.Value,
-                this.ViewModel.Remarks_Text);
+                this.ViewModel.Remarks_Text.Value);
 
             _repository.Save(transaction, entity);
         }

@@ -33,7 +33,7 @@
                Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="1" 
                  Style="{StaticResource PayslipItemNumeric_Style}" 
-                 Text="{Binding OvertimeTime_Value, StringFormat={}{0:N1}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Text="{Binding OvertimeTime_Text.Value, StringFormat={}{0:N1}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  TextAlignment="Right" />
 
         <Label Content="休出時間" 
@@ -41,7 +41,7 @@
                Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="1" Grid.Row="1" 
                  Style="{StaticResource PayslipItemNumeric_Style}"
-                 Text="{Binding WeekendWorktime_Value, StringFormat={}{0:N1}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Text="{Binding WeekendWorktime_Text.Value, StringFormat={}{0:N1}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  TextAlignment="Right" />
 
         <Label Content="深夜時間" 
@@ -49,7 +49,7 @@
                Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="1" Grid.Row="2" 
                  Style="{StaticResource PayslipItemNumeric_Style}"
-                 Text="{Binding MidnightWorktime_Value, StringFormat={}{0:N1}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Text="{Binding MidnightWorktime_Text.Value, StringFormat={}{0:N1}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  TextAlignment="Right" />
 
         <Label Content="遅刻早退欠勤H" 
@@ -58,7 +58,7 @@
         <TextBox Grid.Column="1" 
                  Grid.Row="3" 
                  Style="{StaticResource PayslipItemNumeric_Style}" 
-                 Text="{Binding LateAbsentH_Value, StringFormat={}{0:N1}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Text="{Binding LateAbsentH_Text.Value, StringFormat={}{0:N1}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  TextAlignment="Right" />
 
         <Label Content="支給額-保険" 
@@ -66,7 +66,7 @@
                Style="{StaticResource PayslipItemLabel_Style}" />
         <TextBox Grid.Column="3" 
                  Style="{StaticResource PayslipItemNumeric_Style}" 
-                 Text="{Binding Insurance_Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Text="{Binding Insurance_Text.Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  TextAlignment="Right">
 
             <behaviors:Interaction.Triggers>
@@ -87,7 +87,7 @@
         <TextBox Grid.Column="3" 
                  Grid.Row="1" 
                  Style="{StaticResource PayslipItemNumeric_Style}" 
-                 Text="{Binding Norm_Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Text="{Binding Norm_Text.Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  TextAlignment="Right">
 
             <behaviors:Interaction.Triggers>
@@ -108,7 +108,7 @@
         <TextBox Grid.Column="3" 
                  Grid.Row="2" 
                  Style="{StaticResource PayslipItemNumeric_Style}" 
-                 Text="{Binding NumberOfDependent_Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Text="{Binding NumberOfDependent_Text.Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  TextAlignment="Right" />
 
         <Label Content="有給残日数" 
@@ -118,7 +118,7 @@
         <TextBox Grid.Column="3" 
                  Grid.Row="3" 
                  Style="{StaticResource PayslipItemNumeric_Style}" 
-                 Text="{Binding PaidVacation_Value, StringFormat={}{0:N1}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding PaidVacation_Text.Value, StringFormat={}{0:N1}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  TextAlignment="Right" />
 
         <Label Content="勤務時間" 
@@ -128,7 +128,7 @@
         <TextBox Grid.Column="3"
                  Grid.Row="4" 
                  Style="{StaticResource PayslipItemNumeric_Style}" 
-                 Text="{Binding WorkingHours_Value, StringFormat={}{0:N1}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Text="{Binding WorkingHours_Text.Value, StringFormat={}{0:N1}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  TextAlignment="Right" />
 
         <Label Content="備考" 
@@ -139,7 +139,7 @@
                  Grid.Row="5" 
                  AcceptsReturn="True"
                  Style="{StaticResource PayslipItemCharacter_Style}"
-                 Text="{Binding Remarks_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding Remarks_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  TextWrapping="Wrap" />
     </Grid>
 </UserControl>

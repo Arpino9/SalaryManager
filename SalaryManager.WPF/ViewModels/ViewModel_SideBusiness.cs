@@ -1,9 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using Reactive.Bindings;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Infrastructure.SQLite;
-using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
 
 namespace SalaryManager.WPF.ViewModels
@@ -13,14 +12,7 @@ namespace SalaryManager.WPF.ViewModels
     /// </summary>
     public class ViewModel_SideBusiness : INotifyPropertyChanged
     {
-
         public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            var d = PropertyChanged;
-            d?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         /// <summary>
         /// Constructor
@@ -47,20 +39,22 @@ namespace SalaryManager.WPF.ViewModels
         private void BindEvent()
         {
             // Mouse Leave
-            this.Default_MouseLeave     = new RelayCommand(() => this.MainWindow.ComparePrice(0, 0));
+            this.Default_MouseLeave.Subscribe(_ => this.MainWindow.ComparePrice(0, 0));
             // 副業
-            this.SideBusiness_MouseMove = new RelayCommand(() => this.MainWindow.ComparePrice(this.SideBusiness_Value, this.Entity_LastYear?.SideBusiness));
+            this.SideBusiness_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.SideBusiness_Text.Value, this.Entity_LastYear?.SideBusiness));
             // 臨時収入
-            this.Perquisite_MouseMove   = new RelayCommand(() => this.MainWindow.ComparePrice(this.Perquisite_Value,   this.Entity_LastYear?.Perquisite));
+            this.Perquisite_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.Perquisite_Text.Value, this.Entity_LastYear?.Perquisite));
             // その他
-            this.Others_MouseMove       = new RelayCommand(() => this.MainWindow.ComparePrice(this.Others_Value,       this.Entity_LastYear?.Others));
+            this.Others_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.Others_Text.Value, this.Entity_LastYear?.Others));
         }
 
         /// <summary> Model </summary>
-        public Model_SideBusiness Model { get; set; } = Model_SideBusiness.GetInstance(new SideBusinessSQLite());
+        public Model_SideBusiness Model { get; set; } 
+            = Model_SideBusiness.GetInstance(new SideBusinessSQLite());
 
         /// <summary> Model - メイン画面 </summary>
-        public Model_MainWindow MainWindow { get; set; } = Model_MainWindow.GetInstance();
+        public Model_MainWindow MainWindow { get; set; }
+            = Model_MainWindow.GetInstance();
 
         /// <summary> Entity - 勤務備考 </summary>
         public SideBusinessEntity Entity { get; set; }
@@ -70,101 +64,53 @@ namespace SalaryManager.WPF.ViewModels
 
         #region Mouse Leave
 
-        /// <summary>
-        /// MouseLeave - MouseLeave
-        /// </summary>
-        public RelayCommand Default_MouseLeave { get; private set; }
+        /// <summary> MouseLeave - MouseLeave </summary>
+        public ReactiveCommand Default_MouseLeave { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
         #region 副業
 
-        private double _sideBusiness_Value;
+        /// <summary> 副業 - Text </summary>
+        public ReactiveProperty<double> SideBusiness_Text { get; set; }
+            = new ReactiveProperty<double>();
 
-        /// <summary>
-        /// 副業 - Value
-        /// </summary>
-        public double SideBusiness_Value
-        {
-            get => this._sideBusiness_Value;
-            set
-            {
-                this._sideBusiness_Value = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// 副業 - MouseMove
-        /// </summary>
-        public RelayCommand SideBusiness_MouseMove { get; private set; }
+        /// <summary> 副業 - MouseMove </summary>
+        public ReactiveCommand SideBusiness_MouseMove { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
         #region 臨時収入
 
-        private double _perquisite_Value;
+        /// <summary> 臨時収入 - Text </summary>
+        public ReactiveProperty<double> Perquisite_Text { get; set; }
+            = new ReactiveProperty<double>();
 
-        /// <summary>
-        /// 臨時収入 - Value
-        /// </summary>
-        public double Perquisite_Value
-        {
-            get => this._perquisite_Value;
-            set
-            {
-                this._perquisite_Value = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// 臨時収入 - MouseMove
-        /// </summary>
-        public RelayCommand Perquisite_MouseMove { get; private set; }
+        /// <summary> 臨時収入 - MouseMove </summary>
+        public ReactiveCommand Perquisite_MouseMove { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
         #region その他
 
-        private double _others_Value;
+        /// <summary> その他 - Text </summary>
+        public ReactiveProperty<double> Others_Text { get; set; }
+            = new ReactiveProperty<double>();
 
-        /// <summary>
-        /// その他 - Value
-        /// </summary>
-        public double Others_Value
-        {
-            get => this._others_Value;
-            set
-            {
-                this._others_Value = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// その他 - MouseMove
-        /// </summary>
-        public RelayCommand Others_MouseMove { get; private set; }
+        /// <summary> その他 - MouseMove </summary>
+        public ReactiveCommand Others_MouseMove { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
         #region 備考
 
-        private string _remarks_Text;
-
-        /// <summary>
-        /// 備考 - Text
-        /// </summary>
-        public string Remarks_Text
-        {
-            get => this._remarks_Text;
-            set
-            {
-                this._remarks_Text = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 備考 - Text </summary>
+        public ReactiveProperty<string> Remarks_Text { get; set; }
+            = new ReactiveProperty<string>();
 
         #endregion
 

@@ -283,7 +283,7 @@ namespace SalaryManager.WPF.Models
 
                     // 有給残日数
                     var paidVacation = Convert.ToDouble(values[17]) + Convert.ToDouble(values[25]);
-                    this.WorkingReference.ViewModel.PaidVacation_Value = paidVacation;
+                    this.WorkingReference.ViewModel.PaidVacation_Text.Value = paidVacation;
                 }
             }
             catch (FileNotFoundException)
