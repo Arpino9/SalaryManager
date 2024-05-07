@@ -89,6 +89,9 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         public void Refresh()
         {
+            WorkingPlace.Create(new WorkingPlaceSQLite());
+            Careers.Create(new CareerSQLite());
+
             var entity = this.ViewModel.Entity;
 
             if (entity is null)
@@ -101,9 +104,6 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.WorkPlace_Text.Value = entity.WorkPlace;
 
             // 所属会社名
-            WorkingPlace.Create(new WorkingPlaceSQLite());
-            Careers.Create(new CareerSQLite());
-
             var workingPlace = WorkingPlace.FetchByDate(new DateTime(this.Header.Year_Text.Value, this.Header.Month_Text.Value, 1));
 
             if (workingPlace.Any()) 
@@ -151,11 +151,26 @@ namespace SalaryManager.WPF.Models
         public void Clear()
         {
             // 所属会社名
-            this.ViewModel.CompanyName_Text.Value       = CompanyNameValue.Undefined.DisplayValue;
-            this.ViewModel.CompanyName_Foreground.Value = new SolidColorBrush(Colors.Gray);
-            // 勤務先
-            this.ViewModel.WorkPlace_Text.Value = CompanyNameValue.Undefined.DisplayValue;
-            this.ViewModel.WorkPlace_Foreground.Value = new SolidColorBrush(Colors.Gray);
+            var workingPlace = WorkingPlace.FetchByDate(new DateTime(this.Header.Year_Text.Value, this.Header.Month_Text.Value, 1));
+
+            if (workingPlace.Any())
+            {
+                // 所属会社名
+                this.ViewModel.CompanyName_Text.Value       = workingPlace.FirstOrDefault().DispatchingCompany.Text;
+                this.ViewModel.CompanyName_Foreground.Value = new SolidColorBrush(Colors.Black);
+                // 勤務先
+                this.ViewModel.WorkPlace_Text.Value       = workingPlace.FirstOrDefault().WorkingPlace_Name.Text;
+                this.ViewModel.WorkPlace_Foreground.Value = new SolidColorBrush(Colors.Black);
+            }
+            else
+            {
+                // 所属会社名
+                this.ViewModel.CompanyName_Text.Value       = CompanyNameValue.Undefined.DisplayValue;
+                this.ViewModel.CompanyName_Foreground.Value = new SolidColorBrush(Colors.Gray);
+                // 勤務先
+                this.ViewModel.WorkPlace_Text.Value       = CompanyNameValue.Undefined.DisplayValue;
+                this.ViewModel.WorkPlace_Foreground.Value = new SolidColorBrush(Colors.Gray);
+            }
         }
 
         /// <summary>

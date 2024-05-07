@@ -262,7 +262,7 @@
                  IsEnabled="{Binding ElectricityAllowance_IsEnabled.Value}"
                  Style="{StaticResource PayslipItemNumeric_Style}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True" 
-                 Text="{Binding ElectricityAllowance_Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                 Text="{Binding ElectricityAllowance_Text.Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         
         <Label Content="予備" 
                Grid.Column="2" 
