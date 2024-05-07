@@ -18,8 +18,8 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <ListView ItemsSource="{Binding Companies_ItemSource}" 
-                  SelectedIndex="{Binding Companies_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        <ListView ItemsSource="{Binding Companies_ItemSource.Value}" 
+                  SelectedIndex="{Binding Companies_SelectedIndex.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="SelectionChanged">
@@ -74,9 +74,7 @@
                       Grid.ColumnSpan="4" 
                       ItemsSource="{Binding BusinessCategory_Large_ItemsSource}" 
                       DisplayMemberPath="LargeName"
-                      SelectedItem="{Binding BusinessCategory_Large_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedIndex="{Binding BusinessCategory_Large_SelectedIndex}" 
-                      Text="{Binding BusinessCategory_Large_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                      Text="{Binding BusinessCategory_Large_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <behaviors:Interaction.Triggers>
                     <behaviors:EventTrigger EventName="SelectionChanged">
                         <behaviors:InvokeCommandAction Command="{Binding BusinessCategory_Large_SelectionChanged}" />
@@ -91,9 +89,7 @@
                       Grid.Row="1" 
                       Grid.ColumnSpan="4" 
                       ItemsSource="{Binding BusinessCategory_Middle_ItemSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedIndex="{Binding BusinessCategory_Middle_SelectedIndex}"
-                      SelectedItem="{Binding BusinessCategory_Middle_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                      Text="{Binding BusinessCategory_Middle_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                      Text="{Binding BusinessCategory_Middle_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <behaviors:Interaction.Triggers>
                     <behaviors:EventTrigger EventName="SelectionChanged">
                         <behaviors:InvokeCommandAction Command="{Binding BusinessCategory_Middle_SelectionChanged}" />
@@ -106,7 +102,7 @@
                    Background="AliceBlue"/>
             <TextBox Grid.Column="1" 
                      Grid.Row="2" 
-                     Grid.ColumnSpan="2" Text="{Binding CompanyName_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                     Grid.ColumnSpan="2" Text="{Binding CompanyName_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <behaviors:Interaction.Triggers>
                     <behaviors:EventTrigger EventName="TextChanged">
                         <behaviors:InvokeCommandAction Command="{Binding CompanyName_TextChanged}" />
@@ -119,21 +115,21 @@
                    Grid.RowSpan="2"
                    Background="AliceBlue"/>
             <TextBox Grid.Column="1" 
-                     Grid.Row="3" Text="{Binding PostCode_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                     Grid.Row="3" Text="{Binding PostCode_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
             <Label Content="住所" 
                    Grid.Row="4" 
                    Background="AliceBlue"/>
             <TextBox Grid.Column="1" 
                      Grid.Row="4" 
-                     Grid.ColumnSpan="2" Text="{Binding Address_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                     Grid.ColumnSpan="2" Text="{Binding Address_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
             <Label Content="住所(Googleカレンダー取得用)" 
                    Grid.Row="5" 
                    Background="AliceBlue"/>
             <TextBox Grid.Column="1" 
                      Grid.Row="5" 
-                     Grid.ColumnSpan="2" Text="{Binding Address_Google_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                     Grid.ColumnSpan="2" Text="{Binding Address_Google_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <behaviors:Interaction.Triggers>
                     <behaviors:EventTrigger EventName="TextChanged">
                         <behaviors:InvokeCommandAction Command="{Binding Address_Google_TextChanged}" />
@@ -146,22 +142,22 @@
                    Background="AliceBlue"/>
             <TextBox Grid.Column="1" 
                      Grid.ColumnSpan="2"
-                     Grid.Row="6" Text="{Binding Remarks_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                     Grid.Row="6" Text="{Binding Remarks_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Button Content="追加" 
                     Grid.Row="7"
                     Command="{Binding Add_Command}"
-                    IsEnabled="{Binding Add_IsEnabled}"/>
+                    IsEnabled="{Binding Add_IsEnabled.Value}"/>
             <Button Content="更新" 
                     Grid.Row="7"
                     Grid.Column="1"
                     Command="{Binding Update_Command}"
-                    IsEnabled="{Binding Update_IsEnabled}"/>
+                    IsEnabled="{Binding Update_IsEnabled.Value}"/>
             <Button Content="削除" 
                     Grid.Column="3" 
                     Grid.Row="7"
                     Command="{Binding Delete_Command}"
-                    IsEnabled="{Binding Delete_IsEnabled}"/>
+                    IsEnabled="{Binding Delete_IsEnabled.Value}"/>
         </Grid>
     </Grid>
 </Window>

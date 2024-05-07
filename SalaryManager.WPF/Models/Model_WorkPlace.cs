@@ -108,8 +108,8 @@ namespace SalaryManager.WPF.Models
 
             if (workingPlace.Any()) 
             {
-                this.ViewModel.CompanyName_Text.Value = workingPlace.FirstOrDefault().DispatchingCompany.Text;
-                this.ViewModel.WorkPlace_Text.Value   = workingPlace.FirstOrDefault().DispatchedCompany.Text;
+                this.ViewModel.CompanyName_Text.Value = workingPlace.First().DispatchingCompany.Text;
+                this.ViewModel.WorkPlace_Text.Value   = workingPlace.First().DispatchedCompany.Text;
             }
             else
             {
@@ -156,10 +156,10 @@ namespace SalaryManager.WPF.Models
             if (workingPlace.Any())
             {
                 // 所属会社名
-                this.ViewModel.CompanyName_Text.Value       = workingPlace.FirstOrDefault().DispatchingCompany.Text;
+                this.ViewModel.CompanyName_Text.Value       = workingPlace.First().DispatchingCompany.Text;
                 this.ViewModel.CompanyName_Foreground.Value = new SolidColorBrush(Colors.Black);
                 // 勤務先
-                this.ViewModel.WorkPlace_Text.Value       = workingPlace.FirstOrDefault().WorkingPlace_Name.Text;
+                this.ViewModel.WorkPlace_Text.Value       = workingPlace.First().WorkingPlace_Name.Text;
                 this.ViewModel.WorkPlace_Foreground.Value = new SolidColorBrush(Colors.Black);
             }
             else

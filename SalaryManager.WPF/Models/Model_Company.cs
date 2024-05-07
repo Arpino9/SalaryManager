@@ -50,12 +50,11 @@ namespace SalaryManager.WPF.Models
         {
             Companies.Create(_repository);
 
-            this.ViewModel.Companies_ItemSource = ListUtils.ToObservableCollection(Companies.FetchByAscending().ToList());
+            this.ViewModel.Companies_ItemSource.Value = ListUtils.ToObservableCollection(Companies.FetchByAscending().ToList());
 
-            if (this.ViewModel.BusinessCategory_Large_SelectedItem is null)
+            if (this.ViewModel.BusinessCategory_Large_Text is null)
             {
-                this.ViewModel.BusinessCategory_Large_SelectedItem = this.ViewModel.BusinessCategory_Large_ItemsSource.First().LargeName;
-                this.ViewModel.BusinessCategory_Large_Text         = this.ViewModel.BusinessCategory_Large_SelectedItem;
+                this.ViewModel.BusinessCategory_Large_Text.Value         = this.ViewModel.BusinessCategory_Large_ItemsSource.First().LargeName;
 
                 this.BusinessCategory_Large_SelectionChanged();
             }
@@ -66,27 +65,13 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void BusinessCategory_Large_SelectionChanged()
         {
-            var item = new BusinessCategoryValue(this.ViewModel.BusinessCategory_Large_SelectedItem);
-            this.ViewModel.BusinessCategory_Middle_ItemSource = ListUtils.ToObservableCollection(item.MiddleList.Values.ToList());
-
-            if (this.ViewModel.BusinessCategory_Middle_SelectedItem is null) 
+            var item = new BusinessCategoryValue(this.ViewModel.BusinessCategory_Large_Text.Value);
+            
+            if (this.ViewModel.BusinessCategory_Middle_Text.Value is null) 
             {
-                this.ViewModel.BusinessCategory_Middle_SelectedItem = this.ViewModel.BusinessCategory_Middle_ItemSource.First();
-                this.ViewModel.BusinessCategory_Middle_Text         = this.ViewModel.BusinessCategory_Middle_SelectedItem;
+                this.ViewModel.BusinessCategory_Middle_ItemSource = ListUtils.ToObservableCollection(item.MiddleList.Values.ToList());
+                this.ViewModel.BusinessCategory_Middle_Text.Value = this.ViewModel.BusinessCategory_Middle_ItemSource.FirstOrDefault();
             }
-            
-            this.ViewModel.BusinessCategory_Middle_SelectedIndex = 0;
-            
-            this.ViewModel.BusinessCategory_MiddleNo = item.GetMiddleCategoryKey(this.ViewModel.BusinessCategory_Middle_SelectedItem);
-        }
-
-        /// <summary>
-        /// 業種 (中区分) - SelectionChanged
-        /// </summary>
-        public void BusinessCategory_Middle_SelectionChanged()
-        {
-            var item = new BusinessCategoryValue(this.ViewModel.BusinessCategory_Large_SelectedItem);
-            this.ViewModel.BusinessCategory_MiddleNo = item.GetMiddleCategoryKey(this.ViewModel.BusinessCategory_Middle_SelectedItem);
         }
 
         /// <summary> ViewModel - 職歴 </summary>
@@ -100,29 +85,25 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         public void Clear_InputForm()
         {
-            // 業種
-            this.ViewModel.BusinessCategory_Large_SelectedIndex  = 0;
-            this.ViewModel.BusinessCategory_Middle_SelectedIndex = 0;
-
             // 会社名
-            this.ViewModel.CompanyName_Text = string.Empty;
+            this.ViewModel.CompanyName_Text.Value = string.Empty;
 
             // 郵便番号
-            this.ViewModel.PostCode_Text = string.Empty;
+            this.ViewModel.PostCode_Text.Value = string.Empty;
 
             // 住所
-            this.ViewModel.Address_Text        = string.Empty;
-            this.ViewModel.Address_Google_Text = string.Empty;
+            this.ViewModel.Address_Text.Value  = string.Empty;
+            this.ViewModel.Address_Google_Text.Value = string.Empty;
 
             // 備考
-            this.ViewModel.Remarks_Text = string.Empty;
+            this.ViewModel.Remarks_Text.Value = string.Empty;
 
             // 追加ボタン
-            this.ViewModel.Add_IsEnabled = false;
+            this.ViewModel.Add_IsEnabled.Value = false;
             // 更新ボタン
-            this.ViewModel.Update_IsEnabled = false;
+            this.ViewModel.Update_IsEnabled.Value = false;
             // 削除ボタン
-            this.ViewModel.Delete_IsEnabled = false;
+            this.ViewModel.Delete_IsEnabled.Value = false;
         }
 
         /// <summary>
@@ -130,10 +111,10 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void EnableAddButton()
         {
-            var inputted = !string.IsNullOrEmpty(this.ViewModel.CompanyName_Text) &&
-                           !string.IsNullOrEmpty(this.ViewModel.Address_Google_Text);
+            var inputted = !string.IsNullOrEmpty(this.ViewModel.CompanyName_Text.Value) &&
+                           !string.IsNullOrEmpty(this.ViewModel.Address_Google_Text.Value);
 
-            this.ViewModel.Add_IsEnabled = inputted;
+            this.ViewModel.Add_IsEnabled.Value = inputted;
         }
 
         /// <summary>
@@ -153,7 +134,6 @@ namespace SalaryManager.WPF.Models
         private void Reflesh_InputForm()
         {
             this.BusinessCategory_Large_SelectionChanged();
-            this.BusinessCategory_Middle_SelectionChanged();
 
             // 追加ボタン
             this.EnableAddButton();
@@ -172,37 +152,40 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Companies_SelectionChanged()
         {
-            if (this.ViewModel.Companies_SelectedIndex == -1)
+            if (this.ViewModel.Companies_SelectedIndex.Value == -1)
             {
                 return;
             }
 
             this.EnableControlButton();
 
-            if (!this.ViewModel.Companies_ItemSource.Any())
+            if (!this.ViewModel.Companies_ItemSource.Value.Any())
             {
                 return;
             }
 
-            var entity = this.ViewModel.Companies_ItemSource[this.ViewModel.Companies_SelectedIndex];
+            var entity = this.ViewModel.Companies_ItemSource.Value[this.ViewModel.Companies_SelectedIndex.Value];
 
             // 業種(大区分)
-            this.ViewModel.BusinessCategory_Large_Text  = entity.BusinessCategory.LargeName;
+            this.ViewModel.BusinessCategory_Large_Text.Value  = entity.BusinessCategory.LargeName;
             // 業種(中区分)
-            this.ViewModel.BusinessCategory_Middle_Text = entity.BusinessCategory.MiddleName;
+            var item = new BusinessCategoryValue(this.ViewModel.BusinessCategory_Large_Text.Value);
+            this.ViewModel.BusinessCategory_Middle_ItemSource = ListUtils.ToObservableCollection(item.MiddleList.Values.ToList());
+
+            this.ViewModel.BusinessCategory_Middle_Text.Value = entity.BusinessCategory.MiddleName;
             // 会社名
-            this.ViewModel.CompanyName_Text    = entity.CompanyName;
+            this.ViewModel.CompanyName_Text.Value    = entity.CompanyName;
             this.CompanyName_Prev              = entity.CompanyName;
             this.CompanyAddress_Prev           = entity.Address_Google;
 
             // 郵便番号
-            this.ViewModel.PostCode_Text       = entity.PostCode;
+            this.ViewModel.PostCode_Text.Value       = entity.PostCode;
             // 住所
-            this.ViewModel.Address_Text        = entity.Address;
+            this.ViewModel.Address_Text.Value        = entity.Address;
             // 住所(Google)
-            this.ViewModel.Address_Google_Text = entity.Address_Google;
+            this.ViewModel.Address_Google_Text.Value = entity.Address_Google;
             // 備考
-            this.ViewModel.Remarks_Text        = entity.Remarks;
+            this.ViewModel.Remarks_Text.Value        = entity.Remarks;
         }
 
         /// <summary>
@@ -213,13 +196,13 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         private void EnableControlButton()
         {
-            var selected = this.ViewModel.Companies_ItemSource.Any()
-                        && this.ViewModel.Companies_SelectedIndex >= 0;
+            var selected = this.ViewModel.Companies_ItemSource.Value.Any()
+                        && this.ViewModel.Companies_SelectedIndex.Value >= 0;
 
             // 更新ボタン
-            this.ViewModel.Update_IsEnabled = selected;
+            this.ViewModel.Update_IsEnabled.Value = selected;
             // 削除ボタン
-            this.ViewModel.Delete_IsEnabled = selected;
+            this.ViewModel.Delete_IsEnabled.Value = selected;
         }
 
         /// <summary>
@@ -231,7 +214,7 @@ namespace SalaryManager.WPF.Models
             {
                 Companies.Create(_repository);
 
-                this.ViewModel.Companies_ItemSource = ListUtils.ToObservableCollection(Companies.FetchByDescending().ToList());
+                this.ViewModel.Companies_ItemSource.Value = ListUtils.ToObservableCollection(Companies.FetchByDescending().ToList());
 
                 this.Refresh();
             }
@@ -244,7 +227,7 @@ namespace SalaryManager.WPF.Models
         {
             using (var transaction = new SQLiteTransaction())
             {
-                foreach (var entity in this.ViewModel.Companies_ItemSource)
+                foreach (var entity in this.ViewModel.Companies_ItemSource.Value)
                 {
                     _repository.Save(transaction, entity);
                     _repository.SaveAddress(transaction, entity);
@@ -269,26 +252,26 @@ namespace SalaryManager.WPF.Models
             IWorkingPlaceRepository workingPlaceRepository = new WorkingPlaceSQLite();
 
             if (string.IsNullOrEmpty(this.CompanyName_Prev) == false &&
-                string.IsNullOrEmpty(this.ViewModel.CompanyName_Text) == false &&
-                this.CompanyName_Prev != this.ViewModel.CompanyName_Text)
+                string.IsNullOrEmpty(this.ViewModel.CompanyName_Text.Value) == false &&
+                this.CompanyName_Prev != this.ViewModel.CompanyName_Text.Value)
             {
                 // 会社名が変更された場合
-                this.Model_WorkingPlace.UpdateCompanyName(this.CompanyName_Prev, this.ViewModel.CompanyName_Text);
+                this.Model_WorkingPlace.UpdateCompanyName(this.CompanyName_Prev, this.ViewModel.CompanyName_Text.Value);
 
                 using (var transaction = new SQLiteTransaction())
                 {
-                    workingPlaceRepository.UpdateCompanyName(transaction, CompanyName_Prev, this.ViewModel.CompanyName_Text);
+                    workingPlaceRepository.UpdateCompanyName(transaction, CompanyName_Prev, this.ViewModel.CompanyName_Text.Value);
                     
                     transaction.Commit();
                 }
             }
 
             if (string.IsNullOrEmpty(this.CompanyAddress_Prev) == false &&
-                string.IsNullOrEmpty(this.ViewModel.Address_Google_Text) == false &&
-                this.CompanyAddress_Prev != this.ViewModel.Address_Google_Text)
+                string.IsNullOrEmpty(this.ViewModel.Address_Google_Text.Value) == false &&
+                this.CompanyAddress_Prev != this.ViewModel.Address_Google_Text.Value)
             {
                 // 会社の住所が変更された場合
-                workingPlaceRepository.UpdateCompanyAddress(this.CompanyAddress_Prev, this.ViewModel.Address_Google_Text);
+                workingPlaceRepository.UpdateCompanyAddress(this.CompanyAddress_Prev, this.ViewModel.Address_Google_Text.Value);
             }
         }
 
@@ -297,7 +280,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Add()
         {
-            if (!Message.ShowConfirmingMessage($"入力された会社情報を追加しますか？", this.ViewModel.Title))
+            if (!Message.ShowConfirmingMessage($"入力された会社情報を追加しますか？", this.ViewModel.Window_Title.Value))
             {
                 // キャンセル
                 return;
@@ -305,20 +288,20 @@ namespace SalaryManager.WPF.Models
 
             using (var cursor = new CursorWaiting())
             {
-                this.ViewModel.Delete_IsEnabled = true;
+                this.ViewModel.Delete_IsEnabled.Value = true;
 
-                var id = this.ViewModel.Companies_ItemSource.Any() ? 
-                         this.ViewModel.Companies_ItemSource.Max(x => x.ID) + 1 : 1;
+                var id = this.ViewModel.Companies_ItemSource.Value.Any() ? 
+                         this.ViewModel.Companies_ItemSource.Value.Max(x => x.ID) + 1 : 1;
 
                 var entity = this.CreateEntity(id);
 
-                this.ViewModel.Companies_ItemSource.Add(entity);
+                this.ViewModel.Companies_ItemSource.Value.Add(entity);
                 this.Save();
 
                 // 並び変え
-                this.ViewModel.Companies_ItemSource = new ObservableCollection<CompanyEntity>(this.ViewModel.Companies_ItemSource.OrderByDescending(x => x.ID));
+                this.ViewModel.Companies_ItemSource.Value = new ObservableCollection<CompanyEntity>(this.ViewModel.Companies_ItemSource.Value.OrderByDescending(x => x.ID));
 
-                this.ViewModel.Companies_SelectedIndex = this.ViewModel.Companies_ItemSource.Count;
+                this.ViewModel.Companies_SelectedIndex.Value = this.ViewModel.Companies_ItemSource.Value.Count;
             }
         }
 
@@ -329,14 +312,17 @@ namespace SalaryManager.WPF.Models
         /// <returns>職歴</returns>
         private CompanyEntity CreateEntity(int id)
         {
+            var item = new BusinessCategoryValue(this.ViewModel.BusinessCategory_Large_Text.Value);
+            var middleNo = item.GetMiddleCategoryKey(this.ViewModel.BusinessCategory_Middle_Text.Value);
+
             return new CompanyEntity(
                 id,
-                int.Parse(this.ViewModel.BusinessCategory_MiddleNo),
-                this.ViewModel.CompanyName_Text,
-                this.ViewModel.PostCode_Text,
-                this.ViewModel.Address_Text,
-                this.ViewModel.Address_Google_Text,
-                this.ViewModel.Remarks_Text);
+                int.Parse(middleNo),
+                this.ViewModel.CompanyName_Text.Value,
+                this.ViewModel.PostCode_Text.Value,
+                this.ViewModel.Address_Text.Value,
+                this.ViewModel.Address_Google_Text.Value,
+                this.ViewModel.Remarks_Text.Value);
         }
 
         /// <summary>
@@ -344,7 +330,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Update()
         {
-            if (!Message.ShowConfirmingMessage($"選択中の会社情報を更新しますか？", this.ViewModel.Title))
+            if (!Message.ShowConfirmingMessage($"選択中の会社情報を更新しますか？", this.ViewModel.Window_Title.Value))
             {
                 // キャンセル
                 return;
@@ -352,10 +338,10 @@ namespace SalaryManager.WPF.Models
 
             using (var cursor = new CursorWaiting())
             {
-                var id = this.ViewModel.Companies_ItemSource[this.ViewModel.Companies_SelectedIndex].ID;
+                var id = this.ViewModel.Companies_ItemSource.Value[this.ViewModel.Companies_SelectedIndex.Value].ID;
 
                 var entity = this.CreateEntity(id);
-                this.ViewModel.Companies_ItemSource[this.ViewModel.Companies_SelectedIndex] = entity;
+                this.ViewModel.Companies_ItemSource.Value[this.ViewModel.Companies_SelectedIndex.Value] = entity;
 
                 this.Save();
             }
@@ -366,13 +352,13 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Delete()
         {
-            if (this.ViewModel.Companies_SelectedIndex == -1 ||
-                !this.ViewModel.Companies_ItemSource.Any())
+            if (this.ViewModel.Companies_SelectedIndex.Value == -1 ||
+                !this.ViewModel.Companies_ItemSource.Value.Any())
             {
                 return;
             }
 
-            if (!Message.ShowConfirmingMessage($"選択中の会社情報を削除しますか？", this.ViewModel.Title))
+            if (!Message.ShowConfirmingMessage($"選択中の会社情報を削除しますか？", this.ViewModel.Window_Title.Value))
             {
                 // キャンセル
                 return;
@@ -380,11 +366,11 @@ namespace SalaryManager.WPF.Models
 
             using (var cursor = new CursorWaiting())
             {
-                var id = this.ViewModel.Companies_ItemSource[this.ViewModel.Companies_SelectedIndex].ID;
+                var id = this.ViewModel.Companies_ItemSource.Value[this.ViewModel.Companies_SelectedIndex.Value].ID;
 
                 _repository.Delete(id);
 
-                this.ViewModel.Companies_ItemSource.RemoveAt(this.ViewModel.Companies_SelectedIndex);
+                this.ViewModel.Companies_ItemSource.Value.RemoveAt(this.ViewModel.Companies_SelectedIndex.Value);
 
                 this.Reload();
                 this.EnableControlButton();
