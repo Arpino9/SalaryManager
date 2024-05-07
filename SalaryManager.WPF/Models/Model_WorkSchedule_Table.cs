@@ -47,13 +47,13 @@ namespace SalaryManager.WPF.Models
             this.ViewModel_Header.TargetDate = DateTime.Now;
         }
 
-        internal void Return_Command()
+        internal void Return()
         {
             this.ViewModel_Header.TargetDate = this.ViewModel_Header.TargetDate.AddMonths(-1);
             Initialize_Table();
         }
 
-        internal void Proceed_Command()
+        internal void Proceed()
         {
             this.ViewModel_Header.TargetDate = this.ViewModel_Header.TargetDate.AddMonths(1);
             Initialize_Table();
@@ -74,8 +74,8 @@ namespace SalaryManager.WPF.Models
             }
 
             // 該当年月
-            this.ViewModel_Header.Year  = this.ViewModel_Header.TargetDate.Year;
-            this.ViewModel_Header.Month = this.ViewModel_Header.TargetDate.Month;
+            this.ViewModel_Header.Year_Text.Value  = this.ViewModel_Header.TargetDate.Year;
+            this.ViewModel_Header.Month_Text.Value = this.ViewModel_Header.TargetDate.Month;
 
             var (Noon, Lunch, Afternoon) = GetScheduleEvents(this.FirstDateOfMonth, this.LastDateOfMonth);
 
@@ -139,18 +139,21 @@ namespace SalaryManager.WPF.Models
             }
 
             // 勤務日数
-            this.ViewModel_Header.WorkDaysTotal_Text = this.WorkDaysTotal.ToString();
+            this.ViewModel_Header.WorkDaysTotal_Text.Value = this.WorkDaysTotal.ToString();
 
             // 合計 - 勤務時間
-            this.ViewModel_Header.WorkingTimeTotal_Text = Math.Truncate(this.ViewModel_Header.WorkingTimeTotal.TotalHours) + ":" + 
+            this.ViewModel_Header.WorkingTimeTotal_Text.Value = Math.Truncate(this.ViewModel_Header.WorkingTimeTotal.TotalHours) + ":" + 
                                                           this.ViewModel_Header.WorkingTimeTotal.Minutes.ToString("00");
 
             // 合計 - 残業時間
-            this.ViewModel_Header.OvertimeTotal_Text = Math.Truncate(this.ViewModel_Header.OvertimeTotal.TotalHours) + ":" +
+            this.ViewModel_Header.OvertimeTotal_Text.Value = Math.Truncate(this.ViewModel_Header.OvertimeTotal.TotalHours) + ":" +
                                                        this.ViewModel_Header.OvertimeTotal.Minutes.ToString("00");
         }
 
-
+        /// <summary>
+        /// 祝日の取得
+        /// </summary>
+        /// <param name="date">日付</param>
         private void GetHoliday(DateTime date)
         {
             var holidays = JSONExtension.DeserializeSettings<IReadOnlyList<JSONProperty_Holiday>>(FilePath.GetJSONHolidayDefaultPath());
@@ -162,43 +165,48 @@ namespace SalaryManager.WPF.Models
 
             switch (date.Day)
             {
-                case 1 : this.ViewModel_Table.Background_1  = Format(); return;
-                case 2 : this.ViewModel_Table.Background_2  = Format(); return;
-                case 3 : this.ViewModel_Table.Background_3  = Format(); return;
-                case 4 : this.ViewModel_Table.Background_4  = Format(); return;
-                case 5 : this.ViewModel_Table.Background_5  = Format(); return;
-                case 6 : this.ViewModel_Table.Background_6  = Format(); return;
-                case 7 : this.ViewModel_Table.Background_7  = Format(); return;
-                case 8 : this.ViewModel_Table.Background_8  = Format(); return;
-                case 9 : this.ViewModel_Table.Background_9  = Format(); return;
-                case 10: this.ViewModel_Table.Background_10 = Format(); return;
-                case 11: this.ViewModel_Table.Background_11 = Format(); return;
-                case 12: this.ViewModel_Table.Background_12 = Format(); return;
-                case 13: this.ViewModel_Table.Background_13 = Format(); return;
-                case 14: this.ViewModel_Table.Background_14 = Format(); return;
-                case 15: this.ViewModel_Table.Background_15 = Format(); return;
-                case 16: this.ViewModel_Table.Background_16 = Format(); return;
-                case 17: this.ViewModel_Table.Background_17 = Format(); return;
-                case 18: this.ViewModel_Table.Background_18 = Format(); return;
-                case 19: this.ViewModel_Table.Background_19 = Format(); return;
-                case 20: this.ViewModel_Table.Background_20 = Format(); return;
-                case 21: this.ViewModel_Table.Background_21 = Format(); return;
-                case 22: this.ViewModel_Table.Background_22 = Format(); return;
-                case 23: this.ViewModel_Table.Background_23 = Format(); return;
-                case 24: this.ViewModel_Table.Background_24 = Format(); return;
-                case 25: this.ViewModel_Table.Background_25 = Format(); return;
-                case 26: this.ViewModel_Table.Background_26 = Format(); return;
-                case 27: this.ViewModel_Table.Background_27 = Format(); return;
-                case 28: this.ViewModel_Table.Background_28 = Format(); return;
-                case 29: this.ViewModel_Table.Background_29 = Format(); return;
-                case 30: this.ViewModel_Table.Background_30 = Format(); return;
-                case 31: this.ViewModel_Table.Background_31 = Format(); return;
+                case 1 : this.ViewModel_Table.Day1_Background.Value  = Format(); return;
+                case 2 : this.ViewModel_Table.Day2_Background.Value  = Format(); return;
+                case 3 : this.ViewModel_Table.Day3_Background.Value  = Format(); return;
+                case 4 : this.ViewModel_Table.Day4_Background.Value  = Format(); return;
+                case 5 : this.ViewModel_Table.Day5_Background.Value  = Format(); return;
+                case 6 : this.ViewModel_Table.Day6_Background.Value  = Format(); return;
+                case 7 : this.ViewModel_Table.Day7_Background.Value  = Format(); return;
+                case 8 : this.ViewModel_Table.Day8_Background.Value  = Format(); return;
+                case 9 : this.ViewModel_Table.Day9_Background.Value  = Format(); return;
+                case 10: this.ViewModel_Table.Day10_Background.Value = Format(); return;
+                case 11: this.ViewModel_Table.Day11_Background.Value = Format(); return;
+                case 12: this.ViewModel_Table.Day12_Background.Value = Format(); return;
+                case 13: this.ViewModel_Table.Day13_Background.Value = Format(); return;
+                case 14: this.ViewModel_Table.Day14_Background.Value = Format(); return;
+                case 15: this.ViewModel_Table.Day15_Background.Value = Format(); return;
+                case 16: this.ViewModel_Table.Day16_Background.Value = Format(); return;
+                case 17: this.ViewModel_Table.Day17_Background.Value = Format(); return;
+                case 18: this.ViewModel_Table.Day18_Background.Value = Format(); return;
+                case 19: this.ViewModel_Table.Day19_Background.Value = Format(); return;
+                case 20: this.ViewModel_Table.Day20_Background.Value = Format(); return;
+                case 21: this.ViewModel_Table.Day21_Background.Value = Format(); return;
+                case 22: this.ViewModel_Table.Day22_Background.Value = Format(); return;
+                case 23: this.ViewModel_Table.Day23_Background.Value = Format(); return;
+                case 24: this.ViewModel_Table.Day24_Background.Value = Format(); return;
+                case 25: this.ViewModel_Table.Day25_Background.Value = Format(); return;
+                case 26: this.ViewModel_Table.Day26_Background.Value = Format(); return;
+                case 27: this.ViewModel_Table.Day27_Background.Value = Format(); return;
+                case 28: this.ViewModel_Table.Day28_Background.Value = Format(); return;
+                case 29: this.ViewModel_Table.Day29_Background.Value = Format(); return;
+                case 30: this.ViewModel_Table.Day30_Background.Value = Format(); return;
+                case 31: this.ViewModel_Table.Day31_Background.Value = Format(); return;
 
                 default: return;
             }
 
-            Brush Format()
+            SolidColorBrush Format()
             {
+                if (this.IsHoliday(date))
+                {
+                    return new SolidColorBrush(Color.FromRgb(252, 229, 205));
+                }
+
                 var dateValue = new DateValue(date);
 
                 if (dateValue.IsSaturday)
@@ -207,11 +215,6 @@ namespace SalaryManager.WPF.Models
                 }
 
                 if (dateValue.IsSunday)
-                {
-                    return new SolidColorBrush(Color.FromRgb(252, 229, 205));
-                }
-
-                if (this.IsHoliday(date))
                 {
                     return new SolidColorBrush(Color.FromRgb(252, 229, 205));
                 }
@@ -251,8 +254,8 @@ namespace SalaryManager.WPF.Models
             if (string.IsNullOrEmpty(holiday.CompanyName) == false)
             {
                 // 会社休日
-                if (holiday.CompanyName == this.ViewModel_Header.DispatchingCompany ||
-                    holiday.CompanyName == this.ViewModel_Header.DispatchedCompany)
+                if (holiday.CompanyName == this.ViewModel_Header.DispatchingCompany_Text.Value ||
+                    holiday.CompanyName == this.ViewModel_Header.DispatchedCompany_Text.Value)
                 {
                     return $"会社休日：{holiday.CompanyName}";
                 }
@@ -267,273 +270,273 @@ namespace SalaryManager.WPF.Models
         private void Clear()
         {
             // 日付
-            this.ViewModel_Table.Day_1  = string.Empty;
-            this.ViewModel_Table.Day_2  = string.Empty;
-            this.ViewModel_Table.Day_3  = string.Empty;
-            this.ViewModel_Table.Day_4  = string.Empty;
-            this.ViewModel_Table.Day_5  = string.Empty;
-            this.ViewModel_Table.Day_6  = string.Empty;
-            this.ViewModel_Table.Day_7  = string.Empty;
-            this.ViewModel_Table.Day_8  = string.Empty;
-            this.ViewModel_Table.Day_9  = string.Empty;
-            this.ViewModel_Table.Day_10 = string.Empty;
-            this.ViewModel_Table.Day_11 = string.Empty;
-            this.ViewModel_Table.Day_12 = string.Empty;
-            this.ViewModel_Table.Day_13 = string.Empty;
-            this.ViewModel_Table.Day_14 = string.Empty;
-            this.ViewModel_Table.Day_15 = string.Empty;
-            this.ViewModel_Table.Day_16 = string.Empty;
-            this.ViewModel_Table.Day_17 = string.Empty;
-            this.ViewModel_Table.Day_18 = string.Empty;
-            this.ViewModel_Table.Day_19 = string.Empty;
-            this.ViewModel_Table.Day_20 = string.Empty;
-            this.ViewModel_Table.Day_21 = string.Empty;
-            this.ViewModel_Table.Day_22 = string.Empty;
-            this.ViewModel_Table.Day_23 = string.Empty;
-            this.ViewModel_Table.Day_24 = string.Empty;
-            this.ViewModel_Table.Day_25 = string.Empty;
-            this.ViewModel_Table.Day_26 = string.Empty;
-            this.ViewModel_Table.Day_27 = string.Empty;
-            this.ViewModel_Table.Day_28 = string.Empty;
-            this.ViewModel_Table.Day_29 = string.Empty;
-            this.ViewModel_Table.Day_30 = string.Empty;
-            this.ViewModel_Table.Day_31 = string.Empty;
+            this.ViewModel_Table.Day1_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day2_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day3_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day4_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day5_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day6_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day7_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day8_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day9_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day10_Text.Value = string.Empty;
+            this.ViewModel_Table.Day11_Text.Value = string.Empty;
+            this.ViewModel_Table.Day12_Text.Value = string.Empty;
+            this.ViewModel_Table.Day13_Text.Value = string.Empty;
+            this.ViewModel_Table.Day14_Text.Value = string.Empty;
+            this.ViewModel_Table.Day15_Text.Value = string.Empty;
+            this.ViewModel_Table.Day16_Text.Value = string.Empty;
+            this.ViewModel_Table.Day17_Text.Value = string.Empty;
+            this.ViewModel_Table.Day18_Text.Value = string.Empty;
+            this.ViewModel_Table.Day19_Text.Value = string.Empty;
+            this.ViewModel_Table.Day20_Text.Value = string.Empty;
+            this.ViewModel_Table.Day21_Text.Value = string.Empty;
+            this.ViewModel_Table.Day22_Text.Value = string.Empty;
+            this.ViewModel_Table.Day23_Text.Value = string.Empty;
+            this.ViewModel_Table.Day24_Text.Value = string.Empty;
+            this.ViewModel_Table.Day25_Text.Value = string.Empty;
+            this.ViewModel_Table.Day26_Text.Value = string.Empty;
+            this.ViewModel_Table.Day27_Text.Value = string.Empty;
+            this.ViewModel_Table.Day28_Text.Value = string.Empty;
+            this.ViewModel_Table.Day29_Text.Value = string.Empty;
+            this.ViewModel_Table.Day30_Text.Value = string.Empty;
+            this.ViewModel_Table.Day31_Text.Value = string.Empty;
 
             // 始業時間
-            this.ViewModel_Table.Day_1_StartTime  = string.Empty;
-            this.ViewModel_Table.Day_2_StartTime  = string.Empty;
-            this.ViewModel_Table.Day_3_StartTime  = string.Empty;
-            this.ViewModel_Table.Day_4_StartTime  = string.Empty;
-            this.ViewModel_Table.Day_5_StartTime  = string.Empty;
-            this.ViewModel_Table.Day_6_StartTime  = string.Empty;
-            this.ViewModel_Table.Day_7_StartTime  = string.Empty;
-            this.ViewModel_Table.Day_8_StartTime  = string.Empty;
-            this.ViewModel_Table.Day_9_StartTime  = string.Empty;
-            this.ViewModel_Table.Day_10_StartTime = string.Empty;
-            this.ViewModel_Table.Day_11_StartTime = string.Empty;
-            this.ViewModel_Table.Day_12_StartTime = string.Empty;
-            this.ViewModel_Table.Day_13_StartTime = string.Empty;
-            this.ViewModel_Table.Day_14_StartTime = string.Empty;
-            this.ViewModel_Table.Day_15_StartTime = string.Empty;
-            this.ViewModel_Table.Day_16_StartTime = string.Empty;
-            this.ViewModel_Table.Day_17_StartTime = string.Empty;
-            this.ViewModel_Table.Day_18_StartTime = string.Empty;
-            this.ViewModel_Table.Day_19_StartTime = string.Empty;
-            this.ViewModel_Table.Day_20_StartTime = string.Empty;
-            this.ViewModel_Table.Day_21_StartTime = string.Empty;
-            this.ViewModel_Table.Day_22_StartTime = string.Empty;
-            this.ViewModel_Table.Day_23_StartTime = string.Empty;
-            this.ViewModel_Table.Day_24_StartTime = string.Empty;
-            this.ViewModel_Table.Day_25_StartTime = string.Empty;
-            this.ViewModel_Table.Day_26_StartTime = string.Empty;
-            this.ViewModel_Table.Day_27_StartTime = string.Empty;
-            this.ViewModel_Table.Day_28_StartTime = string.Empty;
-            this.ViewModel_Table.Day_29_StartTime = string.Empty;
-            this.ViewModel_Table.Day_30_StartTime = string.Empty;
-            this.ViewModel_Table.Day_31_StartTime = string.Empty;
+            this.ViewModel_Table.Day1_StartTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day2_StartTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day3_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day4_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day5_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day6_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day7_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day8_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day9_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day10_Text.Value = string.Empty;
+            this.ViewModel_Table.Day11_Text.Value = string.Empty;
+            this.ViewModel_Table.Day12_Text.Value = string.Empty;
+            this.ViewModel_Table.Day13_Text.Value = string.Empty;
+            this.ViewModel_Table.Day14_Text.Value = string.Empty;
+            this.ViewModel_Table.Day15_Text.Value = string.Empty;
+            this.ViewModel_Table.Day16_Text.Value = string.Empty;
+            this.ViewModel_Table.Day17_Text.Value = string.Empty;
+            this.ViewModel_Table.Day18_Text.Value = string.Empty;
+            this.ViewModel_Table.Day19_Text.Value = string.Empty;
+            this.ViewModel_Table.Day20_Text.Value = string.Empty;
+            this.ViewModel_Table.Day21_Text.Value = string.Empty;
+            this.ViewModel_Table.Day22_Text.Value = string.Empty;
+            this.ViewModel_Table.Day23_Text.Value = string.Empty;
+            this.ViewModel_Table.Day24_Text.Value = string.Empty;
+            this.ViewModel_Table.Day25_Text.Value = string.Empty;
+            this.ViewModel_Table.Day26_Text.Value = string.Empty;
+            this.ViewModel_Table.Day27_Text.Value = string.Empty;
+            this.ViewModel_Table.Day28_Text.Value = string.Empty;
+            this.ViewModel_Table.Day29_Text.Value = string.Empty;
+            this.ViewModel_Table.Day30_Text.Value = string.Empty;
+            this.ViewModel_Table.Day31_Text.Value = string.Empty;
 
             // 終業時間
-            this.ViewModel_Table.Day_1_EndTime  = string.Empty;
-            this.ViewModel_Table.Day_2_EndTime  = string.Empty;
-            this.ViewModel_Table.Day_3_EndTime  = string.Empty;
-            this.ViewModel_Table.Day_4_EndTime  = string.Empty;
-            this.ViewModel_Table.Day_5_EndTime  = string.Empty;
-            this.ViewModel_Table.Day_6_EndTime  = string.Empty;
-            this.ViewModel_Table.Day_7_EndTime  = string.Empty;
-            this.ViewModel_Table.Day_8_EndTime  = string.Empty;
-            this.ViewModel_Table.Day_9_EndTime  = string.Empty;
-            this.ViewModel_Table.Day_10_EndTime = string.Empty;
-            this.ViewModel_Table.Day_11_EndTime = string.Empty;
-            this.ViewModel_Table.Day_12_EndTime = string.Empty;
-            this.ViewModel_Table.Day_13_EndTime = string.Empty;
-            this.ViewModel_Table.Day_14_EndTime = string.Empty;
-            this.ViewModel_Table.Day_15_EndTime = string.Empty;
-            this.ViewModel_Table.Day_16_EndTime = string.Empty;
-            this.ViewModel_Table.Day_17_EndTime = string.Empty;
-            this.ViewModel_Table.Day_18_EndTime = string.Empty;
-            this.ViewModel_Table.Day_19_EndTime = string.Empty;
-            this.ViewModel_Table.Day_20_EndTime = string.Empty;
-            this.ViewModel_Table.Day_21_EndTime = string.Empty;
-            this.ViewModel_Table.Day_22_EndTime = string.Empty;
-            this.ViewModel_Table.Day_23_EndTime = string.Empty;
-            this.ViewModel_Table.Day_24_EndTime = string.Empty;
-            this.ViewModel_Table.Day_25_EndTime = string.Empty;
-            this.ViewModel_Table.Day_26_EndTime = string.Empty;
-            this.ViewModel_Table.Day_27_EndTime = string.Empty;
-            this.ViewModel_Table.Day_28_EndTime = string.Empty;
-            this.ViewModel_Table.Day_29_EndTime = string.Empty;
-            this.ViewModel_Table.Day_30_EndTime = string.Empty;
-            this.ViewModel_Table.Day_31_EndTime = string.Empty;
+            this.ViewModel_Table.Day1_EndTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day2_EndTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day3_EndTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day4_EndTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day5_EndTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day6_EndTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day7_EndTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day8_EndTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day9_EndTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day10_EndTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day11_EndTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day12_EndTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day13_EndTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day14_EndTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day15_EndTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day16_EndTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day17_EndTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day18_EndTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day19_EndTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day20_EndTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day21_EndTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day22_EndTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day23_EndTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day24_EndTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day25_EndTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day26_EndTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day27_EndTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day28_EndTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day29_EndTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day30_EndTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day31_EndTime_Text.Value = string.Empty;
 
             // 昼食時間
-            this.ViewModel_Table.Day_1_LunchTime  = string.Empty;
-            this.ViewModel_Table.Day_2_LunchTime  = string.Empty;
-            this.ViewModel_Table.Day_3_LunchTime  = string.Empty;
-            this.ViewModel_Table.Day_4_LunchTime  = string.Empty;
-            this.ViewModel_Table.Day_5_LunchTime  = string.Empty;
-            this.ViewModel_Table.Day_6_LunchTime  = string.Empty;
-            this.ViewModel_Table.Day_7_LunchTime  = string.Empty;
-            this.ViewModel_Table.Day_8_LunchTime  = string.Empty;
-            this.ViewModel_Table.Day_9_LunchTime  = string.Empty;
-            this.ViewModel_Table.Day_10_LunchTime = string.Empty;
-            this.ViewModel_Table.Day_11_LunchTime = string.Empty;
-            this.ViewModel_Table.Day_12_LunchTime = string.Empty;
-            this.ViewModel_Table.Day_13_LunchTime = string.Empty;
-            this.ViewModel_Table.Day_14_LunchTime = string.Empty;
-            this.ViewModel_Table.Day_15_LunchTime = string.Empty;
-            this.ViewModel_Table.Day_16_LunchTime = string.Empty;
-            this.ViewModel_Table.Day_17_LunchTime = string.Empty;
-            this.ViewModel_Table.Day_18_LunchTime = string.Empty;
-            this.ViewModel_Table.Day_19_LunchTime = string.Empty;
-            this.ViewModel_Table.Day_20_LunchTime = string.Empty;
-            this.ViewModel_Table.Day_21_LunchTime = string.Empty;
-            this.ViewModel_Table.Day_22_LunchTime = string.Empty;
-            this.ViewModel_Table.Day_23_LunchTime = string.Empty;
-            this.ViewModel_Table.Day_24_LunchTime = string.Empty;
-            this.ViewModel_Table.Day_25_LunchTime = string.Empty;
-            this.ViewModel_Table.Day_26_LunchTime = string.Empty;
-            this.ViewModel_Table.Day_27_LunchTime = string.Empty;
-            this.ViewModel_Table.Day_28_LunchTime = string.Empty;
-            this.ViewModel_Table.Day_29_LunchTime = string.Empty;
-            this.ViewModel_Table.Day_30_LunchTime = string.Empty;
-            this.ViewModel_Table.Day_31_LunchTime = string.Empty;
+            this.ViewModel_Table.Day1_LunchTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day2_LunchTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day3_LunchTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day4_LunchTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day5_LunchTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day6_LunchTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day7_LunchTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day8_LunchTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day9_LunchTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day10_LunchTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day11_LunchTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day12_LunchTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day13_LunchTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day14_LunchTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day15_LunchTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day16_LunchTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day17_LunchTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day18_LunchTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day19_LunchTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day20_LunchTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day21_LunchTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day22_LunchTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day23_LunchTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day24_LunchTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day25_LunchTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day26_LunchTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day27_LunchTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day28_LunchTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day29_LunchTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day30_LunchTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day31_LunchTime_Text.Value = string.Empty;
 
             // 届出
-            this.ViewModel_Table.Day_1_Notification  = string.Empty;
-            this.ViewModel_Table.Day_2_Notification  = string.Empty;
-            this.ViewModel_Table.Day_3_Notification  = string.Empty;
-            this.ViewModel_Table.Day_4_Notification  = string.Empty;
-            this.ViewModel_Table.Day_5_Notification  = string.Empty;
-            this.ViewModel_Table.Day_6_Notification  = string.Empty;
-            this.ViewModel_Table.Day_7_Notification  = string.Empty;
-            this.ViewModel_Table.Day_8_Notification  = string.Empty;
-            this.ViewModel_Table.Day_9_Notification  = string.Empty;
-            this.ViewModel_Table.Day_10_Notification = string.Empty;
-            this.ViewModel_Table.Day_11_Notification = string.Empty;
-            this.ViewModel_Table.Day_12_Notification = string.Empty;
-            this.ViewModel_Table.Day_13_Notification = string.Empty;
-            this.ViewModel_Table.Day_14_Notification = string.Empty;
-            this.ViewModel_Table.Day_15_Notification = string.Empty;
-            this.ViewModel_Table.Day_16_Notification = string.Empty;
-            this.ViewModel_Table.Day_17_Notification = string.Empty;
-            this.ViewModel_Table.Day_18_Notification = string.Empty;
-            this.ViewModel_Table.Day_19_Notification = string.Empty;
-            this.ViewModel_Table.Day_20_Notification = string.Empty;
-            this.ViewModel_Table.Day_21_Notification = string.Empty;
-            this.ViewModel_Table.Day_22_Notification = string.Empty;
-            this.ViewModel_Table.Day_23_Notification = string.Empty;
-            this.ViewModel_Table.Day_24_Notification = string.Empty;
-            this.ViewModel_Table.Day_25_Notification = string.Empty;
-            this.ViewModel_Table.Day_26_Notification = string.Empty;
-            this.ViewModel_Table.Day_27_Notification = string.Empty;
-            this.ViewModel_Table.Day_28_Notification = string.Empty;
-            this.ViewModel_Table.Day_29_Notification = string.Empty;
-            this.ViewModel_Table.Day_30_Notification = string.Empty;
-            this.ViewModel_Table.Day_31_Notification = string.Empty;
+            this.ViewModel_Table.Day1_Notification_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day2_Notification_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day3_Notification_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day4_Notification_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day5_Notification_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day6_Notification_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day7_Notification_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day8_Notification_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day9_Notification_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day10_Notification_Text.Value = string.Empty;
+            this.ViewModel_Table.Day11_Notification_Text.Value = string.Empty;
+            this.ViewModel_Table.Day12_Notification_Text.Value = string.Empty;
+            this.ViewModel_Table.Day13_Notification_Text.Value = string.Empty;
+            this.ViewModel_Table.Day14_Notification_Text.Value = string.Empty;
+            this.ViewModel_Table.Day15_Notification_Text.Value = string.Empty;
+            this.ViewModel_Table.Day16_Notification_Text.Value = string.Empty;
+            this.ViewModel_Table.Day17_Notification_Text.Value = string.Empty;
+            this.ViewModel_Table.Day18_Notification_Text.Value = string.Empty;
+            this.ViewModel_Table.Day19_Notification_Text.Value = string.Empty;
+            this.ViewModel_Table.Day20_Notification_Text.Value = string.Empty;
+            this.ViewModel_Table.Day21_Notification_Text.Value = string.Empty;
+            this.ViewModel_Table.Day22_Notification_Text.Value = string.Empty;
+            this.ViewModel_Table.Day23_Notification_Text.Value = string.Empty;
+            this.ViewModel_Table.Day24_Notification_Text.Value = string.Empty;
+            this.ViewModel_Table.Day25_Notification_Text.Value = string.Empty;
+            this.ViewModel_Table.Day26_Notification_Text.Value = string.Empty;
+            this.ViewModel_Table.Day27_Notification_Text.Value = string.Empty;
+            this.ViewModel_Table.Day28_Notification_Text.Value = string.Empty;
+            this.ViewModel_Table.Day29_Notification_Text.Value = string.Empty;
+            this.ViewModel_Table.Day30_Notification_Text.Value = string.Empty;
+            this.ViewModel_Table.Day31_Notification_Text.Value = string.Empty;
 
             // 勤務時間
             this.ViewModel_Header.WorkingTimeTotal = new TimeSpan();
             this.WorkDaysTotal = 0;
 
-            this.ViewModel_Table.Day_1_WorkingTime  = string.Empty;
-            this.ViewModel_Table.Day_2_WorkingTime  = string.Empty;
-            this.ViewModel_Table.Day_3_WorkingTime  = string.Empty;
-            this.ViewModel_Table.Day_4_WorkingTime  = string.Empty;
-            this.ViewModel_Table.Day_5_WorkingTime  = string.Empty;
-            this.ViewModel_Table.Day_6_WorkingTime  = string.Empty;
-            this.ViewModel_Table.Day_7_WorkingTime  = string.Empty;
-            this.ViewModel_Table.Day_8_WorkingTime  = string.Empty;
-            this.ViewModel_Table.Day_9_WorkingTime  = string.Empty;
-            this.ViewModel_Table.Day_10_WorkingTime = string.Empty;
-            this.ViewModel_Table.Day_11_WorkingTime = string.Empty;
-            this.ViewModel_Table.Day_12_WorkingTime = string.Empty;
-            this.ViewModel_Table.Day_13_WorkingTime = string.Empty;
-            this.ViewModel_Table.Day_14_WorkingTime = string.Empty;
-            this.ViewModel_Table.Day_15_WorkingTime = string.Empty;
-            this.ViewModel_Table.Day_16_WorkingTime = string.Empty;
-            this.ViewModel_Table.Day_17_WorkingTime = string.Empty;
-            this.ViewModel_Table.Day_18_WorkingTime = string.Empty;
-            this.ViewModel_Table.Day_19_WorkingTime = string.Empty;
-            this.ViewModel_Table.Day_20_WorkingTime = string.Empty;
-            this.ViewModel_Table.Day_21_WorkingTime = string.Empty;
-            this.ViewModel_Table.Day_22_WorkingTime = string.Empty;
-            this.ViewModel_Table.Day_23_WorkingTime = string.Empty;
-            this.ViewModel_Table.Day_24_WorkingTime = string.Empty;
-            this.ViewModel_Table.Day_25_WorkingTime = string.Empty;
-            this.ViewModel_Table.Day_26_WorkingTime = string.Empty;
-            this.ViewModel_Table.Day_27_WorkingTime = string.Empty;
-            this.ViewModel_Table.Day_28_WorkingTime = string.Empty;
-            this.ViewModel_Table.Day_29_WorkingTime = string.Empty;
-            this.ViewModel_Table.Day_30_WorkingTime = string.Empty;
-            this.ViewModel_Table.Day_31_WorkingTime = string.Empty;
+            this.ViewModel_Table.Day1_WorkingTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day2_WorkingTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day3_WorkingTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day4_WorkingTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day5_WorkingTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day6_WorkingTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day7_WorkingTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day8_WorkingTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day9_WorkingTime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day10_WorkingTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day11_WorkingTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day12_WorkingTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day13_WorkingTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day14_WorkingTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day15_WorkingTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day16_WorkingTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day17_WorkingTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day18_WorkingTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day19_WorkingTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day20_WorkingTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day21_WorkingTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day22_WorkingTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day23_WorkingTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day24_WorkingTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day25_WorkingTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day26_WorkingTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day27_WorkingTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day28_WorkingTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day29_WorkingTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day30_WorkingTime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day31_WorkingTime_Text.Value = string.Empty;
 
             // 残業時間
             this.ViewModel_Header.OvertimeTotal = new TimeSpan();
 
-            this.ViewModel_Table.Day_1_Overtime  = string.Empty;
-            this.ViewModel_Table.Day_2_Overtime  = string.Empty;
-            this.ViewModel_Table.Day_3_Overtime  = string.Empty;
-            this.ViewModel_Table.Day_4_Overtime  = string.Empty;
-            this.ViewModel_Table.Day_5_Overtime  = string.Empty;
-            this.ViewModel_Table.Day_6_Overtime  = string.Empty;
-            this.ViewModel_Table.Day_7_Overtime  = string.Empty;
-            this.ViewModel_Table.Day_8_Overtime  = string.Empty;
-            this.ViewModel_Table.Day_9_Overtime  = string.Empty;
-            this.ViewModel_Table.Day_10_Overtime = string.Empty;
-            this.ViewModel_Table.Day_11_Overtime = string.Empty;
-            this.ViewModel_Table.Day_12_Overtime = string.Empty;
-            this.ViewModel_Table.Day_13_Overtime = string.Empty;
-            this.ViewModel_Table.Day_14_Overtime = string.Empty;
-            this.ViewModel_Table.Day_15_Overtime = string.Empty;
-            this.ViewModel_Table.Day_16_Overtime = string.Empty;
-            this.ViewModel_Table.Day_17_Overtime = string.Empty;
-            this.ViewModel_Table.Day_18_Overtime = string.Empty;
-            this.ViewModel_Table.Day_19_Overtime = string.Empty;
-            this.ViewModel_Table.Day_20_Overtime = string.Empty;
-            this.ViewModel_Table.Day_21_Overtime = string.Empty;
-            this.ViewModel_Table.Day_22_Overtime = string.Empty;
-            this.ViewModel_Table.Day_23_Overtime = string.Empty;
-            this.ViewModel_Table.Day_24_Overtime = string.Empty;
-            this.ViewModel_Table.Day_25_Overtime = string.Empty;
-            this.ViewModel_Table.Day_26_Overtime = string.Empty;
-            this.ViewModel_Table.Day_27_Overtime = string.Empty;
-            this.ViewModel_Table.Day_28_Overtime = string.Empty;
-            this.ViewModel_Table.Day_29_Overtime = string.Empty;
-            this.ViewModel_Table.Day_30_Overtime = string.Empty;
-            this.ViewModel_Table.Day_31_Overtime = string.Empty;
+            this.ViewModel_Table.Day1_Overtime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day2_Overtime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day3_Overtime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day4_Overtime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day5_Overtime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day6_Overtime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day7_Overtime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day8_Overtime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day9_Overtime_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day10_Overtime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day11_Overtime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day12_Overtime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day13_Overtime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day14_Overtime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day15_Overtime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day16_Overtime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day17_Overtime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day18_Overtime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day19_Overtime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day20_Overtime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day21_Overtime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day22_Overtime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day23_Overtime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day24_Overtime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day25_Overtime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day26_Overtime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day27_Overtime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day28_Overtime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day29_Overtime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day30_Overtime_Text.Value = string.Empty;
+            this.ViewModel_Table.Day31_Overtime_Text.Value = string.Empty;
 
             // 備考
-            this.ViewModel_Table.Day_1_Remarks  = string.Empty;
-            this.ViewModel_Table.Day_2_Remarks  = string.Empty;
-            this.ViewModel_Table.Day_3_Remarks  = string.Empty;
-            this.ViewModel_Table.Day_4_Remarks  = string.Empty;
-            this.ViewModel_Table.Day_5_Remarks  = string.Empty;
-            this.ViewModel_Table.Day_6_Remarks  = string.Empty;
-            this.ViewModel_Table.Day_7_Remarks  = string.Empty;
-            this.ViewModel_Table.Day_8_Remarks  = string.Empty;
-            this.ViewModel_Table.Day_9_Remarks  = string.Empty;
-            this.ViewModel_Table.Day_10_Remarks = string.Empty;
-            this.ViewModel_Table.Day_11_Remarks = string.Empty;
-            this.ViewModel_Table.Day_12_Remarks = string.Empty;
-            this.ViewModel_Table.Day_13_Remarks = string.Empty;
-            this.ViewModel_Table.Day_14_Remarks = string.Empty;
-            this.ViewModel_Table.Day_15_Remarks = string.Empty;
-            this.ViewModel_Table.Day_16_Remarks = string.Empty;
-            this.ViewModel_Table.Day_17_Remarks = string.Empty;
-            this.ViewModel_Table.Day_18_Remarks = string.Empty;
-            this.ViewModel_Table.Day_19_Remarks = string.Empty;
-            this.ViewModel_Table.Day_20_Remarks = string.Empty;
-            this.ViewModel_Table.Day_21_Remarks = string.Empty;
-            this.ViewModel_Table.Day_22_Remarks = string.Empty;
-            this.ViewModel_Table.Day_23_Remarks = string.Empty;
-            this.ViewModel_Table.Day_24_Remarks = string.Empty;
-            this.ViewModel_Table.Day_25_Remarks = string.Empty;
-            this.ViewModel_Table.Day_26_Remarks = string.Empty;
-            this.ViewModel_Table.Day_27_Remarks = string.Empty;
-            this.ViewModel_Table.Day_28_Remarks = string.Empty;
-            this.ViewModel_Table.Day_29_Remarks = string.Empty;
-            this.ViewModel_Table.Day_30_Remarks = string.Empty;
-            this.ViewModel_Table.Day_31_Remarks = string.Empty;
+            this.ViewModel_Table.Day1_Remarks_Text.Value = string.Empty;
+            this.ViewModel_Table.Day2_Remarks_Text.Value = string.Empty;
+            this.ViewModel_Table.Day3_Remarks_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day4_Remarks_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day5_Remarks_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day6_Remarks_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day7_Remarks_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day8_Remarks_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day9_Remarks_Text.Value  = string.Empty;
+            this.ViewModel_Table.Day10_Remarks_Text.Value = string.Empty;
+            this.ViewModel_Table.Day11_Remarks_Text.Value = string.Empty;
+            this.ViewModel_Table.Day12_Remarks_Text.Value = string.Empty;
+            this.ViewModel_Table.Day13_Remarks_Text.Value = string.Empty;
+            this.ViewModel_Table.Day14_Remarks_Text.Value = string.Empty;
+            this.ViewModel_Table.Day15_Remarks_Text.Value = string.Empty;
+            this.ViewModel_Table.Day16_Remarks_Text.Value = string.Empty;
+            this.ViewModel_Table.Day17_Remarks_Text.Value = string.Empty;
+            this.ViewModel_Table.Day18_Remarks_Text.Value = string.Empty;
+            this.ViewModel_Table.Day19_Remarks_Text.Value = string.Empty;
+            this.ViewModel_Table.Day20_Remarks_Text.Value = string.Empty;
+            this.ViewModel_Table.Day21_Remarks_Text.Value = string.Empty;
+            this.ViewModel_Table.Day22_Remarks_Text.Value = string.Empty;
+            this.ViewModel_Table.Day23_Remarks_Text.Value = string.Empty;
+            this.ViewModel_Table.Day24_Remarks_Text.Value = string.Empty;
+            this.ViewModel_Table.Day25_Remarks_Text.Value = string.Empty;
+            this.ViewModel_Table.Day26_Remarks_Text.Value = string.Empty;
+            this.ViewModel_Table.Day27_Remarks_Text.Value = string.Empty;
+            this.ViewModel_Table.Day28_Remarks_Text.Value = string.Empty;
+            this.ViewModel_Table.Day29_Remarks_Text.Value = string.Empty;
+            this.ViewModel_Table.Day30_Remarks_Text.Value = string.Empty;
+            this.ViewModel_Table.Day31_Remarks_Text.Value = string.Empty;
         }
 
         /// <summary>
@@ -544,8 +547,8 @@ namespace SalaryManager.WPF.Models
         {
             var workingPlace = WorkingPlace.FetchByDate(this.FirstDateOfMonth);
 
-            this.ViewModel_Header.DispatchingCompany = workingPlace.Select(x => x.DispatchingCompany).Distinct().FirstOrDefault().Text;
-            this.ViewModel_Header.DispatchedCompany  = workingPlace.Select(x => x.DispatchedCompany).Distinct().FirstOrDefault().Text;
+            this.ViewModel_Header.DispatchingCompany_Text.Value = workingPlace.Select(x => x.DispatchingCompany).Distinct().FirstOrDefault().Text;
+            this.ViewModel_Header.DispatchedCompany_Text.Value  = workingPlace.Select(x => x.DispatchedCompany).Distinct().FirstOrDefault().Text;
         }
 
         /// <summary>
@@ -605,37 +608,37 @@ namespace SalaryManager.WPF.Models
         {
             switch (date.Day) 
             {
-                case 1  : this.ViewModel_Table.Day_1  = Format(); return;
-                case 2  : this.ViewModel_Table.Day_2  = Format(); return;
-                case 3  : this.ViewModel_Table.Day_3  = Format(); return;
-                case 4  : this.ViewModel_Table.Day_4  = Format(); return;
-                case 5  : this.ViewModel_Table.Day_5  = Format(); return;
-                case 6  : this.ViewModel_Table.Day_6  = Format(); return;
-                case 7  : this.ViewModel_Table.Day_7  = Format(); return;
-                case 8  : this.ViewModel_Table.Day_8  = Format(); return;
-                case 9  : this.ViewModel_Table.Day_9  = Format(); return;
-                case 10 : this.ViewModel_Table.Day_10 = Format(); return;
-                case 11 : this.ViewModel_Table.Day_11 = Format(); return;
-                case 12 : this.ViewModel_Table.Day_12 = Format(); return;
-                case 13 : this.ViewModel_Table.Day_13 = Format(); return;
-                case 14 : this.ViewModel_Table.Day_14 = Format(); return;
-                case 15 : this.ViewModel_Table.Day_15 = Format(); return;
-                case 16 : this.ViewModel_Table.Day_16 = Format(); return;
-                case 17 : this.ViewModel_Table.Day_17 = Format(); return;
-                case 18 : this.ViewModel_Table.Day_18 = Format(); return;
-                case 19 : this.ViewModel_Table.Day_19 = Format(); return;
-                case 20 : this.ViewModel_Table.Day_20 = Format(); return;
-                case 21 : this.ViewModel_Table.Day_21 = Format(); return;
-                case 22 : this.ViewModel_Table.Day_22 = Format(); return;
-                case 23 : this.ViewModel_Table.Day_23 = Format(); return;
-                case 24 : this.ViewModel_Table.Day_24 = Format(); return;
-                case 25 : this.ViewModel_Table.Day_25 = Format(); return;
-                case 26 : this.ViewModel_Table.Day_26 = Format(); return;
-                case 27 : this.ViewModel_Table.Day_27 = Format(); return;
-                case 28 : this.ViewModel_Table.Day_28 = Format(); return;
-                case 29 : this.ViewModel_Table.Day_29 = Format(); return;
-                case 30 : this.ViewModel_Table.Day_30 = Format(); return;
-                case 31 : this.ViewModel_Table.Day_31 = Format(); return;
+                case 1  : this.ViewModel_Table.Day1_Text.Value  = Format(); return;
+                case 2  : this.ViewModel_Table.Day2_Text.Value  = Format(); return;
+                case 3  : this.ViewModel_Table.Day3_Text.Value  = Format(); return;
+                case 4  : this.ViewModel_Table.Day4_Text.Value  = Format(); return;
+                case 5  : this.ViewModel_Table.Day5_Text.Value  = Format(); return;
+                case 6  : this.ViewModel_Table.Day6_Text.Value  = Format(); return;
+                case 7  : this.ViewModel_Table.Day7_Text.Value  = Format(); return;
+                case 8  : this.ViewModel_Table.Day8_Text.Value  = Format(); return;
+                case 9  : this.ViewModel_Table.Day9_Text.Value  = Format(); return;
+                case 10 : this.ViewModel_Table.Day10_Text.Value = Format(); return;
+                case 11 : this.ViewModel_Table.Day11_Text.Value = Format(); return;
+                case 12 : this.ViewModel_Table.Day12_Text.Value = Format(); return;
+                case 13 : this.ViewModel_Table.Day13_Text.Value = Format(); return;
+                case 14 : this.ViewModel_Table.Day14_Text.Value = Format(); return;
+                case 15 : this.ViewModel_Table.Day15_Text.Value = Format(); return;
+                case 16 : this.ViewModel_Table.Day16_Text.Value = Format(); return;
+                case 17 : this.ViewModel_Table.Day17_Text.Value = Format(); return;
+                case 18 : this.ViewModel_Table.Day18_Text.Value = Format(); return;
+                case 19 : this.ViewModel_Table.Day19_Text.Value = Format(); return;
+                case 20 : this.ViewModel_Table.Day20_Text.Value = Format(); return;
+                case 21 : this.ViewModel_Table.Day21_Text.Value = Format(); return;
+                case 22 : this.ViewModel_Table.Day22_Text.Value = Format(); return;
+                case 23 : this.ViewModel_Table.Day23_Text.Value = Format(); return;
+                case 24 : this.ViewModel_Table.Day24_Text.Value = Format(); return;
+                case 25 : this.ViewModel_Table.Day25_Text.Value = Format(); return;
+                case 26 : this.ViewModel_Table.Day26_Text.Value = Format(); return;
+                case 27 : this.ViewModel_Table.Day27_Text.Value = Format(); return;
+                case 28 : this.ViewModel_Table.Day28_Text.Value = Format(); return;
+                case 29 : this.ViewModel_Table.Day29_Text.Value = Format(); return;
+                case 30 : this.ViewModel_Table.Day30_Text.Value = Format(); return;
+                case 31 : this.ViewModel_Table.Day31_Text.Value = Format(); return;
 
                 default: return;
             }
@@ -656,37 +659,37 @@ namespace SalaryManager.WPF.Models
         {
             switch (day)
             {
-                case 1 : this.ViewModel_Table.Day_1_StartTime  = Format(); return;
-                case 2 : this.ViewModel_Table.Day_2_StartTime  = Format(); return;
-                case 3 : this.ViewModel_Table.Day_3_StartTime  = Format(); return;
-                case 4 : this.ViewModel_Table.Day_4_StartTime  = Format(); return;
-                case 5 : this.ViewModel_Table.Day_5_StartTime  = Format(); return;
-                case 6 : this.ViewModel_Table.Day_6_StartTime  = Format(); return;
-                case 7 : this.ViewModel_Table.Day_7_StartTime  = Format(); return;
-                case 8 : this.ViewModel_Table.Day_8_StartTime  = Format(); return;
-                case 9 : this.ViewModel_Table.Day_9_StartTime  = Format(); return;
-                case 10: this.ViewModel_Table.Day_10_StartTime = Format(); return;
-                case 11: this.ViewModel_Table.Day_11_StartTime = Format(); return;
-                case 12: this.ViewModel_Table.Day_12_StartTime = Format(); return;
-                case 13: this.ViewModel_Table.Day_13_StartTime = Format(); return;
-                case 14: this.ViewModel_Table.Day_14_StartTime = Format(); return;
-                case 15: this.ViewModel_Table.Day_15_StartTime = Format(); return;
-                case 16: this.ViewModel_Table.Day_16_StartTime = Format(); return;
-                case 17: this.ViewModel_Table.Day_17_StartTime = Format(); return;
-                case 18: this.ViewModel_Table.Day_18_StartTime = Format(); return;
-                case 19: this.ViewModel_Table.Day_19_StartTime = Format(); return;
-                case 20: this.ViewModel_Table.Day_20_StartTime = Format(); return;
-                case 21: this.ViewModel_Table.Day_21_StartTime = Format(); return;
-                case 22: this.ViewModel_Table.Day_22_StartTime = Format(); return;
-                case 23: this.ViewModel_Table.Day_23_StartTime = Format(); return;
-                case 24: this.ViewModel_Table.Day_24_StartTime = Format(); return;
-                case 25: this.ViewModel_Table.Day_25_StartTime = Format(); return;
-                case 26: this.ViewModel_Table.Day_26_StartTime = Format(); return;
-                case 27: this.ViewModel_Table.Day_27_StartTime = Format(); return;
-                case 28: this.ViewModel_Table.Day_28_StartTime = Format(); return;
-                case 29: this.ViewModel_Table.Day_29_StartTime = Format(); return;
-                case 30: this.ViewModel_Table.Day_30_StartTime = Format(); return;
-                case 31: this.ViewModel_Table.Day_31_StartTime = Format(); return;
+                case 1 : this.ViewModel_Table.Day1_StartTime_Text.Value  = Format(); return;
+                case 2 : this.ViewModel_Table.Day2_StartTime_Text.Value  = Format(); return;
+                case 3 : this.ViewModel_Table.Day3_Text.Value  = Format(); return;
+                case 4 : this.ViewModel_Table.Day4_Text.Value  = Format(); return;
+                case 5 : this.ViewModel_Table.Day5_Text.Value  = Format(); return;
+                case 6 : this.ViewModel_Table.Day6_Text.Value  = Format(); return;
+                case 7 : this.ViewModel_Table.Day7_Text.Value  = Format(); return;
+                case 8 : this.ViewModel_Table.Day8_Text.Value  = Format(); return;
+                case 9 : this.ViewModel_Table.Day9_Text.Value  = Format(); return;
+                case 10: this.ViewModel_Table.Day10_Text.Value = Format(); return;
+                case 11: this.ViewModel_Table.Day11_Text.Value = Format(); return;
+                case 12: this.ViewModel_Table.Day12_Text.Value = Format(); return;
+                case 13: this.ViewModel_Table.Day13_Text.Value = Format(); return;
+                case 14: this.ViewModel_Table.Day14_Text.Value = Format(); return;
+                case 15: this.ViewModel_Table.Day15_Text.Value = Format(); return;
+                case 16: this.ViewModel_Table.Day16_Text.Value = Format(); return;
+                case 17: this.ViewModel_Table.Day17_Text.Value = Format(); return;
+                case 18: this.ViewModel_Table.Day18_Text.Value = Format(); return;
+                case 19: this.ViewModel_Table.Day19_Text.Value = Format(); return;
+                case 20: this.ViewModel_Table.Day20_Text.Value = Format(); return;
+                case 21: this.ViewModel_Table.Day21_Text.Value = Format(); return;
+                case 22: this.ViewModel_Table.Day22_Text.Value = Format(); return;
+                case 23: this.ViewModel_Table.Day23_Text.Value = Format(); return;
+                case 24: this.ViewModel_Table.Day24_Text.Value = Format(); return;
+                case 25: this.ViewModel_Table.Day25_Text.Value = Format(); return;
+                case 26: this.ViewModel_Table.Day26_Text.Value = Format(); return;
+                case 27: this.ViewModel_Table.Day27_Text.Value = Format(); return;
+                case 28: this.ViewModel_Table.Day28_Text.Value = Format(); return;
+                case 29: this.ViewModel_Table.Day29_Text.Value = Format(); return;
+                case 30: this.ViewModel_Table.Day30_Text.Value = Format(); return;
+                case 31: this.ViewModel_Table.Day31_Text.Value = Format(); return;
             }
 
             string Format()
@@ -705,37 +708,37 @@ namespace SalaryManager.WPF.Models
         {
             switch (day)
             {
-                case 1:  this.ViewModel_Table.Day_1_EndTime  = Format(); return;
-                case 2:  this.ViewModel_Table.Day_2_EndTime  = Format(); return;
-                case 3:  this.ViewModel_Table.Day_3_EndTime  = Format(); return;
-                case 4:  this.ViewModel_Table.Day_4_EndTime  = Format(); return;
-                case 5:  this.ViewModel_Table.Day_5_EndTime  = Format(); return;
-                case 6:  this.ViewModel_Table.Day_6_EndTime  = Format(); return;
-                case 7:  this.ViewModel_Table.Day_7_EndTime  = Format(); return;
-                case 8:  this.ViewModel_Table.Day_8_EndTime  = Format(); return;
-                case 9:  this.ViewModel_Table.Day_9_EndTime  = Format(); return;
-                case 10: this.ViewModel_Table.Day_10_EndTime = Format(); return;
-                case 11: this.ViewModel_Table.Day_11_EndTime = Format(); return;
-                case 12: this.ViewModel_Table.Day_12_EndTime = Format(); return;
-                case 13: this.ViewModel_Table.Day_13_EndTime = Format(); return;
-                case 14: this.ViewModel_Table.Day_14_EndTime = Format(); return;
-                case 15: this.ViewModel_Table.Day_15_EndTime = Format(); return;
-                case 16: this.ViewModel_Table.Day_16_EndTime = Format(); return;
-                case 17: this.ViewModel_Table.Day_17_EndTime = Format(); return;
-                case 18: this.ViewModel_Table.Day_18_EndTime = Format(); return;
-                case 19: this.ViewModel_Table.Day_19_EndTime = Format(); return;
-                case 20: this.ViewModel_Table.Day_20_EndTime = Format(); return;
-                case 21: this.ViewModel_Table.Day_21_EndTime = Format(); return;
-                case 22: this.ViewModel_Table.Day_22_EndTime = Format(); return;
-                case 23: this.ViewModel_Table.Day_23_EndTime = Format(); return;
-                case 24: this.ViewModel_Table.Day_24_EndTime = Format(); return;
-                case 25: this.ViewModel_Table.Day_25_EndTime = Format(); return;
-                case 26: this.ViewModel_Table.Day_26_EndTime = Format(); return;
-                case 27: this.ViewModel_Table.Day_27_EndTime = Format(); return;
-                case 28: this.ViewModel_Table.Day_28_EndTime = Format(); return;
-                case 29: this.ViewModel_Table.Day_29_EndTime = Format(); return;
-                case 30: this.ViewModel_Table.Day_30_EndTime = Format(); return;
-                case 31: this.ViewModel_Table.Day_31_EndTime = Format(); return;
+                case 1:  this.ViewModel_Table.Day1_EndTime_Text.Value  = Format(); return;
+                case 2:  this.ViewModel_Table.Day2_EndTime_Text.Value  = Format(); return;
+                case 3:  this.ViewModel_Table.Day3_EndTime_Text.Value  = Format(); return;
+                case 4:  this.ViewModel_Table.Day4_EndTime_Text.Value  = Format(); return;
+                case 5:  this.ViewModel_Table.Day5_EndTime_Text.Value  = Format(); return;
+                case 6:  this.ViewModel_Table.Day6_EndTime_Text.Value  = Format(); return;
+                case 7:  this.ViewModel_Table.Day7_EndTime_Text.Value  = Format(); return;
+                case 8:  this.ViewModel_Table.Day8_EndTime_Text.Value  = Format(); return;
+                case 9:  this.ViewModel_Table.Day9_EndTime_Text.Value  = Format(); return;
+                case 10: this.ViewModel_Table.Day10_EndTime_Text.Value = Format(); return;
+                case 11: this.ViewModel_Table.Day11_EndTime_Text.Value = Format(); return;
+                case 12: this.ViewModel_Table.Day12_EndTime_Text.Value = Format(); return;
+                case 13: this.ViewModel_Table.Day13_EndTime_Text.Value = Format(); return;
+                case 14: this.ViewModel_Table.Day14_EndTime_Text.Value = Format(); return;
+                case 15: this.ViewModel_Table.Day15_EndTime_Text.Value = Format(); return;
+                case 16: this.ViewModel_Table.Day16_EndTime_Text.Value = Format(); return;
+                case 17: this.ViewModel_Table.Day17_EndTime_Text.Value = Format(); return;
+                case 18: this.ViewModel_Table.Day18_EndTime_Text.Value = Format(); return;
+                case 19: this.ViewModel_Table.Day19_EndTime_Text.Value = Format(); return;
+                case 20: this.ViewModel_Table.Day20_EndTime_Text.Value = Format(); return;
+                case 21: this.ViewModel_Table.Day21_EndTime_Text.Value = Format(); return;
+                case 22: this.ViewModel_Table.Day22_EndTime_Text.Value = Format(); return;
+                case 23: this.ViewModel_Table.Day23_EndTime_Text.Value = Format(); return;
+                case 24: this.ViewModel_Table.Day24_EndTime_Text.Value = Format(); return;
+                case 25: this.ViewModel_Table.Day25_EndTime_Text.Value = Format(); return;
+                case 26: this.ViewModel_Table.Day26_EndTime_Text.Value = Format(); return;
+                case 27: this.ViewModel_Table.Day27_EndTime_Text.Value = Format(); return;
+                case 28: this.ViewModel_Table.Day28_EndTime_Text.Value = Format(); return;
+                case 29: this.ViewModel_Table.Day29_EndTime_Text.Value = Format(); return;
+                case 30: this.ViewModel_Table.Day30_EndTime_Text.Value = Format(); return;
+                case 31: this.ViewModel_Table.Day31_EndTime_Text.Value = Format(); return;
             }
             string Format()
                 => $"{endTime.Hour.ToString("00")}:{endTime.Minute.ToString("00")}";
@@ -756,37 +759,37 @@ namespace SalaryManager.WPF.Models
 
             switch (day)
             {
-                case 1:  this.ViewModel_Table.Day_1_LunchTime  = Format(); return;
-                case 2:  this.ViewModel_Table.Day_2_LunchTime  = Format(); return;
-                case 3:  this.ViewModel_Table.Day_3_LunchTime  = Format(); return;
-                case 4:  this.ViewModel_Table.Day_4_LunchTime  = Format(); return;
-                case 5:  this.ViewModel_Table.Day_5_LunchTime  = Format(); return;
-                case 6:  this.ViewModel_Table.Day_6_LunchTime  = Format(); return;
-                case 7:  this.ViewModel_Table.Day_7_LunchTime  = Format(); return;
-                case 8:  this.ViewModel_Table.Day_8_LunchTime  = Format(); return;
-                case 9:  this.ViewModel_Table.Day_9_LunchTime  = Format(); return;
-                case 10: this.ViewModel_Table.Day_10_LunchTime = Format(); return;
-                case 11: this.ViewModel_Table.Day_11_LunchTime = Format(); return;
-                case 12: this.ViewModel_Table.Day_12_LunchTime = Format(); return;
-                case 13: this.ViewModel_Table.Day_13_LunchTime = Format(); return;
-                case 14: this.ViewModel_Table.Day_14_LunchTime = Format(); return;
-                case 15: this.ViewModel_Table.Day_15_LunchTime = Format(); return;
-                case 16: this.ViewModel_Table.Day_16_LunchTime = Format(); return;
-                case 17: this.ViewModel_Table.Day_17_LunchTime = Format(); return;
-                case 18: this.ViewModel_Table.Day_18_LunchTime = Format(); return;
-                case 19: this.ViewModel_Table.Day_19_LunchTime = Format(); return;
-                case 20: this.ViewModel_Table.Day_20_LunchTime = Format(); return;
-                case 21: this.ViewModel_Table.Day_21_LunchTime = Format(); return;
-                case 22: this.ViewModel_Table.Day_22_LunchTime = Format(); return;
-                case 23: this.ViewModel_Table.Day_23_LunchTime = Format(); return;
-                case 24: this.ViewModel_Table.Day_24_LunchTime = Format(); return;
-                case 25: this.ViewModel_Table.Day_25_LunchTime = Format(); return;
-                case 26: this.ViewModel_Table.Day_26_LunchTime = Format(); return;
-                case 27: this.ViewModel_Table.Day_27_LunchTime = Format(); return;
-                case 28: this.ViewModel_Table.Day_28_LunchTime = Format(); return;
-                case 29: this.ViewModel_Table.Day_29_LunchTime = Format(); return;
-                case 30: this.ViewModel_Table.Day_30_LunchTime = Format(); return;
-                case 31: this.ViewModel_Table.Day_31_LunchTime = Format(); return;
+                case 1:  this.ViewModel_Table.Day1_LunchTime_Text.Value  = Format(); return;
+                case 2:  this.ViewModel_Table.Day2_LunchTime_Text.Value  = Format(); return;
+                case 3:  this.ViewModel_Table.Day3_LunchTime_Text.Value  = Format(); return;
+                case 4:  this.ViewModel_Table.Day4_LunchTime_Text.Value  = Format(); return;
+                case 5:  this.ViewModel_Table.Day5_LunchTime_Text.Value  = Format(); return;
+                case 6:  this.ViewModel_Table.Day6_LunchTime_Text.Value  = Format(); return;
+                case 7:  this.ViewModel_Table.Day7_LunchTime_Text.Value  = Format(); return;
+                case 8:  this.ViewModel_Table.Day8_LunchTime_Text.Value  = Format(); return;
+                case 9:  this.ViewModel_Table.Day9_LunchTime_Text.Value  = Format(); return;
+                case 10: this.ViewModel_Table.Day10_LunchTime_Text.Value = Format(); return;
+                case 11: this.ViewModel_Table.Day11_LunchTime_Text.Value = Format(); return;
+                case 12: this.ViewModel_Table.Day12_LunchTime_Text.Value = Format(); return;
+                case 13: this.ViewModel_Table.Day13_LunchTime_Text.Value = Format(); return;
+                case 14: this.ViewModel_Table.Day14_LunchTime_Text.Value = Format(); return;
+                case 15: this.ViewModel_Table.Day15_LunchTime_Text.Value = Format(); return;
+                case 16: this.ViewModel_Table.Day16_LunchTime_Text.Value = Format(); return;
+                case 17: this.ViewModel_Table.Day17_LunchTime_Text.Value = Format(); return;
+                case 18: this.ViewModel_Table.Day18_LunchTime_Text.Value = Format(); return;
+                case 19: this.ViewModel_Table.Day19_LunchTime_Text.Value = Format(); return;
+                case 20: this.ViewModel_Table.Day20_LunchTime_Text.Value = Format(); return;
+                case 21: this.ViewModel_Table.Day21_LunchTime_Text.Value = Format(); return;
+                case 22: this.ViewModel_Table.Day22_LunchTime_Text.Value = Format(); return;
+                case 23: this.ViewModel_Table.Day23_LunchTime_Text.Value = Format(); return;
+                case 24: this.ViewModel_Table.Day24_LunchTime_Text.Value = Format(); return;
+                case 25: this.ViewModel_Table.Day25_LunchTime_Text.Value = Format(); return;
+                case 26: this.ViewModel_Table.Day26_LunchTime_Text.Value = Format(); return;
+                case 27: this.ViewModel_Table.Day27_LunchTime_Text.Value = Format(); return;
+                case 28: this.ViewModel_Table.Day28_LunchTime_Text.Value = Format(); return;
+                case 29: this.ViewModel_Table.Day29_LunchTime_Text.Value = Format(); return;
+                case 30: this.ViewModel_Table.Day30_LunchTime_Text.Value = Format(); return;
+                case 31: this.ViewModel_Table.Day31_LunchTime_Text.Value = Format(); return;
             }
 
             string Format()
@@ -801,37 +804,37 @@ namespace SalaryManager.WPF.Models
         {
             switch (day)
             {
-                case 1:  this.ViewModel_Table.Day_1_Notification  = Format(); return;
-                case 2:  this.ViewModel_Table.Day_2_Notification  = Format(); return;
-                case 3:  this.ViewModel_Table.Day_3_Notification  = Format(); return;
-                case 4:  this.ViewModel_Table.Day_4_Notification  = Format(); return;
-                case 5:  this.ViewModel_Table.Day_5_Notification  = Format(); return;
-                case 6:  this.ViewModel_Table.Day_6_Notification  = Format(); return;
-                case 7:  this.ViewModel_Table.Day_7_Notification  = Format(); return;
-                case 8:  this.ViewModel_Table.Day_8_Notification  = Format(); return;
-                case 9:  this.ViewModel_Table.Day_9_Notification  = Format(); return;
-                case 10: this.ViewModel_Table.Day_10_Notification = Format(); return;
-                case 11: this.ViewModel_Table.Day_11_Notification = Format(); return;
-                case 12: this.ViewModel_Table.Day_12_Notification = Format(); return;
-                case 13: this.ViewModel_Table.Day_13_Notification = Format(); return;
-                case 14: this.ViewModel_Table.Day_14_Notification = Format(); return;
-                case 15: this.ViewModel_Table.Day_15_Notification = Format(); return;
-                case 16: this.ViewModel_Table.Day_16_Notification = Format(); return;
-                case 17: this.ViewModel_Table.Day_17_Notification = Format(); return;
-                case 18: this.ViewModel_Table.Day_18_Notification = Format(); return;
-                case 19: this.ViewModel_Table.Day_19_Notification = Format(); return;
-                case 20: this.ViewModel_Table.Day_20_Notification = Format(); return;
-                case 21: this.ViewModel_Table.Day_21_Notification = Format(); return;
-                case 22: this.ViewModel_Table.Day_22_Notification = Format(); return;
-                case 23: this.ViewModel_Table.Day_23_Notification = Format(); return;
-                case 24: this.ViewModel_Table.Day_24_Notification = Format(); return;
-                case 25: this.ViewModel_Table.Day_25_Notification = Format(); return;
-                case 26: this.ViewModel_Table.Day_26_Notification = Format(); return;
-                case 27: this.ViewModel_Table.Day_27_Notification = Format(); return;
-                case 28: this.ViewModel_Table.Day_28_Notification = Format(); return;
-                case 29: this.ViewModel_Table.Day_29_Notification = Format(); return;
-                case 30: this.ViewModel_Table.Day_30_Notification = Format(); return;
-                case 31: this.ViewModel_Table.Day_31_Notification = Format(); return;
+                case 1:  this.ViewModel_Table.Day1_Notification_Text.Value  = Format(); return;
+                case 2:  this.ViewModel_Table.Day2_Notification_Text.Value  = Format(); return;
+                case 3:  this.ViewModel_Table.Day3_Notification_Text.Value  = Format(); return;
+                case 4:  this.ViewModel_Table.Day4_Notification_Text.Value  = Format(); return;
+                case 5:  this.ViewModel_Table.Day5_Notification_Text.Value  = Format(); return;
+                case 6:  this.ViewModel_Table.Day6_Notification_Text.Value  = Format(); return;
+                case 7:  this.ViewModel_Table.Day7_Notification_Text.Value  = Format(); return;
+                case 8:  this.ViewModel_Table.Day8_Notification_Text.Value  = Format(); return;
+                case 9:  this.ViewModel_Table.Day9_Notification_Text.Value  = Format(); return;
+                case 10: this.ViewModel_Table.Day10_Notification_Text.Value = Format(); return;
+                case 11: this.ViewModel_Table.Day11_Notification_Text.Value = Format(); return;
+                case 12: this.ViewModel_Table.Day12_Notification_Text.Value = Format(); return;
+                case 13: this.ViewModel_Table.Day13_Notification_Text.Value = Format(); return;
+                case 14: this.ViewModel_Table.Day14_Notification_Text.Value = Format(); return;
+                case 15: this.ViewModel_Table.Day15_Notification_Text.Value = Format(); return;
+                case 16: this.ViewModel_Table.Day16_Notification_Text.Value = Format(); return;
+                case 17: this.ViewModel_Table.Day17_Notification_Text.Value = Format(); return;
+                case 18: this.ViewModel_Table.Day18_Notification_Text.Value = Format(); return;
+                case 19: this.ViewModel_Table.Day19_Notification_Text.Value = Format(); return;
+                case 20: this.ViewModel_Table.Day20_Notification_Text.Value = Format(); return;
+                case 21: this.ViewModel_Table.Day21_Notification_Text.Value = Format(); return;
+                case 22: this.ViewModel_Table.Day22_Notification_Text.Value = Format(); return;
+                case 23: this.ViewModel_Table.Day23_Notification_Text.Value = Format(); return;
+                case 24: this.ViewModel_Table.Day24_Notification_Text.Value = Format(); return;
+                case 25: this.ViewModel_Table.Day25_Notification_Text.Value = Format(); return;
+                case 26: this.ViewModel_Table.Day26_Notification_Text.Value = Format(); return;
+                case 27: this.ViewModel_Table.Day27_Notification_Text.Value = Format(); return;
+                case 28: this.ViewModel_Table.Day28_Notification_Text.Value = Format(); return;
+                case 29: this.ViewModel_Table.Day29_Notification_Text.Value = Format(); return;
+                case 30: this.ViewModel_Table.Day30_Notification_Text.Value = Format(); return;
+                case 31: this.ViewModel_Table.Day31_Notification_Text.Value = Format(); return;
             }
 
             string Format()
@@ -898,37 +901,37 @@ namespace SalaryManager.WPF.Models
 
             switch (day)
             {
-                case 1:  this.ViewModel_Table.Day_1_WorkingTime  = Format(); return;
-                case 2:  this.ViewModel_Table.Day_2_WorkingTime  = Format(); return;
-                case 3:  this.ViewModel_Table.Day_3_WorkingTime  = Format(); return;
-                case 4:  this.ViewModel_Table.Day_4_WorkingTime  = Format(); return;
-                case 5:  this.ViewModel_Table.Day_5_WorkingTime  = Format(); return;
-                case 6:  this.ViewModel_Table.Day_6_WorkingTime  = Format(); return;
-                case 7:  this.ViewModel_Table.Day_7_WorkingTime  = Format(); return;
-                case 8:  this.ViewModel_Table.Day_8_WorkingTime  = Format(); return;
-                case 9:  this.ViewModel_Table.Day_9_WorkingTime  = Format(); return;
-                case 10: this.ViewModel_Table.Day_10_WorkingTime = Format(); return;
-                case 11: this.ViewModel_Table.Day_11_WorkingTime = Format(); return;
-                case 12: this.ViewModel_Table.Day_12_WorkingTime = Format(); return;
-                case 13: this.ViewModel_Table.Day_13_WorkingTime = Format(); return;
-                case 14: this.ViewModel_Table.Day_14_WorkingTime = Format(); return;
-                case 15: this.ViewModel_Table.Day_15_WorkingTime = Format(); return;
-                case 16: this.ViewModel_Table.Day_16_WorkingTime = Format(); return;
-                case 17: this.ViewModel_Table.Day_17_WorkingTime = Format(); return;
-                case 18: this.ViewModel_Table.Day_18_WorkingTime = Format(); return;
-                case 19: this.ViewModel_Table.Day_19_WorkingTime = Format(); return;
-                case 20: this.ViewModel_Table.Day_20_WorkingTime = Format(); return;
-                case 21: this.ViewModel_Table.Day_21_WorkingTime = Format(); return;
-                case 22: this.ViewModel_Table.Day_22_WorkingTime = Format(); return;
-                case 23: this.ViewModel_Table.Day_23_WorkingTime = Format(); return;
-                case 24: this.ViewModel_Table.Day_24_WorkingTime = Format(); return;
-                case 25: this.ViewModel_Table.Day_25_WorkingTime = Format(); return;
-                case 26: this.ViewModel_Table.Day_26_WorkingTime = Format(); return;
-                case 27: this.ViewModel_Table.Day_27_WorkingTime = Format(); return;
-                case 28: this.ViewModel_Table.Day_28_WorkingTime = Format(); return;
-                case 29: this.ViewModel_Table.Day_29_WorkingTime = Format(); return;
-                case 30: this.ViewModel_Table.Day_30_WorkingTime = Format(); return;
-                case 31: this.ViewModel_Table.Day_31_WorkingTime = Format(); return;
+                case 1:  this.ViewModel_Table.Day1_WorkingTime_Text.Value  = Format(); return;
+                case 2:  this.ViewModel_Table.Day2_WorkingTime_Text.Value  = Format(); return;
+                case 3:  this.ViewModel_Table.Day3_WorkingTime_Text.Value  = Format(); return;
+                case 4:  this.ViewModel_Table.Day4_WorkingTime_Text.Value  = Format(); return;
+                case 5:  this.ViewModel_Table.Day5_WorkingTime_Text.Value  = Format(); return;
+                case 6:  this.ViewModel_Table.Day6_WorkingTime_Text.Value  = Format(); return;
+                case 7:  this.ViewModel_Table.Day7_WorkingTime_Text.Value  = Format(); return;
+                case 8:  this.ViewModel_Table.Day8_WorkingTime_Text.Value  = Format(); return;
+                case 9:  this.ViewModel_Table.Day9_WorkingTime_Text.Value  = Format(); return;
+                case 10: this.ViewModel_Table.Day10_WorkingTime_Text.Value = Format(); return;
+                case 11: this.ViewModel_Table.Day11_WorkingTime_Text.Value = Format(); return;
+                case 12: this.ViewModel_Table.Day12_WorkingTime_Text.Value = Format(); return;
+                case 13: this.ViewModel_Table.Day13_WorkingTime_Text.Value = Format(); return;
+                case 14: this.ViewModel_Table.Day14_WorkingTime_Text.Value = Format(); return;
+                case 15: this.ViewModel_Table.Day15_WorkingTime_Text.Value = Format(); return;
+                case 16: this.ViewModel_Table.Day16_WorkingTime_Text.Value = Format(); return;
+                case 17: this.ViewModel_Table.Day17_WorkingTime_Text.Value = Format(); return;
+                case 18: this.ViewModel_Table.Day18_WorkingTime_Text.Value = Format(); return;
+                case 19: this.ViewModel_Table.Day19_WorkingTime_Text.Value = Format(); return;
+                case 20: this.ViewModel_Table.Day20_WorkingTime_Text.Value = Format(); return;
+                case 21: this.ViewModel_Table.Day21_WorkingTime_Text.Value = Format(); return;
+                case 22: this.ViewModel_Table.Day22_WorkingTime_Text.Value = Format(); return;
+                case 23: this.ViewModel_Table.Day23_WorkingTime_Text.Value = Format(); return;
+                case 24: this.ViewModel_Table.Day24_WorkingTime_Text.Value = Format(); return;
+                case 25: this.ViewModel_Table.Day25_WorkingTime_Text.Value = Format(); return;
+                case 26: this.ViewModel_Table.Day26_WorkingTime_Text.Value = Format(); return;
+                case 27: this.ViewModel_Table.Day27_WorkingTime_Text.Value = Format(); return;
+                case 28: this.ViewModel_Table.Day28_WorkingTime_Text.Value = Format(); return;
+                case 29: this.ViewModel_Table.Day29_WorkingTime_Text.Value = Format(); return;
+                case 30: this.ViewModel_Table.Day30_WorkingTime_Text.Value = Format(); return;
+                case 31: this.ViewModel_Table.Day31_WorkingTime_Text.Value = Format(); return;
             }
 
             string Format()
@@ -968,37 +971,37 @@ namespace SalaryManager.WPF.Models
 
             switch (day)
             {
-                case 1:  this.ViewModel_Table.Day_1_Overtime  = Format(); return;
-                case 2:  this.ViewModel_Table.Day_2_Overtime  = Format(); return;
-                case 3:  this.ViewModel_Table.Day_3_Overtime  = Format(); return;
-                case 4:  this.ViewModel_Table.Day_4_Overtime  = Format(); return;
-                case 5:  this.ViewModel_Table.Day_5_Overtime  = Format(); return;
-                case 6:  this.ViewModel_Table.Day_6_Overtime  = Format(); return;
-                case 7:  this.ViewModel_Table.Day_7_Overtime  = Format(); return;
-                case 8:  this.ViewModel_Table.Day_8_Overtime  = Format(); return;
-                case 9:  this.ViewModel_Table.Day_9_Overtime  = Format(); return;
-                case 10: this.ViewModel_Table.Day_10_Overtime = Format(); return;
-                case 11: this.ViewModel_Table.Day_11_Overtime = Format(); return;
-                case 12: this.ViewModel_Table.Day_12_Overtime = Format(); return;
-                case 13: this.ViewModel_Table.Day_13_Overtime = Format(); return;
-                case 14: this.ViewModel_Table.Day_14_Overtime = Format(); return;
-                case 15: this.ViewModel_Table.Day_15_Overtime = Format(); return;
-                case 16: this.ViewModel_Table.Day_16_Overtime = Format(); return;
-                case 17: this.ViewModel_Table.Day_17_Overtime = Format(); return;
-                case 18: this.ViewModel_Table.Day_18_Overtime = Format(); return;
-                case 19: this.ViewModel_Table.Day_19_Overtime = Format(); return;
-                case 20: this.ViewModel_Table.Day_20_Overtime = Format(); return;
-                case 21: this.ViewModel_Table.Day_21_Overtime = Format(); return;
-                case 22: this.ViewModel_Table.Day_22_Overtime = Format(); return;
-                case 23: this.ViewModel_Table.Day_23_Overtime = Format(); return;
-                case 24: this.ViewModel_Table.Day_24_Overtime = Format(); return;
-                case 25: this.ViewModel_Table.Day_25_Overtime = Format(); return;
-                case 26: this.ViewModel_Table.Day_26_Overtime = Format(); return;
-                case 27: this.ViewModel_Table.Day_27_Overtime = Format(); return;
-                case 28: this.ViewModel_Table.Day_28_Overtime = Format(); return;
-                case 29: this.ViewModel_Table.Day_29_Overtime = Format(); return;
-                case 30: this.ViewModel_Table.Day_30_Overtime = Format(); return;
-                case 31: this.ViewModel_Table.Day_31_Overtime = Format(); return;
+                case 1:  this.ViewModel_Table.Day1_Overtime_Text.Value  = Format(); return;
+                case 2:  this.ViewModel_Table.Day2_Overtime_Text.Value  = Format(); return;
+                case 3:  this.ViewModel_Table.Day3_Overtime_Text.Value  = Format(); return;
+                case 4:  this.ViewModel_Table.Day4_Overtime_Text.Value  = Format(); return;
+                case 5:  this.ViewModel_Table.Day5_Overtime_Text.Value  = Format(); return;
+                case 6:  this.ViewModel_Table.Day6_Overtime_Text.Value  = Format(); return;
+                case 7:  this.ViewModel_Table.Day7_Overtime_Text.Value  = Format(); return;
+                case 8:  this.ViewModel_Table.Day8_Overtime_Text.Value  = Format(); return;
+                case 9:  this.ViewModel_Table.Day9_Overtime_Text.Value  = Format(); return;
+                case 10: this.ViewModel_Table.Day10_Overtime_Text.Value = Format(); return;
+                case 11: this.ViewModel_Table.Day11_Overtime_Text.Value = Format(); return;
+                case 12: this.ViewModel_Table.Day12_Overtime_Text.Value = Format(); return;
+                case 13: this.ViewModel_Table.Day13_Overtime_Text.Value = Format(); return;
+                case 14: this.ViewModel_Table.Day14_Overtime_Text.Value = Format(); return;
+                case 15: this.ViewModel_Table.Day15_Overtime_Text.Value = Format(); return;
+                case 16: this.ViewModel_Table.Day16_Overtime_Text.Value = Format(); return;
+                case 17: this.ViewModel_Table.Day17_Overtime_Text.Value = Format(); return;
+                case 18: this.ViewModel_Table.Day18_Overtime_Text.Value = Format(); return;
+                case 19: this.ViewModel_Table.Day19_Overtime_Text.Value = Format(); return;
+                case 20: this.ViewModel_Table.Day20_Overtime_Text.Value = Format(); return;
+                case 21: this.ViewModel_Table.Day21_Overtime_Text.Value = Format(); return;
+                case 22: this.ViewModel_Table.Day22_Overtime_Text.Value = Format(); return;
+                case 23: this.ViewModel_Table.Day23_Overtime_Text.Value = Format(); return;
+                case 24: this.ViewModel_Table.Day24_Overtime_Text.Value = Format(); return;
+                case 25: this.ViewModel_Table.Day25_Overtime_Text.Value = Format(); return;
+                case 26: this.ViewModel_Table.Day26_Overtime_Text.Value = Format(); return;
+                case 27: this.ViewModel_Table.Day27_Overtime_Text.Value = Format(); return;
+                case 28: this.ViewModel_Table.Day28_Overtime_Text.Value = Format(); return;
+                case 29: this.ViewModel_Table.Day29_Overtime_Text.Value = Format(); return;
+                case 30: this.ViewModel_Table.Day30_Overtime_Text.Value = Format(); return;
+                case 31: this.ViewModel_Table.Day31_Overtime_Text.Value = Format(); return;
             }
 
             string Format()
@@ -1033,37 +1036,37 @@ namespace SalaryManager.WPF.Models
 
             switch (day)
             {
-                case 1:  this.ViewModel_Table.Day_1_Remarks  = Format(); return;
-                case 2:  this.ViewModel_Table.Day_2_Remarks  = Format(); return;
-                case 3:  this.ViewModel_Table.Day_3_Remarks  = Format(); return;
-                case 4:  this.ViewModel_Table.Day_4_Remarks  = Format(); return;
-                case 5:  this.ViewModel_Table.Day_5_Remarks  = Format(); return;
-                case 6:  this.ViewModel_Table.Day_6_Remarks  = Format(); return;
-                case 7:  this.ViewModel_Table.Day_7_Remarks  = Format(); return;
-                case 8:  this.ViewModel_Table.Day_8_Remarks  = Format(); return;
-                case 9:  this.ViewModel_Table.Day_9_Remarks  = Format(); return;
-                case 10: this.ViewModel_Table.Day_10_Remarks = Format(); return;
-                case 11: this.ViewModel_Table.Day_11_Remarks = Format(); return;
-                case 12: this.ViewModel_Table.Day_12_Remarks = Format(); return;
-                case 13: this.ViewModel_Table.Day_13_Remarks = Format(); return;
-                case 14: this.ViewModel_Table.Day_14_Remarks = Format(); return;
-                case 15: this.ViewModel_Table.Day_15_Remarks = Format(); return;
-                case 16: this.ViewModel_Table.Day_16_Remarks = Format(); return;
-                case 17: this.ViewModel_Table.Day_17_Remarks = Format(); return;
-                case 18: this.ViewModel_Table.Day_18_Remarks = Format(); return;
-                case 19: this.ViewModel_Table.Day_19_Remarks = Format(); return;
-                case 20: this.ViewModel_Table.Day_20_Remarks = Format(); return;
-                case 21: this.ViewModel_Table.Day_21_Remarks = Format(); return;
-                case 22: this.ViewModel_Table.Day_22_Remarks = Format(); return;
-                case 23: this.ViewModel_Table.Day_23_Remarks = Format(); return;
-                case 24: this.ViewModel_Table.Day_24_Remarks = Format(); return;
-                case 25: this.ViewModel_Table.Day_25_Remarks = Format(); return;
-                case 26: this.ViewModel_Table.Day_26_Remarks = Format(); return;
-                case 27: this.ViewModel_Table.Day_27_Remarks = Format(); return;
-                case 28: this.ViewModel_Table.Day_28_Remarks = Format(); return;
-                case 29: this.ViewModel_Table.Day_29_Remarks = Format(); return;
-                case 30: this.ViewModel_Table.Day_30_Remarks = Format(); return;
-                case 31: this.ViewModel_Table.Day_31_Remarks = Format(); return;
+                case 1:  this.ViewModel_Table.Day1_Remarks_Text.Value  = Format(); return;
+                case 2:  this.ViewModel_Table.Day2_Remarks_Text.Value  = Format(); return;
+                case 3:  this.ViewModel_Table.Day3_Remarks_Text.Value  = Format(); return;
+                case 4:  this.ViewModel_Table.Day4_Remarks_Text.Value  = Format(); return;
+                case 5:  this.ViewModel_Table.Day5_Remarks_Text.Value  = Format(); return;
+                case 6:  this.ViewModel_Table.Day6_Remarks_Text.Value  = Format(); return;
+                case 7:  this.ViewModel_Table.Day7_Remarks_Text.Value  = Format(); return;
+                case 8:  this.ViewModel_Table.Day8_Remarks_Text.Value  = Format(); return;
+                case 9:  this.ViewModel_Table.Day9_Remarks_Text.Value  = Format(); return;
+                case 10: this.ViewModel_Table.Day10_Remarks_Text.Value = Format(); return;
+                case 11: this.ViewModel_Table.Day11_Remarks_Text.Value = Format(); return;
+                case 12: this.ViewModel_Table.Day12_Remarks_Text.Value = Format(); return;
+                case 13: this.ViewModel_Table.Day13_Remarks_Text.Value = Format(); return;
+                case 14: this.ViewModel_Table.Day14_Remarks_Text.Value = Format(); return;
+                case 15: this.ViewModel_Table.Day15_Remarks_Text.Value = Format(); return;
+                case 16: this.ViewModel_Table.Day16_Remarks_Text.Value = Format(); return;
+                case 17: this.ViewModel_Table.Day17_Remarks_Text.Value = Format(); return;
+                case 18: this.ViewModel_Table.Day18_Remarks_Text.Value = Format(); return;
+                case 19: this.ViewModel_Table.Day19_Remarks_Text.Value = Format(); return;
+                case 20: this.ViewModel_Table.Day20_Remarks_Text.Value = Format(); return;
+                case 21: this.ViewModel_Table.Day21_Remarks_Text.Value = Format(); return;
+                case 22: this.ViewModel_Table.Day22_Remarks_Text.Value = Format(); return;
+                case 23: this.ViewModel_Table.Day23_Remarks_Text.Value = Format(); return;
+                case 24: this.ViewModel_Table.Day24_Remarks_Text.Value = Format(); return;
+                case 25: this.ViewModel_Table.Day25_Remarks_Text.Value = Format(); return;
+                case 26: this.ViewModel_Table.Day26_Remarks_Text.Value = Format(); return;
+                case 27: this.ViewModel_Table.Day27_Remarks_Text.Value = Format(); return;
+                case 28: this.ViewModel_Table.Day28_Remarks_Text.Value = Format(); return;
+                case 29: this.ViewModel_Table.Day29_Remarks_Text.Value = Format(); return;
+                case 30: this.ViewModel_Table.Day30_Remarks_Text.Value = Format(); return;
+                case 31: this.ViewModel_Table.Day31_Remarks_Text.Value = Format(); return;
             }
 
             string Format()
@@ -1091,7 +1094,7 @@ namespace SalaryManager.WPF.Models
             }
 
             // 常駐先
-            return workingPlace.Where(x => x.DispatchedCompany.Text == this.ViewModel_Header.DispatchedCompany).FirstOrDefault();
+            return workingPlace.Where(x => x.DispatchedCompany.Text == this.ViewModel_Header.DispatchedCompany_Text.Value).FirstOrDefault();
         }
 
         /// <summary>
@@ -1099,20 +1102,20 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         /// <returns>月初日</returns>
         public DateTime FirstDateOfMonth
-            => new DateTime(this.ViewModel_Header.Year, this.ViewModel_Header.Month, 1);
+            => new DateTime(this.ViewModel_Header.Year_Text.Value, this.ViewModel_Header.Month_Text.Value, 1);
 
         /// <summary>
         /// 月末日
         /// </summary>
         public int LastDayOfMonth
-            => new DateValue(this.ViewModel_Header.Year, this.ViewModel_Header.Month).LastDayOfMonth;
+            => new DateValue(this.ViewModel_Header.Year_Text.Value, this.ViewModel_Header.Month_Text.Value).LastDayOfMonth;
 
         /// <summary>
         /// 月末日付をDateTime形式で取得
         /// </summary>
         /// <returns>月末日</returns>
         public DateTime LastDateOfMonth
-            => new DateValue(this.ViewModel_Header.Year, this.ViewModel_Header.Month).LastDateOfMonth;
+            => new DateValue(this.ViewModel_Header.Year_Text.Value, this.ViewModel_Header.Month_Text.Value).LastDateOfMonth;
 
         /// <summary>
         /// 指定した日のDateTime値を取得
@@ -1120,7 +1123,7 @@ namespace SalaryManager.WPF.Models
         /// <param name="day">日</param>
         /// <returns>DateTime値</returns>
         private DateTime ConvertDayToDate(int day)
-            => new DateTime(this.ViewModel_Header.Year, this.ViewModel_Header.Month, day);
+            => new DateTime(this.ViewModel_Header.Year_Text.Value, this.ViewModel_Header.Month_Text.Value, day);
 
         /// <summary>
         /// 指定した日がA勤務か
