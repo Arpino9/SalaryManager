@@ -33,6 +33,8 @@ namespace SalaryManager.WPF.ViewModels
         /// </summary>
         /// <remarks>
         /// Viewの指定したイベントと、発火させるメソッドを紐付ける。
+        /// Subscribe()メソッドのオーバーロードが正しく呼ばれないので、
+        /// 名前空間に「using System;」を必ず入れること。
         /// </remarks>
         private void BindEvent()
         {

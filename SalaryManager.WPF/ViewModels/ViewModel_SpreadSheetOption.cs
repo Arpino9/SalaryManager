@@ -1,30 +1,35 @@
-﻿using SalaryManager.WPF.Converter;
+﻿using Reactive.Bindings;
 using SalaryManager.WPF.Models;
+using System;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using System.Reactive.Linq;
 
 namespace SalaryManager.WPF.ViewModels
 {
     public class ViewModel_SpreadSheetOption : INotifyPropertyChanged
     {
-        #region Property Changed
-
         public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void RaisePropertyChanged(
-            [CallerMemberName] string propertyName = null)
-        {
-            var d = PropertyChanged;
-            d?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
 
         public ViewModel_SpreadSheetOption()
         {
             this.Model.SpreadSheetOption = this;
 
             this.Model.Initialize_SpreadSheet();
+
+            this.BindEvents();
+        }
+
+        /// <summary>
+        /// イベント登録
+        /// </summary>
+        /// <remarks>
+        /// Viewの指定したイベントと、発火させるメソッドを紐付ける。
+        /// Subscribe()メソッドのオーバーロードが正しく呼ばれないので、
+        /// 名前空間に「using System;」を必ず入れること。
+        /// </remarks>
+        private void BindEvents()
+        {
+            this.SelectPrivateKey_Command.Subscribe(_ => this.Model.SelectPrivateKeyPath_SpreadSheet());
         }
 
         /// <summary> Model - オプション </summary>
@@ -32,59 +37,21 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 認証ファイルの保存先パス
 
-        private string _selectPrivateKey_Text;
+        /// <summary> 認証ファイルの保存先パス - Text </summary>
+        public ReactiveProperty<string> SelectPrivateKey_Text { get; set; }
+            = new ReactiveProperty<string>();
 
-        /// <summary>
-        /// 認証ファイルの保存先パス - Text
-        /// </summary>
-        public string SelectPrivateKey_Text
-        {
-            get => this._selectPrivateKey_Text;
-            set
-            {
-                this._selectPrivateKey_Text = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private RelayCommand _selectPrivateKey_Command;
-
-        /// <summary>
-        /// 認証ファイルの保存先パス - Command
-        /// </summary>
-        /// <remarks>
-        /// 開く
-        /// </remarks>
-        public RelayCommand SelectPrivateKey_Command
-        {
-            get
-            {
-                if (this._selectPrivateKey_Command == null)
-                {
-                    this._selectPrivateKey_Command = new RelayCommand(this.Model.SelectPrivateKeyPath_SpreadSheet);
-                }
-                return this._selectPrivateKey_Command;
-            }
-        }
+        /// <summary> 認証ファイルの保存先パス - Command </summary>
+        public ReactiveCommand SelectPrivateKey_Command { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
         #region シートID
 
-        private string _sheetId_Text;
-
-        /// <summary>
-        /// シートID - Text
-        /// </summary>
-        public string SheetId_Text
-        {
-            get => this._sheetId_Text;
-            set
-            {
-                this._sheetId_Text = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> シートID - Text </summary>
+        public ReactiveProperty<string> SheetId_Text { get; set; }
+            = new ReactiveProperty<string>();
 
         #endregion
 

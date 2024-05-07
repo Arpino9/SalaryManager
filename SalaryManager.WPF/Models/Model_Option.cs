@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using SalaryManager.Infrastructure.XML;
 using static SalaryManager.WPF.ViewModels.ViewModel_GeneralOption;
 using SalaryManager.Infrastructure.JSON;
+using SalaryManager.WPF.Converter;
 
 namespace SalaryManager.WPF.Models
 {
@@ -50,67 +51,68 @@ namespace SalaryManager.WPF.Models
         {
             // フォントファミリ
             var fonts = new InstalledFontCollection();
-            this.GeneralOption.FontFamily_ItemSource = ListUtils.ToObservableCollection<string>(fonts.Families.Select(x => x.Name).ToList());
+            this.GeneralOption.FontFamily_ItemSource.Value = ListUtils.ToObservableCollection<string>(fonts.Families.Select(x => x.Name).ToList());
+            this.GeneralOption.FontFamily_SelectedIndex.Value = 0;
 
             if (Shared.SavingExtension == "XML")
             {
                 // Excelテンプレート
-                this.GeneralOption.SelectExcelTempletePath_Text = XMLLoader.FetchExcelTemplatePath();
+                this.GeneralOption.SelectExcelTempletePath_Text.Value = XMLLoader.FetchExcelTemplatePath();
                 // SQLite
-                this.GeneralOption.SelectSQLite_Text = XMLLoader.FetchSQLitePath();
+                this.GeneralOption.SelectSQLite_Text.Value = XMLLoader.FetchSQLitePath();
 
-                this.GeneralOption.FontFamily_Text = XMLLoader.FetchFontFamilyText();
+                this.GeneralOption.FontFamily_Text.Value = XMLLoader.FetchFontFamilyText();
 
                 // 初期表示時にデフォルト明細を表示する
-                this.GeneralOption.ShowDefaultPayslip_IsChecked = XMLLoader.FetchShowDefaultPayslip();
+                this.GeneralOption.ShowDefaultPayslip_IsChecked.Value = XMLLoader.FetchShowDefaultPayslip();
 
                 // フォント
-                this.GeneralOption.Preview_FontFamily = XMLLoader.FetchFontFamily();
-                this.GeneralOption.FontSize_Value = XMLLoader.FetchFontSize();
+                this.GeneralOption.Preview_FontFamily.Value = XMLLoader.FetchFontFamily();
+                this.GeneralOption.FontSize_Value.Value = XMLLoader.FetchFontSize();
 
                 var obj = EnumUtils.ToEnum(this.GeneralOption.HowToSaveImage_IsChecked.GetType(), XMLLoader.FetchHowToSaveImage());
                 if (obj != null)
                 {
-                    this.GeneralOption.HowToSaveImage_IsChecked = (HowToSaveImage)obj;
+                    this.GeneralOption.HowToSaveImage_IsChecked.Value = (HowToSaveImage)obj;
                 }
 
-                this.GeneralOption.ImageFolderPath_Text = XMLLoader.FetchImageFolder();
+                this.GeneralOption.ImageFolderPath_Text.Value = XMLLoader.FetchImageFolder();
                 
                 // 背景色
                 this.GeneralOption.Window_BackgroundColor = XMLLoader.FetchBackgroundColor();
-                this.GeneralOption.Window_Background = XMLLoader.FetchBackgroundColorBrush();
+                this.GeneralOption.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
             }
             else
             {
                 var json = JSONExtension.DeserializeSettings<JSONProperty_Settings>(FilePath.GetJSONDefaultPath());
 
                 // Excelテンプレート
-                this.GeneralOption.SelectExcelTempletePath_Text = json.Excel.TemplatePath;
+                this.GeneralOption.SelectExcelTempletePath_Text.Value = json.Excel.TemplatePath;
                 // SQLite
-                this.GeneralOption.SelectSQLite_Text = json.SQLite.Path;
+                this.GeneralOption.SelectSQLite_Text.Value = json.SQLite.Path;
 
                 // フォントファミリ
-                this.GeneralOption.FontFamily_Text = json.General.FontFamily;
+                this.GeneralOption.FontFamily_Text.Value = json.General.FontFamily;
 
                 // 初期表示時にデフォルト明細を表示する
-                this.GeneralOption.ShowDefaultPayslip_IsChecked = json.General.ShowDefaultPayslip;
+                this.GeneralOption.ShowDefaultPayslip_IsChecked.Value = json.General.ShowDefaultPayslip;
 
                 // フォント
-                this.GeneralOption.FontSize_Value = json.General.FontSize;
+                this.GeneralOption.FontSize_Value.Value = json.General.FontSize;
 
-                var obj = EnumUtils.ToEnum(this.GeneralOption.HowToSaveImage_IsChecked.GetType(), json.General.HowToSaveImage);
+                var obj = EnumUtils.ToEnum(this.GeneralOption.HowToSaveImage_IsChecked.Value.GetType(), json.General.HowToSaveImage);
                 if (obj != null)
                 {
-                    this.GeneralOption.HowToSaveImage_IsChecked = (HowToSaveImage)obj;
+                    this.GeneralOption.HowToSaveImage_IsChecked.Value = (HowToSaveImage)obj;
                 }
 
-                this.GeneralOption.ImageFolderPath_Text = json.General.ImageFolderPath;
+                this.GeneralOption.ImageFolderPath_Text.Value = json.General.ImageFolderPath;
 
                 //this.GeneralOption.Window_BackgroundColor = json.General.BackgroundColor_ColorCode;
                 //this.GeneralOption.Window_Background = json.General.BackgroundColor;
             }
 
-            this.GeneralOption.SelectFolder_IsEnabled = this.GeneralOption.HowToSaveImage_IsChecked == HowToSaveImage.SavePath;
+            this.GeneralOption.SelectFolder_IsEnabled.Value = this.GeneralOption.HowToSaveImage_IsChecked.Value == HowToSaveImage.SavePath;
         }
 
         /// <summary>
@@ -121,8 +123,8 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         internal void Initialize_SpreadSheet()
         {
-            this.SpreadSheetOption.SelectPrivateKey_Text = XMLLoader.FetchPrivateKeyPath_SpreadSheet();
-            this.SpreadSheetOption.SheetId_Text          = XMLLoader.FetchSheetId();
+            this.SpreadSheetOption.SelectPrivateKey_Text.Value = XMLLoader.FetchPrivateKeyPath_SpreadSheet();
+            this.SpreadSheetOption.SheetId_Text.Value          = XMLLoader.FetchSheetId();
         }
 
         /// <summary>
@@ -133,7 +135,7 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         internal void Initialize_PDF()
         {
-            this.PDFOption.Password_Text = XMLLoader.FetchPDFPassword();
+            this.PDFOption.Password_Text.Value = XMLLoader.FetchPDFPassword();
         }
 
         /// <summary>
@@ -144,8 +146,8 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         internal void Initialize_Calendar()
         {
-            this.CalendarOption.SelectPrivateKey_Text = XMLLoader.FetchPrivateKeyPath_Calendar();
-            this.CalendarOption.SelectCalendarID_Text = XMLLoader.FetchCalendarId();
+            this.CalendarOption.SelectPrivateKey_Text.Value = XMLLoader.FetchPrivateKeyPath_Calendar();
+            this.CalendarOption.SelectCalendarID_Text.Value = XMLLoader.FetchCalendarId();
         }
 
         /// <summary> ViewModel - 全般設定 </summary>
@@ -182,7 +184,7 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
-            this.GeneralOption.SelectSQLite_Text = dialog.FileName;
+            this.GeneralOption.SelectSQLite_Text.Value = dialog.FileName;
         }
 
         #endregion
@@ -205,7 +207,7 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
-            this.GeneralOption.SelectExcelTempletePath_Text = dialog.FileName;
+            this.GeneralOption.SelectExcelTempletePath_Text.Value = dialog.FileName;
         }
 
         #endregion
@@ -217,7 +219,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void SelectPrivateKeyPath_SpreadSheet()
         {
-            this.SpreadSheetOption.SelectPrivateKey_Text = DialogUtils.SelectFile(string.Empty, "JSONファイル(*.json)|*.json");
+            this.SpreadSheetOption.SelectPrivateKey_Text.Value = DialogUtils.SelectFile(string.Empty, "JSONファイル(*.json)|*.json");
         }
 
         /// <summary>
@@ -225,7 +227,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void SelectPrivateKeyPath_Calendar()
         {
-            this.CalendarOption.SelectPrivateKey_Text = DialogUtils.SelectFile(string.Empty, "JSONファイル(*.json)|*.json");
+            this.CalendarOption.SelectPrivateKey_Text.Value = DialogUtils.SelectFile(string.Empty, "JSONファイル(*.json)|*.json");
         }
 
         #endregion
@@ -237,7 +239,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void FontFamily_SelectionChanged()
         {
-            this.GeneralOption.Preview_FontFamily = new System.Windows.Media.FontFamily(this.GeneralOption.FontFamily_Text);
+            this.GeneralOption.Preview_FontFamily.Value = new System.Windows.Media.FontFamily(this.GeneralOption.FontFamily_Text.Value);
         }
 
         #endregion
@@ -247,7 +249,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void HowToSaveImage_SelectionChanged()
         {
-            this.GeneralOption.SelectFolder_IsEnabled = this.GeneralOption.HowToSaveImage_IsChecked == HowToSaveImage.SavePath;
+            this.GeneralOption.SelectFolder_IsEnabled.Value = this.GeneralOption.HowToSaveImage_IsChecked.Value == HowToSaveImage.SavePath;
         }
 
         #region 背景色
@@ -262,7 +264,7 @@ namespace SalaryManager.WPF.Models
 
             if (result == DialogResult.OK) 
             {
-                this.GeneralOption.Window_Background      = ColorUtils.ToWPFColor(dialog.Color);
+                this.GeneralOption.Window_Background.Value      = ColorUtils.ToWPFColor(dialog.Color);
                 this.GeneralOption.Window_BackgroundColor = dialog.Color;
             }
         }
@@ -286,13 +288,13 @@ namespace SalaryManager.WPF.Models
 
             using (var writer = new XMLWriter(FilePath.GetXMLDefaultPath(), tag.GetType()))
             {
-                tag.SQLitePath                = this.GeneralOption.SelectSQLite_Text;
-                tag.ExcelTemplatePath         = this.GeneralOption.SelectExcelTempletePath_Text;
-                tag.FontFamily                = this.GeneralOption.FontFamily_Text;
-                tag.FontSize                  = this.GeneralOption.FontSize_Value;
-                tag.ShowDefaultPayslip        = this.GeneralOption.ShowDefaultPayslip_IsChecked;
+                tag.SQLitePath                = this.GeneralOption.SelectSQLite_Text.Value;
+                tag.ExcelTemplatePath         = this.GeneralOption.SelectExcelTempletePath_Text.Value;
+                tag.FontFamily                = this.GeneralOption.FontFamily_Text.Value;
+                tag.FontSize                  = this.GeneralOption.FontSize_Value.Value;
+                tag.ShowDefaultPayslip        = this.GeneralOption.ShowDefaultPayslip_IsChecked.Value;
                 tag.BackgroundColor_ColorCode = this.GeneralOption.Window_BackgroundColor.Name;
-                tag.ImageFolderPath           = this.GeneralOption.ImageFolderPath_Text;
+                tag.ImageFolderPath           = this.GeneralOption.ImageFolderPath_Text.Value;
 
                 var list = new List<string>()
                 {
@@ -306,13 +308,13 @@ namespace SalaryManager.WPF.Models
 
                 tag.BackgroundColor = StringUtils.Aggregate(list);
 
-                tag.PrivateKeyPath_SpreadSheet = this.SpreadSheetOption.SelectPrivateKey_Text;
-                tag.SheetId                    = this.SpreadSheetOption.SheetId_Text;
+                tag.PrivateKeyPath_SpreadSheet = this.SpreadSheetOption.SelectPrivateKey_Text.Value;
+                tag.SheetId                    = this.SpreadSheetOption.SheetId_Text.Value;
 
-                tag.PDFPassword = this.PDFOption.Password_Text;
+                tag.PDFPassword = this.PDFOption.Password_Text.Value;
 
-                tag.PrivateKeyPath_Calendar = this.CalendarOption.SelectPrivateKey_Text;
-                tag.CalendarId              = this.CalendarOption.SelectCalendarID_Text;
+                tag.PrivateKeyPath_Calendar = this.CalendarOption.SelectPrivateKey_Text.Value;
+                tag.CalendarId              = this.CalendarOption.SelectCalendarID_Text.Value;
 
                 writer.Serialize(tag);
             }
@@ -321,7 +323,7 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// フォルダを開く
         /// </summary>
-        internal void OpenFolder()
+        internal void SelectFolder()
         {
             var directory = DialogUtils.SelectDirectory("取得元のフォルダを選択してください。");
 
@@ -330,7 +332,7 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
-            this.GeneralOption.ImageFolderPath_Text = directory;
+            this.GeneralOption.ImageFolderPath_Text.Value = directory;
         }
 
         /// <summary>
@@ -350,31 +352,31 @@ namespace SalaryManager.WPF.Models
             {
                 General = new General
                 {
-                    FontFamily = this.GeneralOption.FontFamily_Text,
-                    FontSize = this.GeneralOption.FontSize_Value,
+                    FontFamily = this.GeneralOption.FontFamily_Text.Value,
+                    FontSize = this.GeneralOption.FontSize_Value.Value,
                     BackgroundColor = StringUtils.Aggregate(list),
                     BackgroundColor_ColorCode = this.GeneralOption.Window_BackgroundColor.Name,
-                    ShowDefaultPayslip = this.GeneralOption.ShowDefaultPayslip_IsChecked,
+                    ShowDefaultPayslip = this.GeneralOption.ShowDefaultPayslip_IsChecked.Value,
                     HowToSaveImage = this.GeneralOption.HowToSaveImage_IsChecked.ToString(),
-                    ImageFolderPath = this.GeneralOption.ImageFolderPath_Text,
+                    ImageFolderPath = this.GeneralOption.ImageFolderPath_Text.Value,
                 },
                 SpreadSheet = new SpreadSheet
                 {
-                    PrivateKeyPath = this.SpreadSheetOption.SelectPrivateKey_Text,
-                    ID             = this.SpreadSheetOption.SheetId_Text,
+                    PrivateKeyPath = this.SpreadSheetOption.SelectPrivateKey_Text.Value,
+                    ID             = this.SpreadSheetOption.SheetId_Text.Value,
                 },
                 SQLite = new SQLite
                 {
-                    Path = this.GeneralOption.SelectSQLite_Text,
+                    Path = this.GeneralOption.SelectSQLite_Text.Value,
                 },
                 Excel = new Excel
                 {
-                    TemplatePath = this.GeneralOption.SelectExcelTempletePath_Text,
+                    TemplatePath = this.GeneralOption.SelectExcelTempletePath_Text.Value,
                 },
                 GoogleCalendar = new GoogleCalendar
                 {
-                    PrivateKeyPath = this.CalendarOption.SelectPrivateKey_Text,
-                    ID             = this.CalendarOption.SelectCalendarID_Text,
+                    PrivateKeyPath = this.CalendarOption.SelectPrivateKey_Text.Value,
+                    ID             = this.CalendarOption.SelectCalendarID_Text.Value,
                 },
                 PDF = new PDF
                 {
@@ -395,24 +397,24 @@ namespace SalaryManager.WPF.Models
         internal void SetDefault()
         {
             // SQLite
-            this.GeneralOption.SelectSQLite_Text = FilePath.GetSQLiteDefaultPath();
+            this.GeneralOption.SelectSQLite_Text.Value = FilePath.GetSQLiteDefaultPath();
 
             // Excelテンプレートパス
-            this.GeneralOption.SelectExcelTempletePath_Text = FilePath.GetExcelTempleteDefaultPath();
+            this.GeneralOption.SelectExcelTempletePath_Text.Value = FilePath.GetExcelTempleteDefaultPath();
 
             // フォントファミリ
-            this.GeneralOption.FontFamily_Text    = Shared.FontFamily;
-            this.GeneralOption.Preview_FontFamily = new System.Windows.Media.FontFamily(Shared.FontFamily);
+            this.GeneralOption.FontFamily_Text.Value    = Shared.FontFamily;
+            this.GeneralOption.Preview_FontFamily.Value = new System.Windows.Media.FontFamily(Shared.FontFamily);
 
             // フォントサイズ
-            this.GeneralOption.FontSize_Value = decimal.Parse(Shared.FontSize);
+            this.GeneralOption.FontSize_Value.Value = decimal.Parse(Shared.FontSize);
 
             // 背景色
             this.GeneralOption.Window_BackgroundColor = SystemColors.ControlLight;
-            this.GeneralOption.Window_Background      = ColorUtils.ToWPFColor(SystemColors.ControlLight);
+            this.GeneralOption.Window_Background.Value      = ColorUtils.ToWPFColor(SystemColors.ControlLight);
 
             // PDFのパスワード
-            this.PDFOption.Password_Text = XMLLoader.FetchPDFPassword();
+            this.PDFOption.Password_Text.Value = XMLLoader.FetchPDFPassword();
         }
 
         #endregion

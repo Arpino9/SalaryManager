@@ -43,7 +43,7 @@
 
         <Label Content="SQLiteの保存先パス"/>
         <TextBox Grid.Column="1" 
-                 Text="{Binding SelectSQLite_Text}" 
+                 Text="{Binding SelectSQLite_Text.Value}" 
                  IsEnabled="False" />
         <Button Content="開く" 
                 Grid.Column="2"                 
@@ -54,7 +54,7 @@
         <TextBox Grid.Column="1" 
                  Grid.Row="1" 
                  IsEnabled="False"
-                 Text="{Binding SelectExcelTempletePath_Text}" />
+                 Text="{Binding SelectExcelTempletePath_Text.Value}" />
         <Button Grid.Column="2" 
                 Grid.Row="1" 
                 Content="開く" 
@@ -65,8 +65,9 @@
         <ComboBox Grid.Column="1" 
                   Grid.Row="2" 
                   Grid.ColumnSpan="2" 
-                  ItemsSource="{Binding FontFamily_ItemSource}" 
-                  Text="{Binding FontFamily_Text}">
+                  ItemsSource="{Binding FontFamily_ItemSource.Value}" 
+                  SelectedIndex="{Binding FontFamily_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  Text="{Binding FontFamily_Text.Value}">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="SelectionChanged">
                     <behaviors:InvokeCommandAction Command="{Binding FontFamily_SelectionChanged}" />
@@ -81,7 +82,7 @@
                              Minimum="1"
                              Width="100"
                              Height="10"
-                             Value="{Binding FontSize_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                             Value="{Binding FontSize_Value.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <Label Content="プレビュー"
                Grid.Row="2"
@@ -91,26 +92,26 @@
                Grid.ColumnSpan="3" 
                Grid.Row="4"                
                Content="小さな仕事に分けてしまえば、何事も特に難しいことはない。 - ヘンリー・フォード" 
-               FontFamily="{Binding Preview_FontFamily}"
-               FontSize="{Binding FontSize_Value}"/>
+               FontFamily="{Binding Preview_FontFamily.Value}"
+               FontSize="{Binding FontSize_Value.Value}"/>
         <Label Grid.Column="1" 
                Grid.ColumnSpan="3" 
                Grid.Row="5"                
                Content="Nothing is particularly hard if you divide it into small jobs. - Henry Ford" 
-               FontFamily="{Binding Preview_FontFamily}"
-               FontSize="{Binding FontSize_Value}"/>
+               FontFamily="{Binding Preview_FontFamily.Value}"
+               FontSize="{Binding FontSize_Value.Value}"/>
         <Label Grid.Column="1" 
                Grid.ColumnSpan="3" 
                Grid.Row="6"                
                Content="1234567890" 
-               FontFamily="{Binding Preview_FontFamily}"
-               FontSize="{Binding FontSize_Value}"/>
+               FontFamily="{Binding Preview_FontFamily.Value}"
+               FontSize="{Binding FontSize_Value.Value}"/>
 
         <Label Content="背景色" 
                Grid.Row="7"  />
         <Label Grid.Column="1"
                Grid.Row="7"
-               Background="{Binding Window_Background}"/>
+               Background="{Binding Window_Background.Value}"/>
         <Button Content="色を選択" 
                 Grid.Column="2"
                 Grid.Row="7"
@@ -122,10 +123,10 @@
                   Grid.Column="1"
                   Grid.ColumnSpan="2"
                   Grid.Row="8"
-                  IsChecked="{Binding ShowDefaultPayslip_IsChecked}">
+                  IsChecked="{Binding ShowDefaultPayslip_IsChecked.Value}">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="Checked">
-                    <behaviors:InvokeCommandAction Command="{Binding ShowDefaultPayslip_IsChecked}" />
+                    <behaviors:InvokeCommandAction Command="{Binding ShowDefaultPayslip_IsChecked.Value}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </CheckBox>
@@ -136,7 +137,7 @@
         <RadioButton Content="画像パス(推奨)" 
                      Grid.Column="1"
                      Grid.Row="9" 
-                     IsChecked="{Binding HowToSaveImage_IsChecked, ConverterParameter=SavePath, Converter={StaticResource EnumToBoolConverter}, Mode=TwoWay}">
+                     IsChecked="{Binding HowToSaveImage_IsChecked.Value, ConverterParameter=SavePath, Converter={StaticResource EnumToBoolConverter}, Mode=TwoWay}">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="Checked">
                     <behaviors:InvokeCommandAction Command="{Binding HowToSaveImage_Checked}" />
@@ -147,7 +148,7 @@
         <RadioButton Content="画像データ" 
                      Grid.Column="2"
                      Grid.Row="9"
-                     IsChecked="{Binding HowToSaveImage_IsChecked, ConverterParameter=SaveImage, Converter={StaticResource EnumToBoolConverter}, Mode=TwoWay}">
+                     IsChecked="{Binding HowToSaveImage_IsChecked.Value, ConverterParameter=SaveImage, Converter={StaticResource EnumToBoolConverter}, Mode=TwoWay}">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="Checked">
                     <behaviors:InvokeCommandAction Command="{Binding HowToSaveImage_Checked}" />

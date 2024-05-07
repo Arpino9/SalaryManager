@@ -15,7 +15,7 @@ namespace SalaryManager.WPF.ViewModels
         {
             this.Model.ViewModel = this;
 
-            this.Holidays_ItemSource.Value = new ObservableCollection<HolidayEntity>();
+            this.Holidays_ItemSource.Value    = new ObservableCollection<HolidayEntity>();
             this.CompanyName_ItemSource.Value = new ObservableCollection<CompanyEntity>();
 
             this.BindEvent();
@@ -25,6 +25,11 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary>
         /// イベント登録
         /// </summary>
+        /// <remarks>
+        /// Viewの指定したイベントと、発火させるメソッドを紐付ける。
+        /// Subscribe()メソッドのオーバーロードが正しく呼ばれないので、
+        /// 名前空間に「using System;」を必ず入れること。
+        /// </remarks>
         private void BindEvent()
         {
             // 祝日名

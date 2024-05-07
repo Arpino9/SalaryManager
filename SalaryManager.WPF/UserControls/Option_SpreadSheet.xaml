@@ -27,7 +27,7 @@
 
         <Label Content="認証ファイルの保存先パス"/>
         <TextBox Grid.Column="1" 
-                 Text="{Binding SelectPrivateKey_Text}" 
+                 Text="{Binding SelectPrivateKey_Text.Value}" 
                  IsEnabled="False" />
         <Button Content="開く" 
                 Grid.Column="2"                 
@@ -37,6 +37,6 @@
                Grid.Row="1"/>
         <TextBox Grid.Column="1" 
                  Grid.Row="1"
-                 Text="{Binding SheetId_Text}" />
+                 Text="{Binding SheetId_Text.Value}" />
     </Grid>
 </UserControl>

@@ -1,28 +1,20 @@
-﻿using SalaryManager.Domain;
-using SalaryManager.WPF.Converter;
-using SalaryManager.WPF.Models;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
-using System.Runtime.CompilerServices;
+using System.Windows.Media;
+using Reactive.Bindings;
+using SalaryManager.Domain;
+using SalaryManager.WPF.Models;
 
 namespace SalaryManager.WPF.ViewModels
 {
+    /// <summary>
+    /// ViewModel - オプション(一般)
+    /// </summary>
     public class ViewModel_GeneralOption : INotifyPropertyChanged
     {
-
-        #region Property Changed
-
         public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void RaisePropertyChanged(
-            [CallerMemberName] string propertyName = null)
-        {
-            var d = PropertyChanged;
-            d?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
 
         public ViewModel_GeneralOption()
         {
@@ -35,262 +27,138 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary>
         /// イベント登録
         /// </summary>
+        /// <remarks>
+        /// Viewの指定したイベントと、発火させるメソッドを紐付ける。
+        /// Subscribe()メソッドのオーバーロードが正しく呼ばれないので、
+        /// 名前空間に「using System;」を必ず入れること。
+        /// </remarks>
         private void BindEvents()
         {
-            // フォントファミリ
-            this.FontFamily_SelectionChanged = new RelayCommand(this.Model.FontFamily_SelectionChanged);
-            // 画像の保存方法
-            this.HowToSaveImage_Checked      = new RelayCommand(this.Model.HowToSaveImage_SelectionChanged);
+            // SQLiteの保存先パス
+            this.SelectSQLite_Command.Subscribe(_ => this.Model.SelectSQLitePath());
+
+            // Excelテンプレートの保存先パス
+            this.SelectExcelTemplatePath_Command.Subscribe(_ => this.Model.SelectExcelTemplatePath());
+
+            // フォント
+            this.FontFamily_SelectionChanged.Subscribe(_ => this.Model.FontFamily_SelectionChanged());
+
+            // 背景色
+            this.ChangeWindowBackground_Command.Subscribe(_ => this.Model.ChangeWindowBackground());
+
+            // DBへの画像の保存方法
+            this.HowToSaveImage_Checked.Subscribe(_ => this.Model.HowToSaveImage_SelectionChanged());
+            this.SelectFolder_Command.Subscribe(_ => this.Model.SelectFolder());
+
+            // 保存
+            if (Shared.SavingExtension == "XML")
+            {
+                this.Save_Command.Subscribe(_ => this.Model.SaveXML());
+            }
+            else
+            {
+                this.Save_Command.Subscribe(_ => this.Model.SaveJSON());
+            }
+
+            // 初期値に戻す
+            this.SetDefault_Command.Subscribe(_ => this.Model.SetDefault());
         }
 
         /// <summary> Model - オプション </summary>
         public Model_Option Model = Model_Option.GetInstance();
 
-        #region タイトル
+        #region Window
 
-        /// <summary>
-        /// タイトル
-        /// </summary>
-        public string Window_Title
-        {
-            get => "オプション";
-        }
+        /// <summary> Window - Title </summary>
+        public ReactiveProperty<string> Window_Title { get; }
+            = new ReactiveProperty<string>("オプション");
 
-        #endregion
-
-        #region フォントファミリ
-
-        private System.Windows.Media.FontFamily _FontFamily;
-
-        /// <summary>
-        /// フォントファミリ - FontFamily
-        /// </summary>
-        public System.Windows.Media.FontFamily FontFamily
-        {
-            get => this._FontFamily;
-            set
-            {
-                this._FontFamily = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> Window - FontFamily </summary>
+        public ReactiveProperty<System.Windows.Media.FontFamily> Window_FontFamily { get; set; }
+            = new ReactiveProperty<System.Windows.Media.FontFamily>();
 
         #endregion
 
         #region SQLite
 
-        private string _selectSQLite_Text;
+        /// <summary> SQLite - Text </summary>
+        public ReactiveProperty<string> SelectSQLite_Text { get; set; }
+            = new ReactiveProperty<string>();
 
-        /// <summary>
-        /// SQLite - Text
-        /// </summary>
-        public string SelectSQLite_Text
-        {
-            get => this._selectSQLite_Text;
-            set
-            {
-                this._selectSQLite_Text = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private RelayCommand _selectSQLite_Command;
-
-        /// <summary>
-        /// SQLite - Command
-        /// </summary>
-        /// <remarks>
-        /// 開く
-        /// </remarks>
-        public RelayCommand SelectSQLite_Command
-        {
-            get
-            {
-                if (this._selectSQLite_Command == null)
-                {
-                    this._selectSQLite_Command = new RelayCommand(this.Model.SelectSQLitePath);
-                }
-                return this._selectSQLite_Command;
-            }
-        }
+        /// <summary> SQLite - Command </summary>
+        public ReactiveCommand SelectSQLite_Command { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
-        #region Excelテンプレート
+        #region Excel
 
-        private string _selectExcelTempletePath_Text;
+        /// <summary> Excelテンプレート - Text </summary>
+        public ReactiveProperty<string> SelectExcelTempletePath_Text { get; set; }
+            = new ReactiveProperty<string>();
 
-        /// <summary>
-        /// Excelテンプレート - Text
-        /// </summary>
-        public string SelectExcelTempletePath_Text
-        {
-            get => this._selectExcelTempletePath_Text;
-            set
-            {
-                this._selectExcelTempletePath_Text = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private RelayCommand _selectExcelTempletePath_Command;
-
-        /// <summary>
-        /// Excelテンプレート - Command
-        /// </summary>
-        /// <remarks>
-        /// 開く
-        /// </remarks>
-        public RelayCommand SelectExcelTemplatePath_Command
-        {
-            get
-            {
-                if (this._selectExcelTempletePath_Command == null)
-                {
-                    this._selectExcelTempletePath_Command = new RelayCommand(this.Model.SelectExcelTemplatePath);
-                }
-                return this._selectExcelTempletePath_Command;
-            }
-        }
-        
-        #endregion
-
-        #region フォントファミリ
-
-        /// <summary> FontFamily - SelectionChanged </summary>
-        public RelayCommand FontFamily_SelectionChanged { get; private set; }
-
-        private ObservableCollection<string> _fontFamily_ItemSource;
-
-        /// <summary>
-        /// フォントファミリ - ItemSource
-        /// </summary>
-        public ObservableCollection<string> FontFamily_ItemSource
-        {
-            get => this._fontFamily_ItemSource;
-            set
-            {
-                this._fontFamily_ItemSource = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private string _fontFamily_Text;
-
-        /// <summary>
-        /// フォントファミリ - Text
-        /// </summary>
-        public string FontFamily_Text
-        {
-            get => this._fontFamily_Text;
-            set
-            {
-                this._fontFamily_Text = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> Excelテンプレート - Command </summary>
+        public ReactiveCommand SelectExcelTemplatePath_Command { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
-        #region フォントサイズ
+        #region フォント
 
-        private decimal _fontSize_Value;
+        /// <summary> フォントファミリ - ItemSource </summary>
+        public ReactiveProperty<ObservableCollection<string>> FontFamily_ItemSource { get; set; }
+            = new ReactiveProperty<ObservableCollection<string>>();
 
-        /// <summary>
-        /// フォントサイズ - Value
-        /// </summary>
-        public decimal FontSize_Value
-        {
-            get => this._fontSize_Value;
-            set
-            {
-                this._fontSize_Value = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> フォントファミリ - SelectedIndex </summary>
+        public ReactiveProperty<int> FontFamily_SelectedIndex { get; set; }
+            = new ReactiveProperty<int>();
+
+        /// <summary> フォントファミリ - Text </summary>
+        public ReactiveProperty<string> FontFamily_Text { get; set; }
+            = new ReactiveProperty<string>();
+
+        /// <summary> フォントファミリ - SelectionChanged </summary>
+        public ReactiveCommand FontFamily_SelectionChanged { get; private set; }
+            = new ReactiveCommand();
+
+        /// <summary> フォントサイズ - Value </summary>
+        public ReactiveProperty<decimal> FontSize_Value { get; set; }
+            = new ReactiveProperty<decimal>();
 
         #endregion
+
+        internal System.Drawing.Color Window_BackgroundColor { get; set; } = SystemColors.ControlLight;
 
         #region 背景色
 
-        internal System.Drawing.Color Window_BackgroundColor = SystemColors.ControlLight;
+        /// <summary> 背景色 - Background </summary>
+        public ReactiveProperty<SolidColorBrush> Window_Background { get; set; }
+            = new ReactiveProperty<SolidColorBrush>();
 
-        private System.Windows.Media.Brush _window_Background;
 
-        /// <summary>
-        /// 背景色 - Background
-        /// </summary>
-        public System.Windows.Media.Brush Window_Background
-        {
-            get => this._window_Background;
-            set
-            {
-                this._window_Background = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private RelayCommand _changeWindowBackground_Command;
-
-        /// <summary>
-        /// 背景色 - Command
-        /// </summary>
-        public RelayCommand ChangeWindowBackground_Command
-        {
-            get
-            {
-                if (this._changeWindowBackground_Command == null)
-                {
-                    this._changeWindowBackground_Command = new RelayCommand(this.Model.ChangeWindowBackground);
-                }
-                return this._changeWindowBackground_Command;
-            }
-        }
+        /// <summary> 背景色 - Command </summary>
+        public ReactiveCommand ChangeWindowBackground_Command { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
         #region プレビュー
 
-        private System.Windows.Media.FontFamily _Preview_FontFamily;
-
-        /// <summary>
-        /// プレビュー - FontFamily
-        /// </summary>
-        public System.Windows.Media.FontFamily Preview_FontFamily
-        {
-            get => this._Preview_FontFamily;
-            set
-            {
-                this._Preview_FontFamily = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> プレビュー - FontFamily </summary>
+        public ReactiveProperty<System.Windows.Media.FontFamily> Preview_FontFamily { get; set; }
+            = new ReactiveProperty<System.Windows.Media.FontFamily>();
 
         #endregion
 
-        #region 初期表示時にデフォルト明細を表示する
+        #region デフォルト明細
 
-        private bool _showdefaultPayslip_IsChecked;
-
-        /// <summary>
-        /// 初期表示時にデフォルト明細を表示する - IsChecked
-        /// </summary>
-        public bool ShowDefaultPayslip_IsChecked
-        {
-            get => this._showdefaultPayslip_IsChecked;
-            set
-            {
-                this._showdefaultPayslip_IsChecked = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 初期表示時にデフォルト明細を表示する - IsChecked </summary>
+        public ReactiveProperty<bool> ShowDefaultPayslip_IsChecked { get; set; }
+            = new ReactiveProperty<bool>();
 
         #endregion
 
-        #region 画像の保存方法
-
-        /// <summary> 画像の保存方法 - Checked </summary>
-        public RelayCommand HowToSaveImage_Checked { get; private set; }
+        #region DBへの画像の保存方法
 
         /// <summary>
         /// 画像の保存方法
@@ -304,120 +172,41 @@ namespace SalaryManager.WPF.ViewModels
             SaveImage,
         }
 
-        private HowToSaveImage _howToSaveImage_IsChecked = HowToSaveImage.SavePath;
+        /// <summary> 画像の保存方法 - IsChecked </summary>
+        public ReactiveProperty<HowToSaveImage> HowToSaveImage_IsChecked { get; set; }
+            = new ReactiveProperty<HowToSaveImage>();
 
-        /// <summary>
-        /// 画像の保存方法 - IsChecked
-        /// </summary>
-        public HowToSaveImage HowToSaveImage_IsChecked
-        {
-            get => this._howToSaveImage_IsChecked;
-            set
-            {
-                this._howToSaveImage_IsChecked = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 画像の保存方法 - Checked </summary>
+        public ReactiveCommand HowToSaveImage_Checked { get; private set; }
+            = new ReactiveCommand();
 
-        #endregion
+        /// <summary> フォルダを開く - IsEnabled </summary>
+        public ReactiveProperty<bool> SelectFolder_IsEnabled { get; set; }
+            = new ReactiveProperty<bool>();
 
-        #region フォルダを開く
+        /// <summary> フォルダを開く - Text </summary>
+        public ReactiveProperty<string> ImageFolderPath_Text { get; set; }
+            = new ReactiveProperty<string>();
 
-        private string _selectfolder_Text;
-
-        /// <summary>
-        /// フォルダを開く - Text
-        /// </summary>
-        public string ImageFolderPath_Text
-        {
-            get => this._selectfolder_Text;
-            set
-            {
-                this._selectfolder_Text = value;
-                this.RaisePropertyChanged(); ;
-            }
-        }
-
-        private RelayCommand _selectfolder_Command;
-
-        /// <summary>
-        /// フォルダを開く - Command
-        /// </summary>
-        public RelayCommand SelectFolder_Command
-        {
-            get
-            {
-                if (this._selectfolder_Command == null)
-                {
-                    this._selectfolder_Command = new RelayCommand(this.Model.OpenFolder);
-                }
-                return this._selectfolder_Command;
-            }
-        }
-
-        private bool _selectfolder_IsEnabled;
-
-        /// <summary>
-        /// フォルダを開く - IsEnabled
-        /// </summary>
-        public bool SelectFolder_IsEnabled
-        {
-            get => this._selectfolder_IsEnabled;
-            set
-            {
-                this._selectfolder_IsEnabled = value;
-                this.RaisePropertyChanged(); ;
-            }
-        }
+        /// <summary> フォルダを開く - Command </summary>
+        public ReactiveCommand SelectFolder_Command { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
         #region 保存
 
-        private RelayCommand _save_Command;
-
-        /// <summary>
-        /// 保存 - Command
-        /// </summary>
-        public RelayCommand Save_Command
-        {
-            get
-            {
-                if (this._save_Command == null)
-                {
-                    if (Shared.SavingExtension == "XML")
-                    {
-                        this._save_Command = new RelayCommand(this.Model.SaveXML);
-                    }
-                    else
-                    {
-                        this._save_Command = new RelayCommand(this.Model.SaveJSON);
-                    }
-                }
-                return this._save_Command;
-            }
-        }
+        /// <summary> 保存 - Command </summary>
+        public ReactiveCommand Save_Command { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
         #region 初期値に戻す
 
-        private RelayCommand _setDefault_Command;
-
-        /// <summary>
-        /// 初期値に戻す - Command
-        /// </summary>
-        public RelayCommand SetDefault_Command
-        {
-            get
-            {
-                if (this._setDefault_Command == null)
-                {
-                    this._setDefault_Command = new RelayCommand(this.Model.SetDefault);
-                }
-                return this._setDefault_Command;
-            }
-        }
+        /// <summary> 初期値に戻す - Command </summary>
+        public ReactiveCommand SetDefault_Command { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 

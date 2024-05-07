@@ -31,7 +31,7 @@
         <Label Content="JSONのパス"/>
 
         <TextBox Grid.Column="1" 
-                 Text="{Binding SelectPrivateKey_Text}" 
+                 Text="{Binding SelectPrivateKey_Text.Value}" 
                  IsEnabled="False" >
         </TextBox>
 
@@ -45,7 +45,7 @@
 
         <TextBox Grid.Column="1" 
                  Grid.Row="1"
-                 Text="{Binding SelectCalendarID_Text}" >
+                 Text="{Binding SelectCalendarID_Text.Value}" >
         </TextBox>
     </Grid>
 </UserControl>
