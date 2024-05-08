@@ -105,6 +105,7 @@
     <Compile Include="Entities\WorkingPlaceEntity.cs" />
     <Compile Include="Entities\FileStorageEntity.cs" />
     <Compile Include="Entities\HeaderEntity.cs" />
+    <Compile Include="Entities\WorkScheduleEntity.cs" />
     <Compile Include="Exceptions\DatabaseException.cs" />
     <Compile Include="Exceptions\ExceptionBase.cs" />
     <Compile Include="Exceptions\FileReaderException.cs" />
