@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Media;
+using Reactive.Bindings;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Infrastructure.SQLite;
-using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
 
 namespace SalaryManager.WPF.ViewModels
@@ -14,23 +14,13 @@ namespace SalaryManager.WPF.ViewModels
     [EditorBrowsable(EditorBrowsableState.Always)]
     public class ViewModel_WorkingPlace : INotifyPropertyChanged
     {
-        #region Property Changed
-
         public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            var d = PropertyChanged;
-            d?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
 
         public ViewModel_WorkingPlace()
         {
             this.Model.ViewModel = this;
 
-            this.WorkingPlaces_ItemSource = new ObservableCollection<WorkingPlaceEntity>();
+            this.WorkingPlaces_ItemSource.Value = new ObservableCollection<WorkingPlaceEntity>();
 
             this.Model.Initialize();
 
@@ -43,17 +33,21 @@ namespace SalaryManager.WPF.ViewModels
         private void BindEvent()
         {
             // 派遣元会社
-            this.DispatchingCompanyName_SelectionChanged = new RelayCommand(this.Model.EnableWaitingButton);
+            this.DispatchingCompanyName_SelectionChanged.Subscribe(_ => this.Model.EnableWaitingButton());
             // 派遣先会社
-            this.DispatchedCompanyName_SelectionChanged  = new RelayCommand(this.Model.EnableWaitingButton);
+            this.DispatchedCompanyName_SelectionChanged.Subscribe(_ => this.Model.EnableWaitingButton());
             // 就業場所
-            this.WorkingPlace_TextChanged                = new RelayCommand(this.Model.SearchAddress);
+            this.WorkingPlace_TextChanged.Subscribe(_ => this.Model.SearchAddress());
             // 就業中
-            this.IsWorking_Checked                       = new RelayCommand(this.Model.IsWorking_Checked);
+            this.IsWorking_Checked.Subscribe(_ => this.Model.IsWorking_Checked());
             // 就業場所の住所
-            this.Address_TextChanged                     = new RelayCommand(this.Model.EnableAddButton);
+            this.Address_TextChanged.Subscribe(_ => this.Model.EnableAddButton());
             // 経歴一覧
-            this.WorkingPlaces_SelectionChanged          = new RelayCommand(this.Model.Careers_SelectionChanged);
+            this.WorkingPlaces_SelectionChanged.Subscribe(_ => this.Model.Careers_SelectionChanged());
+
+            this.Add_Command.Subscribe(_ => this.Model.Add());
+            this.Update_Command.Subscribe(_ => this.Model.Update());
+            this.Delete_Command.Subscribe(_ => this.Model.Delete());
         }
 
         /// <summary> Model </summary>
@@ -62,691 +56,231 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary> エンティティ </summary>
         public IReadOnlyList<WorkingPlaceEntity> Entities { get; internal set; }
 
-        #region タイトル
+        #region Window
 
-        /// <summary>
-        /// タイトル
-        /// </summary>
-        public string Title => "就業場所登録";
+        /// <summary> Window - Title </summary>
+        public ReactiveProperty<string> Window_Title { get; }
+            = new ReactiveProperty<string>("就業場所登録");
 
-        #endregion
+        /// <summary> Window - Title </summary>
+        public ReactiveProperty<System.Windows.Media.FontFamily> Window_FontFamily { get; set; }
+            = new ReactiveProperty<System.Windows.Media.FontFamily>();
 
-        #region フォントファミリ
+        /// <summary> Window - FontSize </summary>
+        public ReactiveProperty<decimal> Window_FontSize { get; set; }
+            = new ReactiveProperty<decimal>();
 
-        private System.Windows.Media.FontFamily _FontFamily;
-
-        /// <summary>
-        /// フォントファミリ - FontFamily
-        /// </summary>
-        public System.Windows.Media.FontFamily FontFamily
-        {
-            get => this._FontFamily;
-            set
-            {
-                this._FontFamily = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        #endregion
-
-        #region フォントサイズ
-
-        private decimal _FontSize;
-
-        /// <summary>
-        /// フォントサイズ - FontSize
-        /// </summary>
-        public decimal FontSize
-        {
-            get => this._FontSize;
-            set
-            {
-                this._FontSize = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        #endregion
-
-        #region 背景色
-
-        private System.Windows.Media.Brush _window_Background;
-
-        /// <summary>
-        /// 背景色 - Background
-        /// </summary>
-        public System.Windows.Media.Brush Window_Background
-        {
-            get => this._window_Background;
-            set
-            {
-                this._window_Background = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> Window - Background </summary>
+        public ReactiveProperty<SolidColorBrush> Window_Background { get; set; }
+            = new ReactiveProperty<SolidColorBrush>();
 
         #endregion
 
         #region 就業場所一覧
 
-        private ObservableCollection<WorkingPlaceEntity> _workingPlaces_itemSource;
+        /// <summary> 就業場所一覧 - ItemSource </summary>
+        public ReactiveProperty<ObservableCollection<WorkingPlaceEntity>> WorkingPlaces_ItemSource { get; set; }
+            = new ReactiveProperty<ObservableCollection<WorkingPlaceEntity>>();
 
-        /// <summary>
-        /// 就業場所一覧 - ItemSource
-        /// </summary>
-        public ObservableCollection<WorkingPlaceEntity> WorkingPlaces_ItemSource
-        {
-            get => this._workingPlaces_itemSource;
-            set
-            {
-                this._workingPlaces_itemSource = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 就業場所一覧 - SelectedIndex </summary>
+        public ReactiveProperty<int> WorkingPlaces_SelectedIndex { get; set; }
+            = new ReactiveProperty<int>();
 
-        private int _workingPlaces_SelectedIndex;
-
-        /// <summary>
-        /// 就業場所一覧 - SelectedIndex
-        /// </summary>
-        public int WorkingPlaces_SelectedIndex
-        {
-            get => this._workingPlaces_SelectedIndex;
-            set
-            {
-                this._workingPlaces_SelectedIndex = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// 就業場所一覧 - SelectionChanged
-        /// </summary>
-        public RelayCommand WorkingPlaces_SelectionChanged { get; private set; }
+        /// <summary> 就業場所一覧 - SelectionChanged </summary>
+        public ReactiveCommand WorkingPlaces_SelectionChanged { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
         #region 会社名
 
-        private ObservableCollection<string> _companyName_ItemSource;
+        /// <summary> 会社名 - ItemSource </summary>
+        public ReactiveProperty<ObservableCollection<string>> CompanyName_ItemSource { get; set; }
+            = new ReactiveProperty<ObservableCollection<string>>();
 
-        /// <summary>
-        /// 会社名 - ItemSource
-        /// </summary>
-        public ObservableCollection<string> CompanyName_ItemSource
-        {
-            get => this._companyName_ItemSource;
-            set
-            {
-                this._companyName_ItemSource = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 派遣元会社名 - Text </summary>
+        public ReactiveProperty<string> DispatchingCompanyName_Text { get; set; }
+            = new ReactiveProperty<string>();
 
-        #endregion
+        /// <summary> 派遣元会社名 - SelectionChanged </summary>
+        public ReactiveCommand DispatchingCompanyName_SelectionChanged { get; private set; }
+            = new ReactiveCommand();
 
-        #region 派遣元会社名
+        /// <summary> 派遣先会社名 - Text </summary>
+        public ReactiveProperty<string> DispatchedCompanyName_Text { get; set; }
+            = new ReactiveProperty<string>();
 
-        private string _dispacthingCompanyName_SelectedItem;
-
-        /// <summary>
-        /// 派遣元会社名 - SelectedItem
-        /// </summary>
-        public string DispatchingCompanyName_SelectedItem
-        {
-            get => this._dispacthingCompanyName_SelectedItem;
-            set
-            {
-                this._dispacthingCompanyName_SelectedItem = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private string _dispacthingCompanyName_Text;
-
-        /// <summary>
-        /// 派遣元会社名 - Text
-        /// </summary>
-        public string DispatchingCompanyName_Text
-        {
-            get => this._dispacthingCompanyName_Text;
-            set
-            {
-                this._dispacthingCompanyName_Text = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// 派遣元会社名 - TextChanged
-        /// </summary>
-        public RelayCommand DispatchingCompanyName_SelectionChanged { get; private set; }
-
-        #endregion
-
-        #region 派遣先会社名
-
-        private string _dispacthedCompanyName_SelectedItem;
-
-        /// <summary>
-        /// 派遣先会社名 - SelectedItem
-        /// </summary>
-        public string DispatchedCompanyName_SelectedItem
-        {
-            get => this._dispacthedCompanyName_SelectedItem;
-            set
-            {
-                this._dispacthedCompanyName_SelectedItem = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private string _dispacthedCompanyName_Text;
-
-        /// <summary>
-        /// 派遣先会社名 - Text
-        /// </summary>
-        public string DispatchedCompanyName_Text
-        {
-            get => this._dispacthedCompanyName_Text;
-            set
-            {
-                this._dispacthedCompanyName_Text = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// 派遣先会社名 - TextChanged
-        /// </summary>
-        public RelayCommand DispatchedCompanyName_SelectionChanged { get; private set; }
+        /// <summary> 派遣先会社名 - SelectionChanged </summary>
+        public ReactiveCommand DispatchedCompanyName_SelectionChanged { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
         #region 就業期間
 
-        private DateTime _workingStart_SelectedDate;
+        /// <summary> 就業期間 - 開始 - SelectedDate </summary>
+        public ReactiveProperty<DateTime> WorkingStart_SelectedDate { get; set; }
+            = new ReactiveProperty<DateTime>();
 
-        /// <summary>
-        /// 就業期間 - 開始 - SelectedDate
-        /// </summary>
-        public DateTime WorkingStart_SelectedDate
-        {
-            get => this._workingStart_SelectedDate;
-            set
-            {
-                this._workingStart_SelectedDate = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private DateTime _workingEnd_SelectedDate;
-
-        /// <summary>
-        /// 就業期間 - 終了 - SelectedDate
-        /// </summary>
-        public DateTime WorkingEnd_SelectedDate
-        {
-            get => this._workingEnd_SelectedDate;
-            set
-            {
-                this._workingEnd_SelectedDate = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 就業期間 - 終了 - SelectedDate </summary>
+        public ReactiveProperty<DateTime> WorkingEnd_SelectedDate { get; set; }
+            = new ReactiveProperty<DateTime>();
 
         #endregion
 
         #region 待機チェックボックス
 
-        private bool _isWaiting_IsChecked;
+        /// <summary> 待機 - IsChecked </summary>
+        public ReactiveProperty<bool> IsWaiting_IsChacked { get; set; }
+            = new ReactiveProperty<bool>();
 
-        /// <summary>
-        /// 待機 - IsChecked
-        /// </summary>
-        public bool IsWaiting_IsChacked
-        {
-            get => this._isWaiting_IsChecked;
-            set
-            {
-                this._isWaiting_IsChecked = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private Visibility _isWaiting_Visibility;
-
-        /// <summary>
-        /// 待機 - Visibility;
-        /// </summary>
-        public Visibility IsWaiting_Visibility
-        {
-            get => this._isWaiting_Visibility;
-            set
-            {
-                this._isWaiting_Visibility = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 待機 - Visibility </summary>
+        public ReactiveProperty<Visibility> IsWaiting_Visibility { get; set; }
+            = new ReactiveProperty<Visibility>();
 
         #endregion
 
         #region 就業中
 
-        private bool _isWorking_IsChecked;
+        /// <summary> 就業中 - IsChecked </summary>
+        public ReactiveProperty<bool> IsWorking_IsChacked { get; set; }
+            = new ReactiveProperty<bool>();
 
-        /// <summary>
-        /// 就業中 - IsChecked
-        /// </summary>
-        public bool IsWorking_IsChacked
-        {
-            get => this._isWorking_IsChecked;
-            set
-            {
-                this._isWorking_IsChecked = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// 就業中 - Checked
-        /// </summary>
-        public RelayCommand IsWorking_Checked { get; private set; }
+        /// <summary> 派遣先会社名 - SelectionChanged </summary>
+        public ReactiveCommand IsWorking_Checked { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
-        #region 会社名
+        #region 就業場所
 
-        private ObservableCollection<string> _workingPlace_ItemSource;
+        /// <summary> 就業場所 - ItemSource </summary>
+        public ReactiveProperty<ObservableCollection<string>> WorkingPlace_ItemSource { get; set; }
+            = new ReactiveProperty<ObservableCollection<string>>();
 
-        /// <summary>
-        /// 就業場所 - ItemSource
-        /// </summary>
-        public ObservableCollection<string> WorkingPlace_ItemSource
-        {
-            get => this._workingPlace_ItemSource;
-            set
-            {
-                this._workingPlace_ItemSource = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 就業場所 - Text </summary>
+        public ReactiveProperty<string> WorkingPlace_Name_Text { get; set; }
+            = new ReactiveProperty<string>();
 
-        private string _workingPlace_Name_SelectedItem;
-
-        /// <summary>
-        /// 就業場所 - SelectedItem
-        /// </summary>
-        public string WorkingPlace_Name_SelectedItem
-        {
-            get => this._workingPlace_Name_SelectedItem;
-            set
-            {
-                this._workingPlace_Name_SelectedItem = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// 就業場所 - TextChanged
-        /// </summary>
-        public RelayCommand WorkingPlace_TextChanged { get; private set; }
+        /// <summary> 就業場所 - TextChanged </summary>
+        public ReactiveCommand WorkingPlace_TextChanged { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
         #region 住所
 
-        private string _workingPlace_Address_Text;
+        /// <summary> 住所 - Text </summary>
+        public ReactiveProperty<string> WorkingPlace_Address_Text { get; set; }
+            = new ReactiveProperty<string>();
 
-        /// <summary>
-        /// 住所 - Text
-        /// </summary>
-        public string WorkingPlace_Address_Text
-        {
-            get => this._workingPlace_Address_Text;
-            set
-            {
-                this._workingPlace_Address_Text = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// 住所 - TextChanged
-        /// </summary>
-        public RelayCommand Address_TextChanged { get; private set; }
+        /// <summary> 住所 - TextChanged </summary>
+        public ReactiveCommand Address_TextChanged { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
-        #region 労働 - 開始
+        #region 労働
 
-        private int _workingTime_Start_Hour;
+        /// <summary> 労働開始 - 時 - Text </summary>
+        public ReactiveProperty<int> WorkingTime_Start_Hour_Text { get; set; }
+            = new ReactiveProperty<int>();
 
-        /// <summary>
-        /// 労働 - 開始 - 時
-        /// </summary>
-        public int WorkingTime_Start_Hour
-        {
-            get => this._workingTime_Start_Hour;
-            set
-            {
-                this._workingTime_Start_Hour = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 労働開始 -  分 - Text </summary>
+        public ReactiveProperty<int> WorkingTime_Start_Minute_Text { get; set; }
+            = new ReactiveProperty<int>();
 
-        private int _workingTime_Start_Minute;
+        /// <summary> 労働終了 - 時 - Text </summary>
+        public ReactiveProperty<int> WorkingTime_End_Hour_Text { get; set; }
+            = new ReactiveProperty<int>();
 
-        /// <summary>
-        /// 労働時間 - 開始 - 分
-        /// </summary>
-        public int WorkingTime_Start_Minute
-        {
-            get => this._workingTime_Start_Minute;
-            set
-            {
-                this._workingTime_Start_Minute = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 労働終了 - 分 - Text </summary>
+        public ReactiveProperty<int> WorkingTime_End_Minute_Text { get; set; }
+            = new ReactiveProperty<int>();
 
         #endregion
 
-        #region 労働 - 終了
+        #region 昼休憩
 
-        private int _workingTime_End_Hour;
+        /// <summary> 昼休憩開始 - 時 - Text </summary>
+        public ReactiveProperty<int> LunchTime_Start_Hour_Text { get; set; }
+            = new ReactiveProperty<int>();
 
-        /// <summary>
-        /// 労働時間 - 終了 - 時
-        /// </summary>
-        public int WorkingTime_End_Hour
-        {
-            get => this._workingTime_End_Hour;
-            set
-            {
-                this._workingTime_End_Hour = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 昼休憩開始 - 分 - Text </summary>
+        public ReactiveProperty<int> LunchTime_Start_Minute_Text { get; set; }
+            = new ReactiveProperty<int>();
 
-        private int _workingTime_End_Minute;
+        /// <summary> 昼休憩終了 - 時 - Text </summary>
+        public ReactiveProperty<int> LunchTime_End_Hour_Text { get; set; }
+            = new ReactiveProperty<int>();
 
-        /// <summary>
-        /// 労働時間 - 終了 - 分
-        /// </summary>
-        public int WorkingTime_End_Minute
-        {
-            get => this._workingTime_End_Minute;
-            set
-            {
-                this._workingTime_End_Minute = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 昼休憩終了 - 分 - Text </summary>
+        public ReactiveProperty<int> LunchTime_End_Minute_Text { get; set; }
+            = new ReactiveProperty<int>();
 
         #endregion
 
-        #region 昼休憩 - 開始
+        #region 休憩
 
-        private int _lunchTime_Start_Hour;
+        /// <summary> 休憩開始 - 時 - Text </summary>
+        public ReactiveProperty<int> BreakTime_Start_Hour_Text { get; set; }
+            = new ReactiveProperty<int>();
 
-        /// <summary>
-        /// 昼休憩 - 開始 - 時
-        /// </summary>
-        public int LunchTime_Start_Hour
-        {
-            get => this._lunchTime_Start_Hour;
-            set
-            {
-                this._lunchTime_Start_Hour = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 休憩開始 - 分 - Text </summary>
+        public ReactiveProperty<int> BreakTime_Start_Minute_Text { get; set; }
+            = new ReactiveProperty<int>();
 
-        private int _lunchTime_Start_Minute;
+        /// <summary> 休憩終了 - 時 - Text </summary>
+        public ReactiveProperty<int> BreakTime_End_Hour_Text { get; set; }
+            = new ReactiveProperty<int>();
 
-        /// <summary>
-        /// 昼休憩 - 開始 - 分
-        /// </summary>
-        public int LunchTime_Start_Minute
-        {
-            get => this._lunchTime_Start_Minute;
-            set
-            {
-                this._lunchTime_Start_Minute = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        #endregion
-
-        #region 昼休憩 - 終了
-
-        private int _lunchTime_End_Hour;
-
-        /// <summary>
-        /// 昼休憩 - 終了 - 時
-        /// </summary>
-        public int LunchTime_End_Hour
-        {
-            get => this._lunchTime_End_Hour;
-            set
-            {
-                this._lunchTime_End_Hour = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private int _lunchTime_End_Minute;
-
-        /// <summary>
-        /// 昼休憩 - 終了 - 分
-        /// </summary>
-        public int LunchTime_End_Minute
-        {
-            get => this._lunchTime_End_Minute;
-            set
-            {
-                this._lunchTime_End_Minute = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        #endregion
-
-        #region 休憩 - 開始
-
-        private int _breakTime_Start_Hour;
-
-        /// <summary>
-        /// 昼休憩 - 開始 - 時
-        /// </summary>
-        public int BreakTime_Start_Hour
-        {
-            get => this._breakTime_Start_Hour;
-            set
-            {
-                this._breakTime_Start_Hour = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private int _breakTime_Start_Minute;
-
-        /// <summary>
-        /// 昼休憩 - 開始 - 時
-        /// </summary>
-        public int BreakTime_Start_Minute
-        {
-            get => this._breakTime_Start_Minute;
-            set
-            {
-                this._breakTime_Start_Minute = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        #endregion
-
-        #region 休憩 - 終了
-
-        private int _breakTime_End_Hour;
-
-        /// <summary>
-        /// 休憩 - 終了 - 時
-        /// </summary>
-        public int BreakTime_End_Hour
-        {
-            get => this._breakTime_End_Hour;
-            set
-            {
-                this._breakTime_End_Hour = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private int _breakTime_End_Minute;
-
-        /// <summary>
-        /// 休憩 - 終了 - 分
-        /// </summary>
-        public int BreakTime_End_Minute
-        {
-            get => this._breakTime_End_Minute;
-            set
-            {
-                this._breakTime_End_Minute = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 休憩終了 - 分 - Text </summary>
+        public ReactiveProperty<int> BreakTime_End_Minute_Text { get; set; }
+            = new ReactiveProperty<int>();
 
         #endregion
 
         #region 備考
 
-        private string _remarks;
-
-        /// <summary>
-        /// 備考
-        /// </summary>
-        public string Remarks
-        {
-            get => this._remarks;
-            set
-            {
-                this._remarks = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        /// <summary> 備考 - Text </summary>
+        public ReactiveProperty<string> Remarks_Text { get; set; }
+            = new ReactiveProperty<string>();
 
         #endregion
 
         #region 追加
 
-        private bool _add_IsEnabled;
+        /// <summary> 追加 - IsEnabled </summary>
+        public ReactiveProperty<bool> Add_IsEnabled { get; set; }
+            = new ReactiveProperty<bool>();
 
-        /// <summary>
-        /// 追加 - IsEnabled
-        /// </summary>
-        public bool Add_IsEnabled
-        {
-            get => this._add_IsEnabled;
-            set
-            {
-                this._add_IsEnabled = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private RelayCommand _add_Command;
-
-        /// <summary>
-        /// 追加ボタン - Command
-        /// </summary>
-        public RelayCommand Add_Command
-        {
-            get
-            {
-                if (this._add_Command == null)
-                {
-                    this._add_Command = new RelayCommand(this.Model.Add);
-                }
-                return this._add_Command;
-            }
-        }
+        /// <summary> 追加 - Command </summary>
+        public ReactiveCommand Add_Command { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
         #region 更新
 
-        private bool _update_IsEnabled;
+        /// <summary> 更新 - IsEnabled </summary>
+        public ReactiveProperty<bool> Update_IsEnabled { get; set; }
+            = new ReactiveProperty<bool>();
 
-        /// <summary>
-        /// 更新 - IsEnabled
-        /// </summary>
-        public bool Update_IsEnabled
-        {
-            get => this._update_IsEnabled;
-            set
-            {
-                this._update_IsEnabled = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private RelayCommand _update_Command;
-
-        /// <summary>
-        /// 更新ボタン - Command
-        /// </summary>
-        public RelayCommand Update_Command
-        {
-            get
-            {
-                if (this._update_Command == null)
-                {
-                    this._update_Command = new RelayCommand(this.Model.Update);
-                }
-                return this._update_Command;
-            }
-        }
+        /// <summary> 更新 - Command </summary>
+        public ReactiveCommand Update_Command { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 
         #region 削除
 
-        private bool _delete_IsEnabled;
+        /// <summary> 削除 - IsEnabled </summary>
+        public ReactiveProperty<bool> Delete_IsEnabled { get; set; }
+            = new ReactiveProperty<bool>();
 
-        /// <summary>
-        /// 削除 - IsEnabled
-        /// </summary>
-        public bool Delete_IsEnabled
-        {
-            get => this._delete_IsEnabled;
-            set
-            {
-                this._delete_IsEnabled = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private RelayCommand _delete_Command;
-
-        /// <summary>
-        /// 削除 - Command
-        /// </summary>
-        public RelayCommand Delete_Command
-        {
-            get
-            {
-                if (this._delete_Command == null)
-                {
-                    this._delete_Command = new RelayCommand(this.Model.Delete);
-                }
-                return this._delete_Command;
-            }
-        }
+        /// <summary> 削除 - Command </summary>
+        public ReactiveCommand Delete_Command { get; private set; }
+            = new ReactiveCommand();
 
         #endregion
 

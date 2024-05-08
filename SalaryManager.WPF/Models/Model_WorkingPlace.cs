@@ -61,22 +61,22 @@ namespace SalaryManager.WPF.Models
             if (companies.Any())
             {
                 var companyNames = companies.Select(x => x.CompanyName).ToList();
-                this.ViewModel.CompanyName_ItemSource  = ListUtils.ToObservableCollection(companyNames);
+                this.ViewModel.CompanyName_ItemSource.Value  = ListUtils.ToObservableCollection(companyNames);
  
                 var workingPlace = companyNames.Union(Homes.FetchByDescending().Select(x => x.DisplayName)).ToList();
-                this.ViewModel.WorkingPlace_ItemSource = ListUtils.ToObservableCollection(workingPlace);
+                this.ViewModel.WorkingPlace_ItemSource.Value = ListUtils.ToObservableCollection(workingPlace);
             }
 
-            this.ViewModel.FontFamily = XMLLoader.FetchFontFamily();
-            this.ViewModel.FontSize   = XMLLoader.FetchFontSize();
+            this.ViewModel.Window_FontFamily.Value = XMLLoader.FetchFontFamily();
+            this.ViewModel.Window_FontSize.Value   = XMLLoader.FetchFontSize();
 
-            this.ViewModel.Window_Background = XMLLoader.FetchBackgroundColorBrush();
+            this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
 
             this.ViewModel.Entities = WorkingPlace.FetchByDescending();
 
             this.Reflesh_ListView();
 
-            this.ViewModel.WorkingPlaces_SelectedIndex = -1;
+            this.ViewModel.WorkingPlaces_SelectedIndex.Value = -1;
             this.Clear_InputForm();
 
             this.EnableWaitingButton();
@@ -102,7 +102,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         private void Reflesh_ListView()
         {
-            this.ViewModel.WorkingPlaces_ItemSource.Clear();
+            this.ViewModel.WorkingPlaces_ItemSource.Value.Clear();
 
             var entities = this.ViewModel.Entities;
 
@@ -114,7 +114,7 @@ namespace SalaryManager.WPF.Models
 
             foreach (var entity in entities)
             {
-                this.ViewModel.WorkingPlaces_ItemSource.Add(entity);
+                this.ViewModel.WorkingPlaces_ItemSource.Value.Add(entity);
             }
         }
 
@@ -126,13 +126,13 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         private void EnableControlButton()
         {
-            var selected = this.ViewModel.WorkingPlaces_ItemSource.Any() 
-                        && this.ViewModel.WorkingPlaces_SelectedIndex >= 0;
+            var selected = this.ViewModel.WorkingPlaces_ItemSource.Value.Any() 
+                        && this.ViewModel.WorkingPlaces_SelectedIndex.Value >= 0;
 
             // 更新ボタン
-            this.ViewModel.Update_IsEnabled = selected;
+            this.ViewModel.Update_IsEnabled.Value = selected;
             // 削除ボタン
-            this.ViewModel.Delete_IsEnabled = selected;
+            this.ViewModel.Delete_IsEnabled.Value = selected;
         }
 
         /// <summary>
@@ -140,9 +140,9 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void IsWorking_Checked()
         {
-            if (this.ViewModel.IsWorking_IsChacked)
+            if (this.ViewModel.IsWorking_IsChacked.Value)
             {
-                this.ViewModel.WorkingEnd_SelectedDate = DateTime.Now;
+                this.ViewModel.WorkingEnd_SelectedDate.Value = DateTime.Now;
             }
         }
 
@@ -151,66 +151,66 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Careers_SelectionChanged()
         {
-            if (this.ViewModel.WorkingPlaces_SelectedIndex == -1)
+            if (this.ViewModel.WorkingPlaces_SelectedIndex.Value == -1)
             {
                 return;
             }
 
             this.EnableControlButton();
 
-            if (!this.ViewModel.WorkingPlaces_ItemSource.Any())
+            if (!this.ViewModel.WorkingPlaces_ItemSource.Value.Any())
             {
                 return;
             }
 
-            var entity = this.ViewModel.WorkingPlaces_ItemSource[this.ViewModel.WorkingPlaces_SelectedIndex];
+            var entity = this.ViewModel.WorkingPlaces_ItemSource.Value[this.ViewModel.WorkingPlaces_SelectedIndex.Value];
             
             // 派遣元会社名
-            this.ViewModel.DispatchingCompanyName_Text = entity.DispatchingCompany.Text;
-            this.ViewModel.DispatchedCompanyName_Text  = entity.DispatchedCompany.Text;
+            this.ViewModel.DispatchingCompanyName_Text.Value = entity.DispatchingCompany.Text;
+            this.ViewModel.DispatchedCompanyName_Text.Value  = entity.DispatchedCompany.Text;
             // 会社名
-            this.ViewModel.WorkingPlace_Name_SelectedItem = entity.WorkingPlace_Name.Text;
+            this.ViewModel.WorkingPlace_Name_Text.Value = entity.WorkingPlace_Name.Text;
 
             // 住所
-            this.ViewModel.WorkingPlace_Address_Text = entity.WorkingPlace_Address;
+            this.ViewModel.WorkingPlace_Address_Text.Value = entity.WorkingPlace_Address;
 
-            this.ViewModel.WorkingStart_SelectedDate = entity.WorkingStart;
-            this.ViewModel.WorkingEnd_SelectedDate   = entity.WorkingEnd;
+            this.ViewModel.WorkingStart_SelectedDate.Value = entity.WorkingStart;
+            this.ViewModel.WorkingEnd_SelectedDate.Value   = entity.WorkingEnd;
 
             // 待機中
-            this.ViewModel.IsWaiting_IsChacked = entity.IsWaiting;
+            this.ViewModel.IsWaiting_IsChacked.Value = entity.IsWaiting;
             // 就業中
-            this.ViewModel.IsWorking_IsChacked = entity.IsWorking;
+            this.ViewModel.IsWorking_IsChacked.Value = entity.IsWorking;
 
             // 勤務開始時間(時)
-            this.ViewModel.WorkingTime_Start_Hour   = entity.WorkingTime.Start.Hours;
+            this.ViewModel.WorkingTime_Start_Hour_Text.Value   = entity.WorkingTime.Start.Hours;
             // 勤務開始時間(分)
-            this.ViewModel.WorkingTime_Start_Minute = entity.WorkingTime.Start.Minutes;
+            this.ViewModel.WorkingTime_Start_Minute_Text.Value = entity.WorkingTime.Start.Minutes;
             // 勤務終了時間(時)
-            this.ViewModel.WorkingTime_End_Hour     = entity.WorkingTime.End.Hours;
+            this.ViewModel.WorkingTime_End_Hour_Text.Value     = entity.WorkingTime.End.Hours;
             // 勤務終了時間(分)
-            this.ViewModel.WorkingTime_End_Minute   = entity.WorkingTime.End.Minutes;
+            this.ViewModel.WorkingTime_End_Minute_Text.Value   = entity.WorkingTime.End.Minutes;
 
             // 昼休憩開始時間(時)
-            this.ViewModel.LunchTime_Start_Hour   = entity.LunchTime.Start.Hours;
+            this.ViewModel.LunchTime_Start_Hour_Text.Value   = entity.LunchTime.Start.Hours;
             // 昼休憩開始時間(分)
-            this.ViewModel.LunchTime_Start_Minute = entity.LunchTime.Start.Minutes;
+            this.ViewModel.LunchTime_Start_Minute_Text.Value = entity.LunchTime.Start.Minutes;
             // 昼休憩開始時間(時)
-            this.ViewModel.LunchTime_End_Hour     = entity.LunchTime.End.Hours;
+            this.ViewModel.LunchTime_End_Hour_Text.Value     = entity.LunchTime.End.Hours;
             // 昼休憩開始時間(分)
-            this.ViewModel.LunchTime_End_Minute   = entity.LunchTime.End.Minutes;
+            this.ViewModel.LunchTime_End_Minute_Text.Value   = entity.LunchTime.End.Minutes;
 
             // 昼休憩開始時間(時)
-            this.ViewModel.BreakTime_Start_Hour   = entity.BreakTime.Start.Hours;
+            this.ViewModel.BreakTime_Start_Hour_Text.Value   = entity.BreakTime.Start.Hours;
             // 昼休憩開始時間(分)
-            this.ViewModel.BreakTime_Start_Minute = entity.BreakTime.Start.Minutes;
+            this.ViewModel.BreakTime_Start_Minute_Text.Value = entity.BreakTime.Start.Minutes;
             // 昼休憩開始時間(時)
-            this.ViewModel.BreakTime_End_Hour     = entity.BreakTime.End.Hours;
+            this.ViewModel.BreakTime_End_Hour_Text.Value     = entity.BreakTime.End.Hours;
             // 昼休憩開始時間(分)
-            this.ViewModel.BreakTime_End_Minute   = entity.BreakTime.End.Minutes;
+            this.ViewModel.BreakTime_End_Minute_Text.Value   = entity.BreakTime.End.Minutes;
 
             // 備考
-            this.ViewModel.Remarks = entity.Remarks;
+            this.ViewModel.Remarks_Text.Value = entity.Remarks;
         }
 
         /// <summary>
@@ -218,9 +218,10 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void EnableAddButton()
         {
-            var inputted = (!string.IsNullOrEmpty(this.ViewModel.WorkingPlace_Name_SelectedItem) && !string.IsNullOrEmpty(this.ViewModel.WorkingPlace_Address_Text));
+            var inputted = (!string.IsNullOrEmpty(this.ViewModel.WorkingPlace_Name_Text.Value) && 
+                            !string.IsNullOrEmpty(this.ViewModel.WorkingPlace_Address_Text.Value));
 
-            this.ViewModel.Add_IsEnabled = inputted;
+            this.ViewModel.Add_IsEnabled.Value = inputted;
         }
 
         /// <summary>
@@ -228,11 +229,11 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void EnableWaitingButton()
         {
-            var inputted = (!string.IsNullOrEmpty(this.ViewModel.DispatchedCompanyName_SelectedItem) &&
-                            !string.IsNullOrEmpty(this.ViewModel.DispatchingCompanyName_SelectedItem) &&
-                            this.ViewModel.DispatchedCompanyName_SelectedItem == this.ViewModel.DispatchingCompanyName_SelectedItem);
+            var inputted = (!string.IsNullOrEmpty(this.ViewModel.DispatchedCompanyName_Text.Value) &&
+                            !string.IsNullOrEmpty(this.ViewModel.DispatchingCompanyName_Text.Value) &&
+                             this.ViewModel.DispatchedCompanyName_Text.Value == this.ViewModel.DispatchingCompanyName_Text.Value);
 
-            this.ViewModel.IsWaiting_Visibility = inputted ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+            this.ViewModel.IsWaiting_Visibility.Value = inputted ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
         }
 
         /// <summary>
@@ -241,17 +242,17 @@ namespace SalaryManager.WPF.Models
         public void SearchAddress()
         {
             var companies = Companies.FetchByDescending().ToList();
-            if (companies.Any(x => x.CompanyName.Contains(this.ViewModel.WorkingPlace_Name_SelectedItem)))
+            if (companies.Any(x => x.CompanyName.Contains(this.ViewModel.WorkingPlace_Name_Text.Value)))
             {
-                this.ViewModel.WorkingPlace_Address_Text = companies.Where(x => x.CompanyName.Contains(this.ViewModel.WorkingPlace_Name_SelectedItem))
+                this.ViewModel.WorkingPlace_Address_Text.Value = companies.Where(x => x.CompanyName.Contains(this.ViewModel.WorkingPlace_Name_Text.Value))
                                                                     .Select(x => x.Address_Google).FirstOrDefault();
                 return;
             }
 
             var homes = Homes.FetchByDescending().ToList();
-            if (homes.Any(x => x.DisplayName.Contains(this.ViewModel.WorkingPlace_Name_SelectedItem)))
+            if (homes.Any(x => x.DisplayName.Contains(this.ViewModel.WorkingPlace_Name_Text.Value)))
             {
-                this.ViewModel.WorkingPlace_Address_Text = homes.Where(x => x.DisplayName.Contains(this.ViewModel.WorkingPlace_Name_SelectedItem))
+                this.ViewModel.WorkingPlace_Address_Text.Value = homes.Where(x => x.DisplayName.Contains(this.ViewModel.WorkingPlace_Name_Text.Value))
                                                                 .Select(x => x.Address_Google).FirstOrDefault();
                 return;
             }
@@ -297,57 +298,57 @@ namespace SalaryManager.WPF.Models
         public void Clear_InputForm()
         {
             // 派遣元会社
-            this.ViewModel.DispatchingCompanyName_Text = default(string);
+            this.ViewModel.DispatchingCompanyName_Text.Value = default(string);
             // 派遣先会社
-            this.ViewModel.DispatchedCompanyName_Text  = default(string);
+            this.ViewModel.DispatchedCompanyName_Text.Value  = default(string);
 
             // 会社名
-            this.ViewModel.WorkingPlace_Name_SelectedItem = default(string);
+            this.ViewModel.WorkingPlace_Name_Text.Value = default(string);
             // 住所
-            this.ViewModel.WorkingPlace_Address_Text      = default(string);
+            this.ViewModel.WorkingPlace_Address_Text.Value      = default(string);
 
-            this.ViewModel.WorkingStart_SelectedDate = DateTime.Now;
-            this.ViewModel.WorkingEnd_SelectedDate   = DateTime.Now;
+            this.ViewModel.WorkingStart_SelectedDate.Value = DateTime.Now;
+            this.ViewModel.WorkingEnd_SelectedDate.Value   = DateTime.Now;
 
-            this.ViewModel.IsWaiting_IsChacked = false;
-            this.ViewModel.IsWorking_IsChacked = false;
+            this.ViewModel.IsWaiting_IsChacked.Value = false;
+            this.ViewModel.IsWorking_IsChacked.Value = false;
             
             // 労働 - 開始 - 時
-            this.ViewModel.WorkingTime_Start_Hour   = default(int);
+            this.ViewModel.WorkingTime_Start_Hour_Text.Value   = default(int);
             // 労働 - 開始 - 分
-            this.ViewModel.WorkingTime_Start_Minute = default(int);
+            this.ViewModel.WorkingTime_Start_Minute_Text.Value = default(int);
             // 労働 - 終了 - 時
-            this.ViewModel.WorkingTime_End_Hour     = default(int);
+            this.ViewModel.WorkingTime_End_Hour_Text.Value     = default(int);
             // 労働 - 終了 - 分
-            this.ViewModel.WorkingTime_End_Minute   = default(int);
+            this.ViewModel.WorkingTime_End_Minute_Text.Value   = default(int);
             
             // 昼休憩 - 開始 - 時
-            this.ViewModel.LunchTime_Start_Hour   = default(int);
+            this.ViewModel.LunchTime_Start_Hour_Text.Value   = default(int);
             // 昼休憩 - 開始 - 分
-            this.ViewModel.LunchTime_Start_Minute = default(int);
+            this.ViewModel.LunchTime_Start_Minute_Text.Value = default(int);
             // 昼休憩 - 終了 - 時
-            this.ViewModel.LunchTime_End_Hour     = default(int);
+            this.ViewModel.LunchTime_End_Hour_Text.Value     = default(int);
             // 昼休憩 - 終了 - 分
-            this.ViewModel.LunchTime_End_Minute   = default(int);
+            this.ViewModel.LunchTime_End_Minute_Text.Value   = default(int);
 
             // 休憩 - 開始 - 時
-            this.ViewModel.BreakTime_Start_Hour   = default(int);
+            this.ViewModel.BreakTime_Start_Hour_Text.Value   = default(int);
             // 休憩 - 開始 - 分
-            this.ViewModel.BreakTime_Start_Minute = default(int);
+            this.ViewModel.BreakTime_Start_Minute_Text.Value = default(int);
             // 休憩 - 終了 - 時
-            this.ViewModel.BreakTime_End_Hour     = default(int);
+            this.ViewModel.BreakTime_End_Hour_Text.Value     = default(int);
             // 休憩 - 終了 - 分
-            this.ViewModel.BreakTime_End_Minute   = default(int);
+            this.ViewModel.BreakTime_End_Minute_Text.Value   = default(int);
 
             // 備考
-            this.ViewModel.Remarks = default(string);
+            this.ViewModel.Remarks_Text.Value = default(string);
 
             // 追加ボタン
-            this.ViewModel.Add_IsEnabled    = false;
+            this.ViewModel.Add_IsEnabled.Value    = false;
             // 更新ボタン
-            this.ViewModel.Update_IsEnabled = false;
+            this.ViewModel.Update_IsEnabled.Value = false;
             // 削除ボタン
-            this.ViewModel.Delete_IsEnabled = false;
+            this.ViewModel.Delete_IsEnabled.Value = false;
         }
 
         /// <summary>
@@ -355,7 +356,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Add()
         {
-            if (!Message.ShowConfirmingMessage($"入力された就業場所を追加しますか？", this.ViewModel.Title))
+            if (!Message.ShowConfirmingMessage($"入力された就業場所を追加しますか？", this.ViewModel.Window_Title.Value))
             {
                 // キャンセル
                 return;
@@ -363,10 +364,10 @@ namespace SalaryManager.WPF.Models
 
             using (var cursor = new CursorWaiting())
             {
-                this.ViewModel.Delete_IsEnabled = true;
+                this.ViewModel.Delete_IsEnabled.Value = true;
 
                 var entity = this.CreateEntity(this.ViewModel.Entities.Count + 1);
-                this.ViewModel.WorkingPlaces_ItemSource.Add(entity);
+                this.ViewModel.WorkingPlaces_ItemSource.Value.Add(entity);
                 this.Save();
 
                 this.Reload();
@@ -382,21 +383,27 @@ namespace SalaryManager.WPF.Models
         {
             return new WorkingPlaceEntity(
                 id,
-                this.ViewModel.DispatchingCompanyName_Text,
-                this.ViewModel.DispatchedCompanyName_Text,
-                this.ViewModel.WorkingPlace_Name_SelectedItem,
-                this.ViewModel.WorkingPlace_Address_Text,
-                this.ViewModel.WorkingStart_SelectedDate, 
-                this.ViewModel.WorkingEnd_SelectedDate,
-                this.ViewModel.IsWaiting_IsChacked,
-                this.ViewModel.IsWorking_IsChacked,
-                (this.ViewModel.WorkingTime_Start_Hour, this.ViewModel.WorkingTime_Start_Minute),
-                (this.ViewModel.WorkingTime_End_Hour,   this.ViewModel.WorkingTime_End_Minute),
-                (this.ViewModel.LunchTime_Start_Hour,   this.ViewModel.LunchTime_Start_Minute),
-                (this.ViewModel.LunchTime_End_Hour,     this.ViewModel.LunchTime_End_Minute),
-                (this.ViewModel.BreakTime_Start_Hour,   this.ViewModel.BreakTime_Start_Minute),
-                (this.ViewModel.BreakTime_End_Hour,     this.ViewModel.BreakTime_End_Minute),
-                this.ViewModel.Remarks);
+                this.ViewModel.DispatchingCompanyName_Text.Value,
+                this.ViewModel.DispatchedCompanyName_Text.Value,
+                this.ViewModel.WorkingPlace_Name_Text.Value,
+                this.ViewModel.WorkingPlace_Address_Text.Value,
+                this.ViewModel.WorkingStart_SelectedDate.Value, 
+                this.ViewModel.WorkingEnd_SelectedDate.Value,
+                this.ViewModel.IsWaiting_IsChacked.Value,
+                this.ViewModel.IsWorking_IsChacked.Value,
+                (this.ViewModel.WorkingTime_Start_Hour_Text.Value, 
+                 this.ViewModel.WorkingTime_Start_Minute_Text.Value),
+                (this.ViewModel.WorkingTime_End_Hour_Text.Value,   
+                 this.ViewModel.WorkingTime_End_Minute_Text.Value),
+                (this.ViewModel.LunchTime_Start_Hour_Text.Value,  
+                 this.ViewModel.WorkingTime_End_Minute_Text.Value),
+                (this.ViewModel.LunchTime_End_Hour_Text.Value,     
+                 this.ViewModel.LunchTime_End_Minute_Text.Value),
+                (this.ViewModel.BreakTime_Start_Hour_Text.Value,   
+               　this.ViewModel.BreakTime_Start_Minute_Text.Value),
+                (this.ViewModel.BreakTime_End_Hour_Text.Value,     
+                 this.ViewModel.BreakTime_End_Minute_Text.Value),
+                this.ViewModel.Remarks_Text.Value);
         }
 
         /// <summary>
@@ -404,7 +411,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Update()
         {
-            if (!Message.ShowConfirmingMessage($"選択中の職歴を更新しますか？", this.ViewModel.Title))
+            if (!Message.ShowConfirmingMessage($"選択中の職歴を更新しますか？", this.ViewModel.Window_Title.Value))
             {
                 // キャンセル
                 return;
@@ -412,10 +419,10 @@ namespace SalaryManager.WPF.Models
 
             using (var cursor = new CursorWaiting())
             {
-                var id = this.ViewModel.WorkingPlaces_ItemSource[this.ViewModel.WorkingPlaces_SelectedIndex].ID;
+                var id = this.ViewModel.WorkingPlaces_ItemSource.Value[this.ViewModel.WorkingPlaces_SelectedIndex.Value].ID;
 
                 var entity = this.CreateEntity(id);
-                this.ViewModel.WorkingPlaces_ItemSource[this.ViewModel.WorkingPlaces_SelectedIndex] = entity;
+                this.ViewModel.WorkingPlaces_ItemSource.Value[this.ViewModel.WorkingPlaces_SelectedIndex.Value] = entity;
 
                 this.Save();
             }   
@@ -426,13 +433,13 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Delete()
         {
-            if (this.ViewModel.WorkingPlaces_SelectedIndex == -1 ||
-                !this.ViewModel.WorkingPlaces_ItemSource.Any())
+            if (this.ViewModel.WorkingPlaces_SelectedIndex.Value == -1 ||
+                !this.ViewModel.WorkingPlaces_ItemSource.Value.Any())
             {
                 return;
             }
 
-            if (!Message.ShowConfirmingMessage($"選択中の職歴を削除しますか？", this.ViewModel.Title))
+            if (!Message.ShowConfirmingMessage($"選択中の職歴を削除しますか？", this.ViewModel.Window_Title.Value))
             {
                 // キャンセル
                 return;
@@ -440,9 +447,9 @@ namespace SalaryManager.WPF.Models
 
             using (var cursor = new CursorWaiting())
             {
-                _repository.Delete(this.ViewModel.WorkingPlaces_SelectedIndex + 1);
+                _repository.Delete(this.ViewModel.WorkingPlaces_SelectedIndex.Value + 1);
 
-                this.ViewModel.WorkingPlaces_ItemSource.RemoveAt(this.ViewModel.WorkingPlaces_SelectedIndex);
+                this.ViewModel.WorkingPlaces_ItemSource.Value.RemoveAt(this.ViewModel.WorkingPlaces_SelectedIndex.Value);
 
                 this.Reload();
                 this.EnableControlButton();
@@ -454,7 +461,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Save()
         {
-            foreach (var entity in this.ViewModel.WorkingPlaces_ItemSource)
+            foreach (var entity in this.ViewModel.WorkingPlaces_ItemSource.Value)
             {
                 _repository.Save(entity);
             }

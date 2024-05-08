@@ -8,8 +8,8 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" x:Class="SalaryManager.WPF.Window.WorkingPlace"
         mc:Ignorable="d"
-        Background="{Binding Window_Background}"
-        Title="{Binding Title, Mode=OneWay}" Height="450" Width="600">
+        Background="{Binding Window_Background.Value}"
+        Title="{Binding Window_Title.Value, Mode=OneWay}" Height="450" Width="600">
 
     <Window.DataContext>
         <ViewModels:ViewModel_WorkingPlace/>
@@ -21,8 +21,8 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <ListView ItemsSource="{Binding WorkingPlaces_ItemSource}" 
-                  SelectedIndex="{Binding WorkingPlaces_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        <ListView ItemsSource="{Binding WorkingPlaces_ItemSource.Value}" 
+                  SelectedIndex="{Binding WorkingPlaces_SelectedIndex.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="SelectionChanged">
                     <behaviors:InvokeCommandAction Command="{Binding WorkingPlaces_SelectionChanged}" />
@@ -82,9 +82,8 @@
                    Background="AliceBlue"/>
             <ComboBox Grid.Column="1" 
                       Grid.ColumnSpan="7" 
-                      ItemsSource="{Binding CompanyName_ItemSource,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding DispatchingCompanyName_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      Text="{Binding DispatchingCompanyName_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                      ItemsSource="{Binding CompanyName_ItemSource.Value,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      Text="{Binding DispatchingCompanyName_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <behaviors:Interaction.Triggers>
                     <behaviors:EventTrigger EventName="SelectionChanged">
                         <behaviors:InvokeCommandAction Command="{Binding DispatchingCompanyName_SelectionChanged}" />
@@ -98,9 +97,8 @@
             <ComboBox Grid.Column="1" 
                       Grid.Row="1"
                       Grid.ColumnSpan="7" 
-                      ItemsSource="{Binding CompanyName_ItemSource,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding DispatchedCompanyName_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      Text="{Binding DispatchedCompanyName_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                      ItemsSource="{Binding CompanyName_ItemSource.Value,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      Text="{Binding DispatchedCompanyName_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <behaviors:Interaction.Triggers>
                     <behaviors:EventTrigger EventName="SelectionChanged">
                         <behaviors:InvokeCommandAction Command="{Binding DispatchedCompanyName_SelectionChanged}" />
@@ -114,8 +112,8 @@
             <ComboBox Grid.Column="1" 
                      Grid.Row="2" 
                      Grid.ColumnSpan="7" 
-                     ItemsSource="{Binding WorkingPlace_ItemSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     SelectedItem="{Binding WorkingPlace_Name_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                     ItemsSource="{Binding WorkingPlace_ItemSource.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding WorkingPlace_Name_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <behaviors:Interaction.Triggers>
                     <behaviors:EventTrigger EventName="SelectionChanged">
                         <behaviors:InvokeCommandAction Command="{Binding WorkingPlace_TextChanged}" />
@@ -129,8 +127,7 @@
             <TextBox Grid.Column="1" 
                      Grid.Row="3" 
                      Grid.ColumnSpan="7" 
-                     Text="{Binding WorkingPlace_Address_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                     TextAlignment="{Binding WorkingPlace_Address_Text}"
+                     Text="{Binding WorkingPlace_Address_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                      IsReadOnly="True" 
                      Background="#d3d3d3">
                 <behaviors:Interaction.Triggers>
@@ -145,7 +142,7 @@
                    Background="AliceBlue"/>
             <DatePicker Grid.Row="4" 
                         Grid.Column="1" 
-                        SelectedDate="{Binding WorkingStart_SelectedDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        SelectedDate="{Binding WorkingStart_SelectedDate.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="～" 
                    Grid.Column="2" 
                    Grid.Row="4" 
@@ -154,18 +151,18 @@
                    Background="AliceBlue"/>
             <DatePicker Grid.Row="4" 
                         Grid.Column="3" 
-                        SelectedDate="{Binding WorkingEnd_SelectedDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        SelectedDate="{Binding WorkingEnd_SelectedDate.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <CheckBox Content="待機"
                       Grid.Column="5" 
                       Grid.Row="4" 
-                      IsChecked="{Binding IsWaiting_IsChacked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                      Visibility="{Binding IsWaiting_Visibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                      IsChecked="{Binding IsWaiting_IsChacked.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                      Visibility="{Binding IsWaiting_Visibility.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <CheckBox Content="就業中"
                       Grid.Column="7" 
                       Grid.Row="4" 
-                      IsChecked="{Binding IsWorking_IsChacked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                      IsChecked="{Binding IsWorking_IsChacked.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <behaviors:Interaction.Triggers>
                     <behaviors:EventTrigger EventName="Checked">
                         <behaviors:InvokeCommandAction Command="{Binding IsWorking_Checked}" />
@@ -178,7 +175,7 @@
                    Background="AliceBlue"/>
             <TextBox Grid.Column="1" 
                      Grid.Row="5" 
-                     Text="{Binding WorkingTime_Start_Hour, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                     Text="{Binding WorkingTime_Start_Hour_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="：" 
                    Grid.Column="2" 
                    Grid.Row="5" 
@@ -187,7 +184,7 @@
                    Background="AliceBlue"/>
             <TextBox Grid.Column="3" 
                      Grid.Row="5" 
-                     Text="{Binding WorkingTime_Start_Minute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                     Text="{Binding WorkingTime_Start_Minute_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="～" 
                    Grid.Column="4" 
                    Grid.Row="5" 
@@ -196,7 +193,7 @@
                    Background="AliceBlue"/>
             <TextBox Grid.Column="5" 
                      Grid.Row="5" 
-                     Text="{Binding WorkingTime_End_Hour, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                     Text="{Binding WorkingTime_End_Hour_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="：" 
                    Grid.Column="6" 
                    Grid.Row="5" 
@@ -205,14 +202,14 @@
                    Background="AliceBlue"/>
             <TextBox Grid.Column="7" 
                      Grid.Row="5" 
-                     Text="{Binding WorkingTime_End_Minute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                     Text="{Binding WorkingTime_End_Minute_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Label Content="昼休憩" 
                    Grid.Row="6" 
                    Background="AliceBlue"/>
             <TextBox Grid.Column="1" 
                      Grid.Row="6" 
-                     Text="{Binding LunchTime_Start_Hour, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                     Text="{Binding LunchTime_Start_Hour_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="：" 
                    Grid.Column="2" 
                    Grid.Row="6" 
@@ -221,7 +218,7 @@
                    Background="AliceBlue"/>
             <TextBox Grid.Column="3" 
                      Grid.Row="6" 
-                     Text="{Binding LunchTime_Start_Minute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                     Text="{Binding LunchTime_Start_Minute_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="～" 
                    Grid.Column="4" 
                    Grid.Row="6" 
@@ -230,7 +227,7 @@
                    Background="AliceBlue"/>
             <TextBox Grid.Column="5" 
                      Grid.Row="6" 
-                     Text="{Binding LunchTime_End_Hour, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                     Text="{Binding LunchTime_End_Hour_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="：" 
                    Grid.Column="6" 
                    Grid.Row="6" 
@@ -239,14 +236,14 @@
                    Background="AliceBlue"/>
             <TextBox Grid.Column="7" 
                      Grid.Row="6" 
-                     Text="{Binding LunchTime_End_Minute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                     Text="{Binding LunchTime_End_Minute_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Label Content="休憩" 
                    Grid.Row="7" 
                    Background="AliceBlue"/>
             <TextBox Grid.Column="1" 
                      Grid.Row="7" 
-                     Text="{Binding BreakTime_Start_Hour, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                     Text="{Binding BreakTime_Start_Hour_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="：" 
                    Grid.Column="2" 
                    Grid.Row="7" 
@@ -255,7 +252,7 @@
                    Background="AliceBlue"/>
             <TextBox Grid.Column="3" 
                      Grid.Row="7" 
-                     Text="{Binding BreakTime_Start_Minute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                     Text="{Binding BreakTime_Start_Minute_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="～" 
                    Grid.Column="4" 
                    Grid.Row="7" 
@@ -264,7 +261,7 @@
                    Background="AliceBlue"/>
             <TextBox Grid.Column="5" 
                      Grid.Row="7" 
-                     Text="{Binding BreakTime_End_Hour, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                     Text="{Binding BreakTime_End_Hour_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="：" 
                    Grid.Column="6" 
                    Grid.Row="7" 
@@ -273,7 +270,7 @@
                    Background="AliceBlue"/>
             <TextBox Grid.Column="7" 
                      Grid.Row="7" 
-                     Text="{Binding BreakTime_End_Minute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                     Text="{Binding BreakTime_End_Minute_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Label Content="備考" 
                    Grid.Row="8" 
@@ -281,24 +278,24 @@
             <TextBox Grid.Column="1" 
                      Grid.Row="8" 
                      Grid.ColumnSpan="7" 
-                     Text="{Binding Remarks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                     Text="{Binding Remarks_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Button Content="追加" 
                     Grid.Row="9" 
                     Grid.ColumnSpan="3" 
                     Command="{Binding Add_Command}"
-                    IsEnabled="{Binding Add_IsEnabled}" />
+                    IsEnabled="{Binding Add_IsEnabled.Value}" />
             <Button Content="更新"
                     Grid.Column="3"
                     Grid.Row="9" 
                     Grid.ColumnSpan="3" 
                     Command="{Binding Update_Command}"
-                    IsEnabled="{Binding Update_IsEnabled}" />
+                    IsEnabled="{Binding Update_IsEnabled.Value}" />
             <Button Content="削除"
                     Grid.Column="6" 
                     Grid.Row="9" 
                     Grid.ColumnSpan="2" 
                     Command="{Binding Delete_Command}"
-                    IsEnabled="{Binding Delete_IsEnabled}" />
+                    IsEnabled="{Binding Delete_IsEnabled.Value}" />
         </Grid>
     </Grid>
 </Controls:MetroWindow>
