@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
 using Reactive.Bindings;
@@ -11,11 +9,8 @@ using SalaryManager.WPF.Models;
 
 namespace SalaryManager.WPF.ViewModels
 {
-    [EditorBrowsable(EditorBrowsableState.Always)]
-    public class ViewModel_WorkingPlace : INotifyPropertyChanged
+    public class ViewModel_WorkingPlace
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public ViewModel_WorkingPlace()
         {
             this.Model.ViewModel = this;
@@ -53,9 +48,6 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary> Model </summary>
         public Model_WorkingPlace Model { get; set; } = Model_WorkingPlace.GetInstance(new WorkingPlaceSQLite());
 
-        /// <summary> エンティティ </summary>
-        public IReadOnlyList<WorkingPlaceEntity> Entities { get; internal set; }
-
         #region Window
 
         /// <summary> Window - Title </summary>
@@ -63,8 +55,8 @@ namespace SalaryManager.WPF.ViewModels
             = new ReactiveProperty<string>("就業場所登録");
 
         /// <summary> Window - Title </summary>
-        public ReactiveProperty<System.Windows.Media.FontFamily> Window_FontFamily { get; set; }
-            = new ReactiveProperty<System.Windows.Media.FontFamily>();
+        public ReactiveProperty<FontFamily> Window_FontFamily { get; set; }
+            = new ReactiveProperty<FontFamily>();
 
         /// <summary> Window - FontSize </summary>
         public ReactiveProperty<decimal> Window_FontSize { get; set; }

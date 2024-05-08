@@ -1,7 +1,6 @@
 ﻿using Reactive.Bindings;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.Models;
-using System.ComponentModel;
 using System.Windows.Media;
 
 namespace SalaryManager.WPF.ViewModels
@@ -9,10 +8,8 @@ namespace SalaryManager.WPF.ViewModels
     /// <summary>
     /// ViewModel - イメージビューアー
     /// </summary>
-    public class ViewModel_ImageViewer : INotifyPropertyChanged
+    public class ViewModel_ImageViewer
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public ViewModel_ImageViewer()
         {
             this.Model.ViewModel_ImageViewer = this;
@@ -22,9 +19,15 @@ namespace SalaryManager.WPF.ViewModels
         public Model_FileStorage Model { get; set; } 
             = Model_FileStorage.GetInstance(new FileStorageSQLite());
 
+        #region Window
+
         /// <summary> Window - Title </summary>
         public ReactiveProperty<string> Window_Title { get; }
             = new ReactiveProperty<string>("イメージビューワー");
+
+        #endregion
+
+        #region 画像
 
         /// <summary> 画像 - Height </summary>
         public ReactiveProperty<double> FileImage_Height { get; set; }
@@ -37,5 +40,8 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary> 画像 - Image </summary>
         public ReactiveProperty<ImageSource> FileImage_Image { get; set; }
             = new ReactiveProperty<ImageSource>();
+
+        #endregion
+
     }
 }

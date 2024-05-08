@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using Reactive.Bindings;
 using SalaryManager.Domain.Entities;
 using SalaryManager.WPF.Models;
 
 namespace SalaryManager.WPF.ViewModels
 {
-    public class ViewModel_Holiday : INotifyPropertyChanged
+    public class ViewModel_Holiday
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public ViewModel_Holiday()
         {
             this.Model.ViewModel = this;
@@ -45,7 +42,8 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary> Model - 自宅 </summary>
-        public Model_Holiday Model { get; set; } = new Model_Holiday();
+        public Model_Holiday Model { get; set; } 
+            = new Model_Holiday();
 
         #region Window
 

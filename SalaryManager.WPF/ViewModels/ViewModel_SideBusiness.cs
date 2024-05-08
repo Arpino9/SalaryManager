@@ -1,7 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
 using Reactive.Bindings;
-using SalaryManager.Domain.Entities;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.Models;
 
@@ -10,10 +8,8 @@ namespace SalaryManager.WPF.ViewModels
     /// <summary>
     /// ViewModel - 副業
     /// </summary>
-    public class ViewModel_SideBusiness : INotifyPropertyChanged
+    public class ViewModel_SideBusiness
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         /// <summary>
         /// Constructor
         /// </summary>
@@ -41,11 +37,11 @@ namespace SalaryManager.WPF.ViewModels
             // Mouse Leave
             this.Default_MouseLeave.Subscribe(_ => this.MainWindow.ComparePrice(0, 0));
             // 副業
-            this.SideBusiness_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.SideBusiness_Text.Value, this.Entity_LastYear?.SideBusiness));
+            this.SideBusiness_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.SideBusiness_Text.Value, this.Model.Entity_LastYear?.SideBusiness));
             // 臨時収入
-            this.Perquisite_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.Perquisite_Text.Value, this.Entity_LastYear?.Perquisite));
+            this.Perquisite_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.Perquisite_Text.Value, this.Model.Entity_LastYear?.Perquisite));
             // その他
-            this.Others_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.Others_Text.Value, this.Entity_LastYear?.Others));
+            this.Others_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.Others_Text.Value, this.Model.Entity_LastYear?.Others));
         }
 
         /// <summary> Model </summary>
@@ -55,12 +51,6 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary> Model - メイン画面 </summary>
         public Model_MainWindow MainWindow { get; set; }
             = Model_MainWindow.GetInstance();
-
-        /// <summary> Entity - 勤務備考 </summary>
-        public SideBusinessEntity Entity { get; set; }
-
-        /// <summary> Entity - 勤務備考 (昨年度) </summary>
-        public SideBusinessEntity Entity_LastYear { get; set; }
 
         #region Mouse Leave
 

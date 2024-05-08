@@ -54,6 +54,12 @@ namespace SalaryManager.WPF.Models
         /// <summary> ViewModel - 勤務先 </summary>
         internal ViewModel_WorkPlace ViewModel_WorkPlace { get; set; }
 
+        /// <summary> Entity - 支給額 </summary>
+        public AllowanceValueEntity Entity { get; set; }
+
+        /// <summary> Entity - 支給額 (昨年度) </summary>
+        public AllowanceValueEntity Entity_LastYear { get; set; }
+
         /// <summary>
         /// 初期化
         /// </summary>
@@ -65,15 +71,15 @@ namespace SalaryManager.WPF.Models
         {
             Allowances.Create(_repository);
 
-            this.ViewModel.Entity          = Allowances.Fetch(entityDate.Year, entityDate.Month);
-            this.ViewModel.Entity_LastYear = Allowances.Fetch(entityDate.Year, entityDate.Month - 1);
+            this.Entity          = Allowances.Fetch(entityDate.Year, entityDate.Month);
+            this.Entity_LastYear = Allowances.Fetch(entityDate.Year, entityDate.Month - 1);
 
             var showDefaultPayslip = XMLLoader.FetchShowDefaultPayslip();
 
-            if (this.ViewModel.Entity is null && showDefaultPayslip)
+            if (this.Entity is null && showDefaultPayslip)
             {
                 // デフォルト明細
-                this.ViewModel.Entity = Allowances.FetchDefault();
+                this.Entity = Allowances.FetchDefault();
             }
 
             this.Refresh();
@@ -110,42 +116,40 @@ namespace SalaryManager.WPF.Models
                 this.ViewModel.SpecialAllowance_IsEnabled.Value         = existence.Special.Value;
             }
 
-            var entity = this.ViewModel.Entity;
-
-            if (entity is null)
+            if (this.Entity is null)
             {
                 this.Clear();
                 return;
             }
 
             // 基本給
-            this.ViewModel.BasicSalary_Text.Value              = entity.BasicSalary.Value;
+            this.ViewModel.BasicSalary_Text.Value              = this.Entity.BasicSalary.Value;
             // 役職手当
-            this.ViewModel.ExecutiveAllowance_Text.Value       = entity.ExecutiveAllowance.Value;
+            this.ViewModel.ExecutiveAllowance_Text.Value       = this.Entity.ExecutiveAllowance.Value;
             // 扶養手当
-            this.ViewModel.DependencyAllowance_Text.Value      = entity.DependencyAllowance.Value;
+            this.ViewModel.DependencyAllowance_Text.Value      = this.Entity.DependencyAllowance.Value;
             // 時間外手当
-            this.ViewModel.OvertimeAllowance_Text.Value        = entity.OvertimeAllowance.Value;
+            this.ViewModel.OvertimeAllowance_Text.Value        = this.Entity.OvertimeAllowance.Value;
             // 休日割増
-            this.ViewModel.DaysoffIncreased_Text.Value         = entity.DaysoffIncreased.Value;
+            this.ViewModel.DaysoffIncreased_Text.Value         = this.Entity.DaysoffIncreased.Value;
             // 深夜割増
-            this.ViewModel.NightworkIncreased_Text.Value       = entity.NightworkIncreased.Value;
+            this.ViewModel.NightworkIncreased_Text.Value       = this.Entity.NightworkIncreased.Value;
             // 住宅手当
-            this.ViewModel.HousingAllowance_Text.Value         = entity.HousingAllowance.Value;
+            this.ViewModel.HousingAllowance_Text.Value         = this.Entity.HousingAllowance.Value;
             // 遅刻早退欠勤
-            this.ViewModel.LateAbsent_Text.Value               = entity.LateAbsent;
+            this.ViewModel.LateAbsent_Text.Value               = this.Entity.LateAbsent;
             // 交通費
-            this.ViewModel.TransportationExpenses_Text.Value   = entity.TransportationExpenses.Value;
+            this.ViewModel.TransportationExpenses_Text.Value   = this.Entity.TransportationExpenses.Value;
             // 前払退職金
-            this.ViewModel.PrepaidRetirementPayment_Text.Value = entity.PrepaidRetirementPayment.Value;
+            this.ViewModel.PrepaidRetirementPayment_Text.Value = this.Entity.PrepaidRetirementPayment.Value;
             // 在宅手当
-            this.ViewModel.ElectricityAllowance_Text.Value     = entity.ElectricityAllowance.Value;
+            this.ViewModel.ElectricityAllowance_Text.Value     = this.Entity.ElectricityAllowance.Value;
             // 特別手当
-            this.ViewModel.SpecialAllowance_Text.Value         = entity.SpecialAllowance;
+            this.ViewModel.SpecialAllowance_Text.Value         = this.Entity.SpecialAllowance;
             // 予備
-            this.ViewModel.SpareAllowance_Text.Value           = entity.SpareAllowance;
+            this.ViewModel.SpareAllowance_Text.Value           = this.Entity.SpareAllowance;
             // 備考
-            this.ViewModel.Remarks_Text.Value                  = entity.Remarks;
+            this.ViewModel.Remarks_Text.Value                  = this.Entity.Remarks;
             // 支給総計、差引支給額
             this.ReCaluculate();
         }
@@ -162,8 +166,8 @@ namespace SalaryManager.WPF.Models
             {
                 Allowances.Create(_repository);
 
-                this.ViewModel.Entity          = Allowances.Fetch(this.Header.Year_Text.Value,     this.Header.Month_Text.Value);
-                this.ViewModel.Entity_LastYear = Allowances.Fetch(this.Header.Year_Text.Value - 1, this.Header.Month_Text.Value);
+                this.Entity          = Allowances.Fetch(this.Header.Year_Text.Value,     this.Header.Month_Text.Value);
+                this.Entity_LastYear = Allowances.Fetch(this.Header.Year_Text.Value - 1, this.Header.Month_Text.Value);
 
                 this.Refresh();
             }
@@ -223,8 +227,8 @@ namespace SalaryManager.WPF.Models
         public void Save(ITransactionRepository transaction)
         {
             var entity = new AllowanceValueEntity(
-                              this.Header.ID,
-                              this.Header.YearMonth,
+                              this.Header.Model.ID,
+                              this.Header.Model.YearMonth,
                               this.ViewModel.BasicSalary_Text.Value,
                               this.ViewModel.ExecutiveAllowance_Text.Value,
                               this.ViewModel.DependencyAllowance_Text.Value,

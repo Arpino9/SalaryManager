@@ -1,7 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
 using Reactive.Bindings;
-using SalaryManager.Domain.Entities;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.Models;
 
@@ -10,14 +8,8 @@ namespace SalaryManager.WPF.ViewModels
     /// <summary>
     /// ViewModel - 勤務備考
     /// </summary>
-    public class ViewModel_WorkingReference : INotifyPropertyChanged
+    public class ViewModel_WorkingReference
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// Constructure
-        /// </summary>
-        /// <exception cref="Exception">読込失敗時</exception>
         public ViewModel_WorkingReference()
         {
             this.MainWindow.WorkingReference = this.Model;
@@ -41,9 +33,9 @@ namespace SalaryManager.WPF.ViewModels
             // 初期状態
             this.Default_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(0, 0));
             // 支給額-保険
-            this.Insurance_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.Insurance_Text.Value, this.Entity_LastYear?.Insurance.Value));
+            this.Insurance_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.Insurance_Text.Value, this.Model.Entity_LastYear?.Insurance.Value));
             // 標準月額千円
-            this.Norm_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.Norm_Text.Value, this.Entity_LastYear?.Norm));
+            this.Norm_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.Norm_Text.Value, this.Model.Entity_LastYear?.Norm));
         }
 
         /// <summary> Model </summary>
@@ -54,15 +46,13 @@ namespace SalaryManager.WPF.ViewModels
         public Model_MainWindow MainWindow { get; set; }  
             = Model_MainWindow.GetInstance();
 
-        /// <summary> Entity - 勤務備考 </summary>
-        public WorkingReferencesEntity Entity { get; set; }
-
-        /// <summary> Entity - 勤務備考 (昨年度) </summary>
-        public WorkingReferencesEntity Entity_LastYear { get; set; }
+        #region 初期状態
 
         /// <summary> 初期状態 - MouseMove </summary>
         public ReactiveCommand Default_MouseMove { get; private set; }
             = new ReactiveCommand();
+
+        #endregion
 
         #region 時間外時間
 

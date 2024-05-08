@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using Reactive.Bindings;
 using SalaryManager.WPF.Models;
 
@@ -8,10 +7,8 @@ namespace SalaryManager.WPF.ViewModels
     /// <summary>
     /// ViewModel - 勤怠表 (ヘッダ)
     /// </summary>
-    public class ViewModel_WorkSchedule_Header : INotifyPropertyChanged
+    public class ViewModel_WorkSchedule_Header
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public ViewModel_WorkSchedule_Header()
         {
             this.Model.ViewModel_Header = this;
@@ -41,8 +38,6 @@ namespace SalaryManager.WPF.ViewModels
         private Model_WorkSchedule_Table Model 
             = Model_WorkSchedule_Table.GetInstance();
 
-        public DateTime TargetDate;
-
         #region 派遣元
 
         /// <summary> 派遣元 - Text </summary>
@@ -67,8 +62,6 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
-        public TimeSpan OvertimeTotal;
-
         #region 残業時間
 
         /// <summary> 残業時間 - Text </summary>
@@ -76,8 +69,6 @@ namespace SalaryManager.WPF.ViewModels
             = new ReactiveProperty<string>();
 
         #endregion
-
-        public TimeSpan WorkingTimeTotal;
 
         #region 勤務時間
 

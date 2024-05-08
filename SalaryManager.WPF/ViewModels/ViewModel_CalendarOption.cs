@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Reactive.Linq;
 using Reactive.Bindings;
 using SalaryManager.WPF.Models;
@@ -9,10 +8,8 @@ namespace SalaryManager.WPF.ViewModels
     /// <summary>
     /// ViewModel - オプション - カレンダー
     /// </summary>
-    public class ViewModel_CalendarOption : INotifyPropertyChanged
+    public class ViewModel_CalendarOption
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public ViewModel_CalendarOption()
         {
             this.Model.CalendarOption = this;
@@ -36,7 +33,8 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary> Model - オプション </summary>
-        public Model_Option Model = Model_Option.GetInstance();
+        public Model_Option Model 
+            = Model_Option.GetInstance();
 
         #region JSONの保存先パス
 

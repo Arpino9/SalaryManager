@@ -1,23 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Windows.Media;
 using Reactive.Bindings;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.Models;
-using static SalaryManager.WPF.ViewModels.ViewModel_GeneralOption;
 
 namespace SalaryManager.WPF.ViewModels
 {
     /// <summary>
     /// ViewModel - 添付ファイル
     /// </summary>
-    public class ViewModel_FileStorage : INotifyPropertyChanged
+    public class ViewModel_FileStorage
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public ViewModel_FileStorage()
         {
             this.Model.ViewModel = this;
@@ -48,9 +43,6 @@ namespace SalaryManager.WPF.ViewModels
             this.Update_Command.Subscribe(_ => this.Model.Update());
             this.Delete_Command.Subscribe(_ => this.Model.Delete());
         }
-
-        /// <summary> Entities - 添付ファイル管理 </summary>
-        public IReadOnlyList<FileStorageEntity> Entities { get; internal set; }
 
         /// <summary> Model - 支給額 </summary>
         public Model_FileStorage Model 
@@ -108,8 +100,6 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
-        internal HowToSaveImage HowToSave { get; private set; }
-
         #region フォルダを開く
 
         /// <summary> フォルダを開く - IsEnabled </summary>
@@ -121,8 +111,7 @@ namespace SalaryManager.WPF.ViewModels
             = new ReactiveCommand();
 
         #endregion
-        public byte[] ByteImage { get; set; }
-
+        
         #region 画像
 
         /// <summary> ファイルのパス - Image </summary>

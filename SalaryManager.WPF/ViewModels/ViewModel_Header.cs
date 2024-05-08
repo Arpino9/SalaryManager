@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows.Media;
 using Reactive.Bindings;
 using SalaryManager.Infrastructure.SQLite;
@@ -10,10 +9,8 @@ namespace SalaryManager.WPF.ViewModels
     /// <summary>
     /// ViewModel - ヘッダ
     /// </summary>
-    public class ViewModel_Header : INotifyPropertyChanged
+    public class ViewModel_Header
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public ViewModel_Header()
         {
             this.MainWindow.Header = this.Model;
@@ -120,12 +117,6 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
-        /// <summary> ID </summary>
-        public int ID { get; internal set; }
-
-        /// <summary> 年月 </summary>
-        public DateTime YearMonth { get; set; } = DateTime.Today;
-
         #region 年
 
         /// <summary> 年 - Text </summary>
@@ -149,15 +140,6 @@ namespace SalaryManager.WPF.ViewModels
             = new ReactiveCommand();
 
         #endregion
-
-        /// <summary> デフォルトか </summary>
-        public bool IsDefault { get; set; }
-
-        /// <summary> 作成日 </summary>
-        public DateTime CreateDate { get; set; }
-
-        /// <summary> 更新日 </summary>
-        public DateTime UpdateDate { get; set; }
 
         #region 戻るボタン
 

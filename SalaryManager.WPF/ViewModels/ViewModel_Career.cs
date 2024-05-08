@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using Reactive.Bindings;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Infrastructure.SQLite;
@@ -12,11 +10,8 @@ namespace SalaryManager.WPF.ViewModels
     /// <summary>
     /// ViewModel - 経歴
     /// </summary>
-    [EditorBrowsable(EditorBrowsableState.Always)]
-    public class ViewModel_Career : INotifyPropertyChanged
+    public class ViewModel_Career
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public ViewModel_Career()
         {
             this.Model.ViewModel = this;
@@ -52,9 +47,6 @@ namespace SalaryManager.WPF.ViewModels
 
         /// <summary> Model - 経歴 </summary>
         public Model_Career Model { get; set; } = Model_Career.GetInstance(new CareerSQLite());
-
-        /// <summary> Entity - 経歴 </summary>
-        public IReadOnlyList<CareerEntity> Entities { get; internal set; }
 
         #region Window
 

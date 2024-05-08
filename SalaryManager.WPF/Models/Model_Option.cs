@@ -40,6 +40,9 @@ namespace SalaryManager.WPF.Models
 
         }
 
+        /// <summary> 背景色</summary>
+        internal Color Window_BackgroundColor { get; set; } = SystemColors.ControlLight;
+
         /// <summary>
         /// 初期化
         /// </summary>
@@ -78,7 +81,7 @@ namespace SalaryManager.WPF.Models
                 this.GeneralOption.ImageFolderPath_Text.Value = XMLLoader.FetchImageFolder();
                 
                 // 背景色
-                this.GeneralOption.Window_BackgroundColor = XMLLoader.FetchBackgroundColor();
+                this.Window_BackgroundColor = XMLLoader.FetchBackgroundColor();
                 this.GeneralOption.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
             }
             else
@@ -263,8 +266,8 @@ namespace SalaryManager.WPF.Models
 
             if (result == DialogResult.OK) 
             {
-                this.GeneralOption.Window_Background.Value      = ColorUtils.ToWPFColor(dialog.Color);
-                this.GeneralOption.Window_BackgroundColor = dialog.Color;
+                this.GeneralOption.Window_Background.Value = ColorUtils.ToWPFColor(dialog.Color);
+                this.Window_BackgroundColor = dialog.Color;
             }
         }
 
@@ -292,15 +295,15 @@ namespace SalaryManager.WPF.Models
                 tag.FontFamily                = this.GeneralOption.FontFamily_Text.Value;
                 tag.FontSize                  = this.GeneralOption.FontSize_Value.Value;
                 tag.ShowDefaultPayslip        = this.GeneralOption.ShowDefaultPayslip_IsChecked.Value;
-                tag.BackgroundColor_ColorCode = this.GeneralOption.Window_BackgroundColor.Name;
+                tag.BackgroundColor_ColorCode = this.Window_BackgroundColor.Name;
                 tag.ImageFolderPath           = this.GeneralOption.ImageFolderPath_Text.Value;
 
                 var list = new List<string>()
                 {
-                    this.GeneralOption.Window_BackgroundColor.A.ToString(),
-                    this.GeneralOption.Window_BackgroundColor.R.ToString(),
-                    this.GeneralOption.Window_BackgroundColor.G.ToString(),
-                    this.GeneralOption.Window_BackgroundColor.B.ToString()
+                    this.Window_BackgroundColor.A.ToString(),
+                    this.Window_BackgroundColor.R.ToString(),
+                    this.Window_BackgroundColor.G.ToString(),
+                    this.Window_BackgroundColor.B.ToString()
                 };
 
                 tag.HowToSaveImage = this.GeneralOption.HowToSaveImage_IsChecked.ToString();
@@ -341,23 +344,23 @@ namespace SalaryManager.WPF.Models
         {
             var list = new List<string>()
             {
-                this.GeneralOption.Window_BackgroundColor.A.ToString(),
-                this.GeneralOption.Window_BackgroundColor.R.ToString(),
-                this.GeneralOption.Window_BackgroundColor.G.ToString(),
-                this.GeneralOption.Window_BackgroundColor.B.ToString()
+                this.Window_BackgroundColor.A.ToString(),
+                this.Window_BackgroundColor.R.ToString(),
+                this.Window_BackgroundColor.G.ToString(),
+                this.Window_BackgroundColor.B.ToString()
             };
 
             var property = new JSONProperty_Settings()
             {
                 General = new General
                 {
-                    FontFamily = this.GeneralOption.FontFamily_Text.Value,
-                    FontSize = this.GeneralOption.FontSize_Value.Value,
-                    BackgroundColor = StringUtils.Aggregate(list),
-                    BackgroundColor_ColorCode = this.GeneralOption.Window_BackgroundColor.Name,
-                    ShowDefaultPayslip = this.GeneralOption.ShowDefaultPayslip_IsChecked.Value,
-                    HowToSaveImage = this.GeneralOption.HowToSaveImage_IsChecked.ToString(),
-                    ImageFolderPath = this.GeneralOption.ImageFolderPath_Text.Value,
+                    FontFamily                = this.GeneralOption.FontFamily_Text.Value,
+                    FontSize                  = this.GeneralOption.FontSize_Value.Value,
+                    BackgroundColor           = StringUtils.Aggregate(list),
+                    BackgroundColor_ColorCode = this.Window_BackgroundColor.Name,
+                    ShowDefaultPayslip        = this.GeneralOption.ShowDefaultPayslip_IsChecked.Value,
+                    HowToSaveImage            = this.GeneralOption.HowToSaveImage_IsChecked.ToString(),
+                    ImageFolderPath           = this.GeneralOption.ImageFolderPath_Text.Value,
                 },
                 SpreadSheet = new SpreadSheet
                 {
@@ -409,7 +412,7 @@ namespace SalaryManager.WPF.Models
             this.GeneralOption.FontSize_Value.Value = decimal.Parse(Shared.FontSize);
 
             // 背景色
-            this.GeneralOption.Window_BackgroundColor = SystemColors.ControlLight;
+            this.Window_BackgroundColor = SystemColors.ControlLight;
             this.GeneralOption.Window_Background.Value      = ColorUtils.ToWPFColor(SystemColors.ControlLight);
 
             // PDFのパスワード

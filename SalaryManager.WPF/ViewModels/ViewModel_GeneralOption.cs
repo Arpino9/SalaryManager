@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Drawing;
 using System.Windows.Media;
 using Reactive.Bindings;
 using SalaryManager.Domain;
@@ -12,10 +10,8 @@ namespace SalaryManager.WPF.ViewModels
     /// <summary>
     /// ViewModel - オプション(一般)
     /// </summary>
-    public class ViewModel_GeneralOption : INotifyPropertyChanged
+    public class ViewModel_GeneralOption
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public ViewModel_GeneralOption()
         {
             this.Model.GeneralOption = this;
@@ -65,7 +61,8 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary> Model - オプション </summary>
-        public Model_Option Model = Model_Option.GetInstance();
+        public Model_Option Model 
+            = Model_Option.GetInstance();
 
         #region Window
 
@@ -74,8 +71,8 @@ namespace SalaryManager.WPF.ViewModels
             = new ReactiveProperty<string>("オプション");
 
         /// <summary> Window - FontFamily </summary>
-        public ReactiveProperty<System.Windows.Media.FontFamily> Window_FontFamily { get; set; }
-            = new ReactiveProperty<System.Windows.Media.FontFamily>();
+        public ReactiveProperty<FontFamily> Window_FontFamily { get; set; }
+            = new ReactiveProperty<FontFamily>();
 
         #endregion
 
@@ -127,8 +124,6 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
-        internal System.Drawing.Color Window_BackgroundColor { get; set; } = SystemColors.ControlLight;
-
         #region 背景色
 
         /// <summary> 背景色 - Background </summary>
@@ -144,8 +139,8 @@ namespace SalaryManager.WPF.ViewModels
         #region プレビュー
 
         /// <summary> プレビュー - FontFamily </summary>
-        public ReactiveProperty<System.Windows.Media.FontFamily> Preview_FontFamily { get; set; }
-            = new ReactiveProperty<System.Windows.Media.FontFamily>();
+        public ReactiveProperty<FontFamily> Preview_FontFamily { get; set; }
+            = new ReactiveProperty<FontFamily>();
 
         #endregion
 

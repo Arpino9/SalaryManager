@@ -8,6 +8,7 @@ using SalaryManager.Domain.StaticValues;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.Infrastructure.XML;
 using SalaryManager.Domain.Repositories;
+using System.Collections.Generic;
 
 namespace SalaryManager.WPF.Models
 {
@@ -43,6 +44,9 @@ namespace SalaryManager.WPF.Models
         /// <summary> ViewModel - 職歴 </summary>
         public ViewModel_Career ViewModel { get; set; }
 
+        /// <summary> Entity - 経歴 </summary>
+        public IReadOnlyList<CareerEntity> Entities { get; internal set; }
+
         /// <summary>
         /// 初期化
         /// </summary>
@@ -58,7 +62,7 @@ namespace SalaryManager.WPF.Models
 
             this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
 
-            this.ViewModel.Entities = Careers.FetchByDescending();
+            this.Entities = Careers.FetchByDescending();
 
             this.Reflesh_ListView();
 
@@ -87,15 +91,13 @@ namespace SalaryManager.WPF.Models
         {
             this.ViewModel.Careers_ItemSource.Value.Clear();
 
-            var entities = this.ViewModel.Entities;
-
-            if (!entities.Any())
+            if (!this.Entities.Any())
             {
                 this.Clear_InputForm();
                 return;
             }
 
-            foreach (var entity in entities)
+            foreach (var entity in this.Entities)
             {
                 this.ViewModel.Careers_ItemSource.Value.Add(entity);
             }
@@ -234,7 +236,7 @@ namespace SalaryManager.WPF.Models
             {
                 Careers.Create(_repository);
 
-                this.ViewModel.Entities = Careers.FetchByDescending();
+                this.Entities = Careers.FetchByDescending();
 
                 this.Refresh();
             }
@@ -316,7 +318,7 @@ namespace SalaryManager.WPF.Models
             {
                 this.ViewModel.Delete_IsEnabled.Value = true;
 
-                var entity = this.CreateEntity(this.ViewModel.Entities.Count + 1);
+                var entity = this.CreateEntity(this.Entities.Count + 1);
                 this.ViewModel.Careers_ItemSource.Value.Add(entity);
                 this.Save();
 

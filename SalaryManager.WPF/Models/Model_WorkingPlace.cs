@@ -9,6 +9,7 @@ using SalaryManager.Infrastructure.XML;
 using SalaryManager.Domain.Repositories;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.Domain.Modules.Helpers;
+using System.Collections.Generic;
 
 namespace SalaryManager.WPF.Models
 {
@@ -44,6 +45,9 @@ namespace SalaryManager.WPF.Models
         /// <summary> ViewModel - 職歴 </summary>
         public ViewModel_WorkingPlace ViewModel { get; set; }
 
+        /// <summary> エンティティ </summary>
+        public IReadOnlyList<WorkingPlaceEntity> Entities { get; internal set; }
+
         /// <summary>
         /// 初期化
         /// </summary>
@@ -72,7 +76,7 @@ namespace SalaryManager.WPF.Models
 
             this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
 
-            this.ViewModel.Entities = WorkingPlace.FetchByDescending();
+            this.Entities = WorkingPlace.FetchByDescending();
 
             this.Reflesh_ListView();
 
@@ -104,15 +108,13 @@ namespace SalaryManager.WPF.Models
         {
             this.ViewModel.WorkingPlaces_ItemSource.Value.Clear();
 
-            var entities = this.ViewModel.Entities;
-
-            if (!entities.Any())
+            if (!this.Entities.Any())
             {
                 this.Clear_InputForm();
                 return;
             }
 
-            foreach (var entity in entities)
+            foreach (var entity in this.Entities)
             {
                 this.ViewModel.WorkingPlaces_ItemSource.Value.Add(entity);
             }
@@ -283,7 +285,7 @@ namespace SalaryManager.WPF.Models
             {
                 WorkingPlace.Create(_repository);
 
-                this.ViewModel.Entities = WorkingPlace.FetchByDescending();
+                this.Entities = WorkingPlace.FetchByDescending();
 
                 this.Refresh();
             }
@@ -366,7 +368,7 @@ namespace SalaryManager.WPF.Models
             {
                 this.ViewModel.Delete_IsEnabled.Value = true;
 
-                var entity = this.CreateEntity(this.ViewModel.Entities.Count + 1);
+                var entity = this.CreateEntity(this.Entities.Count + 1);
                 this.ViewModel.WorkingPlaces_ItemSource.Value.Add(entity);
                 this.Save();
 

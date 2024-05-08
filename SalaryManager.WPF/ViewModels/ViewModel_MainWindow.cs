@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows.Media;
 using Reactive.Bindings;
 using SalaryManager.Domain;
@@ -11,10 +10,8 @@ namespace SalaryManager.WPF.ViewModels
     /// <summary>
     /// ViewModel - メイン画面
     /// </summary>
-    public class ViewModel_MainWindow : INotifyPropertyChanged
+    public class ViewModel_MainWindow
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        
         public ViewModel_MainWindow()
         {
             this.Model.ViewModel   = this;

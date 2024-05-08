@@ -221,23 +221,23 @@ namespace SalaryManager.WPF.Models
             }
 
             // 支給額
-            this.Allowance.ViewModel.Entity = Allowances.FetchDefault();
+            this.Allowance.Entity = Allowances.FetchDefault();
             this.Allowance.Refresh();
 
             // 控除額
-            this.Deduction.ViewModel.Entity = Deductions.FetchDefault();
+            this.Deduction.Entity = Deductions.FetchDefault();
             this.Deduction.Refresh();
 
             // 勤務備考
-            this.WorkingReference.ViewModel.Entity = WorkingReferences.FetchDefault();
+            this.WorkingReference.Entity = WorkingReferences.FetchDefault();
             this.WorkingReference.Refresh();
 
             // 副業
-            this.SideBusiness.ViewModel.Entity = SideBusinesses.FetchDefault();
+            this.SideBusiness.Entity = SideBusinesses.FetchDefault();
             this.SideBusiness.Refresh();
 
             // 勤務先、勤務場所
-            this.WorkPlace.Entity = WorkingReferences.FetchDefault();
+            this.WorkPlace.Model.Entity = WorkingReferences.FetchDefault();
             this.WorkPlace.Model.Refresh();
         }
 

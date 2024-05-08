@@ -48,6 +48,12 @@ namespace SalaryManager.WPF.Models
         /// <summary> ViewModel - 支給額 </summary>
         internal Model_Allowance Allowance { get; set; }
 
+        /// <summary> Entity - 控除額 </summary>
+        public DeductionEntity Entity { get; set; }
+
+        /// <summary> Entity - 控除額 (昨年度) </summary>
+        public DeductionEntity Entity_LastYear { get; set; }
+
         /// <summary>
         /// 初期化
         /// </summary>
@@ -59,15 +65,15 @@ namespace SalaryManager.WPF.Models
         {
             Deductions.Create(_repository);
 
-            this.ViewModel.Entity          = Deductions.Fetch(entityDate.Year, entityDate.Month);
-            this.ViewModel.Entity_LastYear = Deductions.Fetch(entityDate.Year, entityDate.Month - 1);
+            this.Entity          = Deductions.Fetch(entityDate.Year, entityDate.Month);
+            this.Entity_LastYear = Deductions.Fetch(entityDate.Year, entityDate.Month - 1);
 
             var showDefaultPayslip = XMLLoader.FetchShowDefaultPayslip();
 
-            if (this.ViewModel.Entity is null && showDefaultPayslip)
+            if (this.Entity is null && showDefaultPayslip)
             {
                 // デフォルト明細
-                this.ViewModel.Entity = Deductions.FetchDefault();
+                this.Entity = Deductions.FetchDefault();
             }
 
             this.Refresh();
@@ -81,34 +87,32 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         public void Refresh()
         {
-            var entity = this.ViewModel.Entity;
-
-            if (entity is null)
+            if (this.Entity is null)
             {
                 this.Clear();
                 return;
             }
 
             // 健康保険
-            this.ViewModel.HealthInsurance_Text.Value       = entity.HealthInsurance.Value;
+            this.ViewModel.HealthInsurance_Text.Value       = this.Entity.HealthInsurance.Value;
             // 介護保険
-            this.ViewModel.NursingInsurance_Text.Value      = entity.NursingInsurance.Value;
+            this.ViewModel.NursingInsurance_Text.Value      = this.Entity.NursingInsurance.Value;
             // 厚生年金
-            this.ViewModel.WelfareAnnuity_Text.Value        = entity.WelfareAnnuity.Value;
+            this.ViewModel.WelfareAnnuity_Text.Value        = this.Entity.WelfareAnnuity.Value;
             // 雇用保険
-            this.ViewModel.EmploymentInsurance_Text.Value   = entity.EmploymentInsurance.Value;
+            this.ViewModel.EmploymentInsurance_Text.Value   = this.Entity.EmploymentInsurance.Value;
             // 所得税
-            this.ViewModel.IncomeTax_Text.Value             = entity.IncomeTax.Value;
+            this.ViewModel.IncomeTax_Text.Value             = this.Entity.IncomeTax.Value;
             // 市町村税
-            this.ViewModel.MunicipalTax_Text.Value          = entity.MunicipalTax.Value;
+            this.ViewModel.MunicipalTax_Text.Value          = this.Entity.MunicipalTax.Value;
             // 互助会
-            this.ViewModel.FriendshipAssociation_Text.Value = entity.FriendshipAssociation.Value;
+            this.ViewModel.FriendshipAssociation_Text.Value = this.Entity.FriendshipAssociation.Value;
             // 年末調整他
-            this.ViewModel.YearEndTaxAdjustment_Text.Value  = entity.YearEndTaxAdjustment;
+            this.ViewModel.YearEndTaxAdjustment_Text.Value  = this.Entity.YearEndTaxAdjustment;
             // 備考
-            this.ViewModel.Remarks_Text.Value               = entity.Remarks;
+            this.ViewModel.Remarks_Text.Value               = this.Entity.Remarks;
             // 控除額計
-            this.ViewModel.TotalDeduct_Text.Value           = entity.TotalDeduct.Value;
+            this.ViewModel.TotalDeduct_Text.Value           = this.Entity.TotalDeduct.Value;
         }
 
         /// <summary>
@@ -123,8 +127,8 @@ namespace SalaryManager.WPF.Models
             {
                 Deductions.Create(_repository);
 
-                this.ViewModel.Entity          = Deductions.Fetch(this.Header.Year_Text.Value,     this.Header.Month_Text.Value);
-                this.ViewModel.Entity_LastYear = Deductions.Fetch(this.Header.Year_Text.Value - 1, this.Header.Month_Text.Value);
+                this.Entity          = Deductions.Fetch(this.Header.Year_Text.Value,     this.Header.Month_Text.Value);
+                this.Entity_LastYear = Deductions.Fetch(this.Header.Year_Text.Value - 1, this.Header.Month_Text.Value);
 
                 this.Refresh();
             }   
@@ -170,8 +174,8 @@ namespace SalaryManager.WPF.Models
         public void Save(ITransactionRepository transaction)
         {
             var entity = new DeductionEntity(
-                            this.Header.ID,
-                            this.Header.YearMonth,
+                            this.Header.Model.ID,
+                            this.Header.Model.YearMonth,
                             this.ViewModel.HealthInsurance_Text.Value,
                             this.ViewModel.NursingInsurance_Text.Value,
                             this.ViewModel.WelfareAnnuity_Text.Value,

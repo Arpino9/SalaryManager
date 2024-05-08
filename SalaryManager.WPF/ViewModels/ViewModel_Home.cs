@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using Reactive.Bindings;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Infrastructure.SQLite;
@@ -11,10 +10,8 @@ namespace SalaryManager.WPF.ViewModels
     /// <summary>
     /// ViewModel - 自宅
     /// </summary>
-    public class ViewModel_Home : INotifyPropertyChanged
+    public class ViewModel_Home
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public ViewModel_Home()
         {
             this.Model.ViewModel = this;

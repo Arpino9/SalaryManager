@@ -1,15 +1,12 @@
-﻿using Reactive.Bindings;
-using SalaryManager.WPF.Models;
-using System;
-using System.ComponentModel;
+﻿using System;
 using System.Reactive.Linq;
+using Reactive.Bindings;
+using SalaryManager.WPF.Models;
 
 namespace SalaryManager.WPF.ViewModels
 {
-    public class ViewModel_SpreadSheetOption : INotifyPropertyChanged
+    public class ViewModel_SpreadSheetOption
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public ViewModel_SpreadSheetOption()
         {
             this.Model.SpreadSheetOption = this;
@@ -33,7 +30,8 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary> Model - オプション </summary>
-        public Model_Option Model = Model_Option.GetInstance();
+        public Model_Option Model 
+            = Model_Option.GetInstance();
 
         #region 認証ファイルの保存先パス
 

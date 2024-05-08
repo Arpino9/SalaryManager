@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Media;
+using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Domain.Repositories;
 using SalaryManager.Domain.StaticValues;
@@ -45,6 +46,12 @@ namespace SalaryManager.WPF.Models
         /// <summary> ViewModel - ヘッダ </summary>
         internal ViewModel_Header Header { get; set; }
 
+        /// <summary> Entity - 勤務備考 </summary>
+        public WorkingReferencesEntity Entity { get; set; }
+
+        /// <summary> Entity - 勤務備考 (昨年度) </summary>
+        public WorkingReferencesEntity Entity_LastYear { get; set; }
+
         /// <summary>
         /// 初期化
         /// </summary>
@@ -57,17 +64,17 @@ namespace SalaryManager.WPF.Models
             WorkingReferences.Create(new WorkingReferenceSQLite());
             Careers.Create(new CareerSQLite());
 
-            this.ViewModel.Entity          = WorkingReferences.Fetch(entityDate.Year, entityDate.Month);
-            this.ViewModel.Entity_LastYear = WorkingReferences.Fetch(entityDate.Year, entityDate.Month - 1);
+            this.Entity          = WorkingReferences.Fetch(entityDate.Year, entityDate.Month);
+            this.Entity_LastYear = WorkingReferences.Fetch(entityDate.Year, entityDate.Month - 1);
 
             this.Window_Activated();
 
             var showDefaultPayslip = XMLLoader.FetchShowDefaultPayslip();
 
-            if (this.ViewModel.Entity is null && showDefaultPayslip)
+            if (this.Entity is null && showDefaultPayslip)
             {
                 // デフォルト明細
-                this.ViewModel.Entity = WorkingReferences.FetchDefault();
+                this.Entity = WorkingReferences.FetchDefault();
             }
 
             this.Refresh();
@@ -92,16 +99,14 @@ namespace SalaryManager.WPF.Models
             WorkingPlace.Create(new WorkingPlaceSQLite());
             Careers.Create(new CareerSQLite());
 
-            var entity = this.ViewModel.Entity;
-
-            if (entity is null)
+            if (this.Entity is null)
             {
                 this.Clear();
                 return;
             }
 
             // 勤務先
-            this.ViewModel.WorkPlace_Text.Value = entity.WorkPlace;
+            this.ViewModel.WorkPlace_Text.Value = this.Entity.WorkPlace;
 
             // 所属会社名
             var workingPlace = WorkingPlace.FetchByDate(new DateTime(this.Header.Year_Text.Value, this.Header.Month_Text.Value, 1));
@@ -135,8 +140,8 @@ namespace SalaryManager.WPF.Models
             {
                 WorkingReferences.Create(new WorkingReferenceSQLite());
 
-                this.ViewModel.Entity          = WorkingReferences.Fetch(this.Header.Year_Text.Value, this.Header.Month_Text.Value);
-                this.ViewModel.Entity_LastYear = WorkingReferences.Fetch(this.Header.Year_Text.Value - 1, this.Header.Month_Text.Value);
+                this.Entity          = WorkingReferences.Fetch(this.Header.Year_Text.Value, this.Header.Month_Text.Value);
+                this.Entity_LastYear = WorkingReferences.Fetch(this.Header.Year_Text.Value - 1, this.Header.Month_Text.Value);
 
                 this.Refresh();
             }

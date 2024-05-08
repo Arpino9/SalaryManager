@@ -1,8 +1,6 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows.Media;
 using Reactive.Bindings;
-using SalaryManager.Domain.Entities;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.Models;
 
@@ -11,10 +9,8 @@ namespace SalaryManager.WPF.ViewModels
     /// <summary>
     /// ViewModel - 控除額
     /// </summary>
-    public class ViewModel_Deduction : INotifyPropertyChanged
+    public class ViewModel_Deduction
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public ViewModel_Deduction()
         {
             this.MainWindow.Deduction = this.Model;
@@ -40,23 +36,23 @@ namespace SalaryManager.WPF.ViewModels
             // 初期状態
             this.Default_MouseLeave.Subscribe(_ => this.MainWindow.ComparePrice(0, 0));
             // 健康保険
-            this.HealthInsurance_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.HealthInsurance_Text.Value, this.Entity_LastYear?.HealthInsurance.Value));
+            this.HealthInsurance_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.HealthInsurance_Text.Value, this.Model.Entity_LastYear?.HealthInsurance.Value));
             // 介護保険
-            this.NursingInsurance_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.NursingInsurance_Text.Value, this.Entity_LastYear?.NursingInsurance.Value));
+            this.NursingInsurance_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.NursingInsurance_Text.Value, this.Model.Entity_LastYear?.NursingInsurance.Value));
             // 厚生年金
-            this.WelfareAnnuity_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.WelfareAnnuity_Text.Value, this.Entity_LastYear?.WelfareAnnuity.Value));
+            this.WelfareAnnuity_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.WelfareAnnuity_Text.Value, this.Model.Entity_LastYear?.WelfareAnnuity.Value));
             // 雇用保険
-            this.EmploymentInsurance_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.EmploymentInsurance_Text.Value, this.Entity_LastYear?.EmploymentInsurance.Value));
+            this.EmploymentInsurance_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.EmploymentInsurance_Text.Value, this.Model.Entity_LastYear?.EmploymentInsurance.Value));
             // 所得税
-            this.IncomeTax_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.IncomeTax_Text.Value, this.Entity_LastYear?.IncomeTax.Value));
+            this.IncomeTax_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.IncomeTax_Text.Value, this.Model.Entity_LastYear?.IncomeTax.Value));
             // 市町村税
-            this.MunicipalTax_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.MunicipalTax_Text.Value, this.Entity_LastYear?.MunicipalTax.Value));
+            this.MunicipalTax_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.MunicipalTax_Text.Value, this.Model.Entity_LastYear?.MunicipalTax.Value));
             // 互助会
-            this.FriendshipAssociation_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.FriendshipAssociation_Text.Value, this.Entity_LastYear?.FriendshipAssociation.Value));
+            this.FriendshipAssociation_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.FriendshipAssociation_Text.Value, this.Model.Entity_LastYear?.FriendshipAssociation.Value));
             // 年末調整他
-            this.YearEndTaxAdjustment_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.YearEndTaxAdjustment_Text.Value, this.Entity_LastYear?.YearEndTaxAdjustment));
+            this.YearEndTaxAdjustment_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.YearEndTaxAdjustment_Text.Value, this.Model.Entity_LastYear?.YearEndTaxAdjustment));
             // 控除額計
-            this.TotalDeduct_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.TotalDeduct_Text.Value, this.Entity_LastYear?.TotalDeduct.Value));
+            this.TotalDeduct_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.TotalDeduct_Text.Value, this.Model.Entity_LastYear?.TotalDeduct.Value));
         }
 
         /// <summary> Model - 控除額 </summary>
@@ -71,15 +67,13 @@ namespace SalaryManager.WPF.ViewModels
         public Model_MainWindow MainWindow { get; set; } 
             = Model_MainWindow.GetInstance();
 
-        /// <summary> Entity - 控除額 </summary>
-        public DeductionEntity Entity { get; set; }
-
-        /// <summary> Entity - 控除額 (昨年度) </summary>
-        public DeductionEntity Entity_LastYear { get; set; }
+        #region 初期状態
 
         /// <summary> 初期状態 - MouseMove </summary>
         public ReactiveCommand Default_MouseLeave { get; private set; }
             = new ReactiveCommand();
+
+        #endregion
 
         #region 健康保険
 

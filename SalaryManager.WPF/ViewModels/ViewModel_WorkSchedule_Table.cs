@@ -1,17 +1,14 @@
 ﻿using Reactive.Bindings;
 using SalaryManager.Domain.Entities;
 using SalaryManager.WPF.Models;
-using System.ComponentModel;
 
 namespace SalaryManager.WPF.ViewModels
 {
     /// <summary>
     /// ViewModel - 勤務表
     /// </summary>
-    public class ViewModel_WorkSchedule_Table : INotifyPropertyChanged
+    public class ViewModel_WorkSchedule_Table
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public ViewModel_WorkSchedule_Table()
         {
             this.Model.ViewModel_Table = this;

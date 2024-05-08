@@ -1,16 +1,13 @@
 ﻿using Reactive.Bindings;
 using SalaryManager.WPF.Models;
-using System.ComponentModel;
 
 namespace SalaryManager.WPF.ViewModels
 {
     /// <summary>
     /// ViewModel - オプション(PDF)
     /// </summary>
-    public class ViewModel_PDFOption : INotifyPropertyChanged
+    public class ViewModel_PDFOption
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public ViewModel_PDFOption()
         {
             this.Model.PDFOption = this;

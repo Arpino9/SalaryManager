@@ -12,6 +12,7 @@ using SalaryManager.WPF.ViewModels;
 using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Infrastructure.JSON;
 using WorkingPlace = SalaryManager.Domain.StaticValues.WorkingPlace;
+using System.Reactive;
 
 namespace SalaryManager.WPF.Models
 {
@@ -41,20 +42,29 @@ namespace SalaryManager.WPF.Models
 
         #endregion
 
+        /// <summary> 対象日 </summary>
+        public DateTime TargetDate { get; set; }
+
+        /// <summary> 残業時間合計 </summary>
+        public TimeSpan OvertimeTotal { get; set; }
+
+        /// <summary> 勤務時間合計 </summary>
+        public TimeSpan WorkingTimeTotal { get; set; }
+
         public void Initialize_Header()
         {
-            this.ViewModel_Header.TargetDate = DateTime.Now;
+            this.TargetDate = DateTime.Now;
         }
 
         internal void Return()
         {
-            this.ViewModel_Header.TargetDate = this.ViewModel_Header.TargetDate.AddMonths(-1);
+            this.TargetDate = this.TargetDate.AddMonths(-1);
             Initialize_Table();
         }
 
         internal void Proceed()
         {
-            this.ViewModel_Header.TargetDate = this.ViewModel_Header.TargetDate.AddMonths(1);
+            this.TargetDate = this.TargetDate.AddMonths(1);
             Initialize_Table();
         }
 
@@ -73,8 +83,8 @@ namespace SalaryManager.WPF.Models
             }
 
             // 該当年月
-            this.ViewModel_Header.Year_Text.Value  = this.ViewModel_Header.TargetDate.Year;
-            this.ViewModel_Header.Month_Text.Value = this.ViewModel_Header.TargetDate.Month;
+            this.ViewModel_Header.Year_Text.Value  = this.TargetDate.Year;
+            this.ViewModel_Header.Month_Text.Value = this.TargetDate.Month;
 
             var (Noon, Lunch, Afternoon) = GetScheduleEvents(this.FirstDateOfMonth, this.LastDateOfMonth);
 
@@ -92,8 +102,7 @@ namespace SalaryManager.WPF.Models
             for (var day = 1; day <= this.LastDayOfMonth; day++)
             {
                 var date = new DateTime(this.ViewModel_Header.Year_Text.Value,
-                                         this.ViewModel_Header.Month_Text.Value,
-                                         day);
+                                         this.ViewModel_Header.Month_Text.Value, day);
 
                 var displayDay = new DateValue(date).Date_MMDDWithWeekName;
 
@@ -133,18 +142,9 @@ namespace SalaryManager.WPF.Models
                 // 備考
                 var remarks = this.InputRemarks(day, startDate, endDate, entities.First().Place);
 
-                var entity_Workday = new WorkScheduleEntity(
-                                        displayDay,
-                                        background,
-                                        startTime,
-                                        endTime,
-                                        lunchTime,
-                                        notification,
-                                        workingTime,
-                                        overtime,
-                                        string.Empty,
-                                        string.Empty,
-                                        remarks);
+                var entity_Workday = new WorkScheduleEntity(displayDay, background, startTime, endTime, lunchTime,
+                                                            notification, workingTime, overtime, 
+                                                            string.Empty,string.Empty, remarks);
 
                 this.SetSchedule(day, entity_Workday);
             }
@@ -153,12 +153,12 @@ namespace SalaryManager.WPF.Models
             this.ViewModel_Header.WorkDaysTotal_Text.Value = this.WorkDaysTotal.ToString();
 
             // 合計 - 勤務時間
-            this.ViewModel_Header.WorkingTimeTotal_Text.Value = Math.Truncate(this.ViewModel_Header.WorkingTimeTotal.TotalHours) + ":" + 
-                                                          this.ViewModel_Header.WorkingTimeTotal.Minutes.ToString("00");
+            this.ViewModel_Header.WorkingTimeTotal_Text.Value = Math.Truncate(this.WorkingTimeTotal.TotalHours) + ":" + 
+                                                                this.WorkingTimeTotal.Minutes.ToString("00");
 
             // 合計 - 残業時間
-            this.ViewModel_Header.OvertimeTotal_Text.Value = Math.Truncate(this.ViewModel_Header.OvertimeTotal.TotalHours) + ":" +
-                                                       this.ViewModel_Header.OvertimeTotal.Minutes.ToString("00");
+            this.ViewModel_Header.OvertimeTotal_Text.Value = Math.Truncate(this.OvertimeTotal.TotalHours) + ":" +
+                                                             this.OvertimeTotal.Minutes.ToString("00");
         }
 
         /// <summary>
@@ -283,12 +283,20 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         private void Clear()
         {
+            // スケジュール初期設定
+            for (var day = 1; day <= 31; day++)
+            {
+                var background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+
+                this.SetSchedule(day, new WorkScheduleEntity(string.Empty, background, string.Empty));
+            }
+
             // 勤務時間
-            this.ViewModel_Header.WorkingTimeTotal = new TimeSpan();
-            this.WorkDaysTotal = 0;
+            this.WorkingTimeTotal = new TimeSpan();
+            this.WorkDaysTotal    = 0;
 
             // 残業時間
-            this.ViewModel_Header.OvertimeTotal = new TimeSpan();
+            this.OvertimeTotal = new TimeSpan();
         }
 
         /// <summary>
@@ -416,8 +424,10 @@ namespace SalaryManager.WPF.Models
             return string.Empty;
         }
 
+        /// <summary> 勤務時間 </summary>
         private TimeSpan WorkingTime_Time;
 
+        /// <summary> 勤務時間合計 </summary>
         public int WorkDaysTotal;
 
         /// <summary>
@@ -445,7 +455,7 @@ namespace SalaryManager.WPF.Models
                 this.WorkingTime_Time = new TimeSpan(8, 0, 0);
             }
 
-            this.ViewModel_Header.WorkingTimeTotal = this.ViewModel_Header.WorkingTimeTotal.Add(this.WorkingTime_Time);
+            this.WorkingTimeTotal = this.WorkingTimeTotal.Add(this.WorkingTime_Time);
 
             return this.WorkingTime_Time.ToString(@"hh\:mm");
         }
@@ -473,7 +483,7 @@ namespace SalaryManager.WPF.Models
 
             if (overTime.TotalMinutes > 0)
             {
-                this.ViewModel_Header.OvertimeTotal = this.ViewModel_Header.OvertimeTotal.Add(overTime);
+                this.OvertimeTotal = this.OvertimeTotal.Add(overTime);
                 return overTime.ToString(@"hh\:mm");
             }
 

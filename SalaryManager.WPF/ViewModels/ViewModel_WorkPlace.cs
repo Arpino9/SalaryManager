@@ -1,8 +1,6 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows.Media;
 using Reactive.Bindings;
-using SalaryManager.Domain.Entities;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.Models;
 
@@ -11,10 +9,8 @@ namespace SalaryManager.WPF.ViewModels
     /// <summary>
     /// ViewModel - 勤務先
     /// </summary>
-    public class ViewModel_WorkPlace : INotifyPropertyChanged
+    public class ViewModel_WorkPlace
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         /// <summary>
         /// Constructor
         /// </summary>
@@ -36,19 +32,13 @@ namespace SalaryManager.WPF.ViewModels
         public Model_WorkingReference WorkingReference { get; set; } 
             = Model_WorkingReference.GetInstance(new WorkingReferenceSQLite());
 
-        /// <summary> メイン画面 </summary>
+        /// <summary> Model - メイン画面 </summary>
         public Model_MainWindow MainWindow { get; set; } 
             = Model_MainWindow.GetInstance();
-        
-        /// <summary> 手当 </summary>
+
+        /// <summary> Model - 手当 </summary>
         public Model_Allowance Allowance { get; set; } 
             = Model_Allowance.GetInstance(new AllowanceSQLite());
-
-        /// <summary> Entity - 勤務備考 </summary>
-        public WorkingReferencesEntity Entity { get; set; }
-
-        /// <summary> Entity - 勤務備考 (昨年度) </summary>
-        public WorkingReferencesEntity Entity_LastYear { get; set; }
 
         #region 背景色
 

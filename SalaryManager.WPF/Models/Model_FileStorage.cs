@@ -13,6 +13,7 @@ using SalaryManager.Infrastructure.XML;
 using SalaryManager.WPF.ViewModels;
 using SalaryManager.WPF.Window;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing.Imaging;
 using System.IO;
@@ -59,6 +60,15 @@ namespace SalaryManager.WPF.Models
         /// <summary> ViewModel - イメージビューアー </summary>
         public ViewModel_ImageViewer ViewModel_ImageViewer { get; set; }
 
+        /// <summary> Entities - 添付ファイル管理 </summary>
+        public IReadOnlyList<FileStorageEntity> Entities { get; internal set; }
+
+        /// <summary> 画像の保存方法 </summary>
+        internal HowToSaveImage HowToSave { get; private set; }
+
+        /// <summary> イメージ </summary>
+        public byte[] ByteImage { get; set; }
+
         /// <summary>
         /// 初期化
         /// </summary>
@@ -66,12 +76,12 @@ namespace SalaryManager.WPF.Models
         {
             FileStorages.Create(_repository);
 
-            this.ViewModel.Entities = FileStorages.FetchByDescending();
+            this.Entities = FileStorages.FetchByDescending();
 
             this.ViewModel.AttachedFile_SelectedIndex.Value = -1;
             this.Clear_InputForm();
 
-            var obj = EnumUtils.ToEnum(this.ViewModel.HowToSave.GetType(), XMLLoader.FetchHowToSaveImage());
+            var obj = EnumUtils.ToEnum(this.HowToSave.GetType(), XMLLoader.FetchHowToSaveImage());
             if (obj is null)
             {
                 this.ViewModel.SelectFile_IsEnabled.Value   = false;
@@ -136,7 +146,7 @@ namespace SalaryManager.WPF.Models
             // 画像を拡大表示するボタン
             this.ViewModel.OpenImageViewer_IsEnabled.Value = true;
 
-            var selectedSaveImage = this.ViewModel.HowToSave == HowToSaveImage.SaveImage;
+            var selectedSaveImage = (this.HowToSave == HowToSaveImage.SaveImage);
 
             // タイトル
             this.ViewModel.Title_IsEnabled.Value = selectedSaveImage;
@@ -183,7 +193,7 @@ namespace SalaryManager.WPF.Models
             }
 
             // サムネイル
-            this.ViewModel.ByteImage       = ImageUtils.ConvertPathToBytes(path, extension.ImageFormat);
+            this.ByteImage       = ImageUtils.ConvertPathToBytes(path, extension.ImageFormat);
             this.ViewModel.FileImage_Image.Value = ImageUtils.ConvertPathToImage(path, extension.ImageFormat);
             // 画像を拡大表示するボタン
             this.ViewModel.OpenImageViewer_IsEnabled.Value = true;
@@ -270,7 +280,7 @@ namespace SalaryManager.WPF.Models
                     this.ViewModel.FileName_Text.Value = ImageUtils.ExtractFileNameWithExtension(filePath);
 
                     // 表示する画像
-                    this.ViewModel.ByteImage = ImageUtils.ConvertPathToBytes(pngPath, ImageFormat.Png);
+                    this.ByteImage = ImageUtils.ConvertPathToBytes(pngPath, ImageFormat.Png);
                     this.ViewModel.FileImage_Image.Value = ImageUtils.ConvertPathToImage(pngPath, ImageFormat.Png);
 
                     File.Delete(pngPath);
@@ -289,7 +299,7 @@ namespace SalaryManager.WPF.Models
                 this.ViewModel.FileName_Text.Value = ImageUtils.ExtractFileNameWithExtension(filePath);
 
                 // 表示する画像
-                this.ViewModel.ByteImage       = ImageUtils.ConvertPathToBytes(filePath, ImageFormat.Png);
+                this.ByteImage       = ImageUtils.ConvertPathToBytes(filePath, ImageFormat.Png);
 
                 this.ViewModel.FileImage_Image = new ReactiveProperty<ImageSource>();
                 this.ViewModel.FileImage_Image.Value = ImageUtils.ConvertPathToImage(filePath, extension.ImageFormat);
@@ -332,7 +342,7 @@ namespace SalaryManager.WPF.Models
                 // ファイル名
                 this.ViewModel.FileName_Text.Value = ImageUtils.ExtractFileNameWithExtension(pngPaths.First());
                 // 表示する画像
-                this.ViewModel.ByteImage     = ImageUtils.ConvertPathToBytes(pngPaths.First(), ImageFormat.Png);
+                this.ByteImage     = ImageUtils.ConvertPathToBytes(pngPaths.First(), ImageFormat.Png);
 
                 this.AddFile();
 
@@ -353,7 +363,7 @@ namespace SalaryManager.WPF.Models
                     // ファイル名
                     this.ViewModel.FileName_Text.Value = ImageUtils.ExtractFileNameWithExtension(pngPath);
                     // 表示する画像
-                    this.ViewModel.ByteImage     = ImageUtils.ConvertPathToBytes(pngPath, ImageFormat.Png);
+                    this.ByteImage     = ImageUtils.ConvertPathToBytes(pngPath, ImageFormat.Png);
 
                     this.AddFile();
 
@@ -450,7 +460,7 @@ namespace SalaryManager.WPF.Models
                         id,
                         this.ViewModel.Title_Text.Value,
                         this.ViewModel.FileName_Text.Value,
-                        this.ViewModel.ByteImage,
+                        this.ByteImage,
                         this.ViewModel.Remarks_Text.Value,
                         this.ViewModel.CreateDate,
                         this.ViewModel.UpdateDate);
@@ -477,14 +487,12 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         private void Reflesh_ListView()
         {
-            var entities = this.ViewModel.Entities;
-
-            if (entities.Any())
+            if (this.Entities.Any())
             {
                 // 既存の添付画像あり
                 this.ViewModel.AttachedFile_ItemSource.Value.Clear();
 
-                foreach (var entity in entities)
+                foreach (var entity in this.Entities)
                 {
                     this.ViewModel.AttachedFile_ItemSource.Value.Add(entity);
                 }
@@ -519,7 +527,7 @@ namespace SalaryManager.WPF.Models
             {
                 FileStorages.Create(new FileStorageSQLite());
 
-                this.ViewModel.Entities = FileStorages.FetchByDescending();
+                this.Entities = FileStorages.FetchByDescending();
 
                 this.Refresh();
             }

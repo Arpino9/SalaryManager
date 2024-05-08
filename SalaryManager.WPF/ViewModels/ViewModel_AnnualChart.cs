@@ -1,16 +1,12 @@
 ﻿using System;
-using System.ComponentModel;
 using Reactive.Bindings;
 using System.Windows.Media;
-using SalaryManager.WPF.Converter;
 using SalaryManager.WPF.Models;
 
 namespace SalaryManager.WPF.ViewModels
 {
-    public class ViewModel_AnnualChart : INotifyPropertyChanged
+    public class ViewModel_AnnualChart
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        
         public ViewModel_AnnualChart()
         {
             this.Model.ViewModel = this;
@@ -26,15 +22,6 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary> Model - メイン画面 </summary>
         public Model_MainWindow MainWindow { get; set; } 
             = Model_MainWindow.GetInstance();
-
-        #region 画面遷移時
-
-        /// <summary>
-        /// Window - Activated
-        /// </summary>
-        public RelayCommand Window_Activated { get; private set; }
-
-        #endregion
 
         #region 背景色
 

@@ -45,6 +45,12 @@ namespace SalaryManager.WPF.Models
         /// <summary> ViewModel - 副業 </summary>
         internal ViewModel_SideBusiness ViewModel { get; set; }
 
+        /// <summary> Entity - 勤務備考 </summary>
+        public SideBusinessEntity Entity { get; set; }
+
+        /// <summary> Entity - 勤務備考 (昨年度) </summary>
+        public SideBusinessEntity Entity_LastYear { get; set; }
+
         /// <summary>
         /// 初期化
         /// </summary>
@@ -56,15 +62,15 @@ namespace SalaryManager.WPF.Models
         {
             SideBusinesses.Create(_repository);
 
-            this.ViewModel.Entity          = SideBusinesses.Fetch(entityDate.Year, entityDate.Month);
-            this.ViewModel.Entity_LastYear = SideBusinesses.Fetch(entityDate.Year, entityDate.Month - 1);
+            this.Entity          = SideBusinesses.Fetch(entityDate.Year, entityDate.Month);
+            this.Entity_LastYear = SideBusinesses.Fetch(entityDate.Year, entityDate.Month - 1);
 
             var showDefaultPayslip = XMLLoader.FetchShowDefaultPayslip();
 
-            if (this.ViewModel.Entity is null && showDefaultPayslip)
+            if (this.Entity is null && showDefaultPayslip)
             {
                 // デフォルト明細
-                this.ViewModel.Entity = SideBusinesses.FetchDefault();
+                this.Entity = SideBusinesses.FetchDefault();
             }
 
             this.Refresh();
@@ -82,8 +88,8 @@ namespace SalaryManager.WPF.Models
             {
                 SideBusinesses.Create(_repository);
 
-                this.ViewModel.Entity          = SideBusinesses.Fetch(this.Header.Year_Text.Value, this.Header.Month_Text.Value);
-                this.ViewModel.Entity_LastYear = SideBusinesses.Fetch(this.Header.Year_Text.Value - 1, this.Header.Month_Text.Value);
+                this.Entity          = SideBusinesses.Fetch(this.Header.Year_Text.Value, this.Header.Month_Text.Value);
+                this.Entity_LastYear = SideBusinesses.Fetch(this.Header.Year_Text.Value - 1, this.Header.Month_Text.Value);
             
                 this.Refresh();
             }   
@@ -115,22 +121,20 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         public void Refresh()
         {
-            var entity = this.ViewModel.Entity;
-
-            if (entity is null)
+            if (this.Entity is null)
             {
                 this.Clear();
                 return;
             }
 
             // 副業
-            this.ViewModel.SideBusiness_Text.Value = entity.SideBusiness;
+            this.ViewModel.SideBusiness_Text.Value = this.Entity.SideBusiness;
             // 臨時収入
-            this.ViewModel.Perquisite_Text.Value   = entity.Perquisite;
+            this.ViewModel.Perquisite_Text.Value   = this.Entity.Perquisite;
             // その他
-            this.ViewModel.Others_Text.Value       = entity.Others;
+            this.ViewModel.Others_Text.Value       = this.Entity.Others;
             // 備考
-            this.ViewModel.Remarks_Text.Value      = entity.Remarks;
+            this.ViewModel.Remarks_Text.Value      = this.Entity.Remarks;
         }
 
         /// <summary>
@@ -143,8 +147,8 @@ namespace SalaryManager.WPF.Models
         public void Save(ITransactionRepository transaction)
         {
             var entity = new SideBusinessEntity(
-                this.Header.ID,
-                this.Header.YearMonth,
+                this.Header.Model.ID,
+                this.Header.Model.YearMonth,
                 this.ViewModel.SideBusiness_Text.Value,
                 this.ViewModel.Perquisite_Text.Value,
                 this.ViewModel.Others_Text.Value,
