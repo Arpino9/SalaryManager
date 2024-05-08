@@ -108,12 +108,7 @@ namespace SalaryManager.WPF.Models
                 if (entities.Count < 2)
                 {
                     // 休祝日
-                    var entity2 = new WorkScheduleRecord(
-                                    displayDay,
-                                    background,
-                                    notification);
-
-                    this.SetSchedule(day, entity2);
+                    this.SetSchedule(day, new WorkScheduleEntity(displayDay, background, notification));
                     continue;
                 }
 
@@ -138,20 +133,20 @@ namespace SalaryManager.WPF.Models
                 // 備考
                 var remarks = this.InputRemarks(day, startDate, endDate, entities.First().Place);
 
-                var entity = new WorkScheduleRecord(
-                                    displayDay,
-                                    background,
-                                    startTime,
-                                    endTime,
-                                    lunchTime,
-                                    notification,
-                                    workingTime,
-                                    overtime,
-                                    string.Empty,
-                                    string.Empty,
-                                    remarks);
+                var entity_Workday = new WorkScheduleEntity(
+                                        displayDay,
+                                        background,
+                                        startTime,
+                                        endTime,
+                                        lunchTime,
+                                        notification,
+                                        workingTime,
+                                        overtime,
+                                        string.Empty,
+                                        string.Empty,
+                                        remarks);
 
-                this.SetSchedule(day, entity);
+                this.SetSchedule(day, entity_Workday);
             }
 
             // 勤務日数
@@ -166,19 +161,24 @@ namespace SalaryManager.WPF.Models
                                                        this.ViewModel_Header.OvertimeTotal.Minutes.ToString("00");
         }
 
-        private void SetSchedule(int day, WorkScheduleRecord entity)
+        /// <summary>
+        /// スケジュール設定
+        /// </summary>
+        /// <param name="day">日</param>
+        /// <param name="entity">エンティティ</param>
+        private void SetSchedule(int day, WorkScheduleEntity entity)
         {
             switch (day)
             {
-                case 1: this.ViewModel_Table.Day1_Schedule.Value = entity; return;
-                case 2: this.ViewModel_Table.Day2_Schedule.Value = entity; return;
-                case 3: this.ViewModel_Table.Day3_Schedule.Value = entity; return;
-                case 4: this.ViewModel_Table.Day4_Schedule.Value = entity; return;
-                case 5: this.ViewModel_Table.Day5_Schedule.Value = entity; return;
-                case 6: this.ViewModel_Table.Day6_Schedule.Value = entity; return;
-                case 7: this.ViewModel_Table.Day7_Schedule.Value = entity; return;
-                case 8: this.ViewModel_Table.Day8_Schedule.Value = entity; return;
-                case 9: this.ViewModel_Table.Day9_Schedule.Value = entity; return;
+                case  1: this.ViewModel_Table.Day1_Schedule.Value  = entity; return;
+                case  2: this.ViewModel_Table.Day2_Schedule.Value  = entity; return;
+                case  3: this.ViewModel_Table.Day3_Schedule.Value  = entity; return;
+                case  4: this.ViewModel_Table.Day4_Schedule.Value  = entity; return;
+                case  5: this.ViewModel_Table.Day5_Schedule.Value  = entity; return;
+                case  6: this.ViewModel_Table.Day6_Schedule.Value  = entity; return;
+                case  7: this.ViewModel_Table.Day7_Schedule.Value  = entity; return;
+                case  8: this.ViewModel_Table.Day8_Schedule.Value  = entity; return;
+                case  9: this.ViewModel_Table.Day9_Schedule.Value  = entity; return;
                 case 10: this.ViewModel_Table.Day10_Schedule.Value = entity; return;
                 case 11: this.ViewModel_Table.Day11_Schedule.Value = entity; return;
                 case 12: this.ViewModel_Table.Day12_Schedule.Value = entity; return;
@@ -356,6 +356,7 @@ namespace SalaryManager.WPF.Models
         /// 入力 - 昼休憩
         /// </summary>
         /// <param name="day">対象日</param>
+        /// <returns>昼休憩時間</returns>
         private string InputLunchTime(int day)
         {
             var workingPlace = this.SearchWorkingPlace(this.ConvertDayToDate(day));
@@ -372,6 +373,7 @@ namespace SalaryManager.WPF.Models
         /// 入力 - 届出
         /// </summary>
         /// <param name="day">日</param>
+        /// <returns>届出</returns>
         private string InputNotification(int day)
         {
             var date = this.ConvertDayToDate(day);
@@ -424,6 +426,7 @@ namespace SalaryManager.WPF.Models
         /// <param name="day">日</param>
         /// <param name="startTime">始業時間</param>
         /// <param name="endTime">就業時間</param>
+        /// <returns>勤務時間</returns>
         private string InputWorkingTime(int day, DateTime startTime, DateTime endTime)
         {
             var workingPlace = this.SearchWorkingPlace(this.ConvertDayToDate(day));
@@ -453,6 +456,7 @@ namespace SalaryManager.WPF.Models
         /// <param name="day">日付</param>
         /// <param name="startTime">昼休憩</param>
         /// <param name="endTime">昼休憩</param>
+        /// <returns>残業時間</returns>
         /// <remarks>
         /// 必ず勤務時間の算出後に指定すること。
         /// </remarks>
@@ -483,6 +487,7 @@ namespace SalaryManager.WPF.Models
         /// <param name="startTime">始業時間</param>
         /// <param name="endTime">就業時間</param>
         /// <param name="workPlace">勤務場所</param>
+        /// <returns>備考</returns>
         private string InputRemarks(int day, DateTime startTime, DateTime endTime, string workPlace)
         {
             var home = Homes.FetchByDate(this.ConvertDayToDate(day));
@@ -501,7 +506,7 @@ namespace SalaryManager.WPF.Models
         /// 就業先を検索する
         /// </summary>
         /// <param name="date"></param>
-        /// <returns></returns>
+        /// <returns>就業先</returns>
         private WorkingPlaceEntity SearchWorkingPlace(DateTime date)
         {
             var workingPlace = WorkingPlace.FetchByDate(date);
