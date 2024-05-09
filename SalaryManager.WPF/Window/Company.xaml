@@ -72,7 +72,7 @@
                    Background="AliceBlue"/>
             <ComboBox Grid.Column="1" 
                       Grid.ColumnSpan="4" 
-                      ItemsSource="{Binding BusinessCategory_Large_ItemsSource}" 
+                      ItemsSource="{Binding BusinessCategory_Large_ItemsSource.Value}" 
                       DisplayMemberPath="LargeName"
                       Text="{Binding BusinessCategory_Large_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <behaviors:Interaction.Triggers>

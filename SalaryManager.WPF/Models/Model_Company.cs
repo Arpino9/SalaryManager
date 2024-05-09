@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive.Linq;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Modules.Helpers;
 using SalaryManager.Domain.Modules.Logics;
@@ -54,7 +55,7 @@ namespace SalaryManager.WPF.Models
 
             if (this.ViewModel.BusinessCategory_Large_Text is null)
             {
-                this.ViewModel.BusinessCategory_Large_Text.Value         = this.ViewModel.BusinessCategory_Large_ItemsSource.First().LargeName;
+                this.ViewModel.BusinessCategory_Large_Text.Value = this.ViewModel.BusinessCategory_Large_ItemsSource.Value.First().LargeName;
 
                 this.BusinessCategory_Large_SelectionChanged();
             }
@@ -69,7 +70,8 @@ namespace SalaryManager.WPF.Models
             
             if (this.ViewModel.BusinessCategory_Middle_Text.Value is null) 
             {
-                this.ViewModel.BusinessCategory_Middle_ItemSource = ListUtils.ToObservableCollection(item.MiddleList.Values.ToList());
+                item.MiddleList.Values.ToList().ForEach(x => this.ViewModel.BusinessCategory_Middle_ItemSource.Add(x));
+
                 this.ViewModel.BusinessCategory_Middle_Text.Value = this.ViewModel.BusinessCategory_Middle_ItemSource.FirstOrDefault();
             }
         }
@@ -150,6 +152,7 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 会社一覧 - SelectionChanged
         /// </summary>
+        //public async Task Companies_SelectionChanged()
         public void Companies_SelectionChanged()
         {
             if (this.ViewModel.Companies_SelectedIndex.Value == -1)
@@ -167,10 +170,13 @@ namespace SalaryManager.WPF.Models
             var entity = this.ViewModel.Companies_ItemSource.Value[this.ViewModel.Companies_SelectedIndex.Value];
 
             // 業種(大区分)
+            this.ViewModel.BusinessCategory_Large_ItemsSource.Value = ListUtils.ToObservableCollection(BusinessCategoryValue.LargeCategory);
             this.ViewModel.BusinessCategory_Large_Text.Value  = entity.BusinessCategory.LargeName;
+
             // 業種(中区分)
             var item = new BusinessCategoryValue(this.ViewModel.BusinessCategory_Large_Text.Value);
-            this.ViewModel.BusinessCategory_Middle_ItemSource = ListUtils.ToObservableCollection(item.MiddleList.Values.ToList());
+
+            item.MiddleList.Values.ToList().ForEach(x => this.ViewModel.BusinessCategory_Middle_ItemSource.Add(x));
 
             this.ViewModel.BusinessCategory_Middle_Text.Value = entity.BusinessCategory.MiddleName;
             // 会社名
