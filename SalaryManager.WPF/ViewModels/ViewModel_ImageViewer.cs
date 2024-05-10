@@ -1,6 +1,7 @@
 ﻿using Reactive.Bindings;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.Models;
+using System.ComponentModel;
 using System.Windows.Media;
 
 namespace SalaryManager.WPF.ViewModels
@@ -8,11 +9,18 @@ namespace SalaryManager.WPF.ViewModels
     /// <summary>
     /// ViewModel - イメージビューアー
     /// </summary>
-    public class ViewModel_ImageViewer
+    public class ViewModel_ImageViewer : ViewModelBase
     {
+        public override event PropertyChangedEventHandler PropertyChanged;
+
         public ViewModel_ImageViewer()
         {
             this.Model.ViewModel_ImageViewer = this;
+        }
+
+        protected override void BindEvents()
+        {
+            throw new System.NotImplementedException();
         }
 
         /// <summary> Model - 添付ファイル管理 </summary>

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.ObjectModel;
 using SalaryManager.Domain.Entities;
 using SalaryManager.WPF.ViewModels;
 using SalaryManager.Domain.Modules.Logics;
@@ -9,6 +8,7 @@ using SalaryManager.Infrastructure.Interface;
 using SalaryManager.Infrastructure.XML;
 using SalaryManager.Domain.Repositories;
 using System.Collections.Generic;
+using SalaryManager.Domain.Modules.Helpers;
 
 namespace SalaryManager.WPF.Models
 {
@@ -89,18 +89,14 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         private void Reflesh_ListView()
         {
-            this.ViewModel.Careers_ItemSource.Value.Clear();
+            this.Clear_InputForm();
 
             if (!this.Entities.Any())
             {
-                this.Clear_InputForm();
                 return;
             }
 
-            foreach (var entity in this.Entities)
-            {
-                this.ViewModel.Careers_ItemSource.Value.Add(entity);
-            }
+            this.ViewModel.Careers_ItemSource = this.Entities.ToReactiveCollection();
         }
 
         /// <summary>
@@ -111,7 +107,7 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         private void EnableControlButton()
         {
-            var selected = this.ViewModel.Careers_ItemSource.Value.Any() 
+            var selected = this.ViewModel.Careers_ItemSource.Any() 
                         && this.ViewModel.Careers_SelectedIndex.Value >= 0;
 
             // 更新ボタン
@@ -132,12 +128,12 @@ namespace SalaryManager.WPF.Models
 
             this.EnableControlButton();
 
-            if (!this.ViewModel.Careers_ItemSource.Value.Any())
+            if (!this.ViewModel.Careers_ItemSource.Any())
             {
                 return;
             }
 
-            var entity = this.ViewModel.Careers_ItemSource.Value[this.ViewModel.Careers_SelectedIndex.Value];
+            var entity = this.ViewModel.Careers_ItemSource[this.ViewModel.Careers_SelectedIndex.Value];
             // 雇用形態
             this.ViewModel.WorkingStatus_Text.Value = entity.WorkingStatus;
             // 会社名
@@ -251,7 +247,7 @@ namespace SalaryManager.WPF.Models
         public void Clear_InputForm()
         {
             // 雇用形態
-            this.ViewModel.WorkingStatus_Text.Value = this.ViewModel.WorkingStatus_ItemSource.Value.First();
+            this.ViewModel.WorkingStatus_Text.Value = this.ViewModel.WorkingStatus_ItemSource.First();
             // 会社名
             this.ViewModel.CompanyName_Text.Value   = default(string);
             // 勤務開始日
@@ -319,11 +315,8 @@ namespace SalaryManager.WPF.Models
                 this.ViewModel.Delete_IsEnabled.Value = true;
 
                 var entity = this.CreateEntity(this.Entities.Count + 1);
-                this.ViewModel.Careers_ItemSource.Value.Add(entity);
+                this.ViewModel.Careers_ItemSource.Add(entity);
                 this.Save();
-
-                // 並び変え
-                this.ViewModel.Careers_ItemSource.Value = new ObservableCollection<CareerEntity>(this.ViewModel.Careers_ItemSource.Value.OrderByDescending(x => x.WorkingStartDate.ToString()));
             }   
         }
 
@@ -381,10 +374,10 @@ namespace SalaryManager.WPF.Models
 
             using (var cursor = new CursorWaiting())
             {
-                var id = this.ViewModel.Careers_ItemSource.Value[this.ViewModel.Careers_SelectedIndex.Value].ID;
+                var id = this.ViewModel.Careers_ItemSource[this.ViewModel.Careers_SelectedIndex.Value].ID;
 
                 var entity = this.CreateEntity(id);
-                this.ViewModel.Careers_ItemSource.Value[this.ViewModel.Careers_SelectedIndex.Value] = entity;
+                this.ViewModel.Careers_ItemSource[this.ViewModel.Careers_SelectedIndex.Value] = entity;
 
                 this.Save();
             }   
@@ -396,7 +389,7 @@ namespace SalaryManager.WPF.Models
         public void Delete()
         {
             if (this.ViewModel.Careers_SelectedIndex.Value == -1 ||
-                !this.ViewModel.Careers_ItemSource.Value.Any()) 
+                !this.ViewModel.Careers_ItemSource.Any()) 
             {
                 return;
             }
@@ -409,9 +402,11 @@ namespace SalaryManager.WPF.Models
 
             using (var cursor = new CursorWaiting())
             {
-                _repository.Delete(this.ViewModel.Careers_SelectedIndex.Value + 1);
+                var id = this.ViewModel.Careers_ItemSource[this.ViewModel.Careers_SelectedIndex.Value].ID;
 
-                this.ViewModel.Careers_ItemSource.Value.RemoveAt(this.ViewModel.Careers_SelectedIndex.Value);
+                _repository.Delete(id);
+
+                this.ViewModel.Careers_ItemSource.RemoveAt(this.ViewModel.Careers_SelectedIndex.Value);
 
                 this.Reload();
                 this.EnableControlButton();
@@ -423,7 +418,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Save()
         {
-            foreach (var entity in this.ViewModel.Careers_ItemSource.Value)
+            foreach (var entity in this.ViewModel.Careers_ItemSource)
             {
                 _repository.Save(entity);
             }

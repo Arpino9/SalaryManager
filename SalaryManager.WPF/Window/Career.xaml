@@ -23,7 +23,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <ListView ItemsSource="{Binding Careers_ItemSource.Value}"
+        <ListView ItemsSource="{Binding Careers_ItemSource}"
                   SelectedIndex="{Binding Careers_SelectedIndex.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                   ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <behaviors:Interaction.Triggers>
@@ -133,7 +133,7 @@
             <Label Content="雇用形態" 
                    Background="AliceBlue"/>
             <ComboBox Grid.Column="1" 
-                      ItemsSource="{Binding WorkingStatus_ItemSource.Value}" 
+                      ItemsSource="{Binding WorkingStatus_ItemSource}" 
                       SelectedIndex="{Binding WorkingStatus_SelectedIndex.Value}"
                       Text="{Binding WorkingStatus_Text.Value}"/>
 

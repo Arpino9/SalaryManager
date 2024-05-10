@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows.Media;
 using Reactive.Bindings;
 using SalaryManager.Domain.Entities;
@@ -11,28 +11,20 @@ namespace SalaryManager.WPF.ViewModels
     /// <summary>
     /// ViewModel - 添付ファイル
     /// </summary>
-    public class ViewModel_FileStorage
+    public class ViewModel_FileStorage : ViewModelBase
     {
+        public override event PropertyChangedEventHandler PropertyChanged;
+
         public ViewModel_FileStorage()
         {
             this.Model.ViewModel = this;
 
-            this.AttachedFile_ItemSource.Value = new ObservableCollection<FileStorageEntity>();
-
             this.Model.Initialize();
 
-            this.BindEvent();
+            this.BindEvents();
         }
 
-        /// <summary>
-        /// イベント登録
-        /// </summary>
-        /// <remarks>
-        /// Viewの指定したイベントと、発火させるメソッドを紐付ける。
-        /// Subscribe()メソッドのオーバーロードが正しく呼ばれないので、
-        /// 名前空間に「using System;」を必ず入れること。
-        /// </remarks>
-        private void BindEvent()
+        protected override void BindEvents()
         {
             this.AttachedFile_SelectionChanged.Subscribe(_ => this.Model.AttachedFile_SelectionChanged());
             this.SelectFile_Command.Subscribe(_ => this.Model.SelectFile());
@@ -48,6 +40,7 @@ namespace SalaryManager.WPF.ViewModels
         public Model_FileStorage Model 
             = Model_FileStorage.GetInstance(new FileStorageSQLite());
 
+
         #region タイトル
 
         /// <summary> Window - Title </summary>
@@ -59,8 +52,8 @@ namespace SalaryManager.WPF.ViewModels
         #region 添付ファイル一覧
 
         /// <summary> 添付ファイル一覧 - ItemSource </summary>
-        public ReactiveProperty<ObservableCollection<FileStorageEntity>> AttachedFile_ItemSource { get; set; }
-            = new ReactiveProperty<ObservableCollection<FileStorageEntity>>();
+        public ReactiveCollection<FileStorageEntity> AttachedFile_ItemSource { get; set; }
+            = new ReactiveCollection<FileStorageEntity>();
 
         /// <summary> 添付ファイル一覧 - SelectedIndex </summary>
         public ReactiveProperty<int> AttachedFile_SelectedIndex { get; set; }

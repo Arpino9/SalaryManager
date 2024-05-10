@@ -4,7 +4,6 @@ using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.ValueObjects;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.Models;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Reactive.Linq;
 
@@ -13,26 +12,20 @@ namespace SalaryManager.WPF.ViewModels
     /// <summary>
     /// ViewModel - 会社マスタ
     /// </summary>
-    public class ViewModel_Company : INotifyPropertyChanged
+    public class ViewModel_Company : ViewModelBase
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public override event PropertyChangedEventHandler PropertyChanged;
 
         public ViewModel_Company()
         {
             this.Model.ViewModel = this;
 
-            this.Companies_ItemSource.Value = new ObservableCollection<CompanyEntity>();
-            this.BusinessCategory_Middle_Text = new ReactiveProperty<string>();
-
-            this.BindEvent();
+            this.BindEvents();
 
             this.Model.Initialize();
         }
 
-        /// <summary>
-        /// イベント登録
-        /// </summary>
-        private void BindEvent()
+        protected override void BindEvents()
         {
             // 会社名
             this.CompanyName_TextChanged.Subscribe(_ => this.Model.EnableAddButton());
@@ -52,6 +45,7 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary> Model - 会社 </summary>
         public Model_Company Model = Model_Company.GetInstance(new CompanySQLite());
 
+
         #region タイトル
 
         /// <summary> Window - Title </summary>
@@ -63,8 +57,8 @@ namespace SalaryManager.WPF.ViewModels
         #region 会社一覧
 
         /// <summary> 会社一覧 - ItemSource </summary>
-        public ReactiveProperty<ObservableCollection<CompanyEntity>> Companies_ItemSource { get; set; }
-            = new ReactiveProperty<ObservableCollection<CompanyEntity>>();
+        public ReactiveCollection<CompanyEntity> Companies_ItemSource { get; set; }
+            = new ReactiveCollection<CompanyEntity>();
 
         /// <summary> 会社一覧 - SelectedIndex </summary>
         public ReactiveProperty<int> Companies_SelectedIndex { get; set; }
@@ -80,8 +74,12 @@ namespace SalaryManager.WPF.ViewModels
 
         /// <summary>  業種 (大区分) - ItemsSource </summary>
         /// <remarks> 固定なので、値オブジェクトのリストを流用。 </remarks>
-        public ReactiveProperty<ObservableCollection<BusinessCategoryValue>> BusinessCategory_Large_ItemsSource { get; set; }
-            = new ReactiveProperty<ObservableCollection<BusinessCategoryValue>>();
+        public ReactiveCollection<BusinessCategoryValue> BusinessCategory_Large_ItemsSource { get; set; }
+            = new ReactiveCollection<BusinessCategoryValue>();
+
+        /// <summary> 業種 (大区分) - SelectedItem </summary>
+        public ReactiveProperty<string> BusinessCategory_Large_SelectedItem { get; set; }
+            = new ReactiveProperty<string>();
 
         /// <summary> 業種 (大区分) - Text </summary>
         public ReactiveProperty<string> BusinessCategory_Large_Text { get; set; }

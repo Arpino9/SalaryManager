@@ -179,6 +179,7 @@
     <Compile Include="UserControls\WorkSchedule_Table.xaml.cs">
       <DependentUpon>WorkSchedule_Table.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\ViewModel_CalendarOption.cs" />
     <Compile Include="ViewModels\ViewModel_Company.cs" />
     <Compile Include="ViewModels\ViewModel_Holiday.cs" />

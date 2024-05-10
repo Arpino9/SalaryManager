@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using Reactive.Bindings;
 using SalaryManager.Infrastructure.SQLite;
 using SalaryManager.WPF.Models;
@@ -8,8 +9,10 @@ namespace SalaryManager.WPF.ViewModels
     /// <summary>
     /// ViewModel - 副業
     /// </summary>
-    public class ViewModel_SideBusiness
+    public class ViewModel_SideBusiness : ViewModelBase
     {
+        public override event PropertyChangedEventHandler PropertyChanged;
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -21,18 +24,10 @@ namespace SalaryManager.WPF.ViewModels
             this.Model.ViewModel = this;
             this.Model.Initialize(DateTime.Today);
 
-            this.BindEvent();
+            this.BindEvents();
         }
 
-        /// <summary>
-        /// Bind Event
-        /// </summary>
-        /// <remarks>
-        /// Viewの指定したイベントと、発火させるメソッドを紐付ける。
-        /// Subscribe()メソッドのオーバーロードが正しく呼ばれないので、
-        /// 名前空間に「using System;」を必ず入れること。
-        /// </remarks>
-        private void BindEvent()
+        protected override void BindEvents()
         {
             // Mouse Leave
             this.Default_MouseLeave.Subscribe(_ => this.MainWindow.ComparePrice(0, 0));

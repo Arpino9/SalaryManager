@@ -1,18 +1,26 @@
 ﻿using Reactive.Bindings;
 using SalaryManager.WPF.Models;
+using System.ComponentModel;
 
 namespace SalaryManager.WPF.ViewModels
 {
     /// <summary>
     /// ViewModel - オプション(PDF)
     /// </summary>
-    public class ViewModel_PDFOption
+    public class ViewModel_PDFOption : ViewModelBase
     {
+        public override event PropertyChangedEventHandler PropertyChanged;
+
         public ViewModel_PDFOption()
         {
             this.Model.PDFOption = this;
 
             this.Model.Initialize_PDF();
+        }
+
+        protected override void BindEvents()
+        {
+            throw new System.NotImplementedException();
         }
 
         /// <summary> Model - オプション </summary>

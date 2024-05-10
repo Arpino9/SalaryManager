@@ -111,7 +111,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         private void EnableControlButton()
         {
-            var selected = this.ViewModel.AttachedFile_ItemSource.Value.Any()
+            var selected = this.ViewModel.AttachedFile_ItemSource.Any()
                         && this.ViewModel.AttachedFile_SelectedIndex.Value >= 0;
 
             // 更新ボタン
@@ -134,12 +134,12 @@ namespace SalaryManager.WPF.Models
 
             this.EnableControlButton();
 
-            if (!this.ViewModel.AttachedFile_ItemSource.Value.Any())
+            if (!this.ViewModel.AttachedFile_ItemSource.Any())
             {
                 return;
             }
 
-            var entity = this.ViewModel.AttachedFile_ItemSource.Value[this.ViewModel.AttachedFile_SelectedIndex.Value];
+            var entity = this.ViewModel.AttachedFile_ItemSource[this.ViewModel.AttachedFile_SelectedIndex.Value];
 
             // サムネイル
             this.ViewModel.FileImage_Image.Value = ImageUtils.ConvertBytesToImage(entity.Image);
@@ -241,7 +241,8 @@ namespace SalaryManager.WPF.Models
                     
                 }
 
-                this.ViewModel.AttachedFile_ItemSource.Value = ListUtils.ToObservableCollection(this.ViewModel.AttachedFile_ItemSource.Value.OrderByDescending(x => x.Title).ToList());
+                var orderedList = this.ViewModel.AttachedFile_ItemSource.OrderByDescending(x => x.Title).ToList();
+                this.ViewModel.AttachedFile_ItemSource = orderedList.ToReactiveCollection();
 
                 this.ViewModel.Title_IsEnabled.Value   = false;
                 this.ViewModel.Remarks_IsEnabled.Value = false;
@@ -285,7 +286,7 @@ namespace SalaryManager.WPF.Models
 
                     File.Delete(pngPath);
 
-                    this.ViewModel.AttachedFile_ItemSource.Value.Add(this.CreateEntity(id));
+                    this.ViewModel.AttachedFile_ItemSource.Add(this.CreateEntity(id));
 
                     count++;
                 }
@@ -304,7 +305,7 @@ namespace SalaryManager.WPF.Models
                 this.ViewModel.FileImage_Image = new ReactiveProperty<ImageSource>();
                 this.ViewModel.FileImage_Image.Value = ImageUtils.ConvertPathToImage(filePath, extension.ImageFormat);
 
-                this.ViewModel.AttachedFile_ItemSource.Value.Add(this.CreateEntity(id));
+                this.ViewModel.AttachedFile_ItemSource.Add(this.CreateEntity(id));
             }
         }
 
@@ -314,9 +315,9 @@ namespace SalaryManager.WPF.Models
         /// <returns>ID</returns>
         private int GetID()
         {
-            if (this.ViewModel.AttachedFile_ItemSource.Value.Any())
+            if (this.ViewModel.AttachedFile_ItemSource.Any())
             {
-                return this.ViewModel.AttachedFile_ItemSource.Value.Max(x => x.ID) + 1;
+                return this.ViewModel.AttachedFile_ItemSource.Max(x => x.ID) + 1;
             }
 
             return 1;
@@ -437,12 +438,13 @@ namespace SalaryManager.WPF.Models
                 this.ViewModel.UpdateDate = DateTime.Today;
 
                 var id = this.GetID();
-                this.ViewModel.AttachedFile_ItemSource.Value.Add(this.CreateEntity(id));
+                this.ViewModel.AttachedFile_ItemSource.Add(this.CreateEntity(id));
 
                 this.Save();
 
                 // 並び変え
-                this.ViewModel.AttachedFile_ItemSource.Value = new ObservableCollection<FileStorageEntity>(this.ViewModel.AttachedFile_ItemSource.Value.OrderByDescending(x => x.FileName));
+                var orderedList = new ObservableCollection<FileStorageEntity>(this.ViewModel.AttachedFile_ItemSource.OrderByDescending(x => x.FileName)); ;
+                this.ViewModel.AttachedFile_ItemSource = orderedList.ToReactiveCollection();
 
                 // 追加ボタン
                 this.ViewModel.Add_IsEnabled.Value = false;
@@ -490,17 +492,17 @@ namespace SalaryManager.WPF.Models
             if (this.Entities.Any())
             {
                 // 既存の添付画像あり
-                this.ViewModel.AttachedFile_ItemSource.Value.Clear();
+                this.ViewModel.AttachedFile_ItemSource.Clear();
 
                 foreach (var entity in this.Entities)
                 {
-                    this.ViewModel.AttachedFile_ItemSource.Value.Add(entity);
+                    this.ViewModel.AttachedFile_ItemSource.Add(entity);
                 }
             }
             else
             {
                 // 既存の添付画像なし
-                this.ViewModel.AttachedFile_ItemSource.Value.Clear();
+                this.ViewModel.AttachedFile_ItemSource.Clear();
                 this.Clear_InputForm();
                 return;
             }
@@ -589,10 +591,10 @@ namespace SalaryManager.WPF.Models
 
             using (var cursor = new CursorWaiting())
             {
-                var id = this.ViewModel.AttachedFile_ItemSource.Value[this.ViewModel.AttachedFile_SelectedIndex.Value].ID;
+                var id = this.ViewModel.AttachedFile_ItemSource[this.ViewModel.AttachedFile_SelectedIndex.Value].ID;
 
                 var entity = this.CreateEntity(id);
-                this.ViewModel.AttachedFile_ItemSource.Value[this.ViewModel.AttachedFile_SelectedIndex.Value] = entity;
+                this.ViewModel.AttachedFile_ItemSource[this.ViewModel.AttachedFile_SelectedIndex.Value] = entity;
 
                 _repository.Save(entity);
 
@@ -618,10 +620,10 @@ namespace SalaryManager.WPF.Models
 
             using (var cursor = new CursorWaiting())
             {
-                var id = this.ViewModel.AttachedFile_ItemSource.Value[this.ViewModel.AttachedFile_SelectedIndex.Value].ID;
+                var id = this.ViewModel.AttachedFile_ItemSource[this.ViewModel.AttachedFile_SelectedIndex.Value].ID;
                 _repository.Delete(id);
 
-                this.ViewModel.AttachedFile_ItemSource.Value.RemoveAt(this.ViewModel.AttachedFile_SelectedIndex.Value);
+                this.ViewModel.AttachedFile_ItemSource.RemoveAt(this.ViewModel.AttachedFile_SelectedIndex.Value);
 
                 this.EnableControlButton();
                 this.Clear_InputForm();
@@ -635,7 +637,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Save()        
         {
-            foreach(var entity in this.ViewModel.AttachedFile_ItemSource.Value)
+            foreach(var entity in this.ViewModel.AttachedFile_ItemSource)
             {
                 _repository.Save(entity);
             }

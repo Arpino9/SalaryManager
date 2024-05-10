@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Media;
 using Reactive.Bindings;
 using SalaryManager.Infrastructure.SQLite;
@@ -9,8 +10,10 @@ namespace SalaryManager.WPF.ViewModels
     /// <summary>
     /// ViewModel - 勤務先
     /// </summary>
-    public class ViewModel_WorkPlace
+    public class ViewModel_WorkPlace : ViewModelBase
     {
+        public override event PropertyChangedEventHandler PropertyChanged;
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -22,6 +25,11 @@ namespace SalaryManager.WPF.ViewModels
             this.Allowance.ViewModel_WorkPlace = this;
 
             this.Model.Initialize(DateTime.Today);
+        }
+
+        protected override void BindEvents()
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary> Model </summary>

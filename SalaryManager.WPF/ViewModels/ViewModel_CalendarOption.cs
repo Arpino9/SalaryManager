@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Reactive.Linq;
 using Reactive.Bindings;
 using SalaryManager.WPF.Models;
@@ -8,8 +9,10 @@ namespace SalaryManager.WPF.ViewModels
     /// <summary>
     /// ViewModel - オプション - カレンダー
     /// </summary>
-    public class ViewModel_CalendarOption
+    public class ViewModel_CalendarOption : ViewModelBase
     {
+        public override event PropertyChangedEventHandler PropertyChanged;
+
         public ViewModel_CalendarOption()
         {
             this.Model.CalendarOption = this;
@@ -19,22 +22,13 @@ namespace SalaryManager.WPF.ViewModels
             this.BindEvents();
         }
 
-        /// <summary>
-        /// イベント登録
-        /// </summary>
-        /// <remarks>
-        /// Viewの指定したイベントと、発火させるメソッドを紐付ける。
-        /// Subscribe()メソッドのオーバーロードが正しく呼ばれないので、
-        /// 名前空間に「using System;」を必ず入れること。
-        /// </remarks>
-        private void BindEvents()
+        protected override void BindEvents()
         {
             this.SelectPrivateKey_Command.Subscribe(_ => this.Model.SelectPrivateKeyPath_Calendar());
         }
 
         /// <summary> Model - オプション </summary>
-        public Model_Option Model 
-            = Model_Option.GetInstance();
+        public Model_Option Model = Model_Option.GetInstance();
 
         #region JSONの保存先パス
 

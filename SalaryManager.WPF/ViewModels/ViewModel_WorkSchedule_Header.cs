@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using Reactive.Bindings;
 using SalaryManager.WPF.Models;
 
@@ -7,8 +8,10 @@ namespace SalaryManager.WPF.ViewModels
     /// <summary>
     /// ViewModel - 勤怠表 (ヘッダ)
     /// </summary>
-    public class ViewModel_WorkSchedule_Header
+    public class ViewModel_WorkSchedule_Header : ViewModelBase
     {
+        public override event PropertyChangedEventHandler PropertyChanged;
+
         public ViewModel_WorkSchedule_Header()
         {
             this.Model.ViewModel_Header = this;
@@ -18,15 +21,7 @@ namespace SalaryManager.WPF.ViewModels
             this.BindEvents();
         }
 
-        /// <summary>
-        /// イベント登録
-        /// </summary>
-        /// <remarks>
-        /// Viewの指定したイベントと、発火させるメソッドを紐付ける。
-        /// Subscribe()メソッドのオーバーロードが正しく呼ばれないので、
-        /// 名前空間に「using System;」を必ず入れること。
-        /// </remarks>
-        private void BindEvents()
+        protected override void BindEvents()
         {
             this.Return_Command.Subscribe(_ => this.Model.Return());
             this.Proceed_Command.Subscribe(_ => this.Model.Proceed());
@@ -35,8 +30,7 @@ namespace SalaryManager.WPF.ViewModels
         /// <summary>
         /// Model - 勤務表
         /// </summary>
-        private Model_WorkSchedule_Table Model 
-            = Model_WorkSchedule_Table.GetInstance();
+        private Model_WorkSchedule_Table Model = Model_WorkSchedule_Table.GetInstance();
 
         #region 派遣元
 

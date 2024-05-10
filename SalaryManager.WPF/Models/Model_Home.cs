@@ -6,7 +6,6 @@ using SalaryManager.Domain.StaticValues;
 using SalaryManager.Infrastructure.Interface;
 using SalaryManager.WPF.ViewModels;
 using System;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace SalaryManager.WPF.Models
@@ -49,15 +48,21 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.Remarks_Text.Value             = string.Empty;
         }
 
+        /// <summary>
+        /// 初期化
+        /// </summary>
         public void Initialize()
         {
             Homes.Create(_repository);
 
-            this.ViewModel.Homes_ItemSource.Value = ListUtils.ToObservableCollection(Homes.FetchByAscending().ToList());
+            this.ViewModel.Homes_ItemSource = Homes.FetchByAscending().ToReactiveCollection();
 
-            Homes_SelectionChanged();
+            this.Homes_SelectionChanged();
         }
 
+        /// <summary>
+        /// 再描画
+        /// </summary>
         public void Refresh()
         {
             Reflesh_InputForm();
@@ -102,7 +107,7 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
-            var entity = this.ViewModel.Homes_ItemSource.Value[this.ViewModel.Homes_SelectedIndex.Value];
+            var entity = this.ViewModel.Homes_ItemSource[this.ViewModel.Homes_SelectedIndex.Value];
 
             // 名称
             this.ViewModel.DisplayName_Text.Value    = entity.DisplayName;
@@ -131,13 +136,16 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.Add_IsEnabled.Value = inputted;
         }
 
+        /// <summary>
+        /// リロード
+        /// </summary>
         public void Reload()
         {
             using (var cursor = new CursorWaiting())
             {
                 Homes.Create(_repository);
 
-                this.ViewModel.Homes_ItemSource.Value = ListUtils.ToObservableCollection(Homes.FetchByDescending().ToList());
+                this.ViewModel.Homes_ItemSource = Homes.FetchByDescending().ToReactiveCollection(this.ViewModel.Homes_ItemSource);
 
                 this.Refresh();
             }
@@ -148,7 +156,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Save()
         {
-            foreach (var entity in this.ViewModel.Homes_ItemSource.Value)
+            foreach (var entity in this.ViewModel.Homes_ItemSource)
             {
                 _repository.Save(entity);
             }
@@ -183,7 +191,7 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         private void EnableControlButton()
         {
-            var selected = this.ViewModel.Homes_ItemSource.Value.Any()
+            var selected = this.ViewModel.Homes_ItemSource.Any()
                         && this.ViewModel.Homes_SelectedIndex.Value >= 0;
 
             // 更新ボタン
@@ -207,18 +215,15 @@ namespace SalaryManager.WPF.Models
             {
                 this.ViewModel.Delete_IsEnabled.Value = true;
 
-                var id = this.ViewModel.Homes_ItemSource.Value.Any() ?
-                         this.ViewModel.Homes_ItemSource.Value.Max(x => x.ID) + 1 : 1;
+                var id = this.ViewModel.Homes_ItemSource.Any() ?
+                         this.ViewModel.Homes_ItemSource.Max(x => x.ID) + 1 : 1;
 
                 var entity = this.CreateEntity(id);
 
-                this.ViewModel.Homes_ItemSource.Value.Add(entity);
+                this.ViewModel.Homes_ItemSource.Add(entity);
                 this.Save();
 
-                // 並び変え
-                this.ViewModel.Homes_ItemSource.Value = new ObservableCollection<HomeEntity>(this.ViewModel.Homes_ItemSource.Value.OrderByDescending(x => x.ID));
-
-                this.ViewModel.Homes_SelectedIndex.Value = this.ViewModel.Homes_ItemSource.Value.Count;
+                this.ViewModel.Homes_SelectedIndex.Value = this.ViewModel.Homes_ItemSource.Count;
             }
         }
 
@@ -235,10 +240,10 @@ namespace SalaryManager.WPF.Models
 
             using (var cursor = new CursorWaiting())
             {
-                var id = this.ViewModel.Homes_ItemSource.Value[this.ViewModel.Homes_SelectedIndex.Value].ID;
+                var id = this.ViewModel.Homes_ItemSource[this.ViewModel.Homes_SelectedIndex.Value].ID;
 
                 var entity = this.CreateEntity(id);
-                this.ViewModel.Homes_ItemSource.Value[this.ViewModel.Homes_SelectedIndex.Value] = entity;
+                this.ViewModel.Homes_ItemSource[this.ViewModel.Homes_SelectedIndex.Value] = entity;
 
                 this.Save();
             }
@@ -250,7 +255,7 @@ namespace SalaryManager.WPF.Models
         public void Delete()
         {
             if (this.ViewModel.Homes_SelectedIndex.Value == -1 ||
-                !this.ViewModel.Homes_ItemSource.Value.Any())
+                !this.ViewModel.Homes_ItemSource.Any())
             {
                 return;
             }
@@ -265,13 +270,13 @@ namespace SalaryManager.WPF.Models
             {
                 _repository.Delete(this.ViewModel.Homes_SelectedIndex.Value + 1);
 
-                this.ViewModel.Homes_ItemSource.Value.RemoveAt(this.ViewModel.Homes_SelectedIndex.Value);
+                this.ViewModel.Homes_ItemSource.RemoveAt(this.ViewModel.Homes_SelectedIndex.Value);
 
                 this.Reload();
                 this.EnableControlButton();
             }
 
-            Clear_InputForm();
+            this.Clear_InputForm();
         }
     }
 }

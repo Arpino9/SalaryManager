@@ -1,14 +1,17 @@
 ﻿using Reactive.Bindings;
 using SalaryManager.Domain.Entities;
 using SalaryManager.WPF.Models;
+using System.ComponentModel;
 
 namespace SalaryManager.WPF.ViewModels
 {
     /// <summary>
     /// ViewModel - 勤務表
     /// </summary>
-    public class ViewModel_WorkSchedule_Table
+    public class ViewModel_WorkSchedule_Table : ViewModelBase
     {
+        public override event PropertyChangedEventHandler PropertyChanged;
+ 
         public ViewModel_WorkSchedule_Table()
         {
             this.Model.ViewModel_Table = this;
@@ -16,11 +19,15 @@ namespace SalaryManager.WPF.ViewModels
             this.Model.Initialize_Table();
         }
 
+        protected override void BindEvents()
+        {
+            throw new System.NotImplementedException();
+        }
+
         /// <summary>
         /// Model - 勤務表
         /// </summary>
-        private Model_WorkSchedule_Table Model 
-            = Model_WorkSchedule_Table.GetInstance();
+        private Model_WorkSchedule_Table Model = Model_WorkSchedule_Table.GetInstance();
 
         #region 1日ごとの予定
 

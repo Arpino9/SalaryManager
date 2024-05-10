@@ -65,10 +65,10 @@ namespace SalaryManager.WPF.Models
             if (companies.Any())
             {
                 var companyNames = companies.Select(x => x.CompanyName).ToList();
-                this.ViewModel.CompanyName_ItemSource.Value  = ListUtils.ToObservableCollection(companyNames);
- 
+                this.ViewModel.CompanyName_ItemSource  = companyNames.ToReactiveCollection();
+
                 var workingPlace = companyNames.Union(Homes.FetchByDescending().Select(x => x.DisplayName)).ToList();
-                this.ViewModel.WorkingPlace_ItemSource.Value = ListUtils.ToObservableCollection(workingPlace);
+                this.ViewModel.WorkingPlace_ItemSource = workingPlace.ToReactiveCollection();
             }
 
             this.ViewModel.Window_FontFamily.Value = XMLLoader.FetchFontFamily();
@@ -106,18 +106,13 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         private void Reflesh_ListView()
         {
-            this.ViewModel.WorkingPlaces_ItemSource.Value.Clear();
-
             if (!this.Entities.Any())
             {
                 this.Clear_InputForm();
                 return;
             }
 
-            foreach (var entity in this.Entities)
-            {
-                this.ViewModel.WorkingPlaces_ItemSource.Value.Add(entity);
-            }
+            this.Entities.ToReactiveCollection(this.ViewModel.WorkingPlaces_ItemSource);
         }
 
         /// <summary>
@@ -128,7 +123,7 @@ namespace SalaryManager.WPF.Models
         /// </remarks>
         private void EnableControlButton()
         {
-            var selected = this.ViewModel.WorkingPlaces_ItemSource.Value.Any() 
+            var selected = this.ViewModel.WorkingPlaces_ItemSource.Any() 
                         && this.ViewModel.WorkingPlaces_SelectedIndex.Value >= 0;
 
             // 更新ボタン
@@ -160,12 +155,12 @@ namespace SalaryManager.WPF.Models
 
             this.EnableControlButton();
 
-            if (!this.ViewModel.WorkingPlaces_ItemSource.Value.Any())
+            if (!this.ViewModel.WorkingPlaces_ItemSource.Any())
             {
                 return;
             }
 
-            var entity = this.ViewModel.WorkingPlaces_ItemSource.Value[this.ViewModel.WorkingPlaces_SelectedIndex.Value];
+            var entity = this.ViewModel.WorkingPlaces_ItemSource[this.ViewModel.WorkingPlaces_SelectedIndex.Value];
             
             // 派遣元会社名
             this.ViewModel.DispatchingCompanyName_Text.Value = entity.DispatchingCompany.Text;
@@ -369,7 +364,7 @@ namespace SalaryManager.WPF.Models
                 this.ViewModel.Delete_IsEnabled.Value = true;
 
                 var entity = this.CreateEntity(this.Entities.Count + 1);
-                this.ViewModel.WorkingPlaces_ItemSource.Value.Add(entity);
+                this.ViewModel.WorkingPlaces_ItemSource.Add(entity);
                 this.Save();
 
                 this.Reload();
@@ -421,10 +416,10 @@ namespace SalaryManager.WPF.Models
 
             using (var cursor = new CursorWaiting())
             {
-                var id = this.ViewModel.WorkingPlaces_ItemSource.Value[this.ViewModel.WorkingPlaces_SelectedIndex.Value].ID;
+                var id = this.ViewModel.WorkingPlaces_ItemSource[this.ViewModel.WorkingPlaces_SelectedIndex.Value].ID;
 
                 var entity = this.CreateEntity(id);
-                this.ViewModel.WorkingPlaces_ItemSource.Value[this.ViewModel.WorkingPlaces_SelectedIndex.Value] = entity;
+                this.ViewModel.WorkingPlaces_ItemSource[this.ViewModel.WorkingPlaces_SelectedIndex.Value] = entity;
 
                 this.Save();
             }   
@@ -436,7 +431,7 @@ namespace SalaryManager.WPF.Models
         public void Delete()
         {
             if (this.ViewModel.WorkingPlaces_SelectedIndex.Value == -1 ||
-                !this.ViewModel.WorkingPlaces_ItemSource.Value.Any())
+                !this.ViewModel.WorkingPlaces_ItemSource.Any())
             {
                 return;
             }
@@ -451,7 +446,7 @@ namespace SalaryManager.WPF.Models
             {
                 _repository.Delete(this.ViewModel.WorkingPlaces_SelectedIndex.Value + 1);
 
-                this.ViewModel.WorkingPlaces_ItemSource.Value.RemoveAt(this.ViewModel.WorkingPlaces_SelectedIndex.Value);
+                this.ViewModel.WorkingPlaces_ItemSource.RemoveAt(this.ViewModel.WorkingPlaces_SelectedIndex.Value);
 
                 this.Reload();
                 this.EnableControlButton();
@@ -463,7 +458,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Save()
         {
-            foreach (var entity in this.ViewModel.WorkingPlaces_ItemSource.Value)
+            foreach (var entity in this.ViewModel.WorkingPlaces_ItemSource)
             {
                 _repository.Save(entity);
             }

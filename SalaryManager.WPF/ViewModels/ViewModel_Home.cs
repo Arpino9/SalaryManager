@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.ComponentModel;
 using Reactive.Bindings;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Infrastructure.SQLite;
@@ -10,29 +10,28 @@ namespace SalaryManager.WPF.ViewModels
     /// <summary>
     /// ViewModel - 自宅
     /// </summary>
-    public class ViewModel_Home
+    public class ViewModel_Home : ViewModelBase
     {
+        public override event PropertyChangedEventHandler PropertyChanged;
+
         public ViewModel_Home()
         {
             this.Model.ViewModel = this;
 
             this.Model.Initialize();
             
-            this.BindEvent();
+            this.BindEvents();
         }
 
-        /// <summary>
-        /// イベント登録
-        /// </summary>
-        /// <remarks>
-        /// Viewの指定したイベントと、発火させるメソッドを紐付ける。
-        /// Subscribe()メソッドのオーバーロードが正しく呼ばれないので、
-        /// 名前空間に「using System;」を必ず入れること。
-        /// </remarks>
-        private void BindEvent()
+        protected override void BindEvents()
         {
+            // 自宅一覧
             this.Homes_SelectionChanged.Subscribe(_ => this.Model.Homes_SelectionChanged());
+
+            // 在住中
             this.IsLiving_Checked.Subscribe(_ => this.Model.IsLiving_Checked());
+
+            // 住所
             this.Address_Google_TextChanged.Subscribe(_ => this.Model.EnableAddButton());
 
             this.Add_Command.Subscribe(_ => this.Model.Add());
@@ -41,8 +40,7 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary> Model - 自宅 </summary>
-        public Model_Home Model { get; set; } 
-            = Model_Home.GetInstance(new HomeSQLite());
+        public Model_Home Model { get; set; } = Model_Home.GetInstance(new HomeSQLite());
 
         #region Window
 
@@ -55,8 +53,8 @@ namespace SalaryManager.WPF.ViewModels
         #region 自宅一覧
 
         /// <summary> 自宅一覧 - ItemSource </summary>
-        public ReactiveProperty<ObservableCollection<HomeEntity>> Homes_ItemSource { get; set; }
-            = new ReactiveProperty<ObservableCollection<HomeEntity>>();
+        public ReactiveCollection<HomeEntity> Homes_ItemSource { get; set; }
+            = new ReactiveCollection<HomeEntity>();
 
         /// <summary> 自宅一覧 - SelectionChanged </summary>
         public ReactiveCommand Homes_SelectionChanged { get; private set; }
@@ -96,13 +94,13 @@ namespace SalaryManager.WPF.ViewModels
 
         #endregion
 
-        #region 就業中
+        #region 在住中
 
-        /// <summary> 就業中 - IsChecked </summary>
+        /// <summary> 在住中 - IsChecked </summary>
         public ReactiveProperty<bool> IsLiving_IsChecked { get; set; }
             = new ReactiveProperty<bool>();
 
-        /// <summary> 就業中 - Checked </summary>
+        /// <summary> 在住中 - Checked </summary>
         public ReactiveCommand IsLiving_Checked { get; private set; }
             = new ReactiveCommand();
 

@@ -18,7 +18,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         
-        <ListView ItemsSource="{Binding Holidays_ItemSource.Value}" 
+        <ListView ItemsSource="{Binding Holidays_ItemSource}" 
                   SelectedIndex="{Binding Holidays_SelectedIndex.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <behaviors:Interaction.Triggers>
@@ -100,7 +100,7 @@
             </CheckBox>
             <ComboBox Grid.Row="2" 
                       Grid.Column="2"
-                      ItemsSource="{Binding CompanyName_ItemSource.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding CompanyName_ItemSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       DisplayMemberPath="CompanyName"
                       SelectedIndex="{Binding CompanyName_SelectedIndex.Value,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       Text="{Binding CompanyName_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

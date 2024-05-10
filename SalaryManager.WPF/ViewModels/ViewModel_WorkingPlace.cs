@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
 using Reactive.Bindings;
@@ -9,23 +9,23 @@ using SalaryManager.WPF.Models;
 
 namespace SalaryManager.WPF.ViewModels
 {
-    public class ViewModel_WorkingPlace
+    /// <summary>
+    /// ViewMoldel - 職場
+    /// </summary>
+    public class ViewModel_WorkingPlace : ViewModelBase
     {
+        public override event PropertyChangedEventHandler PropertyChanged;
+
         public ViewModel_WorkingPlace()
         {
             this.Model.ViewModel = this;
 
-            this.WorkingPlaces_ItemSource.Value = new ObservableCollection<WorkingPlaceEntity>();
-
             this.Model.Initialize();
 
-            this.BindEvent();
+            this.BindEvents();
         }
 
-        /// <summary>
-        /// イベント登録
-        /// </summary>
-        private void BindEvent()
+        protected override void BindEvents()
         {
             // 派遣元会社
             this.DispatchingCompanyName_SelectionChanged.Subscribe(_ => this.Model.EnableWaitingButton());
@@ -71,8 +71,8 @@ namespace SalaryManager.WPF.ViewModels
         #region 就業場所一覧
 
         /// <summary> 就業場所一覧 - ItemSource </summary>
-        public ReactiveProperty<ObservableCollection<WorkingPlaceEntity>> WorkingPlaces_ItemSource { get; set; }
-            = new ReactiveProperty<ObservableCollection<WorkingPlaceEntity>>();
+        public ReactiveCollection<WorkingPlaceEntity> WorkingPlaces_ItemSource { get; set; }
+            = new ReactiveCollection<WorkingPlaceEntity>();
 
         /// <summary> 就業場所一覧 - SelectedIndex </summary>
         public ReactiveProperty<int> WorkingPlaces_SelectedIndex { get; set; }
@@ -86,9 +86,9 @@ namespace SalaryManager.WPF.ViewModels
 
         #region 会社名
 
-        /// <summary> 会社名 - ItemSource </summary>
-        public ReactiveProperty<ObservableCollection<string>> CompanyName_ItemSource { get; set; }
-            = new ReactiveProperty<ObservableCollection<string>>();
+        /// <summary> 就業場所 - ItemSource </summary>
+        public ReactiveCollection<string> CompanyName_ItemSource { get; set; }
+            = new ReactiveCollection<string>();
 
         /// <summary> 派遣元会社名 - Text </summary>
         public ReactiveProperty<string> DispatchingCompanyName_Text { get; set; }
@@ -147,8 +147,8 @@ namespace SalaryManager.WPF.ViewModels
         #region 就業場所
 
         /// <summary> 就業場所 - ItemSource </summary>
-        public ReactiveProperty<ObservableCollection<string>> WorkingPlace_ItemSource { get; set; }
-            = new ReactiveProperty<ObservableCollection<string>>();
+        public ReactiveCollection<string> WorkingPlace_ItemSource { get; set; }
+            = new ReactiveCollection<string>();
 
         /// <summary> 就業場所 - Text </summary>
         public ReactiveProperty<string> WorkingPlace_Name_Text { get; set; }

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.ComponentModel;
 using Reactive.Bindings;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Infrastructure.SQLite;
@@ -10,28 +10,20 @@ namespace SalaryManager.WPF.ViewModels
     /// <summary>
     /// ViewModel - 経歴
     /// </summary>
-    public class ViewModel_Career
+    public class ViewModel_Career : ViewModelBase
     {
+        public override event PropertyChangedEventHandler PropertyChanged;
+        
         public ViewModel_Career()
         {
             this.Model.ViewModel = this;
 
-            this.Careers_ItemSource.Value = new ObservableCollection<CareerEntity>();
-
             this.Model.Initialize();
 
-            this.BindEvent();
+            this.BindEvents();
         }
 
-        /// <summary>
-        /// イベント登録
-        /// </summary>
-        /// <remarks>
-        /// Viewの指定したイベントと、発火させるメソッドを紐付ける。
-        /// Subscribe()メソッドのオーバーロードが正しく呼ばれないので、
-        /// 名前空間に「using System;」を必ず入れること。
-        /// </remarks>
-        private void BindEvent()
+        protected override void BindEvents()
         {
             // 就業中
             this.Working_Checked.Subscribe(_ => this.Model.IsWorking_Checked());
@@ -71,8 +63,8 @@ namespace SalaryManager.WPF.ViewModels
         #region 職歴一覧
 
         /// <summary> 職歴一覧 - ItemSource </summary>
-        public ReactiveProperty<ObservableCollection<CareerEntity>> Careers_ItemSource { get; set; }
-            = new ReactiveProperty<ObservableCollection<CareerEntity>>();
+        public ReactiveCollection<CareerEntity> Careers_ItemSource { get; set; }
+            = new ReactiveCollection<CareerEntity>();
 
         /// <summary> 職歴一覧 - SelectedIndex </summary>
         public ReactiveProperty<int> Careers_SelectedIndex { get; set; }
@@ -87,9 +79,8 @@ namespace SalaryManager.WPF.ViewModels
         #region 雇用形態
 
         /// <summary> 雇用形態 - ItemSource </summary>
-        public ReactiveProperty<ObservableCollection<string>> WorkingStatus_ItemSource { get; }
-            = new ReactiveProperty<ObservableCollection<string>>(
-                new ObservableCollection<string> { "正社員", "契約社員", "派遣社員", "業務委託", "アルバイト" });
+        public ReactiveCollection<string> WorkingStatus_ItemSource { get; set; }
+            = new ReactiveCollection<string>() { "正社員", "契約社員", "派遣社員", "業務委託", "アルバイト" };
 
         /// <summary> 雇用形態 - SelectedIndex </summary>
         public ReactiveProperty<int> WorkingStatus_SelectedIndex { get; set; }

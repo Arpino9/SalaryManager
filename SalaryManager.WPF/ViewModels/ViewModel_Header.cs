@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Media;
 using Reactive.Bindings;
 using SalaryManager.Infrastructure.SQLite;
@@ -9,8 +10,10 @@ namespace SalaryManager.WPF.ViewModels
     /// <summary>
     /// ViewModel - ヘッダ
     /// </summary>
-    public class ViewModel_Header
+    public class ViewModel_Header : ViewModelBase
     {
+        public override event PropertyChangedEventHandler PropertyChanged;
+
         public ViewModel_Header()
         {
             this.MainWindow.Header = this.Model;
@@ -28,15 +31,7 @@ namespace SalaryManager.WPF.ViewModels
             this.Model.Initialize(DateTime.Today);
         }
 
-        /// <summary>
-        /// イベント登録
-        /// </summary>
-        /// <remarks>
-        /// Viewの指定したイベントと、発火させるメソッドを紐付ける。
-        /// Subscribe()メソッドのオーバーロードが正しく呼ばれないので、
-        /// 名前空間に「using System;」を必ず入れること。
-        /// </remarks>
-        private void BindEvents()
+        protected override void BindEvents()
         {
             // ←(戻る)
             this.Return_Command.Subscribe(_ => this.Model.Return());

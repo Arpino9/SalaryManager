@@ -1,12 +1,18 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Reactive.Linq;
 using Reactive.Bindings;
 using SalaryManager.WPF.Models;
 
 namespace SalaryManager.WPF.ViewModels
 {
-    public class ViewModel_SpreadSheetOption
+    /// <summary>
+    /// ViewModel - オプション - SpreadSheet
+    /// </summary>
+    public class ViewModel_SpreadSheetOption : ViewModelBase
     {
+        public override event PropertyChangedEventHandler PropertyChanged;
+
         public ViewModel_SpreadSheetOption()
         {
             this.Model.SpreadSheetOption = this;
@@ -16,22 +22,13 @@ namespace SalaryManager.WPF.ViewModels
             this.BindEvents();
         }
 
-        /// <summary>
-        /// イベント登録
-        /// </summary>
-        /// <remarks>
-        /// Viewの指定したイベントと、発火させるメソッドを紐付ける。
-        /// Subscribe()メソッドのオーバーロードが正しく呼ばれないので、
-        /// 名前空間に「using System;」を必ず入れること。
-        /// </remarks>
-        private void BindEvents()
+        protected override void BindEvents()
         {
             this.SelectPrivateKey_Command.Subscribe(_ => this.Model.SelectPrivateKeyPath_SpreadSheet());
         }
 
         /// <summary> Model - オプション </summary>
-        public Model_Option Model 
-            = Model_Option.GetInstance();
+        public Model_Option Model = Model_Option.GetInstance();
 
         #region 認証ファイルの保存先パス
 

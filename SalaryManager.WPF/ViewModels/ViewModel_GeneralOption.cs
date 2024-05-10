@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows.Media;
 using Reactive.Bindings;
 using SalaryManager.Domain;
@@ -10,8 +11,10 @@ namespace SalaryManager.WPF.ViewModels
     /// <summary>
     /// ViewModel - オプション(一般)
     /// </summary>
-    public class ViewModel_GeneralOption
+    public class ViewModel_GeneralOption : ViewModelBase
     {
+        public override event PropertyChangedEventHandler PropertyChanged;
+
         public ViewModel_GeneralOption()
         {
             this.Model.GeneralOption = this;
@@ -20,15 +23,7 @@ namespace SalaryManager.WPF.ViewModels
             this.BindEvents();
         }
 
-        /// <summary>
-        /// イベント登録
-        /// </summary>
-        /// <remarks>
-        /// Viewの指定したイベントと、発火させるメソッドを紐付ける。
-        /// Subscribe()メソッドのオーバーロードが正しく呼ばれないので、
-        /// 名前空間に「using System;」を必ず入れること。
-        /// </remarks>
-        private void BindEvents()
+        protected override void BindEvents()
         {
             // SQLiteの保存先パス
             this.SelectSQLite_Command.Subscribe(_ => this.Model.SelectSQLitePath());
@@ -61,8 +56,7 @@ namespace SalaryManager.WPF.ViewModels
         }
 
         /// <summary> Model - オプション </summary>
-        public Model_Option Model 
-            = Model_Option.GetInstance();
+        public Model_Option Model = Model_Option.GetInstance();
 
         #region Window
 

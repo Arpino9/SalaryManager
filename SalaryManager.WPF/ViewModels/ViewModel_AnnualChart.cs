@@ -2,17 +2,28 @@
 using Reactive.Bindings;
 using System.Windows.Media;
 using SalaryManager.WPF.Models;
+using System.ComponentModel;
 
 namespace SalaryManager.WPF.ViewModels
 {
-    public class ViewModel_AnnualChart
+    /// <summary>
+    /// ViewModel - 月収一覧
+    /// </summary>
+    public class ViewModel_AnnualChart : ViewModelBase
     {
+        public override event PropertyChangedEventHandler PropertyChanged;
+
         public ViewModel_AnnualChart()
         {
             this.Model.ViewModel = this;
             this.MainWindow.AnnualChart = this;
 
             this.Model.Initialize(DateTime.Today.Year);
+        }
+
+        protected override void BindEvents()
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary> Model - 月収一覧 </summary>

@@ -31,7 +31,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <ListView Grid.ColumnSpan="3" 
-                  ItemsSource="{Binding AttachedFile_ItemSource.Value}" 
+                  ItemsSource="{Binding AttachedFile_ItemSource}" 
                   SelectedIndex="{Binding AttachedFile_SelectedIndex.Value}">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="SelectionChanged">
