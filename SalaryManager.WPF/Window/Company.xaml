@@ -18,7 +18,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <ListView ItemsSource="{Binding Companies_ItemSource.Value}" 
+        <ListView ItemsSource="{Binding Companies_ItemSource}" 
                   SelectedIndex="{Binding Companies_SelectedIndex.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <behaviors:Interaction.Triggers>
@@ -72,8 +72,9 @@
                    Background="AliceBlue"/>
             <ComboBox Grid.Column="1" 
                       Grid.ColumnSpan="4" 
-                      ItemsSource="{Binding BusinessCategory_Large_ItemsSource.Value}" 
+                      ItemsSource="{Binding BusinessCategory_Large_ItemsSource}" 
                       DisplayMemberPath="LargeName"
+                      SelectedItem="{Binding BusinessCategory_Large_SelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       Text="{Binding BusinessCategory_Large_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <behaviors:Interaction.Triggers>
                     <behaviors:EventTrigger EventName="SelectionChanged">

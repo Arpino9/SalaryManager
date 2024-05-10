@@ -99,6 +99,11 @@ namespace SalaryManager.Domain.ValueObjects
         /// <param name="largeCategory">大区分</param>
         public BusinessCategoryValue(string largeCategory)
         {
+            if (largeCategory is null)
+            {
+                return;
+            }
+
             this.LargeName  = largeCategory;
             this.MiddleList = this.GetMiddleCategoryList(this.LargeName);
             this.MiddleName = this.MiddleList.FirstOrDefault().Value;
