@@ -76,13 +76,13 @@
                Grid.Column="2"
                Grid.Row="2"/>
         <TextBox Grid.Column="2" 
-                 Grid.Row="3"/>
+                 Grid.Row="3" Text="{Binding AbsentTime_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Content="欠勤日数" 
                Grid.Column="3"
                Grid.Row="2"/>
         <TextBox Grid.Column="3" 
-                 Grid.Row="3"/>
+                 Grid.Row="3" Text="{Binding Absent_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Content="所定休日勤務" 
                Grid.Column="4"
@@ -100,7 +100,7 @@
                Grid.Column="2"
                Grid.Row="4"/>
         <TextBox Grid.Column="2" 
-                 Grid.Row="5"/>
+                 Grid.Row="5" Text="{Binding PaidVacation_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Content="振休代休" 
                Grid.Column="3"

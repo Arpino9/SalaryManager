@@ -159,6 +159,15 @@ namespace SalaryManager.WPF.Models
             // 合計 - 残業時間
             this.ViewModel_Header.OvertimeTotal_Text.Value = Math.Truncate(this.OvertimeTotal.TotalHours) + ":" +
                                                              this.OvertimeTotal.Minutes.ToString("00");
+
+            // 欠勤時間
+            this.ViewModel_Header.AbsentTime_Text.Value = _absentedTime.ToString(@"hh\:mm");
+
+            // 欠勤日数
+            this.ViewModel_Header.Absent_Text.Value = (_clientVacation + _paidVacationDays).ToString();
+
+            // 有給日数
+            this.ViewModel_Header.PaidVacation_Text.Value = new PaidVacationDaysValue(_paidVacationDays).Text;
         }
 
         /// <summary>
@@ -297,6 +306,14 @@ namespace SalaryManager.WPF.Models
 
             // 残業時間
             this.OvertimeTotal = new TimeSpan();
+
+            this.ViewModel_Header.Absent_Text.Value = "0";
+            this.ViewModel_Header.PaidVacation_Text.Value = "0";
+
+            this._clientVacation = 0;
+            this._paidVacationDays = 0;
+
+            _absentedTime = TimeSpan.Zero;
         }
 
         /// <summary>
@@ -377,6 +394,15 @@ namespace SalaryManager.WPF.Models
             return workingPlace.LunchTimeSpan.ToString(@"hh\:mm");
         }
 
+        /// <summary> 有休日数 </summary>
+        private int _paidVacationDays;
+
+        /// <summary> 客先休暇 </summary>
+        private int _clientVacation;
+
+        /// <summary> 欠課時間 </summary>
+        private TimeSpan _absentedTime;
+
         /// <summary>
         /// 入力 - 届出
         /// </summary>
@@ -385,6 +411,7 @@ namespace SalaryManager.WPF.Models
         private string InputNotification(int day)
         {
             var date = this.ConvertDayToDate(day);
+            var workingPlace = this.SearchWorkingPlace(date);
 
             if (this.IsHoliday(date))
             {
@@ -392,8 +419,21 @@ namespace SalaryManager.WPF.Models
                 var holidayName = this.GetHolidayName(date);
                 if (holidayName.Contains("会社休日"))
                 {
-                    holidayName = holidayName.Replace("会社休日：", string.Empty);
-                    return $"会社休日（{holidayName}）";
+                    _clientVacation += 1;
+                    _absentedTime += workingPlace.ActualWorkTimeSpan;
+
+                    if (this.IsA_Working(workingPlace))
+                    {
+                        return "A勤務　客先休業補償（終日）";
+                    } 
+                    else if (this.IsB_Working(workingPlace))
+                    {
+                        return "B勤務　客先休業補償（終日）";
+                    }
+                    else if (this.IsC_Working(workingPlace))
+                    {
+                        return "C勤務　客先休業補償（終日）";
+                    }
                 }
                 else
                 {
@@ -406,19 +446,24 @@ namespace SalaryManager.WPF.Models
                 return "休日";
             }
 
-            var workingPlace = this.SearchWorkingPlace(date);
+            var isPaidVacation = this.IsPaidVacation(date);
+            if (isPaidVacation)
+            {
+                _paidVacationDays = _paidVacationDays += 1;
+                _absentedTime += workingPlace.ActualWorkTimeSpan;
+            }
 
             if (this.IsA_Working(workingPlace))
             {
-                return this.IsPaidVacation(date) ? "A勤務　年次有給休暇（有休）" : "A勤務";
+                return isPaidVacation ? "A勤務　年次有給休暇（有休）" : "A勤務";
             }
             else if (this.IsB_Working(workingPlace))
             {
-                return this.IsPaidVacation(date) ? "B勤務　年次有給休暇（有休）" : "B勤務";
+                return isPaidVacation ? "B勤務　年次有給休暇（有休）" : "B勤務";
             }
             else if (this.IsC_Working(workingPlace))
             {
-                return this.IsPaidVacation(date) ? "C勤務　年次有給休暇（有休）" : "C勤務";
+                return isPaidVacation ? "C勤務　年次有給休暇（有休）" : "C勤務";
             }
 
             return string.Empty;

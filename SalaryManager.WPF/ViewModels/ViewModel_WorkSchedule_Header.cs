@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using Reactive.Bindings;
+using SalaryManager.Domain.ValueObjects;
 using SalaryManager.WPF.Models;
 
 namespace SalaryManager.WPF.ViewModels
@@ -68,6 +69,30 @@ namespace SalaryManager.WPF.ViewModels
 
         /// <summary> 勤務時間 - Text </summary>
         public ReactiveProperty<string> WorkingTimeTotal_Text { get; set; }
+            = new ReactiveProperty<string>();
+
+        #endregion
+
+        #region 欠勤時間
+
+        /// <summary> 欠勤時間 - Text </summary>
+        public ReactiveProperty<string> AbsentTime_Text { get; set; }
+            = new ReactiveProperty<string>();
+
+        #endregion
+
+        #region 欠勤日数
+
+        /// <summary> 欠勤日数 - Text </summary>
+        public ReactiveProperty<string> Absent_Text { get; set; }
+            = new ReactiveProperty<string>();
+
+        #endregion
+
+        #region 有給日数
+
+        /// <summary> 有給日数 - Text </summary>
+        public ReactiveProperty<string> PaidVacation_Text { get; set; }
             = new ReactiveProperty<string>();
 
         #endregion
