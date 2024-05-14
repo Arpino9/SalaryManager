@@ -32,7 +32,7 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.Name_Text.Value         = string.Empty;
             this.ViewModel.CompanyHoliday_IsChecked.Value = false;
             this.ViewModel.CompanyName_SelectedIndex.Value = 0;
-            this.ViewModel.Remarks_Text.Value      = string.Empty;
+            this.ViewModel.Name_Text.Value = string.Empty;
         }
 
         public void Initialize()
@@ -45,39 +45,18 @@ namespace SalaryManager.WPF.Models
 
             this.ViewModel.CompanyName_SelectedIndex.Value = 0;
 
-            if (this.ViewModel.Holidays_ItemSource.Any())
-            {
-                var holiday = this.ViewModel.Holidays_ItemSource[this.ViewModel.Holidays_SelectedIndex.Value];
-
-                this.ViewModel.Date_SelectedDate.Value = holiday.Date;
-                this.ViewModel.Name_Text.Value         = holiday.Name;
-                this.ViewModel.CompanyHoliday_IsChecked.Value = string.IsNullOrEmpty(holiday.CompanyName) == false;
-                this.ViewModel.CompanyName_Text.Value  = holiday.CompanyName;
-                this.ViewModel.Remarks_Text.Value      = holiday.Remarks;
-            }
+            this.Refresh();
         }
 
         public void Refresh()
         {
+            // TODO: どのタイミングで切り替える？
             // 追加ボタン
-            this.ViewModel.Add_IsEnabled.Value    = false;
+            this.ViewModel.Add_IsEnabled.Value    = true;
             // 更新ボタン
-            this.ViewModel.Update_IsEnabled.Value = false;
+            this.ViewModel.Update_IsEnabled.Value = true;
             // 削除ボタン
-            this.ViewModel.Delete_IsEnabled.Value = false;
-        }
-
-        /// <summary>
-        /// 祝日 - SelectionChanged
-        /// </summary>
-        public void Holidays_SelectionChanged()
-        {
-            if (this.ViewModel.Holidays_SelectedIndex.Value == -1)
-            {
-                return;
-            }
-
-            this.EnableControlButton();
+            this.ViewModel.Delete_IsEnabled.Value = true;
 
             if (!this.ViewModel.Holidays_ItemSource.Any())
             {
@@ -94,35 +73,47 @@ namespace SalaryManager.WPF.Models
             this.ViewModel.CompanyHoliday_IsChecked.Value = string.IsNullOrEmpty(entity.CompanyName) == false;
             // 会社名
             this.ViewModel.CompanyName_Text.Value  = entity.CompanyName;
+            this.ViewModel.Name_IsEnabled.Value = (this.ViewModel.CompanyHoliday_IsChecked.Value == false);
             // 備考
             this.ViewModel.Remarks_Text.Value      = entity.Remarks;
+
+            if (this.ViewModel.CompanyName_ItemSource.Any() == false)
+            {
+                this.ViewModel.CompanyName_Text.Value = string.Empty;
+                return;
+            }
+
+            if (this.ViewModel.CompanyHoliday_IsChecked.Value is false)
+            {
+                this.ViewModel.CompanyName_Text.Value = this.ViewModel.CompanyName_ItemSource.First().CompanyName;
+            }
         }
 
-        // <summary>
-        /// Enable - 操作ボタン
+        /// <summary>
+        /// 祝日 - SelectionChanged
         /// </summary>
-        /// <remarks>
-        /// 追加ボタンは「会社名」に値があれば押下可能。
-        /// </remarks>
-        private void EnableControlButton()
+        public void Holidays_SelectionChanged()
         {
-            var selected = this.ViewModel.Holidays_ItemSource.Any()
-                        && this.ViewModel.Holidays_SelectedIndex.Value >= 0;
+            if (this.ViewModel.Holidays_SelectedIndex.Value == -1)
+            {
+                return;
+            }
 
-            // 更新ボタン
-            this.ViewModel.Update_IsEnabled.Value = selected;
-            // 削除ボタン
-            this.ViewModel.Delete_IsEnabled.Value = selected;
+            using (var cursor = new CursorWaiting())
+            {
+                this.Refresh();
+            }   
         }
 
         /// <summary>
         /// 祝日名 - TextChanged
         /// </summary>
-        public void EnableAddButton()
+        public void Name_TextChanged()
         {
             var inputted = !string.IsNullOrEmpty(this.ViewModel.Name_Text.Value);
 
-            this.ViewModel.Add_IsEnabled.Value = inputted;
+            this.ViewModel.Add_IsEnabled.Value    = inputted;
+            this.ViewModel.Update_IsEnabled.Value = inputted;
         }
 
         /// <summary>
@@ -130,7 +121,12 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void EnableCompanyNameComboBox()
         {
-            this.ViewModel.CompanyName_IsEnabled.Value = this.ViewModel.CompanyHoliday_IsChecked.Value;
+            var isChecked = this.ViewModel.CompanyHoliday_IsChecked.Value;
+
+            this.ViewModel.CompanyName_IsEnabled.Value = isChecked;
+
+            this.ViewModel.Name_Text.Value = "会社休日";
+            this.ViewModel.Name_IsEnabled.Value        = (isChecked == false);
         }
 
         public void Reload()
@@ -261,7 +257,6 @@ namespace SalaryManager.WPF.Models
                 this.ViewModel.Holidays_ItemSource.RemoveAt(this.ViewModel.Holidays_SelectedIndex.Value);
 
                 this.Save();
-                this.EnableControlButton();
 
                 this.Reload();
 

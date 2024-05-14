@@ -73,6 +73,7 @@
             <TextBox Grid.Column="1" 
                      Grid.Row="1" 
                      Grid.ColumnSpan="2"
+                     IsEnabled="{Binding Name_IsEnabled.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      Text="{Binding Name_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <behaviors:Interaction.Triggers>
                     <behaviors:EventTrigger EventName="TextChanged">

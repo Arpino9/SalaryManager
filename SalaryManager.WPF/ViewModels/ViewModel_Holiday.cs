@@ -24,7 +24,7 @@ namespace SalaryManager.WPF.ViewModels
         protected override void BindEvents()
         {
             // 祝日名
-            this.Name_TextChanged.Subscribe(_ => Model.EnableAddButton());
+            this.Name_TextChanged.Subscribe(_ => Model.Name_TextChanged());
             // 会社休日
             this.CompanyHoliday_Checked.Subscribe(_ => Model.EnableCompanyNameComboBox());
             // 祝日一覧
@@ -72,6 +72,10 @@ namespace SalaryManager.WPF.ViewModels
         #endregion
 
         #region 祝日名
+
+        /// <summary> 祝日名 - IsEnabled </summary>
+        public ReactiveProperty<bool> Name_IsEnabled { get; set; }
+            = new ReactiveProperty<bool>();
 
         /// <summary> 祝日名 - Text </summary>
         public ReactiveProperty<string> Name_Text { get; set; }
