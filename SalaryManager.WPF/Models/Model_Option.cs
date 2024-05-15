@@ -308,7 +308,7 @@ namespace SalaryManager.WPF.Models
 
                 tag.HowToSaveImage = this.GeneralOption.HowToSaveImage_IsChecked.ToString();
 
-                tag.BackgroundColor = StringUtils.Aggregate(list);
+                tag.BackgroundColor = list.Combine();
 
                 tag.PrivateKeyPath_SpreadSheet = this.SpreadSheetOption.SelectPrivateKey_Text.Value;
                 tag.SheetId                    = this.SpreadSheetOption.SheetId_Text.Value;
@@ -356,7 +356,7 @@ namespace SalaryManager.WPF.Models
                 {
                     FontFamily                = this.GeneralOption.FontFamily_Text.Value,
                     FontSize                  = this.GeneralOption.FontSize_Value.Value,
-                    BackgroundColor           = StringUtils.Aggregate(list),
+                    BackgroundColor           = list.Combine(),
                     BackgroundColor_ColorCode = this.Window_BackgroundColor.Name,
                     ShowDefaultPayslip        = this.GeneralOption.ShowDefaultPayslip_IsChecked.Value,
                     HowToSaveImage            = this.GeneralOption.HowToSaveImage_IsChecked.ToString(),

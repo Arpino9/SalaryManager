@@ -127,7 +127,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         internal void AttachedFile_SelectionChanged()
         {
-            if (this.ViewModel.AttachedFile_SelectedIndex.Value == -1)
+            if (this.ViewModel.AttachedFile_SelectedIndex.Value.IsUnSelected())
             {
                 return;
             }

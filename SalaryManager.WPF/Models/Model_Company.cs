@@ -83,7 +83,7 @@ namespace SalaryManager.WPF.Models
         public void BusinessCategory_Large_SelectionChanged()
         {
             if (this.ViewModel.BusinessCategory_Large_SelectedItem.Value is null ||
-                this.ViewModel.Companies_SelectedIndex.Value == -1)
+                this.ViewModel.Companies_SelectedIndex.Value.IsUnSelected())
             {
                 // 無効
                 return;
@@ -188,7 +188,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Companies_SelectionChanged()
         {
-            if (this.ViewModel.Companies_SelectedIndex.Value == -1)
+            if (this.ViewModel.Companies_SelectedIndex.Value.IsUnSelected())
             {
                 return;
             }
@@ -384,8 +384,8 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Delete()
         {
-            if (this.ViewModel.Companies_SelectedIndex.Value == -1 ||
-                !this.ViewModel.Companies_ItemSource.Any())
+            if (this.ViewModel.Companies_SelectedIndex.Value.IsUnSelected() ||
+                this.ViewModel.Companies_ItemSource.IsEmpty())
             {
                 return;
             }

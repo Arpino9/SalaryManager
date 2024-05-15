@@ -148,7 +148,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Careers_SelectionChanged()
         {
-            if (this.ViewModel.WorkingPlaces_SelectedIndex.Value == -1)
+            if (this.ViewModel.WorkingPlaces_SelectedIndex.Value.IsUnSelected())
             {
                 return;
             }
@@ -430,7 +430,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Delete()
         {
-            if (this.ViewModel.WorkingPlaces_SelectedIndex.Value == -1 ||
+            if (this.ViewModel.WorkingPlaces_SelectedIndex.Value.IsUnSelected() ||
                 this.ViewModel.WorkingPlaces_ItemSource.IsEmpty())
             {
                 return;

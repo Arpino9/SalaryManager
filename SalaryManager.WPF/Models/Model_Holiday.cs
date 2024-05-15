@@ -94,7 +94,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Holidays_SelectionChanged()
         {
-            if (this.ViewModel.Holidays_SelectedIndex.Value == -1)
+            if (this.ViewModel.Holidays_SelectedIndex.Value.IsUnSelected())
             {
                 return;
             }
@@ -240,7 +240,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Delete()
         {
-            if (this.ViewModel.Holidays_SelectedIndex.Value == -1 ||
+            if (this.ViewModel.Holidays_SelectedIndex.Value.IsUnSelected() ||
                 this.ViewModel.Holidays_ItemSource.IsEmpty())
             {
                 return;

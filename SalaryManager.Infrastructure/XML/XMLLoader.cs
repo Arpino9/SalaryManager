@@ -92,7 +92,7 @@ namespace SalaryManager.Infrastructure.XML
                 return SystemColors.ControlLight;
             }
 
-            var color = StringUtils.Separate(_tag.BackgroundColor);
+            var color = _tag.BackgroundColor.Separate();
 
             if (color.Count < 2)
             {
@@ -135,7 +135,7 @@ namespace SalaryManager.Infrastructure.XML
                 return Default;
             }
 
-            var color = StringUtils.Separate(_tag.BackgroundColor);
+            var color = _tag.BackgroundColor.Separate();
 
             if (color.Count < 2)
             {

@@ -95,7 +95,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Homes_SelectionChanged()
         {
-            if (this.ViewModel.Homes_SelectedIndex.Value == -1)
+            if (this.ViewModel.Homes_SelectedIndex.Value.IsUnSelected())
             {
                 return;
             }
@@ -254,7 +254,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Delete()
         {
-            if (this.ViewModel.Homes_SelectedIndex.Value == -1 ||
+            if (this.ViewModel.Homes_SelectedIndex.Value.IsUnSelected() ||
                 !this.ViewModel.Homes_ItemSource.Any())
             {
                 return;

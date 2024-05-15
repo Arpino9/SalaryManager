@@ -8,7 +8,7 @@ using System.Reactive.Linq;
 namespace SalaryManager.Domain.Modules.Helpers
 {
     /// <summary>
-    /// List拡張クラス
+    /// 拡張クラス - List
     /// </summary>
     public static class ListUtils
     {
@@ -89,27 +89,5 @@ namespace SalaryManager.Domain.Modules.Helpers
         /// </returns>
         public static bool IsEmpty<T>(this IEnumerable<T> list)
             => (list.Any() == false);
-
-        /// <summary>
-        /// コレクションがnullかどうか調べる
-        /// </summary>
-        /// <typeparam name="T">型パラメータ</typeparam>
-        /// <param name="list">リスト</param>
-        /// <returns>
-        /// True : コレクションがnullである / False: コレクションがnullでない
-        /// </returns>
-        public static bool IsNull<T>(this IEnumerable<T> list)
-            => (list is null);
-
-        /// <summary>
-        /// コレクションがnullもしくは空かどうか調べる
-        /// </summary>
-        /// <typeparam name="T">型パラメータ</typeparam>
-        /// <param name="list">リスト</param>
-        /// <returns>
-        /// True : コレクションがnullか空である / False: コレクションがnullか空でない
-        /// </returns>
-        public static bool IsNullOrEmpty<T>(this IEnumerable<T> list)
-            => (list.IsNull() || list.IsEmpty());
     }
 }
