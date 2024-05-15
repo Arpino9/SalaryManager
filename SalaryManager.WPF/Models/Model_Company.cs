@@ -195,7 +195,7 @@ namespace SalaryManager.WPF.Models
 
             this.EnableControlButton();
 
-            if (!this.ViewModel.Companies_ItemSource.Any())
+            if (this.ViewModel.Companies_ItemSource.IsEmpty())
             {
                 return;
             }

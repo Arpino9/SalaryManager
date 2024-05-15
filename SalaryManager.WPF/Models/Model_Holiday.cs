@@ -77,7 +77,7 @@ namespace SalaryManager.WPF.Models
             // 備考
             this.ViewModel.Remarks_Text.Value      = entity.Remarks;
 
-            if (this.ViewModel.CompanyName_ItemSource.Any() == false)
+            if (this.ViewModel.CompanyName_ItemSource.IsEmpty())
             {
                 this.ViewModel.CompanyName_Text.Value = string.Empty;
                 return;
@@ -133,7 +133,7 @@ namespace SalaryManager.WPF.Models
         {
             var holidays = JSONExtension.DeserializeSettings<IReadOnlyList<JSONProperty_Holiday>>(FilePath.GetJSONHolidayDefaultPath());
 
-            if (holidays.Any() == false)
+            if (holidays.IsEmpty())
             {
                 return;
             }
@@ -241,7 +241,7 @@ namespace SalaryManager.WPF.Models
         public void Delete()
         {
             if (this.ViewModel.Holidays_SelectedIndex.Value == -1 ||
-                !this.ViewModel.Holidays_ItemSource.Any())
+                this.ViewModel.Holidays_ItemSource.IsEmpty())
             {
                 return;
             }

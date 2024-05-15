@@ -9,6 +9,7 @@ using SalaryManager.Infrastructure.XML;
 using SalaryManager.Domain.Repositories;
 using System.Collections.Generic;
 using SalaryManager.Domain.Modules.Helpers;
+using Reactive.Bindings;
 
 namespace SalaryManager.WPF.Models
 {
@@ -91,7 +92,7 @@ namespace SalaryManager.WPF.Models
         {
             this.Clear_InputForm();
 
-            if (!this.Entities.Any())
+            if (this.Entities.IsEmpty())
             {
                 return;
             }
@@ -128,7 +129,7 @@ namespace SalaryManager.WPF.Models
 
             this.EnableControlButton();
 
-            if (!this.ViewModel.Careers_ItemSource.Any())
+            if (this.ViewModel.Careers_ItemSource.IsEmpty())
             {
                 return;
             }
@@ -389,7 +390,7 @@ namespace SalaryManager.WPF.Models
         public void Delete()
         {
             if (this.ViewModel.Careers_SelectedIndex.Value == -1 ||
-                !this.ViewModel.Careers_ItemSource.Any()) 
+                this.ViewModel.Careers_ItemSource.IsEmpty()) 
             {
                 return;
             }

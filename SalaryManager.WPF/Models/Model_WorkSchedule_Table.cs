@@ -13,6 +13,7 @@ using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Infrastructure.JSON;
 using WorkingPlace = SalaryManager.Domain.StaticValues.WorkingPlace;
 using System.Reactive;
+using SalaryManager.Domain.Modules.Helpers;
 
 namespace SalaryManager.WPF.Models
 {
@@ -88,9 +89,7 @@ namespace SalaryManager.WPF.Models
 
             var (Noon, Lunch, Afternoon) = GetScheduleEvents(this.FirstDateOfMonth, this.LastDateOfMonth);
 
-            if (Noon.Any()      == false ||
-                Lunch.Any()     == false ||
-                Afternoon.Any() == false) 
+            if (Noon.IsEmpty() || Lunch.IsEmpty() || Afternoon.IsEmpty()) 
             {
                 throw new DatabaseException("スケジュールの取得に失敗しました。");
             }
@@ -221,7 +220,7 @@ namespace SalaryManager.WPF.Models
         {
             var holidays = JSONExtension.DeserializeSettings<IReadOnlyList<JSONProperty_Holiday>>(FilePath.GetJSONHolidayDefaultPath());
 
-            if (holidays.Any() == false)
+            if (holidays.IsEmpty())
             {
                 return new SolidColorBrush(Color.FromRgb(255, 255, 255));
             }

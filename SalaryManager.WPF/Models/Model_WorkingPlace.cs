@@ -106,7 +106,7 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         private void Reflesh_ListView()
         {
-            if (!this.Entities.Any())
+            if (this.Entities.IsEmpty())
             {
                 this.Clear_InputForm();
                 return;
@@ -155,7 +155,7 @@ namespace SalaryManager.WPF.Models
 
             this.EnableControlButton();
 
-            if (!this.ViewModel.WorkingPlaces_ItemSource.Any())
+            if (this.ViewModel.WorkingPlaces_ItemSource.IsEmpty())
             {
                 return;
             }
@@ -431,7 +431,7 @@ namespace SalaryManager.WPF.Models
         public void Delete()
         {
             if (this.ViewModel.WorkingPlaces_SelectedIndex.Value == -1 ||
-                !this.ViewModel.WorkingPlaces_ItemSource.Any())
+                this.ViewModel.WorkingPlaces_ItemSource.IsEmpty())
             {
                 return;
             }

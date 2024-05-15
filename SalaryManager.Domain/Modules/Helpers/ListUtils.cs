@@ -1,4 +1,5 @@
 ﻿using Reactive.Bindings;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace SalaryManager.Domain.Modules.Helpers
         /// <typeparam name="T">型パラメータ</typeparam>
         /// <param name="list">リスト</param>
         /// <returns>ObservableCollection</returns>
+        [Obsolete("一応残すが、ToReactiveCollection()メソッドを使うこと")]
         public static ObservableCollection<T> ToObservableCollection<T>(ICollection<T> list)
             => new ObservableCollection<T>(list as List<T>);
 
@@ -36,7 +38,10 @@ namespace SalaryManager.Domain.Modules.Helpers
             this IEnumerable<T> list, 
             ReactiveCollection<T> reactiveCollection)
         {
-            if (list.Any() == false) return new ReactiveCollection<T>();
+            if (list.IsEmpty())
+            {
+                return new ReactiveCollection<T>();
+            }
 
             reactiveCollection.Clear();
 
@@ -61,7 +66,10 @@ namespace SalaryManager.Domain.Modules.Helpers
         {
             var reactiveCollection = new ReactiveCollection<T>();
 
-            if (list.Any() == false) return new ReactiveCollection<T>();
+            if (list.IsEmpty())
+            {
+                return new ReactiveCollection<T>();
+            }
 
             foreach (var item in list)
             {
@@ -70,5 +78,38 @@ namespace SalaryManager.Domain.Modules.Helpers
 
             return reactiveCollection;
         }
+
+        /// <summary>
+        /// コレクションが空かどうか調べる
+        /// </summary>
+        /// <typeparam name="T">型パラメータ</typeparam>
+        /// <param name="list">リスト</param>
+        /// <returns>
+        /// True : コレクションが空である / False: コレクションが空でない
+        /// </returns>
+        public static bool IsEmpty<T>(this IEnumerable<T> list)
+            => (list.Any() == false);
+
+        /// <summary>
+        /// コレクションがnullかどうか調べる
+        /// </summary>
+        /// <typeparam name="T">型パラメータ</typeparam>
+        /// <param name="list">リスト</param>
+        /// <returns>
+        /// True : コレクションがnullである / False: コレクションがnullでない
+        /// </returns>
+        public static bool IsNull<T>(this IEnumerable<T> list)
+            => (list is null);
+
+        /// <summary>
+        /// コレクションがnullもしくは空かどうか調べる
+        /// </summary>
+        /// <typeparam name="T">型パラメータ</typeparam>
+        /// <param name="list">リスト</param>
+        /// <returns>
+        /// True : コレクションがnullか空である / False: コレクションがnullか空でない
+        /// </returns>
+        public static bool IsNullOrEmpty<T>(this IEnumerable<T> list)
+            => (list.IsNull() || list.IsEmpty());
     }
 }

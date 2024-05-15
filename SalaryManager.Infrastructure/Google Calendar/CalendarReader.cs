@@ -7,6 +7,7 @@ using Google.Apis.Calendar.v3.Data;
 using Google.Apis.Services;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Exceptions;
+using SalaryManager.Domain.Modules.Helpers;
 using SalaryManager.Domain.ValueObjects;
 using SalaryManager.Infrastructure.XML;
 
@@ -118,7 +119,7 @@ namespace SalaryManager.Infrastructure.Google_Calendar
                 // イベントを取得
                 Events events = request.Execute();
 
-                if (events is null || events.Items.Any() == false)
+                if (events is null || events.Items.IsEmpty())
                 {
                     throw new DatabaseException("スケジュールの取得に失敗しました。");
                 }
@@ -142,10 +143,6 @@ namespace SalaryManager.Infrastructure.Google_Calendar
 
             return schedules.OrderBy(x => x.Start.DateTime).ToList().AsReadOnly();
         }
-
-        /// <summary> 空か </summary>
-        /// <returns>リストが空であるか</returns>
-        public static bool IsEmpty() => (CalendarEvents.Any() == false);
 
         /// <summary>
         /// イベントを取得する

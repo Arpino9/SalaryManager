@@ -53,7 +53,7 @@ namespace SalaryManager.WPF.Models
         {
             // フォントファミリ
             var fonts = new InstalledFontCollection();
-            this.GeneralOption.FontFamily_ItemSource.Value = ListUtils.ToObservableCollection<string>(fonts.Families.Select(x => x.Name).ToList());
+            this.GeneralOption.FontFamily_ItemSource.Value = ListUtils.ToReactiveCollection<string>(fonts.Families.Select(x => x.Name).ToList());
             this.GeneralOption.FontFamily_SelectedIndex.Value = 0;
 
             if (Shared.SavingExtension == "XML")

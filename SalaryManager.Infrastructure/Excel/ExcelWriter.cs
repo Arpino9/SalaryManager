@@ -1,6 +1,7 @@
 ﻿using ClosedXML.Excel;
 using SalaryManager.Domain;
 using SalaryManager.Domain.Entities;
+using SalaryManager.Domain.Modules.Helpers;
 using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Domain.Repositories;
 using SalaryManager.Infrastructure.XML;
@@ -74,7 +75,7 @@ namespace SalaryManager.Infrastructure.Excel
         /// <returns>void</returns>
         public async Task WriteAllHeader(IReadOnlyList<HeaderEntity> entities)
         {
-            if (!entities.Any())
+            if (entities.IsEmpty())
             {
                 return;
             }
@@ -102,7 +103,7 @@ namespace SalaryManager.Infrastructure.Excel
         {
             var column = 4;
 
-            if (!entities.Any())
+            if (entities.IsEmpty())
             {
                 return;
             }
@@ -162,7 +163,7 @@ namespace SalaryManager.Infrastructure.Excel
         {
             var column = 18;
 
-            if (!entities.Any())
+            if (entities.IsEmpty())
             {
                 return;
             }
@@ -208,7 +209,7 @@ namespace SalaryManager.Infrastructure.Excel
         {
             var column = 27;
 
-            if (!entities.Any())
+            if (entities.IsEmpty())
             {
                 return;
             }
@@ -256,7 +257,7 @@ namespace SalaryManager.Infrastructure.Excel
         {
             var column = 37;
 
-            if (!entities.Any())
+            if (entities.IsEmpty())
             {
                 return;
             }
