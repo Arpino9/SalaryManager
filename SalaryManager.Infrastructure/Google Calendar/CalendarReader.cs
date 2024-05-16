@@ -8,7 +8,7 @@ using Google.Apis.Services;
 using SalaryManager.Domain.Entities;
 using SalaryManager.Domain.Exceptions;
 using SalaryManager.Domain.Modules.Helpers;
-using SalaryManager.Domain.ValueObjects;
+using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Infrastructure.XML;
 
 namespace SalaryManager.Infrastructure.Google_Calendar
@@ -24,33 +24,35 @@ namespace SalaryManager.Infrastructure.Google_Calendar
         /// <summary> Googleカレンダーのイベント </summary>
         private static List<CalendarEventEntity> CalendarEvents = new List<CalendarEventEntity>();
 
-        /// <summary> 取得中フラグ </summary>
-        public static bool Loading;
+        /// <summary> 取得判定用 </summary>
+        public static Executing Loading { get; set; }
 
         /// <summary>
         /// 読込
         /// </summary>
         public static void Read()
         {
-            Loading = true;
-            CalendarEvents.Clear();
-
-            var events = GetEvents(Initialize());
-
-            foreach (var eventItem in events)
+            using (Loading = new Executing())
             {
-                if (String.IsNullOrEmpty(eventItem.Start.DateTime.ToString()) ||
-                    eventItem.Location is null)
+                CalendarEvents.Clear();
+
+                var events = GetEvents(Initialize());
+
+                foreach (var eventItem in events)
                 {
-                    var eventEntity2 = new CalendarEventEntity(eventItem.Summary, Convert.ToDateTime(eventItem.Start.Date), Convert.ToDateTime(eventItem.End.Date));
-                    CalendarEvents.Add(eventEntity2);
+                    if (String.IsNullOrEmpty(eventItem.Start.DateTime.ToString()) ||
+                        eventItem.Location is null)
+                    {
+                        var eventEntity2 = new CalendarEventEntity(eventItem.Summary, Convert.ToDateTime(eventItem.Start.Date), Convert.ToDateTime(eventItem.End.Date));
+                        CalendarEvents.Add(eventEntity2);
 
-                    continue;
+                        continue;
+                    }
+
+                    var eventEntity = new CalendarEventEntity(eventItem.Summary, eventItem.Start.DateTime.Value, eventItem.End.DateTime.Value, eventItem.Location, eventItem.Description);
+
+                    CalendarEvents.Add(eventEntity);
                 }
-
-                var eventEntity = new CalendarEventEntity(eventItem.Summary, eventItem.Start.DateTime.Value, eventItem.End.DateTime.Value, eventItem.Location, eventItem.Description);
-
-                CalendarEvents.Add(eventEntity);
             }
         }
 
@@ -137,9 +139,6 @@ namespace SalaryManager.Infrastructure.Google_Calendar
                 // 次のページのトークンを設定
                 request.PageToken = events.NextPageToken;
             } while (!String.IsNullOrEmpty(request.PageToken));
-
-            // 取得完了
-            Loading = false;
 
             return schedules.OrderBy(x => x.Start.DateTime).ToList().AsReadOnly();
         }

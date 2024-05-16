@@ -33,6 +33,14 @@ namespace SalaryManager.WPF.ViewModels
         /// </summary>
         private Model_WorkSchedule_Table Model = Model_WorkSchedule_Table.GetInstance();
 
+        #region Window
+
+        /// <summary> Window - Title </summary>
+        public ReactiveProperty<string> Window_Title { get; }
+            = new ReactiveProperty<string>("勤怠表");
+
+        #endregion
+
         #region 派遣元
 
         /// <summary> 派遣元 - Text </summary>

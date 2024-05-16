@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SalaryManager.WPF.Window"
         xmlns:userControl="clr-namespace:SalaryManager.WPF.UserControls"
         mc:Ignorable="d"
-        Title="WorkSchedule" Height="800" Width="800">
+        Title="勤怠表" Height="800" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="250" />

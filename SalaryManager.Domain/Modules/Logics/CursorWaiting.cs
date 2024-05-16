@@ -11,17 +11,17 @@ namespace SalaryManager.Domain.Modules.Logics
     /// </remarks>
     public class CursorWaiting : IDisposable
     {
-        private Cursor _cursor;
+        /// <summary> 待機中か </summary>
+        public bool IsWaiting => (Cursor.Current == Cursors.WaitCursor);
 
         public CursorWaiting()
         {
-            _cursor = Cursor.Current;
             Cursor.Current = Cursors.WaitCursor;
         }
 
         public void Dispose()
         {
-            Cursor.Current = _cursor;
+            Cursor.Current = Cursors.Default;
         }
     }
 }

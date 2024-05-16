@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using SalaryManager.Domain.Exceptions;
-using SalaryManager.Domain.Modules.Logics;
 using System;
 using System.IO;
 

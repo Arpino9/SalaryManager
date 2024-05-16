@@ -137,6 +137,7 @@
     <Compile Include="Modules\Helpers\DialogUtils.cs" />
     <Compile Include="Modules\Helpers\StringUtils.cs" />
     <Compile Include="Modules\Logics\CursorWaiting.cs" />
+    <Compile Include="Modules\Logics\Executing.cs" />
     <Compile Include="Modules\Logics\Message.cs" />
     <Compile Include="Modules\Logics\FilePath.cs" />
     <Compile Include="Repositories\IAnnualChartRepository.cs" />

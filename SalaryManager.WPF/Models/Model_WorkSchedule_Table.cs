@@ -3,7 +3,6 @@ using System.Linq;
 using System.Windows.Media;
 using System.Collections.Generic;
 using SalaryManager.Domain.Entities;
-using SalaryManager.Domain.Exceptions;
 using SalaryManager.Domain.StaticValues;
 using SalaryManager.Domain.ValueObjects;
 using SalaryManager.Infrastructure.Google_Calendar;
@@ -12,8 +11,9 @@ using SalaryManager.WPF.ViewModels;
 using SalaryManager.Domain.Modules.Logics;
 using SalaryManager.Infrastructure.JSON;
 using WorkingPlace = SalaryManager.Domain.StaticValues.WorkingPlace;
-using System.Reactive;
 using SalaryManager.Domain.Modules.Helpers;
+using System.Windows;
+using System.Threading.Tasks;
 
 namespace SalaryManager.WPF.Models
 {
@@ -52,21 +52,44 @@ namespace SalaryManager.WPF.Models
         /// <summary> 勤務時間合計 </summary>
         public TimeSpan WorkingTimeTotal { get; set; }
 
+        /// <summary>
+        /// 初期化
+        /// </summary>
         public void Initialize_Header()
         {
             this.TargetDate = DateTime.Now;
         }
 
+        /// <summary>
+        /// 戻る
+        /// </summary>
         internal void Return()
         {
             this.TargetDate = this.TargetDate.AddMonths(-1);
-            Initialize_Table();
+
+            if (this.Initialize_Table().Result == false)
+            {
+                this.TargetDate = this.TargetDate.AddMonths(1);
+
+                this.ViewModel_Header.Year_Text.Value = this.TargetDate.Year;
+                this.ViewModel_Header.Month_Text.Value = this.TargetDate.Month;
+            }
         }
 
+        /// <summary>
+        /// 進む
+        /// </summary>
         internal void Proceed()
         {
             this.TargetDate = this.TargetDate.AddMonths(1);
-            Initialize_Table();
+
+            if (this.Initialize_Table().Result == false)
+            {
+                this.TargetDate = this.TargetDate.AddMonths(-1);
+
+                this.ViewModel_Header.Year_Text.Value  = this.TargetDate.Year;
+                this.ViewModel_Header.Month_Text.Value = this.TargetDate.Month;
+            }
         }
 
         /// <summary>
@@ -75,12 +98,14 @@ namespace SalaryManager.WPF.Models
         /// <remarks>
         /// データの読込が終わるまで再帰させる。
         /// </remarks>
-        public async void Initialize_Table()
+        public async Task<bool> Initialize_Table()
         {
-            if (CalendarReader.Loading)
+            if (CalendarReader.Loading.Value)
             {
                 System.Threading.Thread.Sleep(3000);
                 this.Initialize_Table();
+
+                return true;
             }
 
             // 該当年月
@@ -91,7 +116,8 @@ namespace SalaryManager.WPF.Models
 
             if (Noon.IsEmpty() || Lunch.IsEmpty() || Afternoon.IsEmpty()) 
             {
-                throw new DatabaseException("スケジュールの取得に失敗しました。");
+                MessageBox.Show("Googleカレンダーのスケジュールが登録されていません。", this.ViewModel_Header.Window_Title.Value);
+                return false;
             }
 
             this.Clear();
@@ -167,6 +193,8 @@ namespace SalaryManager.WPF.Models
 
             // 有給日数
             this.ViewModel_Header.PaidVacation_Text.Value = new PaidVacationDaysValue(_paidVacationDays).Text;
+
+            return true;
         }
 
         /// <summary>
