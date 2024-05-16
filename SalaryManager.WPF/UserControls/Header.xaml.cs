@@ -1,15 +1,12 @@
-﻿using System.Windows.Controls;
+﻿namespace SalaryManager.WPF.UserControls;
 
-namespace SalaryManager.WPF.UserControls
+/// <summary>
+/// Header.xaml の相互作用ロジック
+/// </summary>
+public partial class Header : System.Windows.Controls.UserControl
 {
-    /// <summary>
-    /// Header.xaml の相互作用ロジック
-    /// </summary>
-    public partial class Header : UserControl
+    public Header()
     {
-        public Header()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

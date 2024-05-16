@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SQLite;
-using SalaryManager.Domain.Entities;
-using SalaryManager.Domain.Modules.Helpers;
-using SalaryManager.Domain.Repositories;
+﻿namespace SalaryManager.Infrastructure.SQLite;
 
-namespace SalaryManager.Infrastructure.SQLite
+/// <summary>
+/// SQLite - 会社
+/// </summary>
+public class HomeSQLite : IHomeRepository
 {
-    /// <summary>
-    /// SQLite - 会社
-    /// </summary>
-    public class HomeSQLite : IHomeRepository
+    public IReadOnlyList<HomeEntity> GetEntities()
     {
-        public IReadOnlyList<HomeEntity> GetEntities()
-        {
-            string sql = @"
+        string sql = @"
 SELECT ID, 
 DisplayName, 
 LivingStart,
@@ -26,26 +19,26 @@ Address_Google,
 Remarks
 FROM Home";
 
-            return SQLiteHelper.Query(
-                sql,
-                reader =>
-                {
-                    return new HomeEntity(
-                                Convert.ToInt32(reader["ID"]),
-                                Convert.ToString(reader["DisplayName"]),
-                                Convert.ToDateTime(reader["LivingStart"]),
-                                Convert.ToDateTime(reader["LivingEnd"]),
-                                Convert.ToBoolean(reader["IsLiving"]),
-                                Convert.ToString(reader["PostCode"]),
-                                Convert.ToString(reader["Address"]),
-                                Convert.ToString(reader["Address_Google"]),
-                                Convert.ToString(reader["Remarks"]));
-                });
-        }
+        return SQLiteHelper.Query(
+            sql,
+            reader =>
+            {
+                return new HomeEntity(
+                            Convert.ToInt32(reader["ID"]),
+                            Convert.ToString(reader["DisplayName"]),
+                            Convert.ToDateTime(reader["LivingStart"]),
+                            Convert.ToDateTime(reader["LivingEnd"]),
+                            Convert.ToBoolean(reader["IsLiving"]),
+                            Convert.ToString(reader["PostCode"]),
+                            Convert.ToString(reader["Address"]),
+                            Convert.ToString(reader["Address_Google"]),
+                            Convert.ToString(reader["Remarks"]));
+            });
+    }
 
-        public HomeEntity GetEntity(int id)
-        {
-            string sql = @"
+    public HomeEntity GetEntity(int id)
+    {
+        string sql = @"
 SELECT ID, 
 DisplayName, 
 LivingStart,
@@ -58,33 +51,33 @@ Remarks
 FROM Home
 Where ID = @ID";
 
-            var args = new List<SQLiteParameter>()
-            {
-                new SQLiteParameter("ID", id),
-            };
-
-            return SQLiteHelper.QuerySingle<HomeEntity>(
-                sql,
-                args.ToArray(),
-                reader =>
-                {
-                    return new HomeEntity(
-                                Convert.ToInt32(reader["ID"]),
-                                Convert.ToString(reader["DisplayName"]),
-                                Convert.ToDateTime(reader["LivingStart"]),
-                                Convert.ToDateTime(reader["LivingEnd"]),
-                                Convert.ToBoolean(reader["IsLiving"]),
-                                Convert.ToString(reader["PostCode"]),
-                                Convert.ToString(reader["Address"]),
-                                Convert.ToString(reader["Address_Google"]),
-                                Convert.ToString(reader["Remarks"]));
-                },
-                null);
-        }
-
-        public void Save(HomeEntity entity)
+        var args = new List<SQLiteParameter>()
         {
-            string insert = @"
+            new SQLiteParameter("ID", id),
+        };
+
+        return SQLiteHelper.QuerySingle<HomeEntity>(
+            sql,
+            args.ToArray(),
+            reader =>
+            {
+                return new HomeEntity(
+                            Convert.ToInt32(reader["ID"]),
+                            Convert.ToString(reader["DisplayName"]),
+                            Convert.ToDateTime(reader["LivingStart"]),
+                            Convert.ToDateTime(reader["LivingEnd"]),
+                            Convert.ToBoolean(reader["IsLiving"]),
+                            Convert.ToString(reader["PostCode"]),
+                            Convert.ToString(reader["Address"]),
+                            Convert.ToString(reader["Address_Google"]),
+                            Convert.ToString(reader["Remarks"]));
+            },
+            null);
+    }
+
+    public void Save(HomeEntity entity)
+    {
+        string insert = @"
 insert into Home
 (ID,
 DisplayName, 
@@ -107,7 +100,7 @@ values
 @Remarks)
 ";
 
-            string update = @"
+        string update = @"
 update Home
 set ID             = @ID, 
     DisplayName    = @DisplayName, 
@@ -121,35 +114,34 @@ set ID             = @ID,
 where ID = @ID
 ";
 
-            var args = new List<SQLiteParameter>()
-            {
-                new SQLiteParameter("ID",             entity.ID),
-                new SQLiteParameter("DisplayName",    entity.DisplayName),
-                new SQLiteParameter("LivingStart",    entity.LivingStart.ConvertToSQLiteDate()),
-                new SQLiteParameter("LivingEnd",      entity.LivingEnd.ConvertToSQLiteDate()),
-                new SQLiteParameter("IsLiving",       entity.IsLiving),
-                new SQLiteParameter("PostCode",       entity.PostCode),
-                new SQLiteParameter("Address",        entity.Address),
-                new SQLiteParameter("Address_Google", entity.Address_Google),
-                new SQLiteParameter("Remarks",        entity.Remarks),
-            };
-
-            SQLiteHelper.Execute(insert, update, args.ToArray());
-        }
-
-        public void Delete(int id)
+        var args = new List<SQLiteParameter>()
         {
-            string delete = @"
+            new SQLiteParameter("ID",             entity.ID),
+            new SQLiteParameter("DisplayName",    entity.DisplayName),
+            new SQLiteParameter("LivingStart",    entity.LivingStart.ConvertToSQLiteDate()),
+            new SQLiteParameter("LivingEnd",      entity.LivingEnd.ConvertToSQLiteDate()),
+            new SQLiteParameter("IsLiving",       entity.IsLiving),
+            new SQLiteParameter("PostCode",       entity.PostCode),
+            new SQLiteParameter("Address",        entity.Address),
+            new SQLiteParameter("Address_Google", entity.Address_Google),
+            new SQLiteParameter("Remarks",        entity.Remarks),
+        };
+
+        SQLiteHelper.Execute(insert, update, args.ToArray());
+    }
+
+    public void Delete(int id)
+    {
+        string delete = @"
 Delete From Home
 where ID = @ID
 ";
 
-            var args = new List<SQLiteParameter>()
-            {
-                new SQLiteParameter("ID", id),
-            };
+        var args = new List<SQLiteParameter>()
+        {
+            new SQLiteParameter("ID", id),
+        };
 
-            SQLiteHelper.Execute(delete, args.ToArray());
-        }
+        SQLiteHelper.Execute(delete, args.ToArray());
     }
 }

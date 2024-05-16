@@ -1,10 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Text;
-using System.Xml.Serialization;
-using SalaryManager.Domain.Exceptions;
-
-namespace SalaryManager.Infrastructure.XML
+﻿namespace SalaryManager.Infrastructure.XML
 {
     /// <summary>
     /// XML読み込み

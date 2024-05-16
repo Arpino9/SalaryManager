@@ -1,11 +1,4 @@
-﻿using SalaryManager.Domain.Entities;
-using SalaryManager.Domain.Modules.Helpers;
-using SalaryManager.Domain.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Data.SQLite;
-
-namespace SalaryManager.Infrastructure.SQLite
+﻿namespace SalaryManager.Infrastructure.SQLite
 {
     /// <summary>
     /// SQLite - 支給額

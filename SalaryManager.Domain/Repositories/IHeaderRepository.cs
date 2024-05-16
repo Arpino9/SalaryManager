@@ -1,26 +1,19 @@
-﻿using SalaryManager.Domain.Entities;
-using System.Collections.Generic;
+﻿namespace SalaryManager.Domain.Repositories;
 
-namespace SalaryManager.Domain.Repositories
+/// <summary>
+/// Repository - ヘッダ
+/// </summary>
+public interface IHeaderRepository
 {
     /// <summary>
-    /// Repository - ヘッダ
+    /// Get - ヘッダ
     /// </summary>
-    public interface IHeaderRepository
-    {
-        /// <summary>
-        /// Get - ヘッダ
-        /// </summary>
-        /// <returns>Entity - 副業</returns>
-        IReadOnlyList<HeaderEntity> GetEntities();
+    /// <returns>Entity - 副業</returns>
+    IReadOnlyList<HeaderEntity> GetEntities();
 
-        HeaderEntity FetchDefault();
+    HeaderEntity FetchDefault();
 
-        public void Save(
-            HeaderEntity entity);
+    public void Save(HeaderEntity entity);
 
-        public void Save(
-            ITransactionRepository transaction,
-            HeaderEntity entity);
-    }
+    public void Save(ITransactionRepository transaction, HeaderEntity entity);
 }

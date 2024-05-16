@@ -1,23 +1,22 @@
-﻿namespace SalaryManager.Infrastructure.Interface
+﻿namespace SalaryManager.Infrastructure.Interface;
+
+/// <summary>
+/// Interface - マスタ画面
+/// </summary>
+public interface IMaster
 {
-    /// <summary>
-    /// Interface - マスタ画面
-    /// </summary>
-    public interface IMaster
-    {
-        /// <summary> 初期化 </summary>
-        public void Initialize();
+    /// <summary> 初期化 </summary>
+    public void Initialize();
 
-        /// <summary> 再描画 </summary>
-        public void Refresh();
+    /// <summary> 再描画 </summary>
+    public void Refresh();
 
-        /// <summary> リロード </summary>
-        public void Reload();
+    /// <summary> リロード </summary>
+    public void Reload();
 
-        /// <summary> クリア </summary>
-        public void Clear_InputForm();
+    /// <summary> クリア </summary>
+    public void Clear_InputForm();
 
-        /// <summary> 保存 </summary>
-        public void Save();
-    }
+    /// <summary> 保存 </summary>
+    public void Save();
 }

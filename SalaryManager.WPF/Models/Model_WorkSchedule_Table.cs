@@ -1,19 +1,5 @@
-﻿using System;
-using System.Linq;
-using System.Windows.Media;
-using System.Collections.Generic;
-using SalaryManager.Domain.Entities;
-using SalaryManager.Domain.StaticValues;
-using SalaryManager.Domain.ValueObjects;
-using SalaryManager.Infrastructure.Google_Calendar;
-using SalaryManager.Infrastructure.SQLite;
-using SalaryManager.WPF.ViewModels;
-using SalaryManager.Domain.Modules.Logics;
-using SalaryManager.Infrastructure.JSON;
+﻿using MessageBox = System.Windows.Forms.MessageBox;
 using WorkingPlace = SalaryManager.Domain.StaticValues.WorkingPlace;
-using SalaryManager.Domain.Modules.Helpers;
-using System.Windows;
-using System.Threading.Tasks;
 
 namespace SalaryManager.WPF.Models
 {

@@ -1,17 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Google.Apis.Auth.OAuth2;
-using Google.Apis.Calendar.v3;
-using Google.Apis.Calendar.v3.Data;
-using Google.Apis.Services;
-using SalaryManager.Domain.Entities;
-using SalaryManager.Domain.Exceptions;
-using SalaryManager.Domain.Modules.Helpers;
-using SalaryManager.Domain.Modules.Logics;
-using SalaryManager.Infrastructure.XML;
-
-namespace SalaryManager.Infrastructure.Google_Calendar
+﻿namespace SalaryManager.Infrastructure.Google_Calendar
 {
     /// <summary>
     /// Google Calendar 読込

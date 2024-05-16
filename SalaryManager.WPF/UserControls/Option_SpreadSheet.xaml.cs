@@ -1,28 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿namespace SalaryManager.WPF.UserControls;
 
-namespace SalaryManager.WPF.UserControls
+/// <summary>
+/// Option_SpreadSheet.xaml の相互作用ロジック
+/// </summary>
+public partial class Option_SpreadSheet : System.Windows.Controls.UserControl
 {
-    /// <summary>
-    /// Option_SpreadSheet.xaml の相互作用ロジック
-    /// </summary>
-    public partial class Option_SpreadSheet : UserControl
+    public Option_SpreadSheet()
     {
-        public Option_SpreadSheet()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

@@ -1,26 +1,4 @@
-﻿using Reactive.Bindings;
-using SalaryManager.Domain.Entities;
-using SalaryManager.Domain.Exceptions;
-using SalaryManager.Domain.Modules.Helpers;
-using SalaryManager.Domain.Modules.Logics;
-using SalaryManager.Domain.Repositories;
-using SalaryManager.Domain.StaticValues;
-using SalaryManager.Domain.ValueObjects;
-using SalaryManager.Infrastructure.Interface;
-using SalaryManager.Infrastructure.PDF;
-using SalaryManager.Infrastructure.SQLite;
-using SalaryManager.Infrastructure.XML;
-using SalaryManager.WPF.ViewModels;
-using SalaryManager.WPF.Window;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
-using System.Windows.Media;
-using static SalaryManager.WPF.ViewModels.ViewModel_GeneralOption;
-using Message = SalaryManager.Domain.Modules.Logics.Message;
+﻿using Message = SalaryManager.Domain.Modules.Logics.Message;
 
 namespace SalaryManager.WPF.Models
 {
@@ -64,7 +42,7 @@ namespace SalaryManager.WPF.Models
         public IReadOnlyList<FileStorageEntity> Entities { get; internal set; }
 
         /// <summary> 画像の保存方法 </summary>
-        internal HowToSaveImage HowToSave { get; private set; }
+        internal ViewModel_GeneralOption.HowToSaveImage HowToSave { get; private set; }
 
         /// <summary> イメージ </summary>
         public byte[] ByteImage { get; set; }
@@ -91,11 +69,11 @@ namespace SalaryManager.WPF.Models
             }
             else
             {
-                var howToSave = (HowToSaveImage)obj;
-                this.ViewModel.SelectFile_IsEnabled.Value   = (howToSave == HowToSaveImage.SaveImage);
-                this.ViewModel.SelectFolder_IsEnabled.Value = (howToSave == HowToSaveImage.SavePath);
+                var howToSave = (ViewModel_GeneralOption.HowToSaveImage)obj;
+                this.ViewModel.SelectFile_IsEnabled.Value   = (howToSave == ViewModel_GeneralOption.HowToSaveImage.SaveImage);
+                this.ViewModel.SelectFolder_IsEnabled.Value = (howToSave == ViewModel_GeneralOption.HowToSaveImage.SavePath);
 
-                if (howToSave == HowToSaveImage.SavePath)
+                if (howToSave == ViewModel_GeneralOption.HowToSaveImage.SavePath)
                 {
                     this.SelectFolder();
                 }
@@ -146,7 +124,7 @@ namespace SalaryManager.WPF.Models
             // 画像を拡大表示するボタン
             this.ViewModel.OpenImageViewer_IsEnabled.Value = true;
 
-            var selectedSaveImage = (this.HowToSave == HowToSaveImage.SaveImage);
+            var selectedSaveImage = (this.HowToSave == ViewModel_GeneralOption.HowToSaveImage.SaveImage);
 
             // タイトル
             this.ViewModel.Title_IsEnabled.Value = selectedSaveImage;

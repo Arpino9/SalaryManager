@@ -1,20 +1,13 @@
-﻿using SalaryManager.Domain.Entities;
-using SalaryManager.Domain.Modules.Helpers;
-using SalaryManager.Domain.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Data.SQLite;
+﻿namespace SalaryManager.Infrastructure.SQLite;
 
-namespace SalaryManager.Infrastructure.SQLite
+/// <summary>
+/// SQLite - 勤務備考
+/// </summary>
+public class WorkingReferenceSQLite : IWorkingReferencesRepository
 {
-    /// <summary>
-    /// SQLite - 勤務備考
-    /// </summary>
-    public class WorkingReferenceSQLite : IWorkingReferencesRepository
+    public IReadOnlyList<WorkingReferencesEntity> GetEntities()
     {
-        public IReadOnlyList<WorkingReferencesEntity> GetEntities()
-        {
-            string sql = @"
+        string sql = @"
 SELECT Id, 
 YearMonth, 
 OvertimeTime, 
@@ -30,30 +23,30 @@ WorkPlace,
 Remarks
 from WorkingReference";
 
-            return SQLiteHelper.Query(
-                sql,
-                reader =>
-                {
-                    return new WorkingReferencesEntity(
-                                Convert.ToInt32(reader["Id"]),
-                                Convert.ToDateTime(reader["YearMonth"]),
-                                Convert.ToDouble(reader["OvertimeTime"]),
-                                Convert.ToDouble(reader["WeekendWorktime"]),
-                                Convert.ToDouble(reader["MidnightWorktime"]),
-                                Convert.ToDouble(reader["LateAbsentH"]),
-                                Convert.ToDouble(reader["Insurance"]),
-                                Convert.ToDouble(reader["Norm"]),
-                                Convert.ToDouble(reader["NumberOfDependent"]),
-                                Convert.ToDouble(reader["PaidVacation"]),
-                                Convert.ToDouble(reader["WorkingHours"]),
-                                Convert.ToString(reader["WorkPlace"]),
-                                Convert.ToString(reader["Remarks"]));
-                });
-        }
+        return SQLiteHelper.Query(
+            sql,
+            reader =>
+            {
+                return new WorkingReferencesEntity(
+                            Convert.ToInt32(reader["Id"]),
+                            Convert.ToDateTime(reader["YearMonth"]),
+                            Convert.ToDouble(reader["OvertimeTime"]),
+                            Convert.ToDouble(reader["WeekendWorktime"]),
+                            Convert.ToDouble(reader["MidnightWorktime"]),
+                            Convert.ToDouble(reader["LateAbsentH"]),
+                            Convert.ToDouble(reader["Insurance"]),
+                            Convert.ToDouble(reader["Norm"]),
+                            Convert.ToDouble(reader["NumberOfDependent"]),
+                            Convert.ToDouble(reader["PaidVacation"]),
+                            Convert.ToDouble(reader["WorkingHours"]),
+                            Convert.ToString(reader["WorkPlace"]),
+                            Convert.ToString(reader["Remarks"]));
+            });
+    }
 
-        public WorkingReferencesEntity GetEntity(int year, int month)
-        {
-            string sql = @"
+    public WorkingReferencesEntity GetEntity(int year, int month)
+    {
+        string sql = @"
 SELECT Id, 
 YearMonth, 
 OvertimeTime, 
@@ -70,41 +63,41 @@ Remarks
 from WorkingReference
 Where YearMonth = @YearMonth";
 
-            var args = new List<SQLiteParameter>()
-            {
-                new SQLiteParameter("YearMonth", year + "-" + month.ToString("D2") + "-" + "01"),
-            };
-
-            return SQLiteHelper.QuerySingle<WorkingReferencesEntity>(
-                sql,
-                args.ToArray(),
-                reader =>
-                {
-                    return new WorkingReferencesEntity(
-                               Convert.ToInt32(reader["Id"]),
-                               Convert.ToDateTime(reader["YearMonth"]),
-                               Convert.ToDouble(reader["OvertimeTime"]),
-                               Convert.ToDouble(reader["WeekendWorktime"]),
-                               Convert.ToDouble(reader["MidnightWorktime"]),
-                               Convert.ToDouble(reader["LateAbsentH"]),
-                               Convert.ToDouble(reader["Insurance"]),
-                               Convert.ToDouble(reader["Norm"]),
-                               Convert.ToDouble(reader["NumberOfDependent"]),
-                               Convert.ToDouble(reader["PaidVacation"]),
-                               Convert.ToDouble(reader["WorkingHours"]),
-                               Convert.ToString(reader["WorkPlace"]),
-                               Convert.ToString(reader["Remarks"]));
-                },
-                null);
-        }
-
-        /// <summary>
-        /// Get - 勤務備考(デフォルト)
-        /// </summary>
-        /// <returns>勤務備考</returns>
-        public WorkingReferencesEntity GetDefault()
+        var args = new List<SQLiteParameter>()
         {
-            string sql = @"
+            new SQLiteParameter("YearMonth", year + "-" + month.ToString("D2") + "-" + "01"),
+        };
+
+        return SQLiteHelper.QuerySingle<WorkingReferencesEntity>(
+            sql,
+            args.ToArray(),
+            reader =>
+            {
+                return new WorkingReferencesEntity(
+                           Convert.ToInt32(reader["Id"]),
+                           Convert.ToDateTime(reader["YearMonth"]),
+                           Convert.ToDouble(reader["OvertimeTime"]),
+                           Convert.ToDouble(reader["WeekendWorktime"]),
+                           Convert.ToDouble(reader["MidnightWorktime"]),
+                           Convert.ToDouble(reader["LateAbsentH"]),
+                           Convert.ToDouble(reader["Insurance"]),
+                           Convert.ToDouble(reader["Norm"]),
+                           Convert.ToDouble(reader["NumberOfDependent"]),
+                           Convert.ToDouble(reader["PaidVacation"]),
+                           Convert.ToDouble(reader["WorkingHours"]),
+                           Convert.ToString(reader["WorkPlace"]),
+                           Convert.ToString(reader["Remarks"]));
+            },
+            null);
+    }
+
+    /// <summary>
+    /// Get - 勤務備考(デフォルト)
+    /// </summary>
+    /// <returns>勤務備考</returns>
+    public WorkingReferencesEntity GetDefault()
+    {
+        string sql = @"
 SELECT W.Id, 
 W.YearMonth, 
 W.OvertimeTime, 
@@ -122,31 +115,31 @@ FROM WorkingReference W
 INNER JOIN YearMonth YM ON W.YearMonth = YM.YearMonth
 WHERE YM.IsDefault = True";
 
-            return SQLiteHelper.QuerySingle<WorkingReferencesEntity>(
-                sql,
-                reader =>
-                {
-                    return new WorkingReferencesEntity(
-                                Convert.ToInt32(reader["Id"]),
-                               Convert.ToDateTime(reader["YearMonth"]),
-                               Convert.ToDouble(reader["OvertimeTime"]),
-                               Convert.ToDouble(reader["WeekendWorktime"]),
-                               Convert.ToDouble(reader["MidnightWorktime"]),
-                               Convert.ToDouble(reader["LateAbsentH"]),
-                               Convert.ToDouble(reader["Insurance"]),
-                               Convert.ToDouble(reader["Norm"]),
-                               Convert.ToDouble(reader["NumberOfDependent"]),
-                               Convert.ToDouble(reader["PaidVacation"]),
-                               Convert.ToDouble(reader["WorkingHours"]),
-                               Convert.ToString(reader["WorkPlace"]),
-                               Convert.ToString(reader["Remarks"]));
-                },
-                null);
-        }
+        return SQLiteHelper.QuerySingle<WorkingReferencesEntity>(
+            sql,
+            reader =>
+            {
+                return new WorkingReferencesEntity(
+                            Convert.ToInt32(reader["Id"]),
+                           Convert.ToDateTime(reader["YearMonth"]),
+                           Convert.ToDouble(reader["OvertimeTime"]),
+                           Convert.ToDouble(reader["WeekendWorktime"]),
+                           Convert.ToDouble(reader["MidnightWorktime"]),
+                           Convert.ToDouble(reader["LateAbsentH"]),
+                           Convert.ToDouble(reader["Insurance"]),
+                           Convert.ToDouble(reader["Norm"]),
+                           Convert.ToDouble(reader["NumberOfDependent"]),
+                           Convert.ToDouble(reader["PaidVacation"]),
+                           Convert.ToDouble(reader["WorkingHours"]),
+                           Convert.ToString(reader["WorkPlace"]),
+                           Convert.ToString(reader["Remarks"]));
+            },
+            null);
+    }
 
-        public void Save(SQLiteTransaction transaction, WorkingReferencesEntity entity)
-        {
-            string insert = @"
+    public void Save(SQLiteTransaction transaction, WorkingReferencesEntity entity)
+    {
+        string insert = @"
 insert into WorkingReference
 (Id, 
 YearMonth, 
@@ -177,7 +170,7 @@ values
 @Remarks)
 ";
 
-            string update = @"
+        string update = @"
 update WorkingReference
 set YearMonth         = @YearMonth, 
     OvertimeTime      = @OvertimeTime, 
@@ -194,27 +187,26 @@ set YearMonth         = @YearMonth,
 where Id = @Id
 ";
 
-            var args = new List<SQLiteParameter>()
-            {
-                new SQLiteParameter("Id", entity.ID),
-                new SQLiteParameter("YearMonth", entity.YearMonth.ConvertToSQLiteYearMonth()),
-                new SQLiteParameter("OvertimeTime", entity.OvertimeTime),
-                new SQLiteParameter("WeekendWorktime", entity.WeekendWorktime),
-                new SQLiteParameter("MidnightWorktime", entity.MidnightWorktime),
-                new SQLiteParameter("LateAbsentH", entity.LateAbsentH),
-                new SQLiteParameter("Insurance", entity.Insurance.Value),
-                new SQLiteParameter("Norm", entity.Norm),
-                new SQLiteParameter("NumberOfDependent", entity.NumberOfDependent),
-                new SQLiteParameter("PaidVacation", entity.PaidVacation.Value),
-                new SQLiteParameter("WorkingHours", entity.WorkingHours),
-                new SQLiteParameter("WorkPlace", entity.WorkPlace),
-                new SQLiteParameter("Remarks", entity.Remarks),
-            };
+        var args = new List<SQLiteParameter>()
+        {
+            new SQLiteParameter("Id", entity.ID),
+            new SQLiteParameter("YearMonth", entity.YearMonth.ConvertToSQLiteYearMonth()),
+            new SQLiteParameter("OvertimeTime", entity.OvertimeTime),
+            new SQLiteParameter("WeekendWorktime", entity.WeekendWorktime),
+            new SQLiteParameter("MidnightWorktime", entity.MidnightWorktime),
+            new SQLiteParameter("LateAbsentH", entity.LateAbsentH),
+            new SQLiteParameter("Insurance", entity.Insurance.Value),
+            new SQLiteParameter("Norm", entity.Norm),
+            new SQLiteParameter("NumberOfDependent", entity.NumberOfDependent),
+            new SQLiteParameter("PaidVacation", entity.PaidVacation.Value),
+            new SQLiteParameter("WorkingHours", entity.WorkingHours),
+            new SQLiteParameter("WorkPlace", entity.WorkPlace),
+            new SQLiteParameter("Remarks", entity.Remarks),
+        };
 
-            transaction.Execute(insert, update, args.ToArray());
-        }
-
-        public void Save(ITransactionRepository transaction, WorkingReferencesEntity entity)
-            => this.Save((SQLiteTransaction)transaction, entity);
+        transaction.Execute(insert, update, args.ToArray());
     }
+
+    public void Save(ITransactionRepository transaction, WorkingReferencesEntity entity)
+        => this.Save((SQLiteTransaction)transaction, entity);
 }

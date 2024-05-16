@@ -184,6 +184,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Excel\ExcelWriter.cs" />
+    <Compile Include="GlobalUsings.cs" />
     <Compile Include="Google Calendar\CalendarReader.cs" />
     <Compile Include="JSON\JSONExtension.cs" />
     <Compile Include="JSON\JSONProperty_Holiday.cs" />
