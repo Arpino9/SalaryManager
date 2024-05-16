@@ -281,7 +281,7 @@ where Id = @Id
             var args = new List<SQLiteParameter>()
             {
                 new SQLiteParameter("Id", entity.ID),
-                new SQLiteParameter("YearMonth", DateUtils.ConvertToSQLiteValue(entity.YearMonth)),
+                new SQLiteParameter("YearMonth", entity.YearMonth.ConvertToSQLiteYearMonth()),
                 new SQLiteParameter("BasicSalary", entity.BasicSalary.Value),
                 new SQLiteParameter("ExecutiveAllowance", entity.ExecutiveAllowance.Value),
                 new SQLiteParameter("DependencyAllowance", entity.DependencyAllowance.Value),

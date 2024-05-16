@@ -224,17 +224,14 @@ set ID                = @ID,
 where ID = @ID
 ";
 
-            var startDate  = entity.WorkingStartDate.Value;
-            var endDate    = entity.WorkingEndDate.Value;
-
             var args = new List<SQLiteParameter>()
             {
                 new SQLiteParameter("ID",                entity.ID),
                 new SQLiteParameter("CompanyName",       entity.CompanyName.Text),
                 new SQLiteParameter("EmployeeNumber",    entity.EmployeeNumber),
                 new SQLiteParameter("WorkingStatus",     entity.WorkingStatus),
-                new SQLiteParameter("WorkingStartDate",  DateUtils.ConvertToSQLiteValue(startDate.Year, startDate.Month, startDate.Day)),
-                new SQLiteParameter("WorkingEndDate",    DateUtils.ConvertToSQLiteValue(endDate.Year,   endDate.Month,   endDate.Day)),
+                new SQLiteParameter("WorkingStartDate",  entity.WorkingStartDate.Value.ConvertToSQLiteDate()),
+                new SQLiteParameter("WorkingEndDate",    entity.WorkingEndDate.Value.ConvertToSQLiteDate()),
                 new SQLiteParameter("PerfectAttendance", entity.AllowanceExistence.PerfectAttendance.Value),
                 new SQLiteParameter("Education",         entity.AllowanceExistence.Education.Value),
                 new SQLiteParameter("Electricity",       entity.AllowanceExistence.Electricity.Value),

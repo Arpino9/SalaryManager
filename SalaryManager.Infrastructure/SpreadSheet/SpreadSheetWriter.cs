@@ -91,9 +91,7 @@ namespace SalaryManager.Infrastructure.SpreadSheet
 
             foreach (var payslip in this.Payslips)
             {
-                var date = DateUtils.ConvertToSQLiteValue(payslip.HeaderEntity.YearMonth);
-
-                columns.Add(new List<object>() { date,
+                columns.Add(new List<object>() { payslip.HeaderEntity.YearMonth.ConvertToSQLiteYearMonth(),
                                                  payslip.WorkingReferencesEntity.WorkPlace,
                                                  payslip.AllowanceValueEntity.TotalSalary.ToString(),
                                                  payslip.DeductionEntity.TotalDeduct.ToString(),
@@ -125,11 +123,9 @@ namespace SalaryManager.Infrastructure.SpreadSheet
                 var workingReference = payslip.WorkingReferencesEntity;
                 var sideBusiness = payslip.SideBusinessEntity;
 
-                var date = DateUtils.ConvertToSQLiteValue(payslip.HeaderEntity.YearMonth);
-
                 columns.Add(new List<object>() { // 勤務先と日付
                                                  payslip.WorkingReferencesEntity.WorkPlace,
-                                                 date,
+                                                 payslip.HeaderEntity.YearMonth.ConvertToSQLiteYearMonth(),
 
                                                  // 支給額
                                                  allowance.BasicSalary.ToString(),

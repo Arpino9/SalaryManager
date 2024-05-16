@@ -125,8 +125,8 @@ where ID = @ID
             {
                 new SQLiteParameter("ID",             entity.ID),
                 new SQLiteParameter("DisplayName",    entity.DisplayName),
-                new SQLiteParameter("LivingStart",    DateUtils.ConvertToSQLiteValue(entity.LivingStart.Year, entity.LivingStart.Month, entity.LivingStart.Day)),
-                new SQLiteParameter("LivingEnd",      DateUtils.ConvertToSQLiteValue(entity.LivingEnd.Year, entity.LivingEnd.Month, entity.LivingEnd.Day)),
+                new SQLiteParameter("LivingStart",    entity.LivingStart.ConvertToSQLiteDate()),
+                new SQLiteParameter("LivingEnd",      entity.LivingEnd.ConvertToSQLiteDate()),
                 new SQLiteParameter("IsLiving",       entity.IsLiving),
                 new SQLiteParameter("PostCode",       entity.PostCode),
                 new SQLiteParameter("Address",        entity.Address),

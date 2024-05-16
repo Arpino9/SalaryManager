@@ -83,8 +83,8 @@ where ID = @ID
                 new SQLiteParameter("FileName",   entity.FileName),
                 new SQLiteParameter("Image",      entity.Image),
                 new SQLiteParameter("Remarks",    entity.Remarks),
-                new SQLiteParameter("CreateDate", DateUtils.ConvertToSQLiteValue(entity.CreateDate.Year, entity.CreateDate.Month, entity.CreateDate.Day)),
-                new SQLiteParameter("UpdateDate", DateUtils.ConvertToSQLiteValue(entity.UpdateDate.Year, entity.UpdateDate.Month, entity.UpdateDate.Day)),
+                new SQLiteParameter("CreateDate", entity.CreateDate.ConvertToSQLiteDate()),
+                new SQLiteParameter("UpdateDate", entity.UpdateDate.ConvertToSQLiteDate()),
             };
 
             SQLiteHelper.Execute(insert, update, args.ToArray());

@@ -89,7 +89,7 @@ where Id = @Id
             var args = new List<SQLiteParameter>()
             {
                 new SQLiteParameter("Id",         entity.ID),
-                new SQLiteParameter("YearMonth",  DateUtils.ConvertToSQLiteValue(entity.YearMonth)),
+                new SQLiteParameter("YearMonth",  entity.YearMonth.ConvertToSQLiteYearMonth()),
                 new SQLiteParameter("IsDefault",  entity.IsDefault),
                 new SQLiteParameter("CreateDate", entity.CreateDate),
                 new SQLiteParameter("UpdateDate", entity.UpdateDate),
@@ -119,7 +119,7 @@ where Id = @Id
             var args = new List<SQLiteParameter>()
             {
                 new SQLiteParameter("Id",         entity.ID),
-                new SQLiteParameter("YearMonth",  DateUtils.ConvertToSQLiteValue(entity.YearMonth)),
+                new SQLiteParameter("YearMonth",  entity.YearMonth.ConvertToSQLiteYearMonth()),
                 new SQLiteParameter("IsDefault",  entity.IsDefault),
                 new SQLiteParameter("CreateDate", entity.CreateDate),
                 new SQLiteParameter("UpdateDate", entity.UpdateDate),
