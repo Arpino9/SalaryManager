@@ -103,7 +103,8 @@
                    Background="AliceBlue"/>
             <TextBox Grid.Column="1" 
                      Grid.Row="2" 
-                     Grid.ColumnSpan="2" Text="{Binding CompanyName_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                     Grid.ColumnSpan="2" 
+                     Text="{Binding CompanyName_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <behaviors:Interaction.Triggers>
                     <behaviors:EventTrigger EventName="TextChanged">
                         <behaviors:InvokeCommandAction Command="{Binding CompanyName_TextChanged}" />
@@ -116,21 +117,24 @@
                    Grid.RowSpan="2"
                    Background="AliceBlue"/>
             <TextBox Grid.Column="1" 
-                     Grid.Row="3" Text="{Binding PostCode_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                     Grid.Row="3" 
+                     Text="{Binding PostCode_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
             <Label Content="住所" 
                    Grid.Row="4" 
                    Background="AliceBlue"/>
             <TextBox Grid.Column="1" 
                      Grid.Row="4" 
-                     Grid.ColumnSpan="2" Text="{Binding Address_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                     Grid.ColumnSpan="2" 
+                     Text="{Binding Address_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
             <Label Content="住所(Googleカレンダー取得用)" 
                    Grid.Row="5" 
                    Background="AliceBlue"/>
             <TextBox Grid.Column="1" 
                      Grid.Row="5" 
-                     Grid.ColumnSpan="2" Text="{Binding Address_Google_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                     Grid.ColumnSpan="2" 
+                     Text="{Binding Address_Google_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <behaviors:Interaction.Triggers>
                     <behaviors:EventTrigger EventName="TextChanged">
                         <behaviors:InvokeCommandAction Command="{Binding Address_Google_TextChanged}" />

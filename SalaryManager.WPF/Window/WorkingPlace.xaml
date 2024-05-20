@@ -83,6 +83,7 @@
             <ComboBox Grid.Column="1" 
                       Grid.ColumnSpan="7" 
                       ItemsSource="{Binding CompanyName_ItemSource,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding DispatchingCompanyName_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       Text="{Binding DispatchingCompanyName_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <behaviors:Interaction.Triggers>
                     <behaviors:EventTrigger EventName="SelectionChanged">
@@ -98,6 +99,7 @@
                       Grid.Row="1"
                       Grid.ColumnSpan="7" 
                       ItemsSource="{Binding CompanyName_ItemSource,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding DispatchedCompanyName_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       Text="{Binding DispatchedCompanyName_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <behaviors:Interaction.Triggers>
                     <behaviors:EventTrigger EventName="SelectionChanged">
@@ -113,6 +115,7 @@
                      Grid.Row="2" 
                      Grid.ColumnSpan="7" 
                      ItemsSource="{Binding WorkingPlace_ItemSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     SelectedItem="{Binding WorkingPlace_Name_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      Text="{Binding WorkingPlace_Name_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <behaviors:Interaction.Triggers>
                     <behaviors:EventTrigger EventName="SelectionChanged">

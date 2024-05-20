@@ -44,6 +44,10 @@
                 <behaviors:EventTrigger EventName="MouseLeave">
                     <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="TextChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding HealthInsurance_TextChanged}" />
+                </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
 
@@ -63,6 +67,10 @@
                 <behaviors:EventTrigger EventName="MouseLeave">
                     <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="TextChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding NursingInsurance_TextChanged}" />
+                </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
 
@@ -80,6 +88,10 @@
 
                 <behaviors:EventTrigger EventName="MouseLeave">
                     <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="TextChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding WelfareAnnuity_TextChanged}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
@@ -100,6 +112,10 @@
                 <behaviors:EventTrigger EventName="MouseLeave">
                     <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="TextChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding EmploymentInsurance_TextChanged}" />
+                </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
 
@@ -117,6 +133,10 @@
 
                 <behaviors:EventTrigger EventName="MouseLeave">
                     <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="TextChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding IncomeTax_TextChanged}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
@@ -138,6 +158,10 @@
                 <behaviors:EventTrigger EventName="MouseLeave">
                     <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="TextChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding MunicipalTax_TextChanged}" />
+                </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
 
@@ -158,6 +182,10 @@
                 <behaviors:EventTrigger EventName="MouseLeave">
                     <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="TextChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding FriendshipAssociation_TextChanged}" />
+                </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
 
@@ -177,6 +205,10 @@
 
                 <behaviors:EventTrigger EventName="MouseLeave">
                     <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="TextChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding YearEndTaxAdjustment_TextChanged}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>

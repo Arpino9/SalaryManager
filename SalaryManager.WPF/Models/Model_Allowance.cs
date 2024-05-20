@@ -258,6 +258,7 @@ public class Model_Allowance : IInputPayslip
                                               + this.ViewModel.NightworkIncreased_Text.Value
                                               + this.ViewModel.ElectricityAllowance_Text.Value
                                               + this.ViewModel.LateAbsent_Text.Value
+                                              + this.ViewModel.OvertimeAllowance_Text.Value
                                               + this.ViewModel.SpecialAllowance_Text.Value
                                               + this.ViewModel.SpareAllowance_Text.Value
                                               + this.ViewModel.TransportationExpenses_Text.Value

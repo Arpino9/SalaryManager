@@ -25,34 +25,47 @@ public class ViewModel_Allowance : ViewModelBase
         this.Default_MouseLeave.Subscribe(_ => this.MainWindow.ComparePrice(0, 0));
         // 基本給
         this.BasicSalary_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.BasicSalary_Text.Value, this.Model.Entity_LastYear?.BasicSalary.Value));
+        this.BasicSalary_TextChanged.Subscribe(_ => this.Model.ReCaluculate());
         // 役職手当
         this.ExecutiveAllowance_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.ExecutiveAllowance_Text.Value, this.Model.Entity_LastYear?.ExecutiveAllowance.Value));
+        this.ExecutiveAllowance_TextChanged.Subscribe(_ => this.Model.ReCaluculate());
         // 扶養手当
         this.DependencyAllowance_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.DependencyAllowance_Text.Value, this.Model.Entity_LastYear?.DependencyAllowance.Value));
+        this.DependencyAllowance_TextChanged.Subscribe(_ => this.Model.ReCaluculate());
         // 時間外手当
         this.OvertimeAllowance_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.OvertimeAllowance_Text.Value, this.Model.Entity_LastYear?.OvertimeAllowance.Value));
+        this.OvertimeAllowance_TextChanged.Subscribe(_ => this.Model.ReCaluculate());
         // 休日割増
         this.DaysoffIncreased_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.DaysoffIncreased_Text.Value, this.Model.Entity_LastYear?.DaysoffIncreased.Value));
+        this.DaysoffIncreased_TextChanged.Subscribe(_ => this.Model.ReCaluculate());
         // 交通費
         this.TransportationExpenses_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.TransportationExpenses_Text.Value, this.Model.Entity_LastYear?.TransportationExpenses.Value));
+        this.TransportationExpenses_TextChanged.Subscribe(_ => this.Model.ReCaluculate());
         // 深夜割増
         this.NightworkIncreased_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.NightworkIncreased_Text.Value, this.Model.Entity_LastYear?.NightworkIncreased.Value));
+        this.NightworkIncreased_TextChanged.Subscribe(_ => this.Model.ReCaluculate());
         // 住宅手当
         this.HousingAllowance_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.HousingAllowance_Text.Value, this.Model.Entity_LastYear?.HousingAllowance.Value));
+        this.HousingAllowance_TextChanged.Subscribe(_ => this.Model.ReCaluculate());
         // 遅刻早退欠勤
         this.LateAbsent_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.LateAbsent_Text.Value, this.Model.Entity_LastYear?.LateAbsent));
+        this.LateAbsent_TextChanged.Subscribe(_ => this.Model.ReCaluculate());
         // 在宅手当
         this.ElectricityAllowance_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.ElectricityAllowance_Text.Value, this.Model.Entity_LastYear?.ElectricityAllowance.Value));
+        this.ElectricityAllowance_TextChanged.Subscribe(_ => this.Model.ReCaluculate());
         // 特別手当
         this.SpecialAllowance_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.SpecialAllowance_Text.Value, this.Model.Entity_LastYear?.SpecialAllowance));
+        this.SpecialAllowance_TextChanged.Subscribe(_ => this.Model.ReCaluculate());
         // 予備
         this.SpareAllowance_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.SpareAllowance_Text.Value, this.Model.Entity_LastYear?.SpareAllowance));
+        this.SpareAllowance_TextChanged.Subscribe(_ => this.Model.ReCaluculate());
+        // 前払退職金
+        this.PrepaidRetirementPayment_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.PrepaidRetirementPayment_Text.Value, this.Model.Entity_LastYear?.PrepaidRetirementPayment.Value));
+        this.PrepaidRetirementPayment_TextChanged.Subscribe(_ => this.Model.ReCaluculate());
         // 支給総計
         this.TotalSalary_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.TotalSalary_Text.Value, this.Model.Entity_LastYear?.TotalSalary.Value));
         // 差引支給額
         this.TotalDeductedSalary_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.TotalDeductedSalary_Text.Value, this.Model.Entity_LastYear?.TotalDeductedSalary.Value));
-        // 前払退職金
-        this.PrepaidRetirementPayment_MouseMove.Subscribe(_ => this.MainWindow.ComparePrice(this.PrepaidRetirementPayment_Text.Value, this.Model.Entity_LastYear?.PrepaidRetirementPayment.Value));
     }
 
     /// <summary> Model - 支給額 </summary>
@@ -85,6 +98,10 @@ public class ViewModel_Allowance : ViewModelBase
     public ReactiveCommand BasicSalary_MouseMove { get; private set; }
         = new ReactiveCommand();
 
+    /// <summary> 基本給 - TextChanged </summary>
+    public ReactiveCommand BasicSalary_TextChanged { get; private set; }
+        = new ReactiveCommand();
+
     #endregion
 
     #region 役職手当
@@ -99,6 +116,10 @@ public class ViewModel_Allowance : ViewModelBase
 
     /// <summary> 役職手当 - MouseMove </summary>
     public ReactiveCommand ExecutiveAllowance_MouseMove { get; private set; }
+        = new ReactiveCommand();
+
+    /// <summary> 役職手当 - TextChanged </summary>
+    public ReactiveCommand ExecutiveAllowance_TextChanged { get; private set; }
         = new ReactiveCommand();
 
     #endregion
@@ -117,6 +138,10 @@ public class ViewModel_Allowance : ViewModelBase
     public ReactiveCommand DependencyAllowance_MouseMove { get; private set; }
         = new ReactiveCommand();
 
+    /// <summary> 扶養手当 - TextChanged </summary>
+    public ReactiveCommand DependencyAllowance_TextChanged { get; private set; }
+        = new ReactiveCommand();
+
     #endregion
 
     #region 時間外手当
@@ -133,6 +158,10 @@ public class ViewModel_Allowance : ViewModelBase
     public ReactiveCommand OvertimeAllowance_MouseMove { get; private set; }
         = new ReactiveCommand();
 
+    /// <summary> 時間外手当 - TextChanged </summary>
+    public ReactiveCommand OvertimeAllowance_TextChanged { get; private set; }
+        = new ReactiveCommand();
+
     #endregion
 
     #region 休日割増
@@ -143,6 +172,10 @@ public class ViewModel_Allowance : ViewModelBase
 
     /// <summary> 休日割増 - MouseMove </summary>
     public ReactiveCommand DaysoffIncreased_MouseMove { get; private set; }
+        = new ReactiveCommand();
+
+    /// <summary> 休日割増 - TextChanged </summary>
+    public ReactiveCommand DaysoffIncreased_TextChanged { get; private set; }
         = new ReactiveCommand();
 
     #endregion
@@ -161,6 +194,10 @@ public class ViewModel_Allowance : ViewModelBase
     public ReactiveCommand TransportationExpenses_MouseMove { get; private set; }
         = new ReactiveCommand();
 
+    /// <summary> 交通費 - TextChanged </summary>
+    public ReactiveCommand TransportationExpenses_TextChanged { get; private set; }
+        = new ReactiveCommand();
+
     #endregion
 
     #region 前払退職金
@@ -175,6 +212,10 @@ public class ViewModel_Allowance : ViewModelBase
 
     /// <summary> 前払退職金 - MouseMove </summary>
     public ReactiveCommand PrepaidRetirementPayment_MouseMove { get; private set; }
+        = new ReactiveCommand();
+
+    /// <summary> 前払退職金 - TextChanged </summary>
+    public ReactiveCommand PrepaidRetirementPayment_TextChanged { get; private set; }
         = new ReactiveCommand();
 
     #endregion
@@ -193,6 +234,10 @@ public class ViewModel_Allowance : ViewModelBase
     public ReactiveCommand NightworkIncreased_MouseMove { get; private set; }
         = new ReactiveCommand();
 
+    /// <summary> 深夜割増 - TextChanged </summary>
+    public ReactiveCommand NightworkIncreased_TextChanged { get; private set; }
+        = new ReactiveCommand();
+
     #endregion
 
     #region 住宅手当
@@ -209,6 +254,10 @@ public class ViewModel_Allowance : ViewModelBase
     public ReactiveCommand HousingAllowance_MouseMove { get; private set; }
         = new ReactiveCommand();
 
+    /// <summary> 住宅手当 - TextChanged </summary>
+    public ReactiveCommand HousingAllowance_TextChanged { get; private set; }
+        = new ReactiveCommand();
+
     #endregion
 
     #region 遅刻早退欠勤
@@ -219,6 +268,10 @@ public class ViewModel_Allowance : ViewModelBase
 
     /// <summary> 遅刻早退欠勤 - MouseMove </summary>
     public ReactiveCommand LateAbsent_MouseMove { get; private set; }
+        = new ReactiveCommand();
+
+    /// <summary> 遅刻早退欠勤 - TextChanged </summary>
+    public ReactiveCommand LateAbsent_TextChanged { get; private set; }
         = new ReactiveCommand();
 
     #endregion
@@ -237,6 +290,10 @@ public class ViewModel_Allowance : ViewModelBase
     public ReactiveCommand SpecialAllowance_MouseMove { get; private set; }
         = new ReactiveCommand();
 
+    /// <summary> 特別手当 - TextChanged </summary>
+    public ReactiveCommand SpecialAllowance_TextChanged { get; private set; }
+        = new ReactiveCommand();
+
     #endregion
 
     #region 在宅手当
@@ -249,8 +306,12 @@ public class ViewModel_Allowance : ViewModelBase
     public ReactiveProperty<double> ElectricityAllowance_Text { get; set; }
         = new ReactiveProperty<double>();
 
-    /// <summary> 特別手当 - MouseMove </summary>
+    /// <summary> 在宅手当 - MouseMove </summary>
     public ReactiveCommand ElectricityAllowance_MouseMove { get; private set; }
+        = new ReactiveCommand();
+
+    /// <summary> 在宅手当 - TextChanged </summary>
+    public ReactiveCommand ElectricityAllowance_TextChanged { get; private set; }
         = new ReactiveCommand();
 
     #endregion
@@ -263,6 +324,10 @@ public class ViewModel_Allowance : ViewModelBase
 
     /// <summary> 予備 - MouseMove </summary>
     public ReactiveCommand SpareAllowance_MouseMove { get; private set; }
+        = new ReactiveCommand();
+
+    /// <summary> 予備 - TextChanged </summary>
+    public ReactiveCommand SpareAllowance_TextChanged { get; private set; }
         = new ReactiveCommand();
 
     #endregion

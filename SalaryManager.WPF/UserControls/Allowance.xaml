@@ -51,6 +51,10 @@
                 <behaviors:EventTrigger EventName="MouseLeave">
                     <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="TextChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding BasicSalary_TextChanged}" />
+                </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
 
@@ -70,6 +74,10 @@
 
                 <behaviors:EventTrigger EventName="MouseLeave">
                     <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="TextChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding ExecutiveAllowance_TextChanged}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
@@ -91,6 +99,10 @@
                 <behaviors:EventTrigger EventName="MouseLeave">
                     <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="TextChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding DependencyAllowance_TextChanged}" />
+                </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
 
@@ -111,6 +123,10 @@
                 <behaviors:EventTrigger EventName="MouseLeave">
                     <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="TextChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding OvertimeAllowance_TextChanged}" />
+                </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
 
@@ -129,6 +145,10 @@
 
                 <behaviors:EventTrigger EventName="MouseLeave">
                     <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="TextChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding DaysoffIncreased_TextChanged}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
@@ -150,6 +170,10 @@
                 <behaviors:EventTrigger EventName="MouseLeave">
                     <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="TextChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding TransportationExpenses_TextChanged}" />
+                </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
 
@@ -170,6 +194,10 @@
                 <behaviors:EventTrigger EventName="MouseLeave">
                     <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="TextChanged">
+                <behaviors:InvokeCommandAction Command="{Binding PrepaidRetirementPayment_TextChanged}" />
+                </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
 
@@ -188,6 +216,10 @@
 
                 <behaviors:EventTrigger EventName="MouseLeave">
                     <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="TextChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding NightworkIncreased_TextChanged}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
@@ -210,6 +242,10 @@
                 <behaviors:EventTrigger EventName="MouseLeave">
                     <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="TextChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding HousingAllowance_TextChanged}" />
+                </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
 
@@ -229,6 +265,10 @@
 
                 <behaviors:EventTrigger EventName="MouseLeave">
                     <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="TextChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding LateAbsent_TextChanged}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
@@ -250,6 +290,10 @@
                 <behaviors:EventTrigger EventName="MouseLeave">
                     <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
                 </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="TextChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding SpecialAllowance_TextChanged}" />
+                </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
 
@@ -262,8 +306,22 @@
                  IsEnabled="{Binding ElectricityAllowance_IsEnabled.Value}"
                  Style="{StaticResource PayslipItemNumeric_Style}"
                  Behavior:TextBoxIntegerOnly.IsNumeric="True" 
-                 Text="{Binding ElectricityAllowance_Text.Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        
+                 Text="{Binding ElectricityAllowance_Text.Value, StringFormat={}{0:N0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding ElectricityAllowance_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="TextChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding ElectricityAllowance_TextChanged}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
+
         <Label Content="予備" 
                Grid.Column="2" 
                Grid.Row="5" 
@@ -279,6 +337,10 @@
 
                 <behaviors:EventTrigger EventName="MouseLeave">
                     <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="TextChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding SpareAllowance_TextChanged}" />
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
         </TextBox>
