@@ -253,7 +253,7 @@ public class Model_AnnualChart
         this.ViewModel.August_TotalDeductedSalary_Text.Value    = default(int);
         this.ViewModel.September_TotalDeductedSalary_Text.Value = default(int);
         this.ViewModel.October_TotalDeductedSalary_Text.Value   = default(int);
-        this.ViewModel.November_TotalDeductedSalary_Text.Value = default(int);
+        this.ViewModel.November_TotalDeductedSalary_Text.Value  = default(int);
         this.ViewModel.December_TotalDeductedSalary_Text.Value  = default(int);
 
         // 副業
@@ -265,9 +265,9 @@ public class Model_AnnualChart
         this.ViewModel.June_TotalSideBusiness_Text.Value      = default(int);
         this.ViewModel.July_TotalSideBusiness_Text.Value      = default(int);
         this.ViewModel.August_TotalSideBusiness_Text.Value    = default(int);
-        this.ViewModel.September_TotalSalary_Text.Value       = default(int);
+        this.ViewModel.September_TotalSideBusiness_Text.Value = default(int);
         this.ViewModel.October_TotalSideBusiness_Text.Value   = default(int);
-        this.ViewModel.November_TotalSideBusiness_Text.Value = default(int);
+        this.ViewModel.November_TotalSideBusiness_Text.Value  = default(int);
         this.ViewModel.December_TotalSideBusiness_Text.Value  = default(int);
     }
 }
