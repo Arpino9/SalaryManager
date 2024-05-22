@@ -26,7 +26,7 @@ public sealed class SideBusinessEntity
         this.YearMonth    = yearMonth;
         this.SideBusiness = sideBusiness;
         this.Perquisite   = perquisite;
-        this.Others        = other;
+        this.Others       = other;
         this.Remarks      = remarks;
     }
 

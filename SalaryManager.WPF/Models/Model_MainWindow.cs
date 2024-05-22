@@ -1,4 +1,5 @@
-﻿using Message = SalaryManager.Domain.Modules.Logics.Message;
+﻿using TEST;
+using Message = SalaryManager.Domain.Modules.Logics.Message;
 
 namespace SalaryManager.WPF.Models;
 
@@ -65,9 +66,6 @@ public class Model_MainWindow
     {
         this.InitializeSQLite();
         this.Window_Activated();
-
-        // Googleカレンダー
-        await Task.Run(() => CalendarReader.Read());
     }
 
     /// <summary>

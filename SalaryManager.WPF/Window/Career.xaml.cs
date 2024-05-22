@@ -1,16 +1,12 @@
-﻿using DocumentFormat.OpenXml.Spreadsheet;
-using System.Windows.Forms;
+﻿namespace SalaryManager.WPF.Window;
 
-namespace SalaryManager.WPF.Window
+/// <summary>
+/// CareerInput.xaml の相互作用ロジック
+/// </summary>
+public partial class Career : System.Windows.Window
 {
-    /// <summary>
-    /// CareerInput.xaml の相互作用ロジック
-    /// </summary>
-    public partial class Career : System.Windows.Window
+    public Career()
     {
-        public Career()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

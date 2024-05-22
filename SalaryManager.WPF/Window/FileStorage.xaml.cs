@@ -1,13 +1,12 @@
-﻿namespace SalaryManager.WPF.Window
+﻿namespace SalaryManager.WPF.Window;
+
+/// <summary>
+/// FileStorage.xaml の相互作用ロジック
+/// </summary>
+public partial class FileStorage : MahApps.Metro.Controls.MetroWindow
 {
-    /// <summary>
-    /// FileStorage.xaml の相互作用ロジック
-    /// </summary>
-    public partial class FileStorage : MahApps.Metro.Controls.MetroWindow
+    public FileStorage()
     {
-        public FileStorage()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

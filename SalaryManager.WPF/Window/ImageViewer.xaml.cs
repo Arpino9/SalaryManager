@@ -1,13 +1,12 @@
-﻿namespace SalaryManager.WPF.Window
+﻿namespace SalaryManager.WPF.Window;
+
+/// <summary>
+/// ImageViewer.xaml の相互作用ロジック
+/// </summary>
+public partial class ImageViewer : MahApps.Metro.Controls.MetroWindow
 {
-    /// <summary>
-    /// ImageViewer.xaml の相互作用ロジック
-    /// </summary>
-    public partial class ImageViewer : MahApps.Metro.Controls.MetroWindow
+    public ImageViewer()
     {
-        public ImageViewer()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

@@ -1,13 +1,12 @@
-﻿namespace SalaryManager.WPF.Window
+﻿namespace SalaryManager.WPF.Window;
+
+/// <summary>
+/// Window1.xaml の相互作用ロジック
+/// </summary>
+public partial class Company : System.Windows.Window
 {
-    /// <summary>
-    /// Window1.xaml の相互作用ロジック
-    /// </summary>
-    public partial class Company : System.Windows.Window
+    public Company()
     {
-        public Company()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

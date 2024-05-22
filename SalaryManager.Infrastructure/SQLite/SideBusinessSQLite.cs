@@ -26,7 +26,7 @@ from SideBusiness";
                             Convert.ToDouble(reader["SideBusiness"]),
                             Convert.ToDouble(reader["Perquisite"]),
                             Convert.ToDouble(reader["Others"]),
-                            Convert.ToString(reader["Remarks"]));
+                            Convert.ToString(reader["Remarks"]).Replace("\\n", "\r\n"));
             });
     }
 
@@ -58,7 +58,7 @@ Where YearMonth = @YearMonth";
                             Convert.ToDouble(reader["SideBusiness"]),
                             Convert.ToDouble(reader["Perquisite"]),
                             Convert.ToDouble(reader["Others"]),
-                            Convert.ToString(reader["Remarks"]));
+                            Convert.ToString(reader["Remarks"]).Replace("\\n", "\r\n"));
             },
             null);
     }
@@ -90,7 +90,7 @@ WHERE YM.IsDefault = True";
                             Convert.ToDouble(reader["SideBusiness"]),
                             Convert.ToDouble(reader["Perquisite"]),
                             Convert.ToDouble(reader["Others"]),
-                            Convert.ToString(reader["Remarks"]));
+                            Convert.ToString(reader["Remarks"]).Replace("\\n", "\r\n"));
             },
             null);
     }
@@ -121,7 +121,7 @@ where Id = @Id
             new SQLiteParameter("SideBusiness", entity.SideBusiness),
             new SQLiteParameter("Perquisite", entity.Perquisite),
             new SQLiteParameter("Others", entity.Others),
-            new SQLiteParameter("Remarks", entity.Remarks),
+            new SQLiteParameter("Remarks", entity.Remarks.Replace("\r\n", "\\n")),
         };
 
         transaction.Execute(insert, update, args.ToArray());

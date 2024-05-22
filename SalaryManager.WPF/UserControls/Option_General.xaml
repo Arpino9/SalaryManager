@@ -148,6 +148,7 @@
         <RadioButton Content="画像データ" 
                      Grid.Column="2"
                      Grid.Row="9"
+                     IsEnabled="False"
                      IsChecked="{Binding HowToSaveImage_IsChecked.Value, ConverterParameter=SaveImage, Converter={StaticResource EnumToBoolConverter}, Mode=TwoWay}">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="Checked">

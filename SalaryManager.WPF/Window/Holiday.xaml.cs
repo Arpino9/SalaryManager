@@ -1,13 +1,12 @@
-﻿namespace SalaryManager.WPF.Window
+﻿namespace SalaryManager.WPF.Window;
+
+/// <summary>
+/// Holiday.xaml の相互作用ロジック
+/// </summary>
+public partial class Holiday : System.Windows.Window
 {
-    /// <summary>
-    /// Holiday.xaml の相互作用ロジック
-    /// </summary>
-    public partial class Holiday : System.Windows.Window
+    public Holiday()
     {
-        public Holiday()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }
