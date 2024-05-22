@@ -24,9 +24,9 @@ public static class AnnualCharts
             {
                 _entities.AddRange(repository.GetEntities());
             }
-            catch (SqlException ex)
+            catch (SqliteException ex)
             {
-                throw new DatabaseException("月収一覧の取得に失敗しました。", ex);
+                throw new DatabaseException("月収一覧の算出に失敗しました。", ex);
             }
         }
     }
@@ -46,7 +46,8 @@ public static class AnnualCharts
     /// <param name="month">月</param>
     /// <returns>月収一覧</returns>
     public static AnnualChartEntity Fetch(int year, int month)
-        => _entities.Find(x => x.YearMonth.Year  == year && x.YearMonth.Month == month);
+        => _entities.Find(x => x.YearMonth.Year  == year && 
+                               x.YearMonth.Month == month);
 
     /// <summary>
     /// 昇順で取得する

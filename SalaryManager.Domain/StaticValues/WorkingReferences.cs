@@ -42,7 +42,8 @@ public static class WorkingReferences
     /// <param name="month">月</param>
     /// <returns>勤務備考</returns>
     public static WorkingReferencesEntity Fetch(int year, int month)
-    => _entities.Find(x => x.YearMonth.Year == year && x.YearMonth.Month == month);
+    => _entities.Find(x => x.YearMonth.Year  == year && 
+                           x.YearMonth.Month == month);
 
     /// <summary>
     /// 昇順で取得する

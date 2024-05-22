@@ -19,7 +19,15 @@ public static class Careers
         lock (((ICollection)_entities).SyncRoot)
         {
             _entities.Clear();
-            _entities.AddRange(repository.GetEntities());
+
+            try
+            {
+                _entities.AddRange(repository.GetEntities());
+            }
+            catch (SqliteException ex)
+            {
+                throw new DatabaseException("職歴テーブルの読込に失敗しました。", ex);
+            }
         }
     }
 
@@ -38,8 +46,7 @@ public static class Careers
     /// <returns>会社名</returns>
     public static string FetchCompany(DateTime date)
     {
-        var entity = _entities.Find(x => x.WorkingStartDate.Value <= date &&
-                                         date <= x.WorkingEndDate.Value);
+        var entity = _entities.Find(x => x.WorkingStartDate.Value <= date && date <= x.WorkingEndDate.Value);
 
         if (entity == null) 
         {
@@ -95,5 +102,5 @@ public static class Careers
     /// <returns>職歴</returns>
     public static IReadOnlyList<CareerEntity> FetchBelongingCompany(DateTime date)
         => _entities?.Where(x => x.WorkingStartDate.Value <= date &&
-                                x.WorkingEndDate.Value   >= date).ToList().AsReadOnly();
+                                 x.WorkingEndDate.Value   >= date).ToList().AsReadOnly();
 }

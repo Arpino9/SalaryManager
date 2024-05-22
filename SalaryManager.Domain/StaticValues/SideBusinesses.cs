@@ -28,7 +28,7 @@ public static class SideBusinesses
 
                 _default = repository.GetDefault();
             } 
-            catch(SqlException ex) 
+            catch(SqliteException ex) 
             {
                 throw new DatabaseException("副業テーブルの読込に失敗しました。", ex);
             }
@@ -42,7 +42,8 @@ public static class SideBusinesses
     /// <param name="month">月</param>
     /// <returns>副業額</returns>
     public static SideBusinessEntity Fetch(int year, int month)
-        => _entities.Find(x => x.YearMonth.Year == year && x.YearMonth.Month == month);
+        => _entities.Find(x => x.YearMonth.Year  == year && 
+                               x.YearMonth.Month == month);
 
     /// <summary>
     /// 昇順で取得する

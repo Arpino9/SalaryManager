@@ -19,7 +19,15 @@ public static class WorkingPlace
         lock (((ICollection)_entities).SyncRoot)
         {
             _entities.Clear();
-            _entities.AddRange(repository.GetEntities());
+
+            try
+            {
+                _entities.AddRange(repository.GetEntities());
+            }
+            catch (SqliteException ex) 
+            {
+                throw new DatabaseException("就業場所テーブルの読込に失敗しました。", ex);
+            }
         }
     }
 

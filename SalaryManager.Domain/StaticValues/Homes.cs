@@ -19,7 +19,15 @@ public static class Homes
         lock (((ICollection)_entities).SyncRoot)
         {
             _entities.Clear();
-            _entities.AddRange(repository.GetEntities());
+
+            try
+            {
+                _entities.AddRange(repository.GetEntities());
+            }
+            catch (SqliteException ex)
+            {
+                throw new DatabaseException("自宅テーブルの読込に失敗しました。", ex);
+            }
         }
     }
 

@@ -21,9 +21,16 @@ public static class Headers
         lock (((ICollection)_entities).SyncRoot)
         {
             _entities.Clear();
-            _entities.AddRange(repository.GetEntities());
 
-            _default = repository.FetchDefault();
+            try
+            {
+                _entities.AddRange(repository.GetEntities());
+                _default = repository.FetchDefault();
+            }
+            catch (SqliteException ex)
+            {
+                throw new DatabaseException("会社テーブルの読込に失敗しました。", ex);
+            }
         }
     }
 
@@ -34,7 +41,8 @@ public static class Headers
     /// <param name="month">月</param>
     /// <returns>副業額</returns>
     public static HeaderEntity Fetch(int year, int month)
-        => _entities.Find(x => x.YearMonth.Year == year && x.YearMonth.Month == month);
+        => _entities.Find(x => x.YearMonth.Year  == year && 
+                               x.YearMonth.Month == month);
 
     /// <summary>
     /// 昇順で取得する
