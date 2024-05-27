@@ -5,7 +5,7 @@ namespace SalaryManager.WPF.Models;
 /// <summary>
 /// Model - 自宅
 /// </summary>
-public class Model_Home : IMaster
+public class Model_Home : ModelBase<ViewModel_Home>
 {
     #region Get Instance
 
@@ -31,7 +31,7 @@ public class Model_Home : IMaster
     }
 
     /// <summary> ViewModel - 職歴 </summary>
-    public ViewModel_Home ViewModel { get; set; }
+    internal override ViewModel_Home ViewModel { get; set; }
 
     public void Clear_InputForm()
     {

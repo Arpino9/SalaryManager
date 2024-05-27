@@ -6,7 +6,7 @@ namespace SalaryManager.WPF.Models;
 /// <summary>
 /// Model - 職歴
 /// </summary>
-public class Model_WorkingPlace : IMaster
+public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>
 {
     #region Get Instance
 
@@ -33,7 +33,7 @@ public class Model_WorkingPlace : IMaster
     }
 
     /// <summary> ViewModel - 職歴 </summary>
-    public ViewModel_WorkingPlace ViewModel { get; set; }
+    internal override ViewModel_WorkingPlace ViewModel { get; set; }
 
     /// <summary> エンティティ </summary>
     public IReadOnlyList<WorkingPlaceEntity> Entities { get; internal set; }

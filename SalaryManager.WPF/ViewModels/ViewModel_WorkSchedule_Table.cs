@@ -3,13 +3,13 @@
 /// <summary>
 /// ViewModel - 勤務表
 /// </summary>
-public class ViewModel_WorkSchedule_Table : ViewModelBase
+public class ViewModel_WorkSchedule_Table : ViewModelBase<Model_WorkSchedule_Table>
 {
     public override event PropertyChangedEventHandler PropertyChanged;
 
     public ViewModel_WorkSchedule_Table()
     {
-        this.Model.ViewModel_Table = this;
+        this.Model.ViewModel = this;
 
         this.Model.Initialize_Table();
     }
@@ -22,7 +22,8 @@ public class ViewModel_WorkSchedule_Table : ViewModelBase
     /// <summary>
     /// Model - 勤務表
     /// </summary>
-    private Model_WorkSchedule_Table Model = Model_WorkSchedule_Table.GetInstance();
+    protected override Model_WorkSchedule_Table Model { get; }
+        = Model_WorkSchedule_Table.GetInstance();
 
     #region 1日ごとの予定
 

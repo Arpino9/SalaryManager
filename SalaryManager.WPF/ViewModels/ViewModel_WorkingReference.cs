@@ -3,7 +3,7 @@
 /// <summary>
 /// ViewModel - 勤務備考
 /// </summary>
-public class ViewModel_WorkingReference : ViewModelBase
+public class ViewModel_WorkingReference : ViewModelBase<Model_WorkingReference>
 {
     public override event PropertyChangedEventHandler PropertyChanged;
 
@@ -28,7 +28,7 @@ public class ViewModel_WorkingReference : ViewModelBase
     }
 
     /// <summary> Model </summary>
-    public Model_WorkingReference Model { get; set; } 
+    protected override Model_WorkingReference Model { get; } 
         = Model_WorkingReference.GetInstance(new WorkingReferenceSQLite());
 
     /// <summary> Model - メイン画面 </summary>

@@ -3,7 +3,7 @@
 /// <summary>
 /// ViewModel - 副業
 /// </summary>
-public class ViewModel_SideBusiness : ViewModelBase
+public class ViewModel_SideBusiness : ViewModelBase<Model_SideBusiness>
 {
     public override event PropertyChangedEventHandler PropertyChanged;
 
@@ -34,7 +34,7 @@ public class ViewModel_SideBusiness : ViewModelBase
     }
 
     /// <summary> Model </summary>
-    public Model_SideBusiness Model { get; set; } 
+    protected override Model_SideBusiness Model { get; } 
         = Model_SideBusiness.GetInstance(new SideBusinessSQLite());
 
     /// <summary> Model - メイン画面 </summary>

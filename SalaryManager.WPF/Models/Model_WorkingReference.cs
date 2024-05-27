@@ -5,7 +5,7 @@ namespace SalaryManager.WPF.Models
     /// <summary>
     /// Model - 勤務備考
     /// </summary>
-    public class Model_WorkingReference : IInputPayslip
+    public class Model_WorkingReference : ModelBase<ViewModel_WorkingReference>
     {
 
         #region Get Instance
@@ -31,6 +31,9 @@ namespace SalaryManager.WPF.Models
         {
             _repository = repository;
         }
+        
+        /// <summary> ViewModel - 勤務備考 </summary>
+        internal override ViewModel_WorkingReference ViewModel { get; set; }
 
         /// <summary> ViewModel - メイン画面 </summary>
         internal ViewModel_MainWindow MainWindow { get; set; }
@@ -41,8 +44,8 @@ namespace SalaryManager.WPF.Models
         /// <summary> ViewModel - 勤務先 </summary>
         internal ViewModel_WorkPlace WorkPlace { get; set; }
 
-        /// <summary> ViewModel - 勤務備考 </summary>
-        internal ViewModel_WorkingReference ViewModel { get; set; }
+        /// <summary> Model - ヘッダー </summary>
+        private Model_Header Model_Header { get; set; } = Model_Header.GetInstance(new HeaderSQLite());
 
         /// <summary> Entity - 勤務備考 </summary>
         public WorkingReferencesEntity Entity { get; set; }
@@ -198,8 +201,8 @@ namespace SalaryManager.WPF.Models
         public void Save(ITransactionRepository transaction)
         {
             var entity = new WorkingReferencesEntity(
-                this.Header.Model.ID,
-                this.Header.Model.YearMonth,
+                this.Model_Header.ID,
+                this.Model_Header.YearMonth,
                 this.ViewModel.OvertimeTime_Text.Value,
                 this.ViewModel.WeekendWorktime_Text.Value,
                 this.ViewModel.MidnightWorktime_Text.Value,

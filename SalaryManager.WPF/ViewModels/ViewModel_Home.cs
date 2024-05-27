@@ -3,7 +3,7 @@
 /// <summary>
 /// ViewModel - 自宅
 /// </summary>
-public class ViewModel_Home : ViewModelBase
+public class ViewModel_Home : ViewModelBase<Model_Home>
 {
     public override event PropertyChangedEventHandler PropertyChanged;
 
@@ -33,7 +33,7 @@ public class ViewModel_Home : ViewModelBase
     }
 
     /// <summary> Model - 自宅 </summary>
-    public Model_Home Model { get; set; } = Model_Home.GetInstance(new HomeSQLite());
+    protected override Model_Home Model { get; } = Model_Home.GetInstance(new HomeSQLite());
 
     #region Window
 

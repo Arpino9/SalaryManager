@@ -3,7 +3,7 @@
 /// <summary>
 /// ViewModel - 支給額
 /// </summary>
-public class ViewModel_Allowance : ViewModelBase
+public class ViewModel_Allowance : ViewModelBase<Model_Allowance>
 {
     public override event PropertyChangedEventHandler PropertyChanged;
 
@@ -14,7 +14,7 @@ public class ViewModel_Allowance : ViewModelBase
         this.Model_Deduction.Allowance = this.Model;
 
         this.Model.ViewModel = this;
-        this.Model.Initialize(DateTime.Today);
+        this.Model.Initialize();
 
         this.BindEvents();
     }
@@ -69,7 +69,7 @@ public class ViewModel_Allowance : ViewModelBase
     }
 
     /// <summary> Model - 支給額 </summary>
-    public Model_Allowance Model { get; set; }
+    protected override Model_Allowance Model { get; }
         = Model_Allowance.GetInstance(new AllowanceSQLite());
 
     /// <summary> Model - 控除額 </summary>

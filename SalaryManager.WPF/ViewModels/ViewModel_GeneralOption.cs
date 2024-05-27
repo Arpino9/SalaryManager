@@ -3,13 +3,13 @@
 /// <summary>
 /// ViewModel - オプション(一般)
 /// </summary>
-public class ViewModel_GeneralOption : ViewModelBase
+public class ViewModel_GeneralOption : ViewModelBase<Model_Option>
 {
     public override event PropertyChangedEventHandler PropertyChanged;
 
     public ViewModel_GeneralOption()
     {
-        this.Model.GeneralOption = this;
+        this.Model.ViewModel = this;
         this.Model.Initialize_General();
 
         this.BindEvents();
@@ -48,7 +48,7 @@ public class ViewModel_GeneralOption : ViewModelBase
     }
 
     /// <summary> Model - オプション </summary>
-    public Model_Option Model = Model_Option.GetInstance();
+    protected override Model_Option Model { get; } = Model_Option.GetInstance();
 
     #region Window
 

@@ -3,7 +3,7 @@
 /// <summary>
 /// Model - オプション
 /// </summary>
-public class Model_Option
+public class Model_Option : ModelBase<ViewModel_GeneralOption>
 {
 
     #region Get Instance
@@ -40,68 +40,68 @@ public class Model_Option
     {
         // フォントファミリ
         var fonts = new InstalledFontCollection();
-        this.GeneralOption.FontFamily_ItemSource.Value = ListUtils.ToReactiveCollection<string>(fonts.Families.Select(x => x.Name).ToList());
-        this.GeneralOption.FontFamily_SelectedIndex.Value = 0;
+        this.ViewModel.FontFamily_ItemSource.Value = ListUtils.ToReactiveCollection<string>(fonts.Families.Select(x => x.Name).ToList());
+        this.ViewModel.FontFamily_SelectedIndex.Value = 0;
 
         if (Shared.SavingExtension == "XML")
         {
             // Excelテンプレート
-            this.GeneralOption.SelectExcelTempletePath_Text.Value = XMLLoader.FetchExcelTemplatePath();
+            this.ViewModel.SelectExcelTempletePath_Text.Value = XMLLoader.FetchExcelTemplatePath();
             // SQLite
-            this.GeneralOption.SelectSQLite_Text.Value = XMLLoader.FetchSQLitePath();
+            this.ViewModel.SelectSQLite_Text.Value = XMLLoader.FetchSQLitePath();
 
-            this.GeneralOption.FontFamily_Text.Value = XMLLoader.FetchFontFamilyText();
+            this.ViewModel.FontFamily_Text.Value = XMLLoader.FetchFontFamilyText();
 
             // 初期表示時にデフォルト明細を表示する
-            this.GeneralOption.ShowDefaultPayslip_IsChecked.Value = XMLLoader.FetchShowDefaultPayslip();
+            this.ViewModel.ShowDefaultPayslip_IsChecked.Value = XMLLoader.FetchShowDefaultPayslip();
 
             // フォント
-            this.GeneralOption.Preview_FontFamily.Value = XMLLoader.FetchFontFamily();
-            this.GeneralOption.FontSize_Value.Value = XMLLoader.FetchFontSize();
+            this.ViewModel.Preview_FontFamily.Value = XMLLoader.FetchFontFamily();
+            this.ViewModel.FontSize_Value.Value = XMLLoader.FetchFontSize();
 
-            var obj = EnumUtils.ToEnum(this.GeneralOption.HowToSaveImage_IsChecked.GetType(), XMLLoader.FetchHowToSaveImage());
+            var obj = EnumUtils.ToEnum(this.ViewModel.HowToSaveImage_IsChecked.GetType(), XMLLoader.FetchHowToSaveImage());
             if (obj != null)
             {
-                this.GeneralOption.HowToSaveImage_IsChecked.Value = (ViewModel_GeneralOption.HowToSaveImage)obj;
+                this.ViewModel.HowToSaveImage_IsChecked.Value = (ViewModel_GeneralOption.HowToSaveImage)obj;
             }
 
-            this.GeneralOption.ImageFolderPath_Text.Value = XMLLoader.FetchImageFolder();
+            this.ViewModel.ImageFolderPath_Text.Value = XMLLoader.FetchImageFolder();
             
             // 背景色
             this.Window_BackgroundColor = XMLLoader.FetchBackgroundColor();
-            this.GeneralOption.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
+            this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
         }
         else
         {
             var json = JSONExtension.DeserializeSettings<JSONProperty_Settings>(FilePath.GetJSONDefaultPath());
 
             // Excelテンプレート
-            this.GeneralOption.SelectExcelTempletePath_Text.Value = json.Excel.TemplatePath;
+            this.ViewModel.SelectExcelTempletePath_Text.Value = json.Excel.TemplatePath;
             // SQLite
-            this.GeneralOption.SelectSQLite_Text.Value = json.SQLite.Path;
+            this.ViewModel.SelectSQLite_Text.Value = json.SQLite.Path;
 
             // フォントファミリ
-            this.GeneralOption.FontFamily_Text.Value = json.General.FontFamily;
+            this.ViewModel.FontFamily_Text.Value = json.General.FontFamily;
 
             // 初期表示時にデフォルト明細を表示する
-            this.GeneralOption.ShowDefaultPayslip_IsChecked.Value = json.General.ShowDefaultPayslip;
+            this.ViewModel.ShowDefaultPayslip_IsChecked.Value = json.General.ShowDefaultPayslip;
 
             // フォント
-            this.GeneralOption.FontSize_Value.Value = json.General.FontSize;
+            this.ViewModel.FontSize_Value.Value = json.General.FontSize;
 
-            var obj = EnumUtils.ToEnum(this.GeneralOption.HowToSaveImage_IsChecked.Value.GetType(), json.General.HowToSaveImage);
+            var obj = EnumUtils.ToEnum(this.ViewModel.HowToSaveImage_IsChecked.Value.GetType(), json.General.HowToSaveImage);
             if (obj != null)
             {
-                this.GeneralOption.HowToSaveImage_IsChecked.Value = (ViewModel_GeneralOption.HowToSaveImage)obj;
+                this.ViewModel.HowToSaveImage_IsChecked.Value = (ViewModel_GeneralOption.HowToSaveImage)obj;
             }
 
-            this.GeneralOption.ImageFolderPath_Text.Value = json.General.ImageFolderPath;
+            this.ViewModel.ImageFolderPath_Text.Value = json.General.ImageFolderPath;
 
             //this.GeneralOption.Window_BackgroundColor = json.General.BackgroundColor_ColorCode;
             //this.GeneralOption.Window_Background = json.General.BackgroundColor;
         }
 
-        this.GeneralOption.SelectFolder_IsEnabled.Value = this.GeneralOption.HowToSaveImage_IsChecked.Value == ViewModel_GeneralOption.HowToSaveImage.SavePath;
+        this.ViewModel.SelectFolder_IsEnabled.Value = this.ViewModel.HowToSaveImage_IsChecked.Value == ViewModel_GeneralOption.HowToSaveImage.SavePath;
     }
 
     /// <summary>
@@ -140,7 +140,7 @@ public class Model_Option
     }
 
     /// <summary> ViewModel - 全般設定 </summary>
-    internal ViewModel_GeneralOption GeneralOption { get; set; }
+    internal override ViewModel_GeneralOption ViewModel { get; set; }
 
     /// <summary> ViewModel - スプレッドシート設定 </summary>
     internal ViewModel_SpreadSheetOption SpreadSheetOption { get; set; }
@@ -173,7 +173,7 @@ public class Model_Option
             return;
         }
 
-        this.GeneralOption.SelectSQLite_Text.Value = dialog.FileName;
+        this.ViewModel.SelectSQLite_Text.Value = dialog.FileName;
     }
 
     #endregion
@@ -196,7 +196,7 @@ public class Model_Option
             return;
         }
 
-        this.GeneralOption.SelectExcelTempletePath_Text.Value = dialog.FileName;
+        this.ViewModel.SelectExcelTempletePath_Text.Value = dialog.FileName;
     }
 
     #endregion
@@ -228,7 +228,7 @@ public class Model_Option
     /// </summary>
     internal void FontFamily_SelectionChanged()
     {
-        this.GeneralOption.Preview_FontFamily.Value = new System.Windows.Media.FontFamily(this.GeneralOption.FontFamily_Text.Value);
+        this.ViewModel.Preview_FontFamily.Value = new System.Windows.Media.FontFamily(this.ViewModel.FontFamily_Text.Value);
     }
 
     #endregion
@@ -238,7 +238,7 @@ public class Model_Option
     /// </summary>
     internal void HowToSaveImage_SelectionChanged()
     {
-        this.GeneralOption.SelectFolder_IsEnabled.Value = this.GeneralOption.HowToSaveImage_IsChecked.Value == ViewModel_GeneralOption.HowToSaveImage.SavePath;
+        this.ViewModel.SelectFolder_IsEnabled.Value = this.ViewModel.HowToSaveImage_IsChecked.Value == ViewModel_GeneralOption.HowToSaveImage.SavePath;
     }
 
     #region 背景色
@@ -253,7 +253,7 @@ public class Model_Option
 
         if (result == DialogResult.OK) 
         {
-            this.GeneralOption.Window_Background.Value = ColorUtils.ToWPFColor(dialog.Color);
+            this.ViewModel.Window_Background.Value = ColorUtils.ToWPFColor(dialog.Color);
             this.Window_BackgroundColor = dialog.Color;
         }
     }
@@ -277,13 +277,13 @@ public class Model_Option
 
         using (var writer = new XMLWriter(FilePath.GetXMLDefaultPath(), tag.GetType()))
         {
-            tag.SQLitePath                = this.GeneralOption.SelectSQLite_Text.Value;
-            tag.ExcelTemplatePath         = this.GeneralOption.SelectExcelTempletePath_Text.Value;
-            tag.FontFamily                = this.GeneralOption.FontFamily_Text.Value;
-            tag.FontSize                  = this.GeneralOption.FontSize_Value.Value;
-            tag.ShowDefaultPayslip        = this.GeneralOption.ShowDefaultPayslip_IsChecked.Value;
+            tag.SQLitePath                = this.ViewModel.SelectSQLite_Text.Value;
+            tag.ExcelTemplatePath         = this.ViewModel.SelectExcelTempletePath_Text.Value;
+            tag.FontFamily                = this.ViewModel.FontFamily_Text.Value;
+            tag.FontSize                  = this.ViewModel.FontSize_Value.Value;
+            tag.ShowDefaultPayslip        = this.ViewModel.ShowDefaultPayslip_IsChecked.Value;
             tag.BackgroundColor_ColorCode = this.Window_BackgroundColor.Name;
-            tag.ImageFolderPath           = this.GeneralOption.ImageFolderPath_Text.Value;
+            tag.ImageFolderPath           = this.ViewModel.ImageFolderPath_Text.Value;
 
             var list = new List<string>()
             {
@@ -293,7 +293,7 @@ public class Model_Option
                 this.Window_BackgroundColor.B.ToString()
             };
 
-            tag.HowToSaveImage = this.GeneralOption.HowToSaveImage_IsChecked.ToString();
+            tag.HowToSaveImage = this.ViewModel.HowToSaveImage_IsChecked.ToString();
 
             tag.BackgroundColor = list.Combine();
 
@@ -321,7 +321,7 @@ public class Model_Option
             return;
         }
 
-        this.GeneralOption.ImageFolderPath_Text.Value = directory;
+        this.ViewModel.ImageFolderPath_Text.Value = directory;
     }
 
     /// <summary>
@@ -341,13 +341,13 @@ public class Model_Option
         {
             General = new General
             {
-                FontFamily                = this.GeneralOption.FontFamily_Text.Value,
-                FontSize                  = this.GeneralOption.FontSize_Value.Value,
+                FontFamily                = this.ViewModel.FontFamily_Text.Value,
+                FontSize                  = this.ViewModel.FontSize_Value.Value,
                 BackgroundColor           = list.Combine(),
                 BackgroundColor_ColorCode = this.Window_BackgroundColor.Name,
-                ShowDefaultPayslip        = this.GeneralOption.ShowDefaultPayslip_IsChecked.Value,
-                HowToSaveImage            = this.GeneralOption.HowToSaveImage_IsChecked.ToString(),
-                ImageFolderPath           = this.GeneralOption.ImageFolderPath_Text.Value,
+                ShowDefaultPayslip        = this.ViewModel.ShowDefaultPayslip_IsChecked.Value,
+                HowToSaveImage            = this.ViewModel.HowToSaveImage_IsChecked.ToString(),
+                ImageFolderPath           = this.ViewModel.ImageFolderPath_Text.Value,
             },
             SpreadSheet = new SpreadSheet
             {
@@ -356,11 +356,11 @@ public class Model_Option
             },
             SQLite = new SQLite
             {
-                Path = this.GeneralOption.SelectSQLite_Text.Value,
+                Path = this.ViewModel.SelectSQLite_Text.Value,
             },
             Excel = new Excel
             {
-                TemplatePath = this.GeneralOption.SelectExcelTempletePath_Text.Value,
+                TemplatePath = this.ViewModel.SelectExcelTempletePath_Text.Value,
             },
             GoogleCalendar = new GoogleCalendar
             {
@@ -386,21 +386,21 @@ public class Model_Option
     internal void SetDefault()
     {
         // SQLite
-        this.GeneralOption.SelectSQLite_Text.Value = FilePath.GetSQLiteDefaultPath();
+        this.ViewModel.SelectSQLite_Text.Value = FilePath.GetSQLiteDefaultPath();
 
         // Excelテンプレートパス
-        this.GeneralOption.SelectExcelTempletePath_Text.Value = FilePath.GetExcelTempleteDefaultPath();
+        this.ViewModel.SelectExcelTempletePath_Text.Value = FilePath.GetExcelTempleteDefaultPath();
 
         // フォントファミリ
-        this.GeneralOption.FontFamily_Text.Value    = Shared.FontFamily;
-        this.GeneralOption.Preview_FontFamily.Value = new System.Windows.Media.FontFamily(Shared.FontFamily);
+        this.ViewModel.FontFamily_Text.Value    = Shared.FontFamily;
+        this.ViewModel.Preview_FontFamily.Value = new System.Windows.Media.FontFamily(Shared.FontFamily);
 
         // フォントサイズ
-        this.GeneralOption.FontSize_Value.Value = decimal.Parse(Shared.FontSize);
+        this.ViewModel.FontSize_Value.Value = decimal.Parse(Shared.FontSize);
 
         // 背景色
         this.Window_BackgroundColor = System.Drawing.SystemColors.ControlLight;
-        this.GeneralOption.Window_Background.Value      = ColorUtils.ToWPFColor(System.Drawing.SystemColors.ControlLight);
+        this.ViewModel.Window_Background.Value      = ColorUtils.ToWPFColor(System.Drawing.SystemColors.ControlLight);
 
         // PDFのパスワード
         this.PDFOption.Password_Text.Value = XMLLoader.FetchPDFPassword();

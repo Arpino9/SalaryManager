@@ -3,7 +3,7 @@
 /// <summary>
 /// ViewModel - 控除額
 /// </summary>
-public class ViewModel_Deduction : ViewModelBase
+public class ViewModel_Deduction : ViewModelBase<Model_Deduction>
 {
     public override event PropertyChangedEventHandler PropertyChanged;
     
@@ -52,7 +52,7 @@ public class ViewModel_Deduction : ViewModelBase
     }
 
     /// <summary> Model - 控除額 </summary>
-    public Model_Deduction Model { get; set; } 
+    protected override Model_Deduction Model { get; } 
         = Model_Deduction.GetInstance(new DeductionSQLite());
 
     /// <summary> Model - 支給額 </summary>

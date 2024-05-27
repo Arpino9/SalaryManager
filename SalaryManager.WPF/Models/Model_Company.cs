@@ -5,7 +5,7 @@ namespace SalaryManager.WPF.Models;
 /// <summary>
 /// Model - 会社マスタ
 /// </summary>
-public class Model_Company : IMaster
+public class Model_Company : ModelBase<ViewModel_Company>
 {
     #region Get Instance
 
@@ -29,6 +29,9 @@ public class Model_Company : IMaster
     {
         this._repository = repository;
     }
+
+    /// <summary> ViewModel - 職歴 </summary>
+    internal override ViewModel_Company ViewModel { get; set; }
 
     /// <summary>
     /// 初期化
@@ -97,9 +100,6 @@ public class Model_Company : IMaster
             this.ViewModel.BusinessCategory_Middle_Text.Value = entity.BusinessCategory.MiddleName;
         }
     }
-
-    /// <summary> ViewModel - 職歴 </summary>
-    public ViewModel_Company ViewModel { get; set; }
 
     /// <summary>
     /// クリア

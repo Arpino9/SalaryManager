@@ -3,7 +3,7 @@
 /// <summary>
 /// ViewModel - ヘッダ
 /// </summary>
-public class ViewModel_Header : ViewModelBase
+public class ViewModel_Header : ViewModelBase<Model_Header>
 {
     public override event PropertyChangedEventHandler PropertyChanged;
 
@@ -66,7 +66,7 @@ public class ViewModel_Header : ViewModelBase
     }
 
     /// <summary> Model - ヘッダー </summary>
-    public Model_Header Model { get; set; } 
+    protected override Model_Header Model { get; } 
         = Model_Header.GetInstance(new HeaderSQLite());
 
     /// <summary> Model - メイン画面 </summary>

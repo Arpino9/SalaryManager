@@ -3,7 +3,7 @@
 /// <summary>
 /// ViewModel - オプション - SpreadSheet
 /// </summary>
-public class ViewModel_SpreadSheetOption : ViewModelBase
+public class ViewModel_SpreadSheetOption : ViewModelBase<Model_Option>
 {
     public override event PropertyChangedEventHandler PropertyChanged;
 
@@ -22,7 +22,7 @@ public class ViewModel_SpreadSheetOption : ViewModelBase
     }
 
     /// <summary> Model - オプション </summary>
-    public Model_Option Model = Model_Option.GetInstance();
+    protected override Model_Option Model { get; } = Model_Option.GetInstance();
 
     #region 認証ファイルの保存先パス
 

@@ -3,7 +3,7 @@
 /// <summary>
 /// ViewMoldel - 職場
 /// </summary>
-public class ViewModel_WorkingPlace : ViewModelBase
+public class ViewModel_WorkingPlace : ViewModelBase<Model_WorkingPlace>
 {
     public override event PropertyChangedEventHandler PropertyChanged;
 
@@ -37,7 +37,8 @@ public class ViewModel_WorkingPlace : ViewModelBase
     }
 
     /// <summary> Model </summary>
-    public Model_WorkingPlace Model { get; set; } = Model_WorkingPlace.GetInstance(new WorkingPlaceSQLite());
+    protected override Model_WorkingPlace Model { get; }
+        = Model_WorkingPlace.GetInstance(new WorkingPlaceSQLite());
 
     #region Window
 

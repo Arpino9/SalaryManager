@@ -3,7 +3,7 @@
 /// <summary>
 /// ViewModel - イメージビューアー
 /// </summary>
-public class ViewModel_ImageViewer : ViewModelBase
+public class ViewModel_ImageViewer : ViewModelBase<Model_FileStorage>
 {
     public override event PropertyChangedEventHandler PropertyChanged;
 
@@ -18,7 +18,7 @@ public class ViewModel_ImageViewer : ViewModelBase
     }
 
     /// <summary> Model - 添付ファイル管理 </summary>
-    public Model_FileStorage Model { get; set; } 
+    protected override Model_FileStorage Model { get; } 
         = Model_FileStorage.GetInstance(new FileStorageSQLite());
 
     #region Window

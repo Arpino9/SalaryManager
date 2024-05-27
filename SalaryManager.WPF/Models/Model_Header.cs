@@ -5,7 +5,7 @@ namespace SalaryManager.WPF.Models;
 /// <summary>
 /// Model - ヘッダー
 /// </summary>
-public sealed class Model_Header : IInputPayslip
+public sealed class Model_Header :  ModelBase<ViewModel_Header>
 {
     #region Get Instance
 
@@ -31,11 +31,11 @@ public sealed class Model_Header : IInputPayslip
         _repository = repository;
     }
 
+    /// <summary> ViewModel - ヘッダー </summary>
+    internal override ViewModel_Header ViewModel { get; set; }
+
     /// <summary> ViewModel - メイン画面 </summary>
     internal ViewModel_MainWindow MainWindow { get; set; }
-
-    /// <summary> ViewModel - ヘッダー </summary>
-    internal ViewModel_Header ViewModel { get; set; }
 
     /// <summary> Entity - ヘッダー </summary>
     private HeaderEntity Entity { get; set; }

@@ -3,7 +3,7 @@
 /// <summary>
 /// ViewModel - 月収一覧
 /// </summary>
-public class ViewModel_AnnualChart : ViewModelBase
+public class ViewModel_AnnualChart : ViewModelBase<Model_AnnualChart>
 {
     public override event PropertyChangedEventHandler PropertyChanged;
 
@@ -12,7 +12,7 @@ public class ViewModel_AnnualChart : ViewModelBase
         this.Model.ViewModel = this;
         this.MainWindow.AnnualChart = this;
 
-        this.Model.Initialize(DateTime.Today.Year);
+        this.Model.Initialize();
     }
 
     protected override void BindEvents()
@@ -21,7 +21,7 @@ public class ViewModel_AnnualChart : ViewModelBase
     }
 
     /// <summary> Model - 月収一覧 </summary>
-    private Model_AnnualChart Model { get; set; } 
+    protected override Model_AnnualChart Model { get; } 
         = Model_AnnualChart.GetInstance();
 
     /// <summary> Model - メイン画面 </summary>

@@ -3,7 +3,7 @@
 /// <summary>
 /// Model - 控除額
 /// </summary>
-public class Model_Deduction : IInputPayslip
+public class Model_Deduction : ModelBase<ViewModel_Deduction>
 {
 
     #region Get Instance
@@ -30,14 +30,17 @@ public class Model_Deduction : IInputPayslip
         _repository = repository;
     }
 
+    /// <summary> ViewModel - 控除額 </summary>
+    internal override ViewModel_Deduction ViewModel { get; set; }
+
     /// <summary> ViewModel - ヘッダ </summary>
     internal ViewModel_Header Header { get; set; }
 
-    /// <summary> ViewModel - 控除額 </summary>
-    internal ViewModel_Deduction ViewModel { get; set; }
-
     /// <summary> ViewModel - 支給額 </summary>
     internal Model_Allowance Allowance { get; set; }
+
+    /// <summary> Model - ヘッダー </summary>
+    private Model_Header Model_Header { get; set; } = Model_Header.GetInstance(new HeaderSQLite());
 
     /// <summary> Entity - 控除額 </summary>
     public DeductionEntity Entity { get; set; }
@@ -165,8 +168,8 @@ public class Model_Deduction : IInputPayslip
     public void Save(ITransactionRepository transaction)
     {
         var entity = new DeductionEntity(
-                        this.Header.Model.ID,
-                        this.Header.Model.YearMonth,
+                        this.Model_Header.ID,
+                        this.Model_Header.YearMonth,
                         this.ViewModel.HealthInsurance_Text.Value,
                         this.ViewModel.NursingInsurance_Text.Value,
                         this.ViewModel.WelfareAnnuity_Text.Value,

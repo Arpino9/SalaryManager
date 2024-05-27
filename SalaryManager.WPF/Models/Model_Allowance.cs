@@ -3,7 +3,7 @@
 /// <summary>
 /// Model - 支給額
 /// </summary>
-public class Model_Allowance : IInputPayslip
+public class Model_Allowance : ModelBase<ViewModel_Allowance>
 {
 
     #region Get Instance
@@ -34,13 +34,16 @@ public class Model_Allowance : IInputPayslip
     internal ViewModel_Header Header { get; set; }
 
     /// <summary> ViewModel - 支給額 </summary>
-    internal ViewModel_Allowance ViewModel { get; set; }
+    internal override ViewModel_Allowance ViewModel { get; set; }
 
     /// <summary> ViewModel - 控除額 </summary>
     internal ViewModel_Deduction ViewModel_Deduction { get; set; }
 
     /// <summary> ViewModel - 勤務先 </summary>
     internal ViewModel_WorkPlace ViewModel_WorkPlace { get; set; }
+
+    /// <summary> Model - ヘッダー </summary>
+    private Model_Header Model_Header { get; set; } = Model_Header.GetInstance(new HeaderSQLite());
 
     /// <summary> Entity - 支給額 </summary>
     public AllowanceValueEntity Entity { get; set; }
@@ -51,12 +54,13 @@ public class Model_Allowance : IInputPayslip
     /// <summary>
     /// 初期化
     /// </summary>
-    /// <param name="entityDate">初期化する日付</param>
     /// <remarks>
     /// 画面起動時に、項目を初期化する。
     /// </remarks>
-    public void Initialize(DateTime entityDate)
+    internal void Initialize()
     {
+        var entityDate = DateTime.Today;
+
         Allowances.Create(_repository);
 
         this.Entity          = Allowances.Fetch(entityDate.Year, entityDate.Month);
@@ -215,8 +219,8 @@ public class Model_Allowance : IInputPayslip
     public void Save(ITransactionRepository transaction)
     {
         var entity = new AllowanceValueEntity(
-                          this.Header.Model.ID,
-                          this.Header.Model.YearMonth,
+                          this.Model_Header.ID,
+                          this.Model_Header.YearMonth,
                           this.ViewModel.BasicSalary_Text.Value,
                           this.ViewModel.ExecutiveAllowance_Text.Value,
                           this.ViewModel.DependencyAllowance_Text.Value,

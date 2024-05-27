@@ -3,7 +3,7 @@
 /// <summary>
 /// ViewModel - 祝日
 /// </summary>
-public class ViewModel_Holiday : ViewModelBase
+public class ViewModel_Holiday : ViewModelBase<Model_Holiday>
 {
     public override event PropertyChangedEventHandler PropertyChanged;
 
@@ -30,8 +30,7 @@ public class ViewModel_Holiday : ViewModelBase
     }
 
     /// <summary> Model - 自宅 </summary>
-    public Model_Holiday Model { get; set; } 
-        = new Model_Holiday();
+    protected override Model_Holiday Model { get; } = new Model_Holiday();
 
     #region Window
 

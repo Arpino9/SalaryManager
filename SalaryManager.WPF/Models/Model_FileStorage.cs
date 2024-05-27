@@ -2,7 +2,7 @@
 
 namespace SalaryManager.WPF.Models
 {
-    public sealed class Model_FileStorage : IMaster
+    public sealed class Model_FileStorage : ModelBase<ViewModel_FileStorage>
     {
 
         #region Get Instance
@@ -29,11 +29,11 @@ namespace SalaryManager.WPF.Models
             _repository  = repository;
         }
 
+        /// <summary> ViewModel - 添付ファイル管理 </summary>
+        internal override ViewModel_FileStorage ViewModel { get; set; }
+
         /// <summary> PDF変換 </summary>
         private PDFConverter PDFConverter { get; set; } = new PDFConverter();
-
-        /// <summary> ViewModel - 添付ファイル管理 </summary>
-        public ViewModel_FileStorage ViewModel { get; set; }
 
         /// <summary> ViewModel - イメージビューアー </summary>
         public ViewModel_ImageViewer ViewModel_ImageViewer { get; set; }

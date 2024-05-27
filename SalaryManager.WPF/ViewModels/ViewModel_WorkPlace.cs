@@ -3,7 +3,7 @@
 /// <summary>
 /// ViewModel - 勤務先
 /// </summary>
-public class ViewModel_WorkPlace : ViewModelBase
+public class ViewModel_WorkPlace : ViewModelBase<Model_WorkPlace>
 {
     public override event PropertyChangedEventHandler PropertyChanged;
 
@@ -26,7 +26,7 @@ public class ViewModel_WorkPlace : ViewModelBase
     }
 
     /// <summary> Model </summary>
-    public Model_WorkPlace Model { get; set; } 
+    protected override Model_WorkPlace Model { get; } 
         = Model_WorkPlace.GetInstance();
 
     /// <summary> Model - 勤怠備考 </summary>

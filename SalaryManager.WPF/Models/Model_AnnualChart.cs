@@ -3,7 +3,7 @@
 /// <summary>
 /// Model - 月収一覧
 /// </summary>
-public class Model_AnnualChart
+public class Model_AnnualChart : ModelBase<ViewModel_AnnualChart>
 {
     #region Get Instance
 
@@ -30,21 +30,20 @@ public class Model_AnnualChart
     internal ViewModel_Header Header { get; set; }
 
     /// <summary> ViewModel - 月収一覧 </summary>
-    internal ViewModel_AnnualChart ViewModel { get; set; }
+    internal override ViewModel_AnnualChart ViewModel { get; set; }
 
     /// <summary>
     /// リロード
     /// </summary>
-    internal void Reload() => this.Initialize(this.Header.Year_Text.Value);
+    internal void Reload() => this.Initialize();
 
     /// <summary>
     /// Initialize
     /// </summary>
-    /// <param name="fetchingYear">取得する年</param>
     /// <remarks>
     /// 画面起動時に、項目を初期化する。
     /// </remarks>
-    internal void Initialize(int fetchingYear)
+    internal void Initialize()
     {
         this.Window_Activated();
 
@@ -66,7 +65,7 @@ public class Model_AnnualChart
 
         AnnualCharts.Create(new AnnualChartSQLite());
 
-        foreach (AnnualChartEntity annualChart in AnnualCharts.Fetch(fetchingYear))
+        foreach (AnnualChartEntity annualChart in AnnualCharts.Fetch(this.Header.Year_Text.Value))
         {
             switch (annualChart.YearMonth.Month)
             {

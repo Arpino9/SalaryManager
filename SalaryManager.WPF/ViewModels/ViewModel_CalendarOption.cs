@@ -3,7 +3,7 @@
 /// <summary>
 /// ViewModel - オプション - カレンダー
 /// </summary>
-public class ViewModel_CalendarOption : ViewModelBase
+public class ViewModel_CalendarOption : ViewModelBase<Model_Option>
 {
     public override event PropertyChangedEventHandler PropertyChanged;
 
@@ -22,7 +22,7 @@ public class ViewModel_CalendarOption : ViewModelBase
     }
 
     /// <summary> Model - オプション </summary>
-    public Model_Option Model = Model_Option.GetInstance();
+    protected override Model_Option Model { get; } = Model_Option.GetInstance();
 
     #region JSONの保存先パス
 

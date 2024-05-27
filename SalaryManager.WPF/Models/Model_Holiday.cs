@@ -5,7 +5,7 @@ namespace SalaryManager.WPF.Models;
 /// <summary>
 /// Model - 休祝日
 /// </summary>
-public class Model_Holiday : IMaster
+public class Model_Holiday : ModelBase<ViewModel_Holiday>
 {
     #region Get Instance
 
@@ -17,7 +17,7 @@ public class Model_Holiday : IMaster
     #endregion
 
     /// <summary> ViewModel - 職歴 </summary>
-    public ViewModel_Holiday ViewModel { get; set; }
+    internal override ViewModel_Holiday ViewModel { get; set; }
 
     public void Clear_InputForm()
     {

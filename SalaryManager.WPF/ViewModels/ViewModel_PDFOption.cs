@@ -3,7 +3,7 @@
 /// <summary>
 /// ViewModel - オプション(PDF)
 /// </summary>
-public class ViewModel_PDFOption : ViewModelBase
+public class ViewModel_PDFOption : ViewModelBase<Model_Option>
 {
     public override event PropertyChangedEventHandler PropertyChanged;
 
@@ -20,7 +20,7 @@ public class ViewModel_PDFOption : ViewModelBase
     }
 
     /// <summary> Model - オプション </summary>
-    public Model_Option Model = Model_Option.GetInstance();
+    protected override Model_Option Model { get; } = Model_Option.GetInstance();
 
     #region パスワード
 

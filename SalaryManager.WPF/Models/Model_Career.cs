@@ -5,7 +5,7 @@ namespace SalaryManager.WPF.Models;
 /// <summary>
 /// Model - 職歴
 /// </summary>
-public class Model_Career : IMaster
+public class Model_Career : ModelBase<ViewModel_Career>
 {
     #region Get Instance
 
@@ -32,7 +32,7 @@ public class Model_Career : IMaster
     }
 
     /// <summary> ViewModel - 職歴 </summary>
-    public ViewModel_Career ViewModel { get; set; }
+    internal override ViewModel_Career ViewModel { get; set; }
 
     /// <summary> Entity - 経歴 </summary>
     public IReadOnlyList<CareerEntity> Entities { get; internal set; }
@@ -54,7 +54,7 @@ public class Model_Career : IMaster
 
         this.Entities = Careers.FetchByDescending();
 
-        this.Reflesh_ListView();
+        this.Refresh_ListView();
 
         this.ViewModel.Careers_SelectedIndex.Value = -1;
         this.Clear_InputForm();
@@ -69,15 +69,15 @@ public class Model_Career : IMaster
     public void Refresh()
     {
         // ListView
-        this.Reflesh_ListView();
+        this.Refresh_ListView();
         // 入力用フォーム
-        this.Reflesh_InputForm();
+        this.Refresh_InputForm();
     }
 
     /// <summary>
     /// 再描画 - ListView
     /// </summary>
-    private void Reflesh_ListView()
+    private void Refresh_ListView()
     {
         this.Clear_InputForm();
 
@@ -198,7 +198,7 @@ public class Model_Career : IMaster
     /// <summary>
     /// 再描画 - 入力用フォーム
     /// </summary>
-    private void Reflesh_InputForm()
+    private void Refresh_InputForm()
     {
         this.IsWorking_Checked();
 

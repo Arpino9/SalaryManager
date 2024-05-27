@@ -3,7 +3,7 @@
 /// <summary>
 /// ViewModel - メイン画面
 /// </summary>
-public class ViewModel_MainWindow : ViewModelBase
+public class ViewModel_MainWindow : ViewModelBase<Model_MainWindow>
 {
     public override event PropertyChangedEventHandler PropertyChanged;
 
@@ -55,7 +55,7 @@ public class ViewModel_MainWindow : ViewModelBase
     }
 
     /// <summary> Model - ヘッダー </summary>
-    public Model_MainWindow Model { get; set; } 
+    protected override Model_MainWindow Model { get; } 
         = Model_MainWindow.GetInstance();
 
     /// <summary> Model - ヘッダ </summary>

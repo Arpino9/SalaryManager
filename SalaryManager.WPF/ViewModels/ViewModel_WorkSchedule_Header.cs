@@ -3,7 +3,7 @@
 /// <summary>
 /// ViewModel - 勤怠表 (ヘッダ)
 /// </summary>
-public class ViewModel_WorkSchedule_Header : ViewModelBase
+public class ViewModel_WorkSchedule_Header : ViewModelBase<Model_WorkSchedule_Table>
 {
     public override event PropertyChangedEventHandler PropertyChanged;
 
@@ -25,7 +25,8 @@ public class ViewModel_WorkSchedule_Header : ViewModelBase
     /// <summary>
     /// Model - 勤務表
     /// </summary>
-    private Model_WorkSchedule_Table Model = Model_WorkSchedule_Table.GetInstance();
+    protected override Model_WorkSchedule_Table Model { get; }
+        = Model_WorkSchedule_Table.GetInstance();
 
     #region Window
 

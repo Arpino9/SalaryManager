@@ -5,7 +5,7 @@ namespace SalaryManager.WPF.Models;
 /// <summary>
 /// Model - 勤務場所
 /// </summary>
-public sealed class Model_WorkPlace : IInputPayslip
+public sealed class Model_WorkPlace : ModelBase<ViewModel_WorkPlace>
 {
 
     #region Get Instance
@@ -30,7 +30,7 @@ public sealed class Model_WorkPlace : IInputPayslip
     }
 
     /// <summary> ViewModel - 勤務先 </summary>
-    internal ViewModel_WorkPlace ViewModel { get; set; }
+    internal override ViewModel_WorkPlace ViewModel { get; set; }
 
     /// <summary> ViewModel - ヘッダ </summary>
     internal ViewModel_Header Header { get; set; }

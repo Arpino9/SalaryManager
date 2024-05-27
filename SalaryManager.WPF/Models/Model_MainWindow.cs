@@ -1,12 +1,11 @@
-﻿using TEST;
-using Message = SalaryManager.Domain.Modules.Logics.Message;
+﻿using Message = SalaryManager.Domain.Modules.Logics.Message;
 
 namespace SalaryManager.WPF.Models;
 
 /// <summary>
 /// Model - メイン画面
 /// </summary>
-public class Model_MainWindow
+public class Model_MainWindow : ModelBase<ViewModel_MainWindow>
 {
 
     #region Get Instance
@@ -30,11 +29,11 @@ public class Model_MainWindow
 
     }
 
+    /// <summary> ViewModel - メイン画面 </summary>
+    internal override ViewModel_MainWindow ViewModel { get; set; }
+
     /// <summary> Repository - Excel書き込み </summary>
     private ExcelWriter ExcelWriter = new ExcelWriter();
-
-    /// <summary> ViewModel - メイン画面 </summary>
-    internal ViewModel_MainWindow ViewModel { get; set; }
 
     /// <summary> ViewModel - 勤務先 </summary>
     internal ViewModel_WorkPlace WorkPlace { get; set; }
@@ -56,6 +55,9 @@ public class Model_MainWindow
 
     /// <summary> Model - 副業 </summary>
     internal Model_SideBusiness SideBusiness { get; set; }
+
+    /// <summary> Model - ヘッダー </summary>
+    private Model_WorkPlace Model_WorkPlace { get; set; } = Model_WorkPlace.GetInstance();
 
     #region 初期化
 
@@ -216,8 +218,8 @@ public class Model_MainWindow
         this.SideBusiness.Refresh();
 
         // 勤務先、勤務場所
-        this.WorkPlace.Model.Entity = WorkingReferences.FetchDefault();
-        this.WorkPlace.Model.Refresh();
+        this.Model_WorkPlace.Entity = WorkingReferences.FetchDefault();
+        this.Model_WorkPlace.Refresh();
     }
 
     /// <summary>
@@ -285,7 +287,7 @@ public class Model_MainWindow
         this.Header.ViewModel.Year_Text.Value  = DateTime.Today.Year;
         this.Header.ViewModel.Month_Text.Value = DateTime.Today.Month;
         // 支給額
-        this.Allowance.Initialize(DateTime.Today);
+        this.Allowance.Initialize();
         // 控除額
         this.Deduction.Initialize(DateTime.Today);
         // 勤務備考

@@ -3,7 +3,7 @@
 /// <summary>
 /// Model - 副業
 /// </summary>
-public class Model_SideBusiness : IInputPayslip
+public class Model_SideBusiness : ModelBase<ViewModel_SideBusiness>
 {
 
     #region Get Instance
@@ -30,11 +30,14 @@ public class Model_SideBusiness : IInputPayslip
         _repository = repository;
     }
 
+    /// <summary> ViewModel - 副業 </summary>
+    internal override ViewModel_SideBusiness ViewModel { get; set; }
+
     /// <summary> ViewModel - ヘッダ </summary>
     internal ViewModel_Header Header { get; set; }
 
-    /// <summary> ViewModel - 副業 </summary>
-    internal ViewModel_SideBusiness ViewModel { get; set; }
+    /// <summary> Model - ヘッダー </summary>
+    private Model_Header Model_Header { get; set; } = Model_Header.GetInstance(new HeaderSQLite());
 
     /// <summary> Entity - 勤務備考 </summary>
     public SideBusinessEntity Entity { get; set; }
@@ -138,8 +141,8 @@ public class Model_SideBusiness : IInputPayslip
     public void Save(ITransactionRepository transaction)
     {
         var entity = new SideBusinessEntity(
-            this.Header.Model.ID,
-            this.Header.Model.YearMonth,
+            this.Model_Header.ID,
+            this.Model_Header.YearMonth,
             this.ViewModel.SideBusiness_Text.Value,
             this.ViewModel.Perquisite_Text.Value,
             this.ViewModel.Others_Text.Value,

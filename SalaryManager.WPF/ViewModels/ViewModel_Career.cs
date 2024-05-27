@@ -3,7 +3,7 @@
 /// <summary>
 /// ViewModel - 経歴
 /// </summary>
-public class ViewModel_Career : ViewModelBase
+public class ViewModel_Career : ViewModelBase<Model_Career>
 {
     public override event PropertyChangedEventHandler PropertyChanged;
     
@@ -31,7 +31,7 @@ public class ViewModel_Career : ViewModelBase
     }
 
     /// <summary> Model - 経歴 </summary>
-    public Model_Career Model { get; set; } = Model_Career.GetInstance(new CareerSQLite());
+    protected override Model_Career Model { get; } = Model_Career.GetInstance(new CareerSQLite());
 
     #region Window
 

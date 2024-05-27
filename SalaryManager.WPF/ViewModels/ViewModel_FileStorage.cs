@@ -3,7 +3,7 @@
 /// <summary>
 /// ViewModel - 添付ファイル
 /// </summary>
-public class ViewModel_FileStorage : ViewModelBase
+public class ViewModel_FileStorage : ViewModelBase<Model_FileStorage>
 {
     public override event PropertyChangedEventHandler PropertyChanged;
 
@@ -29,7 +29,7 @@ public class ViewModel_FileStorage : ViewModelBase
     }
 
     /// <summary> Model - 支給額 </summary>
-    public Model_FileStorage Model 
+    protected override Model_FileStorage Model { get; }
         = Model_FileStorage.GetInstance(new FileStorageSQLite());
 
 

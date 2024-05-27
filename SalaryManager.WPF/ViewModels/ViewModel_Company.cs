@@ -3,7 +3,7 @@
 /// <summary>
 /// ViewModel - 会社マスタ
 /// </summary>
-public class ViewModel_Company : ViewModelBase
+public class ViewModel_Company : ViewModelBase<Model_Company>
 {
     public override event PropertyChangedEventHandler PropertyChanged;
 
@@ -34,8 +34,7 @@ public class ViewModel_Company : ViewModelBase
     }
 
     /// <summary> Model - 会社 </summary>
-    public Model_Company Model = Model_Company.GetInstance(new CompanySQLite());
-
+    protected override Model_Company Model { get; } = Model_Company.GetInstance(new CompanySQLite());
 
     #region タイトル
 

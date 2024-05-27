@@ -6,7 +6,7 @@ namespace SalaryManager.WPF.Models;
 /// <summary>
 /// Model - 勤怠表
 /// </summary>
-public class Model_WorkSchedule_Table
+public class Model_WorkSchedule_Table : ModelBase<ViewModel_WorkSchedule_Table>
 {
     public Model_WorkSchedule_Table()
     {
@@ -28,6 +28,12 @@ public class Model_WorkSchedule_Table
     }
 
     #endregion
+
+    /// <summary> ViewModel - 勤務表 </summary>
+    internal override ViewModel_WorkSchedule_Table ViewModel { get; set; }
+
+    /// <summary> ViewModel - 勤務表 </summary>
+    internal ViewModel_WorkSchedule_Header ViewModel_Header { get; set; }
 
     /// <summary> 対象日 </summary>
     public DateTime TargetDate { get; set; }
@@ -192,37 +198,37 @@ public class Model_WorkSchedule_Table
     {
         switch (day)
         {
-            case  1: this.ViewModel_Table.Day1_Schedule.Value  = entity; return;
-            case  2: this.ViewModel_Table.Day2_Schedule.Value  = entity; return;
-            case  3: this.ViewModel_Table.Day3_Schedule.Value  = entity; return;
-            case  4: this.ViewModel_Table.Day4_Schedule.Value  = entity; return;
-            case  5: this.ViewModel_Table.Day5_Schedule.Value  = entity; return;
-            case  6: this.ViewModel_Table.Day6_Schedule.Value  = entity; return;
-            case  7: this.ViewModel_Table.Day7_Schedule.Value  = entity; return;
-            case  8: this.ViewModel_Table.Day8_Schedule.Value  = entity; return;
-            case  9: this.ViewModel_Table.Day9_Schedule.Value  = entity; return;
-            case 10: this.ViewModel_Table.Day10_Schedule.Value = entity; return;
-            case 11: this.ViewModel_Table.Day11_Schedule.Value = entity; return;
-            case 12: this.ViewModel_Table.Day12_Schedule.Value = entity; return;
-            case 13: this.ViewModel_Table.Day13_Schedule.Value = entity; return;
-            case 14: this.ViewModel_Table.Day14_Schedule.Value = entity; return;
-            case 15: this.ViewModel_Table.Day15_Schedule.Value = entity; return;
-            case 16: this.ViewModel_Table.Day16_Schedule.Value = entity; return;
-            case 17: this.ViewModel_Table.Day17_Schedule.Value = entity; return;
-            case 18: this.ViewModel_Table.Day18_Schedule.Value = entity; return;
-            case 19: this.ViewModel_Table.Day19_Schedule.Value = entity; return;
-            case 20: this.ViewModel_Table.Day20_Schedule.Value = entity; return;
-            case 21: this.ViewModel_Table.Day21_Schedule.Value = entity; return;
-            case 22: this.ViewModel_Table.Day22_Schedule.Value = entity; return;
-            case 23: this.ViewModel_Table.Day23_Schedule.Value = entity; return;
-            case 24: this.ViewModel_Table.Day24_Schedule.Value = entity; return;
-            case 25: this.ViewModel_Table.Day25_Schedule.Value = entity; return;
-            case 26: this.ViewModel_Table.Day26_Schedule.Value = entity; return;
-            case 27: this.ViewModel_Table.Day27_Schedule.Value = entity; return;
-            case 28: this.ViewModel_Table.Day28_Schedule.Value = entity; return;
-            case 29: this.ViewModel_Table.Day29_Schedule.Value = entity; return;
-            case 30: this.ViewModel_Table.Day30_Schedule.Value = entity; return;
-            case 31: this.ViewModel_Table.Day31_Schedule.Value = entity; return;
+            case  1: this.ViewModel.Day1_Schedule.Value  = entity; return;
+            case  2: this.ViewModel.Day2_Schedule.Value  = entity; return;
+            case  3: this.ViewModel.Day3_Schedule.Value  = entity; return;
+            case  4: this.ViewModel.Day4_Schedule.Value  = entity; return;
+            case  5: this.ViewModel.Day5_Schedule.Value  = entity; return;
+            case  6: this.ViewModel.Day6_Schedule.Value  = entity; return;
+            case  7: this.ViewModel.Day7_Schedule.Value  = entity; return;
+            case  8: this.ViewModel.Day8_Schedule.Value  = entity; return;
+            case  9: this.ViewModel.Day9_Schedule.Value  = entity; return;
+            case 10: this.ViewModel.Day10_Schedule.Value = entity; return;
+            case 11: this.ViewModel.Day11_Schedule.Value = entity; return;
+            case 12: this.ViewModel.Day12_Schedule.Value = entity; return;
+            case 13: this.ViewModel.Day13_Schedule.Value = entity; return;
+            case 14: this.ViewModel.Day14_Schedule.Value = entity; return;
+            case 15: this.ViewModel.Day15_Schedule.Value = entity; return;
+            case 16: this.ViewModel.Day16_Schedule.Value = entity; return;
+            case 17: this.ViewModel.Day17_Schedule.Value = entity; return;
+            case 18: this.ViewModel.Day18_Schedule.Value = entity; return;
+            case 19: this.ViewModel.Day19_Schedule.Value = entity; return;
+            case 20: this.ViewModel.Day20_Schedule.Value = entity; return;
+            case 21: this.ViewModel.Day21_Schedule.Value = entity; return;
+            case 22: this.ViewModel.Day22_Schedule.Value = entity; return;
+            case 23: this.ViewModel.Day23_Schedule.Value = entity; return;
+            case 24: this.ViewModel.Day24_Schedule.Value = entity; return;
+            case 25: this.ViewModel.Day25_Schedule.Value = entity; return;
+            case 26: this.ViewModel.Day26_Schedule.Value = entity; return;
+            case 27: this.ViewModel.Day27_Schedule.Value = entity; return;
+            case 28: this.ViewModel.Day28_Schedule.Value = entity; return;
+            case 29: this.ViewModel.Day29_Schedule.Value = entity; return;
+            case 30: this.ViewModel.Day30_Schedule.Value = entity; return;
+            case 31: this.ViewModel.Day31_Schedule.Value = entity; return;
         }
     }
 
@@ -652,10 +658,4 @@ public class Model_WorkSchedule_Table
     /// <returns>年休有無</returns>
     private bool IsPaidVacation(DateTime date)
         => CalendarReader.FindByTitle("年休", date).FirstOrDefault() != null;
-
-    /// <summary> ViewModel - 勤務表 </summary>
-    internal ViewModel_WorkSchedule_Table ViewModel_Table { get; set; }
-
-    /// <summary> ViewModel - 勤務表 </summary>
-    internal ViewModel_WorkSchedule_Header ViewModel_Header { get; set; }
 }
