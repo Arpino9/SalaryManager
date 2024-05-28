@@ -5,7 +5,7 @@ namespace SalaryManager.WPF.Models;
 /// <summary>
 /// Model - 休祝日
 /// </summary>
-public class Model_Holiday : ModelBase<ViewModel_Holiday>
+public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
 {
     #region Get Instance
 
@@ -19,39 +19,62 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>
     /// <summary> ViewModel - 職歴 </summary>
     internal override ViewModel_Holiday ViewModel { get; set; }
 
-    public void Clear_InputForm()
-    {
-        this.ViewModel.Date_SelectedDate.Value = DateTime.Today;
-        this.ViewModel.Name_Text.Value         = string.Empty;
-        this.ViewModel.CompanyHoliday_IsChecked.Value = false;
-        this.ViewModel.CompanyName_SelectedIndex.Value = 0;
-        this.ViewModel.Name_Text.Value = string.Empty;
-    }
-
     public void Initialize()
     {
-        this.Clear_InputForm();
+        this.Window_Activated();
+
         this.Reload();
 
         Companies.Create(new CompanySQLite());
-        this.ViewModel.CompanyName_ItemSource = Companies.FetchByAscending().ToReactiveCollection();
+
+        var companies = Companies.FetchByAscending();
+
+        foreach (var company in companies)
+        {
+            this.ViewModel.CompanyName_ItemSource.Add(company);
+        }
 
         this.ViewModel.CompanyName_SelectedIndex.Value = 0;
 
-        this.Refresh();
+        this.ListView_SelectionChanged();
     }
 
-    public void Refresh()
+    public void Window_Activated()
     {
-        // TODO: どのタイミングで切り替える？
+        this.ViewModel.Window_FontFamily.Value = XMLLoader.FetchFontFamily();
+        this.ViewModel.Window_FontSize.Value   = XMLLoader.FetchFontSize();
+        this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
+    }
+
+    public void EnableControlButton()
+    {
+        var date = this.ViewModel.Date_SelectedDate.Value;
+        var name = this.ViewModel.Name_Text.Value;
+
+        var hasHoliday = this.ViewModel.Holidays_ItemSource.Where(x => x.Date.Year  == date.Year &&
+                                                                       x.Date.Month == date.Month &&
+                                                                       x.Date.Day   == date.Day &&
+                                                                       x.Name       == name);
+
         // 追加ボタン
-        this.ViewModel.Add_IsEnabled.Value    = true;
+        this.ViewModel.Add_IsEnabled.Value    = hasHoliday.IsEmpty();
         // 更新ボタン
-        this.ViewModel.Update_IsEnabled.Value = true;
+        this.ViewModel.Update_IsEnabled.Value = hasHoliday.IsEmpty();
         // 削除ボタン
         this.ViewModel.Delete_IsEnabled.Value = true;
+    }
 
-        if (!this.ViewModel.Holidays_ItemSource.Any())
+    /// <summary>
+    /// 祝日 - SelectionChanged
+    /// </summary>
+    public void ListView_SelectionChanged()
+    {
+        if (this.ViewModel.Holidays_SelectedIndex.Value.IsUnSelected())
+        {
+            return;
+        }
+
+        if (this.ViewModel.Holidays_ItemSource.IsEmpty())
         {
             return;
         }
@@ -66,7 +89,7 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>
         this.ViewModel.CompanyHoliday_IsChecked.Value = string.IsNullOrEmpty(entity.CompanyName) == false;
         // 会社名
         this.ViewModel.CompanyName_Text.Value  = entity.CompanyName;
-        this.ViewModel.Name_IsEnabled.Value = (this.ViewModel.CompanyHoliday_IsChecked.Value == false);
+        this.ViewModel.Name_IsEnabled.Value    = (this.ViewModel.CompanyHoliday_IsChecked.Value == false);
         // 備考
         this.ViewModel.Remarks_Text.Value      = entity.Remarks;
 
@@ -80,33 +103,8 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>
         {
             this.ViewModel.CompanyName_Text.Value = this.ViewModel.CompanyName_ItemSource.First().CompanyName;
         }
-    }
 
-    /// <summary>
-    /// 祝日 - SelectionChanged
-    /// </summary>
-    public void Holidays_SelectionChanged()
-    {
-        if (this.ViewModel.Holidays_SelectedIndex.Value.IsUnSelected())
-        {
-            return;
-        }
-
-        using (var cursor = new CursorWaiting())
-        {
-            this.Refresh();
-        }   
-    }
-
-    /// <summary>
-    /// 祝日名 - TextChanged
-    /// </summary>
-    public void Name_TextChanged()
-    {
-        var inputted = !string.IsNullOrEmpty(this.ViewModel.Name_Text.Value);
-
-        this.ViewModel.Add_IsEnabled.Value    = inputted;
-        this.ViewModel.Update_IsEnabled.Value = inputted;
+        this.EnableControlButton();
     }
 
     /// <summary>
@@ -124,21 +122,63 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>
 
     public void Reload()
     {
-        var holidays = JSONExtension.DeserializeSettings<IReadOnlyList<JSONProperty_Holiday>>(FilePath.GetJSONHolidayDefaultPath());
-
-        if (holidays.IsEmpty())
+        using (var cursor = new CursorWaiting())
         {
-            return;
+            // ListView
+            this.Reload_ListView();
+
+            // 入力用フォーム
+            this.Reload_InputForm();
+        }   
+    }
+
+    /// <summary>
+    /// 再描画 - ListView
+    /// </summary>
+    private void Reload_ListView()
+    {
+        using (var cursor = new CursorWaiting())
+        {
+            var holidays = JSONExtension.DeserializeSettings<IReadOnlyList<JSONProperty_Holiday>>(FilePath.GetJSONHolidayDefaultPath());
+
+            if (holidays.IsEmpty())
+            {
+                return;
+            }
+
+            var list = new List<HolidayEntity>();
+
+            foreach (var holiday in holidays.OrderByDescending(x => x.Date))
+            {
+                this.ViewModel.Holidays_ItemSource.Add(new HolidayEntity(holiday.Date, holiday.Name, holiday.CompanyName, holiday.Remarks));
+            }
         }
 
-        var list = new List<HolidayEntity>();
+        this.ListView_SelectionChanged();
+    }
 
-        foreach (var holiday in holidays)
-        {
-            list.Add(new HolidayEntity(holiday.Date, holiday.Name, holiday.CompanyName, holiday.Remarks));
-        }
+    /// <summary>
+    /// 再描画 - 入力用フォーム
+    /// </summary>
+    private void Reload_InputForm()
+    {
+        this.Clear_InputForm();
 
-        this.ViewModel.Holidays_ItemSource = list.ToReactiveCollection(this.ViewModel.Holidays_ItemSource);
+        // 更新、削除ボタン
+        this.EnableControlButton();
+    }
+
+    public void Clear_InputForm()
+    {
+        // 日付
+        this.ViewModel.Date_SelectedDate.Value         = DateTime.Today;
+        // 祝日名
+        this.ViewModel.Name_Text.Value                 = string.Empty;
+        // 会社休日
+        this.ViewModel.CompanyHoliday_IsChecked.Value  = false;
+        this.ViewModel.CompanyName_SelectedIndex.Value = 0;
+        // 備考
+        this.ViewModel.Remarks_Text.Value = string.Empty;
     }
 
     public void Save()
@@ -163,8 +203,7 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>
     /// <summary>
     /// Create Entity
     /// </summary>
-    /// <param name="id">ID</param>
-    /// <returns>職歴</returns>
+    /// <returns>祝日</returns>
     private HolidayEntity CreateEntity()
     {
         return new HolidayEntity(
@@ -193,13 +232,6 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>
 
             this.ViewModel.Holidays_ItemSource.Add(entity);
             this.Save();
-
-            this.Reload();
-
-            this.ViewModel.Holidays_SelectedIndex.Value = this.ViewModel.Holidays_ItemSource.Count;
-
-            this.Refresh();
-            this.Clear_InputForm();
         }
     }
 
@@ -220,11 +252,6 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>
             this.ViewModel.Holidays_ItemSource[this.ViewModel.Holidays_SelectedIndex.Value] = entity;
 
             this.Save();
-
-            this.Reload();
-
-            this.Refresh();
-            this.Clear_InputForm();
         }
     }
 
@@ -250,11 +277,6 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>
             this.ViewModel.Holidays_ItemSource.RemoveAt(this.ViewModel.Holidays_SelectedIndex.Value);
 
             this.Save();
-
-            this.Reload();
-
-            this.Refresh();
-            this.Clear_InputForm();
         }
     }
 }

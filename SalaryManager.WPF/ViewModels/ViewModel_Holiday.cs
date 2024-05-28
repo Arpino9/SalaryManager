@@ -17,22 +17,44 @@ public class ViewModel_Holiday : ViewModelBase<Model_Holiday>
 
     protected override void BindEvents()
     {
+        // 日付
+        this.Date_SelectedDateChanged.Subscribe(_ => Model.EnableControlButton());
         // 祝日名
-        this.Name_TextChanged.Subscribe(_ => Model.Name_TextChanged());
+        this.Name_TextChanged.Subscribe(_ => Model.EnableControlButton());
         // 会社休日
         this.CompanyHoliday_Checked.Subscribe(_ => Model.EnableCompanyNameComboBox());
         // 祝日一覧
-        this.Holidays_SelectionChanged.Subscribe(_ => Model.Holidays_SelectionChanged());
+        this.Holidays_SelectionChanged.Subscribe(_ => Model.ListView_SelectionChanged());
 
+        // 追加
         this.Add_Command.Subscribe(_ => Model.Add());
+        this.Add_Command.Subscribe(_ => Model.Reload());
+        
+        // 更新
         this.Update_Command.Subscribe(_ => Model.Update());
+        this.Update_Command.Subscribe(_ => Model.Reload());
+        
+        // 削除
         this.Delete_Command.Subscribe(_ => Model.Delete());
+        this.Delete_Command.Subscribe(_ => Model.Reload());
     }
 
     /// <summary> Model - 自宅 </summary>
     protected override Model_Holiday Model { get; } = new Model_Holiday();
 
     #region Window
+
+    /// <summary> Window - FontFamily </summary>
+    public ReactiveProperty<FontFamily> Window_FontFamily { get; set; }
+        = new ReactiveProperty<FontFamily>();
+
+    /// <summary> Window - FontSize </summary>
+    public ReactiveProperty<decimal> Window_FontSize { get; set; }
+        = new ReactiveProperty<decimal>();
+
+    /// <summary> Window - Background </summary>
+    public ReactiveProperty<Brush> Window_Background { get; set; }
+        = new ReactiveProperty<Brush>();
 
     /// <summary> Window - Title </summary>
     public ReactiveProperty<string> Window_Title { get; }
@@ -61,6 +83,10 @@ public class ViewModel_Holiday : ViewModelBase<Model_Holiday>
     /// <summary> 日付 - SelectedDate </summary>
     public ReactiveProperty<DateTime> Date_SelectedDate { get; set; }
         = new ReactiveProperty<DateTime>();
+
+    /// <summary> 日付 - TextChanged </summary>
+    public ReactiveCommand Date_SelectedDateChanged { get; private set; }
+        = new ReactiveCommand();
 
     #endregion
 

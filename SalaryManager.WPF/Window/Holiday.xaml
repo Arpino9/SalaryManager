@@ -32,15 +32,15 @@
                         <GridViewColumnHeader Content="日付" />
                     </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="150">
+                    <GridViewColumn DisplayMemberBinding="{Binding Name}" Width="150">
                         <GridViewColumnHeader Content="名称"/>
                     </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding CompanyName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="150">
+                    <GridViewColumn DisplayMemberBinding="{Binding CompanyName}" Width="150">
                         <GridViewColumnHeader Content="会社休日の会社名"/>
                     </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding Remarks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200">
+                    <GridViewColumn DisplayMemberBinding="{Binding Remarks}" Width="200">
                         <GridViewColumnHeader Content="備考"/>
                     </GridViewColumn>
                 </GridView>
@@ -65,7 +65,13 @@
                    Background="AliceBlue"/>
             <DatePicker Grid.Column="1" 
                      Grid.ColumnSpan="2" 
-                     SelectedDate="{Binding Date_SelectedDate.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                     SelectedDate="{Binding Date_SelectedDate.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <behaviors:Interaction.Triggers>
+                    <behaviors:EventTrigger EventName="SelectedDateChanged">
+                        <behaviors:InvokeCommandAction Command="{Binding Date_SelectedDateChanged}" />
+                    </behaviors:EventTrigger>
+                </behaviors:Interaction.Triggers>
+            </DatePicker>
 
             <Label Content="名称" 
                    Grid.Row="1" 
@@ -117,17 +123,17 @@
             <Button Content="追加" 
                     Grid.Row="4"
                     Command="{Binding Add_Command}"
-                    IsEnabled="{Binding Add_IsEnabled.Value}"/>
+                    IsEnabled="{Binding Add_IsEnabled.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Button Content="更新" 
                     Grid.Row="4"
                     Grid.Column="1"
                     Command="{Binding Update_Command}"
-                    IsEnabled="{Binding Update_IsEnabled.Value}"/>
+                    IsEnabled="{Binding Update_IsEnabled.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Button Content="削除" 
                     Grid.Column="2" 
                     Grid.Row="4"
                     Command="{Binding Delete_Command}"
-                    IsEnabled="{Binding Delete_IsEnabled.Value}"/>
+                    IsEnabled="{Binding Delete_IsEnabled.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
     </Grid>
 </Window>
