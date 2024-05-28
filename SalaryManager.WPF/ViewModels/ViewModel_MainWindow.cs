@@ -36,7 +36,6 @@ public class ViewModel_MainWindow : ViewModelBase<Model_MainWindow>
         this.EditOption_Command.Subscribe(_ => this.Model.EditOption());
 
         // 読込
-        this.ReadWorkSchedule_Command.Subscribe(_ => this.Model.ReadWorkSchedule());
         this.ReadDefaultPayslip_Command.Subscribe(_ => this.Model.ReadDefaultPayslip());
         this.ReadCSV_Command.Subscribe(_ => this.Model.ReadCSV());
 
@@ -131,10 +130,6 @@ public class ViewModel_MainWindow : ViewModelBase<Model_MainWindow>
     #endregion
 
     #region メニュー - 読込
-
-    /// <summary> 勤怠表 - Command </summary>
-    public ReactiveCommand ReadWorkSchedule_Command { get; private set; }
-        = new ReactiveCommand();
 
     /// <summary> デフォルト明細を取得 - Command </summary>
     public ReactiveCommand ReadDefaultPayslip_Command { get; private set; }

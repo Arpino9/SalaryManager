@@ -180,15 +180,6 @@ public class Model_MainWindow : ModelBase<ViewModel_MainWindow>
     #region メニュー - 読込
 
     /// <summary>
-    /// 勤怠表を開く
-    /// </summary>
-    internal void ReadWorkSchedule()
-    {
-        var workSchedule = new WorkSchedule();
-        workSchedule.Show();
-    }
-
-    /// <summary>
     /// デフォルト明細を取得する
     /// </summary>
     internal void ReadDefaultPayslip()
