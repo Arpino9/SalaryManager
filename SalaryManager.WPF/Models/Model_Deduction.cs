@@ -3,7 +3,7 @@
 /// <summary>
 /// Model - 控除額
 /// </summary>
-public class Model_Deduction : ModelBase<ViewModel_Deduction>
+public class Model_Deduction : ModelBase<ViewModel_Deduction>, IParallellyEditable
 {
 
     #region Get Instance
@@ -51,16 +51,14 @@ public class Model_Deduction : ModelBase<ViewModel_Deduction>
     /// <summary>
     /// 初期化
     /// </summary>
-    /// <param name="entityDate">取得する日付</param>
     /// <remarks>
     /// 画面起動時に、項目を初期化する。
     /// </remarks>
-    public void Initialize(DateTime entityDate)
+    public void Initialize()
     {
-        Deductions.Create(_repository);
+        this.Window_Activated();
 
-        this.Entity          = Deductions.Fetch(entityDate.Year, entityDate.Month);
-        this.Entity_LastYear = Deductions.Fetch(entityDate.Year, entityDate.Month - 1);
+        this.Reload();
 
         var showDefaultPayslip = XMLLoader.FetchShowDefaultPayslip();
 
@@ -69,8 +67,32 @@ public class Model_Deduction : ModelBase<ViewModel_Deduction>
             // デフォルト明細
             this.Entity = Deductions.FetchDefault();
         }
+    }
 
-        this.Refresh();
+    public void Window_Activated()
+    {
+        this.ViewModel.Window_FontFamily.Value = XMLLoader.FetchFontFamily();
+        this.ViewModel.Window_FontSize.Value   = XMLLoader.FetchFontSize();
+        this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
+    }
+
+    /// <summary>
+    /// リロード
+    /// </summary>
+    /// <remarks>
+    /// 年月の変更時などに、該当月の項目を取得する。
+    /// </remarks>
+    public void Reload()
+    {
+        using (var cursor = new CursorWaiting())
+        {
+            Deductions.Create(_repository);
+
+            this.Entity          = Deductions.Fetch(this.Header.Year_Text.Value,     this.Header.Month_Text.Value);
+            this.Entity_LastYear = Deductions.Fetch(this.Header.Year_Text.Value - 1, this.Header.Month_Text.Value);
+
+            this.Reload_InputForm();
+        }   
     }
 
     /// <summary>
@@ -79,7 +101,7 @@ public class Model_Deduction : ModelBase<ViewModel_Deduction>
     /// <remarks>
     /// 該当月に控除額が存在すれば、各項目を再描画する。
     /// </remarks>
-    public void Refresh()
+    public void Reload_InputForm()
     {
         if (this.Entity is null)
         {
@@ -107,25 +129,6 @@ public class Model_Deduction : ModelBase<ViewModel_Deduction>
         this.ViewModel.Remarks_Text.Value               = this.Entity.Remarks;
         // 控除額計
         this.ViewModel.TotalDeduct_Text.Value           = this.Entity.TotalDeduct.Value;
-    }
-
-    /// <summary>
-    /// リロード
-    /// </summary>
-    /// <remarks>
-    /// 年月の変更時などに、該当月の項目を取得する。
-    /// </remarks>
-    public void Reload()
-    {
-        using (var cursor = new CursorWaiting())
-        {
-            Deductions.Create(_repository);
-
-            this.Entity          = Deductions.Fetch(this.Header.Year_Text.Value,     this.Header.Month_Text.Value);
-            this.Entity_LastYear = Deductions.Fetch(this.Header.Year_Text.Value - 1, this.Header.Month_Text.Value);
-
-            this.Refresh();
-        }   
     }
 
     /// <summary>

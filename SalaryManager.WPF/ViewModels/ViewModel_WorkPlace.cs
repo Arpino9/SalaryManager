@@ -17,7 +17,7 @@ public class ViewModel_WorkPlace : ViewModelBase<Model_WorkPlace>
         this.MainWindow.WorkPlace          = this;
         this.Allowance.ViewModel_WorkPlace = this;
 
-        this.Model.Initialize(DateTime.Today);
+        this.Model.Initialize();
     }
 
     protected override void BindEvents()
@@ -41,7 +41,15 @@ public class ViewModel_WorkPlace : ViewModelBase<Model_WorkPlace>
     public Model_Allowance Allowance { get; set; } 
         = Model_Allowance.GetInstance(new AllowanceSQLite());
 
-    #region 背景色
+    #region Window
+
+    /// <summary> Window - FontFamily </summary>
+    public ReactiveProperty<FontFamily> Window_FontFamily { get; set; }
+        = new ReactiveProperty<FontFamily>();
+
+    /// <summary> Window - FontSize </summary>
+    public ReactiveProperty<decimal> Window_FontSize { get; set; }
+        = new ReactiveProperty<decimal>();
 
     /// <summary> 背景色 - Background </summary>
     public ReactiveProperty<SolidColorBrush> Window_Background { get; set; }

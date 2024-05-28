@@ -203,23 +203,23 @@ public class Model_MainWindow : ModelBase<ViewModel_MainWindow>
 
         // 支給額
         this.Allowance.Entity = Allowances.FetchDefault();
-        this.Allowance.Refresh();
+        this.Allowance.Reload_InputForm();
 
         // 控除額
         this.Deduction.Entity = Deductions.FetchDefault();
-        this.Deduction.Refresh();
+        this.Deduction.Reload_InputForm();
 
         // 勤務備考
         this.WorkingReference.Entity = WorkingReferences.FetchDefault();
-        this.WorkingReference.Refresh();
+        this.WorkingReference.Reload_InputForm();
 
         // 副業
         this.SideBusiness.Entity = SideBusinesses.FetchDefault();
-        this.SideBusiness.Refresh();
+        this.SideBusiness.Reload_InputForm();
 
         // 勤務先、勤務場所
         this.Model_WorkPlace.Entity = WorkingReferences.FetchDefault();
-        this.Model_WorkPlace.Refresh();
+        this.Model_WorkPlace.Reload_InputForm();
     }
 
     /// <summary>
@@ -289,11 +289,11 @@ public class Model_MainWindow : ModelBase<ViewModel_MainWindow>
         // 支給額
         this.Allowance.Initialize();
         // 控除額
-        this.Deduction.Initialize(DateTime.Today);
+        this.Deduction.Initialize();
         // 勤務備考
         this.WorkingReference.Initialize();
         // 副業
-        this.SideBusiness.Initialize(DateTime.Today);
+        this.SideBusiness.Initialize();
     }
 
     #endregion

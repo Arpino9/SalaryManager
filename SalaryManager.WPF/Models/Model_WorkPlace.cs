@@ -5,7 +5,7 @@ namespace SalaryManager.WPF.Models;
 /// <summary>
 /// Model - 勤務場所
 /// </summary>
-public sealed class Model_WorkPlace : ModelBase<ViewModel_WorkPlace>
+public sealed class Model_WorkPlace : ModelBase<ViewModel_WorkPlace>, IParallellyEditable
 {
 
     #region Get Instance
@@ -44,19 +44,14 @@ public sealed class Model_WorkPlace : ModelBase<ViewModel_WorkPlace>
     /// <summary>
     /// 初期化
     /// </summary>
-    /// <param name="entityDate">取得する日付</param>
     /// <remarks>
     /// 画面起動時に、項目を初期化する。
     /// </remarks>
-    public void Initialize(DateTime entityDate)
+    public void Initialize()
     {
-        WorkingReferences.Create(new WorkingReferenceSQLite());
-        Careers.Create(new CareerSQLite());
-
-        this.Entity          = WorkingReferences.Fetch(entityDate.Year, entityDate.Month);
-        this.Entity_LastYear = WorkingReferences.Fetch(entityDate.Year, entityDate.Month - 1);
-
         this.Window_Activated();
+
+        this.Reload();
 
         var showDefaultPayslip = XMLLoader.FetchShowDefaultPayslip();
 
@@ -65,8 +60,13 @@ public sealed class Model_WorkPlace : ModelBase<ViewModel_WorkPlace>
             // デフォルト明細
             this.Entity = WorkingReferences.FetchDefault();
         }
+    }
 
-        this.Refresh();
+    void IViewable.Window_Activated()
+    {
+        this.ViewModel.Window_FontFamily.Value = XMLLoader.FetchFontFamily();
+        this.ViewModel.Window_FontSize.Value   = XMLLoader.FetchFontSize();
+        this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
     }
 
     /// <summary>
@@ -83,10 +83,9 @@ public sealed class Model_WorkPlace : ModelBase<ViewModel_WorkPlace>
     /// <remarks>
     /// 勤務先、所属会社名を再描画する。
     /// </remarks>
-    public void Refresh()
+    public void Reload_InputForm()
     {
         WorkingPlace.Create(new WorkingPlaceSQLite());
-        Careers.Create(new CareerSQLite());
 
         if (this.Entity is null)
         {
@@ -123,7 +122,10 @@ public sealed class Model_WorkPlace : ModelBase<ViewModel_WorkPlace>
     /// </remarks>
     public void Reload()
     {
-        if (this.ViewModel is null) return;
+        if (this.ViewModel is null)
+        {
+            return;
+        }
 
         using (var cursor = new CursorWaiting())
         {
@@ -132,7 +134,7 @@ public sealed class Model_WorkPlace : ModelBase<ViewModel_WorkPlace>
             this.Entity          = WorkingReferences.Fetch(this.Header.Year_Text.Value, this.Header.Month_Text.Value);
             this.Entity_LastYear = WorkingReferences.Fetch(this.Header.Year_Text.Value - 1, this.Header.Month_Text.Value);
 
-            this.Refresh();
+            this.Reload_InputForm();
         }
     }
 

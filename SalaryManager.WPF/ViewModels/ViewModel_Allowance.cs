@@ -80,6 +80,22 @@ public class ViewModel_Allowance : ViewModelBase<Model_Allowance>
     public Model_MainWindow MainWindow { get; set; }
         = Model_MainWindow.GetInstance();
 
+    #region Window
+
+    /// <summary> Window - FontFamily </summary>
+    public ReactiveProperty<FontFamily> Window_FontFamily { get; set; }
+        = new ReactiveProperty<FontFamily>();
+
+    /// <summary> Window - FontSize </summary>
+    public ReactiveProperty<decimal> Window_FontSize { get; set; }
+        = new ReactiveProperty<decimal>();
+
+    /// <summary> Window - Background </summary>
+    public ReactiveProperty<Brush> Window_Background { get; set; }
+        = new ReactiveProperty<Brush>();
+
+    #endregion
+
     #region 初期状態
 
     /// <summary> 初期状態 - MouseLeave </summary>

@@ -3,7 +3,7 @@
 /// <summary>
 /// Model - 副業
 /// </summary>
-public class Model_SideBusiness : ModelBase<ViewModel_SideBusiness>
+public class Model_SideBusiness : ModelBase<ViewModel_SideBusiness>, IParallellyEditable
 {
 
     #region Get Instance
@@ -48,16 +48,14 @@ public class Model_SideBusiness : ModelBase<ViewModel_SideBusiness>
     /// <summary>
     /// 初期化
     /// </summary>
-    /// <param name="entityDate">取得する日付</param>
     /// <remarks>
     /// 画面起動時に、項目を初期化する。
     /// </remarks>
-    public void Initialize(DateTime entityDate)
+    public void Initialize()
     {
-        SideBusinesses.Create(_repository);
+        this.Window_Activated();
 
-        this.Entity          = SideBusinesses.Fetch(entityDate.Year, entityDate.Month);
-        this.Entity_LastYear = SideBusinesses.Fetch(entityDate.Year, entityDate.Month - 1);
+        this.Reload();
 
         var showDefaultPayslip = XMLLoader.FetchShowDefaultPayslip();
 
@@ -66,8 +64,13 @@ public class Model_SideBusiness : ModelBase<ViewModel_SideBusiness>
             // デフォルト明細
             this.Entity = SideBusinesses.FetchDefault();
         }
+    }
 
-        this.Refresh();
+    public void Window_Activated()
+    {
+        this.ViewModel.Window_FontFamily.Value = XMLLoader.FetchFontFamily();
+        this.ViewModel.Window_FontSize.Value   = XMLLoader.FetchFontSize();
+        this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
     }
 
     /// <summary>
@@ -85,7 +88,7 @@ public class Model_SideBusiness : ModelBase<ViewModel_SideBusiness>
             this.Entity          = SideBusinesses.Fetch(this.Header.Year_Text.Value, this.Header.Month_Text.Value);
             this.Entity_LastYear = SideBusinesses.Fetch(this.Header.Year_Text.Value - 1, this.Header.Month_Text.Value);
         
-            this.Refresh();
+            this.Reload_InputForm();
         }   
     }
 
@@ -113,7 +116,7 @@ public class Model_SideBusiness : ModelBase<ViewModel_SideBusiness>
     /// <remarks>
     /// 該当月に副業額が存在すれば、各項目を再描画する。
     /// </remarks>
-    public void Refresh()
+    public void Reload_InputForm()
     {
         if (this.Entity is null)
         {

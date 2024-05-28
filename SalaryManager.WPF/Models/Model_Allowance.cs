@@ -3,7 +3,7 @@
 /// <summary>
 /// Model - 支給額
 /// </summary>
-public class Model_Allowance : ModelBase<ViewModel_Allowance>
+public class Model_Allowance : ModelBase<ViewModel_Allowance>, IParallellyEditable
 {
 
     #region Get Instance
@@ -31,10 +31,10 @@ public class Model_Allowance : ModelBase<ViewModel_Allowance>
     }
 
     /// <summary> ViewModel - 支給額 </summary>
-    internal ViewModel_Header Header { get; set; }
+    internal override ViewModel_Allowance ViewModel { get; set; }
 
     /// <summary> ViewModel - 支給額 </summary>
-    internal override ViewModel_Allowance ViewModel { get; set; }
+    internal ViewModel_Header Header { get; set; }
 
     /// <summary> ViewModel - 控除額 </summary>
     internal ViewModel_Deduction ViewModel_Deduction { get; set; }
@@ -57,14 +57,11 @@ public class Model_Allowance : ModelBase<ViewModel_Allowance>
     /// <remarks>
     /// 画面起動時に、項目を初期化する。
     /// </remarks>
-    internal void Initialize()
+    public void Initialize()
     {
-        var entityDate = DateTime.Today;
+        this.Window_Activated();
 
-        Allowances.Create(_repository);
-
-        this.Entity          = Allowances.Fetch(entityDate.Year, entityDate.Month);
-        this.Entity_LastYear = Allowances.Fetch(entityDate.Year, entityDate.Month - 1);
+        this.Reload();
 
         var showDefaultPayslip = XMLLoader.FetchShowDefaultPayslip();
 
@@ -73,20 +70,45 @@ public class Model_Allowance : ModelBase<ViewModel_Allowance>
             // デフォルト明細
             this.Entity = Allowances.FetchDefault();
         }
+    }
 
-        this.Refresh();
+    public void Window_Activated()
+    {
+        this.ViewModel.Window_FontFamily.Value = XMLLoader.FetchFontFamily();
+        this.ViewModel.Window_FontSize.Value   = XMLLoader.FetchFontSize();
+        this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
     }
 
     /// <summary>
-    /// 再描画
+    /// リロード
+    /// </summary>
+    /// <remarks>
+    /// 年月の変更時などに、該当月の項目を取得する。
+    /// </remarks>
+    public void Reload()
+    {
+        using (var cursor = new CursorWaiting())
+        {
+            Allowances.Create(_repository);
+
+            this.Entity          = Allowances.Fetch(this.Header.Year_Text.Value,     this.Header.Month_Text.Value);
+            this.Entity_LastYear = Allowances.Fetch(this.Header.Year_Text.Value - 1, this.Header.Month_Text.Value);
+
+            this.Reload_InputForm();
+        }
+    }
+
+    /// <summary>
+    /// 再描画 - 入力フォーム
     /// </summary>
     /// <remarks>
     /// 該当月に支給額と手当有無が存在すれば、各項目を再描画する。
     /// </remarks>
-    public void Refresh()
+    public void Reload_InputForm()
     {
         // 所属会社名
         Careers.Create(new CareerSQLite());
+
         var company = Careers.FetchCompany(new DateTime(this.Header.Year_Text.Value, this.Header.Month_Text.Value, 1));
         if (company is null)
         {
@@ -144,25 +166,6 @@ public class Model_Allowance : ModelBase<ViewModel_Allowance>
         this.ViewModel.Remarks_Text.Value                  = this.Entity.Remarks;
         // 支給総計、差引支給額
         this.ReCaluculate();
-    }
-
-    /// <summary>
-    /// リロード
-    /// </summary>
-    /// <remarks>
-    /// 年月の変更時などに、該当月の項目を取得する。
-    /// </remarks>
-    public void Reload()
-    {
-        using (var cursor = new CursorWaiting())
-        {
-            Allowances.Create(_repository);
-
-            this.Entity          = Allowances.Fetch(this.Header.Year_Text.Value,     this.Header.Month_Text.Value);
-            this.Entity_LastYear = Allowances.Fetch(this.Header.Year_Text.Value - 1, this.Header.Month_Text.Value);
-
-            this.Refresh();
-        }
     }
 
     /// <summary>

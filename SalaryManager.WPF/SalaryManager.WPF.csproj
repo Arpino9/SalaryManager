@@ -150,6 +150,7 @@
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Interface\IEditable.cs" />
     <Compile Include="Interface\IEditableMaster.cs" />
+    <Compile Include="Interface\IParallellyEditable.cs" />
     <Compile Include="Interface\IViewable.cs" />
     <Compile Include="Interface\IViewableMaster.cs" />
     <Compile Include="Models\ModelBase.cs" />
