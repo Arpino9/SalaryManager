@@ -24,6 +24,11 @@ public interface IViewableMaster
     void ListView_SelectionChanged();
 
     /// <summary>
+    /// 再描画
+    /// </summary>
+    void Reload();
+
+    /// <summary>
     /// Clear - 閲覧項目
     /// </summary>
     void Clear_InputForm();

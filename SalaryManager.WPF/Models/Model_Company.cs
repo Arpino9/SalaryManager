@@ -5,7 +5,7 @@ namespace SalaryManager.WPF.Models;
 /// <summary>
 /// Model - 会社マスタ
 /// </summary>
-public class Model_Company : ModelBase<ViewModel_Company>
+public class Model_Company : ModelBase<ViewModel_Company>, IEditableMaster
 {
     #region Get Instance
 
@@ -41,33 +41,30 @@ public class Model_Company : ModelBase<ViewModel_Company>
     /// </remarks>
     public void Initialize()
     {
+        this.Window_Activated();
+
         this.Reload();
 
+        this.ListView_SelectionChanged();
+
+        var item = new BusinessCategoryValue(this.ViewModel.BusinessCategory_Large_Text.Value);
+
+        this.ViewModel.BusinessCategory_Middle_ItemSource.Clear();
+
+        foreach (var value in item.MiddleList.Values)
+        {
+            this.ViewModel.BusinessCategory_Middle_ItemSource.Add(value);
+        }
+
         var entity = this.ViewModel.Companies_ItemSource[this.ViewModel.Companies_SelectedIndex.Value];
+        this.ViewModel.BusinessCategory_Middle_Text.Value = entity.BusinessCategory.MiddleName;
+    }
 
-        // 業種(大区分)
-        this.ViewModel.BusinessCategory_Large_ItemsSource = BusinessCategoryValue.LargeCategory.ToReactiveCollection();
-
-        this.ViewModel.BusinessCategory_Large_SelectedItem.Value = entity.BusinessCategory.LargeName;
-        this.ViewModel.BusinessCategory_Large_Text.Value = entity.BusinessCategory.LargeName;
-
-        this.BusinessCategory_Large_SelectionChanged();
-
-        // 会社名
-        this.ViewModel.CompanyName_Text.Value = entity.CompanyName;
-        this.CompanyName_Prev = entity.CompanyName;
-        this.CompanyAddress_Prev = entity.Address_Google;
-
-        // 郵便番号
-        this.ViewModel.PostCode_Text.Value = entity.PostCode;
-        // 住所
-        this.ViewModel.Address_Text.Value = entity.Address;
-        // 住所(Google)
-        this.ViewModel.Address_Google_Text.Value = entity.Address_Google;
-        // 備考
-        this.ViewModel.Remarks_Text.Value = entity.Remarks;
-
-        this.EnableControlButton();
+    public void Window_Activated()
+    {
+        this.ViewModel.Window_FontFamily.Value = XMLLoader.FetchFontFamily();
+        this.ViewModel.Window_FontSize.Value   = XMLLoader.FetchFontSize();
+        this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
     }
 
     /// <summary>
@@ -85,7 +82,11 @@ public class Model_Company : ModelBase<ViewModel_Company>
         var item = new BusinessCategoryValue(this.ViewModel.BusinessCategory_Large_SelectedItem.Value);
 
         this.ViewModel.BusinessCategory_Middle_ItemSource.Clear();
-        this.ViewModel.BusinessCategory_Middle_ItemSource = item.MiddleList.Values.ToReactiveCollection(this.ViewModel.BusinessCategory_Middle_ItemSource);
+
+        foreach(var value in item.MiddleList.Values)
+        {
+            this.ViewModel.BusinessCategory_Middle_ItemSource.Add(value);
+        }
 
         if (this.ViewModel.BusinessCategory_Large_SelectedItem.Value != 
             this.ViewModel.BusinessCategory_Large_Text.Value)
@@ -116,14 +117,14 @@ public class Model_Company : ModelBase<ViewModel_Company>
         this.ViewModel.PostCode_Text.Value = string.Empty;
 
         // 住所
-        this.ViewModel.Address_Text.Value  = string.Empty;
+        this.ViewModel.Address_Text.Value        = string.Empty;
         this.ViewModel.Address_Google_Text.Value = string.Empty;
 
         // 備考
         this.ViewModel.Remarks_Text.Value = string.Empty;
 
         // 追加ボタン
-        this.ViewModel.Add_IsEnabled.Value = false;
+        this.ViewModel.Add_IsEnabled.Value    = false;
         // 更新ボタン
         this.ViewModel.Update_IsEnabled.Value = false;
         // 削除ボタン
@@ -141,32 +142,6 @@ public class Model_Company : ModelBase<ViewModel_Company>
         this.ViewModel.Add_IsEnabled.Value = inputted;
     }
 
-    /// <summary>
-    /// 再描画
-    /// </summary>
-    /// <remarks>
-    /// 各項目を再描画する。
-    /// </remarks>
-    public void Refresh()
-    {
-        this.Clear_InputForm();
-        this.Reflesh_InputForm();
-    }
-
-    /// <summary>
-    /// 再描画 - 入力用フォーム
-    /// </summary>
-    private void Reflesh_InputForm()
-    {
-        if (this.ViewModel.BusinessCategory_Large_SelectedItem.Value is null)
-        {
-            // 無効
-            return;
-        }
-
-        this.Companies_SelectionChanged();
-    }
-
     /// <summary> 会社名(更新前) </summary>
     private string CompanyName_Prev;
     
@@ -176,7 +151,7 @@ public class Model_Company : ModelBase<ViewModel_Company>
     /// <summary>
     /// 会社一覧 - SelectionChanged
     /// </summary>
-    public void Companies_SelectionChanged()
+    public void ListView_SelectionChanged()
     {
         if (this.ViewModel.Companies_SelectedIndex.Value.IsUnSelected())
         {
@@ -193,25 +168,28 @@ public class Model_Company : ModelBase<ViewModel_Company>
         var entity = this.ViewModel.Companies_ItemSource[this.ViewModel.Companies_SelectedIndex.Value];
 
         // 業種(大区分)
-        this.ViewModel.BusinessCategory_Large_ItemsSource = BusinessCategoryValue.LargeCategory.ToReactiveCollection();
-
+        foreach(var category in BusinessCategoryValue.LargeCategory)
+        {
+            this.ViewModel.BusinessCategory_Large_ItemsSource.Add(category);
+        }
+        
         this.ViewModel.BusinessCategory_Large_Text.Value = entity.BusinessCategory.LargeName;
 
         this.BusinessCategory_Large_SelectionChanged();
 
         // 会社名
         this.ViewModel.CompanyName_Text.Value = entity.CompanyName;
-        this.CompanyName_Prev = entity.CompanyName;
-        this.CompanyAddress_Prev = entity.Address_Google;
+        this.CompanyName_Prev                 = entity.CompanyName;
+        this.CompanyAddress_Prev              = entity.Address_Google;
 
         // 郵便番号
-        this.ViewModel.PostCode_Text.Value = entity.PostCode;
+        this.ViewModel.PostCode_Text.Value       = entity.PostCode;
         // 住所
-        this.ViewModel.Address_Text.Value = entity.Address;
+        this.ViewModel.Address_Text.Value        = entity.Address;
         // 住所(Google)
         this.ViewModel.Address_Google_Text.Value = entity.Address_Google;
         // 備考
-        this.ViewModel.Remarks_Text.Value = entity.Remarks;
+        this.ViewModel.Remarks_Text.Value        = entity.Remarks;
     }
 
     /// <summary>
@@ -239,31 +217,48 @@ public class Model_Company : ModelBase<ViewModel_Company>
         using (var cursor = new CursorWaiting())
         {
             Companies.Create(_repository);
-            this.ViewModel.Companies_ItemSource = Companies.FetchByDescending().ToReactiveCollection(this.ViewModel.Companies_ItemSource);
 
-            this.Refresh();
+            // ListView
+            this.Reload_ListView();
+
+            // 入力用フォーム
+            this.Reload_InputForm();
         }
     }
 
     /// <summary>
-    /// 保存
+    /// 再描画 - ListView
     /// </summary>
-    public void Save()
+    private void Reload_ListView()
     {
-        using (var transaction = new SQLiteTransaction())
-        {
-            foreach (var entity in this.ViewModel.Companies_ItemSource)
-            {
-                _repository.Save(transaction, entity);
-                _repository.SaveAddress(transaction, entity);
-            }
+        var entities = Companies.FetchByDescending();
 
-            transaction.Commit();
+        if (entities.IsEmpty())
+        {
+            return;
         }
 
-        this.AddtionalUpdate();
+        this.ViewModel.Companies_ItemSource.Clear();
 
-        this.Reload();
+        foreach (var entity in entities)
+        {
+            this.ViewModel.Companies_ItemSource.Add(entity);
+        }
+
+        this.ListView_SelectionChanged();
+    }
+
+    /// <summary>
+    /// 再描画 - 入力用フォーム
+    /// </summary>
+    private void Reload_InputForm()
+    {
+        this.Clear_InputForm();
+
+        // 追加ボタン
+        this.EnableAddButton();
+        // 更新、削除ボタン
+        this.EnableControlButton();
     }
 
     /// <summary> Model </summary>
@@ -370,6 +365,23 @@ public class Model_Company : ModelBase<ViewModel_Company>
     }
 
     /// <summary>
+    /// 保存
+    /// </summary>
+    private void Save()
+    {
+        using (var transaction = new SQLiteTransaction())
+        {
+            foreach (var entity in this.ViewModel.Companies_ItemSource)
+            {
+                _repository.Save(transaction, entity);
+                _repository.SaveAddress(transaction, entity);
+            }
+
+            transaction.Commit();
+        }
+    }
+
+    /// <summary>
     /// 削除
     /// </summary>
     public void Delete()
@@ -398,9 +410,6 @@ public class Model_Company : ModelBase<ViewModel_Company>
             {
                 this.ViewModel.Companies_SelectedIndex.Value -= 1;
             }
-
-            this.Reload();
-            this.EnableControlButton();
         }
     }
 }

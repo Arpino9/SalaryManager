@@ -45,18 +45,11 @@ public class Model_Career : ModelBase<ViewModel_Career>, IEditableMaster
     /// </remarks>
     public void Initialize()
     {
-        Careers.Create(_repository);
+        this.Window_Activated();
 
-        this.ViewModel.Window_FontFamily.Value = XMLLoader.FetchFontFamily();
-        this.ViewModel.Window_FontSize.Value   = XMLLoader.FetchFontSize();
+        this.Reload();
 
-        this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
-
-        this.Refresh_ListView();
-
-        this.ViewModel.Careers_SelectedIndex.Value = 0;
-
-        this.Clear_InputForm();
+        this.ListView_SelectionChanged();
     }
 
     public void Window_Activated()
@@ -64,30 +57,6 @@ public class Model_Career : ModelBase<ViewModel_Career>, IEditableMaster
         this.ViewModel.Window_FontFamily.Value = XMLLoader.FetchFontFamily();
         this.ViewModel.Window_FontSize.Value   = XMLLoader.FetchFontSize();
         this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
-    }
-
-    /// <summary>
-    /// 再描画 - ListView
-    /// </summary>
-    private void Refresh_ListView()
-    {
-        this.Clear_InputForm();
-
-        var entities = Careers.FetchByDescending();
-
-        if (entities.IsEmpty())
-        {
-            return;
-        }
-
-        this.ViewModel.Careers_ItemSource.Clear();
-
-        foreach (var entity in entities) 
-        {
-            this.ViewModel.Careers_ItemSource.Add(entity);
-        }
-
-        this.ListView_SelectionChanged();
     }
 
     /// <summary>
@@ -126,19 +95,20 @@ public class Model_Career : ModelBase<ViewModel_Career>, IEditableMaster
 
         var entity = this.ViewModel.Careers_ItemSource[this.ViewModel.Careers_SelectedIndex.Value];
         // 雇用形態
-        this.ViewModel.WorkingStatus_Text.Value = entity.WorkingStatus;
+        this.ViewModel.WorkingStatus_Text.Value        = entity.WorkingStatus;
         // 会社名
-        this.ViewModel.CompanyName_Text.Value   = entity.CompanyName.Text;
+        this.ViewModel.CompanyName_Text.Value          = entity.CompanyName.Text;
         // 社員番号
-        this.ViewModel.EmployeeNumber_Text.Value     = entity.EmployeeNumber;
+        this.ViewModel.EmployeeNumber_Text.Value       = entity.EmployeeNumber;
         // 勤務開始日
         this.ViewModel.WorkingStart_SelectedDate.Value = entity.WorkingStartDate.Value;
         // 勤務終了日
-        this.ViewModel.WorkingEnd_SelectedDate.Value = entity.WorkingEndDate.IsWorking ? DateTime.Today : entity.WorkingEndDate.Value;
+        this.ViewModel.WorkingEnd_SelectedDate.Value   = entity.WorkingEndDate.IsWorking ? 
+                                                         DateTime.Today : entity.WorkingEndDate.Value;
         // 就業中か
-        this.ViewModel.Working_IsChecked.Value = entity.WorkingEndDate.IsWorking;
+        this.ViewModel.Working_IsChecked.Value         = entity.WorkingEndDate.IsWorking;
         // 備考
-        this.ViewModel.Remarks_Text.Value            = entity.Remarks;
+        this.ViewModel.Remarks_Text.Value              = entity.Remarks;
 
         var allowance = entity.AllowanceExistence;
         // 皆勤手当
@@ -197,21 +167,7 @@ public class Model_Career : ModelBase<ViewModel_Career>, IEditableMaster
     }
 
     /// <summary>
-    /// 再描画 - 入力用フォーム
-    /// </summary>
-    private void Refresh_InputForm()
-    {
-        // 就業中フラグ
-        this.IsWorking_Checked();
-
-        // 追加ボタン
-        this.EnableAddButton();
-        // 更新、削除ボタン
-        this.EnableControlButton();
-    }
-
-    /// <summary>
-    /// リロード
+    /// 再描画
     /// </summary>
     /// <remarks>
     /// 年月の変更時などに、該当月の項目を取得する。
@@ -223,11 +179,51 @@ public class Model_Career : ModelBase<ViewModel_Career>, IEditableMaster
             Careers.Create(_repository);
 
             // ListView
-            this.Refresh_ListView();
+            this.Reload_ListView();
 
             // 入力用フォーム
-            this.Refresh_InputForm();
+            this.Reload_InputForm();
         }
+    }
+
+    /// <summary>
+    /// 再描画 - ListView
+    /// </summary>
+    private void Reload_ListView()
+    {
+        this.ViewModel.Careers_SelectedIndex.Value = 0;
+
+        var entities = Careers.FetchByDescending();
+
+        if (entities.IsEmpty())
+        {
+            return;
+        }
+
+        this.ViewModel.Careers_ItemSource.Clear();
+
+        foreach (var entity in entities)
+        {
+            this.ViewModel.Careers_ItemSource.Add(entity);
+        }
+
+        this.ListView_SelectionChanged();
+    }
+
+    /// <summary>
+    /// 再描画 - 入力用フォーム
+    /// </summary>
+    private void Reload_InputForm()
+    {
+        this.Clear_InputForm();
+
+        // 就業中フラグ
+        this.IsWorking_Checked();
+
+        // 追加ボタン
+        this.EnableAddButton();
+        // 更新、削除ボタン
+        this.EnableControlButton();
     }
 
     /// <summary>
