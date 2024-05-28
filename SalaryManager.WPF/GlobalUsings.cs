@@ -40,6 +40,7 @@ global using SalaryManager.Infrastructure.SpreadSheet;
 global using SalaryManager.Infrastructure.XML;
 
 // WPF層
+global using SalaryManager.WPF.Interface;
 global using SalaryManager.WPF.Models;
 global using SalaryManager.WPF.ViewModels;
 global using SalaryManager.WPF.Window;

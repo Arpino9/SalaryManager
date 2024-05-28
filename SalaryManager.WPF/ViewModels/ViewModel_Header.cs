@@ -21,7 +21,7 @@ public class ViewModel_Header : ViewModelBase<Model_Header>
 
         this.BindEvents();
 
-        this.Model.Initialize(DateTime.Today);
+        this.Model.Initialize();
     }
 
     protected override void BindEvents()

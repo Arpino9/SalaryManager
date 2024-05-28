@@ -1,12 +1,12 @@
 ﻿namespace SalaryManager.WPF.Interface;
 
 /// <summary>
-/// Interface - 閲覧用マスタ
+/// Interface - 閲覧用
 /// </summary>
 /// <remarks>
-/// 機能がInfrastructureからの読込のみ
+/// 表示用、入力用フォームがない画面が対象
 /// </remarks>
-internal interface IViewableMaster
+internal interface IViewable
 {
     /// <summary>
     /// 初期化
@@ -19,14 +19,9 @@ internal interface IViewableMaster
     void Window_Activated();
 
     /// <summary>
-    /// ListView - SelectionChanged
+    /// クリア
     /// </summary>
-    void ListView_SelectionChanged();
-
-    /// <summary>
-    /// Clear - 閲覧項目
-    /// </summary>
-    void Clear_InputForm();
+    void Clear();
 
     /// <summary>
     /// 再描画

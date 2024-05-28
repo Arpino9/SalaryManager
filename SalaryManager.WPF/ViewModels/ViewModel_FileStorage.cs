@@ -18,13 +18,22 @@ public class ViewModel_FileStorage : ViewModelBase<Model_FileStorage>
 
     protected override void BindEvents()
     {
-        this.AttachedFile_SelectionChanged.Subscribe(_ => this.Model.AttachedFile_SelectionChanged());
+        // 添付ファイル一覧
+        this.AttachedFile_SelectionChanged.Subscribe(_ => this.Model.ListView_SelectionChanged());
+
+        // ファイルを開く
         this.SelectFile_Command.Subscribe(_ => this.Model.SelectFile());
+        // フォルダを開く
         this.SelectFolder_Command.Subscribe(_ => this.Model.SelectFolder());
+
+        // 画像を拡大表示する
         this.OpenImageViewer_Command.Subscribe(_ => this.Model.OpenImageViewer());
 
+        // 追加
         this.Add_Command.Subscribe(_ => this.Model.Add());
+        // 更新
         this.Update_Command.Subscribe(_ => this.Model.Update());
+        // 削除
         this.Delete_Command.Subscribe(_ => this.Model.Delete());
     }
 
@@ -33,7 +42,19 @@ public class ViewModel_FileStorage : ViewModelBase<Model_FileStorage>
         = Model_FileStorage.GetInstance(new FileStorageSQLite());
 
 
-    #region タイトル
+    #region Window
+
+    /// <summary> Window - FontFamily </summary>
+    public ReactiveProperty<FontFamily> Window_FontFamily { get; set; }
+        = new ReactiveProperty<FontFamily>();
+
+    /// <summary> Window - FontSize </summary>
+    public ReactiveProperty<decimal> Window_FontSize { get; set; }
+        = new ReactiveProperty<decimal>();
+
+    /// <summary> Window - Background </summary>
+    public ReactiveProperty<Brush> Window_Background { get; set; }
+        = new ReactiveProperty<Brush>();
 
     /// <summary> Window - Title </summary>
     public ReactiveProperty<string> Window_Title { get; }

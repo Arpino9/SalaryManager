@@ -5,7 +5,7 @@ namespace SalaryManager.Infrastructure.Interface;
 /// <summary>
 /// Interface - 編集用マスタ
 /// </summary>
-public interface IEditableMaster : IViewableMaster
+internal interface IEditableMaster : IViewableMaster
 {
     /// <summary> 
     /// 追加 

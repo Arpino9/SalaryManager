@@ -148,8 +148,9 @@
     <Compile Include="Converter\EnumToBoolConverter.cs" />
     <Compile Include="Converter\RelayCommand.cs" />
     <Compile Include="GlobalUsings.cs" />
-    <Compile Include="Interface\IInputPayslip.cs" />
+    <Compile Include="Interface\IEditable.cs" />
     <Compile Include="Interface\IEditableMaster.cs" />
+    <Compile Include="Interface\IViewable.cs" />
     <Compile Include="Interface\IViewableMaster.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\Model_Allowance.cs" />

@@ -5,7 +5,7 @@ namespace SalaryManager.WPF.Models;
 /// <summary>
 /// Model - ヘッダー
 /// </summary>
-public sealed class Model_Header :  ModelBase<ViewModel_Header>
+public sealed class Model_Header : ModelBase<ViewModel_Header>, IViewable
 {
     #region Get Instance
 
@@ -37,9 +37,6 @@ public sealed class Model_Header :  ModelBase<ViewModel_Header>
     /// <summary> ViewModel - メイン画面 </summary>
     internal ViewModel_MainWindow MainWindow { get; set; }
 
-    /// <summary> Entity - ヘッダー </summary>
-    private HeaderEntity Entity { get; set; }
-
     /// <summary> ID </summary>
     public int ID { get; internal set; }
 
@@ -54,6 +51,30 @@ public sealed class Model_Header :  ModelBase<ViewModel_Header>
 
     /// <summary> 更新日 </summary>
     public DateTime UpdateDate { get; set; }
+
+    /// <summary>
+    /// 初期化
+    /// </summary>
+    /// <remarks>
+    /// 画面起動時に、項目を初期化する。
+    /// </remarks>
+    public void Initialize()
+    {
+        this.Window_Activated();
+
+        this.ViewModel.Year_Text.Value  = DateTime.Today.Year;
+        this.ViewModel.Month_Text.Value = DateTime.Today.Month;
+
+        this.Reload();
+    }
+
+    /// <summary>
+    /// 画面起動時の処理
+    /// </summary>
+    public void Window_Activated()
+    {
+        this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
+    }
 
     /// <summary>
     /// ←ボタン
@@ -82,27 +103,6 @@ public sealed class Model_Header :  ModelBase<ViewModel_Header>
     }
 
     /// <summary>
-    /// エンティティの取得
-    /// </summary>
-    /// <param name="year">取得する年</param>
-    /// <param name="month">取得する月</param>
-    private void FetchEntity(int year, int month)
-    {
-        Headers.Create(_repository);
-        var records = Headers.FetchByAscending();
-
-        this.Entity = records.Where(x => x.YearMonth.Year  == year
-                                      && x.YearMonth.Month == month)
-                             .FirstOrDefault();
-
-        if (this.Entity is null && 
-            records.Any())
-        {
-            this.ID = records.Max(x => x.ID) + 1;
-        }
-    }
-
-    /// <summary>
     /// Reload
     /// </summary>
     /// <remarks>
@@ -111,73 +111,35 @@ public sealed class Model_Header :  ModelBase<ViewModel_Header>
     /// </remarks>
     public void Reload()
     {
-        this.FetchEntity(this.ViewModel.Year_Text.Value, this.ViewModel.Month_Text.Value);
+        Headers.Create(_repository);
 
-        if (this.Entity is null)
+        var entities = Headers.FetchByAscending();
+
+        var entity = entities.Where(x => x.YearMonth.Year  == this.ViewModel.Year_Text.Value
+                                      && x.YearMonth.Month == this.ViewModel.Month_Text.Value)
+                             .FirstOrDefault();
+
+        if (entity is null)
         {
             // 新規追加
-            this.CreateDate = DateTime.Today;
-            this.UpdateDate = DateTime.Today;
+            if (entities.Any())
+            {
+                this.ID = entities.Max(x => x.ID) + 1;
+            }
+            else
+            {
+                this.Clear();
+            }
         }
         else
         {
             // 更新
-            this.ID         = this.Entity.ID;
-            this.CreateDate = this.Entity.CreateDate;
-            this.UpdateDate = this.Entity.UpdateDate;
+            this.ID         = entity.ID;
+            this.CreateDate = entity.CreateDate;
+            this.UpdateDate = entity.UpdateDate;
         }
 
         this.YearMonth = new DateTime(this.ViewModel.Year_Text.Value, this.ViewModel.Month_Text.Value, 1);
-    }
-
-    /// <summary>
-    /// 初期化
-    /// </summary>
-    /// <param name="entityDate">取得する日付</param>
-    /// <remarks>
-    /// 画面起動時に、項目を初期化する。
-    /// </remarks>
-    public void Initialize(DateTime entityDate)
-    {
-        this.FetchEntity(entityDate.Year, entityDate.Month);
-
-        this.Window_Activated();
-
-        if (this.Entity is null)
-        {
-            this.YearMonth = DateTime.Today;
-        }
-
-        this.Refresh();
-    }
-
-    /// <summary>
-    /// 画面起動時の処理
-    /// </summary>
-    internal void Window_Activated()
-    {
-        this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
-    }
-
-    /// <summary>
-    /// 再描画
-    /// </summary>
-    /// <remarks>
-    /// 該当月にヘッダ情報が存在すれば、各項目を再描画する。
-    /// </remarks>
-    public void Refresh()
-    {
-        if (this.Entity is null)
-        {
-            this.Clear();
-            return;
-        }
-
-        this.ID          = this.Entity.ID;
-        this.ViewModel.Year_Text.Value  = this.Entity.YearMonth.Year;
-        this.ViewModel.Month_Text.Value = this.Entity.YearMonth.Month;
-        this.CreateDate  = this.Entity.CreateDate;
-        this.UpdateDate  = this.Entity.UpdateDate;
     }
 
     /// <summary>
@@ -188,9 +150,16 @@ public sealed class Model_Header :  ModelBase<ViewModel_Header>
     /// </remarks>
     public void Clear()
     {
+        // 年
         this.ViewModel.Year_Text.Value  = this.YearMonth.Year;
+
+        // 月
         this.ViewModel.Month_Text.Value = this.YearMonth.Month;
+
+        // 作成日
         this.CreateDate  = DateTime.Today;
+
+        // 更新日
         this.UpdateDate  = DateTime.Today;
     }
 
@@ -216,8 +185,6 @@ public sealed class Model_Header :  ModelBase<ViewModel_Header>
 
         _repository.Save(transaction, entity);
     }
-
-    #region デフォルトに設定
 
     /// <summary>
     /// デフォルトに設定
@@ -280,7 +247,4 @@ public sealed class Model_Header :  ModelBase<ViewModel_Header>
             this.ViewModel.Month_Text.Value = value;
         }
     }
-
-    #endregion
-
 }

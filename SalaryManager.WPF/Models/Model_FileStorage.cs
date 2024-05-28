@@ -2,7 +2,7 @@
 
 namespace SalaryManager.WPF.Models
 {
-    public sealed class Model_FileStorage : ModelBase<ViewModel_FileStorage>
+    public sealed class Model_FileStorage : ModelBase<ViewModel_FileStorage>, IEditableMaster
     {
 
         #region Get Instance
@@ -52,12 +52,11 @@ namespace SalaryManager.WPF.Models
         /// </summary>
         public void Initialize()
         {
-            FileStorages.Create(_repository);
+            this.Window_Activated();
 
-            this.Entities = FileStorages.FetchByDescending();
+            this.Reload();
 
-            this.ViewModel.AttachedFile_SelectedIndex.Value = -1;
-            this.Clear_InputForm();
+            this.ListView_SelectionChanged();
 
             var obj = EnumUtils.ToEnum(this.HowToSave.GetType(), XMLLoader.FetchHowToSaveImage());
             if (obj is null)
@@ -65,7 +64,7 @@ namespace SalaryManager.WPF.Models
                 this.ViewModel.SelectFile_IsEnabled.Value   = false;
                 this.ViewModel.SelectFolder_IsEnabled.Value = true;
 
-                this.Reflesh_ListView();
+                this.Reload_ListView();
             }
             else
             {
@@ -79,9 +78,16 @@ namespace SalaryManager.WPF.Models
                 }
                 else
                 {
-                    this.Reflesh_ListView();
+                    this.Reload_ListView();
                 }
             }
+        }
+
+        public void Window_Activated()
+        {
+            this.ViewModel.Window_FontFamily.Value = XMLLoader.FetchFontFamily();
+            this.ViewModel.Window_FontSize.Value   = XMLLoader.FetchFontSize();
+            this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
         }
 
         /// <summary>
@@ -101,9 +107,9 @@ namespace SalaryManager.WPF.Models
         #region ファイルを開く
 
         /// <summary>
-        /// ファイルを開く - SelectionChanged
+        /// ListView - SelectionChanged
         /// </summary>
-        internal void AttachedFile_SelectionChanged()
+        public void ListView_SelectionChanged()
         {
             if (this.ViewModel.AttachedFile_SelectedIndex.Value.IsUnSelected())
             {
@@ -380,7 +386,7 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 追加
         /// </summary>
-        internal void Add()
+        public void Add()
         {
             if (!Message.ShowConfirmingMessage($"画像情報を追加しますか？", this.ViewModel.Window_Title.Value))
             {
@@ -422,8 +428,12 @@ namespace SalaryManager.WPF.Models
 
                 // 並び変え
                 var orderedList = new ObservableCollection<FileStorageEntity>(this.ViewModel.AttachedFile_ItemSource.OrderByDescending(x => x.FileName)); ;
-                this.ViewModel.AttachedFile_ItemSource = orderedList.ToReactiveCollection();
-
+                
+                foreach(var item in orderedList)
+                {
+                    this.ViewModel.AttachedFile_ItemSource.Add(item);
+                }
+                
                 // 追加ボタン
                 this.ViewModel.Add_IsEnabled.Value = false;
             }
@@ -449,56 +459,6 @@ namespace SalaryManager.WPF.Models
         #endregion
 
         /// <summary>
-        /// 再描画
-        /// </summary>
-        public void Refresh()
-        {
-            // ListView
-            this.Reflesh_ListView();
-            // 入力用フォーム
-            this.Reflesh_InputForm();
-        }
-
-        /// <summary>
-        /// 再描画 - ListView
-        /// </summary>
-        /// <remarks>
-        /// リストのデータを更新する。
-        /// </remarks>
-        private void Reflesh_ListView()
-        {
-            if (this.Entities.Any())
-            {
-                // 既存の添付画像あり
-                this.ViewModel.AttachedFile_ItemSource.Clear();
-
-                foreach (var entity in this.Entities)
-                {
-                    this.ViewModel.AttachedFile_ItemSource.Add(entity);
-                }
-            }
-            else
-            {
-                // 既存の添付画像なし
-                this.ViewModel.AttachedFile_ItemSource.Clear();
-                this.Clear_InputForm();
-                return;
-            }
-        }
-
-        /// <summary>
-        /// 再描画 - 入力用フォーム
-        /// </summary>
-        private void Reflesh_InputForm()
-        {
-            // ListView
-            this.Reflesh_ListView();
-
-            // 更新、削除ボタン
-            this.EnableControlButton();
-        }
-
-        /// <summary>
         /// リロード
         /// </summary>
         public void Reload()
@@ -507,10 +467,54 @@ namespace SalaryManager.WPF.Models
             {
                 FileStorages.Create(new FileStorageSQLite());
 
-                this.Entities = FileStorages.FetchByDescending();
+                // ListView
+                this.Reload_ListView();
 
-                this.Refresh();
+                // 入力用フォーム
+                this.Reload_InputForm();
             }
+        }
+
+        /// <summary>
+        /// 再描画 - ListView
+        /// </summary>
+        /// <remarks>
+        /// リストのデータを更新する。
+        /// </remarks>
+        private void Reload_ListView()
+        {
+            using (var cursor = new CursorWaiting())
+            {
+                this.ViewModel.AttachedFile_ItemSource.Clear();
+
+                var entities = FileStorages.FetchByDescending();
+
+                if (entities.IsEmpty())
+                {
+                    // 既存の添付画像なし
+                    this.Clear_InputForm();
+
+                    return;
+                }
+
+                foreach (var entity in entities)
+                {
+                    this.ViewModel.AttachedFile_ItemSource.Add(entity);
+                }
+
+                this.ListView_SelectionChanged();
+            }
+        }
+
+        /// <summary>
+        /// 再描画 - 入力用フォーム
+        /// </summary>
+        private void Reload_InputForm()
+        {
+            this.Clear_InputForm();
+
+            // 更新、削除ボタン
+            this.EnableControlButton();
         }
 
         /// <summary>
@@ -551,7 +555,7 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 更新
         /// </summary>
-        internal void Update()
+        public void Update()
         {
             if (!Message.ShowConfirmingMessage("画像情報を更新しますか？", this.ViewModel.Window_Title.Value))
             {
@@ -588,7 +592,7 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 削除
         /// </summary>
-        internal void Delete()
+        public void Delete()
         {
             if (!Message.ShowConfirmingMessage("画像情報を削除しますか？", this.ViewModel.Window_Title.Value))
             {

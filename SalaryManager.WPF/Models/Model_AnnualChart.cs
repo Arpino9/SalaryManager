@@ -3,7 +3,7 @@
 /// <summary>
 /// Model - 月収一覧
 /// </summary>
-public class Model_AnnualChart : ModelBase<ViewModel_AnnualChart>
+public class Model_AnnualChart : ModelBase<ViewModel_AnnualChart>, IViewable
 {
     #region Get Instance
 
@@ -38,7 +38,7 @@ public class Model_AnnualChart : ModelBase<ViewModel_AnnualChart>
     /// <remarks>
     /// 画面起動時に、項目を初期化する。
     /// </remarks>
-    internal void Initialize()
+    public void Initialize()
     {
         this.Window_Activated();
 
@@ -58,97 +58,7 @@ public class Model_AnnualChart : ModelBase<ViewModel_AnnualChart>
 
         this.Clear();
 
-        AnnualCharts.Create(new AnnualChartSQLite());
-
-        foreach (AnnualChartEntity annualChart in AnnualCharts.Fetch(this.Header.Year_Text.Value))
-        {
-            switch (annualChart.YearMonth.Month)
-            {
-                // 1月
-                case 1:
-                    this.ViewModel.January_TotalSalary_Text.Value         = annualChart.TotalSalary;
-                    this.ViewModel.January_TotalDeductedSalary_Text.Value = annualChart.TotalDeducetedSalary;
-                    this.ViewModel.January_TotalSideBusiness_Text.Value   = annualChart.TotalSideBusiness;
-                    break;
-
-                // 2月
-                case 2:
-                    this.ViewModel.Feburary_TotalSalary_Text.Value         = annualChart.TotalSalary;
-                    this.ViewModel.Feburary_TotalDeductedSalary_Text.Value = annualChart.TotalDeducetedSalary;
-                    this.ViewModel.Feburary_TotalSideBusiness_Text.Value   = annualChart.TotalSideBusiness;
-                    break;
-
-                // 3月
-                case 3:
-                    this.ViewModel.March_TotalSalary_Text.Value         = annualChart.TotalSalary;
-                    this.ViewModel.March_TotalDeductedSalary_Text.Value = annualChart.TotalDeducetedSalary;
-                    this.ViewModel.March_TotalSideBusiness_Text.Value   = annualChart.TotalSideBusiness;
-                    break;
-
-                // 4月
-                case 4:
-                    this.ViewModel.April_TotalSalary_Text.Value         = annualChart.TotalSalary;
-                    this.ViewModel.April_TotalDeductedSalary_Text.Value = annualChart.TotalDeducetedSalary;
-                    this.ViewModel.April_TotalSideBusiness_Text.Value   = annualChart.TotalSideBusiness;
-                    break;
-
-                // 5月
-                case 5:
-                    this.ViewModel.May_TotalSalary_Text.Value         = annualChart.TotalSalary;
-                    this.ViewModel.May_TotalDeductedSalary_Text.Value = annualChart.TotalDeducetedSalary;
-                    this.ViewModel.May_TotalSideBusiness_Text.Value   = annualChart.TotalSideBusiness;
-                    break;
-
-                // 6月
-                case 6:
-                    this.ViewModel.June_TotalSalary_Text.Value         = annualChart.TotalSalary;
-                    this.ViewModel.June_TotalDeductedSalary_Text.Value = annualChart.TotalDeducetedSalary;
-                    this.ViewModel.June_TotalSideBusiness_Text.Value   = annualChart.TotalSideBusiness;
-                    break;
-
-                // 7月
-                case 7:
-                    this.ViewModel.July_TotalSalary_Text.Value         = annualChart.TotalSalary;
-                    this.ViewModel.July_TotalDeductedSalary_Text.Value = annualChart.TotalDeducetedSalary;
-                    this.ViewModel.July_TotalSideBusiness_Text.Value   = annualChart.TotalSideBusiness;
-                    break;
-
-                // 8月
-                case 8:
-                    this.ViewModel.August_TotalSalary_Text.Value         = annualChart.TotalSalary;
-                    this.ViewModel.August_TotalDeductedSalary_Text.Value = annualChart.TotalDeducetedSalary;
-                    this.ViewModel.August_TotalSideBusiness_Text.Value   = annualChart.TotalSideBusiness;
-                    break;
-
-                // 9月
-                case 9:
-                    this.ViewModel.September_TotalSalary_Text.Value         = annualChart.TotalSalary;
-                    this.ViewModel.September_TotalDeductedSalary_Text.Value = annualChart.TotalDeducetedSalary;
-                    this.ViewModel.September_TotalSideBusiness_Text.Value   = annualChart.TotalSideBusiness;
-                    break;
-
-                // 10月
-                case 10:
-                    this.ViewModel.October_TotalSalary_Text.Value         = annualChart.TotalSalary;
-                    this.ViewModel.October_TotalDeductedSalary_Text.Value = annualChart.TotalDeducetedSalary;
-                    this.ViewModel.October_TotalSideBusiness_Text.Value   = annualChart.TotalSideBusiness;
-                    break;
-
-                // 11月
-                case 11:
-                    this.ViewModel.November_TotalSalary_Text.Value         = annualChart.TotalSalary;
-                    this.ViewModel.November_TotalDeductedSalary_Text.Value = annualChart.TotalDeducetedSalary;
-                    this.ViewModel.November_TotalSideBusiness_Text.Value   = annualChart.TotalSideBusiness;
-                    break;
-
-                // 12月
-                case 12:
-                    this.ViewModel.December_TotalSalary_Text.Value         = annualChart.TotalSalary;
-                    this.ViewModel.December_TotalDeductedSalary_Text.Value = annualChart.TotalDeducetedSalary;
-                    this.ViewModel.December_TotalSideBusiness_Text.Value   = annualChart.TotalSideBusiness;
-                    break;
-            }
-        }
+        this.Reload();
 
         this.Recalculate();
     }
@@ -156,11 +66,111 @@ public class Model_AnnualChart : ModelBase<ViewModel_AnnualChart>
     /// <summary>
     /// 画面起動時の処理
     /// </summary>
-    internal void Window_Activated()
+    public void Window_Activated()
     {
         if (this.ViewModel is null) return;
 
         this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
+    }
+
+    /// <summary>
+    /// リロード
+    /// </summary>
+    public void Reload()
+    {
+        AnnualCharts.Create(new AnnualChartSQLite());
+
+        var entities = AnnualCharts.Fetch(this.Header.Year_Text.Value);
+
+        foreach (var entity in entities)
+        {
+            switch (entity.YearMonth.Month)
+            {
+                // 1月
+                case 1:
+                    this.ViewModel.January_TotalSalary_Text.Value         = entity.TotalSalary;
+                    this.ViewModel.January_TotalDeductedSalary_Text.Value = entity.TotalDeducetedSalary;
+                    this.ViewModel.January_TotalSideBusiness_Text.Value   = entity.TotalSideBusiness;
+                    break;
+
+                // 2月
+                case 2:
+                    this.ViewModel.Feburary_TotalSalary_Text.Value         = entity.TotalSalary;
+                    this.ViewModel.Feburary_TotalDeductedSalary_Text.Value = entity.TotalDeducetedSalary;
+                    this.ViewModel.Feburary_TotalSideBusiness_Text.Value   = entity.TotalSideBusiness;
+                    break;
+
+                // 3月
+                case 3:
+                    this.ViewModel.March_TotalSalary_Text.Value         = entity.TotalSalary;
+                    this.ViewModel.March_TotalDeductedSalary_Text.Value = entity.TotalDeducetedSalary;
+                    this.ViewModel.March_TotalSideBusiness_Text.Value   = entity.TotalSideBusiness;
+                    break;
+
+                // 4月
+                case 4:
+                    this.ViewModel.April_TotalSalary_Text.Value         = entity.TotalSalary;
+                    this.ViewModel.April_TotalDeductedSalary_Text.Value = entity.TotalDeducetedSalary;
+                    this.ViewModel.April_TotalSideBusiness_Text.Value   = entity.TotalSideBusiness;
+                    break;
+
+                // 5月
+                case 5:
+                    this.ViewModel.May_TotalSalary_Text.Value         = entity.TotalSalary;
+                    this.ViewModel.May_TotalDeductedSalary_Text.Value = entity.TotalDeducetedSalary;
+                    this.ViewModel.May_TotalSideBusiness_Text.Value   = entity.TotalSideBusiness;
+                    break;
+
+                // 6月
+                case 6:
+                    this.ViewModel.June_TotalSalary_Text.Value         = entity.TotalSalary;
+                    this.ViewModel.June_TotalDeductedSalary_Text.Value = entity.TotalDeducetedSalary;
+                    this.ViewModel.June_TotalSideBusiness_Text.Value   = entity.TotalSideBusiness;
+                    break;
+
+                // 7月
+                case 7:
+                    this.ViewModel.July_TotalSalary_Text.Value         = entity.TotalSalary;
+                    this.ViewModel.July_TotalDeductedSalary_Text.Value = entity.TotalDeducetedSalary;
+                    this.ViewModel.July_TotalSideBusiness_Text.Value   = entity.TotalSideBusiness;
+                    break;
+
+                // 8月
+                case 8:
+                    this.ViewModel.August_TotalSalary_Text.Value         = entity.TotalSalary;
+                    this.ViewModel.August_TotalDeductedSalary_Text.Value = entity.TotalDeducetedSalary;
+                    this.ViewModel.August_TotalSideBusiness_Text.Value   = entity.TotalSideBusiness;
+                    break;
+
+                // 9月
+                case 9:
+                    this.ViewModel.September_TotalSalary_Text.Value         = entity.TotalSalary;
+                    this.ViewModel.September_TotalDeductedSalary_Text.Value = entity.TotalDeducetedSalary;
+                    this.ViewModel.September_TotalSideBusiness_Text.Value   = entity.TotalSideBusiness;
+                    break;
+
+                // 10月
+                case 10:
+                    this.ViewModel.October_TotalSalary_Text.Value         = entity.TotalSalary;
+                    this.ViewModel.October_TotalDeductedSalary_Text.Value = entity.TotalDeducetedSalary;
+                    this.ViewModel.October_TotalSideBusiness_Text.Value   = entity.TotalSideBusiness;
+                    break;
+
+                // 11月
+                case 11:
+                    this.ViewModel.November_TotalSalary_Text.Value         = entity.TotalSalary;
+                    this.ViewModel.November_TotalDeductedSalary_Text.Value = entity.TotalDeducetedSalary;
+                    this.ViewModel.November_TotalSideBusiness_Text.Value   = entity.TotalSideBusiness;
+                    break;
+
+                // 12月
+                case 12:
+                    this.ViewModel.December_TotalSalary_Text.Value         = entity.TotalSalary;
+                    this.ViewModel.December_TotalDeductedSalary_Text.Value = entity.TotalDeducetedSalary;
+                    this.ViewModel.December_TotalSideBusiness_Text.Value   = entity.TotalSideBusiness;
+                    break;
+            }
+        }
     }
 
     /// <summary>
@@ -220,7 +230,7 @@ public class Model_AnnualChart : ModelBase<ViewModel_AnnualChart>
     /// <remarks>
     /// 各項目を初期化する。
     /// </remarks>
-    private void Clear()
+    public void Clear()
     {
         // 支給額計
         this.ViewModel.January_TotalSalary_Text.Value   = default(int);

@@ -10,7 +10,9 @@
         xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
         WindowStartupLocation="CenterScreen"
         Title="{Binding Window_Title.Value, Mode=OneWay}" Height="450" Width="800"
-        Background="AliceBlue">
+        Background="{Binding Window_Background.Value}"
+        FontFamily="{Binding Window_FontFamily.Value}" 
+        FontSize="{Binding Window_FontSize.Value}">
     <Window.DataContext>
         <ViewModels:ViewModel_FileStorage/>
     </Window.DataContext>
