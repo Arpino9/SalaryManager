@@ -56,17 +56,16 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 初期化
         /// </summary>
-        /// <param name="entityDate">取得する日付</param>
         /// <remarks>
         /// 画面起動時に、項目を初期化する。
         /// </remarks>
-        public void Initialize(DateTime entityDate)
+        public void Initialize()
         {
             WorkingReferences.Create(_repository);
             Careers.Create(new CareerSQLite());
 
-            this.Entity          = WorkingReferences.Fetch(entityDate.Year, entityDate.Month);
-            this.Entity_LastYear = WorkingReferences.Fetch(entityDate.Year, entityDate.Month - 1);
+            this.Entity          = WorkingReferences.Fetch(DateTime.Today.Year, DateTime.Today.Month);
+            this.Entity_LastYear = WorkingReferences.Fetch(DateTime.Today.Year, DateTime.Today.Month - 1);
 
             var showDefaultPayslip = XMLLoader.FetchShowDefaultPayslip();
 

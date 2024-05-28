@@ -12,7 +12,7 @@ public class ViewModel_WorkingReference : ViewModelBase<Model_WorkingReference>
         this.MainWindow.WorkingReference = this.Model;
         this.Model.ViewModel = this;
 
-        this.Model.Initialize(DateTime.Today);
+        this.Model.Initialize();
 
         this.BindEvents();
     }

@@ -291,7 +291,7 @@ public class Model_MainWindow : ModelBase<ViewModel_MainWindow>
         // 控除額
         this.Deduction.Initialize(DateTime.Today);
         // 勤務備考
-        this.WorkingReference.Initialize(DateTime.Today);
+        this.WorkingReference.Initialize();
         // 副業
         this.SideBusiness.Initialize(DateTime.Today);
     }

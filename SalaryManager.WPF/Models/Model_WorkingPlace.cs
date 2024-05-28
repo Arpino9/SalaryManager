@@ -6,7 +6,7 @@ namespace SalaryManager.WPF.Models;
 /// <summary>
 /// Model - 職歴
 /// </summary>
-public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>
+public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>, IEditableMaster
 {
     #region Get Instance
 
@@ -35,9 +35,6 @@ public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>
     /// <summary> ViewModel - 職歴 </summary>
     internal override ViewModel_WorkingPlace ViewModel { get; set; }
 
-    /// <summary> エンティティ </summary>
-    public IReadOnlyList<WorkingPlaceEntity> Entities { get; internal set; }
-
     /// <summary>
     /// 初期化
     /// </summary>
@@ -46,7 +43,10 @@ public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>
     /// </remarks>
     public void Initialize()
     {
-        WorkingPlace.Create(_repository);
+        this.Window_Activated();
+
+        this.Reload();
+
         Companies.Create(new CompanySQLite());
         Homes.Create(new HomeSQLite());
 
@@ -61,48 +61,16 @@ public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>
             this.ViewModel.WorkingPlace_ItemSource = workingPlace.ToReactiveCollection();
         }
 
+        this.ViewModel.WorkingPlaces_SelectedIndex.Value = 0;
+
+        this.ListView_SelectionChanged();
+    }
+
+    public void Window_Activated()
+    {
         this.ViewModel.Window_FontFamily.Value = XMLLoader.FetchFontFamily();
         this.ViewModel.Window_FontSize.Value   = XMLLoader.FetchFontSize();
-
         this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
-
-        this.Entities = WorkingPlace.FetchByDescending();
-
-        this.Reflesh_ListView();
-
-        this.ViewModel.WorkingPlaces_SelectedIndex.Value = -1;
-        this.Clear_InputForm();
-
-        this.EnableWaitingButton();
-        this.IsWorking_Checked();
-    }
-
-    /// <summary>
-    /// 再描画
-    /// </summary>
-    /// <remarks>
-    /// 該当月に経歴情報が存在すれば、各項目を再描画する。
-    /// </remarks>
-    public void Refresh()
-    {
-        // ListView
-        this.Reflesh_ListView();
-        // 入力用フォーム
-        this.Reflesh_InputForm();
-    }
-
-    /// <summary>
-    /// 再描画 - ListView
-    /// </summary>
-    private void Reflesh_ListView()
-    {
-        if (this.Entities.IsEmpty())
-        {
-            this.Clear_InputForm();
-            return;
-        }
-
-        this.Entities.ToReactiveCollection(this.ViewModel.WorkingPlaces_ItemSource);
     }
 
     /// <summary>
@@ -136,7 +104,7 @@ public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>
     /// <summary>
     /// 経歴 - SelectionChanged
     /// </summary>
-    public void Careers_SelectionChanged()
+    public void ListView_SelectionChanged()
     {
         if (this.ViewModel.WorkingPlaces_SelectedIndex.Value.IsUnSelected())
         {
@@ -166,8 +134,10 @@ public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>
 
         // 待機中
         this.ViewModel.IsWaiting_IsChacked.Value = entity.IsWaiting;
+        this.EnableWaitingButton();
         // 就業中
         this.ViewModel.IsWorking_IsChacked.Value = entity.IsWorking;
+        this.IsWorking_Checked();
 
         // 勤務開始時間(時)
         this.ViewModel.WorkingTime_Start_Hour_Text.Value   = entity.WorkingTime.Start.Hours;
@@ -246,20 +216,7 @@ public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>
     }
 
     /// <summary>
-    /// 再描画 - 入力用フォーム
-    /// </summary>
-    private void Reflesh_InputForm()
-    {
-        this.Careers_SelectionChanged();
-
-        // 追加ボタン
-        this.EnableAddButton();
-        // 更新、削除ボタン
-        this.EnableControlButton();
-    }
-
-    /// <summary>
-    /// リロード
+    /// 再描画
     /// </summary>
     /// <remarks>
     /// 年月の変更時などに、該当月の項目を取得する。
@@ -270,10 +227,45 @@ public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>
         {
             WorkingPlace.Create(_repository);
 
-            this.Entities = WorkingPlace.FetchByDescending();
+            // ListView
+            this.Reload_ListView();
 
-            this.Refresh();
+            // 入力用フォーム
+            this.Reload_InputForm();
         }
+    }
+
+    /// <summary>
+    /// 再描画 - ListView
+    /// </summary>
+    private void Reload_ListView()
+    {
+        var entities = WorkingPlace.FetchByDescending();
+
+        if (entities.IsEmpty())
+        {
+            return;
+        }
+
+        this.ViewModel.WorkingPlaces_ItemSource.Clear();
+
+        foreach (var entity in entities)
+        {
+            this.ViewModel.WorkingPlaces_ItemSource.Add(entity);
+        }
+    }
+
+    /// <summary>
+    /// 再描画 - 入力用フォーム
+    /// </summary>
+    private void Reload_InputForm()
+    {
+        this.Clear_InputForm();
+
+        // 追加ボタン
+        this.EnableAddButton();
+        // 更新、削除ボタン
+        this.EnableControlButton();
     }
 
     /// <summary>
@@ -353,11 +345,10 @@ public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>
         {
             this.ViewModel.Delete_IsEnabled.Value = true;
 
-            var entity = this.CreateEntity(this.Entities.Count + 1);
+            var entity = this.CreateEntity(this.ViewModel.WorkingPlaces_ItemSource.Count + 1);
             this.ViewModel.WorkingPlaces_ItemSource.Add(entity);
-            this.Save();
 
-            this.Reload();
+            this.Save();
         }
     }
 
@@ -437,9 +428,6 @@ public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>
             _repository.Delete(this.ViewModel.WorkingPlaces_SelectedIndex.Value + 1);
 
             this.ViewModel.WorkingPlaces_ItemSource.RemoveAt(this.ViewModel.WorkingPlaces_SelectedIndex.Value);
-
-            this.Reload();
-            this.EnableControlButton();
         }
     }
 
@@ -452,8 +440,6 @@ public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>
         {
             _repository.Save(entity);
         }
-
-        this.Reload();
     }
 
     public void UpdateCompanyName(string oldName, string newName)
@@ -464,10 +450,5 @@ public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>
 
             transaction.Commit();
         }
-    }
-
-    public void UpdateCompanyAddress(string oldAddress, string newAddress)
-    {
-        _repository.UpdateCompanyAddress(oldAddress, newAddress);
     }
 }

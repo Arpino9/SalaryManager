@@ -29,11 +29,19 @@ public class ViewModel_WorkingPlace : ViewModelBase<Model_WorkingPlace>
         // 就業場所の住所
         this.Address_TextChanged.Subscribe(_ => this.Model.EnableAddButton());
         // 経歴一覧
-        this.WorkingPlaces_SelectionChanged.Subscribe(_ => this.Model.Careers_SelectionChanged());
+        this.WorkingPlaces_SelectionChanged.Subscribe(_ => this.Model.ListView_SelectionChanged());
 
+        // 追加
         this.Add_Command.Subscribe(_ => this.Model.Add());
+        this.Add_Command.Subscribe(_ => this.Model.Reload());
+
+        // 更新
         this.Update_Command.Subscribe(_ => this.Model.Update());
+        this.Update_Command.Subscribe(_ => this.Model.Reload());
+
+        // 削除
         this.Delete_Command.Subscribe(_ => this.Model.Delete());
+        this.Delete_Command.Subscribe(_ => this.Model.Reload());
     }
 
     /// <summary> Model </summary>
