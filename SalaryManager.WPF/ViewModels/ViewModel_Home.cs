@@ -19,7 +19,7 @@ public class ViewModel_Home : ViewModelBase<Model_Home>
     protected override void BindEvents()
     {
         // 自宅一覧
-        this.Homes_SelectionChanged.Subscribe(_ => this.Model.Homes_SelectionChanged());
+        this.Homes_SelectionChanged.Subscribe(_ => this.Model.ListView_SelectionChanged());
 
         // 在住中
         this.IsLiving_Checked.Subscribe(_ => this.Model.IsLiving_Checked());
@@ -28,14 +28,29 @@ public class ViewModel_Home : ViewModelBase<Model_Home>
         this.Address_Google_TextChanged.Subscribe(_ => this.Model.EnableAddButton());
 
         this.Add_Command.Subscribe(_ => this.Model.Add());
+        this.Add_Command.Subscribe(_ => this.Model.Reload());
         this.Update_Command.Subscribe(_ => this.Model.Update());
+        this.Update_Command.Subscribe(_ => this.Model.Reload());
         this.Delete_Command.Subscribe(_ => this.Model.Delete());
+        this.Delete_Command.Subscribe(_ => this.Model.Reload());
     }
 
     /// <summary> Model - 自宅 </summary>
     protected override Model_Home Model { get; } = Model_Home.GetInstance(new HomeSQLite());
 
     #region Window
+
+    /// <summary> Window - FontFamily </summary>
+    public ReactiveProperty<FontFamily> Window_FontFamily { get; set; }
+        = new ReactiveProperty<FontFamily>();
+
+    /// <summary> Window - FontSize </summary>
+    public ReactiveProperty<decimal> Window_FontSize { get; set; }
+        = new ReactiveProperty<decimal>();
+
+    /// <summary> Window - Background </summary>
+    public ReactiveProperty<Brush> Window_Background { get; set; }
+        = new ReactiveProperty<Brush>();
 
     /// <summary> Window - Title </summary>
     public ReactiveProperty<string> Window_Title { get; }

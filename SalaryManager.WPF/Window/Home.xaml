@@ -7,7 +7,10 @@
         xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" x:Class="SalaryManager.WPF.Window.Home"
         xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"    
         mc:Ignorable="d"
-        Title="{Binding Window_Title.Value}" Height="450" Width="800">
+        Title="{Binding Window_Title.Value}" Height="450" Width="800"
+        Background="{Binding Window_Background.Value}"
+        FontFamily="{Binding Window_FontFamily.Value}" 
+        FontSize="{Binding Window_FontSize.Value}">
     <Window.DataContext>
         <ViewModels:ViewModel_Home/>
     </Window.DataContext>

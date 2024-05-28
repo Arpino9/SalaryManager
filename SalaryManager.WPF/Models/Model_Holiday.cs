@@ -46,6 +46,9 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
         this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
     }
 
+    /// <summary>
+    /// Enable - 操作ボタン
+    /// </summary>
     public void EnableControlButton()
     {
         var date = this.ViewModel.Date_SelectedDate.Value;
@@ -71,11 +74,13 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
     {
         if (this.ViewModel.Holidays_SelectedIndex.Value.IsUnSelected())
         {
+            // 未選択
             return;
         }
 
         if (this.ViewModel.Holidays_ItemSource.IsEmpty())
         {
+            // リストが空
             return;
         }
 
@@ -92,12 +97,6 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
         this.ViewModel.Name_IsEnabled.Value    = (this.ViewModel.CompanyHoliday_IsChecked.Value == false);
         // 備考
         this.ViewModel.Remarks_Text.Value      = entity.Remarks;
-
-        if (this.ViewModel.CompanyName_ItemSource.IsEmpty())
-        {
-            this.ViewModel.CompanyName_Text.Value = string.Empty;
-            return;
-        }
 
         if (this.ViewModel.CompanyHoliday_IsChecked.Value is false)
         {
@@ -137,21 +136,18 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
     /// </summary>
     private void Reload_ListView()
     {
-        using (var cursor = new CursorWaiting())
+        var holidays = JSONExtension.DeserializeSettings<IReadOnlyList<JSONProperty_Holiday>>(FilePath.GetJSONHolidayDefaultPath());
+
+        if (holidays.IsEmpty())
         {
-            var holidays = JSONExtension.DeserializeSettings<IReadOnlyList<JSONProperty_Holiday>>(FilePath.GetJSONHolidayDefaultPath());
+            return;
+        }
 
-            if (holidays.IsEmpty())
-            {
-                return;
-            }
+        var list = new List<HolidayEntity>();
 
-            var list = new List<HolidayEntity>();
-
-            foreach (var holiday in holidays.OrderByDescending(x => x.Date))
-            {
-                this.ViewModel.Holidays_ItemSource.Add(new HolidayEntity(holiday.Date, holiday.Name, holiday.CompanyName, holiday.Remarks));
-            }
+        foreach (var holiday in holidays.OrderByDescending(x => x.Date))
+        {
+            this.ViewModel.Holidays_ItemSource.Add(new HolidayEntity(holiday.Date, holiday.Name, holiday.CompanyName, holiday.Remarks));
         }
 
         this.ListView_SelectionChanged();

@@ -5,7 +5,7 @@ namespace SalaryManager.WPF.Models;
 /// <summary>
 /// Model - 自宅
 /// </summary>
-public class Model_Home : ModelBase<ViewModel_Home>
+public class Model_Home : ModelBase<ViewModel_Home>, IEditableMaster
 {
     #region Get Instance
 
@@ -33,34 +33,23 @@ public class Model_Home : ModelBase<ViewModel_Home>
     /// <summary> ViewModel - 職歴 </summary>
     internal override ViewModel_Home ViewModel { get; set; }
 
-    public void Clear_InputForm()
-    {
-        this.ViewModel.DisplayName_Text.Value         = string.Empty;
-        this.ViewModel.Address_Text.Value             = string.Empty;
-        this.ViewModel.LivingStart_SelectedDate.Value = DateTime.Now;
-        this.ViewModel.LivingEnd_SelectedDate.Value   = DateTime.Now;
-        this.ViewModel.IsLiving_IsChecked.Value       = false;
-        this.ViewModel.Remarks_Text.Value             = string.Empty;
-    }
-
     /// <summary>
     /// 初期化
     /// </summary>
     public void Initialize()
     {
-        Homes.Create(_repository);
+        this.Window_Activated();
 
-        this.ViewModel.Homes_ItemSource = Homes.FetchByAscending().ToReactiveCollection();
+        this.Reload();
 
-        this.Homes_SelectionChanged();
+        this.ListView_SelectionChanged();
     }
 
-    /// <summary>
-    /// 再描画
-    /// </summary>
-    public void Refresh()
+    public void Window_Activated()
     {
-        Reflesh_InputForm();
+        this.ViewModel.Window_FontFamily.Value = XMLLoader.FetchFontFamily();
+        this.ViewModel.Window_FontSize.Value   = XMLLoader.FetchFontSize();
+        this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
     }
 
     /// <summary>
@@ -74,21 +63,27 @@ public class Model_Home : ModelBase<ViewModel_Home>
         }
     }
 
-    /// <summary>
-    /// 再描画 - 入力用フォーム
-    /// </summary>
-    private void Reflesh_InputForm()
+    public void Clear_InputForm()
     {
-        // 追加ボタン
-        this.EnableAddButton();
-        // 更新、削除ボタン
-        this.EnableControlButton();
+        // 名称
+        this.ViewModel.DisplayName_Text.Value         = string.Empty;
+
+        // 住所
+        this.ViewModel.Address_Text.Value             = string.Empty;
+
+        // 在住期間
+        this.ViewModel.LivingStart_SelectedDate.Value = DateTime.Now;
+        this.ViewModel.LivingEnd_SelectedDate.Value   = DateTime.Now;
+        this.ViewModel.IsLiving_IsChecked.Value       = false;
+
+        // 備考
+        this.ViewModel.Remarks_Text.Value             = string.Empty;
     }
 
     /// <summary>
-    /// 経歴 - SelectionChanged
+    /// ListView - SelectionChanged
     /// </summary>
-    public void Homes_SelectionChanged()
+    public void ListView_SelectionChanged()
     {
         if (this.ViewModel.Homes_SelectedIndex.Value.IsUnSelected())
         {
@@ -132,31 +127,51 @@ public class Model_Home : ModelBase<ViewModel_Home>
     }
 
     /// <summary>
-    /// リロード
+    /// 再描画
     /// </summary>
     public void Reload()
     {
         using (var cursor = new CursorWaiting())
         {
-            Homes.Create(_repository);
+            // ListView
+            this.Reload_ListView();
 
-            this.ViewModel.Homes_ItemSource = Homes.FetchByDescending().ToReactiveCollection(this.ViewModel.Homes_ItemSource);
-
-            this.Refresh();
+            // 入力用フォーム
+            this.Reload_InputForm();
         }
     }
 
     /// <summary>
-    /// 保存
+    /// 再描画 - ListView
     /// </summary>
-    public void Save()
+    private void Reload_ListView()
     {
-        foreach (var entity in this.ViewModel.Homes_ItemSource)
+        Homes.Create(_repository);
+
+        var entities = Homes.FetchByDescending();
+
+        if (entities.IsEmpty())
         {
-            _repository.Save(entity);
+            return;
         }
 
-        this.Reload();
+        this.ViewModel.Homes_ItemSource.Clear();
+
+        foreach (var entity in entities) 
+        {
+            this.ViewModel.Homes_ItemSource.Add(entity);
+        }
+    }
+
+    /// <summary>
+    /// 再描画 - 入力用フォーム
+    /// </summary>
+    private void Reload_InputForm()
+    {
+        // 追加ボタン
+        this.EnableAddButton();
+        // 更新、削除ボタン
+        this.EnableControlButton();
     }
 
     /// <summary>
@@ -245,6 +260,17 @@ public class Model_Home : ModelBase<ViewModel_Home>
     }
 
     /// <summary>
+    /// 保存
+    /// </summary>
+    public void Save()
+    {
+        foreach (var entity in this.ViewModel.Homes_ItemSource)
+        {
+            _repository.Save(entity);
+        }
+    }
+
+    /// <summary>
     /// 削除
     /// </summary>
     public void Delete()
@@ -266,11 +292,6 @@ public class Model_Home : ModelBase<ViewModel_Home>
             _repository.Delete(this.ViewModel.Homes_SelectedIndex.Value + 1);
 
             this.ViewModel.Homes_ItemSource.RemoveAt(this.ViewModel.Homes_SelectedIndex.Value);
-
-            this.Reload();
-            this.EnableControlButton();
         }
-
-        this.Clear_InputForm();
     }
 }
