@@ -10,9 +10,9 @@
         x:Class="SalaryManager.WPF.MainWindow"
         mc:Ignorable="d"
         Title="{Binding Window_Title.Value, Mode=OneWay}" Height="550" Width="700"
-        Background="{Binding Window_Background.Value}"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize" 
+        Background="{Binding Window_Background.Value}"
         FontFamily="{Binding Window_FontFamily.Value}" 
         FontSize="{Binding Window_FontSize.Value}">
     <behaviors:Interaction.Triggers>

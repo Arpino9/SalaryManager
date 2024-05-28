@@ -165,7 +165,6 @@
     <Compile Include="StaticValues\Allowances.cs" />
     <Compile Include="StaticValues\AnnualCharts.cs" />
     <Compile Include="StaticValues\Companies.cs" />
-    <Compile Include="StaticValues\Holidays.cs" />
     <Compile Include="StaticValues\Homes.cs" />
     <Compile Include="StaticValues\WorkingPlace.cs" />
     <Compile Include="StaticValues\Careers.cs" />

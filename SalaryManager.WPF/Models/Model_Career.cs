@@ -5,7 +5,7 @@ namespace SalaryManager.WPF.Models;
 /// <summary>
 /// Model - 職歴
 /// </summary>
-public class Model_Career : ModelBase<ViewModel_Career>
+public class Model_Career : ModelBase<ViewModel_Career>, IEditableMaster
 {
     #region Get Instance
 
@@ -52,26 +52,18 @@ public class Model_Career : ModelBase<ViewModel_Career>
 
         this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
 
-        this.Entities = Careers.FetchByDescending();
-
         this.Refresh_ListView();
 
-        this.ViewModel.Careers_SelectedIndex.Value = -1;
+        this.ViewModel.Careers_SelectedIndex.Value = 0;
+
         this.Clear_InputForm();
     }
 
-    /// <summary>
-    /// 再描画
-    /// </summary>
-    /// <remarks>
-    /// 該当月に経歴情報が存在すれば、各項目を再描画する。
-    /// </remarks>
-    public void Refresh()
+    public void Window_Activated()
     {
-        // ListView
-        this.Refresh_ListView();
-        // 入力用フォーム
-        this.Refresh_InputForm();
+        this.ViewModel.Window_FontFamily.Value = XMLLoader.FetchFontFamily();
+        this.ViewModel.Window_FontSize.Value   = XMLLoader.FetchFontSize();
+        this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
     }
 
     /// <summary>
@@ -81,12 +73,21 @@ public class Model_Career : ModelBase<ViewModel_Career>
     {
         this.Clear_InputForm();
 
-        if (this.Entities.IsEmpty())
+        var entities = Careers.FetchByDescending();
+
+        if (entities.IsEmpty())
         {
             return;
         }
 
-        this.ViewModel.Careers_ItemSource = this.Entities.ToReactiveCollection();
+        this.ViewModel.Careers_ItemSource.Clear();
+
+        foreach (var entity in entities) 
+        {
+            this.ViewModel.Careers_ItemSource.Add(entity);
+        }
+
+        this.ListView_SelectionChanged();
     }
 
     /// <summary>
@@ -109,7 +110,7 @@ public class Model_Career : ModelBase<ViewModel_Career>
     /// <summary>
     /// 経歴 - SelectionChanged
     /// </summary>
-    public void Careers_SelectionChanged()
+    public void ListView_SelectionChanged()
     {
         if (this.ViewModel.Careers_SelectedIndex.Value.IsUnSelected())
         {
@@ -200,9 +201,8 @@ public class Model_Career : ModelBase<ViewModel_Career>
     /// </summary>
     private void Refresh_InputForm()
     {
+        // 就業中フラグ
         this.IsWorking_Checked();
-
-        this.Careers_SelectionChanged();
 
         // 追加ボタン
         this.EnableAddButton();
@@ -222,9 +222,11 @@ public class Model_Career : ModelBase<ViewModel_Career>
         {
             Careers.Create(_repository);
 
-            this.Entities = Careers.FetchByDescending();
+            // ListView
+            this.Refresh_ListView();
 
-            this.Refresh();
+            // 入力用フォーム
+            this.Refresh_InputForm();
         }
     }
 
@@ -398,7 +400,6 @@ public class Model_Career : ModelBase<ViewModel_Career>
 
             this.ViewModel.Careers_ItemSource.RemoveAt(this.ViewModel.Careers_SelectedIndex.Value);
 
-            this.Reload();
             this.EnableControlButton();
         }   
     }
@@ -406,13 +407,11 @@ public class Model_Career : ModelBase<ViewModel_Career>
     /// <summary>
     /// 保存
     /// </summary>
-    public void Save()
+    private void Save()
     {
         foreach (var entity in this.ViewModel.Careers_ItemSource)
         {
             _repository.Save(entity);
         }
-
-        this.Reload();
     }
 }

@@ -33,7 +33,7 @@ public class ViewModel_Header : ViewModelBase<Model_Header>
         this.Return_Command.Subscribe(_ => this.WorkingReference.Reload());
         this.Return_Command.Subscribe(_ => this.SideBusiness.Reload());
         this.Return_Command.Subscribe(_ => this.WorkPlace.Reload());
-        this.Return_Command.Subscribe(_ => this.AnnualCharts.Reload());
+        this.Return_Command.Subscribe(_ => this.AnnualCharts.Initialize());
 
         // →(進む)
         this.Proceed_Command.Subscribe(_ => this.Model.Proceed());
@@ -42,7 +42,7 @@ public class ViewModel_Header : ViewModelBase<Model_Header>
         this.Proceed_Command.Subscribe(_ => this.WorkingReference.Reload());
         this.Proceed_Command.Subscribe(_ => this.SideBusiness.Reload());
         this.Proceed_Command.Subscribe(_ => this.WorkPlace.Reload());
-        this.Proceed_Command.Subscribe(_ => this.AnnualCharts.Reload());
+        this.Proceed_Command.Subscribe(_ => this.AnnualCharts.Initialize());
 
         // 年
         this.Year_Text.Subscribe(_ => this.Model.IsValid_Year());
@@ -52,7 +52,7 @@ public class ViewModel_Header : ViewModelBase<Model_Header>
         this.Year_TextChanged.Subscribe(_ => this.WorkingReference.Reload());
         this.Year_TextChanged.Subscribe(_ => this.SideBusiness.Reload());
         this.Year_TextChanged.Subscribe(_ => this.WorkPlace.Reload());
-        this.Year_TextChanged.Subscribe(_ => this.AnnualCharts.Reload());
+        this.Year_TextChanged.Subscribe(_ => this.AnnualCharts.Initialize());
 
         // 月
         this.Month_Text.Subscribe(_ => this.Model.IsValid_Month());
@@ -62,7 +62,7 @@ public class ViewModel_Header : ViewModelBase<Model_Header>
         this.Month_TextChanged.Subscribe(_ => this.WorkingReference.Reload());
         this.Month_TextChanged.Subscribe(_ => this.SideBusiness.Reload());
         this.Month_TextChanged.Subscribe(_ => this.WorkPlace.Reload());
-        this.Month_TextChanged.Subscribe(_ => this.AnnualCharts.Reload());
+        this.Month_TextChanged.Subscribe(_ => this.AnnualCharts.Initialize());
     }
 
     /// <summary> Model - ヘッダー </summary>

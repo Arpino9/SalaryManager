@@ -33,11 +33,6 @@ public class Model_AnnualChart : ModelBase<ViewModel_AnnualChart>
     internal override ViewModel_AnnualChart ViewModel { get; set; }
 
     /// <summary>
-    /// リロード
-    /// </summary>
-    internal void Reload() => this.Initialize();
-
-    /// <summary>
     /// Initialize
     /// </summary>
     /// <remarks>

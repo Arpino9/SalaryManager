@@ -12,7 +12,8 @@
         Height="440" Width="600" 
         FontFamily="{Binding Window_FontFamily.Value}" 
         Background="{Binding Window_Background.Value}" 
-        FontSize="{Binding Window_FontSize.Value}" Title="{Binding Window_Title.Value, Mode=OneWay}">
+        FontSize="{Binding Window_FontSize.Value}" 
+        Title="{Binding Window_Title.Value, Mode=OneWay}">
     <Window.DataContext>
         <ViewModels:ViewModel_Career/>
     </Window.DataContext>

@@ -18,16 +18,26 @@ public class ViewModel_Career : ViewModelBase<Model_Career>
 
     protected override void BindEvents()
     {
+        this.Window_Activated.Subscribe(_ => this.Model.Window_Activated());
+
         // 就業中
         this.Working_Checked.Subscribe(_ => this.Model.IsWorking_Checked());
         // 会社名
         this.CompanyName_TextChanged.Subscribe(_ => this.Model.EnableAddButton());
         // 経歴一覧
-        this.Careers_SelectionChanged.Subscribe(_ => this.Model.Careers_SelectionChanged());
+        this.Careers_SelectionChanged.Subscribe(_ => this.Model.ListView_SelectionChanged());
 
+        // 追加
         this.Add_Command.Subscribe(_ => this.Model.Add());
+        this.Add_Command.Subscribe(_ => this.Model.Reload());
+        
+        // 更新
         this.Update_Command.Subscribe(_ => this.Model.Update());
+        this.Update_Command.Subscribe(_ => this.Model.Reload());
+
+        // 削除
         this.Delete_Command.Subscribe(_ => this.Model.Delete());
+        this.Delete_Command.Subscribe(_ => this.Model.Reload());
     }
 
     /// <summary> Model - 経歴 </summary>
@@ -36,20 +46,24 @@ public class ViewModel_Career : ViewModelBase<Model_Career>
     #region Window
 
     /// <summary> Window - FontFamily </summary>
-    public ReactiveProperty<System.Windows.Media.FontFamily> Window_FontFamily { get; set; }
-        = new ReactiveProperty<System.Windows.Media.FontFamily>();
+    public ReactiveProperty<FontFamily> Window_FontFamily { get; set; }
+        = new ReactiveProperty<FontFamily>();
 
     /// <summary> Window - FontSize </summary>
     public ReactiveProperty<decimal> Window_FontSize { get; set; }
         = new ReactiveProperty<decimal>();
 
     /// <summary> Window - Background </summary>
-    public ReactiveProperty<System.Windows.Media.Brush> Window_Background { get; set; }
-        = new ReactiveProperty<System.Windows.Media.Brush>();
+    public ReactiveProperty<Brush> Window_Background { get; set; }
+        = new ReactiveProperty<Brush>();
 
     /// <summary> Window - Title </summary>
     public ReactiveProperty<string> Window_Title { get; }
         = new ReactiveProperty<string>("経歴編集");
+
+    /// <summary> Window - Activated </summary>
+    public ReactiveCommand Window_Activated { get; private set; }
+        = new ReactiveCommand();
 
     #endregion
 

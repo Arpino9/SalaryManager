@@ -49,7 +49,7 @@ public class ViewModel_MainWindow : ViewModelBase<Model_MainWindow>
 
         // 保存
         this.SavePayslip_Command.Subscribe(_ => this.Model.SavePayslip());
-        this.SavePayslip_Command.Subscribe(_ => this.AnnualChart.Reload());
+        this.SavePayslip_Command.Subscribe(_ => this.AnnualChart.Initialize());
         this.SaveDefaultPayslip_Command.Subscribe(_ => this.Header.SetDefaultPayslip());
         this.SaveDBBackup_Command.Subscribe(_ => this.Model.SaveDBBackup());
     }
