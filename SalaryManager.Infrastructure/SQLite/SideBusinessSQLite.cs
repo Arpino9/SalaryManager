@@ -121,7 +121,7 @@ where Id = @Id
             new SQLiteParameter("SideBusiness", entity.SideBusiness),
             new SQLiteParameter("Perquisite", entity.Perquisite),
             new SQLiteParameter("Others", entity.Others),
-            new SQLiteParameter("Remarks", entity.Remarks.Replace("\r\n", "\\n")),
+            new SQLiteParameter("Remarks", entity.Remarks?.Replace("\r\n", "\\n")),
         };
 
         transaction.Execute(insert, update, args.ToArray());

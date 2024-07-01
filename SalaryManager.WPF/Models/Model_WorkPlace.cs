@@ -62,17 +62,10 @@ public sealed class Model_WorkPlace : ModelBase<ViewModel_WorkPlace>, IParallell
         }
     }
 
-    void IViewable.Window_Activated()
-    {
-        this.ViewModel.Window_FontFamily.Value = XMLLoader.FetchFontFamily();
-        this.ViewModel.Window_FontSize.Value   = XMLLoader.FetchFontSize();
-        this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
-    }
-
     /// <summary>
     /// 画面起動時の処理
     /// </summary>
-    internal void Window_Activated()
+    public void Window_Activated()
     {
         this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
     }

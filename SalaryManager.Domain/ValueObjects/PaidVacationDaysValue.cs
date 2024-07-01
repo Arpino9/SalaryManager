@@ -5,12 +5,12 @@
 /// </summary>
 public sealed record class PaidVacationDaysValue
 {
-    /// <summary> 上限値 </summary>
-    public static readonly int Maximum = 40;
-
     /// <summary> 下限値 </summary>
     public static readonly int Minimum = 0;
 
+    /// <summary> 上限値 </summary>
+    public static readonly int Maximum = 40;
+    
     /// <summary>
     /// Constructor
     /// </summary>

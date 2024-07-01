@@ -98,11 +98,6 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
         // 備考
         this.ViewModel.Remarks_Text.Value      = entity.Remarks;
 
-        if (this.ViewModel.CompanyHoliday_IsChecked.Value is false)
-        {
-            this.ViewModel.CompanyName_Text.Value = this.ViewModel.CompanyName_ItemSource.First().CompanyName;
-        }
-
         this.EnableControlButton();
     }
 
