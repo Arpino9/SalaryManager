@@ -131,7 +131,7 @@ public class ViewModel_Holiday : ViewModelBase<Model_Holiday>
     /// <summary> 会社名 - Text </summary>
     public ReactiveProperty<string> CompanyName_Text { get; set; }
         = new ReactiveProperty<string>();
-
+    
     #endregion
 
     #region 備考
