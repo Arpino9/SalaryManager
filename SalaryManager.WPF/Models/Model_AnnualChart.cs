@@ -185,7 +185,7 @@ public class Model_AnnualChart : ModelBase<ViewModel_AnnualChart>, IViewable
     {
         var entity = Allowances.Fetch(this.Header.Year_Text.Value, annualChart.YearMonth.Month);
 
-        var salary = entity.TotalSalary.Value - entity.TransportationExpenses.Value;
+        var salary = annualChart.TotalSalary - entity.TransportationExpenses.Value;
 
         return (int)salary;
     }

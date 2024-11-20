@@ -227,7 +227,7 @@ public class Model_Allowance : ModelBase<ViewModel_Allowance>, IParallellyEditab
                           this.ViewModel.BasicSalary_Text.Value,
                           this.ViewModel.ExecutiveAllowance_Text.Value,
                           this.ViewModel.DependencyAllowance_Text.Value,
-                          this.ViewModel.DependencyAllowance_Text.Value,
+                          this.ViewModel.OvertimeAllowance_Text.Value,
                           this.ViewModel.DaysoffIncreased_Text.Value,
                           this.ViewModel.NightworkIncreased_Text.Value,
                           this.ViewModel.HousingAllowance_Text.Value,

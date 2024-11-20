@@ -205,8 +205,7 @@ public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>, IEditableMa
         }
 
         var companies = Companies.FetchByDescending().ToList();
-        if (companies.Any(x => this.ViewModel.WorkingPlace_Name_Text != null &&
-                               x.CompanyName.Contains(this.ViewModel.WorkingPlace_Name_Text.Value)))
+        if (companies.Any(x => x.CompanyName.Contains(this.ViewModel.WorkingPlace_Name_Text.Value)))
         {
             this.ViewModel.WorkingPlace_Address_Text.Value = companies.Where(x => x.CompanyName.Contains(this.ViewModel.WorkingPlace_Name_Text.Value))
                                                                 .Select(x => x.Address_Google).FirstOrDefault();
@@ -214,8 +213,7 @@ public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>, IEditableMa
         }
 
         var homes = Homes.FetchByDescending().ToList();
-        if (homes.Any(x => this.ViewModel.WorkingPlace_Name_Text != null && 
-                           x.DisplayName.Contains(this.ViewModel.WorkingPlace_Name_Text.Value)))
+        if (homes.Any(x => x.DisplayName.Contains(this.ViewModel.WorkingPlace_Name_Text.Value)))
         {
             this.ViewModel.WorkingPlace_Address_Text.Value = homes.Where(x => x.DisplayName.Contains(this.ViewModel.WorkingPlace_Name_Text.Value))
                                                             .Select(x => x.Address_Google).FirstOrDefault();
