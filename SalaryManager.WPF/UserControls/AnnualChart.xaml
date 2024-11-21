@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SalaryManager.WPF.UserControls"
              xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" 
+             xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
              x:Class="SalaryManager.WPF.UserControls.AnnualChart"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="300"
@@ -63,17 +64,47 @@
                  Grid.Row="2" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding January_TotalSalary_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding January_TotalSalary_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <TextBox Grid.Column="2" 
                  Grid.Row="2" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding January_TotalDeductedSalary_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding January_TotalDeductedSalary_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <TextBox Grid.Column="3" 
                  Grid.Row="2" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding January_TotalSideBusiness_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding January_TotalSideBusiness_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="2月" 
                Grid.Row="3" />
@@ -81,17 +112,47 @@
                  Grid.Row="3" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding Feburary_TotalSalary_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding Feburary_TotalSalary_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <TextBox Grid.Column="2" 
                  Grid.Row="3" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding Feburary_TotalDeductedSalary_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding Feburary_TotalDeductedSalary_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <TextBox Grid.Column="3" 
                  Grid.Row="3" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding Feburary_TotalSideBusiness_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding Feburary_TotalSideBusiness_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="3月" 
                Grid.Row="4" />
@@ -99,17 +160,47 @@
                  Grid.Row="4" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding March_TotalSalary_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding March_TotalSalary_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <TextBox Grid.Column="2" 
                  Grid.Row="4" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding March_TotalDeductedSalary_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding March_TotalDeductedSalary_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <TextBox Grid.Column="3" 
                  Grid.Row="4" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding March_TotalSideBusiness_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding March_TotalSideBusiness_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="4月" 
                Grid.Row="5" />
@@ -117,17 +208,47 @@
                  Grid.Row="5" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding April_TotalSalary_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding  April_TotalSalary_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <TextBox Grid.Column="2" 
                  Grid.Row="5" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding April_TotalDeductedSalary_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding April_TotalDeductedSalary_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <TextBox Grid.Column="3" 
                  Grid.Row="5" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding April_TotalSideBusiness_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding April_TotalSideBusiness_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="5月" 
                Grid.Row="6" />
@@ -135,17 +256,47 @@
                  Grid.Row="6" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding May_TotalSalary_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding May_TotalSalary_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <TextBox Grid.Column="2" 
                  Grid.Row="6" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding May_TotalDeductedSalary_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding May_TotalDeductedSalary_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <TextBox Grid.Column="3" 
                  Grid.Row="6" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding May_TotalSideBusiness_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding May_TotalSideBusiness_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="6月" 
                Grid.Row="7" />
@@ -153,17 +304,47 @@
                  Grid.Row="7" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding June_TotalSalary_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding June_TotalSalary_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <TextBox Grid.Column="2" 
                  Grid.Row="7" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding June_TotalDeductedSalary_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding June_TotalDeductedSalary_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <TextBox Grid.Column="3" 
                  Grid.Row="7" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding June_TotalSideBusiness_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding June_TotalSideBusiness_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="7月" 
                Grid.Row="8" />
@@ -171,17 +352,47 @@
                  Grid.Row="8" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding July_TotalSalary_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding July_TotalSalary_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <TextBox Grid.Column="2" 
                  Grid.Row="8" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}" 
                  Text="{Binding July_TotalDeductedSalary_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True" />
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding July_TotalDeductedSalary_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <TextBox Grid.Column="3" 
                  Grid.Row="8" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding July_TotalSideBusiness_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding July_TotalSideBusiness_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="8月" 
                Grid.Row="9" />
@@ -189,17 +400,47 @@
                  Grid.Row="9" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding August_TotalSalary_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding August_TotalSalary_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <TextBox Grid.Column="2" 
                  Grid.Row="9" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}" 
                  Text="{Binding August_TotalDeductedSalary_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True" />
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding August_TotalDeductedSalary_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <TextBox Grid.Column="3" 
                  Grid.Row="9" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding August_TotalSideBusiness_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding August_TotalSideBusiness_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="9月" 
                Grid.Row="10" />
@@ -207,17 +448,47 @@
                  Grid.Row="10" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding September_TotalSalary_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding September_TotalSalary_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <TextBox Grid.Column="2" 
                  Grid.Row="10" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding September_TotalDeductedSalary_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding September_TotalDeductedSalary_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <TextBox Grid.Column="3" 
                  Grid.Row="10" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding September_TotalSideBusiness_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding September_TotalSideBusiness_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="10月" 
                Grid.Row="11" />
@@ -225,17 +496,47 @@
                  Grid.Row="11" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding October_TotalSalary_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding October_TotalSalary_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <TextBox Grid.Column="2" 
                  Grid.Row="11" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding October_TotalDeductedSalary_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding October_TotalDeductedSalary_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <TextBox Grid.Column="3" 
                  Grid.Row="11" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding October_TotalSideBusiness_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding October_TotalSideBusiness_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="11月" 
                Grid.Row="12" />
@@ -243,17 +544,47 @@
                  Grid.Row="12" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding November_TotalSalary_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding November_TotalSalary_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <TextBox Grid.Column="2" 
                  Grid.Row="12" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding November_TotalDeductedSalary_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding November_TotalDeductedSalary_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <TextBox Grid.Column="3" 
                  Grid.Row="12" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding November_TotalSideBusiness_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding November_TotalSideBusiness_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="12月" 
                Grid.Row="13" />
@@ -261,17 +592,47 @@
                  Grid.Row="13" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding December_TotalSalary_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding December_TotalSalary_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <TextBox Grid.Column="2" 
                  Grid.Row="13" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding December_TotalDeductedSalary_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding December_TotalDeductedSalary_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <TextBox Grid.Column="3" 
                  Grid.Row="13" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding December_TotalSideBusiness_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding December_TotalSideBusiness_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
 
         <Label Content="合計" 
                Grid.Row="14" />
@@ -279,16 +640,46 @@
                  Grid.Row="14" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSalary_Sum_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding Sum_TotalSalary_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <TextBox Grid.Column="2" 
                  Grid.Row="14" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalDeductedSalary_Sum_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding Sum_TotalDeductedSalary_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
         <TextBox Grid.Column="3" 
                  Grid.Row="14" 
                  Style="{StaticResource AnnualChartItemNumeric_Style}"
                  Text="{Binding TotalSideBusiness_Sum_Text.Value, StringFormat={}{0:N0}}" 
-                 IsReadOnly="True"/>
+                 IsReadOnly="True">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseMove">
+                    <behaviors:InvokeCommandAction Command="{Binding Sum_TotalSideBusiness_MouseMove}" />
+                </behaviors:EventTrigger>
+
+                <behaviors:EventTrigger EventName="MouseLeave">
+                    <behaviors:InvokeCommandAction Command="{Binding Default_MouseLeave}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
     </Grid>
 </UserControl>

@@ -173,6 +173,186 @@ public class Model_AnnualChart : ModelBase<ViewModel_AnnualChart>, IViewable
         }
     }
 
+    /// <summary> 昨年度の月収 - 1月 </summary>
+    internal int PreviousTotalSalary_Jan => this.GetPreviousTotalSalary(1);
+    
+    /// <summary> 昨年度の月収 - 2月 </summary>
+    internal int PreviousTotalSalary_Feb => this.GetPreviousTotalSalary(2);
+    
+    /// <summary> 昨年度の月収 - 3月 </summary>
+    internal int PreviousTotalSalary_Mar => this.GetPreviousTotalSalary(3);
+    
+    /// <summary> 昨年度の月収 - 4月 </summary>
+    internal int PreviousTotalSalary_Apr => this.GetPreviousTotalSalary(4);
+    
+    /// <summary> 昨年度の月収 - 5月 </summary>
+    internal int PreviousTotalSalary_May => this.GetPreviousTotalSalary(5);
+    
+    /// <summary> 昨年度の月収 - 6月 </summary>
+    internal int PreviousTotalSalary_Jun => this.GetPreviousTotalSalary(6);
+    
+    /// <summary> 昨年度の月収 - 7月 </summary>
+    internal int PreviousTotalSalary_Jul => this.GetPreviousTotalSalary(7);
+    
+    /// <summary> 昨年度の月収 - 8月 </summary>
+    internal int PreviousTotalSalary_Aug => this.GetPreviousTotalSalary(8);
+    
+    /// <summary> 昨年度の月収 - 9月 </summary>
+    internal int PreviousTotalSalary_Sep => this.GetPreviousTotalSalary(9);
+    
+    /// <summary> 昨年度の月収 - 10月 </summary>
+    internal int PreviousTotalSalary_Oct => this.GetPreviousTotalSalary(10);
+    
+    /// <summary> 昨年度の月収 - 11月 </summary>
+    internal int PreviousTotalSalary_Nov => this.GetPreviousTotalSalary(11);
+    
+    /// <summary> 昨年度の月収 - 12月 </summary>
+    internal int PreviousTotalSalary_Dec => this.GetPreviousTotalSalary(12);
+
+    /// <summary>昨年度の月収 - 合計 </summary>
+    internal int PreviousTotalSalary_Sum
+        => this.PreviousTotalSalary_Jan
+         + this.PreviousTotalSalary_Feb
+         + this.PreviousTotalSalary_Mar
+         + this.PreviousTotalSalary_Apr
+         + this.PreviousTotalSalary_May
+         + this.PreviousTotalSalary_Jun
+         + this.PreviousTotalSalary_Jul
+         + this.PreviousTotalSalary_Aug
+         + this.PreviousTotalSalary_Sep
+         + this.PreviousTotalSalary_Oct
+         + this.PreviousTotalSalary_Nov
+         + this.PreviousTotalSalary_Dec;
+
+    private int GetPreviousTotalSalary(int month)
+    {
+        var entities = AnnualCharts.Fetch(this.Header.Year_Text.Value - 1);
+
+        var entity = entities.Where(x => x.YearMonth.Month == month).FirstOrDefault();
+
+        return this.RecalcMontlyIncome(entity);
+    }
+
+    /// <summary> 昨年度の控除額 - 1月 </summary>
+    internal int PreviousTotalDeducedSalary_Jan => this.GetPreviousTotalDeducedSalary(1);
+
+    /// <summary> 昨年度の控除額 - 2月 </summary>
+    internal int PreviousTotalDeducedSalary_Feb => this.GetPreviousTotalDeducedSalary(2);
+
+    /// <summary> 昨年度の控除額 - 3月 </summary>
+    internal int PreviousTotalDeducedSalary_Mar => this.GetPreviousTotalDeducedSalary(3);
+
+    /// <summary> 昨年度の控除額 - 4月 </summary>
+    internal int PreviousTotalDeducedSalary_Apr => this.GetPreviousTotalDeducedSalary(4);
+
+    /// <summary> 昨年度の控除額 - 5月 </summary>
+    internal int PreviousTotalDeducedSalary_May => this.GetPreviousTotalDeducedSalary(5);
+
+    /// <summary> 昨年度の控除額 - 6月 </summary>
+    internal int PreviousTotalDeducedSalary_Jun => this.GetPreviousTotalDeducedSalary(6);
+
+    /// <summary> 昨年度の控除額 - 7月 </summary>
+    internal int PreviousTotalDeducedSalary_Jul => this.GetPreviousTotalDeducedSalary(7);
+
+    /// <summary> 昨年度の控除額 - 8月 </summary>
+    internal int PreviousTotalDeducedSalary_Aug => this.GetPreviousTotalDeducedSalary(8);
+
+    /// <summary> 昨年度の控除額 - 9月 </summary>
+    internal int PreviousTotalDeducedSalary_Sep => this.GetPreviousTotalDeducedSalary(9);
+
+    /// <summary> 昨年度の控除額 - 10月 </summary>
+    internal int PreviousTotalDeducedSalary_Oct => this.GetPreviousTotalDeducedSalary(10);
+
+    /// <summary> 昨年度の控除額 - 11月 </summary>
+    internal int PreviousTotalDeducedSalary_Nov => this.GetPreviousTotalDeducedSalary(11);
+
+    /// <summary> 昨年度の控除額 - 12月 </summary>
+    internal int PreviousTotalDeducedSalary_Dec => this.GetPreviousTotalDeducedSalary(12);
+
+    /// <summary>昨年度の控除額 - 合計 </summary>
+    internal int PreviousTotalDeducedSalary_Sum
+        => this.PreviousTotalDeducedSalary_Jan
+         + this.PreviousTotalDeducedSalary_Feb
+         + this.PreviousTotalDeducedSalary_Mar
+         + this.PreviousTotalDeducedSalary_Apr
+         + this.PreviousTotalDeducedSalary_May
+         + this.PreviousTotalDeducedSalary_Jun
+         + this.PreviousTotalDeducedSalary_Jul
+         + this.PreviousTotalDeducedSalary_Aug
+         + this.PreviousTotalDeducedSalary_Sep
+         + this.PreviousTotalDeducedSalary_Oct
+         + this.PreviousTotalDeducedSalary_Nov
+         + this.PreviousTotalDeducedSalary_Dec;
+
+    private int GetPreviousTotalDeducedSalary(int month)
+    {
+        var entities = AnnualCharts.Fetch(this.Header.Year_Text.Value - 1);
+
+        var entity = entities.Where(x => x.YearMonth.Month == month).FirstOrDefault();
+
+        return entity.TotalDeducetedSalary;
+    }
+
+    /// <summary> 昨年度の副業額 - 1月 </summary>
+    internal int PreviousSideBusiness_Jan => this.GetPreviousSideBusiness(1);
+
+    /// <summary> 昨年度の副業額 - 2月 </summary>
+    internal int PreviousSideBusiness_Feb => this.GetPreviousSideBusiness(2);
+
+    /// <summary> 昨年度の副業額 - 3月 </summary>
+    internal int PreviousSideBusiness_Mar => this.GetPreviousSideBusiness(3);
+
+    /// <summary> 昨年度の副業額 - 4月 </summary>
+    internal int PreviousSideBusiness_Apr => this.GetPreviousSideBusiness(4);
+
+    /// <summary> 昨年度の副業額 - 5月 </summary>
+    internal int PreviousSideBusiness_May => this.GetPreviousSideBusiness(5);
+
+    /// <summary> 昨年度の副業額 - 6月 </summary>
+    internal int PreviousSideBusiness_Jun => this.GetPreviousSideBusiness(6);
+
+    /// <summary> 昨年度の副業額 - 7月 </summary>
+    internal int PreviousSideBusiness_Jul => this.GetPreviousSideBusiness(7);
+
+    /// <summary> 昨年度の副業額 - 8月 </summary>
+    internal int PreviousSideBusiness_Aug => this.GetPreviousSideBusiness(8);
+
+    /// <summary> 昨年度の副業額 - 9月 </summary>
+    internal int PreviousSideBusiness_Sep => this.GetPreviousSideBusiness(9);
+
+    /// <summary> 昨年度の副業額 - 10月 </summary>
+    internal int PreviousSideBusiness_Oct => this.GetPreviousSideBusiness(10);
+
+    /// <summary> 昨年度の副業額 - 11月 </summary>
+    internal int PreviousSideBusiness_Nov => this.GetPreviousSideBusiness(11);
+
+    /// <summary> 昨年度の副業額 - 12月 </summary>
+    internal int PreviousSideBusiness_Dec => this.GetPreviousSideBusiness(12);
+
+    /// <summary>昨年度の副業額 - 合計 </summary>
+    internal int PreviousSideBusiness_Sum
+        => this.PreviousSideBusiness_Jan
+         + this.PreviousSideBusiness_Feb
+         + this.PreviousSideBusiness_Mar
+         + this.PreviousSideBusiness_Apr
+         + this.PreviousSideBusiness_May
+         + this.PreviousSideBusiness_Jun
+         + this.PreviousSideBusiness_Jul
+         + this.PreviousSideBusiness_Aug
+         + this.PreviousSideBusiness_Sep
+         + this.PreviousSideBusiness_Oct
+         + this.PreviousSideBusiness_Nov
+         + this.PreviousSideBusiness_Dec;
+
+    private int GetPreviousSideBusiness(int month)
+    {
+        var entities = AnnualCharts.Fetch(this.Header.Year_Text.Value - 1);
+
+        var entity = entities.Where(x => x.YearMonth.Month == month).FirstOrDefault();
+
+        return entity.TotalSideBusiness;
+    }
+
     /// <summary>
     /// 月収計算
     /// </summary>
@@ -183,12 +363,25 @@ public class Model_AnnualChart : ModelBase<ViewModel_AnnualChart>, IViewable
     /// </remarks>
     private int RecalcMontlyIncome(AnnualChartEntity annualChart)
     {
+        if (annualChart is null)
+        {
+            return 0;
+        }
+
         var entity = Allowances.Fetch(this.Header.Year_Text.Value, annualChart.YearMonth.Month);
+
+        if (entity is null)
+        {
+            // 未記載
+            return 0;
+        }
 
         var salary = annualChart.TotalSalary - entity.TransportationExpenses.Value;
 
         return (int)salary;
     }
+
+    
 
     /// <summary>
     /// 再計算
