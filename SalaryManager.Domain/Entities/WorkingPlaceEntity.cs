@@ -3,67 +3,40 @@
 /// <summary>
 /// Entity - 就業場所
 /// </summary>
-public sealed class WorkingPlaceEntity
+/// <param name="id">ID</param>
+/// <param name="dispatchingCompany">派遣元会社</param>
+/// <param name="dispatchedCompany"></param>
+/// <param name="workingPlace"></param>
+/// <param name="workingAddress"></param>
+/// <param name="WorkingStart"></param>
+/// <param name="WorkingEnd"></param>
+/// <param name="isWaiting"></param>
+/// <param name="isWorking"></param>
+/// <param name="workingStartTime"></param>
+/// <param name="workingEndTime"></param>
+/// <param name="lunchStartTime"></param>
+/// <param name="lunchEndTime"></param>
+/// <param name="breakStartTime"></param>
+/// <param name="breakEndTime"></param>
+/// <param name="remarks"></param>
+public sealed class WorkingPlaceEntity(
+    int id,
+    string dispatchingCompany,
+    string dispatchedCompany,
+    string workingPlace,
+    string workingAddress,
+    DateTime workingStart,
+    DateTime workingEnd,
+    bool isWaiting,
+    bool isWorking,
+    (int Hour, int Minute) workingStartTime,
+    (int Hour, int Minute) workingEndTime,
+    (int Hour, int Minute) lunchStartTime,
+    (int Hour, int Minute) lunchEndTime,
+    (int Hour, int Minute) breakStartTime,
+    (int Hour, int Minute) breakEndTime,
+    string remarks)
 {
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    /// <param name="id">ID</param>
-    /// <param name="dispatchingCompany">派遣元会社</param>
-    /// <param name="workingPlace">会社名</param>
-    /// <param name="workingAddress">住所</param>
-    /// <param name="WorkingStart">労働時間(始業)</param>
-    /// <param name="workingStartTime">労働時間(始業)</param>
-    /// <param name="WorkingEnd">労働時間(始業)</param>
-    /// <param name="workingEndTime">労働時間(終業)</param>
-    /// <param name="isWaiting">労働時間(終業)</param>
-    /// <param name="isWorking">労働時間(終業)</param>
-    /// <param name="lunchStartTime">昼休憩(開始)</param>
-    /// <param name="lunchEndTime">昼休憩(終了)</param>
-    /// <param name="breakStartTime">休憩(開始)</param>
-    /// <param name="breakEndTime">休憩(終了)</param>
-    /// <param name="remarks">備考</param>
-    public WorkingPlaceEntity(
-        int id,
-        string dispatchingCompany,
-        string dispatchedCompany,
-        string workingPlace,
-        string workingAddress,
-        DateTime WorkingStart,
-        DateTime WorkingEnd,
-        bool isWaiting,
-        bool isWorking,
-        (int Hour, int Minute) workingStartTime,
-        (int Hour, int Minute) workingEndTime,
-        (int Hour, int Minute) lunchStartTime,
-        (int Hour, int Minute) lunchEndTime,
-        (int Hour, int Minute) breakStartTime,
-        (int Hour, int Minute) breakEndTime,
-        string remarks) 
-    {
-        this.ID                   = id;
-        this.DispatchingCompany   = new CompanyNameValue(dispatchingCompany);
-        this.DispatchedCompany    = new CompanyNameValue(dispatchedCompany);
-        this.WorkingPlace_Name    = new CompanyNameValue(workingPlace);
-        this.WorkingPlace_Address = workingAddress;
-
-        this.WorkingStart         = WorkingStart;
-        this.WorkingEnd           = WorkingEnd;
-
-        this.IsWaiting            = isWaiting;
-        this.IsWorking            = isWorking;
-
-        this.WorkingTime = (new TimeSpan(workingStartTime.Hour, workingStartTime.Minute, 0),
-                            new TimeSpan(workingEndTime.Hour,   workingEndTime.Minute, 0));
-
-        this.LunchTime = (new TimeSpan(lunchStartTime.Hour, lunchStartTime.Minute, 0),
-                          new TimeSpan(lunchEndTime.Hour, lunchEndTime.Minute, 0));
-
-        this.BreakTime = (new TimeSpan(breakStartTime.Hour, breakStartTime.Minute, 0),
-                          new TimeSpan(breakEndTime.Hour,   breakEndTime.Minute, 0));
-        this.Remarks = remarks;
-    }
-
     /// <summary>
     /// Constructor
     /// </summary>
@@ -121,52 +94,52 @@ public sealed class WorkingPlaceEntity
     }
 
     /// <summary> ID </summary>
-    public int ID { get; }
+    public int ID => id;
 
     /// <summary> 派遣元会社 </summary>
-    public CompanyNameValue DispatchingCompany { get; }
+    public CompanyNameValue DispatchingCompany => new CompanyNameValue(dispatchingCompany);
 
     /// <summary> 派遣先会社 </summary>
-    public CompanyNameValue DispatchedCompany { get; }
+    public CompanyNameValue DispatchedCompany => new CompanyNameValue(dispatchedCompany);
 
     /// <summary> 就業先(名称) </summary>
-    public CompanyNameValue WorkingPlace_Name { get; }
+    public CompanyNameValue WorkingPlace_Name => new CompanyNameValue(workingPlace);
 
     /// <summary> 就業先(住所) </summary>
-    public string WorkingPlace_Address { get; }
+    public string WorkingPlace_Address => workingAddress;
 
     /// <summary> 勤務開始 </summary>
-    public DateTime WorkingStart { get; }
-
-    private DateTime _workEnd;
+    public DateTime WorkingStart => workingStart;
 
     /// <summary> 勤務終了 </summary>
-    public DateTime WorkingEnd 
-    {
-        get => this.IsWorking ? DateTime.Today : _workEnd;
-        set => _workEnd = value;
-    }
+    public DateTime WorkingEnd => this.IsWorking ? DateTime.Today : workingEnd;
 
     /// <summary> 待機中か </summary>
-    public bool IsWaiting { get; }
+    public bool IsWaiting => isWaiting;
 
     /// <summary> 就業中か </summary>
-    public bool IsWorking { get; }
+    public bool IsWorking => isWorking;
 
     /// <summary> 労働時間 </summary>
     /// <remarks> (始業時刻, 終業時刻) </remarks>
-    public (TimeSpan Start, TimeSpan End) WorkingTime { get; }
+    public (TimeSpan Start, TimeSpan End) WorkingTime => 
+        (new TimeSpan(workingStartTime.Hour, workingStartTime.Minute, 0),
+         new TimeSpan(workingEndTime.Hour,   workingEndTime.Minute, 0));
 
     /// <summary> 昼休憩 </summary>
     /// <remarks> (開始時刻, 終了時刻) </remarks>
-    public (TimeSpan Start, TimeSpan End) LunchTime { get; }
+    public (TimeSpan Start, TimeSpan End) LunchTime => 
+        (new TimeSpan(lunchStartTime.Hour, lunchStartTime.Minute, 0),
+         new TimeSpan(lunchEndTime.Hour,   lunchEndTime.Minute, 0));
 
     /// <summary> 休憩 </summary>
     /// <remarks> (開始時刻, 終了時刻) </remarks>
-    public (TimeSpan Start, TimeSpan End) BreakTime { get; }
+    public (TimeSpan Start, TimeSpan End) BreakTime => 
+        (new TimeSpan(breakStartTime.Hour, breakStartTime.Minute, 0),
+         new TimeSpan(breakEndTime.Hour,   breakEndTime.Minute, 0));
 
     /// <summary> 備考 </summary>
-    public string Remarks { get; }
+    public string Remarks => remarks;
 
     /// <summary> 名目労働時間 </summary>
     public TimeSpan NominalWorkTimeSpan

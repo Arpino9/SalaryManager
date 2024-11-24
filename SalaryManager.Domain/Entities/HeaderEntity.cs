@@ -3,42 +3,30 @@
 /// <summary>
 /// Entity - ヘッダ
 /// </summary>
-public sealed class HeaderEntity
+/// <param name="id">ID</param>
+/// <param name="yearMonth">年月</param>
+/// <param name="isDefault">デフォルト設定か</param>
+/// <param name="createDate">作成日</param>
+/// <param name="upDateDate">更新日</param>
+public sealed class HeaderEntity(
+    int id,
+    DateTime yearMonth,
+    bool isDefault,
+    DateTime createDate,
+    DateTime upDateDate)
 {
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    /// <param name="id">ID</param>
-    /// <param name="yearMonth">年月</param>
-    /// <param name="isDefault">デフォルト設定か</param>
-    /// <param name="createDate">作成日</param>
-    /// <param name="upDateDate">更新日</param>
-    public HeaderEntity(
-        int id,
-        DateTime yearMonth,
-        bool isDefault,
-        DateTime createDate,
-        DateTime upDateDate)
-    {
-        this.ID         = id;
-        this.YearMonth  = yearMonth;
-        this.IsDefault  = isDefault;
-        this.CreateDate = createDate;
-        this.UpdateDate = upDateDate;
-    }
-
     /// <summary> ID </summary>
-    public int ID { get; set; }
+    public int ID { get; set; } = id;
 
     /// <summary> 年月 </summary>
-    public DateTime YearMonth { get; set; }
+    public DateTime YearMonth { get; set; } = yearMonth;
 
     /// <summary> デフォルト設定か </summary>
-    public bool IsDefault { get; set; }
+    public bool IsDefault { get; set; } = isDefault;
 
     /// <summary> 作成日 </summary>
-    public DateTime CreateDate { get; }
+    public DateTime CreateDate => createDate;
 
     /// <summary> 更新日 </summary>
-    public DateTime UpdateDate { get; }
+    public DateTime UpdateDate => upDateDate;
 }

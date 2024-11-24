@@ -3,25 +3,25 @@
 /// <summary>
 /// Entity - 休祝日
 /// </summary>
-public sealed class HolidayEntity
+/// <param name="date">日付</param>
+/// <param name="name">祝日名</param>
+/// <param name="companyName">会社名</param>
+/// <param name="remarks">備考</param>
+public sealed class HolidayEntity(
+    DateTime date, 
+    string name, 
+    string companyName, 
+    string remarks)
 {
-    public HolidayEntity(DateTime date, string name, string companyName, string remarks)
-    {
-        this.Date        = date;
-        this.Name        = name;
-        this.CompanyName = companyName;
-        this.Remarks     = remarks;
-    }
-
     /// <summary> 日付 </summary>
-    public DateTime Date { get; }
+    public DateTime Date => date;
 
     /// <summary> 祝日名 </summary>
-    public string Name { get; }
+    public string Name => name;
 
     /// <summary> 会社名 </summary>
-    public string CompanyName { get; }
+    public string CompanyName => companyName;
 
     /// <summary> 備考 </summary>
-    public string Remarks { get; }
+    public string Remarks => remarks;
 }

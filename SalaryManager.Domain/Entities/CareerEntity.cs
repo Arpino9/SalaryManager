@@ -3,60 +3,45 @@
 /// <summary>
 /// Entity - 職歴
 /// </summary>
-public sealed class CareerEntity
+/// <param name="id">ID</param>
+/// <param name="workingStatus">雇用形態</param>
+/// <param name="companyName">会社名</param>
+/// <param name="employeeNumber">社員番号</param>
+/// <param name="workingStartDate">勤務開始日</param>
+/// <param name="workingEndDate">勤務終了日</param>
+/// <param name="allowanceExistence">手当</param>
+/// <param name="remarks">備考</param>
+public sealed class CareerEntity(
+    int id,
+    string workingStatus,
+    string companyName,
+    string employeeNumber,
+    DateTime workingStartDate,
+    DateTime workingEndDate,
+    AllowanceExistenceEntity allowanceExistence,
+    string remarks)
 {
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    /// <param name="id">ID</param>
-    /// <param name="workingStatus">雇用形態</param>
-    /// <param name="companyName">会社名</param>
-    /// <param name="employeeNumber">社員番号</param>
-    /// <param name="workingStartDate">勤務開始日</param>
-    /// <param name="workingEndDate">勤務終了日</param>
-    /// <param name="allowanceExistence">手当</param>
-    /// <param name="remarks">備考</param>
-    public CareerEntity(
-        int id,
-        string workingStatus,
-        string companyName,
-        string employeeNumber,
-        DateTime workingStartDate,
-        DateTime workingEndDate,
-        AllowanceExistenceEntity allowanceExistence,
-        string remarks)
-    {
-        this.ID                 = id;
-        this.WorkingStatus      = workingStatus;
-        this.CompanyName        = new CompanyNameValue(companyName);
-        this.EmployeeNumber     = employeeNumber;
-        this.WorkingStartDate   = new WorkingDateValue(workingStartDate);
-        this.WorkingEndDate     = new WorkingDateValue(workingEndDate);
-        this.AllowanceExistence = allowanceExistence;
-        this.Remarks            = remarks;
-    }
-
     /// <summary> ID </summary>
-    public int ID { get; }
+    public int ID => id;
 
     /// <summary> 雇用形態 </summary>
-    public string WorkingStatus { get; }
+    public string WorkingStatus => workingStatus;
 
     /// <summary> 会社名 </summary>
-    public CompanyNameValue CompanyName { get; }
+    public CompanyNameValue CompanyName => new CompanyNameValue(companyName);
 
     /// <summary> 社員番号 </summary>
-    public string EmployeeNumber { get; }
+    public string EmployeeNumber => employeeNumber;
 
     /// <summary> 勤務開始日 </summary>
-    public WorkingDateValue WorkingStartDate { get; }
+    public WorkingDateValue WorkingStartDate => new WorkingDateValue(workingStartDate);
 
     /// <summary> 勤務終了日 </summary>
-    public WorkingDateValue WorkingEndDate { get; }
+    public WorkingDateValue WorkingEndDate => new WorkingDateValue(workingEndDate);
 
     /// <summary> 手当 </summary>
-    public AllowanceExistenceEntity AllowanceExistence { get; }
+    public AllowanceExistenceEntity AllowanceExistence => allowanceExistence;
 
     /// <summary> 備考 </summary>
-    public string Remarks { get; }
+    public string Remarks => remarks;
 }
