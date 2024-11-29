@@ -1,4 +1,6 @@
-﻿namespace SalaryManager.Domain.Modules.Logics;
+using System.Windows.Forms;
+
+namespace SalaryManager.Domain.Modules.Logics;
 
 /// <summary>
 /// カーソル待ち
