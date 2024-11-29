@@ -1,7 +1,7 @@
 ﻿using SalaryManager.Domain.Modules.Helpers;
 using SalaryManager.Domain.Modules.Logics;
-using System.Drawing;
-using System.Windows.Media;
+using SixLabors.Fonts;
+using SystemColors = System.Drawing.SystemColors;
 
 namespace SalaryManager.Domain.StaticValues
 {
@@ -9,7 +9,7 @@ namespace SalaryManager.Domain.StaticValues
     {
         private static Settings _settings;
 
-        /// <summary>
+        /*/// <summary>
         /// 値の生成
         /// </summary>
         public static void Create()
@@ -18,7 +18,7 @@ namespace SalaryManager.Domain.StaticValues
             {
                 _settings = reader.Deserialize() as Settings;
             }
-        }
+        }*/
 
         /// <summary>
         /// SQLiteのパスを取得
@@ -47,16 +47,22 @@ namespace SalaryManager.Domain.StaticValues
             return _settings?.FontFamily ?? Shared.FontFamily;
         }
 
-        /// <summary>
+        /*/// <summary>
         /// フォントファミリを取得
         /// </summary>
         /// <returns>フォントファミリ</returns>
-        public static System.Windows.Media.FontFamily FetchFontFamily()
+        public static Font FetchFontFamily()
         {
-            var fontFamily = _settings?.FontFamily ?? Shared.FontFamily;
-
-            return new System.Windows.Media.FontFamily(fontFamily);
-        }
+            // 設定からフォント名を取得（例: Arial, Times New Roman）
+            string fontName = _settings?.FontFamily ?? Shared.FontFamily;
+        
+            // フォントファミリを生成
+            var fontCollection = new FontCollection();
+            FontFamily family = fontCollection.AddSystemFonts(fontName);
+        
+            // 任意のサイズでフォントを生成（例: サイズ12）
+            return family.CreateFont(12);
+        }*/
 
         /// <summary>
         /// 背景色を取得
@@ -73,13 +79,13 @@ namespace SalaryManager.Domain.StaticValues
         }
 
         /// <summary> 背景色 (初期値) </summary>
-        private static readonly SolidColorBrush Default = ColorUtils.ToWPFColor("255", "227", "227", "227");
+        private static readonly Color Default = ColorUtils.ToWPFColor("255", "227", "227", "227");
 
         /// <summary>
         /// 背景色を取得
         /// </summary>
         /// <returns>背景色</returns>
-        public static SolidColorBrush FetchBackgroundColorBrush()
+        public static Color FetchBackgroundColorBrush()
         {
             if (_settings?.BackgroundColor_ColorCode is null)
             {
