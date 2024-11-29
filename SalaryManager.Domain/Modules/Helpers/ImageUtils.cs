@@ -1,4 +1,10 @@
-﻿namespace SalaryManager.Domain.Modules.Helpers;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats;
+using SixLabors.ImageSharp.Formats.Bmp;
+using SixLabors.ImageSharp.PixelFormats;
+using Image = SixLabors.ImageSharp.Image;
+
+namespace SalaryManager.Domain.Modules.Helpers;
 
 /// <summary>
 /// Utility - 画像関連
@@ -65,21 +71,23 @@ public sealed class ImageUtils
     }
 
     /// <summary>
-    /// 画像パスをBMP変換
+    /// 画像パスをBMP形式に変換
     /// </summary>
-    /// <param name="path">パス</param>
-    /// <param name="format">フォーマット</param>
-    /// <returns>BMP</returns>
-    public static ImageSource ConvertPathToImage(string path, ImageFormat format)
+    /// <param name="path">画像のパス</param>
+    /// <returns>BMP形式のメモリストリーム</returns>
+    public static MemoryStream ConvertPathToImage(string path)
     {
-        var image = new BitmapImage();
-        image.BeginInit();
-        image.StreamSource = new MemoryStream(ImageUtils.ConvertPathToBytes(path, format));
-        image.EndInit();
+        // 画像を読み込む
+        using var image = Image.Load<Rgba32>(path);
 
-        image.Freeze();
+        // BMP形式に変換してメモリストリームに保存
+        var memoryStream = new MemoryStream();
+        image.Save(memoryStream, new BmpEncoder());
 
-        return image;
+        // ストリームの位置を先頭に戻す
+        memoryStream.Seek(0, SeekOrigin.Begin);
+
+        return memoryStream;
     }
 
     /// <summary>
@@ -88,38 +96,36 @@ public sealed class ImageUtils
     /// <param name="path">パス</param>
     /// <param name="format">フォーマット</param>
     /// <returns>バイト配列</returns>
-    public static byte[] ConvertPathToBytes(string path, ImageFormat format)
+    public static byte[] ConvertPathToBytes(string path, IImageEncoder encoder)
     {
         // 画像を読み込む
-        using (var image = Image.FromFile(path, true))
-        {
-            // ストリームを定義
-            MemoryStream stream = new MemoryStream();
-            image.Save(stream, format);
+        using var image = Image.Load(path);
 
-            // ストリームからバイト配列に書き込む
-            var imgBytes = new Byte[Max_Byte_Size];
-            stream.Seek(0, SeekOrigin.Begin);
-            stream.Read(imgBytes, 0, Max_Byte_Size);
+        // メモリストリームに保存
+        using var stream = new MemoryStream();
+        image.Save(stream, encoder);
 
-            return imgBytes;
-        }
+        // バイト配列として返す
+        return stream.ToArray();
     }
 
     /// <summary>
-    /// バイト配列をBMP変換
+    /// バイト配列をBMP形式に変換
     /// </summary>
-    /// <param name="byteImage">画像</param>
-    /// <returns>BMP</returns>
-    public static ImageSource ConvertBytesToImage(byte[] byteImage)
+    /// <param name="byteImage">画像データのバイト配列</param>
+    /// <returns>BMP形式のメモリストリーム</returns>
+    public static MemoryStream ConvertBytesToBmpStream(byte[] byteImage)
     {
-        var image = new BitmapImage();
-        image.BeginInit();
-        image.StreamSource = new MemoryStream(byteImage);
-        image.EndInit();
+        // バイト配列から画像を読み込む
+        using var image = Image.Load<Rgba32>(byteImage);
 
-        image.Freeze();
+        // BMP形式に変換してメモリストリームに保存
+        var memoryStream = new MemoryStream();
+        image.Save(memoryStream, new BmpEncoder());
 
-        return image;
+        // ストリームの位置を先頭に戻す
+        memoryStream.Seek(0, SeekOrigin.Begin);
+
+        return memoryStream;
     }
 }
