@@ -1,4 +1,6 @@
-﻿using Message = SalaryManager.Domain.Modules.Logics.Message;
+using SixLabors.ImageSharp.Formats.Png;
+using System.Windows.Media.Imaging;
+using Message = SalaryManager.Domain.Modules.Logics.Message;
 
 namespace SalaryManager.WPF.Models
 {
@@ -85,9 +87,9 @@ namespace SalaryManager.WPF.Models
 
         public void Window_Activated()
         {
-            this.ViewModel.Window_FontFamily.Value = XMLLoader.FetchFontFamily();
+            this.ViewModel.Window_FontFamily.Value = base.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
             this.ViewModel.Window_FontSize.Value   = XMLLoader.FetchFontSize();
-            this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
+            this.ViewModel.Window_Background.Value = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
         }
 
         /// <summary>
@@ -126,7 +128,7 @@ namespace SalaryManager.WPF.Models
             var entity = this.ViewModel.AttachedFile_ItemSource[this.ViewModel.AttachedFile_SelectedIndex.Value];
 
             // サムネイル
-            this.ViewModel.FileImage_Image.Value = ImageUtils.ConvertBytesToImage(entity.Image);
+            this.ViewModel.FileImage_Image.Value = ConvertMemoryStreamToImageSource(ImageUtils.ConvertBytesToBmpStream(entity.Image));
             // 画像を拡大表示するボタン
             this.ViewModel.OpenImageViewer_IsEnabled.Value = true;
 
@@ -177,8 +179,8 @@ namespace SalaryManager.WPF.Models
             }
 
             // サムネイル
-            this.ByteImage       = ImageUtils.ConvertPathToBytes(path, extension.ImageFormat);
-            this.ViewModel.FileImage_Image.Value = ImageUtils.ConvertPathToImage(path, extension.ImageFormat);
+            this.ByteImage       = ImageUtils.ConvertPathToBytes(path, new PngEncoder());
+            this.ViewModel.FileImage_Image.Value = ConvertMemoryStreamToImageSource(ImageUtils.ConvertPathToImage(path));
             // 画像を拡大表示するボタン
             this.ViewModel.OpenImageViewer_IsEnabled.Value = true;
 
@@ -265,8 +267,8 @@ namespace SalaryManager.WPF.Models
                     this.ViewModel.FileName_Text.Value = ImageUtils.ExtractFileNameWithExtension(filePath);
 
                     // 表示する画像
-                    this.ByteImage = ImageUtils.ConvertPathToBytes(pngPath, ImageFormat.Png);
-                    this.ViewModel.FileImage_Image.Value = ImageUtils.ConvertPathToImage(pngPath, ImageFormat.Png);
+                    this.ByteImage = ImageUtils.ConvertPathToBytes(pngPath, new PngEncoder());
+                    this.ViewModel.FileImage_Image.Value = ConvertMemoryStreamToImageSource(ImageUtils.ConvertPathToImage(pngPath));
 
                     File.Delete(pngPath);
 
@@ -284,13 +286,28 @@ namespace SalaryManager.WPF.Models
                 this.ViewModel.FileName_Text.Value = ImageUtils.ExtractFileNameWithExtension(filePath);
 
                 // 表示する画像
-                this.ByteImage       = ImageUtils.ConvertPathToBytes(filePath, ImageFormat.Png);
+                this.ByteImage       = ImageUtils.ConvertPathToBytes(filePath, new PngEncoder());
 
                 this.ViewModel.FileImage_Image = new ReactiveProperty<ImageSource>();
-                this.ViewModel.FileImage_Image.Value = ImageUtils.ConvertPathToImage(filePath, extension.ImageFormat);
+                //this.ViewModel.FileImage_Image.Value = ImageUtils.ConvertPathToImage(filePath);
 
                 this.ViewModel.AttachedFile_ItemSource.Add(this.CreateEntity(id));
             }
+        }
+
+        public static ImageSource ConvertMemoryStreamToImageSource(MemoryStream memoryStream)
+        {
+            // BitmapImageを作成
+            var bitmapImage = new BitmapImage();
+
+            // メモリストリームを使用してBitmapImageを初期化
+            bitmapImage.BeginInit();
+            bitmapImage.StreamSource = memoryStream;
+            bitmapImage.CacheOption = BitmapCacheOption.OnLoad; // メモリストリームを閉じた後も使用可能にする
+            bitmapImage.EndInit();
+
+            // BitmapImageを返す (ImageSourceとして使用可能)
+            return bitmapImage;
         }
 
         /// <summary>
@@ -327,7 +344,7 @@ namespace SalaryManager.WPF.Models
                 // ファイル名
                 this.ViewModel.FileName_Text.Value = ImageUtils.ExtractFileNameWithExtension(pngPaths.First());
                 // 表示する画像
-                this.ByteImage     = ImageUtils.ConvertPathToBytes(pngPaths.First(), ImageFormat.Png);
+                this.ByteImage     = ImageUtils.ConvertPathToBytes(pngPaths.First(), new PngEncoder());
 
                 this.AddFile();
 
@@ -348,7 +365,7 @@ namespace SalaryManager.WPF.Models
                     // ファイル名
                     this.ViewModel.FileName_Text.Value = ImageUtils.ExtractFileNameWithExtension(pngPath);
                     // 表示する画像
-                    this.ByteImage     = ImageUtils.ConvertPathToBytes(pngPath, ImageFormat.Png);
+                    this.ByteImage     = ImageUtils.ConvertPathToBytes(pngPath, new PngEncoder());
 
                     this.AddFile();
 
