@@ -1,4 +1,4 @@
-﻿namespace SalaryManager.Domain.Modules.Helpers;
+namespace SalaryManager.Domain.Modules.Helpers;
 
 /// <summary>
 /// Utility - 色情報
@@ -12,24 +12,24 @@ public static  class ColorUtils
     /// </summary>
     /// <param name="color">色情報</param>
     /// <returns>色定義</returns>
-    public static SolidColorBrush ToWPFColor(System.Drawing.Color color)
+    public static Color ToWPFColor(System.Drawing.Color color)
     {
-        var brush = new SolidColorBrush();
-        brush.Color = System.Windows.Media.Color.FromArgb(color.A, color.R, color.G, color.B);
+        var brush = new Color();
+        brush = Color.FromArgb(color.A, color.R, color.G, color.B);
 
         return brush;
     }
 
-    public static SolidColorBrush ToWPFColor(byte colorAlpha, byte colorRed, byte colorGreen, byte colorBlue)
+    public static Color ToWPFColor(byte colorAlpha, byte colorRed, byte colorGreen, byte colorBlue)
     {
-        var brush = new SolidColorBrush();
+        var brush = new Color();
 
-        brush.Color = System.Windows.Media.Color.FromArgb(colorAlpha, colorRed, colorGreen, colorBlue);
+        brush = Color.FromArgb(colorAlpha, colorRed, colorGreen, colorBlue);
 
         return brush;
     }
 
-    public static SolidColorBrush ToWPFColor(string colorAlpha, string colorRed, string colorGreen, string colorBlue)
+    public static Color ToWPFColor(string colorAlpha, string colorRed, string colorGreen, string colorBlue)
     {
         return ToWPFColor(byte.Parse(colorAlpha), byte.Parse(colorRed), byte.Parse(colorGreen), byte.Parse(colorBlue));
     }
