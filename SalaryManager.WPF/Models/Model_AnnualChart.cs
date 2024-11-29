@@ -1,4 +1,4 @@
-﻿namespace SalaryManager.WPF.Models;
+namespace SalaryManager.WPF.Models;
 
 /// <summary>
 /// Model - 月収一覧
@@ -70,7 +70,7 @@ public class Model_AnnualChart : ModelBase<ViewModel_AnnualChart>, IViewable
     {
         if (this.ViewModel is null) return;
 
-        this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
+        this.ViewModel.Window_Background.Value = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
     }
 
     /// <summary>
