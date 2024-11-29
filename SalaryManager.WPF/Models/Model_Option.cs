@@ -1,4 +1,7 @@
-﻿namespace SalaryManager.WPF.Models;
+using Microsoft.Win32;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+
+namespace SalaryManager.WPF.Models;
 
 /// <summary>
 /// Model - オプション
@@ -56,7 +59,7 @@ public class Model_Option : ModelBase<ViewModel_GeneralOption>
             this.ViewModel.ShowDefaultPayslip_IsChecked.Value = XMLLoader.FetchShowDefaultPayslip();
 
             // フォント
-            this.ViewModel.Preview_FontFamily.Value = XMLLoader.FetchFontFamily();
+            this.ViewModel.Preview_FontFamily.Value = base.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
             this.ViewModel.FontSize_Value.Value = XMLLoader.FetchFontSize();
 
             var obj = EnumUtils.ToEnum(this.ViewModel.HowToSaveImage_IsChecked.GetType(), XMLLoader.FetchHowToSaveImage());
@@ -69,7 +72,7 @@ public class Model_Option : ModelBase<ViewModel_GeneralOption>
             
             // 背景色
             this.Window_BackgroundColor = XMLLoader.FetchBackgroundColor();
-            this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
+            this.ViewModel.Window_Background.Value = ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
         }
         else
         {
@@ -162,13 +165,18 @@ public class Model_Option : ModelBase<ViewModel_GeneralOption>
     /// </remarks>
     internal void SelectSQLitePath()
     {
-        var dialog = new OpenFileDialog();
+        /*var dialog = new OpenFileDialog();
         dialog.Filter = "SQLiteファイル(*.db)|*.db|全てのファイル(*.*)|*.*";
-        dialog.Title  = "SQLiteデータベースを指定してください";
+        dialog.Title  = "SQLiteデータベースを指定してください";*/
+        var dialog = new OpenFileDialog
+        {
+            Filter = "SQLiteファイル(*.db)|*.db|全てのファイル(*.*)|*.*",
+            Title = "SQLiteデータベースを指定してください"
+        };
 
         var result = dialog.ShowDialog();
 
-        if (result == DialogResult.Cancel)
+        if (result == false)
         {
             return;
         }
@@ -191,7 +199,7 @@ public class Model_Option : ModelBase<ViewModel_GeneralOption>
 
         var result = dialog.ShowDialog();
 
-        if (result == DialogResult.Cancel)
+        if (result == false)
         {
             return;
         }
@@ -248,14 +256,14 @@ public class Model_Option : ModelBase<ViewModel_GeneralOption>
     /// </summary>
     internal void ChangeWindowBackground()
     {
-        var dialog = new ColorDialog();
-        var result = dialog.ShowDialog(); 
+        /*var dialog = new ColorDialog();
+        var result = dialog.ShowDialog();
 
-        if (result == DialogResult.OK) 
+        if (result == DialogResult.OK)
         {
             this.ViewModel.Window_Background.Value = ColorUtils.ToWPFColor(dialog.Color);
             this.Window_BackgroundColor = dialog.Color;
-        }
+        }*/
     }
 
     #endregion
@@ -400,10 +408,25 @@ public class Model_Option : ModelBase<ViewModel_GeneralOption>
 
         // 背景色
         this.Window_BackgroundColor = System.Drawing.SystemColors.ControlLight;
-        this.ViewModel.Window_Background.Value      = ColorUtils.ToWPFColor(System.Drawing.SystemColors.ControlLight);
+        this.ViewModel.Window_Background.Value      = ConvertToBrush(ColorUtils.ToWPFColor(System.Drawing.SystemColors.ControlLight));
 
         // PDFのパスワード
         this.PDFOption.Password_Text.Value = XMLLoader.FetchPDFPassword();
+    }
+
+    /// <summary>
+    /// System.Drawing.Color を SolidColorBrush に変換
+    /// </summary>
+    /// <param name="drawingColor">System.Drawing.Color</param>
+    /// <returns>SolidColorBrush</returns>
+    public static SolidColorBrush ConvertToBrush(System.Drawing.Color drawingColor)
+    {
+        return new SolidColorBrush(Color.FromArgb(
+            drawingColor.A, // Alpha
+            drawingColor.R, // Red
+            drawingColor.G, // Green
+            drawingColor.B  // Blue
+        ));
     }
 
     #endregion
