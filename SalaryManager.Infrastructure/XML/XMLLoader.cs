@@ -1,4 +1,8 @@
-﻿namespace SalaryManager.Infrastructure.XML;
+using SalaryManager.Domain.Modules.Helpers;
+using SixLabors.Fonts;
+using FontFamily = SixLabors.Fonts.FontFamily;
+
+namespace SalaryManager.Infrastructure.XML;
 
 // Caution: Observerパターンなので、途中で設定変更になった場合に備えて、各メソッドで逐一最新の情報に更新する必要がある
 
@@ -64,14 +68,25 @@ public static class XMLLoader
     /// フォントファミリを取得
     /// </summary>
     /// <returns>フォントファミリ</returns>
-    public static System.Windows.Media.FontFamily FetchFontFamily()
+    public static SixLabors.Fonts.FontFamily FetchFontFamily()
     {
-        if (string.IsNullOrEmpty(XMLLoader.FetchFontFamilyText()))
-        {
-            return new System.Windows.Media.FontFamily(Shared.FontFamily);
-        }
+        // デフォルトフォント名
+        string defaultFontName = Shared.FontFamily;
+        string fontName = XMLLoader.FetchFontFamilyText();
 
-        return new System.Windows.Media.FontFamily(XMLLoader.FetchFontFamilyText());
+        // フォント名が空の場合はデフォルトを使用
+        string selectedFontName = string.IsNullOrEmpty(fontName) ? defaultFontName : fontName;
+
+        // システムフォントコレクション
+        var fontCollection = new FontCollection();
+        fontCollection.AddSystemFonts();
+
+        // フォント名で検索
+        var fontFamily = fontCollection.Families.FirstOrDefault(f => f.Name.Equals(selectedFontName, StringComparison.OrdinalIgnoreCase));
+
+        // フォールバック処理
+        Console.WriteLine($"フォント '{selectedFontName}' が見つかりません。デフォルトフォントを使用します。");
+        return fontCollection.Families.First(f => f.Name.Equals(defaultFontName, StringComparison.OrdinalIgnoreCase));
     }
 
     /// <summary>
@@ -115,13 +130,13 @@ public static class XMLLoader
     }
 
     /// <summary> 背景色 (初期値) </summary>
-    private static readonly SolidColorBrush Default = ColorUtils.ToWPFColor("255", "227", "227", "227");
+    private static readonly System.Drawing.Color Default = ColorUtils.ToWPFColor("255", "227", "227", "227");
 
     /// <summary>
     /// 背景色を取得
     /// </summary>
     /// <returns>背景色</returns>
-    public static SolidColorBrush FetchBackgroundColorBrush()
+    public static System.Drawing.Color FetchBackgroundColorBrush()
     {
         XMLLoader.Deserialize();
         if (_tag?.BackgroundColor_ColorCode is null)
