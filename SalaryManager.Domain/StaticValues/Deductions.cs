@@ -28,7 +28,7 @@ public static class Deductions
 
                 _default = repository.GetDefault();
             }
-            catch(SqlException ex)
+            catch(Exception ex)
             {
                 throw new DatabaseException("控除額テーブルの読込に失敗しました。", ex);
             }
