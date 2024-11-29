@@ -1,4 +1,4 @@
-﻿namespace SalaryManager.WPF.Models;
+namespace SalaryManager.WPF.Models;
 
 /// <summary>
 /// Model - 控除額
@@ -71,9 +71,9 @@ public class Model_Deduction : ModelBase<ViewModel_Deduction>, IParallellyEditab
 
     public void Window_Activated()
     {
-        this.ViewModel.Window_FontFamily.Value = XMLLoader.FetchFontFamily();
+        this.ViewModel.Window_FontFamily.Value = base.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
         this.ViewModel.Window_FontSize.Value   = XMLLoader.FetchFontSize();
-        this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
+        this.ViewModel.Window_Background.Value = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
     }
 
     /// <summary>
@@ -129,6 +129,8 @@ public class Model_Deduction : ModelBase<ViewModel_Deduction>, IParallellyEditab
         this.ViewModel.Remarks_Text.Value               = this.Entity.Remarks;
         // 控除額計
         this.ViewModel.TotalDeduct_Text.Value           = this.Entity.TotalDeduct.Value;
+        // 支給総計、差引支給額
+        this.Allowance.ReCaluculate();
     }
 
     /// <summary>
