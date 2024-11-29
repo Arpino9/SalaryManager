@@ -1,59 +1,107 @@
-using Microsoft.Data.Sqlite;
+using SixLabors.ImageSharp.Formats.Gif;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.Formats.Png;
+using SixLabors.ImageSharp.Formats.Tiff;
+using SixLabors.ImageSharp.Formats;
 
-namespace SalaryManager.Domain.StaticValues;
+namespace SalaryManager.Domain.ValueObjects;
 
 /// <summary>
-/// Static Values - 添付ファイル
+/// Value Object - ファイル拡張子
 /// </summary>
-public class FileStorages
+public sealed record class FileExtensionValue
 {
-    private static List<FileStorageEntity> _entities = new List<FileStorageEntity>();
+    /// <summary> JPG形式 </summary>
+    private static readonly FileExtensionValue JPG = new FileExtensionValue("jpg");
 
-    /// <summary>
-    /// テーブル取得
-    /// </summary>
-    /// <param name="repository">Repository</param>
-    /// <remarks>
-    /// 競合防止のためlockをかけており、常に最新の情報が取得できる。
-    /// </remarks>
-    public static void Create(IFileStorageRepository repository)
+    /// <summary> GIF形式 </summary>
+    private static readonly FileExtensionValue GIF = new FileExtensionValue("gif");
+
+    /// <summary> PNG形式 </summary>
+    private static readonly FileExtensionValue PNG = new FileExtensionValue("png");
+
+    /// <summary> TIFF形式 </summary>
+    private static readonly FileExtensionValue TIFF = new FileExtensionValue("tiff");
+
+    /// <summary> PDF形式 </summary>
+    private static readonly FileExtensionValue PDF = new FileExtensionValue("pdf");
+
+    /// <summary> EXIF形式 </summary>
+    private static readonly FileExtensionValue Exif = new FileExtensionValue("exif");
+
+    public FileExtensionValue(string path)
     {
-        lock (((ICollection)_entities).SyncRoot)
-        {
-            _entities.Clear();
+        var rawExtension = ImageUtils.ExtractFileExtension(path);
 
-            try
-            {
-                _entities.AddRange(repository.GetEntities());
-            }
-            catch (SqliteException ex)
-            {
-                throw new DatabaseException("支給額テーブルの読込に失敗しました。", ex);
-            }
-        }
+        this.Value = rawExtension.ToLower();
     }
 
-    /// <summary>
-    /// 支給額を取得
-    /// </summary>
-    /// <param name="year">年</param>
-    /// <param name="month">月</param>
-    /// <returns>支給額</returns>
-    public static FileStorageEntity Fetch(int year, int month)
-        => _entities.Find(x => x.UpdateDate.Year  == year && 
-                               x.UpdateDate.Month == month);
+    /// <summary> 値 </summary>
+    public string Value;
 
     /// <summary>
-    /// 昇順で取得する
+    /// PDF形式か
     /// </summary>
-    /// <returns>支給額</returns>
-    public static IReadOnlyList<FileStorageEntity> FetchByAscending()
-        => _entities.OrderBy(x => x.UpdateDate).ToList().AsReadOnly();
+    public bool IsPDF => (this.Value == FileExtensionValue.PDF.Value);
 
     /// <summary>
-    /// 降順で取得する
+    /// 画像形式か
     /// </summary>
-    /// <returns>支給額</returns>
-    public static IReadOnlyList<FileStorageEntity> FetchByDescending()
-        => _entities.OrderByDescending(x => x.UpdateDate).ToList().AsReadOnly();
+    public bool IsImage => (this.IsJPG || this.IsGIF || this.IsPNG || this.IsTIFF || this.IsExif);
+
+    /// <summary>
+    /// JPG形式か
+    /// </summary>
+    public bool IsJPG => (this.Value == FileExtensionValue.JPG.Value);    
+
+    /// <summary>
+    /// GIF形式か
+    /// </summary>
+    public bool IsGIF => (this.Value == FileExtensionValue.GIF.Value);
+
+    /// <summary>
+    /// PNG形式か
+    /// </summary>
+    public bool IsPNG => (this.Value == FileExtensionValue.PNG.Value);
+
+    /// <summary>
+    /// TIFF形式か
+    /// </summary>
+    public bool IsTIFF => (this.Value == FileExtensionValue.TIFF.Value);
+
+    /// <summary>
+    /// Exif形式か
+    /// </summary>
+    public bool IsExif => (this.Value == FileExtensionValue.Exif.Value);
+
+    /// <summary>
+    /// 画像フォーマット
+    /// </summary>
+    public IImageEncoder ImageEncoder
+    {
+        get
+        {
+            if (this.Value == FileExtensionValue.JPG.Value)
+            {
+                return new JpegEncoder();
+            }
+
+            if (this.Value == FileExtensionValue.GIF.Value)
+            {
+                return new GifEncoder();
+            }
+
+            if (this.Value == FileExtensionValue.PNG.Value)
+            {
+                return new PngEncoder();
+            }
+
+            if (this.Value == FileExtensionValue.TIFF.Value)
+            {
+                return new TiffEncoder();
+            }
+
+            throw new Exceptions.FormatException("画像フォーマットの変換に失敗しました。");
+        }
+    }
 }
