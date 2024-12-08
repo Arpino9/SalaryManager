@@ -1,4 +1,6 @@
-﻿namespace SalaryManager.Domain.StaticValues;
+﻿using Microsoft.Data.Sqlite;
+
+namespace SalaryManager.Domain.StaticValues;
 
 /// <summary>
 /// Static Values - 勤務備考

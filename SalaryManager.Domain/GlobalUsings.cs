@@ -14,9 +14,9 @@ global using System.Reflection;
 global using System.Text.RegularExpressions;
 global using System.Threading.Tasks;
 global using System.Windows;
-global using System.Windows.Forms;
+/*global using System.Windows.Forms;
 global using System.Windows.Media;
-global using System.Windows.Media.Imaging;
+global using System.Windows.Media.Imaging;*/
 
 // Domain層
 global using SalaryManager.Domain.Entities;
@@ -26,5 +26,6 @@ global using SalaryManager.Domain.Repositories;
 global using SalaryManager.Domain.ValueObjects;
 
 // 外部API
-global using Microsoft.Data.Sqlite;
 global using Reactive.Bindings;
+
+global using Microsoft.Data.Sqlite;

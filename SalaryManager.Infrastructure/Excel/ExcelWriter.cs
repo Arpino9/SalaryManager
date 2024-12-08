@@ -100,40 +100,40 @@ public sealed class ExcelWriter : IExcelWriterRepository
         foreach (var entity in entities)
         {
             // 基本給
-            this.Worksheet_Payslip.Cell(row, column).Value = entity.BasicSalary;
+            this.Worksheet_Payslip.Cell(row, column).Value = entity.BasicSalary.Value;
             // 役職手当
-            this.Worksheet_Payslip.Cell(row, column + 1).Value = entity.ExecutiveAllowance;
+            this.Worksheet_Payslip.Cell(row, column + 1).Value = entity.ExecutiveAllowance.Value;
             // 扶養手当
-            this.Worksheet_Payslip.Cell(row, column + 2).Value = entity.DependencyAllowance;
+            this.Worksheet_Payslip.Cell(row, column + 2).Value = entity.DependencyAllowance.Value;
             // 時間外手当
-            this.Worksheet_Payslip.Cell(row, column + 3).Value = entity.OvertimeAllowance;
+            this.Worksheet_Payslip.Cell(row, column + 3).Value = entity.OvertimeAllowance.Value;
             // 休日割増
-            this.Worksheet_Payslip.Cell(row, column + 4).Value = entity.DaysoffIncreased;
+            this.Worksheet_Payslip.Cell(row, column + 4).Value = entity.DaysoffIncreased.Value;
             // 深夜割増
-            this.Worksheet_Payslip.Cell(row, column + 5).Value = entity.NightworkIncreased;
+            this.Worksheet_Payslip.Cell(row, column + 5).Value = entity.NightworkIncreased.Value;
             // 住宅手当
-            this.Worksheet_Payslip.Cell(row, column + 6).Value = entity.HousingAllowance;
+            this.Worksheet_Payslip.Cell(row, column + 6).Value = entity.HousingAllowance.Value;
             // 遅刻早退欠勤
             this.Worksheet_Payslip.Cell(row, column + 7).Value = entity.LateAbsent;
             // 交通費
-            this.Worksheet_Payslip.Cell(row, column + 8).Value = entity.TransportationExpenses;
+            this.Worksheet_Payslip.Cell(row, column + 8).Value = entity.TransportationExpenses.Value;
             // 在宅手当
-            this.Worksheet_Payslip.Cell(row, column + 9).Value = entity.ElectricityAllowance;
+            this.Worksheet_Payslip.Cell(row, column + 9).Value = entity.ElectricityAllowance.Value;
             // 特別手当
             this.Worksheet_Payslip.Cell(row, column + 10).Value = entity.SpecialAllowance;
             // 前払退職金
-            this.Worksheet_Payslip.Cell(row, column + 11).Value = entity.PrepaidRetirementPayment;
+            this.Worksheet_Payslip.Cell(row, column + 11).Value = entity.PrepaidRetirementPayment.Value;
             // 予備
             this.Worksheet_Payslip.Cell(row, column + 12).Value = entity.SpareAllowance;
             // 備考
             this.Worksheet_Payslip.Cell(row, column + 13).Value = entity.Remarks;
             
             // 支給総計
-            this.Worksheet_Budget.Cell(row - 1, 4).Value = entity.TotalSalary;
-            this.Worksheet_Payslip.Cell(row, 41).Value = entity.TotalSalary;
+            this.Worksheet_Budget.Cell(row - 1, 4).Value = entity.TotalSalary.Value;
+            this.Worksheet_Payslip.Cell(row, 41).Value = entity.TotalSalary.Value;
             // 差引支給額
-            this.Worksheet_Budget.Cell(row - 1, 6).Value = entity.TotalDeductedSalary;
-            this.Worksheet_Payslip.Cell(row, 44).Value = entity.TotalDeductedSalary;
+            this.Worksheet_Budget.Cell(row - 1, 6).Value = entity.TotalDeductedSalary.Value;
+            this.Worksheet_Payslip.Cell(row, 44).Value = entity.TotalDeductedSalary.Value;
 
             row++;
         }
@@ -160,26 +160,26 @@ public sealed class ExcelWriter : IExcelWriterRepository
         foreach (var entity in entities)
         {
             // 健康保険
-            this.Worksheet_Payslip.Cell(row, column).Value = entity.HealthInsurance;
+            this.Worksheet_Payslip.Cell(row, column).Value = entity.HealthInsurance.Value;
             // 介護保険
-            this.Worksheet_Payslip.Cell(row, column + 1).Value = entity.NursingInsurance;
+            this.Worksheet_Payslip.Cell(row, column + 1).Value = entity.NursingInsurance.Value;
             // 厚生年金
-            this.Worksheet_Payslip.Cell(row, column + 2).Value = entity.WelfareAnnuity;
+            this.Worksheet_Payslip.Cell(row, column + 2).Value = entity.WelfareAnnuity.Value;
             // 雇用保険
-            this.Worksheet_Payslip.Cell(row, column + 3).Value = entity.EmploymentInsurance;
+            this.Worksheet_Payslip.Cell(row, column + 3).Value = entity.EmploymentInsurance.Value;
             // 所得税
-            this.Worksheet_Payslip.Cell(row, column + 4).Value = entity.IncomeTax;
+            this.Worksheet_Payslip.Cell(row, column + 4).Value = entity.IncomeTax.Value;
             // 市町村税
-            this.Worksheet_Payslip.Cell(row, column + 5).Value = entity.MunicipalTax;
+            this.Worksheet_Payslip.Cell(row, column + 5).Value = entity.MunicipalTax.Value;
             // 互助会
-            this.Worksheet_Payslip.Cell(row, column + 6).Value = entity.FriendshipAssociation;
+            this.Worksheet_Payslip.Cell(row, column + 6).Value = entity.FriendshipAssociation.Value;
             // 年末調整他
             this.Worksheet_Payslip.Cell(row, column + 7).Value = entity.YearEndTaxAdjustment;
             // 備考
             this.Worksheet_Payslip.Cell(row, column + 8).Value = entity.Remarks;
             // 控除額計
-            this.Worksheet_Budget.Cell(row - 1, 5).Value = entity.TotalDeduct;
-            this.Worksheet_Payslip.Cell(row, 42).Value = entity.TotalDeduct;
+            this.Worksheet_Budget.Cell(row - 1, 5).Value = entity.TotalDeduct.Value;
+            this.Worksheet_Payslip.Cell(row, 42).Value = entity.TotalDeduct.Value;
 
             row++;
         }
@@ -214,7 +214,7 @@ public sealed class ExcelWriter : IExcelWriterRepository
             // 遅刻早退欠勤H
             this.Worksheet_Payslip.Cell(row, column + 3).Value = entity.LateAbsentH;
             // 支給額-保険
-            this.Worksheet_Payslip.Cell(row, column + 4).Value = entity.Insurance;
+            this.Worksheet_Payslip.Cell(row, column + 4).Value = entity.Insurance.Value;
             // 標準月額千円
             this.Worksheet_Payslip.Cell(row, column + 5).Value = entity.Norm;
             // 扶養人数

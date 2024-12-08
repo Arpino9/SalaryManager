@@ -73,7 +73,7 @@ public sealed class Model_Header : ModelBase<ViewModel_Header>, IViewable
     /// </summary>
     public void Window_Activated()
     {
-        this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
+        this.ViewModel.Window_Background.Value = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
     }
 
     /// <summary>

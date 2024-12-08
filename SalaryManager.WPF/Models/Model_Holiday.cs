@@ -41,9 +41,9 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
 
     public void Window_Activated()
     {
-        this.ViewModel.Window_FontFamily.Value = XMLLoader.FetchFontFamily();
+        this.ViewModel.Window_FontFamily.Value = base.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
         this.ViewModel.Window_FontSize.Value   = XMLLoader.FetchFontSize();
-        this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
+        this.ViewModel.Window_Background.Value = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
     }
 
     /// <summary>

@@ -1,4 +1,6 @@
-﻿namespace SalaryManager.Domain.Modules.Helpers;
+﻿using System.Windows.Forms;
+
+namespace SalaryManager.Domain.Modules.Helpers;
 
 /// <summary>
 /// ディレクトリ・ファイル選択

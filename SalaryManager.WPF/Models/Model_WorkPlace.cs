@@ -67,7 +67,7 @@ public sealed class Model_WorkPlace : ModelBase<ViewModel_WorkPlace>, IParallell
     /// </summary>
     public void Window_Activated()
     {
-        this.ViewModel.Window_Background.Value = XMLLoader.FetchBackgroundColorBrush();
+        this.ViewModel.Window_Background.Value = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
     }
 
     /// <summary>

@@ -1,4 +1,10 @@
-﻿namespace SalaryManager.Domain.ValueObjects;
+﻿using SixLabors.ImageSharp.Formats.Gif;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.Formats.Png;
+using SixLabors.ImageSharp.Formats.Tiff;
+using SixLabors.ImageSharp.Formats;
+
+namespace SalaryManager.Domain.ValueObjects;
 
 /// <summary>
 /// Value Object - ファイル拡張子
@@ -71,33 +77,28 @@ public sealed record class FileExtensionValue
     /// <summary>
     /// 画像フォーマット
     /// </summary>
-    public ImageFormat ImageFormat
+    public IImageEncoder ImageEncoder
     {
         get
         {
-            if (this.Value == FileExtensionValue.JPG.Value) 
+            if (this.Value == FileExtensionValue.JPG.Value)
             {
-                return ImageFormat.Jpeg;
+                return new JpegEncoder();
             }
 
             if (this.Value == FileExtensionValue.GIF.Value)
             {
-                return ImageFormat.Gif;
+                return new GifEncoder();
             }
 
             if (this.Value == FileExtensionValue.PNG.Value)
             {
-                return ImageFormat.Png;
+                return new PngEncoder();
             }
 
             if (this.Value == FileExtensionValue.TIFF.Value)
             {
-                return ImageFormat.Tiff;
-            }
-
-            if (this.Value == FileExtensionValue.Exif.Value)
-            {
-                return ImageFormat.Exif;
+                return new TiffEncoder();
             }
 
             throw new Exceptions.FormatException("画像フォーマットの変換に失敗しました。");
