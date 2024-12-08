@@ -368,3 +368,14 @@ FodyWeavers.xsd
 /SalaryManager.Infrastructure/SalaryManager.db
 /SalaryManager.Infrastructure/SalaryManager.db
 /SalaryManager.Infrastructure/SalaryManager.db
+/SalaryManager.Infrastructure/SalaryManager.db
+/SalaryManager.Infrastructure/SpreadSheet/cogent-jetty-298301-aa9962858f21.json
+/SalaryManager.Infrastructure/Google Calendar/client_secret_732519433057-69j4ur5vdpca55vfscem296gesd5j16o.apps.googleusercontent.com.json
+/SalaryManager.Infrastructure/Google Calendar/cogent-jetty-298301-fe7451e37332.json
+/SalaryManager.Infrastructure/Google Calendar/hallowed-zoo-424000-j3-161ba189d7b7.json
+/SalaryManager.Infrastructure/database/template
+/SalaryManager.Infrastructure/database/SalaryManager.db
+/TEST
+/SalaryManager.Domain/_SalaryManager.Domain.csproj
+/SalaryManager.Infrastructure/_SalaryManager.Infrastructure.csproj
+/SalaryManager.Infrastructure/Settings.json
