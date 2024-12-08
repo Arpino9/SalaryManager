@@ -1,4 +1,5 @@
-﻿using WorkingPlace = SalaryManager.Domain.StaticValues.WorkingPlace;
+﻿using System.Windows.Threading;
+using WorkingPlace = SalaryManager.Domain.StaticValues.WorkingPlace;
 
 namespace SalaryManager.WPF.Models;
 
@@ -94,8 +95,10 @@ public sealed class Model_WorkPlace : ModelBase<ViewModel_WorkPlace>, IParallell
 
         if (workingPlace.Any()) 
         {
-            this.ViewModel.CompanyName_Text.Value = workingPlace.First().DispatchingCompany.Text;
-            this.ViewModel.WorkPlace_Text.Value   = workingPlace.First().DispatchedCompany.Text;
+            var company = this.GetWorkingPlace(workingPlace);
+
+            this.ViewModel.CompanyName_Text.Value = company.DispatchingCompany.Text;
+            this.ViewModel.WorkPlace_Text.Value   = company.DispatchedCompany.Text;
         }
         else
         {
@@ -105,6 +108,23 @@ public sealed class Model_WorkPlace : ModelBase<ViewModel_WorkPlace>, IParallell
 
         this.ViewModel.CompanyName_Foreground.Value = new SolidColorBrush(Colors.Black);
         this.ViewModel.WorkPlace_Foreground.Value   = new SolidColorBrush(Colors.Black);
+    }
+
+    /// <summary>
+    /// 就業先を検索
+    /// </summary>
+    /// <param name="entities">就業場所</param>
+    /// <returns>就業先</returns>
+    private WorkingPlaceEntity GetWorkingPlace(IReadOnlyList<WorkingPlaceEntity> entities)
+    {
+        if (entities.Count == 1)
+        {
+            return entities.First();
+        }
+
+        var dispatcher = entities.Where(x => x.DispatchingCompany == x.DispatchedCompany).FirstOrDefault();
+
+        return entities.Where(x => x.DispatchedCompany != dispatcher.DispatchingCompany).FirstOrDefault();
     }
 
     /// <summary>
@@ -144,11 +164,13 @@ public sealed class Model_WorkPlace : ModelBase<ViewModel_WorkPlace>, IParallell
 
         if (workingPlace.Any())
         {
+            var company = this.GetWorkingPlace(workingPlace);
+
             // 所属会社名
-            this.ViewModel.CompanyName_Text.Value       = workingPlace.First().DispatchingCompany.Text;
+            this.ViewModel.CompanyName_Text.Value       = company.DispatchingCompany.Text;
             this.ViewModel.CompanyName_Foreground.Value = new SolidColorBrush(Colors.Black);
             // 勤務先
-            this.ViewModel.WorkPlace_Text.Value       = workingPlace.First().WorkingPlace_Name.Text;
+            this.ViewModel.WorkPlace_Text.Value       = company.WorkingPlace_Name.Text;
             this.ViewModel.WorkPlace_Foreground.Value = new SolidColorBrush(Colors.Black);
         }
         else
