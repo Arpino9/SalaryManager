@@ -16,8 +16,8 @@ public sealed class CareerEntity(
     string workingStatus,
     string companyName,
     string employeeNumber,
-    DateTime workingStartDate,
-    DateTime workingEndDate,
+    DateOnly workingStartDate,
+    DateOnly workingEndDate,
     AllowanceExistenceEntity allowanceExistence,
     string remarks)
 {

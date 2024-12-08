@@ -114,12 +114,12 @@ public class ViewModel_Career : ViewModelBase<Model_Career>
     #region 勤務期間
 
     /// <summary> 勤務開始日 - SelectedDate </summary>
-    public ReactiveProperty<DateTime> WorkingStart_SelectedDate { get; set; }
-        = new ReactiveProperty<DateTime>();
+    public ReactiveProperty<DateOnly> WorkingStart_SelectedDate { get; set; }
+        = new ReactiveProperty<DateOnly>();
 
     /// <summary> 勤務終了日 - SelectedDate </summary>
-    public ReactiveProperty<DateTime> WorkingEnd_SelectedDate { get; set; }
-        = new ReactiveProperty<DateTime>();
+    public ReactiveProperty<DateOnly> WorkingEnd_SelectedDate { get; set; }
+        = new ReactiveProperty<DateOnly>();
 
     /// <summary> 勤務終了日 - IsEnabled </summary>
     public ReactiveProperty<bool> WorkingEnd_IsEnabled { get; set; }

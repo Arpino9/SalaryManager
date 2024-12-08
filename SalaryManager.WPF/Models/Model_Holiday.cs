@@ -162,7 +162,7 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
     public void Clear_InputForm()
     {
         // 日付
-        this.ViewModel.Date_SelectedDate.Value         = DateTime.Today;
+        this.ViewModel.Date_SelectedDate.Value         = DateUtils.Today;
         // 祝日名
         this.ViewModel.Name_Text.Value                 = string.Empty;
         // 会社休日

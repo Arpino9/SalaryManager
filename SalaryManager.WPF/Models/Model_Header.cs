@@ -41,7 +41,7 @@ public sealed class Model_Header : ModelBase<ViewModel_Header>, IViewable
     public int ID { get; internal set; }
 
     /// <summary> 年月 </summary>
-    public DateTime YearMonth { get; set; } = DateTime.Today;
+    public DateOnly YearMonth { get; set; } = DateUtils.Today;
 
     /// <summary> デフォルトか </summary>
     public bool IsDefault { get; set; }
@@ -139,7 +139,7 @@ public sealed class Model_Header : ModelBase<ViewModel_Header>, IViewable
             this.UpdateDate = entity.UpdateDate;
         }
 
-        this.YearMonth = new DateTime(this.ViewModel.Year_Text.Value, this.ViewModel.Month_Text.Value, 1);
+        this.YearMonth = new DateOnly(this.ViewModel.Year_Text.Value, this.ViewModel.Month_Text.Value, 1);
     }
 
     /// <summary>

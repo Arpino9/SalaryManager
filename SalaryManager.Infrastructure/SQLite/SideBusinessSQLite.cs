@@ -1,4 +1,6 @@
-﻿namespace SalaryManager.Infrastructure.SQLite;
+﻿using System.ComponentModel;
+
+namespace SalaryManager.Infrastructure.SQLite;
 
 /// <summary>
 /// SQLite - 副業
@@ -22,7 +24,7 @@ from SideBusiness";
             {
                 return new SideBusinessEntity(
                             Convert.ToInt32(reader["Id"]),
-                            Convert.ToDateTime(reader["YearMonth"]),
+                            DateOnly.FromDateTime(Convert.ToDateTime(reader["YearMonth"])),
                             Convert.ToDouble(reader["SideBusiness"]),
                             Convert.ToDouble(reader["Perquisite"]),
                             Convert.ToDouble(reader["Others"]),
@@ -54,7 +56,7 @@ Where YearMonth = @YearMonth";
             {
                 return new SideBusinessEntity(
                             Convert.ToInt32(reader["Id"]),
-                            Convert.ToDateTime(reader["YearMonth"]),
+                            DateOnly.FromDateTime(Convert.ToDateTime(reader["YearMonth"])),
                             Convert.ToDouble(reader["SideBusiness"]),
                             Convert.ToDouble(reader["Perquisite"]),
                             Convert.ToDouble(reader["Others"]),
@@ -86,7 +88,7 @@ WHERE YM.IsDefault = True";
             {
                 return new SideBusinessEntity(
                             Convert.ToInt32(reader["Id"]),
-                            Convert.ToDateTime(reader["YearMonth"]),
+                            DateOnly.FromDateTime(Convert.ToDateTime(reader["YearMonth"])),
                             Convert.ToDouble(reader["SideBusiness"]),
                             Convert.ToDouble(reader["Perquisite"]),
                             Convert.ToDouble(reader["Others"]),

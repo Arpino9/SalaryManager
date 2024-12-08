@@ -111,12 +111,12 @@ public class ViewModel_WorkingPlace : ViewModelBase<Model_WorkingPlace>
     #region 就業期間
 
     /// <summary> 就業期間 - 開始 - SelectedDate </summary>
-    public ReactiveProperty<DateTime> WorkingStart_SelectedDate { get; set; }
-        = new ReactiveProperty<DateTime>();
+    public ReactiveProperty<DateOnly> WorkingStart_SelectedDate { get; set; }
+        = new ReactiveProperty<DateOnly>();
 
     /// <summary> 就業期間 - 終了 - SelectedDate </summary>
-    public ReactiveProperty<DateTime> WorkingEnd_SelectedDate { get; set; }
-        = new ReactiveProperty<DateTime>();
+    public ReactiveProperty<DateOnly> WorkingEnd_SelectedDate { get; set; }
+        = new ReactiveProperty<DateOnly>();
 
     #endregion
 

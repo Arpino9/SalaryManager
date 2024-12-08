@@ -103,8 +103,8 @@ public class Model_Career : ModelBase<ViewModel_Career>, IEditableMaster
         // 勤務開始日
         this.ViewModel.WorkingStart_SelectedDate.Value = entity.WorkingStartDate.Value;
         // 勤務終了日
-        this.ViewModel.WorkingEnd_SelectedDate.Value   = entity.WorkingEndDate.IsWorking ? 
-                                                         DateTime.Today : entity.WorkingEndDate.Value;
+        this.ViewModel.WorkingEnd_SelectedDate.Value   = entity.WorkingEndDate.IsWorking ?
+                                                         DateUtils.Today : entity.WorkingEndDate.Value;
         // 就業中か
         this.ViewModel.Working_IsChecked.Value         = entity.WorkingEndDate.IsWorking;
         // 備考
@@ -152,7 +152,7 @@ public class Model_Career : ModelBase<ViewModel_Career>, IEditableMaster
 
         if (this.ViewModel.Working_IsChecked.Value)
         {
-            this.ViewModel.WorkingEnd_SelectedDate.Value = DateTime.Today;
+            this.ViewModel.WorkingEnd_SelectedDate.Value = DateUtils.Today;
         }            
     }
 
@@ -239,9 +239,9 @@ public class Model_Career : ModelBase<ViewModel_Career>, IEditableMaster
         // 会社名
         this.ViewModel.CompanyName_Text.Value   = default(string);
         // 勤務開始日
-        this.ViewModel.WorkingStart_SelectedDate.Value = DateTime.Now;
+        this.ViewModel.WorkingStart_SelectedDate.Value = DateUtils.Today;
         // 勤務終了日
-        this.ViewModel.WorkingEnd_SelectedDate.Value   = DateTime.Now;
+        this.ViewModel.WorkingEnd_SelectedDate.Value   = DateUtils.Today;
         this.IsWorking_Checked();
         // 社員番号
         this.ViewModel.EmployeeNumber_Text.Value     = default(string);
@@ -315,7 +315,7 @@ public class Model_Career : ModelBase<ViewModel_Career>, IEditableMaster
     /// <returns>職歴</returns>
     private CareerEntity CreateEntity(int id)
     {
-        var workingEndDate = this.ViewModel.Working_IsChecked.Value ? DateTime.MaxValue : this.ViewModel.WorkingEnd_SelectedDate.Value;
+        var workingEndDate = this.ViewModel.Working_IsChecked.Value ? DateOnly.MaxValue : this.ViewModel.WorkingEnd_SelectedDate.Value;
 
         return new CareerEntity(
             id,

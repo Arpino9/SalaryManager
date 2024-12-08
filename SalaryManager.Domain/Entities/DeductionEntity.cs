@@ -17,7 +17,7 @@
 /// <param name="totalDeduct">控除額計</param>
 public sealed class DeductionEntity(
     int id,
-    DateTime yearMonth,
+    DateOnly yearMonth,
     double healthInsurance,
     double nursingInsurance,
     double welfareAnnuity,
@@ -33,7 +33,7 @@ public sealed class DeductionEntity(
     public int ID => id;
 
     /// <summary> 年月 </summary>
-    public DateTime YearMonth => yearMonth;
+    public DateOnly YearMonth => yearMonth;
 
     /// <summary> 健康保険 </summary>
     public MoneyValue HealthInsurance => new MoneyValue(healthInsurance);

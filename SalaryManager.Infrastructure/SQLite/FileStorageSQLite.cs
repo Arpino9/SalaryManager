@@ -30,8 +30,8 @@ FROM FileStorage";
                     Convert.ToString(reader["FileName"]),
                     image,
                     Convert.ToString(reader["Remarks"]),
-                    Convert.ToDateTime(reader["CreateDate"]),
-                    Convert.ToDateTime(reader["UpdateDate"]));
+                    DateOnly.FromDateTime(Convert.ToDateTime(reader["CreateDate"])),
+                    DateOnly.FromDateTime(Convert.ToDateTime(reader["UpdateDate"])));
             });
     }
 

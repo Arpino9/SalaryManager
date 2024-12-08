@@ -1,4 +1,6 @@
-﻿namespace SalaryManager.Infrastructure.SQLite;
+﻿using System.ComponentModel;
+
+namespace SalaryManager.Infrastructure.SQLite;
 
 /// <summary>
 /// SQLite - 控除額
@@ -38,7 +40,7 @@ FROM Deduction";
             {
                 return new DeductionEntity(
                             Convert.ToInt32(reader["Id"]),
-                            Convert.ToDateTime(reader["YearMonth"]),
+                            DateOnly.FromDateTime(Convert.ToDateTime(reader["YearMonth"])),
                             Convert.ToDouble(reader["HealthInsurance"]),
                             Convert.ToDouble(reader["NursingInsurance"]),
                             Convert.ToDouble(reader["WelfareAnnuity"]),
@@ -89,7 +91,7 @@ Where YearMonth = @YearMonth";
             {
                 return new DeductionEntity(
                             Convert.ToInt32(reader["Id"]),
-                            Convert.ToDateTime(reader["YearMonth"]),
+                            DateOnly.FromDateTime(Convert.ToDateTime(reader["YearMonth"])),
                             Convert.ToDouble(reader["HealthInsurance"]),
                             Convert.ToDouble(reader["NursingInsurance"]),
                             Convert.ToDouble(reader["WelfareAnnuity"]),
@@ -140,7 +142,7 @@ WHERE YM.IsDefault = True";
             {
                 return new DeductionEntity(
                             Convert.ToInt32(reader["Id"]),
-                            Convert.ToDateTime(reader["YearMonth"]),
+                            DateOnly.FromDateTime(Convert.ToDateTime(reader["YearMonth"])),
                             Convert.ToDouble(reader["HealthInsurance"]),
                             Convert.ToDouble(reader["NursingInsurance"]),
                             Convert.ToDouble(reader["WelfareAnnuity"]),

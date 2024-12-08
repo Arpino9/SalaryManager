@@ -25,7 +25,7 @@ FROM YearMonth";
             {
                 return new HeaderEntity(
                             Convert.ToInt32(reader["Id"]),
-                            Convert.ToDateTime(reader["YearMonth"]),
+                            DateOnly.FromDateTime(Convert.ToDateTime(reader["YearMonth"])),
                             Convert.ToBoolean(reader["IsDefault"]),
                             Convert.ToDateTime(reader["CreateDate"]),
                             Convert.ToDateTime(reader["UpdateDate"]));
@@ -53,7 +53,7 @@ Where IsDefault = True";
             {
                 return new HeaderEntity(
                             Convert.ToInt32(reader["Id"]),
-                            Convert.ToDateTime(reader["YearMonth"]),
+                            DateOnly.FromDateTime(Convert.ToDateTime(reader["YearMonth"])),
                             Convert.ToBoolean(reader["IsDefault"]),
                             Convert.ToDateTime(reader["CreateDate"]),
                             Convert.ToDateTime(reader["UpdateDate"]));

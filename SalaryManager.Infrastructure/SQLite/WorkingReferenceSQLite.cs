@@ -29,7 +29,7 @@ from WorkingReference";
             {
                 return new WorkingReferencesEntity(
                             Convert.ToInt32(reader["Id"]),
-                            Convert.ToDateTime(reader["YearMonth"]),
+                            DateOnly.FromDateTime(Convert.ToDateTime(reader["YearMonth"])),
                             Convert.ToDouble(reader["OvertimeTime"]),
                             Convert.ToDouble(reader["WeekendWorktime"]),
                             Convert.ToDouble(reader["MidnightWorktime"]),
@@ -75,7 +75,7 @@ Where YearMonth = @YearMonth";
             {
                 return new WorkingReferencesEntity(
                            Convert.ToInt32(reader["Id"]),
-                           Convert.ToDateTime(reader["YearMonth"]),
+                           DateOnly.FromDateTime(Convert.ToDateTime(reader["YearMonth"])),
                            Convert.ToDouble(reader["OvertimeTime"]),
                            Convert.ToDouble(reader["WeekendWorktime"]),
                            Convert.ToDouble(reader["MidnightWorktime"]),
@@ -120,8 +120,8 @@ WHERE YM.IsDefault = True";
             reader =>
             {
                 return new WorkingReferencesEntity(
-                            Convert.ToInt32(reader["Id"]),
-                           Convert.ToDateTime(reader["YearMonth"]),
+                           Convert.ToInt32(reader["Id"]),
+                           DateOnly.FromDateTime(Convert.ToDateTime(reader["YearMonth"])),
                            Convert.ToDouble(reader["OvertimeTime"]),
                            Convert.ToDouble(reader["WeekendWorktime"]),
                            Convert.ToDouble(reader["MidnightWorktime"]),

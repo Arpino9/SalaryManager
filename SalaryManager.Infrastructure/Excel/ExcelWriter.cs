@@ -72,8 +72,8 @@ public sealed class ExcelWriter : IExcelWriterRepository
         foreach (var entity in entities)
         {
             // 年月
-            this.Worksheet_Budget.Cell(row - 1, 2).Value = entity.YearMonth;
-            this.Worksheet_Payslip.Cell(row, 3).Value = entity.YearMonth;
+            this.Worksheet_Budget.Cell(row - 1, 2).Value = new DateTime(entity.YearMonth.Year, entity.YearMonth.Year, 1);
+            this.Worksheet_Payslip.Cell(row, 3).Value    = new DateTime(entity.YearMonth.Year, entity.YearMonth.Year, 1);
 
             row++;
         }

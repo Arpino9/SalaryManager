@@ -173,14 +173,14 @@ public class ViewModel_FileStorage : ViewModelBase<Model_FileStorage>
     #region 追加日付
 
     /// <summary> 追加日付 </summary>
-    public DateTime CreateDate { get; set; }
+    public DateOnly CreateDate { get; set; }
 
     #endregion
 
     #region 更新日付
 
     /// <summary> 更新日付  </summary>
-    public DateTime UpdateDate { get; set; }
+    public DateOnly UpdateDate { get; set; }
 
     #endregion
 

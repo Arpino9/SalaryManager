@@ -63,7 +63,7 @@ INNER JOIN Deduction D ON A.YearMonth = D.YearMonth";
                 {
                     return new AllowanceValueEntity(
                                 Convert.ToInt32(reader["Id"]),
-                                Convert.ToDateTime(reader["YearMonth"]),
+                                DateOnly.FromDateTime(Convert.ToDateTime(reader["YearMonth"])),
                                 Convert.ToDouble(reader["BasicSalary"]),
                                 Convert.ToDouble(reader["ExecutiveAllowance"]),
                                 Convert.ToDouble(reader["DependencyAllowance"]),
@@ -126,7 +126,7 @@ Where YearMonth = @YearMonth";
                 {
                     return new AllowanceValueEntity(
                                 Convert.ToInt32(reader["Id"]),
-                                Convert.ToDateTime(reader["YearMonth"]),
+                                DateOnly.FromDateTime(Convert.ToDateTime(reader["YearMonth"])),
                                 Convert.ToDouble(reader["BasicSalary"]),
                                 Convert.ToDouble(reader["ExecutiveAllowance"]),
                                 Convert.ToDouble(reader["DependencyAllowance"]),
@@ -183,7 +183,7 @@ WHERE YM.IsDefault = True";
                 {
                     return new AllowanceValueEntity(
                                 Convert.ToInt32(reader["Id"]),
-                                Convert.ToDateTime(reader["YearMonth"]),
+                                DateOnly.FromDateTime(Convert.ToDateTime(reader["YearMonth"])),
                                 Convert.ToDouble(reader["BasicSalary"]),
                                 Convert.ToDouble(reader["ExecutiveAllowance"]),
                                 Convert.ToDouble(reader["DependencyAllowance"]),

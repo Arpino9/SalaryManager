@@ -18,7 +18,7 @@
 /// <param name="remarks">備考</param>
 public sealed class WorkingReferencesEntity(
     int id,
-    DateTime yearMonth,
+    DateOnly yearMonth,
     double overtimeTime,
     double weekendWorktime,
     double midnightWorktime,
@@ -35,7 +35,7 @@ public sealed class WorkingReferencesEntity(
     public int ID => id;
 
     /// <summary> 年月 </summary>
-    public DateTime YearMonth => yearMonth;
+    public DateOnly YearMonth => yearMonth;
 
     /// <summary> 時間外時間 </summary>
     public double OvertimeTime => overtimeTime;

@@ -90,7 +90,7 @@ public sealed class Model_WorkPlace : ModelBase<ViewModel_WorkPlace>, IParallell
         this.ViewModel.WorkPlace_Text.Value = this.Entity.WorkPlace;
 
         // 所属会社名
-        var workingPlace = WorkingPlace.FetchByDate(new DateTime(this.Header.Year_Text.Value, this.Header.Month_Text.Value, 1));
+        var workingPlace = WorkingPlace.FetchByDate(new DateOnly(this.Header.Year_Text.Value, this.Header.Month_Text.Value, 1));
 
         if (workingPlace.Any()) 
         {
@@ -140,7 +140,7 @@ public sealed class Model_WorkPlace : ModelBase<ViewModel_WorkPlace>, IParallell
     public void Clear()
     {
         // 所属会社名
-        var workingPlace = WorkingPlace.FetchByDate(new DateTime(this.Header.Year_Text.Value, this.Header.Month_Text.Value, 1));
+        var workingPlace = WorkingPlace.FetchByDate(new DateOnly(this.Header.Year_Text.Value, this.Header.Month_Text.Value, 1));
 
         if (workingPlace.Any())
         {

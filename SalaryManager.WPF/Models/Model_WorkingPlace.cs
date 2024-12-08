@@ -97,7 +97,7 @@ public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>, IEditableMa
     {
         if (this.ViewModel.IsWorking_IsChacked.Value)
         {
-            this.ViewModel.WorkingEnd_SelectedDate.Value = DateTime.Now;
+            this.ViewModel.WorkingEnd_SelectedDate.Value = DateUtils.Today;
         }
     }
 
@@ -292,8 +292,8 @@ public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>, IEditableMa
         // 住所
         this.ViewModel.WorkingPlace_Address_Text.Value      = default(string);
 
-        this.ViewModel.WorkingStart_SelectedDate.Value = DateTime.Now;
-        this.ViewModel.WorkingEnd_SelectedDate.Value   = DateTime.Now;
+        this.ViewModel.WorkingStart_SelectedDate.Value = DateUtils.Today;
+        this.ViewModel.WorkingEnd_SelectedDate.Value   = DateUtils.Today;
 
         this.ViewModel.IsWaiting_IsChacked.Value = false;
         this.ViewModel.IsWorking_IsChacked.Value = false;

@@ -11,7 +11,7 @@
 /// <param name="remarks">備考</param>
 public sealed class SideBusinessEntity(
     int id,
-    DateTime yearMonth,
+    DateOnly yearMonth,
     double sideBusiness,
     double perquisite,
     double other,
@@ -21,7 +21,7 @@ public sealed class SideBusinessEntity(
     public int ID => id;
 
     /// <summary> 年月 </summary>
-    public DateTime YearMonth => yearMonth;
+    public DateOnly YearMonth => yearMonth;
 
     /// <summary> 副業収入 </summary>
     public double SideBusiness => sideBusiness;

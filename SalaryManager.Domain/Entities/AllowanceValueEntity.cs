@@ -23,7 +23,7 @@
 /// <param name="totalDeductedSalary">差引支給額</param>
 public sealed class AllowanceValueEntity(
     int id,
-    DateTime yearMonth,
+    DateOnly yearMonth,
     double basicSalary,
     double executiveAllowance,
     double dependencyAllowance,
@@ -45,7 +45,7 @@ public sealed class AllowanceValueEntity(
     public int ID => id;
 
     /// <summary> 年月 </summary>
-    public DateTime YearMonth => yearMonth;
+    public DateOnly YearMonth => yearMonth;
 
     /// <summary> 基本給 </summary>
     public MoneyValue BasicSalary => new MoneyValue(basicSalary);

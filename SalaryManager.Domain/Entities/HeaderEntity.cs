@@ -10,7 +10,7 @@
 /// <param name="upDateDate">更新日</param>
 public sealed class HeaderEntity(
     int id,
-    DateTime yearMonth,
+    DateOnly yearMonth,
     bool isDefault,
     DateTime createDate,
     DateTime upDateDate)
@@ -19,7 +19,7 @@ public sealed class HeaderEntity(
     public int ID { get; set; } = id;
 
     /// <summary> 年月 </summary>
-    public DateTime YearMonth { get; set; } = yearMonth;
+    public DateOnly YearMonth { get; set; } = yearMonth;
 
     /// <summary> デフォルト設定か </summary>
     public bool IsDefault { get; set; } = isDefault;

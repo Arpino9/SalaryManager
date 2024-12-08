@@ -8,7 +8,9 @@ global using System.IO;
 global using System.Text;
 global using System.Threading.Tasks;
 global using System.Xml.Serialization;
-global using System.Windows.Media;
+//global using System.Windows.Media;
+global using SixLabors.ImageSharp;
+global using SixLabors.ImageSharp.Formats.Png;
 
 // API
 global using Aspose.Pdf;

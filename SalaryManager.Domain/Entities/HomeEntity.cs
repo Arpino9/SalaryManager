@@ -15,8 +15,8 @@
 public sealed class HomeEntity(
     int id,
     string displayName,
-    DateTime livingStart,
-    DateTime livingEnd,
+    DateOnly livingStart,
+    DateOnly livingEnd,
     bool isLiving,
     string postCode,
     string address,
@@ -33,10 +33,10 @@ public sealed class HomeEntity(
     public string PostCode => postCode;
 
     /// <summary> 在住開始日 </summary>
-    public DateTime LivingStart => livingStart;
+    public DateOnly LivingStart => livingStart;
 
     /// <summary> 在住終了日 </summary>
-    public DateTime LivingEnd => this.IsLiving ? DateTime.Today : livingEnd;
+    public DateOnly LivingEnd => this.IsLiving ? DateUtils.Today : livingEnd;
 
     /// <summary> 在住中か </summary>
     public bool IsLiving => isLiving;

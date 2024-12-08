@@ -249,9 +249,9 @@ namespace SalaryManager.WPF.Models
             var id = this.GetID();
 
             // 追加日
-            this.ViewModel.CreateDate = File.GetCreationTime(filePath);
+            this.ViewModel.CreateDate = DateOnly.FromDateTime(File.GetCreationTime(filePath));
             // 更新日
-            this.ViewModel.UpdateDate = File.GetLastWriteTime(filePath);
+            this.ViewModel.UpdateDate = DateOnly.FromDateTime(File.GetLastWriteTime(filePath));
 
             if (extension.IsPDF)
             {
@@ -435,8 +435,8 @@ namespace SalaryManager.WPF.Models
 
             using (var cursor = new CursorWaiting())
             {
-                this.ViewModel.CreateDate = DateTime.Today;
-                this.ViewModel.UpdateDate = DateTime.Today;
+                this.ViewModel.CreateDate = DateUtils.Today;
+                this.ViewModel.UpdateDate = DateUtils.Today;
 
                 var id = this.GetID();
                 this.ViewModel.AttachedFile_ItemSource.Add(this.CreateEntity(id));
@@ -559,9 +559,9 @@ namespace SalaryManager.WPF.Models
             // 備考
             this.ViewModel.Remarks_Text.Value    = string.Empty;
             // 作成日
-            this.ViewModel.CreateDate      = DateTime.Today;
+            this.ViewModel.CreateDate      = DateUtils.Today;
             // 更新日
-            this.ViewModel.UpdateDate      = DateTime.Today;
+            this.ViewModel.UpdateDate      = DateUtils.Today;
 
             // 追加ボタン
             this.ViewModel.Add_IsEnabled.Value = false;
@@ -586,7 +586,7 @@ namespace SalaryManager.WPF.Models
                 return;
             }
 
-            this.ViewModel.UpdateDate = DateTime.Today;
+            this.ViewModel.UpdateDate = DateUtils.Today;
 
             using (var cursor = new CursorWaiting())
             {

@@ -16,8 +16,8 @@ public sealed class FileStorageEntity(
     string fileName,
     byte[] image,
     string remarks,
-    DateTime createDate,
-    DateTime updateDate)
+    DateOnly createDate,
+    DateOnly updateDate)
 {
     /// <summary> ID </summary>
     public int ID => id;
@@ -35,8 +35,8 @@ public sealed class FileStorageEntity(
     public string Remarks => remarks;
 
     /// <summary> 作成日 </summary>
-    public DateTime CreateDate => createDate;
+    public DateOnly CreateDate => createDate;
 
     /// <summary> 作成日 </summary>
-    public DateTime UpdateDate => updateDate;
+    public DateOnly UpdateDate => updateDate;
 }
