@@ -109,7 +109,7 @@ public class Model_Allowance : ModelBase<ViewModel_Allowance>, IParallellyEditab
         // 所属会社名
         Careers.Create(new CareerSQLite());
 
-        var company = Careers.FetchCompany(new DateOnly(this.Header.Year_Text.Value, this.Header.Month_Text.Value, 1));
+        var company = Careers.FetchCompany(new DateTime(this.Header.Year_Text.Value, this.Header.Month_Text.Value, 1));
         if (company is null)
         {
             return;

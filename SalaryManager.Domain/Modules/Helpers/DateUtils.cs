@@ -23,4 +23,12 @@ public static class DateUtils
     /// <returns>SQLite日付</returns>
     public static string ConvertToSQLiteDate(this DateOnly date)
        => date.Year + "-" + date.Month.ToString("D2") + "-" + date.Day.ToString("D2");
+
+    /// <summary>
+    /// SQLiteの値に変換
+    /// </summary>
+    /// <param name="date">日付</param>
+    /// <returns>SQLite日付</returns>
+    public static string ConvertToSQLiteDate(this DateTime date)
+       => date.Year + "-" + date.Month.ToString("D2") + "-" + date.Day.ToString("D2");
 }

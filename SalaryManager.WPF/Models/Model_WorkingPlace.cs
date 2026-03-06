@@ -97,7 +97,7 @@ public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>, IEditableMa
     {
         if (this.ViewModel.IsWorking_IsChacked.Value)
         {
-            this.ViewModel.WorkingEnd_SelectedDate.Value = DateUtils.Today;
+            this.ViewModel.WorkingEnd_SelectedDate.Value = DateTime.Today;
         }
     }
 
@@ -129,8 +129,8 @@ public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>, IEditableMa
         // 住所
         this.ViewModel.WorkingPlace_Address_Text.Value = entity.WorkingPlace_Address;
 
-        this.ViewModel.WorkingStart_SelectedDate.Value = entity.WorkingStart;
-        this.ViewModel.WorkingEnd_SelectedDate.Value   = entity.WorkingEnd;
+        this.ViewModel.WorkingStart_SelectedDate.Value = new DateTime(entity.WorkingStart.Year, entity.WorkingStart.Month, entity.WorkingStart.Day);
+        this.ViewModel.WorkingEnd_SelectedDate.Value   = new DateTime(entity.WorkingEnd.Year,   entity.WorkingEnd.Month,   entity.WorkingEnd.Day);
 
         // 待機中
         this.ViewModel.IsWaiting_IsChacked.Value = entity.IsWaiting;
@@ -292,8 +292,8 @@ public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>, IEditableMa
         // 住所
         this.ViewModel.WorkingPlace_Address_Text.Value      = default(string);
 
-        this.ViewModel.WorkingStart_SelectedDate.Value = DateUtils.Today;
-        this.ViewModel.WorkingEnd_SelectedDate.Value   = DateUtils.Today;
+        this.ViewModel.WorkingStart_SelectedDate.Value = DateTime.Today;
+        this.ViewModel.WorkingEnd_SelectedDate.Value   = DateTime.Today;
 
         this.ViewModel.IsWaiting_IsChacked.Value = false;
         this.ViewModel.IsWorking_IsChacked.Value = false;
@@ -371,22 +371,22 @@ public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>, IEditableMa
             this.ViewModel.DispatchedCompanyName_Text.Value,
             this.ViewModel.WorkingPlace_Name_Text.Value,
             this.ViewModel.WorkingPlace_Address_Text.Value,
-            this.ViewModel.WorkingStart_SelectedDate.Value, 
-            this.ViewModel.WorkingEnd_SelectedDate.Value,
+            DateOnly.FromDateTime(this.ViewModel.WorkingStart_SelectedDate.Value),
+            DateOnly.FromDateTime(this.ViewModel.WorkingEnd_SelectedDate.Value),
             this.ViewModel.IsWaiting_IsChacked.Value,
             this.ViewModel.IsWorking_IsChacked.Value,
-            (this.ViewModel.WorkingTime_Start_Hour_Text.Value, 
-             this.ViewModel.WorkingTime_Start_Minute_Text.Value),
-            (this.ViewModel.WorkingTime_End_Hour_Text.Value,   
-             this.ViewModel.WorkingTime_End_Minute_Text.Value),
-            (this.ViewModel.LunchTime_Start_Hour_Text.Value,  
-             this.ViewModel.LunchTime_Start_Minute_Text.Value),
-            (this.ViewModel.LunchTime_End_Hour_Text.Value,     
-             this.ViewModel.LunchTime_End_Minute_Text.Value),
-            (this.ViewModel.BreakTime_Start_Hour_Text.Value,   
-           　this.ViewModel.BreakTime_Start_Minute_Text.Value),
-            (this.ViewModel.BreakTime_End_Hour_Text.Value,     
-             this.ViewModel.BreakTime_End_Minute_Text.Value),
+            new TimeOnly(this.ViewModel.WorkingTime_Start_Hour_Text.Value, 
+                         this.ViewModel.WorkingTime_Start_Minute_Text.Value),
+            new TimeOnly(this.ViewModel.WorkingTime_End_Hour_Text.Value,   
+                         this.ViewModel.WorkingTime_End_Minute_Text.Value),
+            new TimeOnly(this.ViewModel.LunchTime_Start_Hour_Text.Value,  
+                         this.ViewModel.LunchTime_Start_Minute_Text.Value),
+            new TimeOnly(this.ViewModel.LunchTime_End_Hour_Text.Value,     
+                         this.ViewModel.LunchTime_End_Minute_Text.Value),
+            new TimeOnly(this.ViewModel.BreakTime_Start_Hour_Text.Value,   
+           　            this.ViewModel.BreakTime_Start_Minute_Text.Value),
+            new TimeOnly(this.ViewModel.BreakTime_End_Hour_Text.Value,     
+                         this.ViewModel.BreakTime_End_Minute_Text.Value),
             this.ViewModel.Remarks_Text.Value);
     }
 

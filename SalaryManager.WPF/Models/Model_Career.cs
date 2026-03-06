@@ -1,4 +1,5 @@
-﻿using Message = SalaryManager.Domain.Modules.Logics.Message;
+﻿using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+using Message = SalaryManager.Domain.Modules.Logics.Message;
 
 namespace SalaryManager.WPF.Models;
 
@@ -33,9 +34,6 @@ public class Model_Career : ModelBase<ViewModel_Career>, IEditableMaster
 
     /// <summary> ViewModel - 職歴 </summary>
     internal override ViewModel_Career ViewModel { get; set; }
-
-    /// <summary> Entity - 経歴 </summary>
-    public IReadOnlyList<CareerEntity> Entities { get; internal set; }
 
     /// <summary>
     /// 初期化
@@ -101,10 +99,10 @@ public class Model_Career : ModelBase<ViewModel_Career>, IEditableMaster
         // 社員番号
         this.ViewModel.EmployeeNumber_Text.Value       = entity.EmployeeNumber;
         // 勤務開始日
-        this.ViewModel.WorkingStart_SelectedDate.Value = entity.WorkingStartDate.Value;
+        this.ViewModel.WorkingStart_SelectedDate.Value = Convert.ToDateTime(entity.WorkingStartDate.Value);
         // 勤務終了日
         this.ViewModel.WorkingEnd_SelectedDate.Value   = entity.WorkingEndDate.IsWorking ?
-                                                         DateUtils.Today : entity.WorkingEndDate.Value;
+                                                         DateTime.Today : Convert.ToDateTime(entity.WorkingEndDate.Value);
         // 就業中か
         this.ViewModel.Working_IsChecked.Value         = entity.WorkingEndDate.IsWorking;
         // 備考
@@ -152,7 +150,7 @@ public class Model_Career : ModelBase<ViewModel_Career>, IEditableMaster
 
         if (this.ViewModel.Working_IsChecked.Value)
         {
-            this.ViewModel.WorkingEnd_SelectedDate.Value = DateUtils.Today;
+            this.ViewModel.WorkingEnd_SelectedDate.Value = DateTime.Today;
         }            
     }
 
@@ -239,9 +237,9 @@ public class Model_Career : ModelBase<ViewModel_Career>, IEditableMaster
         // 会社名
         this.ViewModel.CompanyName_Text.Value   = default(string);
         // 勤務開始日
-        this.ViewModel.WorkingStart_SelectedDate.Value = DateUtils.Today;
+        this.ViewModel.WorkingStart_SelectedDate.Value = DateTime.Today;
         // 勤務終了日
-        this.ViewModel.WorkingEnd_SelectedDate.Value   = DateUtils.Today;
+        this.ViewModel.WorkingEnd_SelectedDate.Value   = DateTime.Today;
         this.IsWorking_Checked();
         // 社員番号
         this.ViewModel.EmployeeNumber_Text.Value     = default(string);
@@ -302,7 +300,7 @@ public class Model_Career : ModelBase<ViewModel_Career>, IEditableMaster
         {
             this.ViewModel.Delete_IsEnabled.Value = true;
 
-            var entity = this.CreateEntity(this.Entities.Count + 1);
+            var entity = this.CreateEntity(this.ViewModel.Careers_ItemSource.Count + 1);
             this.ViewModel.Careers_ItemSource.Add(entity);
             this.Save();
         }   
@@ -315,7 +313,7 @@ public class Model_Career : ModelBase<ViewModel_Career>, IEditableMaster
     /// <returns>職歴</returns>
     private CareerEntity CreateEntity(int id)
     {
-        var workingEndDate = this.ViewModel.Working_IsChecked.Value ? DateOnly.MaxValue : this.ViewModel.WorkingEnd_SelectedDate.Value;
+        var workingEndDate = this.ViewModel.Working_IsChecked.Value ? DateTime.MaxValue : Convert.ToDateTime(this.ViewModel.WorkingEnd_SelectedDate.Value);
 
         return new CareerEntity(
             id,

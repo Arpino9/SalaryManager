@@ -29,12 +29,12 @@ public sealed class WorkingPlaceEntity(
     DateOnly workingEnd,
     bool isWaiting,
     bool isWorking,
-    (int Hour, int Minute) workingStartTime,
-    (int Hour, int Minute) workingEndTime,
-    (int Hour, int Minute) lunchStartTime,
-    (int Hour, int Minute) lunchEndTime,
-    (int Hour, int Minute) breakStartTime,
-    (int Hour, int Minute) breakEndTime,
+    TimeOnly workingStartTime,
+    TimeOnly workingEndTime,
+    TimeOnly lunchStartTime,
+    TimeOnly lunchEndTime,
+    TimeOnly breakStartTime,
+    TimeOnly breakEndTime,
     string remarks)
 {
     /// <summary>
@@ -82,12 +82,12 @@ public sealed class WorkingPlaceEntity(
         int break_End_Minute,
         string remarks) : this(id, dispatchingCompany, dispatchedCompany, WorkingPlace, workingCompanyAddress,
                                WorkingStart, WorkingEnd, isWaiting, isWorking,
-                              (working_Start_Hour, working_Start_Minute),
-                              (working_End_Hour, working_End_Minute),
-                              (lunch_Start_Hour, lunch_Start_Minute),
-                              (lunch_End_Hour, lunch_End_Minute),
-                              (break_Start_Hour, break_Start_Minute),
-                              (break_End_Hour, break_End_Minute),
+                              new TimeOnly(working_Start_Hour, working_Start_Minute),
+                              new TimeOnly(working_End_Hour, working_End_Minute),
+                              new TimeOnly(lunch_Start_Hour, lunch_Start_Minute),
+                              new TimeOnly(lunch_End_Hour, lunch_End_Minute),
+                              new TimeOnly(break_Start_Hour, break_Start_Minute),
+                              new TimeOnly(break_End_Hour, break_End_Minute),
                               remarks)
     {
         

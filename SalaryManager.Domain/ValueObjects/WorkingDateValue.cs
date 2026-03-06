@@ -6,22 +6,22 @@
 public sealed record class WorkingDateValue
 {
     /// <summary> 不明 </summary>
-    public static readonly WorkingDateValue Unknown = new WorkingDateValue(DateOnly.MinValue);
+    public static readonly WorkingDateValue Unknown = new WorkingDateValue(DateTime.MinValue);
 
     /// <summary> 就業中 </summary>
-    public static readonly WorkingDateValue Working = new WorkingDateValue(DateOnly.MaxValue);
+    public static readonly WorkingDateValue Working = new WorkingDateValue(DateTime.MaxValue);
 
     /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="value">勤務日</param>
-    public WorkingDateValue(DateOnly value)
+    public WorkingDateValue(DateTime value)
     {
         this.Value = value;
     }
 
     /// <summary> 値 </summary>
-    public readonly DateOnly Value;
+    public readonly DateTime Value;
 
     /// <summary> 不明か </summary>
     public bool IsUnknown
