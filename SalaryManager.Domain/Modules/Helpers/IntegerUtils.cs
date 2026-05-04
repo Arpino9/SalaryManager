@@ -5,13 +5,16 @@
 /// </summary>
 public static class IntegerUtils
 {
-    /// <summary>
-    /// コレクションが選択されていないか
-    /// </summary>
     /// <param name="selectedIndex">コレクションのインデックス</param>
-    /// <returns>
-    /// True : コレクション未選択 / False: コレクション選択済
-    /// </returns>
-    public static bool IsUnSelected(this int selectedIndex)
-        => (selectedIndex == -1);
+    extension(int selectedIndex)
+    {
+        /// <summary>
+        /// コレクションが選択されていないか
+        /// </summary>
+        /// <returns>
+        /// True : コレクション未選択 / False: コレクション選択済
+        /// </returns>
+        public bool IsUnSelected()
+            => (selectedIndex == -1);
+    }
 }

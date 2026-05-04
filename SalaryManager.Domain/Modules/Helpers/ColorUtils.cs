@@ -12,7 +12,7 @@ public static  class ColorUtils
     /// </summary>
     /// <param name="color">色情報</param>
     /// <returns>色定義</returns>
-    public static Color ToWPFColor(System.Drawing.Color color)
+    public static Color ToWPFColor(Color color)
     {
         var brush = new Color();
         brush = Color.FromArgb(color.A, color.R, color.G, color.B);

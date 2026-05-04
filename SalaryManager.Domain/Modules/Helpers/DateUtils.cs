@@ -8,27 +8,31 @@ public static class DateUtils
     /// <summary> 今日 </summary>
     public static readonly DateOnly Today = DateOnly.FromDateTime(DateTime.Today);
 
-    /// <summary>
-    /// SQLiteの値に変換
-    /// </summary>
     /// <param name="dateTime">日付</param>
-    /// <returns>日付</returns>
-    public static string ConvertToSQLiteYearMonth(this DateOnly dateTime)
-        => dateTime.Year + "-" + dateTime.Month.ToString("D2") + "-" + "01";
+    extension(DateOnly dateTime)
+    {
+        /// <summary>
+        /// SQLiteの値に変換
+        /// </summary>
+        /// <returns>日付</returns>
+        public string ConvertToSQLiteYearMonth()
+            => dateTime.Year + "-" + dateTime.Month.ToString("D2") + "-" + "01";
 
-    /// <summary>
-    /// SQLiteの値に変換
-    /// </summary>
-    /// <param name="date">日付</param>
-    /// <returns>SQLite日付</returns>
-    public static string ConvertToSQLiteDate(this DateOnly date)
-       => date.Year + "-" + date.Month.ToString("D2") + "-" + date.Day.ToString("D2");
+        /// <summary>
+        /// SQLiteの値に変換
+        /// </summary>
+        /// <returns>SQLite日付</returns>
+        public string ConvertToSQLiteDate()
+           => dateTime.Year + "-" + dateTime.Month.ToString("D2") + "-" + dateTime.Day.ToString("D2");
+    }
 
-    /// <summary>
-    /// SQLiteの値に変換
-    /// </summary>
-    /// <param name="date">日付</param>
-    /// <returns>SQLite日付</returns>
-    public static string ConvertToSQLiteDate(this DateTime date)
-       => date.Year + "-" + date.Month.ToString("D2") + "-" + date.Day.ToString("D2");
+    extension(DateTime dateTime)
+    {
+        /// <summary>
+        /// SQLiteの値に変換
+        /// </summary>
+        /// <returns>SQLite日付</returns>
+        public string ConvertToSQLiteDate()
+           => dateTime.Year + "-" + dateTime.Month.ToString("D2") + "-" + dateTime.Day.ToString("D2");
+    }
 }
