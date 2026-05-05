@@ -1,4 +1,8 @@
-﻿namespace SalaryManager.WPF.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SalaryManager.Prism.Models;
 
 /// <summary>
 /// Model - 基底
@@ -14,7 +18,7 @@ public abstract class ModelBase<T> where T : class
     /// </summary>
     /// <param name="sixLaborsFontFamily">SixLabors.Fonts.FontFamily</param>
     /// <returns>System.Windows.Media.FontFamily</returns>
-    protected FontFamily ConvertToWpfFontFamily(SixLabors.Fonts.FontFamily sixLaborsFontFamily)
+    public FontFamily ConvertToWpfFontFamily(SixLabors.Fonts.FontFamily sixLaborsFontFamily)
     {
         // フォント名を取得
         string fontName = sixLaborsFontFamily.Name;
@@ -36,7 +40,7 @@ public abstract class ModelBase<T> where T : class
     /// </summary>
     /// <param name="drawingColor">System.Drawing.Color</param>
     /// <returns>SolidColorBrush</returns>
-    protected SolidColorBrush ConvertToBrush(System.Drawing.Color drawingColor)
+    public SolidColorBrush ConvertToBrush(System.Drawing.Color drawingColor)
     {
         return new SolidColorBrush(Color.FromArgb(
             drawingColor.A, // Alpha

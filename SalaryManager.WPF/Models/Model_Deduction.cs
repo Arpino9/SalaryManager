@@ -39,9 +39,6 @@ public class Model_Deduction : ModelBase<ViewModel_Deduction>, IParallellyEditab
     /// <summary> ViewModel - 支給額 </summary>
     internal Model_Allowance Allowance { get; set; }
 
-    /// <summary> Model - ヘッダー </summary>
-    private Model_Header Model_Header { get; set; } = Model_Header.GetInstance(new HeaderSQLite());
-
     /// <summary> Entity - 控除額 </summary>
     public DeductionEntity Entity { get; set; }
 
@@ -166,15 +163,17 @@ public class Model_Deduction : ModelBase<ViewModel_Deduction>, IParallellyEditab
     /// <summary>
     /// 保存
     /// </summary>
+    /// <param name="id">ID</param>
+    /// <param name="yearMonth">年月</param>
     /// <param name="transaction">トランザクション</param>
     /// <remarks>
     /// SQLiteに接続し、入力項目を保存する。
     /// </remarks>
-    public void Save(ITransactionRepository transaction)
+    public void Save(ITransactionRepository transaction, int id, DateOnly yearMonth)
     {
         var entity = new DeductionEntity(
-                        this.Model_Header.ID,
-                        this.Model_Header.YearMonth,
+                        id,
+                        yearMonth,
                         this.ViewModel.HealthInsurance_Text.Value,
                         this.ViewModel.NursingInsurance_Text.Value,
                         this.ViewModel.WelfareAnnuity_Text.Value,

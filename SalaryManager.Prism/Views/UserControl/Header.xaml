@@ -1,0 +1,52 @@
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"             
+             xmlns:ViewModels="clr-namespace:SalaryManager.Prism.ViewModels" x:Class="SalaryManager.Prism.Views.UserControl.Header"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+             Height="25" Width="200"
+             Background="{Binding Window_Background}">
+    <Grid>
+        <Grid.DataContext>
+            <ViewModels:HeaderViewModel/>
+        </Grid.DataContext>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="50" />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Button Content="←" 
+            Command="{Binding Return_Command, Mode=OneWay}"/>
+        <TextBox Grid.Column="1" 
+             Grid.Row="1" Text="{Binding Year_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+             TextAlignment="Right">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="TextChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding Year_TextChanged}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
+        <Label Content="年"
+           Grid.Column="2" />
+
+        <TextBox Grid.Column="3" 
+             Text="{Binding Month_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+             TextAlignment="Right">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="TextChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding Month_TextChanged}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </TextBox>
+        <Label Content="月" 
+           Grid.Column="4" />
+
+        <Button Content="→" 
+            Grid.Column="5" 
+            Command="{Binding Proceed_Command, Mode=OneWay}" />
+    </Grid>
+</UserControl>

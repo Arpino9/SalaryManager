@@ -6,7 +6,7 @@
 /// <remarks>
 /// 表示用、入力用フォームがない画面が対象
 /// </remarks>
-internal interface IViewable
+public interface IViewable
 {
     /// <summary>
     /// 初期化

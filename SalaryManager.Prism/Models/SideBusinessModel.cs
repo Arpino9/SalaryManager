@@ -1,20 +1,24 @@
-﻿namespace SalaryManager.WPF.Models;
+﻿using SalaryManager.Prism.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SalaryManager.Prism.Models;
 
 /// <summary>
 /// Model - 副業
 /// </summary>
-public class Model_SideBusiness : ModelBase<ViewModel_SideBusiness>, IParallellyEditable
+public class SideBusinessModel : ModelBase<SideBusinessViewModel>, IParallellyEditable
 {
-
     #region Get Instance
 
-    private static Model_SideBusiness model = null;
+    private static SideBusinessModel model = null;
 
-    public static Model_SideBusiness GetInstance(ISideBusinessRepository repository)
+    public static SideBusinessModel GetInstance(ISideBusinessRepository repository)
     {
         if (model == null)
         {
-            model = new Model_SideBusiness(repository);
+            model = new SideBusinessModel(repository);
         }
 
         return model;
@@ -25,16 +29,18 @@ public class Model_SideBusiness : ModelBase<ViewModel_SideBusiness>, IParallelly
     /// <summary> Repository </summary>
     private ISideBusinessRepository _repository;
 
-    public Model_SideBusiness(ISideBusinessRepository repository)
+    public SideBusinessModel(ISideBusinessRepository repository)
     {
         _repository = repository;
     }
 
-    /// <summary> ViewModel - 副業 </summary>
-    internal override ViewModel_SideBusiness ViewModel { get; set; }
+    internal override SideBusinessViewModel ViewModel { get; set; }
 
     /// <summary> ViewModel - ヘッダ </summary>
-    internal ViewModel_Header Header { get; set; }
+    internal HeaderViewModel Header { get; set; }
+
+    /// <summary> Model - ヘッダー </summary>
+    private HeaderModel Model_Header { get; set; } = HeaderModel.GetInstance(new HeaderSQLite());
 
     /// <summary> Entity - 勤務備考 </summary>
     public SideBusinessEntity Entity { get; set; }
@@ -65,9 +71,9 @@ public class Model_SideBusiness : ModelBase<ViewModel_SideBusiness>, IParallelly
 
     public void Window_Activated()
     {
-        this.ViewModel.Window_FontFamily.Value = base.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
-        this.ViewModel.Window_FontSize.Value   = XMLLoader.FetchFontSize();
-        this.ViewModel.Window_Background.Value = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
+        this.ViewModel.Window_FontFamily = base.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
+        this.ViewModel.Window_FontSize = XMLLoader.FetchFontSize();
+        this.ViewModel.Window_Background = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
     }
 
     /// <summary>
@@ -82,11 +88,11 @@ public class Model_SideBusiness : ModelBase<ViewModel_SideBusiness>, IParallelly
         {
             SideBusinesses.Create(_repository);
 
-            this.Entity          = SideBusinesses.Fetch(this.Header.Year_Text.Value, this.Header.Month_Text.Value);
-            this.Entity_LastYear = SideBusinesses.Fetch(this.Header.Year_Text.Value - 1, this.Header.Month_Text.Value);
-        
+            this.Entity = SideBusinesses.Fetch(this.Header.Year_Text, this.Header.Month_Text);
+            this.Entity_LastYear = SideBusinesses.Fetch(this.Header.Year_Text - 1, this.Header.Month_Text);
+
             this.Reload_InputForm();
-        }   
+        }
     }
 
     /// <summary>
@@ -98,13 +104,13 @@ public class Model_SideBusiness : ModelBase<ViewModel_SideBusiness>, IParallelly
     public void Clear()
     {
         // 副業
-        this.ViewModel.SideBusiness_Text.Value = default(double);
+        this.ViewModel.SideBusiness_Text = default(double);
         // 臨時収入
-        this.ViewModel.Perquisite_Text.Value   = default(double);
+        this.ViewModel.Perquisite_Text = default(double);
         // その他
-        this.ViewModel.Others_Text.Value       = default(double);
+        this.ViewModel.Others_Text = default(double);
         // 備考
-        this.ViewModel.Remarks_Text.Value      = default(string);
+        this.ViewModel.Remarks_Text = default(string);
     }
 
     /// <summary>
@@ -122,33 +128,33 @@ public class Model_SideBusiness : ModelBase<ViewModel_SideBusiness>, IParallelly
         }
 
         // 副業
-        this.ViewModel.SideBusiness_Text.Value = this.Entity.SideBusiness;
+        this.ViewModel.SideBusiness_Text = this.Entity.SideBusiness;
         // 臨時収入
-        this.ViewModel.Perquisite_Text.Value   = this.Entity.Perquisite;
+        this.ViewModel.Perquisite_Text = this.Entity.Perquisite;
         // その他
-        this.ViewModel.Others_Text.Value       = this.Entity.Others;
+        this.ViewModel.Others_Text = this.Entity.Others;
         // 備考
-        this.ViewModel.Remarks_Text.Value      = this.Entity.Remarks;
+        this.ViewModel.Remarks_Text = this.Entity.Remarks;
     }
 
     /// <summary>
     /// 保存
     /// </summary>
-    /// <param name="transaction">トランザクション</param>
     /// <param name="id">ID</param>
-    /// <param name="yearMonth">年月</param>
+    /// <param name="yearMonh">年月</param>
+    /// <param name="transaction">トランザクション</param>
     /// <remarks>
     /// SQLiteに接続し、入力項目を保存する。
     /// </remarks>
-    public void Save(ITransactionRepository transaction, int id, DateOnly yearMonth)
+    public void Save(ITransactionRepository transaction, int id, DateOnly yearMonh)
     {
         var entity = new SideBusinessEntity(
             id,
-            yearMonth,
-            this.ViewModel.SideBusiness_Text.Value,
-            this.ViewModel.Perquisite_Text.Value,
-            this.ViewModel.Others_Text.Value,
-            this.ViewModel.Remarks_Text.Value);
+            yearMonh,
+            this.ViewModel.SideBusiness_Text,
+            this.ViewModel.Perquisite_Text,
+            this.ViewModel.Others_Text,
+            this.ViewModel.Remarks_Text);
 
         _repository.Save(transaction, entity);
     }

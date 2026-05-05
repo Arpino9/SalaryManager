@@ -215,15 +215,17 @@ public class Model_Allowance : ModelBase<ViewModel_Allowance>, IParallellyEditab
     /// <summary>
     /// 保存
     /// </summary>
+    /// <param name="id">ID</param>
+    /// <param name="yearMonth">年月</param>
     /// <param name="transaction">トランザクション</param>
     /// <remarks>
     /// SQLiteに接続し、入力項目を保存する。
     /// </remarks>
-    public void Save(ITransactionRepository transaction)
+    public void Save(ITransactionRepository transaction, int id, DateOnly yearMonth)
     {
         var entity = new AllowanceValueEntity(
-                          this.Model_Header.ID,
-                          this.Model_Header.YearMonth,
+                          id,
+                          yearMonth,
                           this.ViewModel.BasicSalary_Text.Value,
                           this.ViewModel.ExecutiveAllowance_Text.Value,
                           this.ViewModel.DependencyAllowance_Text.Value,
@@ -250,7 +252,7 @@ public class Model_Allowance : ModelBase<ViewModel_Allowance>, IParallellyEditab
     /// <remarks>
     /// 該当項目の変更時に、支給総計と差引支給額を再計算する。
     /// </remarks>
-    internal void ReCaluculate()
+    public void ReCaluculate()
     {
         if (this.ViewModel is null)
         {

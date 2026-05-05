@@ -1,0 +1,178 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:local="clr-namespace:SalaryManager.Prism.Views.UserControl"
+        xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:ViewModels="clr-namespace:SalaryManager.Prism.ViewModels"  x:Class="SalaryManager.Prism.Views.MainWindow"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        WindowStartupLocation="CenterScreen"
+        Title="{Binding Title}" Height="550" Width="700" >
+    <Grid>
+        <behaviors:Interaction.Triggers>
+            <behaviors:EventTrigger EventName="Activated">
+                <behaviors:InvokeCommandAction Command="{Binding Window_Activated}" />
+            </behaviors:EventTrigger>
+        </behaviors:Interaction.Triggers>
+
+        <ContentControl prism:RegionManager.RegionName="ContentRegion" />
+
+        <Menu>
+            <MenuItem Header="編集">
+                <MenuItem Header="会社マスタ" Command="{Binding EditCompany_Command}">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="会社マスタを開きます。"/>
+                    </ToolTipService.ToolTip>
+                </MenuItem>
+
+                <MenuItem Header="経歴マスタ" Command="{Binding EditCareer_Command}">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="経歴マスタを開きます。"/>
+                    </ToolTipService.ToolTip>
+                </MenuItem>
+
+                <MenuItem Header="勤務マスタ" Command="{Binding EditWorkingPlace_Command}">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="勤務マスタを開きます。"/>
+                    </ToolTipService.ToolTip>
+                </MenuItem>
+
+                <MenuItem Header="自宅マスタ" Command="{Binding EditHome_Command}">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="自宅マスタを開きます。"/>
+                    </ToolTipService.ToolTip>
+                </MenuItem>
+
+                <MenuItem Header="祝日マスタ" Command="{Binding EditHoliday_Command}">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="自宅マスタを開きます。"/>
+                    </ToolTipService.ToolTip>
+                </MenuItem>
+
+
+                <MenuItem Header="添付ファイル" Command="{Binding EditFileStorage_Command}">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="添付ファイル登録画面を開きます。"/>
+                    </ToolTipService.ToolTip>
+                </MenuItem>
+
+                <MenuItem Header="オプション" Command="{Binding EditOption_Command}">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="アプリケーション設定画面を開きます。"/>
+                    </ToolTipService.ToolTip>
+                </MenuItem>
+            </MenuItem>
+
+            <MenuItem Header="読込">
+                <MenuItem Header="デフォルト明細を取得" Command="{Binding ReadDefaultPayslip_Command}">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="登録されているデフォルト明細を取得します。"/>
+                    </ToolTipService.ToolTip>
+                </MenuItem>
+
+                <MenuItem Header="CSV読込" Command="{Binding ReadCSV_Command}">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="CSVを読み込みます。仮作成。"/>
+                    </ToolTipService.ToolTip>
+                </MenuItem>
+            </MenuItem>
+
+            <MenuItem Header="表示">
+                <MenuItem Header="今月の明細" Command="{Binding ShowCurrentPayslip_Command}">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="今月の明細を表示します。"/>
+                    </ToolTipService.ToolTip>
+                </MenuItem>
+            </MenuItem>
+
+            <MenuItem Header="出力">
+                <MenuItem Header="Excel" Command="{Binding OutputExcel_Command}">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="configファイルに指定された保存先にExcel出力します。"/>
+                    </ToolTipService.ToolTip>
+                </MenuItem>
+
+                <MenuItem Header="スプレッドシート" Command="{Binding OutputSpreadSheet_Command}">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="configファイルに指定された保存先にスプレッドシート出力します。"/>
+                    </ToolTipService.ToolTip>
+                </MenuItem>
+            </MenuItem>
+
+            <MenuItem Header="保存">
+                <MenuItem Header="給与明細" Command="{Binding SavePayslip_Command}">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="入力された給与明細を保存します。"/>
+                    </ToolTipService.ToolTip>
+                </MenuItem>
+
+                <MenuItem Header="デフォルト明細" Command="{Binding SetDefault_Command}">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="選択された給与明細をデフォルト明細に登録します。"/>
+                    </ToolTipService.ToolTip>
+                </MenuItem>
+
+                <MenuItem Header="DBのバックアップを作成する" Command="{Binding SaveDBBackup_Command}">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="SQLiteのバックアップを作成します。"/>
+                    </ToolTipService.ToolTip>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+
+            <local:Header Width="200" Grid.Row="0" VerticalAlignment="Center" />
+            <local:WorkPlace Grid.Column="1" Grid.RowSpan="2"/>
+
+            <TabControl Grid.Row="1" Grid.RowSpan="2" Background="{Binding Window_Background}">
+                <TabItem Header="支給額">
+                    <local:Allowance Height="340" VerticalAlignment="Top" >
+                        <local:Allowance.Background>
+                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlLightBrush}}"/>
+                        </local:Allowance.Background>
+                    </local:Allowance>
+                </TabItem>
+                <TabItem Header="控除額">
+                    <local:Deduction Height="250" VerticalAlignment="Top" >
+                        <local:Deduction.Background>
+                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlLightBrush}}"/>
+                        </local:Deduction.Background>
+                    </local:Deduction>
+                </TabItem>
+                <TabItem Header="勤務備考">
+                    <local:WorkingReference Height="250" VerticalAlignment="Top" >
+                        <local:WorkingReference.Background>
+                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlLightBrush}}"/>
+                        </local:WorkingReference.Background>
+                    </local:WorkingReference>
+                </TabItem>
+                <TabItem Header="副業など">
+                    <local:SideBusiness Height="150" VerticalAlignment="Top" >
+                        <local:SideBusiness.Background>
+                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlLightBrush}}"/>
+                        </local:SideBusiness.Background>
+                    </local:SideBusiness>
+                </TabItem>
+            </TabControl>
+            
+            <local:AnnualChart Grid.Column="1" 
+                       Grid.Row="2" 
+                       Grid.RowSpan="2" />
+
+            <StatusBar Grid.Row="3" VerticalAlignment="Bottom" Background="{Binding Window_Background}">
+                <Label Content="{Binding PriceUpdown_Content}" 
+               Foreground="{Binding PriceUpdown_Foreground}" />
+            </StatusBar>
+        </Grid>
+    </Grid>
+</Window>

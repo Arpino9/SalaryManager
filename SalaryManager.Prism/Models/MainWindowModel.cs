@@ -1,22 +1,23 @@
-﻿using Message = SalaryManager.Domain.Modules.Logics.Message;
+﻿using SalaryManager.Prism.ViewModels;
+using Message = SalaryManager.Domain.Modules.Logics.Message;
 
-namespace SalaryManager.WPF.Models;
+namespace SalaryManager.Prism.Models;
 
 /// <summary>
 /// Model - メイン画面
 /// </summary>
-public class Model_MainWindow : ModelBase<ViewModel_MainWindow>
+public class MainWindowModel : ModelBase<MainWindowViewModel>
 {
 
     #region Get Instance
 
-    private static Model_MainWindow model = null;
+    private static MainWindowModel model = null;
 
-    public static Model_MainWindow GetInstance()
+    public static MainWindowModel GetInstance()
     {
         if (model == null)
         {
-            model = new Model_MainWindow();
+            model = new MainWindowModel();
         }
 
         return model;
@@ -24,40 +25,40 @@ public class Model_MainWindow : ModelBase<ViewModel_MainWindow>
 
     #endregion
 
-    public Model_MainWindow()
+    public MainWindowModel()
     {
 
     }
 
     /// <summary> ViewModel - メイン画面 </summary>
-    internal override ViewModel_MainWindow ViewModel { get; set; }
+    internal override MainWindowViewModel ViewModel { get; set; }
 
     /// <summary> Repository - Excel書き込み </summary>
     private ExcelWriter ExcelWriter = new ExcelWriter();
 
     /// <summary> ViewModel - 勤務先 </summary>
-    internal ViewModel_WorkPlace WorkPlace { get; set; }
+    internal WorkPlaceViewModel WorkPlace { get; set; }
 
     /// <summary> ViewModel - 月収一覧 </summary>
-    internal ViewModel_AnnualChart AnnualChart { get; set; }
+    internal AnnualChartViewModel AnnualChart { get; set; }
 
     /// <summary> Model - ヘッダー </summary>
-    internal Model_Header Header { get; set; }
+    internal HeaderModel Header { get; set; }
 
     /// <summary> Model - 支給額 </summary>
-    internal Model_Allowance Allowance { get; set; }
+    public AllowanceModel Allowance { get; set; }
 
     /// <summary> Model - 控除額 </summary>
-    internal Model_Deduction Deduction { get; set; }
+    internal DeductionModel Deduction { get; set; }
 
     /// <summary> Model - 勤務備考 </summary>
-    internal Model_WorkingReference WorkingReference { get; set; }
+    internal WorkingReferenceModel WorkingReference { get; set; }
 
     /// <summary> Model - 副業 </summary>
-    internal Model_SideBusiness SideBusiness { get; set; }
+    internal SideBusinessModel SideBusiness { get; set; }
 
     /// <summary> Model - ヘッダー </summary>
-    private Model_WorkPlace Model_WorkPlace { get; set; } = Model_WorkPlace.GetInstance();
+    private WorkPlaceModel Model_WorkPlace { get; set; } = WorkPlaceModel.GetInstance();
 
     #region 初期化
 
@@ -103,9 +104,9 @@ public class Model_MainWindow : ModelBase<ViewModel_MainWindow>
     /// </summary>
     internal void Window_Activated()
     {
-        this.ViewModel.Window_FontFamily.Value = base.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
-        this.ViewModel.Window_FontSize.Value   = XMLLoader.FetchFontSize();
-        this.ViewModel.Window_Background.Value = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
+        this.ViewModel.Window_FontFamily = base.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
+        this.ViewModel.Window_FontSize   = XMLLoader.FetchFontSize();
+        this.ViewModel.Window_Background = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
     }
 
     #endregion
@@ -135,8 +136,8 @@ public class Model_MainWindow : ModelBase<ViewModel_MainWindow>
     /// </summary>
     internal void EditWorkingPlace()
     {
-        var workingPlace = new Window.WorkingPlace();
-        workingPlace.Show();
+        /*var workingPlace = new Window.WorkingPlace();
+        workingPlace.Show();*/
     }
 
     /// <summary>
@@ -188,7 +189,7 @@ public class Model_MainWindow : ModelBase<ViewModel_MainWindow>
 
         if (Headers.FetchDefault() == null)
         {
-            Message.ShowResultMessage("デフォルト明細が登録されていません。", this.ViewModel.Window_Title.Value);
+            Message.ShowResultMessage("デフォルト明細が登録されていません。", this.ViewModel.Window_Title);
             return;
         }
 
@@ -221,14 +222,14 @@ public class Model_MainWindow : ModelBase<ViewModel_MainWindow>
     /// </remarks>
     internal void ReadCSV()
     {
-        var confirmingMessage = $"{this.Header.ViewModel.Year_Text.Value}年{this.Header.ViewModel.Month_Text.Value}月のCSVを読み込みますか？";
-        if (!Message.ShowConfirmingMessage(confirmingMessage, this.ViewModel.Window_Title.Value))
+        var confirmingMessage = $"{this.Header.ViewModel.Year_Text}年{this.Header.ViewModel.Month_Text}月のCSVを読み込みますか？";
+        if (!Message.ShowConfirmingMessage(confirmingMessage, this.ViewModel.Window_Title))
         {
             // キャンセル
             return;
         }
 
-        var employeeID = Careers.FetchEmployeeNumber(new CompanyNameValue(this.WorkPlace.CompanyName_Text.Value));
+        var employeeID = Careers.FetchEmployeeNumber(new CompanyNameValue(this.WorkPlace.CompanyName_Text));
 
         if (string.IsNullOrEmpty(employeeID))
         {
@@ -238,7 +239,7 @@ public class Model_MainWindow : ModelBase<ViewModel_MainWindow>
 
         var encode = System.Text.Encoding.GetEncoding("shift_jis");
         ;
-        var path = $"{Shared.DirectoryCSV}\\{employeeID}-{this.Header.ViewModel.Year_Text.Value}-{this.Header.ViewModel.Month_Text.Value}.csv";
+        var path = $"{Shared.DirectoryCSV}\\{employeeID}-{this.Header.ViewModel.Year_Text}-{this.Header.ViewModel.Month_Text}.csv";
 
         try
         {
@@ -251,17 +252,17 @@ public class Model_MainWindow : ModelBase<ViewModel_MainWindow>
                 lists.AddRange(values);
 
                 // 勤務先
-                this.WorkPlace.WorkPlace_Text.Value = values[3];
+                this.WorkPlace.WorkPlace_Text = values[3];
 
                 // 有給残日数
                 var paidVacation = Convert.ToDouble(values[17]) + Convert.ToDouble(values[25]);
-                this.WorkingReference.ViewModel.PaidVacation_Text.Value = paidVacation;
+                this.WorkingReference.ViewModel.PaidVacation_Text = paidVacation;
             }
         }
         catch (FileNotFoundException)
         {
-            var message = $"「{Shared.DirectoryCSV}」に{this.Header.ViewModel.Year_Text.Value}年{this.Header.ViewModel.Month_Text.Value}月分のCSVが\n保存されていません。読み込みを中断します。";
-            Message.ShowResultMessage(message, this.ViewModel.Window_Title.Value);
+            var message = $"「{Shared.DirectoryCSV}」に{this.Header.ViewModel.Year_Text}年{this.Header.ViewModel.Month_Text}月分のCSVが\n保存されていません。読み込みを中断します。";
+            Message.ShowResultMessage(message, this.ViewModel.Window_Title);
         }
     }
 
@@ -275,8 +276,8 @@ public class Model_MainWindow : ModelBase<ViewModel_MainWindow>
     internal void ShowCurrentPayslip()
     {
         // ヘッダ
-        this.Header.ViewModel.Year_Text.Value  = DateTime.Today.Year;
-        this.Header.ViewModel.Month_Text.Value = DateTime.Today.Month;
+        this.Header.ViewModel.Year_Text  = DateTime.Today.Year;
+        this.Header.ViewModel.Month_Text = DateTime.Today.Month;
         // 支給額
         this.Allowance.Initialize();
         // 控除額
@@ -380,8 +381,8 @@ public class Model_MainWindow : ModelBase<ViewModel_MainWindow>
     /// </remarks>
     internal void SavePayslip()
     {
-        var message = $"{this.Header.ViewModel.Year_Text.Value}年{this.Header.ViewModel.Month_Text.Value}月の給与明細を保存しますか？";
-        if (!Message.ShowConfirmingMessage(message, this.ViewModel.Window_Title.Value))
+        var message = $"{this.Header.ViewModel.Year_Text}年{this.Header.ViewModel.Month_Text}月の給与明細を保存しますか？";
+        if (!Message.ShowConfirmingMessage(message, this.ViewModel.Window_Title))
         {
             // キャンセル
             return;
@@ -453,19 +454,19 @@ public class Model_MainWindow : ModelBase<ViewModel_MainWindow>
             difference == 0)
         {
             // 変更なし
-            this.ViewModel.PriceUpdown_Content.Value = string.Empty;
+            this.ViewModel.PriceUpdown_Content = string.Empty;
             return;
         }
 
         if (difference > 0)
         {
-            this.ViewModel.PriceUpdown_Foreground.Value = new SolidColorBrush(Colors.Blue);
-            this.ViewModel.PriceUpdown_Content.Value = $"+{difference.ToString()}";
+            this.ViewModel.PriceUpdown_Foreground = new SolidColorBrush(Colors.Blue);
+            this.ViewModel.PriceUpdown_Content = $"+{difference.ToString()}";
         }
         else
         {
-            this.ViewModel.PriceUpdown_Foreground.Value = new SolidColorBrush(Colors.Red);
-            this.ViewModel.PriceUpdown_Content.Value = difference.ToString();
+            this.ViewModel.PriceUpdown_Foreground = new SolidColorBrush(Colors.Red);
+            this.ViewModel.PriceUpdown_Content = difference.ToString();
         }
     }
 

@@ -1,22 +1,23 @@
-﻿using Message = SalaryManager.Domain.Modules.Logics.Message;
+﻿using SalaryManager.Prism.ViewModels;
+using Message = SalaryManager.Domain.Modules.Logics.Message;
 
-namespace SalaryManager.WPF.Models;
+namespace SalaryManager.Prism.Models;
 
 /// <summary>
 /// Model - 勤務備考
 /// </summary>
-public class Model_WorkingReference : ModelBase<ViewModel_WorkingReference>, IParallellyEditable
+public class WorkingReferenceModel : ModelBase<WorkingReferenceViewModel>, IParallellyEditable
 {
 
     #region Get Instance
 
-    private static Model_WorkingReference model = null;
+    private static WorkingReferenceModel model = null;
 
-    public static Model_WorkingReference GetInstance(IWorkingReferencesRepository repository)
+    public static WorkingReferenceModel GetInstance(IWorkingReferencesRepository repository)
     {
         if (model == null)
         {
-            model = new Model_WorkingReference(repository);
+            model = new WorkingReferenceModel(repository);
         }
 
         return model;
@@ -27,22 +28,25 @@ public class Model_WorkingReference : ModelBase<ViewModel_WorkingReference>, IPa
     /// <summary> Repository </summary>
     private IWorkingReferencesRepository _repository;
 
-    public Model_WorkingReference(IWorkingReferencesRepository repository)
+    public WorkingReferenceModel(IWorkingReferencesRepository repository)
     {
         _repository = repository;
     }
 
     /// <summary> ViewModel - 勤務備考 </summary>
-    internal override ViewModel_WorkingReference ViewModel { get; set; }
+    internal override WorkingReferenceViewModel ViewModel { get; set; }
 
     /// <summary> ViewModel - メイン画面 </summary>
-    internal ViewModel_MainWindow MainWindow { get; set; }
+    internal MainWindowViewModel MainWindow { get; set; }
 
     /// <summary> ViewModel - ヘッダ </summary>
-    internal ViewModel_Header Header { get; set; }
+    internal HeaderViewModel Header { get; set; }
 
     /// <summary> ViewModel - 勤務先 </summary>
-    internal ViewModel_WorkPlace WorkPlace { get; set; }
+    internal WorkPlaceViewModel WorkPlace { get; set; }
+
+    /// <summary> Model - ヘッダー </summary>
+    private Model_Header Model_Header { get; set; } = Model_Header.GetInstance(new HeaderSQLite());
 
     /// <summary> Entity - 勤務備考 </summary>
     public WorkingReferencesEntity Entity { get; set; }
@@ -73,9 +77,9 @@ public class Model_WorkingReference : ModelBase<ViewModel_WorkingReference>, IPa
 
     public void Window_Activated()
     {
-        this.ViewModel.Window_FontFamily.Value = base.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
-        this.ViewModel.Window_FontSize.Value   = XMLLoader.FetchFontSize();
-        this.ViewModel.Window_Background.Value = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
+        this.ViewModel.Window_FontFamily = base.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
+        this.ViewModel.Window_FontSize   = XMLLoader.FetchFontSize();
+        this.ViewModel.Window_Background = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
     }
 
     /// <summary>
@@ -90,8 +94,8 @@ public class Model_WorkingReference : ModelBase<ViewModel_WorkingReference>, IPa
         {
             WorkingReferences.Create(_repository);
 
-            this.Entity          = WorkingReferences.Fetch(this.Header.Year_Text.Value,     this.Header.Month_Text.Value);
-            this.Entity_LastYear = WorkingReferences.Fetch(this.Header.Year_Text.Value - 1, this.Header.Month_Text.Value);
+            this.Entity          = WorkingReferences.Fetch(this.Header.Year_Text,     this.Header.Month_Text);
+            this.Entity_LastYear = WorkingReferences.Fetch(this.Header.Year_Text - 1, this.Header.Month_Text);
 
             this.Reload_InputForm();
         }   
@@ -106,25 +110,25 @@ public class Model_WorkingReference : ModelBase<ViewModel_WorkingReference>, IPa
     public void Clear()
     {
         // 時間外時間
-        this.ViewModel.OvertimeTime_Text.Value      = default(double);
+        this.ViewModel.OvertimeTime_Text      = default(double);
         // 休出時間
-        this.ViewModel.WeekendWorktime_Text.Value   = default(double);
+        this.ViewModel.WeekendWorktime_Text   = default(double);
         // 深夜時間
-        this.ViewModel.MidnightWorktime_Text.Value  = default(double);
+        this.ViewModel.MidnightWorktime_Text  = default(double);
         // 遅刻早退欠勤H
-        this.ViewModel.LateAbsentH_Text.Value       = default(double);
+        this.ViewModel.LateAbsentH_Text       = default(double);
         // 支給額-保険
-        this.ViewModel.Insurance_Text.Value         = default(double);
+        this.ViewModel.Insurance_Text         = default(double);
         // 標準月額千円
-        this.ViewModel.Norm_Text.Value              = default(double);
+        this.ViewModel.Norm_Text              = default(double);
         // 扶養人数
-        this.ViewModel.NumberOfDependent_Text.Value = default(double);
+        this.ViewModel.NumberOfDependent_Text = default(double);
         // 有給残日数
-        this.ViewModel.PaidVacation_Text.Value      = default(double);
+        this.ViewModel.PaidVacation_Text      = default(double);
         // 勤務時間
-        this.ViewModel.WorkingHours_Text.Value      = default(double);
+        this.ViewModel.WorkingHours_Text      = default(double);
         // 備考
-        this.ViewModel.Remarks_Text.Value            = default(string);
+        this.ViewModel.Remarks_Text           = default(string);
     }
 
     /// <summary>
@@ -142,25 +146,25 @@ public class Model_WorkingReference : ModelBase<ViewModel_WorkingReference>, IPa
         }
 
         // 時間外時間
-        this.ViewModel.OvertimeTime_Text.Value      = this.Entity.OvertimeTime;
+        this.ViewModel.OvertimeTime_Text      = this.Entity.OvertimeTime;
         // 休出時間
-        this.ViewModel.WeekendWorktime_Text.Value   = this.Entity.WeekendWorktime;
+        this.ViewModel.WeekendWorktime_Text   = this.Entity.WeekendWorktime;
         // 深夜時間
-        this.ViewModel.MidnightWorktime_Text.Value  = this.Entity.MidnightWorktime;
+        this.ViewModel.MidnightWorktime_Text  = this.Entity.MidnightWorktime;
         // 遅刻早退欠勤H
-        this.ViewModel.LateAbsentH_Text.Value       = this.Entity.LateAbsentH;
+        this.ViewModel.LateAbsentH_Text       = this.Entity.LateAbsentH;
         // 支給額-保険
-        this.ViewModel.Insurance_Text.Value         = this.Entity.Insurance.Value;
+        this.ViewModel.Insurance_Text         = this.Entity.Insurance.Value;
         // 標準月額千円
-        this.ViewModel.Norm_Text.Value              = this.Entity.Norm;
+        this.ViewModel.Norm_Text              = this.Entity.Norm;
         // 扶養人数
-        this.ViewModel.NumberOfDependent_Text.Value = this.Entity.NumberOfDependent;
+        this.ViewModel.NumberOfDependent_Text = this.Entity.NumberOfDependent;
         // 有給残日数
-        this.ViewModel.PaidVacation_Text.Value      = this.Entity.PaidVacation.Value;
+        this.ViewModel.PaidVacation_Text      = this.Entity.PaidVacation.Value;
         // 勤務時間
-        this.ViewModel.WorkingHours_Text.Value      = this.Entity.WorkingHours;
+        this.ViewModel.WorkingHours_Text      = this.Entity.WorkingHours;
         // 備考
-        this.ViewModel.Remarks_Text.Value           = this.Entity.Remarks;
+        this.ViewModel.Remarks_Text           = this.Entity.Remarks;
     }
 
     /// <summary>
@@ -182,7 +186,7 @@ public class Model_WorkingReference : ModelBase<ViewModel_WorkingReference>, IPa
         {
             Message.ShowErrorMessage(
                 $"有給休暇は{PaidVacationDaysValue.Minimum}から{PaidVacationDaysValue.Maximum}までの日数で入力して下さい。",
-                this.MainWindow.Window_Title.Value);
+                this.MainWindow.Window_Title);
 
             return false;
         }
@@ -204,17 +208,17 @@ public class Model_WorkingReference : ModelBase<ViewModel_WorkingReference>, IPa
         var entity = new WorkingReferencesEntity(
             id,
             yearMonth,
-            this.ViewModel.OvertimeTime_Text.Value,
-            this.ViewModel.WeekendWorktime_Text.Value,
-            this.ViewModel.MidnightWorktime_Text.Value,
-            this.ViewModel.LateAbsentH_Text.Value,
-            this.ViewModel.Insurance_Text.Value,
-            this.ViewModel.Norm_Text.Value,
-            this.ViewModel.NumberOfDependent_Text.Value,
-            this.ViewModel.PaidVacation_Text.Value,
-            this.ViewModel.WorkingHours_Text.Value,
-            this.WorkPlace.WorkPlace_Text.Value,
-            this.ViewModel.Remarks_Text.Value);
+            this.ViewModel.OvertimeTime_Text,
+            this.ViewModel.WeekendWorktime_Text,
+            this.ViewModel.MidnightWorktime_Text,
+            this.ViewModel.LateAbsentH_Text,
+            this.ViewModel.Insurance_Text,
+            this.ViewModel.Norm_Text,
+            this.ViewModel.NumberOfDependent_Text,
+            this.ViewModel.PaidVacation_Text,
+            this.ViewModel.WorkingHours_Text,
+            this.WorkPlace.WorkPlace_Text,
+            this.ViewModel.Remarks_Text);
 
         _repository.Save(transaction, entity);
     }

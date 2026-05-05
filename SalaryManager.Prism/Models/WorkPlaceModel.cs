@@ -1,23 +1,24 @@
-﻿using System.Windows.Threading;
+﻿using SalaryManager.Prism.ViewModels;
+using System.Windows.Threading;
 using WorkingPlace = SalaryManager.Domain.StaticValues.WorkingPlace;
 
-namespace SalaryManager.WPF.Models;
+namespace SalaryManager.Prism.Models;
 
 /// <summary>
 /// Model - 勤務場所
 /// </summary>
-public sealed class Model_WorkPlace : ModelBase<ViewModel_WorkPlace>, IParallellyEditable
+public sealed class WorkPlaceModel : ModelBase<WorkPlaceViewModel>, IParallellyEditable
 {
 
     #region Get Instance
 
-    private static Model_WorkPlace model = null;
+    private static WorkPlaceModel model = null;
 
-    public static Model_WorkPlace GetInstance()
+    public static WorkPlaceModel GetInstance()
     {
         if (model == null)
         {
-            model = new Model_WorkPlace();
+            model = new WorkPlaceModel();
         }
 
         return model;
@@ -25,16 +26,16 @@ public sealed class Model_WorkPlace : ModelBase<ViewModel_WorkPlace>, IParallell
 
     #endregion
 
-    public Model_WorkPlace()
+    public WorkPlaceModel()
     {
 
     }
 
     /// <summary> ViewModel - 勤務先 </summary>
-    internal override ViewModel_WorkPlace ViewModel { get; set; }
+    internal override WorkPlaceViewModel ViewModel { get; set; }
 
     /// <summary> ViewModel - ヘッダ </summary>
-    internal ViewModel_Header Header { get; set; }
+    internal HeaderViewModel Header { get; set; }
 
     /// <summary> Entity - 勤務備考 </summary>
     public WorkingReferencesEntity Entity { get; set; }
@@ -68,7 +69,7 @@ public sealed class Model_WorkPlace : ModelBase<ViewModel_WorkPlace>, IParallell
     /// </summary>
     public void Window_Activated()
     {
-        this.ViewModel.Window_Background.Value = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
+        this.ViewModel.Window_Background = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
     }
 
     /// <summary>
@@ -88,26 +89,26 @@ public sealed class Model_WorkPlace : ModelBase<ViewModel_WorkPlace>, IParallell
         }
 
         // 勤務先
-        this.ViewModel.WorkPlace_Text.Value = this.Entity.WorkPlace;
+        this.ViewModel.WorkPlace_Text = this.Entity.WorkPlace;
 
         // 所属会社名
-        var workingPlace = WorkingPlace.FetchByDate(new DateOnly(this.Header.Year_Text.Value, this.Header.Month_Text.Value, 1));
+        var workingPlace = WorkingPlace.FetchByDate(new DateOnly(this.Header.Year_Text, this.Header.Month_Text, 1));
 
         if (workingPlace.Any()) 
         {
             var company = this.GetWorkingPlace(workingPlace);
 
-            this.ViewModel.CompanyName_Text.Value = company.DispatchingCompany.Text;
-            this.ViewModel.WorkPlace_Text.Value   = company.DispatchedCompany.Text;
+            this.ViewModel.CompanyName_Text = company.DispatchingCompany.Text;
+            this.ViewModel.WorkPlace_Text   = company.DispatchedCompany.Text;
         }
         else
         {
-            this.ViewModel.CompanyName_Text.Value = CompanyNameValue.Undefined.DisplayValue;
-            this.ViewModel.WorkPlace_Text.Value   = CompanyNameValue.Undefined.DisplayValue;
+            this.ViewModel.CompanyName_Text = CompanyNameValue.Undefined.DisplayValue;
+            this.ViewModel.WorkPlace_Text   = CompanyNameValue.Undefined.DisplayValue;
         }
 
-        this.ViewModel.CompanyName_Foreground.Value = new SolidColorBrush(Colors.Black);
-        this.ViewModel.WorkPlace_Foreground.Value   = new SolidColorBrush(Colors.Black);
+        this.ViewModel.CompanyName_Foreground = new SolidColorBrush(Colors.Black);
+        this.ViewModel.WorkPlace_Foreground   = new SolidColorBrush(Colors.Black);
     }
 
     /// <summary>
@@ -144,8 +145,8 @@ public sealed class Model_WorkPlace : ModelBase<ViewModel_WorkPlace>, IParallell
         {
             WorkingReferences.Create(new WorkingReferenceSQLite());
 
-            this.Entity          = WorkingReferences.Fetch(this.Header.Year_Text.Value, this.Header.Month_Text.Value);
-            this.Entity_LastYear = WorkingReferences.Fetch(this.Header.Year_Text.Value - 1, this.Header.Month_Text.Value);
+            this.Entity          = WorkingReferences.Fetch(this.Header.Year_Text, this.Header.Month_Text);
+            this.Entity_LastYear = WorkingReferences.Fetch(this.Header.Year_Text - 1, this.Header.Month_Text);
 
             this.Reload_InputForm();
         }
@@ -160,27 +161,27 @@ public sealed class Model_WorkPlace : ModelBase<ViewModel_WorkPlace>, IParallell
     public void Clear()
     {
         // 所属会社名
-        var workingPlace = WorkingPlace.FetchByDate(new DateOnly(this.Header.Year_Text.Value, this.Header.Month_Text.Value, 1));
+        var workingPlace = WorkingPlace.FetchByDate(new DateOnly(this.Header.Year_Text, this.Header.Month_Text, 1));
 
         if (workingPlace.Any())
         {
             var company = this.GetWorkingPlace(workingPlace);
 
             // 所属会社名
-            this.ViewModel.CompanyName_Text.Value       = company.DispatchingCompany.Text;
-            this.ViewModel.CompanyName_Foreground.Value = new SolidColorBrush(Colors.Black);
+            this.ViewModel.CompanyName_Text       = company.DispatchingCompany.Text;
+            this.ViewModel.CompanyName_Foreground = new SolidColorBrush(Colors.Black);
             // 勤務先
-            this.ViewModel.WorkPlace_Text.Value       = company.WorkingPlace_Name.Text;
-            this.ViewModel.WorkPlace_Foreground.Value = new SolidColorBrush(Colors.Black);
+            this.ViewModel.WorkPlace_Text       = company.WorkingPlace_Name.Text;
+            this.ViewModel.WorkPlace_Foreground = new SolidColorBrush(Colors.Black);
         }
         else
         {
             // 所属会社名
-            this.ViewModel.CompanyName_Text.Value       = CompanyNameValue.Undefined.DisplayValue;
-            this.ViewModel.CompanyName_Foreground.Value = new SolidColorBrush(Colors.Gray);
+            this.ViewModel.CompanyName_Text       = CompanyNameValue.Undefined.DisplayValue;
+            this.ViewModel.CompanyName_Foreground = new SolidColorBrush(Colors.Gray);
             // 勤務先
-            this.ViewModel.WorkPlace_Text.Value       = CompanyNameValue.Undefined.DisplayValue;
-            this.ViewModel.WorkPlace_Foreground.Value = new SolidColorBrush(Colors.Gray);
+            this.ViewModel.WorkPlace_Text       = CompanyNameValue.Undefined.DisplayValue;
+            this.ViewModel.WorkPlace_Foreground = new SolidColorBrush(Colors.Gray);
         }
     }
 
@@ -189,7 +190,7 @@ public sealed class Model_WorkPlace : ModelBase<ViewModel_WorkPlace>, IParallell
     /// </summary>
     /// <param name="transaction">トランザクション</param>
     /// <param name="id">ID</param>
-    /// <param name="yearMonth">年月</param>
+    /// <param name="yearMonth">
     /// <see cref="Model_WorkingReference"/>
     /// <exception cref="NotImplementedException">未実装例外</exception>
     [Obsolete("保存先は勤怠備考テーブルなので実装していない。")]

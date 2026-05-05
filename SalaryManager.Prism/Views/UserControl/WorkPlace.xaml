@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="SalaryManager.Prism.Views.UserControl.WorkPlace"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"             
+             xmlns:ViewModels="clr-namespace:SalaryManager.Prism.ViewModels"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <Grid>
+        <Grid.DataContext>
+            <ViewModels:WorkPlaceViewModel/>
+        </Grid.DataContext>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Label Content="所属会社名"
+           Style="{StaticResource PayslipItemLabel_Style}" />
+        <TextBox Grid.Column="1"
+             IsReadOnly="True"
+             Style="{StaticResource PayslipItemCharacter_Style}"
+             Text="{Binding CompanyName_Text}"
+             Foreground="{Binding CompanyName_Foreground}"/>
+
+        <Label Content="勤務先" 
+           Grid.Row="1"
+           Style="{StaticResource PayslipItemLabel_Style}" />
+        <TextBox Grid.Column="1"
+             Grid.Row="1"
+             IsReadOnly="True"
+             Foreground="{Binding WorkPlace_Foreground}"
+             Style="{StaticResource PayslipItemCharacter_Style}" 
+             Text="{Binding WorkPlace_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+    </Grid>
+</UserControl>
