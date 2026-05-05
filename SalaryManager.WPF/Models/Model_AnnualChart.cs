@@ -87,10 +87,6 @@ public class Model_AnnualChart : ModelBase<ViewModel_AnnualChart>, IViewable
             return;
         }
 
-        var allowance = Allowances.Fetch(this.Header.Year_Text.Value, this.Header.Month_Text.Value);
-
-        var transportation = allowance != null ? (int)allowance.TransportationExpenses.Value : 0;
-
         foreach (var entity in entities)
         {
             var salary = this.RecalcMontlyIncome(entity);
@@ -99,87 +95,93 @@ public class Model_AnnualChart : ModelBase<ViewModel_AnnualChart>, IViewable
             {
                 // 1月
                 case 1:
-                    this.ViewModel.January_TotalSalary_Text.Value         = salary.Total - transportation;
+                    this.ViewModel.January_TotalSalary_Text.Value         = salary.Total + GetTransportation(1);
                     this.ViewModel.January_TotalDeductedSalary_Text.Value = salary.TotalDeduced;
                     this.ViewModel.January_TotalSideBusiness_Text.Value   = entity.TotalSideBusiness;
                     break;
 
                 // 2月
                 case 2:
-                    this.ViewModel.Feburary_TotalSalary_Text.Value         = salary.Total - transportation;
+                    this.ViewModel.Feburary_TotalSalary_Text.Value         = salary.Total + GetTransportation(2);
                     this.ViewModel.Feburary_TotalDeductedSalary_Text.Value = salary.TotalDeduced;
                     this.ViewModel.Feburary_TotalSideBusiness_Text.Value   = entity.TotalSideBusiness;
                     break;
 
                 // 3月
                 case 3:
-                    this.ViewModel.March_TotalSalary_Text.Value         = salary.Total - transportation;
+                    this.ViewModel.March_TotalSalary_Text.Value         = salary.Total + GetTransportation(3);
                     this.ViewModel.March_TotalDeductedSalary_Text.Value = salary.TotalDeduced;
                     this.ViewModel.March_TotalSideBusiness_Text.Value   = entity.TotalSideBusiness;
                     break;
 
                 // 4月
                 case 4:
-                    this.ViewModel.April_TotalSalary_Text.Value         = salary.Total - transportation;
+                    this.ViewModel.April_TotalSalary_Text.Value         = salary.Total + GetTransportation(4);
                     this.ViewModel.April_TotalDeductedSalary_Text.Value = salary.TotalDeduced;
                     this.ViewModel.April_TotalSideBusiness_Text.Value   = entity.TotalSideBusiness;
                     break;
 
                 // 5月
                 case 5:
-                    this.ViewModel.May_TotalSalary_Text.Value         = salary.Total - transportation;
+                    this.ViewModel.May_TotalSalary_Text.Value         = salary.Total + GetTransportation(5);
                     this.ViewModel.May_TotalDeductedSalary_Text.Value = salary.TotalDeduced;
                     this.ViewModel.May_TotalSideBusiness_Text.Value   = entity.TotalSideBusiness;
                     break;
 
                 // 6月
                 case 6:
-                    this.ViewModel.June_TotalSalary_Text.Value         = salary.Total - transportation;
+                    this.ViewModel.June_TotalSalary_Text.Value         = salary.Total + GetTransportation(6);
                     this.ViewModel.June_TotalDeductedSalary_Text.Value = salary.TotalDeduced;
                     this.ViewModel.June_TotalSideBusiness_Text.Value   = entity.TotalSideBusiness;
                     break;
 
                 // 7月
                 case 7:
-                    this.ViewModel.July_TotalSalary_Text.Value         = salary.Total - transportation;
+                    this.ViewModel.July_TotalSalary_Text.Value         = salary.Total + GetTransportation(7);
                     this.ViewModel.July_TotalDeductedSalary_Text.Value = salary.TotalDeduced;
                     this.ViewModel.July_TotalSideBusiness_Text.Value   = entity.TotalSideBusiness;
                     break;
 
                 // 8月
                 case 8:
-                    this.ViewModel.August_TotalSalary_Text.Value         = salary.Total - transportation;
+                    this.ViewModel.August_TotalSalary_Text.Value         = salary.Total + GetTransportation(8);
                     this.ViewModel.August_TotalDeductedSalary_Text.Value = salary.TotalDeduced;
                     this.ViewModel.August_TotalSideBusiness_Text.Value   = entity.TotalSideBusiness;
                     break;
 
                 // 9月
                 case 9:
-                    this.ViewModel.September_TotalSalary_Text.Value         = salary.Total - transportation;
+                    this.ViewModel.September_TotalSalary_Text.Value         = salary.Total + GetTransportation(9);
                     this.ViewModel.September_TotalDeductedSalary_Text.Value = salary.TotalDeduced;
                     this.ViewModel.September_TotalSideBusiness_Text.Value   = entity.TotalSideBusiness;
                     break;
 
                 // 10月
                 case 10:
-                    this.ViewModel.October_TotalSalary_Text.Value         = salary.Total - transportation;
+                    this.ViewModel.October_TotalSalary_Text.Value         = salary.Total + GetTransportation(10);
                     this.ViewModel.October_TotalDeductedSalary_Text.Value = salary.TotalDeduced;
                     this.ViewModel.October_TotalSideBusiness_Text.Value   = entity.TotalSideBusiness;
                     break;
 
                 // 11月
                 case 11:
-                    this.ViewModel.November_TotalSalary_Text.Value         = salary.Total - transportation;
+                    this.ViewModel.November_TotalSalary_Text.Value         = salary.Total + GetTransportation(11);
                     this.ViewModel.November_TotalDeductedSalary_Text.Value = salary.TotalDeduced;
                     this.ViewModel.November_TotalSideBusiness_Text.Value   = entity.TotalSideBusiness;
                     break;
 
                 // 12月
                 case 12:
-                    this.ViewModel.December_TotalSalary_Text.Value         = salary.Total - transportation;
+                    this.ViewModel.December_TotalSalary_Text.Value         = salary.Total + GetTransportation(12);
                     this.ViewModel.December_TotalDeductedSalary_Text.Value = salary.TotalDeduced;
                     this.ViewModel.December_TotalSideBusiness_Text.Value   = entity.TotalSideBusiness;
                     break;
+            }
+
+            int GetTransportation(int month)
+            {
+                var entity = Allowances.Fetch(this.Header.Year_Text.Value, month);
+                return entity != null ? (int)entity.TransportationExpenses.Value : 0;
             }
         }
     }
