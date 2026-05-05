@@ -100,93 +100,87 @@ public class AnnualChartModel : ModelBase<AnnualChartViewModel>, IViewable
             {
                 // 1月
                 case 1:
-                    this.ViewModel.January_TotalSalary_Text         = salary.Total + GetTransportation(1);
+                    this.ViewModel.January_TotalSalary_Text         = salary.Total;
                     this.ViewModel.January_TotalDeductedSalary_Text = salary.TotalDeduced;
                     this.ViewModel.January_TotalSideBusiness_Text   = entity.TotalSideBusiness;
                     break;
 
                 // 2月
                 case 2:
-                    this.ViewModel.Feburary_TotalSalary_Text         = salary.Total + GetTransportation(2);
+                    this.ViewModel.Feburary_TotalSalary_Text         = salary.Total;
                     this.ViewModel.Feburary_TotalDeductedSalary_Text = salary.TotalDeduced;
                     this.ViewModel.Feburary_TotalSideBusiness_Text   = entity.TotalSideBusiness;
                     break;
 
                 // 3月
                 case 3:
-                    this.ViewModel.March_TotalSalary_Text         = salary.Total + GetTransportation(3);
+                    this.ViewModel.March_TotalSalary_Text         = salary.Total;
                     this.ViewModel.March_TotalDeductedSalary_Text = salary.TotalDeduced;
                     this.ViewModel.March_TotalSideBusiness_Text   = entity.TotalSideBusiness;
                     break;
 
                 // 4月
                 case 4:
-                    this.ViewModel.April_TotalSalary_Text         = salary.Total + GetTransportation(4);
+                    this.ViewModel.April_TotalSalary_Text         = salary.Total;
                     this.ViewModel.April_TotalDeductedSalary_Text = salary.TotalDeduced;
                     this.ViewModel.April_TotalSideBusiness_Text   = entity.TotalSideBusiness;
                     break;
 
                 // 5月
                 case 5:
-                    this.ViewModel.May_TotalSalary_Text         = salary.Total + GetTransportation(5);
+                    this.ViewModel.May_TotalSalary_Text         = salary.Total;
                     this.ViewModel.May_TotalDeductedSalary_Text = salary.TotalDeduced;
                     this.ViewModel.May_TotalSideBusiness_Text   = entity.TotalSideBusiness;
                     break;
 
                 // 6月
                 case 6:
-                    this.ViewModel.June_TotalSalary_Text         = salary.Total + GetTransportation(6);
+                    this.ViewModel.June_TotalSalary_Text         = salary.Total;
                     this.ViewModel.June_TotalDeductedSalary_Text = salary.TotalDeduced;
                     this.ViewModel.June_TotalSideBusiness_Text   = entity.TotalSideBusiness;
                     break;
 
                 // 7月
                 case 7:
-                    this.ViewModel.July_TotalSalary_Text         = salary.Total + GetTransportation(7);
+                    this.ViewModel.July_TotalSalary_Text         = salary.Total;
                     this.ViewModel.July_TotalDeductedSalary_Text = salary.TotalDeduced;
                     this.ViewModel.July_TotalSideBusiness_Text   = entity.TotalSideBusiness;
                     break;
 
                 // 8月
                 case 8:
-                    this.ViewModel.August_TotalSalary_Text         = salary.Total + GetTransportation(8);
+                    this.ViewModel.August_TotalSalary_Text         = salary.Total;
                     this.ViewModel.August_TotalDeductedSalary_Text = salary.TotalDeduced;
                     this.ViewModel.August_TotalSideBusiness_Text   = entity.TotalSideBusiness;
                     break;
 
                 // 9月
                 case 9:
-                    this.ViewModel.September_TotalSalary_Text         = salary.Total + GetTransportation(9);
+                    this.ViewModel.September_TotalSalary_Text         = salary.Total;
                     this.ViewModel.September_TotalDeductedSalary_Text = salary.TotalDeduced;
                     this.ViewModel.September_TotalSideBusiness_Text   = entity.TotalSideBusiness;
                     break;
 
                 // 10月
                 case 10:
-                    this.ViewModel.October_TotalSalary_Text         = salary.Total + GetTransportation(10);
+                    this.ViewModel.October_TotalSalary_Text         = salary.Total;
                     this.ViewModel.October_TotalDeductedSalary_Text = salary.TotalDeduced;
                     this.ViewModel.October_TotalSideBusiness_Text   = entity.TotalSideBusiness;
                     break;
 
                 // 11月
                 case 11:
-                    this.ViewModel.November_TotalSalary_Text         = salary.Total + GetTransportation(11);
+                    this.ViewModel.November_TotalSalary_Text         = salary.Total;
                     this.ViewModel.November_TotalDeductedSalary_Text = salary.TotalDeduced;
                     this.ViewModel.November_TotalSideBusiness_Text   = entity.TotalSideBusiness;
                     break;
 
                 // 12月
                 case 12:
-                    this.ViewModel.December_TotalSalary_Text         = salary.Total + GetTransportation(12);
+                    this.ViewModel.December_TotalSalary_Text         = salary.Total;
                     this.ViewModel.December_TotalDeductedSalary_Text = salary.TotalDeduced;
                     this.ViewModel.December_TotalSideBusiness_Text   = entity.TotalSideBusiness;
                     break;
-            }
-
-            int GetTransportation(int month)
-            {
-                var entity = Allowances.Fetch(this.Header.Year_Text, month);
-                return entity != null ? (int)entity.TransportationExpenses.Value : 0;
             }
         }
     }
@@ -391,9 +385,6 @@ public class AnnualChartModel : ModelBase<AnnualChartViewModel>, IViewable
     /// </summary>
     /// <param name="annualChart">月収一覧</param>
     /// <returns>(月収, 手取り)</returns>
-    /// <remarks>
-    /// 交通費は非課税なので、月収には含めない
-    /// </remarks>
     private (int Total, int TotalDeduced) RecalcMontlyIncome(AnnualChartEntity annualChart)
     {
         if (annualChart is null)
@@ -409,10 +400,7 @@ public class AnnualChartModel : ModelBase<AnnualChartViewModel>, IViewable
             return (0, 0);
         }
 
-        var salary = annualChart.TotalSalary - entity.TransportationExpenses.Value;
-        var deduced = annualChart.TotalDeducetedSalary - entity.TransportationExpenses.Value;
-
-        return ((int)salary, (int)deduced);
+        return ((int)annualChart.TotalSalary, (int)annualChart.TotalDeducetedSalary);
     }
 
 
