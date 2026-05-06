@@ -39,13 +39,13 @@ public sealed class FileStorageModel : ModelBase<FileStorageViewModel>, IEditabl
     private PDFConverter PDFConverter { get; set; } = new PDFConverter();
 
     /// <summary> ViewModel - イメージビューアー </summary>
-    public ViewModel_ImageViewer ViewModel_ImageViewer { get; set; }
+    public ImageViewerViewModel ViewModel_ImageViewer { get; set; }
 
     /// <summary> Entities - 添付ファイル管理 </summary>
     public IReadOnlyList<FileStorageEntity> Entities { get; internal set; }
 
     /// <summary> 画像の保存方法 </summary>
-    internal ViewModel_GeneralOption.HowToSaveImage HowToSave { get; private set; }
+    internal GeneralOptionViewModel.HowToSaveImage HowToSave { get; private set; }
 
     /// <summary> イメージ </summary>
     public byte[] ByteImage { get; set; }
@@ -133,7 +133,7 @@ public sealed class FileStorageModel : ModelBase<FileStorageViewModel>, IEditabl
         // 画像を拡大表示するボタン
         this.ViewModel.OpenImageViewer_IsEnabled = true;
 
-        var selectedSaveImage = (this.HowToSave == ViewModel_GeneralOption.HowToSaveImage.SaveImage);
+        var selectedSaveImage = (this.HowToSave == GeneralOptionViewModel.HowToSaveImage.SaveImage);
 
         // タイトル
         this.ViewModel.Title_IsEnabled = selectedSaveImage;
@@ -289,7 +289,7 @@ public sealed class FileStorageModel : ModelBase<FileStorageViewModel>, IEditabl
             // 表示する画像
             this.ByteImage = ImageUtils.ConvertPathToBytes(filePath, new PngEncoder());
 
-            this.ViewModel.FileImage_Image = ConvertMemoryStreamToImageSource(ImageUtils.ConvertPathToImage(filePath));
+            this.ViewModel.FileImage_Image = null;
 
             this.ViewModel.AttachedFile_ItemSource.Add(this.CreateEntity(id));
         }
@@ -385,13 +385,11 @@ public sealed class FileStorageModel : ModelBase<FileStorageViewModel>, IEditabl
     /// </summary>
     internal void OpenImageViewer()
     {
-        this.ViewModel_ImageViewer = new ViewModel_ImageViewer();
+        var viewer = new Prism.Views.ImageViewer();
 
-        var viewer = new ImageViewer();
-
-        this.ViewModel_ImageViewer.FileImage_Height.Value = this.ViewModel.FileImage_Image.Height;
-        this.ViewModel_ImageViewer.FileImage_Width.Value  = this.ViewModel.FileImage_Image.Width;
-        this.ViewModel_ImageViewer.FileImage_Image.Value  = this.ViewModel.FileImage_Image;
+        this.ViewModel_ImageViewer.FileImage_Height = this.ViewModel.FileImage_Image.Height;
+        this.ViewModel_ImageViewer.FileImage_Width = this.ViewModel.FileImage_Image.Width;
+        this.ViewModel_ImageViewer.FileImage_Image = this.ViewModel.FileImage_Image;
 
         viewer.Show();
     }
