@@ -81,8 +81,8 @@ public class ViewModel_Holiday : ViewModelBase<Model_Holiday>
     #region 日付
 
     /// <summary> 日付 - SelectedDate </summary>
-    public ReactiveProperty<DateOnly> Date_SelectedDate { get; set; }
-        = new ReactiveProperty<DateOnly>();
+    public ReactiveProperty<DateTime> Date_SelectedDate { get; set; }
+        = new ReactiveProperty<DateTime>();
 
     /// <summary> 日付 - TextChanged </summary>
     public ReactiveCommand Date_SelectedDateChanged { get; private set; }

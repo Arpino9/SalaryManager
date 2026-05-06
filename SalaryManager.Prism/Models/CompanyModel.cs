@@ -301,7 +301,7 @@ public class CompanyModel : ModelBase<CompanyViewModel>, IEditableMaster
     /// </summary>
     public void Add()
     {
-        if (!Message.ShowConfirmingMessage($"入力された会社情報を追加しますか？", this.ViewModel.Window_Title))
+        if (!Message.ShowConfirmingMessage($"入力された会社情報を追加しますか？", this.ViewModel.Title))
         {
             // キャンセル
             return;
@@ -348,7 +348,7 @@ public class CompanyModel : ModelBase<CompanyViewModel>, IEditableMaster
     /// </summary>
     public void Update()
     {
-        if (!Message.ShowConfirmingMessage($"選択中の会社情報を更新しますか？", this.ViewModel.Window_Title))
+        if (!Message.ShowConfirmingMessage($"選択中の会社情報を更新しますか？", this.ViewModel.Title))
         {
             // キャンセル
             return;
@@ -393,7 +393,7 @@ public class CompanyModel : ModelBase<CompanyViewModel>, IEditableMaster
             return;
         }
 
-        if (!Message.ShowConfirmingMessage($"選択中の会社情報を削除しますか？", this.ViewModel.Window_Title))
+        if (!Message.ShowConfirmingMessage($"選択中の会社情報を削除しますか？", this.ViewModel.Title))
         {
             // キャンセル
             return;

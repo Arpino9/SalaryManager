@@ -1,23 +1,24 @@
-﻿using Message = SalaryManager.Domain.Modules.Logics.Message;
+﻿using SalaryManager.Prism.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Message = SalaryManager.Domain.Modules.Logics.Message;
 
-namespace SalaryManager.WPF.Models;
+namespace SalaryManager.Prism.Models;
 
-/// <summary>
-/// Model - 休祝日
-/// </summary>
-public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
+public class HolidayModel : ModelBase<HolidayViewModel>, IEditableMaster
 {
     #region Get Instance
 
-    public Model_Holiday()
+    public HolidayModel()
     {
-        
+
     }
 
     #endregion
 
     /// <summary> ViewModel - 職歴 </summary>
-    internal override ViewModel_Holiday ViewModel { get; set; }
+    internal override HolidayViewModel ViewModel { get; set; }
 
     public void Initialize()
     {
@@ -34,16 +35,16 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
             this.ViewModel.CompanyName_ItemSource.Add(company);
         }
 
-        this.ViewModel.CompanyName_SelectedIndex.Value = 0;
+        this.ViewModel.CompanyName_SelectedIndex = 0;
 
         this.ListView_SelectionChanged();
     }
 
     public void Window_Activated()
     {
-        this.ViewModel.Window_FontFamily.Value = base.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
-        this.ViewModel.Window_FontSize.Value   = XMLLoader.FetchFontSize();
-        this.ViewModel.Window_Background.Value = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
+        this.ViewModel.Window_FontFamily = base.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
+        this.ViewModel.Window_FontSize = XMLLoader.FetchFontSize();
+        this.ViewModel.Window_Background = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
     }
 
     /// <summary>
@@ -51,20 +52,20 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
     /// </summary>
     public void EnableControlButton()
     {
-        var date = this.ViewModel.Date_SelectedDate.Value;
-        var name = this.ViewModel.Name_Text.Value;
+        var date = this.ViewModel.Date_SelectedDate;
+        var name = this.ViewModel.Name_Text;
 
-        var hasHoliday = this.ViewModel.Holidays_ItemSource.Where(x => x.Date.Year  == date.Year &&
+        var hasHoliday = this.ViewModel.Holidays_ItemSource.Where(x => x.Date.Year == date.Year &&
                                                                        x.Date.Month == date.Month &&
-                                                                       x.Date.Day   == date.Day &&
-                                                                       x.Name       == name);
+                                                                       x.Date.Day == date.Day &&
+                                                                       x.Name == name);
 
         // 追加ボタン
-        this.ViewModel.Add_IsEnabled.Value    = hasHoliday.IsEmpty();
+        this.ViewModel.Add_IsEnabled = hasHoliday.IsEmpty();
         // 更新ボタン
-        this.ViewModel.Update_IsEnabled.Value = hasHoliday.IsEmpty();
+        this.ViewModel.Update_IsEnabled = hasHoliday.IsEmpty();
         // 削除ボタン
-        this.ViewModel.Delete_IsEnabled.Value = true;
+        this.ViewModel.Delete_IsEnabled = true;
     }
 
     /// <summary>
@@ -72,7 +73,7 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
     /// </summary>
     public void ListView_SelectionChanged()
     {
-        if (this.ViewModel.Holidays_SelectedIndex.Value.IsUnSelected())
+        if (this.ViewModel.Holidays_SelectedIndex.IsUnSelected())
         {
             // 未選択
             return;
@@ -84,19 +85,19 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
             return;
         }
 
-        var entity = this.ViewModel.Holidays_ItemSource[this.ViewModel.Holidays_SelectedIndex.Value];
+        var entity = this.ViewModel.Holidays_ItemSource[this.ViewModel.Holidays_SelectedIndex];
 
         // 日付
-        this.ViewModel.Date_SelectedDate.Value = entity.Date;
+        this.ViewModel.Date_SelectedDate = entity.Date;
         // 名称
-        this.ViewModel.Name_Text.Value         = entity.Name;
+        this.ViewModel.Name_Text = entity.Name;
         // 会社休日
-        this.ViewModel.CompanyHoliday_IsChecked.Value = string.IsNullOrEmpty(entity.CompanyName) == false;
+        this.ViewModel.CompanyHoliday_IsChecked = string.IsNullOrEmpty(entity.CompanyName) == false;
         // 会社名
-        this.ViewModel.CompanyName_Text.Value  = entity.CompanyName;
-        this.ViewModel.Name_IsEnabled.Value    = (this.ViewModel.CompanyHoliday_IsChecked.Value == false);
+        this.ViewModel.CompanyName_Text = entity.CompanyName;
+        this.ViewModel.Name_IsEnabled = (this.ViewModel.CompanyHoliday_IsChecked == false);
         // 備考
-        this.ViewModel.Remarks_Text.Value      = entity.Remarks;
+        this.ViewModel.Remarks_Text = entity.Remarks;
 
         this.EnableControlButton();
     }
@@ -106,12 +107,12 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
     /// </summary>
     public void EnableCompanyNameComboBox()
     {
-        var isChecked = this.ViewModel.CompanyHoliday_IsChecked.Value;
+        var isChecked = this.ViewModel.CompanyHoliday_IsChecked;
 
-        this.ViewModel.CompanyName_IsEnabled.Value = isChecked;
+        this.ViewModel.CompanyName_IsEnabled = isChecked;
 
-        this.ViewModel.Name_Text.Value = "会社休日";
-        this.ViewModel.Name_IsEnabled.Value        = (isChecked == false);
+        this.ViewModel.Name_Text = "会社休日";
+        this.ViewModel.Name_IsEnabled = (isChecked == false);
     }
 
     public void Reload()
@@ -123,7 +124,7 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
 
             // 入力用フォーム
             this.Reload_InputForm();
-        }   
+        }
     }
 
     /// <summary>
@@ -164,14 +165,14 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
     public void Clear_InputForm()
     {
         // 日付
-        this.ViewModel.Date_SelectedDate.Value         = DateTime.Today;
+        this.ViewModel.Date_SelectedDate = DateTime.Today;
         // 祝日名
-        this.ViewModel.Name_Text.Value                 = string.Empty;
+        this.ViewModel.Name_Text = string.Empty;
         // 会社休日
-        this.ViewModel.CompanyHoliday_IsChecked.Value  = false;
-        this.ViewModel.CompanyName_SelectedIndex.Value = 0;
+        this.ViewModel.CompanyHoliday_IsChecked = false;
+        this.ViewModel.CompanyName_SelectedIndex = 0;
         // 備考
-        this.ViewModel.Remarks_Text.Value = string.Empty;
+        this.ViewModel.Remarks_Text = string.Empty;
     }
 
     public void Save()
@@ -180,12 +181,13 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
 
         foreach (var holiday in this.ViewModel.Holidays_ItemSource)
         {
-            var json = new JSONProperty_Holiday { 
-                                                    Date        = holiday.Date, 
-                                                    Name        = holiday.Name, 
-                                                    CompanyName = holiday.CompanyName,
-                                                    Remarks     = holiday.Remarks 
-                                                };
+            var json = new JSONProperty_Holiday
+            {
+                Date = holiday.Date,
+                Name = holiday.Name,
+                CompanyName = holiday.CompanyName,
+                Remarks = holiday.Remarks
+            };
 
             list.Add(json);
         }
@@ -202,10 +204,10 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
     private HolidayEntity CreateEntity()
     {
         return new HolidayEntity(
-            this.ViewModel.Date_SelectedDate.Value,
-            this.ViewModel.Name_Text.Value,
-            this.ViewModel.CompanyName_Text.Value,
-            this.ViewModel.Remarks_Text.Value);
+            this.ViewModel.Date_SelectedDate,
+            this.ViewModel.Name_Text,
+            this.ViewModel.CompanyName_Text,
+            this.ViewModel.Remarks_Text);
     }
 
     /// <summary>
@@ -213,7 +215,7 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
     /// </summary>
     public void Add()
     {
-        if (!Message.ShowConfirmingMessage($"入力された祝日を追加しますか？", this.ViewModel.Window_Title.Value))
+        if (!Message.ShowConfirmingMessage($"入力された祝日を追加しますか？", this.ViewModel.Title))
         {
             // キャンセル
             return;
@@ -221,7 +223,7 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
 
         using (var cursor = new CursorWaiting())
         {
-            this.ViewModel.Delete_IsEnabled.Value = true;
+            this.ViewModel.Delete_IsEnabled = true;
 
             var entity = this.CreateEntity();
 
@@ -235,7 +237,7 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
     /// </summary>
     public void Update()
     {
-        if (!Message.ShowConfirmingMessage($"選択中の祝日を更新しますか？", this.ViewModel.Window_Title.Value))
+        if (!Message.ShowConfirmingMessage($"選択中の祝日を更新しますか？", this.ViewModel.Title))
         {
             // キャンセル
             return;
@@ -244,7 +246,7 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
         using (var cursor = new CursorWaiting())
         {
             var entity = this.CreateEntity();
-            this.ViewModel.Holidays_ItemSource[this.ViewModel.Holidays_SelectedIndex.Value] = entity;
+            this.ViewModel.Holidays_ItemSource[this.ViewModel.Holidays_SelectedIndex] = entity;
 
             this.Save();
         }
@@ -255,13 +257,13 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
     /// </summary>
     public void Delete()
     {
-        if (this.ViewModel.Holidays_SelectedIndex.Value.IsUnSelected() ||
+        if (this.ViewModel.Holidays_SelectedIndex.IsUnSelected() ||
             this.ViewModel.Holidays_ItemSource.IsEmpty())
         {
             return;
         }
 
-        if (!Message.ShowConfirmingMessage($"選択中の祝日を削除しますか？", this.ViewModel.Window_Title.Value))
+        if (!Message.ShowConfirmingMessage($"選択中の祝日を削除しますか？", this.ViewModel.Title))
         {
             // キャンセル
             return;
@@ -269,7 +271,7 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
 
         using (var cursor = new CursorWaiting())
         {
-            this.ViewModel.Holidays_ItemSource.RemoveAt(this.ViewModel.Holidays_SelectedIndex.Value);
+            this.ViewModel.Holidays_ItemSource.RemoveAt(this.ViewModel.Holidays_SelectedIndex);
 
             this.Save();
         }

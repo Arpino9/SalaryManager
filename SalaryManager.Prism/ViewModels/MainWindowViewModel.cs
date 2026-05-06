@@ -4,7 +4,6 @@ using Prism.Regions;
 using Prism.Services.Dialogs;
 using SalaryManager.Prism.Models;
 using SalaryManager.Prism.Views;
-using Career = SalaryManager.Prism.Views.Career;
 
 namespace SalaryManager.Prism.ViewModels;
 
@@ -41,7 +40,7 @@ public class MainWindowViewModel : BindableBase
         this.EditCareer_Command       = new DelegateCommand(this.EditCareer);
         this.EditWorkingPlace_Command = new DelegateCommand(this.Model.EditWorkingPlace);
         this.EditHome_Command         = new DelegateCommand(this.Model.EditHome);
-        this.EditHoliday_Command      = new DelegateCommand(this.Model.EditHoliday);
+        this.EditHoliday_Command      = new DelegateCommand(this.EditHoliday);
         this.EditFileStorage_Command  = new DelegateCommand(this.Model.EditFileSotrage);
         this.EditOption_Command       = new DelegateCommand(this.Model.EditOption);
 
@@ -133,7 +132,7 @@ public class MainWindowViewModel : BindableBase
     public DelegateCommand EditCareer_Command { get; set; }
 
     /// <summary> 経歴マスタを開く </summary>
-    private void EditCareer() => _dialogService.ShowDialog(nameof(Career), null, null);
+    private void EditCareer() => _dialogService.ShowDialog(nameof(Prism.Views.Career), null, null);
 
     /// <summary> 就業時間マスタ - Command </summary>
     public DelegateCommand EditWorkingPlace_Command { get; set; }
@@ -143,6 +142,8 @@ public class MainWindowViewModel : BindableBase
 
     /// <summary> 祝日マスタ - Command </summary>
     public DelegateCommand EditHoliday_Command { get; set; }
+
+    private void EditHoliday() => _dialogService.ShowDialog(nameof(Prism.Views.Holiday), null, null);
 
     /// <summary> 添付ファイル - Command </summary>
     public DelegateCommand EditFileStorage_Command { get; set; }

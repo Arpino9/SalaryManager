@@ -289,7 +289,7 @@ internal class CareerModel : ModelBase<CareerViewModel>, IEditableMaster
     /// </summary>
     public void Add()
     {
-        if (!Message.ShowConfirmingMessage($"入力された職歴を追加しますか？", this.ViewModel.Window_Title))
+        if (!Message.ShowConfirmingMessage($"入力された職歴を追加しますか？", this.ViewModel.Title))
         {
             // キャンセル
             return;
@@ -351,7 +351,7 @@ internal class CareerModel : ModelBase<CareerViewModel>, IEditableMaster
     /// </summary>
     public void Update()
     {
-        if (!Message.ShowConfirmingMessage($"選択中の職歴を更新しますか？", this.ViewModel.Window_Title))
+        if (!Message.ShowConfirmingMessage($"選択中の職歴を更新しますか？", this.ViewModel.Title))
         {
             // キャンセル
             return;
@@ -379,7 +379,7 @@ internal class CareerModel : ModelBase<CareerViewModel>, IEditableMaster
             return;
         }
 
-        if (!Message.ShowConfirmingMessage($"選択中の職歴を削除しますか？", this.ViewModel.Window_Title))
+        if (!Message.ShowConfirmingMessage($"選択中の職歴を削除しますか？", this.ViewModel.Title))
         {
             // キャンセル
             return;
