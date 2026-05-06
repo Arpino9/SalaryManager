@@ -45,6 +45,9 @@ public class CareerViewModel : BindableBase, IDialogAware
         this.Delete_Command = new DelegateCommand(() => this.Model.Reload());
     }
 
+    /// <summary> タイトル </summary>
+    public string Title => "経歴編集";
+
     public bool CanCloseDialog()
     {
         return true;
@@ -85,13 +88,6 @@ public class CareerViewModel : BindableBase, IDialogAware
         get { return field; }
         set { SetProperty(ref field, value); }
     }
-
-    /// <summary> Window - Title </summary>
-    public string Window_Title
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    } = "経歴編集";
 
     /// <summary> Window - Activated </summary>
     public DelegateCommand Window_Activated { get; set; }
@@ -363,8 +359,6 @@ public class CareerViewModel : BindableBase, IDialogAware
 
     /// <summary> 削除 - Command </summary>
     public DelegateCommand Delete_Command { get; set; }
-
-    public string Title => throw new NotImplementedException();
 
     #endregion
 

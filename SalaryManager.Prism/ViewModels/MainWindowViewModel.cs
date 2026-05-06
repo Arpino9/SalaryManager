@@ -37,7 +37,7 @@ public class MainWindowViewModel : BindableBase
         this.Window_Activated = new DelegateCommand(this.Window_Activated_Execute);
 
         // メニュー - 編集
-        this.EditCompany_Command      = new DelegateCommand(this.Model.EditCompany);
+        this.EditCompany_Command      = new DelegateCommand(this.EditCompany);
         this.EditCareer_Command       = new DelegateCommand(this.EditCareer);
         this.EditWorkingPlace_Command = new DelegateCommand(this.Model.EditWorkingPlace);
         this.EditHome_Command         = new DelegateCommand(this.Model.EditHome);
@@ -126,14 +126,14 @@ public class MainWindowViewModel : BindableBase
     /// <summary> 会社マスタ - Command  </summary>
     public DelegateCommand EditCompany_Command { get; set; }
 
+    /// <summary> 会社マスタを開く </summary>
+    private void EditCompany() => _dialogService.ShowDialog(nameof(Prism.Views.Company), null, null);
+
     /// <summary> 経歴マスタ - Command </summary>
     public DelegateCommand EditCareer_Command { get; set; }
 
-    /// <summary>
-    /// 経歴マスタを開く
-    /// </summary>
-    private void EditCareer()
-        => _dialogService.ShowDialog(nameof(Career), null, null);
+    /// <summary> 経歴マスタを開く </summary>
+    private void EditCareer() => _dialogService.ShowDialog(nameof(Career), null, null);
 
     /// <summary> 就業時間マスタ - Command </summary>
     public DelegateCommand EditWorkingPlace_Command { get; set; }

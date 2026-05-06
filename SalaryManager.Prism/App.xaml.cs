@@ -1,7 +1,6 @@
 ﻿using Prism.Ioc;
 using SalaryManager.Prism.Views;
 using System.Windows;
-using Career = SalaryManager.Prism.Views.Career;
 
 namespace SalaryManager.Prism;
 
@@ -17,6 +16,7 @@ public partial class App
 
     protected override void RegisterTypes(IContainerRegistry containerRegistry)
     {
-        containerRegistry.RegisterForNavigation<Career>();
+        containerRegistry.RegisterForNavigation<Prism.Views.Career>();
+        containerRegistry.RegisterForNavigation<Prism.Views.Company>();
     }
 }

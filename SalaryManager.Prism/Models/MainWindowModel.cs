@@ -123,15 +123,6 @@ public class MainWindowModel : ModelBase<MainWindowViewModel>
     }
 
     /// <summary>
-    /// 経歴マスタを開く
-    /// </summary>
-    internal void EditCareer()
-    {
-        var career = new Career();
-        career.Show();
-    }
-
-    /// <summary>
     /// 就業時間マスタを開く
     /// </summary>
     internal void EditWorkingPlace()
