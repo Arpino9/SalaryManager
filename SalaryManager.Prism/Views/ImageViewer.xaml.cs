@@ -1,9 +1,6 @@
-﻿using System.Windows;
-using System.Windows.Media;
+﻿namespace SalaryManager.Prism.Views;
 
-namespace SalaryManager.Prism.Views;
-
-public partial class ImageViewer : Window
+public partial class ImageViewer : MahApps.Metro.Controls.MetroWindow
 {
     public ImageViewer()
     {
