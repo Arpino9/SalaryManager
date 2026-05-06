@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="SalaryManager.Prism.Views.UserControl.Allowance"
+﻿<UserControl x:Class="SalaryManager.Prism.Views.Child.Allowance"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Behavior="clr-namespace:SalaryManager.Prism.Behavior" 

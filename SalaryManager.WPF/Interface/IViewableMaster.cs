@@ -6,7 +6,7 @@
 /// <remarks>
 /// 機能がInfrastructureからの読込のみ
 /// </remarks>
-internal interface IViewableMaster
+public interface IViewableMaster
 {
     /// <summary>
     /// 初期化

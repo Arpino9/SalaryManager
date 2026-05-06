@@ -1,0 +1,371 @@
+﻿using Prism.Commands;
+using Prism.Mvvm;
+using Prism.Services.Dialogs;
+using SalaryManager.Prism.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace SalaryManager.Prism.ViewModels;
+
+public class CareerViewModel : BindableBase, IDialogAware
+{
+    public CareerViewModel()
+    {
+        this.Model.ViewModel = this;
+
+        this.Model.Initialize();
+
+        this.BindEvents();
+    }
+
+    public event Action<IDialogResult> RequestClose;
+
+    protected void BindEvents()
+    {
+        this.Window_Activated = new DelegateCommand(() => this.Model.Window_Activated());
+
+        // 就業中
+        this.Working_Checked = new DelegateCommand(() => this.Model.IsWorking_Checked());
+        // 会社名
+        this.CompanyName_TextChanged = new DelegateCommand(() => this.Model.EnableAddButton());
+        // 経歴一覧
+        this.Careers_SelectionChanged = new DelegateCommand(() => this.Model.ListView_SelectionChanged());
+
+        // 追加
+        this.Add_Command = new DelegateCommand(() => this.Model.Add());
+        this.Add_Command = new DelegateCommand(() => this.Model.Reload());
+
+        // 更新
+        this.Update_Command = new DelegateCommand(() => this.Model.Update());
+        this.Update_Command = new DelegateCommand(() => this.Model.Reload());
+
+        // 削除
+        this.Delete_Command = new DelegateCommand(() => this.Model.Delete());
+        this.Delete_Command = new DelegateCommand(() => this.Model.Reload());
+    }
+
+    public bool CanCloseDialog()
+    {
+        return true;
+    }
+
+    public void OnDialogClosed()
+    {
+        //throw new NotImplementedException();
+    }
+
+    public void OnDialogOpened(IDialogParameters parameters)
+    {
+        //throw new NotImplementedException();
+    }
+
+    /// <summary> Model - 経歴 </summary>
+    internal CareerModel Model { get; } = CareerModel.GetInstance(new CareerSQLite());
+
+    #region Window
+
+    /// <summary> Window - FontFamily </summary>
+    public FontFamily Window_FontFamily
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    /// <summary> Window - FontSize </summary>
+    public decimal Window_FontSize
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    /// <summary> Window - Background </summary>
+    public Brush Window_Background
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    /// <summary> Window - Title </summary>
+    public string Window_Title
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    } = "経歴編集";
+
+    /// <summary> Window - Activated </summary>
+    public DelegateCommand Window_Activated { get; set; }
+
+    #endregion
+
+    #region 職歴一覧
+
+    /// <summary> 職歴一覧 - ItemSource </summary>
+    public ObservableCollection<CareerEntity> Careers_ItemSource
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    } = new ObservableCollection<CareerEntity>();
+
+    /// <summary> 職歴一覧 - SelectedIndex </summary>
+    public int Careers_SelectedIndex
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    /// <summary> 特別手当 - MouseMove </summary>
+    public DelegateCommand Careers_SelectionChanged { get; set; }
+
+    #endregion
+
+    #region 雇用形態
+
+    /// <summary> 雇用形態 - ItemSource </summary>
+    public ObservableCollection<string> WorkingStatus_ItemSource
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    } = new ObservableCollection<string>() { "正社員", "契約社員", "派遣社員", "業務委託", "アルバイト" };
+
+    /// <summary> 雇用形態 - SelectedIndex </summary>
+    public int WorkingStatus_SelectedIndex
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    /// <summary> 雇用形態 - Text </summary>
+    public string WorkingStatus_Text
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    #endregion
+
+    #region 会社名
+
+    /// <summary> 会社名 - Text </summary>
+    public string CompanyName_Text
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    /// <summary> 会社名 - TextChanged </summary>
+    public DelegateCommand CompanyName_TextChanged { get; set; }
+
+    #endregion
+
+    #region 勤務期間
+
+    /// <summary> 勤務開始日 - SelectedDate </summary>
+    public DateTime WorkingStart_SelectedDate
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    /// <summary> 勤務終了日 - SelectedDate </summary>
+    public DateTime WorkingEnd_SelectedDate
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    /// <summary> 勤務終了日 - IsEnabled </summary>
+    public bool WorkingEnd_IsEnabled
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    /// <summary> 就業中 - IsChecked </summary>
+    public bool Working_IsChecked
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    /// <summary> 就業中 - Checked </summary>
+    public DelegateCommand Working_Checked { get; set; }
+
+    #endregion
+
+    #region 社員番号
+
+    /// <summary> 社員番号 - Text </summary>
+    public string EmployeeNumber_Text
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    #endregion
+
+    #region 手当
+
+    /// <summary> 皆勤手当 - IsChecked </summary>
+    public bool PerfectAttendanceAllowance_IsChecked
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    /// <summary> 教育手当 - IsChecked </summary>
+    public bool EducationAllowance_IsChecked
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    /// <summary> 在宅手当 - IsChecked </summary>
+    public bool ElectricityAllowance_IsChecked
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    /// <summary> 資格手当 - IsChecked </summary>
+    public bool CertificationAllowance_IsChecked
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    /// <summary> 時間外手当 - IsChecked </summary>
+    public bool OvertimeAllowance_IsChecked
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    /// <summary> 出張手当 - IsChecked </summary>
+    public bool TravelAllowance_IsChecked
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    /// <summary> 住宅手当 - IsChecked </summary>
+    public bool HousingAllowance_IsChecked
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    /// <summary> 食事手当 - IsChecked </summary>
+    public bool FoodAllowance_IsChecked
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    /// <summary> 深夜手当 - IsChecked </summary>
+    public bool LateNightAllowance_IsChecked
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    /// <summary> 地域手当 - IsChecked </summary>
+    public bool AreaAllowance_IsChecked
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    /// <summary> 通勤手当 - IsChecked </summary>
+    public bool CommutingAllowance_IsChecked
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    /// <summary> 前払退職金 - IsChecked </summary>
+    public bool PrepaidRetirementPayment_IsChecked
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    /// <summary> 扶養手当 - IsChecked </summary>
+    public bool DependencyAllowance_IsChecked
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    /// <summary> 役職手当 - IsChecked </summary>
+    public bool ExecutiveAllowance_IsChecked
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    /// <summary> 特別手当 - IsChecked </summary>
+    public bool SpecialAllowance_IsChecked
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    #endregion
+
+    #region 備考
+
+    /// <summary> 備考 - Text </summary>
+    public string Remarks_Text
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    #endregion
+
+    #region 追加
+
+    /// <summary> 追加 - IsEnabled </summary>
+    public bool Add_IsEnabled
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    /// <summary> 追加 - Command </summary>
+    public DelegateCommand Add_Command { get; set; }
+
+    #endregion
+
+    #region 更新
+
+    /// <summary> 更新 - IsEnabled </summary>
+    public bool Update_IsEnabled
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    /// <summary> 更新 - Command </summary>
+    public DelegateCommand Update_Command { get; set; }
+
+    #endregion
+
+    #region 削除
+
+    /// <summary> 削除 - IsEnabled </summary>
+    public bool Delete_IsEnabled
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
+
+    /// <summary> 削除 - Command </summary>
+    public DelegateCommand Delete_Command { get; set; }
+
+    public string Title => throw new NotImplementedException();
+
+    #endregion
+
+}

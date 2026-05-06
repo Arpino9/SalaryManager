@@ -44,6 +44,13 @@
             </Style.Triggers>
         </Style>
 
+        <!-- 経歴マスタ ダイアログウィンドウ -->
+        <Style x:Key="CareerWindowStyle" TargetType="Window">
+            <Setter Property="Title" Value="経歴マスタ" />
+            <Setter Property="Height" Value="440" />
+            <Setter Property="Width" Value="600" />
+        </Style>
+
         <Style TargetType="TextBox" x:Key="WorkSchedule_Style">
             <Setter Property="IsReadOnly" Value="True" />
 

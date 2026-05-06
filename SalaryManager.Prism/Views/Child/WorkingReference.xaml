@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="SalaryManager.Prism.Views.UserControl.WorkingReference"
+﻿<UserControl x:Class="SalaryManager.Prism.Views.Child.WorkingReference"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"             

@@ -1,4 +1,4 @@
-﻿namespace SalaryManager.Prism.Views.UserControl;
+﻿namespace SalaryManager.Prism.Views.Child;
 
 /// <summary>
 /// Interaction logic for Allowance

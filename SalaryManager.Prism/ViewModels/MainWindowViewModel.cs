@@ -1,6 +1,10 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Regions;
+using Prism.Services.Dialogs;
 using SalaryManager.Prism.Models;
+using SalaryManager.Prism.Views;
+using Career = SalaryManager.Prism.Views.Career;
 
 namespace SalaryManager.Prism.ViewModels;
 
@@ -13,8 +17,11 @@ public class MainWindowViewModel : BindableBase
         set { SetProperty(ref _title, value); }
     }
 
-    public MainWindowViewModel()
+    private IDialogService _dialogService;
+
+    public MainWindowViewModel(IDialogService dialogService)
     {
+        _dialogService = dialogService;
         this.Model.ViewModel = this;
         this.Header.MainWindow = this;
         this.WorkingReference.MainWindow = this;
@@ -31,7 +38,7 @@ public class MainWindowViewModel : BindableBase
 
         // メニュー - 編集
         this.EditCompany_Command      = new DelegateCommand(this.Model.EditCompany);
-        this.EditCareer_Command       = new DelegateCommand(this.Model.EditCareer);
+        this.EditCareer_Command       = new DelegateCommand(this.EditCareer);
         this.EditWorkingPlace_Command = new DelegateCommand(this.Model.EditWorkingPlace);
         this.EditHome_Command         = new DelegateCommand(this.Model.EditHome);
         this.EditHoliday_Command      = new DelegateCommand(this.Model.EditHoliday);
@@ -121,6 +128,12 @@ public class MainWindowViewModel : BindableBase
 
     /// <summary> 経歴マスタ - Command </summary>
     public DelegateCommand EditCareer_Command { get; set; }
+
+    /// <summary>
+    /// 経歴マスタを開く
+    /// </summary>
+    private void EditCareer()
+        => _dialogService.ShowDialog(nameof(Career), null, null);
 
     /// <summary> 就業時間マスタ - Command </summary>
     public DelegateCommand EditWorkingPlace_Command { get; set; }

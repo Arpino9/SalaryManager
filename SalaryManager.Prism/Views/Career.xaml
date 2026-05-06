@@ -1,0 +1,240 @@
+﻿<UserControl x:Class="SalaryManager.Prism.Views.Career"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:ViewModels="clr-namespace:SalaryManager.Prism.ViewModels"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        prism:Dialog.WindowStyle="{StaticResource CareerWindowStyle}"
+        FontFamily="{Binding Window_FontFamily}"
+        Background="{Binding Window_Background}"
+        FontSize="{Binding Window_FontSize}">
+    <UserControl.DataContext>
+        <ViewModels:CareerViewModel/>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <ListView ItemsSource="{Binding Careers_ItemSource}"
+              SelectedIndex="{Binding Careers_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+              ScrollViewer.HorizontalScrollBarVisibility="Auto">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="SelectionChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding Careers_SelectionChanged}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding WorkingStatus}">
+                        <GridViewColumnHeader Content="雇用形態"/>
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding CompanyName.Text}">
+                        <GridViewColumnHeader Content="会社名" />
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding WorkingStartDate}">
+                        <GridViewColumnHeader Content="勤務開始日" />
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding WorkingEndDate}">
+                        <GridViewColumnHeader Content="勤務終了日" />
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.PerfectAttendance.Text}">
+                        <GridViewColumnHeader Content="皆勤" />
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.Education.Text}">
+                        <GridViewColumnHeader Content="教育" />
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.Electricity.Text}">
+                        <GridViewColumnHeader Content="在宅" />
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.Certification.Text}">
+                        <GridViewColumnHeader Content="資格" />
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.Overtime.Text}">
+                        <GridViewColumnHeader Content="時間外" VerticalAlignment="Center" />
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.Travel.Text}">
+                        <GridViewColumnHeader Content="出張" />
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.Housing.Text}">
+                        <GridViewColumnHeader Content="住宅" />
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.Food.Text}">
+                        <GridViewColumnHeader Content="食事" />
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.LateNight.Text}">
+                        <GridViewColumnHeader Content="深夜" />
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.Area.Text}">
+                        <GridViewColumnHeader Content="地域" />
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.Commution.Text}">
+                        <GridViewColumnHeader Content="通勤" />
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.Dependency.Text}">
+                        <GridViewColumnHeader Content="扶養" />
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.Executive.Text}">
+                        <GridViewColumnHeader Content="役職" />
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding AllowanceExistence.Special.Text}">
+                        <GridViewColumnHeader Content="特別" />
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding Remarks}">
+                        <GridViewColumnHeader Content="備考" />
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition Height="60" />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Label Content="雇用形態" 
+               Background="AliceBlue"/>
+            <ComboBox Grid.Column="1" 
+                  ItemsSource="{Binding WorkingStatus_ItemSource}" 
+                  SelectedIndex="{Binding WorkingStatus_SelectedIndex}"
+                  Text="{Binding WorkingStatus_Text.Value}"/>
+
+            <Label Content="会社名" 
+               Grid.Row="1" 
+               Background="AliceBlue"/>
+            <TextBox Grid.Column="1" 
+                 Grid.Row="1" 
+                 Grid.ColumnSpan="4" 
+                 Text="{Binding CompanyName_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <behaviors:Interaction.Triggers>
+                    <behaviors:EventTrigger EventName="TextChanged">
+                        <behaviors:InvokeCommandAction Command="{Binding CompanyName_TextChanged}" />
+                    </behaviors:EventTrigger>
+                </behaviors:Interaction.Triggers>
+            </TextBox>
+
+            <Label Content="勤務期間" 
+               Grid.Row="2" 
+               Grid.RowSpan="2"
+               Background="AliceBlue"/>
+            <DatePicker Grid.Column="1" 
+                    Grid.Row="2" 
+                    SelectedDate="{Binding WorkingStart_SelectedDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Content="～" 
+               Grid.Column="2" 
+               Grid.Row="2"
+               Grid.RowSpan="2"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center" />
+            <DatePicker
+                    Grid.Column="3" 
+                    Grid.Row="2" 
+                    SelectedDate="{Binding WorkingEnd_SelectedDate}" 
+                    IsEnabled="{Binding WorkingEnd_IsEnabled}" />
+            <CheckBox Content="就業中" 
+                  Grid.Column="3" 
+                  Grid.Row="3"
+                  IsChecked="{Binding Working_IsChecked}">
+                <behaviors:Interaction.Triggers>
+                    <behaviors:EventTrigger EventName="Checked">
+                        <behaviors:InvokeCommandAction Command="{Binding Working_Checked}" />
+                    </behaviors:EventTrigger>
+
+                    <behaviors:EventTrigger EventName="Unchecked">
+                        <behaviors:InvokeCommandAction Command="{Binding Working_Checked}" />
+                    </behaviors:EventTrigger>
+                </behaviors:Interaction.Triggers>
+            </CheckBox>
+
+            <Label Content="社員番号" 
+               Grid.Row="4" 
+               Background="AliceBlue"/>
+            <TextBox Grid.Column="1" 
+                 Grid.Row="4" 
+                 Grid.ColumnSpan="3" 
+                 Text="{Binding EmployeeNumber_Text}" />
+
+            <Label Content="手当" 
+               Grid.Row="5" 
+               Background="AliceBlue"/>
+            <ScrollViewer Grid.Column="1" 
+                      Grid.Row="5"
+                      Width="150">
+                <StackPanel>
+                    <CheckBox Content="皆勤手当" IsChecked="{Binding PerfectAttendanceAllowance_IsChecked}" />
+                    <CheckBox Content="教育手当" IsChecked="{Binding EducationAllowance_IsChecked}" />
+                    <CheckBox Content="在宅手当" IsChecked="{Binding ElectricityAllowance_IsChecked}" />
+                    <CheckBox Content="資格手当" IsChecked="{Binding CertificationAllowance_IsChecked}" />
+                    <CheckBox Content="時間外手当・超過勤務手当" IsChecked="{Binding OvertimeAllowance_IsChecked}" />
+                    <CheckBox Content="出張手当" IsChecked="{Binding TravelAllowance_IsChecked}" />
+                    <CheckBox Content="住居手当" IsChecked="{Binding HousingAllowance_IsChecked}" />
+                    <CheckBox Content="食事手当" IsChecked="{Binding FoodAllowance_IsChecked}" />
+                    <CheckBox Content="地域手当" IsChecked="{Binding AreaAllowance_IsChecked}" />
+                    <CheckBox Content="深夜手当" IsChecked="{Binding LateNightAllowance_IsChecked}" />
+                    <CheckBox Content="通勤手当" IsChecked="{Binding CommutingAllowance_IsChecked}" />
+                    <CheckBox Content="前払退職金" IsChecked="{Binding PrepaidRetirementPayment_IsChecked}" />
+                    <CheckBox Content="扶養手当・家族手当" IsChecked="{Binding DependencyAllowance_IsChecked}" />
+                    <CheckBox Content="役職手当" IsChecked="{Binding ExecutiveAllowance_IsChecked}"/>
+                    <CheckBox Content="特別手当" IsChecked="{Binding SpecialAllowance_IsChecked}"/>
+                </StackPanel>
+            </ScrollViewer>
+
+            <Label Content="備考" 
+               Grid.Row="6" 
+               Background="AliceBlue"/>
+            <TextBox Grid.Column="1" 
+                 Grid.ColumnSpan="3"
+                 Grid.Row="6"
+                 Text="{Binding Remarks_Text}"/>
+
+            <Button Content="追加" 
+                Grid.Row="7" 
+                Command="{Binding Add_Command}"
+                IsEnabled="{Binding Add_IsEnabled}" />
+            <Button Content="更新" 
+                Grid.Row="7"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Command="{Binding Update_Command}"
+                IsEnabled="{Binding Update_IsEnabled}"/>
+            <Button Content="削除" 
+                Grid.Column="3" 
+                Grid.Row="7" 
+                Command="{Binding Delete_Command}" 
+                IsEnabled="{Binding Delete_IsEnabled}"/>
+        </Grid>
+    </Grid>
+</UserControl>
