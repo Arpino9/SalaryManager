@@ -34,7 +34,7 @@ public class MainWindowViewModel : ViewModelBase<MainWindowModel>
         // メニュー - 編集
         this.EditCompany_Command      = new DelegateCommand(() => _dialogService.ShowDialog(nameof(Prism.Views.Company), null, null));
         this.EditCareer_Command       = new DelegateCommand(() => _dialogService.ShowDialog(nameof(Prism.Views.Career), null, null));
-        this.EditWorkingPlace_Command = new DelegateCommand(this.Model.EditWorkingPlace);
+        this.EditWorkingPlace_Command = new DelegateCommand(() => _dialogService.ShowDialog(nameof(Prism.Views.WorkingPlace), null, null));
         this.EditHome_Command         = new DelegateCommand(() => _dialogService.ShowDialog(nameof(Prism.Views.Home), null, null));
         this.EditHoliday_Command      = new DelegateCommand(() => _dialogService.ShowDialog(nameof(Prism.Views.Holiday), null, null));
         this.EditFileStorage_Command  = new DelegateCommand(() => _dialogService.ShowDialog(nameof(Prism.Views.FileStorage), null, null));
