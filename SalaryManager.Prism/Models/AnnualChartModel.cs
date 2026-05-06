@@ -3,7 +3,7 @@
 /// <summary>
 /// Model - 月収一覧
 /// </summary>
-public class AnnualChartModel : ModelBase<AnnualChartViewModel>, IViewable
+public sealed class AnnualChartModel : ModelBase<AnnualChartViewModel>, IViewable
 {
     #region Get Instance
 

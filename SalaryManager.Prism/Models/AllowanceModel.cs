@@ -5,7 +5,7 @@ namespace SalaryManager.Prism.Models;
 /// <summary>
 /// Model - 支給額
 /// </summary>
-public class AllowanceModel : ModelBase<AllowanceViewModel>, IParallellyEditable
+public sealed class AllowanceModel : ModelBase<AllowanceViewModel>, IParallellyEditable
 {
 
     #region Get Instance

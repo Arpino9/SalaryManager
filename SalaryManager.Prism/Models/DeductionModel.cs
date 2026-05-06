@@ -3,7 +3,7 @@
 /// <summary>
 /// Model - 控除額
 /// </summary>
-public class DeductionModel : ModelBase<DeductionViewModel>, IParallellyEditable
+public sealed class DeductionModel : ModelBase<DeductionViewModel>, IParallellyEditable
 {
 
     #region Get Instance

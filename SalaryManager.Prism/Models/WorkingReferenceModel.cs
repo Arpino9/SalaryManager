@@ -5,7 +5,7 @@ namespace SalaryManager.Prism.Models;
 /// <summary>
 /// Model - 勤務備考
 /// </summary>
-public class WorkingReferenceModel : ModelBase<WorkingReferenceViewModel>, IParallellyEditable
+public sealed class WorkingReferenceModel : ModelBase<WorkingReferenceViewModel>, IParallellyEditable
 {
 
     #region Get Instance

@@ -3,7 +3,7 @@
 /// <summary>
 /// Model - 副業
 /// </summary>
-public class SideBusinessModel : ModelBase<SideBusinessViewModel>, IParallellyEditable
+public sealed class SideBusinessModel : ModelBase<SideBusinessViewModel>, IParallellyEditable
 {
     #region Get Instance
 
@@ -33,9 +33,6 @@ public class SideBusinessModel : ModelBase<SideBusinessViewModel>, IParallellyEd
 
     /// <summary> ViewModel - ヘッダ </summary>
     internal HeaderViewModel Header { get; set; }
-
-    /// <summary> Model - ヘッダー </summary>
-    private HeaderModel Model_Header { get; set; } = HeaderModel.GetInstance(new HeaderSQLite());
 
     /// <summary> Entity - 勤務備考 </summary>
     public SideBusinessEntity Entity { get; set; }

@@ -1,0 +1,646 @@
+﻿using SalaryManager.WPF.ViewModels;
+using Message = SalaryManager.Domain.Modules.Logics.Message;
+
+namespace SalaryManager.Prism.Models;
+
+/// <summary>
+/// ViewModel - 添付ファイル
+/// </summary>
+public sealed class FileStorageModel : ModelBase<FileStorageViewModel>, IEditableMaster
+{
+    #region Get Instance
+
+    private static FileStorageModel model = null;
+
+    public static FileStorageModel GetInstance(IFileStorageRepository repository)
+    {
+        if (model == null)
+        {
+            model = new FileStorageModel(repository);
+        }
+
+        return model;
+    }
+
+    #endregion
+
+    /// <summary> Repository </summary>
+    private IFileStorageRepository _repository;
+
+    public FileStorageModel(IFileStorageRepository repository)
+    {
+        _repository = repository;
+    }
+
+    /// <summary> ViewModel - 添付ファイル管理 </summary>
+    internal override FileStorageViewModel ViewModel { get; set; }
+
+    /// <summary> PDF変換 </summary>
+    private PDFConverter PDFConverter { get; set; } = new PDFConverter();
+
+    /// <summary> ViewModel - イメージビューアー </summary>
+    public ViewModel_ImageViewer ViewModel_ImageViewer { get; set; }
+
+    /// <summary> Entities - 添付ファイル管理 </summary>
+    public IReadOnlyList<FileStorageEntity> Entities { get; internal set; }
+
+    /// <summary> 画像の保存方法 </summary>
+    internal ViewModel_GeneralOption.HowToSaveImage HowToSave { get; private set; }
+
+    /// <summary> イメージ </summary>
+    public byte[] ByteImage { get; set; }
+
+    /// <summary>
+    /// 初期化
+    /// </summary>
+    public void Initialize()
+    {
+        this.Window_Activated();
+
+        this.Reload();
+
+        this.ListView_SelectionChanged();
+
+        var obj = EnumUtils.ToEnum(this.HowToSave.GetType(), XMLLoader.FetchHowToSaveImage());
+        if (obj is null)
+        {
+            this.ViewModel.SelectFile_IsEnabled   = false;
+            this.ViewModel.SelectFolder_IsEnabled = true;
+
+            this.Reload_ListView();
+        }
+        else
+        {
+            var howToSave = (ViewModel_GeneralOption.HowToSaveImage)obj;
+            this.ViewModel.SelectFile_IsEnabled   = (howToSave == ViewModel_GeneralOption.HowToSaveImage.SaveImage);
+            this.ViewModel.SelectFolder_IsEnabled = (howToSave == ViewModel_GeneralOption.HowToSaveImage.SavePath);
+
+            if (howToSave == ViewModel_GeneralOption.HowToSaveImage.SavePath)
+            {
+                this.SelectFolder();
+            }
+            else
+            {
+                this.Reload_ListView();
+            }
+        }
+    }
+
+    public void Window_Activated()
+    {
+        this.ViewModel.Window_FontFamily = base.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
+        this.ViewModel.Window_FontSize = XMLLoader.FetchFontSize();
+        this.ViewModel.Window_Background = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
+    }
+
+    /// <summary>
+    /// Enable - 操作ボタン
+    /// </summary>
+    private void EnableControlButton()
+    {
+        var selected = this.ViewModel.AttachedFile_ItemSource.Any()
+                    && this.ViewModel.AttachedFile_SelectedIndex >= 0;
+
+        // 更新ボタン
+        this.ViewModel.Update_IsEnabled = selected;
+        // 削除ボタン
+        this.ViewModel.Delete_IsEnabled = selected;
+    }
+
+    #region ファイルを開く
+
+    /// <summary>
+    /// ListView - SelectionChanged
+    /// </summary>
+    public void ListView_SelectionChanged()
+    {
+        if (this.ViewModel.AttachedFile_SelectedIndex.IsUnSelected())
+        {
+            return;
+        }
+
+        this.EnableControlButton();
+
+        if (!this.ViewModel.AttachedFile_ItemSource.Any())
+        {
+            return;
+        }
+
+        var entity = this.ViewModel.AttachedFile_ItemSource[this.ViewModel.AttachedFile_SelectedIndex];
+
+        // サムネイル
+        this.ViewModel.FileImage_Image = ConvertMemoryStreamToImageSource(ImageUtils.ConvertBytesToBmpStream(entity.Image));
+        // 画像を拡大表示するボタン
+        this.ViewModel.OpenImageViewer_IsEnabled = true;
+
+        var selectedSaveImage = (this.HowToSave == ViewModel_GeneralOption.HowToSaveImage.SaveImage);
+
+        // タイトル
+        this.ViewModel.Title_IsEnabled = selectedSaveImage;
+        this.ViewModel.Title_Text = entity.Title;
+        // ファイル名
+        this.ViewModel.FileName_Text = entity.FileName;
+        // 備考
+        this.ViewModel.Remarks_IsEnabled = selectedSaveImage;
+        this.ViewModel.Remarks_Text = entity.Remarks;
+
+        // 追加
+        this.ViewModel.Update_IsEnabled = selectedSaveImage;
+        // 削除
+        this.ViewModel.Delete_IsEnabled = selectedSaveImage;
+    }
+
+    /// <summary>
+    /// ファイルを開く
+    /// </summary>
+    internal void SelectFile()
+    {
+        //TODO: PDF, 画像ファイルに限定する
+        var filter = "すべてのファイル(*.*)|*.*";
+        var path = DialogUtils.SelectFile(string.Empty, filter);
+
+        if (string.IsNullOrEmpty(path))
+        {
+            // キャンセル
+            return;
+        }
+
+        var extension = new FileExtensionValue(path);
+
+        if (extension.IsPDF)
+        {
+            // PDF
+            if (this.ConvertPDFToPNG(path))
+            {
+                // 追加ボタン
+                this.ViewModel.Add_IsEnabled = true;
+            }
+
+            return;
+        }
+
+        // サムネイル
+        this.ByteImage = ImageUtils.ConvertPathToBytes(path, new PngEncoder());
+        this.ViewModel.FileImage_Image = ConvertMemoryStreamToImageSource(ImageUtils.ConvertPathToImage(path));
+        // 画像を拡大表示するボタン
+        this.ViewModel.OpenImageViewer_IsEnabled = true;
+
+        // タイトル
+        this.ViewModel.Title_IsEnabled = true;
+        this.ViewModel.Title_Text = ImageUtils.ExtractFileNameWithoutExtension(path);
+        // ファイル名
+        this.ViewModel.FileName_Text = ImageUtils.ExtractFileNameWithExtension(path);
+        // 備考
+        this.ViewModel.Remarks_IsEnabled = true;
+        // 追加ボタン
+        this.ViewModel.Add_IsEnabled = true;
+    }
+
+    /// <summary>
+    /// フォルダを開く
+    /// </summary>
+    internal void SelectFolder()
+    {
+        var folderPath = XMLLoader.FetchImageFolder();
+
+        if (Directory.Exists(folderPath) == false)
+        {
+            Message.ShowErrorMessage("フォルダが存在しません。設定画面から画像ファイルの格納先を指定してください。", this.ViewModel.Title);
+            return;
+        }
+
+        using (var cursor = new CursorWaiting())
+        {
+            foreach (var filePath in Directory.GetFiles(folderPath, "*", SearchOption.AllDirectories))
+            {
+                try
+                {
+                    this.AddFileFromFolder(filePath);
+                }
+                catch (Exception ex) when (ex.Message == "Invalid password")
+                {
+                    throw new FileReaderException("PDFの読込パスワードが不正です。\nオプションから正しいパスワードを設定してください。");
+                }
+                catch (Exception ex)
+                {
+                    throw new FileReaderException("添付ファイルの読み込みに失敗しました。", ex);
+                }
+
+            }
+
+            var orderedList = this.ViewModel.AttachedFile_ItemSource.OrderByDescending(x => x.Title).ToList();
+            this.ViewModel.AttachedFile_ItemSource = orderedList.ToReactiveCollection();
+
+            this.ViewModel.Title_IsEnabled   = false;
+            this.ViewModel.Remarks_IsEnabled = false;
+            this.ViewModel.Update_IsEnabled  = false;
+            this.ViewModel.Delete_IsEnabled  = false;
+        }
+    }
+
+    /// <summary>
+    /// フォルダから画像・PDFファイルを追加する
+    /// </summary>
+    /// <param name="filePath">ファイルパス</param>
+    private void AddFileFromFolder(string filePath)
+    {
+        var extension = new FileExtensionValue(filePath);
+
+        // ID
+        var id = this.GetID();
+
+        // 追加日
+        this.ViewModel.CreateDate = DateOnly.FromDateTime(File.GetCreationTime(filePath));
+        // 更新日
+        this.ViewModel.UpdateDate = DateOnly.FromDateTime(File.GetLastWriteTime(filePath));
+
+        if (extension.IsPDF)
+        {
+            var pngPaths = this.PDFConverter.ConvertPDFIntoImage(filePath);
+
+            var count = 1;
+
+            foreach (var pngPath in pngPaths)
+            {
+                // タイトル
+                this.ViewModel.Title_Text = $"{ImageUtils.ExtractFileNameWithoutExtension(filePath)}_{count.ToString("D2")}";
+                // ファイル名
+                this.ViewModel.FileName_Text = ImageUtils.ExtractFileNameWithExtension(filePath);
+
+                // 表示する画像
+                this.ByteImage = ImageUtils.ConvertPathToBytes(pngPath, new PngEncoder());
+                this.ViewModel.FileImage_Image = ConvertMemoryStreamToImageSource(ImageUtils.ConvertPathToImage(pngPath));
+
+                File.Delete(pngPath);
+
+                this.ViewModel.AttachedFile_ItemSource.Add(this.CreateEntity(id));
+
+                count++;
+            }
+        }
+
+        if (extension.IsImage)
+        {
+            // タイトル
+            this.ViewModel.Title_Text = ImageUtils.ExtractFileNameWithoutExtension(filePath);
+            // ファイル名
+            this.ViewModel.FileName_Text = ImageUtils.ExtractFileNameWithExtension(filePath);
+
+            // 表示する画像
+            this.ByteImage = ImageUtils.ConvertPathToBytes(filePath, new PngEncoder());
+
+            this.ViewModel.FileImage_Image = ConvertMemoryStreamToImageSource(ImageUtils.ConvertPathToImage(filePath));
+
+            this.ViewModel.AttachedFile_ItemSource.Add(this.CreateEntity(id));
+        }
+    }
+
+    public static BitmapImage ConvertMemoryStreamToImageSource(MemoryStream memoryStream)
+    {
+        // BitmapImageを作成
+        var bitmapImage = new BitmapImage();
+
+        // メモリストリームを使用してBitmapImageを初期化
+        bitmapImage.BeginInit();
+        bitmapImage.StreamSource = memoryStream;
+        bitmapImage.CacheOption = BitmapCacheOption.OnLoad; // メモリストリームを閉じた後も使用可能にする
+        bitmapImage.EndInit();
+
+        // BitmapImageを返す (ImageSourceとして使用可能)
+        return bitmapImage;
+    }
+
+    /// <summary>
+    /// IDを取得する
+    /// </summary>
+    /// <returns>ID</returns>
+    private int GetID()
+    {
+        if (this.ViewModel.AttachedFile_ItemSource.Any())
+        {
+            return this.ViewModel.AttachedFile_ItemSource.Max(x => x.ID) + 1;
+        }
+
+        return 1;
+    }
+
+    /// <summary>
+    /// PDFをPNGに変換する
+    /// </summary>
+    /// <param name="path">ファイルパス</param>
+    /// <returns>追加可否</returns>
+    /// <remarks>
+    /// 一時的にPNGを出力し、リスト追加後に削除している。
+    /// </remarks>
+    private bool ConvertPDFToPNG(string path)
+    {
+        var pngPaths = this.PDFConverter.ConvertPDFIntoImage(path);
+
+        if (pngPaths.Count == 1)
+        {
+            // 1枚
+            // タイトル
+            this.ViewModel.Title_Text = ImageUtils.ExtractFileNameWithoutExtension(pngPaths.First());
+            // ファイル名
+            this.ViewModel.FileName_Text = ImageUtils.ExtractFileNameWithExtension(pngPaths.First());
+            // 表示する画像
+            this.ByteImage = ImageUtils.ConvertPathToBytes(pngPaths.First(), new PngEncoder());
+
+            this.AddFile();
+
+            File.Delete(pngPaths.First());
+        }
+        else
+        {
+            // 複数枚
+            if (Message.ShowConfirmingMessage("PDFが複数枚選択されています。全て追加しますか？\n(「いいえ」で中断)", this.ViewModel.Title) == false)
+            {
+                return false;
+            }
+
+            foreach (var pngPath in pngPaths)
+            {
+                // タイトル
+                this.ViewModel.Title_Text = ImageUtils.ExtractFileNameWithoutExtension(pngPath);
+                // ファイル名
+                this.ViewModel.FileName_Text = ImageUtils.ExtractFileNameWithExtension(pngPath);
+                // 表示する画像
+                this.ByteImage = ImageUtils.ConvertPathToBytes(pngPath, new PngEncoder());
+
+                this.AddFile();
+
+                File.Delete(pngPath);
+            }
+        }
+
+        return true;
+    }
+
+    #endregion
+
+    #region 画像を拡大表示する
+
+    /// <summary>
+    /// イメージビューアーを開く
+    /// </summary>
+    internal void OpenImageViewer()
+    {
+        this.ViewModel_ImageViewer = new ViewModel_ImageViewer();
+
+        var viewer = new ImageViewer();
+
+        this.ViewModel_ImageViewer.FileImage_Height.Value = this.ViewModel.FileImage_Image.Height;
+        this.ViewModel_ImageViewer.FileImage_Width.Value  = this.ViewModel.FileImage_Image.Width;
+        this.ViewModel_ImageViewer.FileImage_Image.Value  = this.ViewModel.FileImage_Image;
+
+        viewer.Show();
+    }
+
+    #endregion
+
+    #region 追加
+
+    /// <summary>
+    /// 追加
+    /// </summary>
+    public void Add()
+    {
+        if (!Message.ShowConfirmingMessage($"画像情報を追加しますか？", this.ViewModel.Title))
+        {
+            // キャンセル
+            return;
+        }
+
+        if (string.IsNullOrEmpty(this.ViewModel.Title_Text))
+        {
+            Message.ShowErrorMessage("タイトルは入力必須です", this.ViewModel.Title);
+            return;
+        }
+
+        this.AddFile();
+    }
+
+    /// <summary>
+    /// 添付画像をリストに追加する
+    /// </summary>
+    /// <remarks>
+    /// 重複を防止するため、登録されたレコードの最大ID + 1のIDを割り当てる。
+    /// </remarks>
+    private void AddFile()
+    {
+        if (this.ViewModel.FileImage_Image is null)
+        {
+            throw new Domain.Exceptions.FormatException("画像情報が定義されていません。");
+        }
+
+        using (var cursor = new CursorWaiting())
+        {
+            this.ViewModel.CreateDate = DateUtils.Today;
+            this.ViewModel.UpdateDate = DateUtils.Today;
+
+            var id = this.GetID();
+            this.ViewModel.AttachedFile_ItemSource.Add(this.CreateEntity(id));
+
+            this.Save();
+
+            // 並び変え
+            var orderedList = new ObservableCollection<FileStorageEntity>(this.ViewModel.AttachedFile_ItemSource.OrderByDescending(x => x.FileName)); ;
+
+            foreach (var item in orderedList)
+            {
+                this.ViewModel.AttachedFile_ItemSource.Add(item);
+            }
+
+            // 追加ボタン
+            this.ViewModel.Add_IsEnabled = false;
+        }
+    }
+
+    /// <summary>
+    /// エンティティ生成
+    /// </summary>
+    /// <param name="id">ID</param>
+    /// <returns>エンティティ</returns>
+    private FileStorageEntity CreateEntity(int id)
+    {
+        return new FileStorageEntity(
+                    id,
+                    this.ViewModel.Title_Text,
+                    this.ViewModel.FileName_Text,
+                    this.ByteImage,
+                    this.ViewModel.Remarks_Text,
+                    this.ViewModel.CreateDate,
+                    this.ViewModel.UpdateDate);
+    }
+
+    #endregion
+
+    /// <summary>
+    /// リロード
+    /// </summary>
+    public void Reload()
+    {
+        using (var cursor = new CursorWaiting())
+        {
+            FileStorages.Create(new FileStorageSQLite());
+
+            // ListView
+            this.Reload_ListView();
+
+            // 入力用フォーム
+            this.Reload_InputForm();
+        }
+    }
+
+    /// <summary>
+    /// 再描画 - ListView
+    /// </summary>
+    /// <remarks>
+    /// リストのデータを更新する。
+    /// </remarks>
+    private void Reload_ListView()
+    {
+        using (var cursor = new CursorWaiting())
+        {
+            this.ViewModel.AttachedFile_ItemSource.Clear();
+
+            var entities = FileStorages.FetchByDescending();
+
+            if (entities.IsEmpty())
+            {
+                // 既存の添付画像なし
+                this.Clear_InputForm();
+
+                return;
+            }
+
+            foreach (var entity in entities)
+            {
+                this.ViewModel.AttachedFile_ItemSource.Add(entity);
+            }
+
+            this.ListView_SelectionChanged();
+        }
+    }
+
+    /// <summary>
+    /// 再描画 - 入力用フォーム
+    /// </summary>
+    private void Reload_InputForm()
+    {
+        this.Clear_InputForm();
+
+        // 更新、削除ボタン
+        this.EnableControlButton();
+    }
+
+    /// <summary>
+    /// クリア
+    /// </summary>
+    /// <remarks>
+    /// 各項目を初期化する。
+    /// </remarks>
+    public void Clear_InputForm()
+    {
+        // ファイル or フォルダを開くボタン
+        this.ViewModel.SelectFile_IsEnabled = false;
+        this.ViewModel.SelectFolder_IsEnabled = true;
+
+        // サムネイル
+        this.ViewModel.FileImage_Image = null;
+        // 画像を拡大表示するボタン
+        this.ViewModel.OpenImageViewer_IsEnabled = false;
+
+        // タイトル
+        this.ViewModel.Title_IsEnabled = false;
+        this.ViewModel.Title_Text = string.Empty;
+        // ファイル名
+        this.ViewModel.FileName_Text = string.Empty;
+        // 備考
+        this.ViewModel.Remarks_Text = string.Empty;
+        // 作成日
+        this.ViewModel.CreateDate = DateUtils.Today;
+        // 更新日
+        this.ViewModel.UpdateDate = DateUtils.Today;
+
+        // 追加ボタン
+        this.ViewModel.Add_IsEnabled = false;
+    }
+
+    #region 更新
+
+    /// <summary>
+    /// 更新
+    /// </summary>
+    public void Update()
+    {
+        if (!Message.ShowConfirmingMessage("画像情報を更新しますか？", this.ViewModel.Title))
+        {
+            // キャンセル
+            return;
+        }
+
+        if (string.IsNullOrEmpty(this.ViewModel.Title_Text))
+        {
+            Message.ShowErrorMessage("タイトルは入力必須です", this.ViewModel.Title);
+            return;
+        }
+
+        this.ViewModel.UpdateDate = DateUtils.Today;
+
+        using (var cursor = new CursorWaiting())
+        {
+            var id = this.ViewModel.AttachedFile_ItemSource[this.ViewModel.AttachedFile_SelectedIndex].ID;
+
+            var entity = this.CreateEntity(id);
+            this.ViewModel.AttachedFile_ItemSource[this.ViewModel.AttachedFile_SelectedIndex] = entity;
+
+            _repository.Save(entity);
+
+            this.EnableControlButton();
+            this.Clear_InputForm();
+        }
+    }
+
+    #endregion
+
+    #region 削除
+
+    /// <summary>
+    /// 削除
+    /// </summary>
+    public void Delete()
+    {
+        if (!Message.ShowConfirmingMessage("画像情報を削除しますか？", this.ViewModel.Title))
+        {
+            // キャンセル
+            return;
+        }
+
+        using (var cursor = new CursorWaiting())
+        {
+            var id = this.ViewModel.AttachedFile_ItemSource[this.ViewModel.AttachedFile_SelectedIndex].ID;
+            _repository.Delete(id);
+
+            this.ViewModel.AttachedFile_ItemSource.RemoveAt(this.ViewModel.AttachedFile_SelectedIndex);
+
+            this.EnableControlButton();
+            this.Clear_InputForm();
+        }
+    }
+
+    #endregion
+
+    /// <summary>
+    /// 保存
+    /// </summary>
+    public void Save()
+    {
+        foreach (var entity in this.ViewModel.AttachedFile_ItemSource)
+        {
+            _repository.Save(entity);
+        }
+
+        this.Reload();
+    }
+}

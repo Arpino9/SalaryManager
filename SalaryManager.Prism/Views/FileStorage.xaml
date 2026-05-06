@@ -1,0 +1,109 @@
+﻿<UserControl x:Class="SalaryManager.Prism.Views.FileStorage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"             
+             xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:ViewModels="clr-namespace:SalaryManager.Prism.ViewModels"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             Height="450" Width="800">
+    <UserControl.DataContext>
+        <ViewModels:FileStorageViewModel/>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150" />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <ListView Grid.ColumnSpan="3" 
+              ItemsSource="{Binding AttachedFile_ItemSource}" 
+              SelectedIndex="{Binding AttachedFile_SelectedIndex}">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="SelectionChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding AttachedFile_SelectionChanged}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="150" DisplayMemberBinding="{Binding Title}">
+                        <GridViewColumnHeader Content="タイトル"/>
+                    </GridViewColumn>
+                    <GridViewColumn Width="150" DisplayMemberBinding="{Binding FileName}">
+                        <GridViewColumnHeader Content="ファイル名"/>
+                    </GridViewColumn>
+                    <GridViewColumn Width="300" DisplayMemberBinding="{Binding Remarks}">
+                        <GridViewColumnHeader Content="備考"/>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding CreateDate, StringFormat='yyyy/MM/dd'}"
+                                Width="100">
+                        <GridViewColumnHeader Content="追加日" />
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding CreateDate, StringFormat='yyyy/MM/dd'}"
+                                Width="100">
+                        <GridViewColumnHeader Content="更新日" />
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Button Content="ファイルを開く" 
+            Grid.Row="1" 
+            Grid.Column="1" 
+            Command="{Binding SelectFile_Command}" 
+            IsEnabled="{Binding SelectFile_IsEnabled}"/>
+
+        <Image Grid.Column="1" Grid.Row="2" Source="{Binding FileImage_Image}"/>
+        <Button Content="画像を拡大表示する" 
+            Grid.Column="2" 
+            Grid.Row="2" 
+            Command="{Binding OpenImageViewer_Command}"
+            IsEnabled="{Binding OpenImageViewer_IsEnabled}"/>
+
+        <Label Grid.Row="3" Content="タイトル"/>
+        <TextBox Grid.Column="1" 
+             Grid.Row="3" 
+             IsEnabled="{Binding Title_IsEnabled}"
+             Text="{Binding Title_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Label Grid.Row="4" Content="ファイル名"/>
+        <TextBox Grid.Column="1" 
+             Grid.Row="4" 
+             IsEnabled="False"
+             Text="{Binding FileName_Text}" >
+        </TextBox>
+
+        <Label Content="備考" 
+           Grid.Row="5" />
+        <TextBox Grid.Column="1" 
+             Grid.Row="5" 
+             IsEnabled="{Binding Remarks_IsEnabled}"
+             Text="{Binding Remarks_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Button Content="追加" 
+            Grid.Row="6" 
+            Command="{Binding Add_Command}"
+            IsEnabled="{Binding Add_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Button Content="変更" 
+            Grid.Row="6" 
+            Grid.Column="1" 
+            Command="{Binding Update_Command}"
+            IsEnabled="{Binding Update_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Button Content="削除" 
+            Grid.Row="6" 
+            Grid.Column="2"
+            Command="{Binding Delete_Command}"
+            IsEnabled="{Binding Delete_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+    </Grid>
+</UserControl>

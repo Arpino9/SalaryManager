@@ -17,6 +17,7 @@ global using System.Windows.Data;
 global using System.Windows.Forms;
 global using System.Windows.Media;
 global using System.Windows.Input;
+global using System.Windows.Media.Imaging;
 
 // Domain層
 global using SalaryManager.Domain;
@@ -53,3 +54,5 @@ global using Prism.Services.Dialogs;
 
 // Unity
 global using Unity.Injection;
+
+global using SixLabors.ImageSharp.Formats.Png;

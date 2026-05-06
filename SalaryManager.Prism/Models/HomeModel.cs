@@ -5,7 +5,7 @@ namespace SalaryManager.Prism.Models;
 /// <summary>
 /// Model - 自宅
 /// </summary>
-public class HomeModel : ModelBase<HomeViewModel>, IEditableMaster
+public sealed class HomeModel : ModelBase<HomeViewModel>, IEditableMaster
 {
     #region Get Instance
 

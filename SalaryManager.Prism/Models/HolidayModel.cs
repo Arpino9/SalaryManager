@@ -5,7 +5,7 @@ namespace SalaryManager.Prism.Models;
 /// <summary>
 /// Model - 祝日
 /// </summary>
-public class HolidayModel : ModelBase<HolidayViewModel>, IEditableMaster
+public sealed class HolidayModel : ModelBase<HolidayViewModel>, IEditableMaster
 {
     #region Get Instance
 

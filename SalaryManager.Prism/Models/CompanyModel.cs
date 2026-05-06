@@ -5,7 +5,7 @@ namespace SalaryManager.Prism.Models;
 /// <summary>
 /// Model - 会社マスタ
 /// </summary>
-public class CompanyModel : ModelBase<CompanyViewModel>, IEditableMaster
+public sealed class CompanyModel : ModelBase<CompanyViewModel>, IEditableMaster
 {
     #region Get Instance
 

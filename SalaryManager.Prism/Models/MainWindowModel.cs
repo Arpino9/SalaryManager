@@ -5,7 +5,7 @@ namespace SalaryManager.Prism.Models;
 /// <summary>
 /// Model - メイン画面
 /// </summary>
-public class MainWindowModel : ModelBase<MainWindowViewModel>
+public sealed class MainWindowModel : ModelBase<MainWindowViewModel>
 {
 
     #region Get Instance
@@ -113,48 +113,12 @@ public class MainWindowModel : ModelBase<MainWindowViewModel>
     #region メニュー - 編集
 
     /// <summary>
-    /// 会社マスタを開く
-    /// </summary>
-    internal void EditCompany()
-    {
-        var company = new Company();
-        company.Show();
-    }
-
-    /// <summary>
     /// 就業時間マスタを開く
     /// </summary>
     internal void EditWorkingPlace()
     {
         /*var workingPlace = new Window.WorkingPlace();
         workingPlace.Show();*/
-    }
-
-    /// <summary>
-    /// 在宅マスタを開く
-    /// </summary>
-    internal void EditHome()
-    {
-        var home = new Home();
-        home.Show();
-    }
-
-    /// <summary>
-    /// 祝日マスタを開く
-    /// </summary>
-    internal void EditHoliday()
-    {
-        var holiday = new Holiday();
-        holiday.Show();
-    }
-
-    /// <summary>
-    /// 添付ファイル管理画面を開く
-    /// </summary>
-    internal void EditFileSotrage()
-    {
-        var storage = new FileStorage();
-        storage.Show();
     }
 
     /// <summary>
