@@ -1,14 +1,9 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using Prism.Services.Dialogs;
-using SalaryManager.Prism.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿namespace SalaryManager.Prism.ViewModels;
 
-namespace SalaryManager.Prism.ViewModels;
-
-public class CareerViewModel : BindableBase, IDialogAware
+/// <summary>
+/// ViewModel - 経歴
+/// </summary>
+public class CareerViewModel : ViewModelBase<CareerModel>, IDialogAware
 {
     public CareerViewModel()
     {
@@ -21,7 +16,7 @@ public class CareerViewModel : BindableBase, IDialogAware
 
     public event Action<IDialogResult> RequestClose;
 
-    protected void BindEvents()
+    protected  override void BindEvents()
     {
         this.Window_Activated = new DelegateCommand(() => this.Model.Window_Activated());
 
@@ -33,16 +28,25 @@ public class CareerViewModel : BindableBase, IDialogAware
         this.Careers_SelectionChanged = new DelegateCommand(() => this.Model.ListView_SelectionChanged());
 
         // 追加
-        this.Add_Command = new DelegateCommand(() => this.Model.Add());
-        this.Add_Command = new DelegateCommand(() => this.Model.Reload());
+        this.Add_Command = new DelegateCommand(() => 
+        {
+            this.Model.Add();
+            this.Model.Reload();
+        });
 
         // 更新
-        this.Update_Command = new DelegateCommand(() => this.Model.Update());
-        this.Update_Command = new DelegateCommand(() => this.Model.Reload());
+        this.Update_Command = new DelegateCommand(() =>
+        {
+            this.Model.Update();
+            this.Model.Reload();
+        });
 
         // 削除
-        this.Delete_Command = new DelegateCommand(() => this.Model.Delete());
-        this.Delete_Command = new DelegateCommand(() => this.Model.Reload());
+        this.Delete_Command = new DelegateCommand(() =>
+        {
+            this.Model.Delete();
+            this.Model.Reload();
+        });
     }
 
     /// <summary> タイトル </summary>
@@ -55,16 +59,16 @@ public class CareerViewModel : BindableBase, IDialogAware
 
     public void OnDialogClosed()
     {
-        //throw new NotImplementedException();
+        
     }
 
     public void OnDialogOpened(IDialogParameters parameters)
     {
-        //throw new NotImplementedException();
+        
     }
 
     /// <summary> Model - 経歴 </summary>
-    internal CareerModel Model { get; } = CareerModel.GetInstance(new CareerSQLite());
+    protected override CareerModel Model { get; } = CareerModel.GetInstance(new CareerSQLite());
 
     #region Window
 
@@ -90,7 +94,7 @@ public class CareerViewModel : BindableBase, IDialogAware
     }
 
     /// <summary> Window - Activated </summary>
-    public DelegateCommand Window_Activated { get; set; }
+    public DelegateCommand Window_Activated { get; private set; }
 
     #endregion
 
@@ -111,7 +115,7 @@ public class CareerViewModel : BindableBase, IDialogAware
     }
 
     /// <summary> 特別手当 - MouseMove </summary>
-    public DelegateCommand Careers_SelectionChanged { get; set; }
+    public DelegateCommand Careers_SelectionChanged { get; private set; }
 
     #endregion
 
@@ -150,7 +154,7 @@ public class CareerViewModel : BindableBase, IDialogAware
     }
 
     /// <summary> 会社名 - TextChanged </summary>
-    public DelegateCommand CompanyName_TextChanged { get; set; }
+    public DelegateCommand CompanyName_TextChanged { get; private set; }
 
     #endregion
 
@@ -185,7 +189,7 @@ public class CareerViewModel : BindableBase, IDialogAware
     }
 
     /// <summary> 就業中 - Checked </summary>
-    public DelegateCommand Working_Checked { get; set; }
+    public DelegateCommand Working_Checked { get; private set; }
 
     #endregion
 
@@ -330,7 +334,7 @@ public class CareerViewModel : BindableBase, IDialogAware
     }
 
     /// <summary> 追加 - Command </summary>
-    public DelegateCommand Add_Command { get; set; }
+    public DelegateCommand Add_Command { get; private set; }
 
     #endregion
 
@@ -344,7 +348,7 @@ public class CareerViewModel : BindableBase, IDialogAware
     }
 
     /// <summary> 更新 - Command </summary>
-    public DelegateCommand Update_Command { get; set; }
+    public DelegateCommand Update_Command { get; private set; }
 
     #endregion
 
@@ -358,7 +362,7 @@ public class CareerViewModel : BindableBase, IDialogAware
     }
 
     /// <summary> 削除 - Command </summary>
-    public DelegateCommand Delete_Command { get; set; }
+    public DelegateCommand Delete_Command { get; private set; }
 
     #endregion
 

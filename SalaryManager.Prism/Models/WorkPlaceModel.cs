@@ -1,6 +1,4 @@
-﻿using SalaryManager.Prism.ViewModels;
-using System.Windows.Threading;
-using WorkingPlace = SalaryManager.Domain.StaticValues.WorkingPlace;
+﻿using WorkingPlace = SalaryManager.Domain.StaticValues.WorkingPlace;
 
 namespace SalaryManager.Prism.Models;
 

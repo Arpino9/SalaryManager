@@ -1,48 +1,60 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using SalaryManager.Prism.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿namespace SalaryManager.Prism.ViewModels;
 
-namespace SalaryManager.Prism.ViewModels;
-
-public class HeaderViewModel : BindableBase
+/// <summary>
+/// ViewModel - ヘッダ
+/// </summary>
+public class HeaderViewModel : ViewModelBase<HeaderModel>
 {
     public HeaderViewModel()
     {
         this.MainWindow.Header = this.Model;
 
-        this.Model.ViewModel = this;
-        this.Allowance.Header = this;
-        this.Deduction.Header = this;
+        this.Model.ViewModel         = this;
+        this.Allowance.Header        = this;
+        this.Deduction.Header        = this;
         this.WorkingReference.Header = this;
-        this.SideBusiness.Header = this;
-        this.WorkPlace.Header = this;
-        this.AnnualCharts.Header = this;
+        this.SideBusiness.Header     = this;
+        this.WorkPlace.Header        = this;
+        this.AnnualCharts.Header     = this;
 
         this.BindEvents();
 
         this.Model.Initialize();
     }
 
-    protected void BindEvents()
+    protected override void BindEvents()
     {
         // ←(戻る)
-        this.Return_Command = new DelegateCommand(() => this.Return_Command_Execute());
+        this.Return_Command = new DelegateCommand(() =>
+        {
+            this.Model.Return();
+            this.Reload();
+        });
 
         // →(進む)
-        this.Proceed_Command = new DelegateCommand(() => this.Proceed_Command_Execute());
+        this.Proceed_Command = new DelegateCommand(() =>
+        {
+            this.Model.Proceed();
+            this.Reload();
+        });
 
         // 年
-        this.Year_TextChanged = new DelegateCommand(() => this.Year_TextChanged_Execute());
+        this.Year_TextChanged = new DelegateCommand(() =>
+        {
+            this.Model.IsValid_Year();
+            this.Reload();
+        });
 
         // 月
-        this.Month_TextChanged = new DelegateCommand(() => this.Month_TextChanged_Execute());
+        this.Month_TextChanged = new DelegateCommand(() =>
+        {
+            this.Model.IsValid_Month();
+            this.Reload();
+        });
     }
 
     /// <summary> Model - ヘッダー </summary>
-    public HeaderModel Model { get; }
+    protected override HeaderModel Model { get; }
         = HeaderModel.GetInstance(new HeaderSQLite());
 
     /// <summary> Model - メイン画面 </summary>
@@ -107,14 +119,7 @@ public class HeaderViewModel : BindableBase
     } = DateTime.Now.Year;
 
     /// <summary> 年 - TextChanged </summary>
-    public DelegateCommand Year_TextChanged { get; set; }
-
-    /// <summary> 月 - TextChanged - Execute </summary>
-    public void Year_TextChanged_Execute()
-    {
-        this.Model.IsValid_Year();
-        this.Reload();
-    }
+    public DelegateCommand Year_TextChanged { get; private set; }
 
     #endregion
 
@@ -128,46 +133,21 @@ public class HeaderViewModel : BindableBase
     } = DateTime.Now.Month;
 
     /// <summary> 月 - TextChanged </summary>
-    public DelegateCommand Month_TextChanged { get; set; }
-
-    /// <summary> 月 - TextChanged - Execute </summary>
-    public void Month_TextChanged_Execute()
-    {
-        this.Model.IsValid_Month();
-        this.Reload();
-    }
+    public DelegateCommand Month_TextChanged { get; private set; }
 
     #endregion
 
     #region 戻るボタン
 
     /// <summary> 戻る - Command </summary>
-    public DelegateCommand Return_Command { get; set; }
-
-    /// <summary>
-    /// 戻る - Command - Execute
-    /// </summary>
-    private void Return_Command_Execute()
-    {
-        this.Model.Return();
-        this.Reload();
-    }
+    public DelegateCommand Return_Command { get; private set; }
 
     #endregion
 
     #region 進むボタン
 
     /// <summary> 進む - Command </summary>
-    public DelegateCommand Proceed_Command { get; set; }
-
-    /// <summary>
-    /// 進む - Command - Execute
-    /// </summary>
-    private void Proceed_Command_Execute()
-    {
-        this.Model.Proceed();
-        this.Reload();
-    }
+    public DelegateCommand Proceed_Command { get; private set; }
 
     #endregion
 

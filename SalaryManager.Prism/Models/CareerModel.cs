@@ -1,12 +1,11 @@
-﻿using SalaryManager.Prism.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Message = SalaryManager.Domain.Modules.Logics.Message;
+﻿using Message = SalaryManager.Domain.Modules.Logics.Message;
 
 namespace SalaryManager.Prism.Models;
 
-internal class CareerModel : ModelBase<CareerViewModel>, IEditableMaster
+/// <summary>
+/// Model - 経歴
+/// </summary>
+public class CareerModel : ModelBase<CareerViewModel>, IEditableMaster
 {
     #region Get Instance
 

@@ -1,14 +1,9 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using Prism.Services.Dialogs;
-using SalaryManager.Prism.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿namespace SalaryManager.Prism.ViewModels;
 
-namespace SalaryManager.Prism.ViewModels;
-
-public class CompanyViewModel : BindableBase, IDialogAware
+/// <summary>
+/// ViewModel - 会社マスタ
+/// </summary>
+public class CompanyViewModel : ViewModelBase<CompanyModel>, IDialogAware
 {
     public CompanyViewModel()
     {
@@ -21,7 +16,7 @@ public class CompanyViewModel : BindableBase, IDialogAware
 
     public event Action<IDialogResult> RequestClose;
 
-    protected void BindEvents()
+    protected override void BindEvents()
     {
         // 会社名
         this.CompanyName_TextChanged = new DelegateCommand(() => this.Model.EnableAddButton());
@@ -31,20 +26,34 @@ public class CompanyViewModel : BindableBase, IDialogAware
         this.BusinessCategory_Large_SelectionChanged = new DelegateCommand(() => this.Model.BusinessCategory_Large_SelectionChanged());
 
         // 追加
-        this.Add_Command = new DelegateCommand(() => this.Add_Command_Execute());
+        this.Add_Command = new DelegateCommand(() =>
+        {
+            this.Model.Add();
+            this.Model.AddtionalUpdate();
+            this.Model.Reload();
+        });
 
         // 更新
-        this.Update_Command = new DelegateCommand(() => this.Update_Command_Execute());
+        this.Update_Command = new DelegateCommand(() =>
+        {
+            this.Model.Update();
+            this.Model.AddtionalUpdate();
+            this.Model.Reload();
+        });
 
         // 削除
-        this.Delete_Command = new DelegateCommand(() => this.Delete_Command_Execute());
+        this.Delete_Command = new DelegateCommand(() =>
+        {
+            this.Model.Delete();
+            this.Model.Reload();
+        });
 
         // 会社一覧
         this.Companies_SelectionChanged = new DelegateCommand(() => this.Model.ListView_SelectionChanged());
     }
 
     /// <summary> Model - 会社 </summary>
-    protected CompanyModel Model { get; } = CompanyModel.GetInstance(new CompanySQLite());
+    protected override CompanyModel Model { get; } = CompanyModel.GetInstance(new CompanySQLite());
 
     /// <summary> タイトル </summary>
     public string Title => "会社マスタ";
@@ -56,12 +65,12 @@ public class CompanyViewModel : BindableBase, IDialogAware
 
     public void OnDialogClosed()
     {
-        //throw new NotImplementedException();
+        
     }
 
     public void OnDialogOpened(IDialogParameters parameters)
     {
-        //throw new NotImplementedException();
+        
     }
 
     #region Window
@@ -226,14 +235,6 @@ public class CompanyViewModel : BindableBase, IDialogAware
     /// <summary> 追加 - Command </summary>
     public DelegateCommand Add_Command { get; private set; }
 
-    /// <summary> 追加 - Command - Execute </summary>
-    private void Add_Command_Execute()
-    {
-        this.Model.Add();
-        this.Model.AddtionalUpdate();
-        this.Model.Reload();
-    }
-
     #endregion
 
     #region 更新
@@ -248,14 +249,6 @@ public class CompanyViewModel : BindableBase, IDialogAware
     /// <summary> 更新 - Command </summary>
     public DelegateCommand Update_Command { get; private set; }
 
-    /// <summary> 更新 - Command - Execute </summary>
-    private void Update_Command_Execute()
-    {
-        this.Model.Update();
-        this.Model.AddtionalUpdate();
-        this.Model.Reload();
-    }
-
     #endregion
 
     #region 削除
@@ -269,13 +262,6 @@ public class CompanyViewModel : BindableBase, IDialogAware
 
     /// <summary> 削除 - Command </summary>
     public DelegateCommand Delete_Command { get; private set; }
-
-    /// <summary> 削除 - Command - Execute </summary>
-    private void Delete_Command_Execute()
-    {
-        this.Model.Delete();
-        this.Model.Reload();
-    }
 
     #endregion
 

@@ -1,6 +1,4 @@
-﻿using SalaryManager.Prism.ViewModels;
-
-namespace SalaryManager.Prism.Models;
+﻿namespace SalaryManager.Prism.Models;
 
 /// <summary>
 /// Model - 控除額

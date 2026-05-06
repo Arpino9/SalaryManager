@@ -1,14 +1,9 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using Prism.Services.Dialogs;
-using SalaryManager.Prism.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿namespace SalaryManager.Prism.ViewModels;
 
-namespace SalaryManager.Prism.ViewModels;
-
-public class HolidayViewModel : BindableBase, IDialogAware
+/// <summary>
+/// ViewModel - 祝日
+/// </summary>
+public class HolidayViewModel : ViewModelBase<HolidayModel>, IDialogAware
 {
     public HolidayViewModel()
     {
@@ -20,7 +15,7 @@ public class HolidayViewModel : BindableBase, IDialogAware
 
     public event Action<IDialogResult> RequestClose;
 
-    protected void BindEvents()
+    protected override void BindEvents()
     {
         // 日付
         this.Date_SelectedDateChanged = new DelegateCommand(() => this.Model.EnableControlButton());
@@ -50,6 +45,7 @@ public class HolidayViewModel : BindableBase, IDialogAware
         });
     }
 
+    /// <summary> タイトル </summary>
     public string Title => "祝日マスタ";
 
     public bool CanCloseDialog()
@@ -59,16 +55,16 @@ public class HolidayViewModel : BindableBase, IDialogAware
 
     public void OnDialogClosed()
     {
-        //throw new NotImplementedException();
+        
     }
 
     public void OnDialogOpened(IDialogParameters parameters)
     {
-        //throw new NotImplementedException();
+        
     }
 
     /// <summary> Model - 自宅 </summary>
-    private HolidayModel Model { get; } = new HolidayModel();
+    protected override HolidayModel Model { get; } = new HolidayModel();
 
     #region Window
 
@@ -112,7 +108,7 @@ public class HolidayViewModel : BindableBase, IDialogAware
     }
 
     /// <summary> 祝日一覧 - SelectionChanged </summary>
-    public DelegateCommand Holidays_SelectionChanged { get; set; }
+    public DelegateCommand Holidays_SelectionChanged { get; private set; }
 
     #endregion
 
@@ -126,7 +122,7 @@ public class HolidayViewModel : BindableBase, IDialogAware
     }
 
     /// <summary> 日付 - TextChanged </summary>
-    public DelegateCommand Date_SelectedDateChanged { get; set; }
+    public DelegateCommand Date_SelectedDateChanged { get; private set; }
 
     #endregion
 
@@ -147,7 +143,7 @@ public class HolidayViewModel : BindableBase, IDialogAware
     }
 
     /// <summary> 祝日名 - TextChanged </summary>
-    public DelegateCommand Name_TextChanged { get; set; }
+    public DelegateCommand Name_TextChanged { get; private set; }
 
     #endregion
 
@@ -161,7 +157,7 @@ public class HolidayViewModel : BindableBase, IDialogAware
     }
 
     /// <summary> 会社休日 - Checked </summary>
-    public DelegateCommand CompanyHoliday_Checked { get; set; }
+    public DelegateCommand CompanyHoliday_Checked { get; private set; }
 
     /// <summary> 会社名 - IsEnabled </summary>
     public bool CompanyName_IsEnabled
@@ -214,7 +210,7 @@ public class HolidayViewModel : BindableBase, IDialogAware
     }
 
     /// <summary> 追加 - Command </summary>
-    public DelegateCommand Add_Command { get; set; }
+    public DelegateCommand Add_Command { get; private set; }
 
     #endregion
 
@@ -228,7 +224,7 @@ public class HolidayViewModel : BindableBase, IDialogAware
     }
 
     /// <summary> 更新 - Command </summary>
-    public DelegateCommand Update_Command { get; set; }
+    public DelegateCommand Update_Command { get; private set; }
 
     #endregion
 
@@ -242,7 +238,7 @@ public class HolidayViewModel : BindableBase, IDialogAware
     }
 
     /// <summary> 削除 - Command </summary>
-    public DelegateCommand Delete_Command { get; set; }
+    public DelegateCommand Delete_Command { get; private set; }
 
     #endregion
 

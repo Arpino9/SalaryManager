@@ -8,7 +8,6 @@ global using System.Drawing.Text;
 global using System.Globalization;
 global using System.Linq;
 global using System.IO;
-global using System.Reactive.Linq;
 global using System.Text;
 global using System.Text.RegularExpressions;
 global using System.Threading.Tasks;
@@ -42,8 +41,15 @@ global using SalaryManager.Infrastructure.XML;
 // WPF層
 global using SalaryManager.WPF.Interface;
 global using SalaryManager.WPF.Models;
-global using SalaryManager.WPF.ViewModels;
 global using SalaryManager.WPF.Window;
+// Prism層
+global using SalaryManager.Prism.Models;
+global using SalaryManager.Prism.ViewModels;
 
-// API
-global using Reactive.Bindings;
+// Prism
+global using Prism.Commands;
+global using Prism.Mvvm;
+global using Prism.Services.Dialogs;
+
+// Unity
+global using Unity.Injection;

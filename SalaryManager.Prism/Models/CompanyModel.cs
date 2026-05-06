@@ -1,11 +1,10 @@
-﻿using SalaryManager.Prism.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Message = SalaryManager.Domain.Modules.Logics.Message;
+﻿using Message = SalaryManager.Domain.Modules.Logics.Message;
 
 namespace SalaryManager.Prism.Models;
 
+/// <summary>
+/// Model - 会社マスタ
+/// </summary>
 public class CompanyModel : ModelBase<CompanyViewModel>, IEditableMaster
 {
     #region Get Instance

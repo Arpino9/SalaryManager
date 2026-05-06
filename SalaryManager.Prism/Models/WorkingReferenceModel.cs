@@ -1,5 +1,4 @@
-﻿using SalaryManager.Prism.ViewModels;
-using Message = SalaryManager.Domain.Modules.Logics.Message;
+﻿using Message = SalaryManager.Domain.Modules.Logics.Message;
 
 namespace SalaryManager.Prism.Models;
 

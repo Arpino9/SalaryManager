@@ -1,14 +1,9 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using Prism.Services.Dialogs;
-using SalaryManager.Prism.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿namespace SalaryManager.Prism.ViewModels;
 
-namespace SalaryManager.Prism.ViewModels;
-
-public class HomeViewModel : BindableBase, IDialogAware
+/// <summary>
+/// ViewModel - 自宅
+/// </summary>
+public class HomeViewModel : ViewModelBase<HomeModel>, IDialogAware
 {
     public HomeViewModel()
     {
@@ -21,7 +16,7 @@ public class HomeViewModel : BindableBase, IDialogAware
 
     public event Action<IDialogResult> RequestClose;
 
-    protected void BindEvents()
+    protected override void BindEvents()
     {
         // 自宅一覧
         this.Homes_SelectionChanged = new DelegateCommand(() => this.Model.ListView_SelectionChanged());
@@ -70,7 +65,7 @@ public class HomeViewModel : BindableBase, IDialogAware
     }
 
     /// <summary> Model - 自宅 </summary>
-    protected HomeModel Model { get; } = HomeModel.GetInstance(new HomeSQLite());
+    protected override HomeModel Model { get; } = HomeModel.GetInstance(new HomeSQLite());
 
     #region Window
 

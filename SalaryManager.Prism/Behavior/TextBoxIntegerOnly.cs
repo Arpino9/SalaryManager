@@ -1,4 +1,5 @@
-﻿using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+﻿using System.Windows;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using TextBox = System.Windows.Controls.TextBox;
 
 namespace SalaryManager.Prism.Behavior;

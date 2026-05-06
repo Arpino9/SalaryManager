@@ -1,16 +1,9 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using SalaryManager.Infrastructure.SQLite;
-using SalaryManager.Prism.Models;
-using SalaryManager.WPF.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Media;
+﻿namespace SalaryManager.Prism.ViewModels;
 
-namespace SalaryManager.Prism.ViewModels;
-
-public class AllowanceViewModel : BindableBase
+/// <summary>
+/// ViewModel - 支給額
+/// </summary>
+public class AllowanceViewModel : ViewModelBase<AllowanceModel>
 {
     public AllowanceViewModel()
     {
@@ -24,7 +17,7 @@ public class AllowanceViewModel : BindableBase
         this.BindEvents();
     }
 
-    protected void BindEvents()
+    protected override void BindEvents()
     {
         var entity = this.Model.Entity_LastYear;
 
@@ -91,7 +84,7 @@ public class AllowanceViewModel : BindableBase
     }
 
     /// <summary> Model - 支給額 </summary>
-    protected AllowanceModel Model { get; }
+    protected override AllowanceModel Model { get; }
         = AllowanceModel.GetInstance(new AllowanceSQLite());
 
     /// <summary> Model - 控除額 </summary>
@@ -130,7 +123,7 @@ public class AllowanceViewModel : BindableBase
     #region 初期状態
 
     /// <summary> 初期状態 - MouseLeave </summary>
-    public DelegateCommand Default_MouseLeave { get; set; }
+    public DelegateCommand Default_MouseLeave { get; private set; }
 
     #endregion
 
@@ -144,10 +137,10 @@ public class AllowanceViewModel : BindableBase
     }
 
     /// <summary> 基本給 - MouseLeave </summary>
-    public DelegateCommand BasicSalary_MouseMove { get; set; }
+    public DelegateCommand BasicSalary_MouseMove { get; private set; }
 
     /// <summary> 基本給 - TextChanged </summary>
-    public DelegateCommand BasicSalary_TextChanged { get; set; }
+    public DelegateCommand BasicSalary_TextChanged { get; private set; }
 
     #endregion
 
@@ -168,10 +161,10 @@ public class AllowanceViewModel : BindableBase
     }
 
     /// <summary> 役職手当 - MouseMove </summary>
-    public DelegateCommand ExecutiveAllowance_MouseMove { get; set; }
+    public DelegateCommand ExecutiveAllowance_MouseMove { get; private set; }
 
     /// <summary> 役職手当 - TextChanged </summary>
-    public DelegateCommand ExecutiveAllowance_TextChanged { get; set; }
+    public DelegateCommand ExecutiveAllowance_TextChanged { get; private set; }
 
     #endregion
 
@@ -192,10 +185,10 @@ public class AllowanceViewModel : BindableBase
     }
 
     /// <summary> 扶養手当 - MouseMove </summary>
-    public DelegateCommand DependencyAllowance_MouseMove { get; set; }
+    public DelegateCommand DependencyAllowance_MouseMove { get; private set; }
 
     /// <summary> 扶養手当 - TextChanged </summary>
-    public DelegateCommand DependencyAllowance_TextChanged { get; set; }
+    public DelegateCommand DependencyAllowance_TextChanged { get; private set; }
 
     #endregion
 
@@ -216,10 +209,10 @@ public class AllowanceViewModel : BindableBase
     }
 
     /// <summary> 時間外手当 - MouseMove </summary>
-    public DelegateCommand OvertimeAllowance_MouseMove { get; set; }
+    public DelegateCommand OvertimeAllowance_MouseMove { get; private set; }
 
     /// <summary> 時間外手当 - TextChanged </summary>
-    public DelegateCommand OvertimeAllowance_TextChanged { get; set; }
+    public DelegateCommand OvertimeAllowance_TextChanged { get; private set; }
 
     #endregion
 
@@ -233,10 +226,10 @@ public class AllowanceViewModel : BindableBase
     }
 
     /// <summary> 休日割増 - MouseMove </summary>
-    public DelegateCommand DaysoffIncreased_MouseMove { get; set; }
+    public DelegateCommand DaysoffIncreased_MouseMove { get; private set; }
 
     /// <summary> 休日割増 - TextChanged </summary>
-    public DelegateCommand DaysoffIncreased_TextChanged { get; set; }
+    public DelegateCommand DaysoffIncreased_TextChanged { get; private set; }
 
     #endregion
 
@@ -257,10 +250,10 @@ public class AllowanceViewModel : BindableBase
     }
 
     /// <summary> 交通費 - MouseMove </summary>
-    public DelegateCommand TransportationExpenses_MouseMove { get; set; }
+    public DelegateCommand TransportationExpenses_MouseMove { get; private set; }
 
     /// <summary> 交通費 - TextChanged </summary>
-    public DelegateCommand TransportationExpenses_TextChanged { get; set; }
+    public DelegateCommand TransportationExpenses_TextChanged { get; private set; }
 
     #endregion
 
@@ -281,10 +274,10 @@ public class AllowanceViewModel : BindableBase
     }
 
     /// <summary> 前払退職金 - MouseMove </summary>
-    public DelegateCommand PrepaidRetirementPayment_MouseMove { get; set; }
+    public DelegateCommand PrepaidRetirementPayment_MouseMove { get; private set; }
 
     /// <summary> 前払退職金 - TextChanged </summary>
-    public DelegateCommand PrepaidRetirementPayment_TextChanged { get; set; }
+    public DelegateCommand PrepaidRetirementPayment_TextChanged { get; private set; }
 
     #endregion
 
@@ -305,10 +298,10 @@ public class AllowanceViewModel : BindableBase
     }
 
     /// <summary> 深夜割増 - MouseMove </summary>
-    public DelegateCommand NightworkIncreased_MouseMove { get; set; }
+    public DelegateCommand NightworkIncreased_MouseMove { get; private set; }
 
     /// <summary> 深夜割増 - TextChanged </summary>
-    public DelegateCommand NightworkIncreased_TextChanged { get; set; }
+    public DelegateCommand NightworkIncreased_TextChanged { get; private set; }
 
     #endregion
 
@@ -329,10 +322,10 @@ public class AllowanceViewModel : BindableBase
     }
 
     /// <summary> 住宅手当 - MouseMove </summary>
-    public DelegateCommand HousingAllowance_MouseMove { get; set; }
+    public DelegateCommand HousingAllowance_MouseMove { get; private set; }
 
     /// <summary> 住宅手当 - TextChanged </summary>
-    public DelegateCommand HousingAllowance_TextChanged { get; set; }
+    public DelegateCommand HousingAllowance_TextChanged { get; private set; }
 
     #endregion
 
@@ -346,10 +339,10 @@ public class AllowanceViewModel : BindableBase
     }
 
     /// <summary> 遅刻早退欠勤 - MouseMove </summary>
-    public DelegateCommand LateAbsent_MouseMove { get; set; }
+    public DelegateCommand LateAbsent_MouseMove { get; private set; }
 
     /// <summary> 遅刻早退欠勤 - TextChanged </summary>
-    public DelegateCommand LateAbsent_TextChanged { get; set; }
+    public DelegateCommand LateAbsent_TextChanged { get; private set; }
 
     #endregion
 
@@ -370,10 +363,10 @@ public class AllowanceViewModel : BindableBase
     }
 
     /// <summary> 特別手当 - MouseMove </summary>
-    public DelegateCommand SpecialAllowance_MouseMove { get; set; }
+    public DelegateCommand SpecialAllowance_MouseMove { get; private set; }
 
     /// <summary> 特別手当 - TextChanged </summary>
-    public DelegateCommand SpecialAllowance_TextChanged { get; set; }
+    public DelegateCommand SpecialAllowance_TextChanged { get; private set; }
 
     #endregion
 
@@ -394,10 +387,10 @@ public class AllowanceViewModel : BindableBase
     }
 
     /// <summary> 在宅手当 - MouseMove </summary>
-    public DelegateCommand ElectricityAllowance_MouseMove { get; set; }
+    public DelegateCommand ElectricityAllowance_MouseMove { get; private set; }
 
     /// <summary> 在宅手当 - TextChanged </summary>
-    public DelegateCommand ElectricityAllowance_TextChanged { get; set; }
+    public DelegateCommand ElectricityAllowance_TextChanged { get; private set; }
 
     #endregion
 
@@ -411,10 +404,10 @@ public class AllowanceViewModel : BindableBase
     }
 
     /// <summary> 予備 - MouseMove </summary>
-    public DelegateCommand SpareAllowance_MouseMove { get; set; }
+    public DelegateCommand SpareAllowance_MouseMove { get; private set; }
 
     /// <summary> 予備 - TextChanged </summary>
-    public DelegateCommand SpareAllowance_TextChanged { get; set; }
+    public DelegateCommand SpareAllowance_TextChanged { get; private set; }
 
     #endregion
 
@@ -446,7 +439,7 @@ public class AllowanceViewModel : BindableBase
     }
 
     /// <summary> 支給総計 - MouseMove </summary>
-    public DelegateCommand TotalSalary_MouseMove { get; set; }
+    public DelegateCommand TotalSalary_MouseMove { get; private set; }
 
     #endregion
 
@@ -467,7 +460,7 @@ public class AllowanceViewModel : BindableBase
     }
 
     /// <summary> 差引支給額 - MouseMove </summary>
-    public DelegateCommand TotalDeductedSalary_MouseMove { get; set; }
+    public DelegateCommand TotalDeductedSalary_MouseMove { get; private set; }
 
     #endregion
 

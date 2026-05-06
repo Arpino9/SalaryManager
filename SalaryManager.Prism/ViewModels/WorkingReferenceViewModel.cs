@@ -1,13 +1,9 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using SalaryManager.Prism.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿namespace SalaryManager.Prism.ViewModels;
 
-namespace SalaryManager.Prism.ViewModels;
-
-public class WorkingReferenceViewModel : BindableBase
+/// <summary>
+/// ViewModel - 勤務参考
+/// </summary>
+public class WorkingReferenceViewModel : ViewModelBase<WorkingReferenceModel>
 {
     public WorkingReferenceViewModel()
     {
@@ -19,7 +15,7 @@ public class WorkingReferenceViewModel : BindableBase
         this.BindEvents();
     }
 
-    protected void BindEvents()
+    protected override void BindEvents()
     {
         var entity = this.Model.Entity_LastYear;
 
@@ -34,7 +30,7 @@ public class WorkingReferenceViewModel : BindableBase
     }
 
     /// <summary> Model </summary>
-    protected WorkingReferenceModel Model { get; }
+    protected override WorkingReferenceModel Model { get; }
         = WorkingReferenceModel.GetInstance(new WorkingReferenceSQLite());
 
     /// <summary> Model - メイン画面 </summary>
@@ -69,7 +65,7 @@ public class WorkingReferenceViewModel : BindableBase
     #region 初期状態
 
     /// <summary> 初期状態 - MouseMove </summary>
-    public DelegateCommand Default_MouseMove { get; set; }
+    public DelegateCommand Default_MouseMove { get; private set; }
 
     #endregion
 
@@ -127,7 +123,7 @@ public class WorkingReferenceViewModel : BindableBase
     }
 
     /// <summary> 支給額-保険 - MouseMove </summary>
-    public DelegateCommand Insurance_MouseMove { get; set; }
+    public DelegateCommand Insurance_MouseMove { get; private set; }
 
     #endregion
 
@@ -141,7 +137,7 @@ public class WorkingReferenceViewModel : BindableBase
     }
 
     /// <summary> 標準月額千円 - MouseMove </summary>
-    public DelegateCommand Norm_MouseMove { get; set; }
+    public DelegateCommand Norm_MouseMove { get; private set; }
 
     #endregion
 

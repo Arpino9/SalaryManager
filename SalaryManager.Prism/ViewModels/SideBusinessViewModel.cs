@@ -1,13 +1,9 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using SalaryManager.Prism.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿namespace SalaryManager.Prism.ViewModels;
 
-namespace SalaryManager.Prism.ViewModels;
-
-public class SideBusinessViewModel : BindableBase
+/// <summary>
+/// ViewModel - 副業
+/// </summary>
+public class SideBusinessViewModel : ViewModelBase<SideBusinessModel>
 {
     public SideBusinessViewModel()
     {
@@ -19,7 +15,7 @@ public class SideBusinessViewModel : BindableBase
         this.BindEvents();
     }
 
-    protected void BindEvents()
+    protected override void BindEvents()
     {
         var entity = this.Model.Entity_LastYear;
 
@@ -37,7 +33,7 @@ public class SideBusinessViewModel : BindableBase
     }
 
     /// <summary> Model </summary>
-    protected SideBusinessModel Model { get; }
+    protected override SideBusinessModel Model { get; }
         = SideBusinessModel.GetInstance(new SideBusinessSQLite());
 
     /// <summary> Model - メイン画面 </summary>
@@ -72,7 +68,7 @@ public class SideBusinessViewModel : BindableBase
     #region Mouse Leave
 
     /// <summary> MouseLeave - MouseLeave </summary>
-    public DelegateCommand Default_MouseLeave { get; set; }
+    public DelegateCommand Default_MouseLeave { get; private set; }
 
     #endregion
 
@@ -86,7 +82,7 @@ public class SideBusinessViewModel : BindableBase
     }
 
     /// <summary> 副業 - MouseMove </summary>
-    public DelegateCommand SideBusiness_MouseMove { get; set; }
+    public DelegateCommand SideBusiness_MouseMove { get; private set; }
 
     #endregion
 
@@ -100,7 +96,7 @@ public class SideBusinessViewModel : BindableBase
     }
 
     /// <summary> 臨時収入 - MouseMove </summary>
-    public DelegateCommand Perquisite_MouseMove { get; set; }
+    public DelegateCommand Perquisite_MouseMove { get; private set; }
 
     #endregion
 
@@ -114,7 +110,7 @@ public class SideBusinessViewModel : BindableBase
     }
 
     /// <summary> その他 - MouseMove </summary>
-    public DelegateCommand Others_MouseMove { get; set; }
+    public DelegateCommand Others_MouseMove { get; private set; }
 
     #endregion
 

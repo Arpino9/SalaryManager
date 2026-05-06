@@ -1,13 +1,9 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using SalaryManager.Prism.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿namespace SalaryManager.Prism.ViewModels;
 
-namespace SalaryManager.Prism.ViewModels;
-
-public class AnnualChartViewModel : BindableBase
+/// <summary>
+/// ViewModel - 月収一覧
+/// </summary>
+public class AnnualChartViewModel : ViewModelBase<AnnualChartModel>
 {
     public AnnualChartViewModel()
     {
@@ -19,7 +15,7 @@ public class AnnualChartViewModel : BindableBase
         this.BindEvents();
     }
 
-    protected void BindEvents()
+    protected override void BindEvents()
     {
         // 項目共通
         this.Default_MouseLeave = new DelegateCommand(() => this.MainWindow.ComparePrice(0, 0));
@@ -195,7 +191,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> Model - 月収一覧 </summary>
-    protected AnnualChartModel Model { get; }
+    protected override AnnualChartModel Model { get; }
         = AnnualChartModel.GetInstance();
 
     /// <summary> Model - メイン画面 </summary>
@@ -225,7 +221,7 @@ public class AnnualChartViewModel : BindableBase
     #endregion
 
     /// <summary> 初期状態 - MouseLeave </summary>
-    public DelegateCommand Default_MouseLeave { get; set; }
+    public DelegateCommand Default_MouseLeave { get; private set; }
 
     #region 1月
 
@@ -237,7 +233,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 1月 - 支給額計 - MouseMove </summary>
-    public DelegateCommand January_TotalSalary_MouseMove { get; set; }
+    public DelegateCommand January_TotalSalary_MouseMove { get; private set; }
 
     /// <summary> 1月 - 差引支給額 - Text </summary>
     public int January_TotalDeductedSalary_Text
@@ -247,7 +243,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 1月 - 差引支給額 - MouseMove </summary>
-    public DelegateCommand January_TotalDeductedSalary_MouseMove { get; set; }
+    public DelegateCommand January_TotalDeductedSalary_MouseMove { get; private set; }
 
     /// <summary> 1月 - 副業額 - Text </summary>
     public int January_TotalSideBusiness_Text
@@ -257,7 +253,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 1月 - 副業額 - MouseMove </summary>
-    public DelegateCommand January_TotalSideBusiness_MouseMove { get; set; }
+    public DelegateCommand January_TotalSideBusiness_MouseMove { get; private set; }
 
     #endregion
 
@@ -271,7 +267,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 2月 - 支給額計 - MouseMove </summary>
-    public DelegateCommand Feburary_TotalSalary_MouseMove { get; set; }
+    public DelegateCommand Feburary_TotalSalary_MouseMove { get; private set; }
 
     /// <summary> 2月 - 差引支給額 - Text </summary>
     public int Feburary_TotalDeductedSalary_Text
@@ -281,7 +277,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 2月 - 差引支給額 - MouseMove </summary>
-    public DelegateCommand Feburary_TotalDeductedSalary_MouseMove { get; set; }
+    public DelegateCommand Feburary_TotalDeductedSalary_MouseMove { get; private set; }
 
     /// <summary> 2月 - 副業額 - Text </summary>
     public int Feburary_TotalSideBusiness_Text
@@ -291,7 +287,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 2月 - 副業額 - MouseMove </summary>
-    public DelegateCommand Feburary_TotalSideBusiness_MouseMove { get; set; }
+    public DelegateCommand Feburary_TotalSideBusiness_MouseMove { get; private set; }
 
     #endregion
 
@@ -305,7 +301,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 3月 - 支給額計 - MouseMove </summary>
-    public DelegateCommand March_TotalSalary_MouseMove { get; set; }
+    public DelegateCommand March_TotalSalary_MouseMove { get; private set; }
 
     /// <summary> 3月 - 差引支給額 - Text </summary>
     public int March_TotalDeductedSalary_Text
@@ -315,7 +311,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 3月 - 差引支給額 - MouseMove </summary>
-    public DelegateCommand March_TotalDeductedSalary_MouseMove { get; set; }
+    public DelegateCommand March_TotalDeductedSalary_MouseMove { get; private set; }
 
     /// <summary> 3月 - 副業額 - Text </summary>
     public int March_TotalSideBusiness_Text
@@ -325,7 +321,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 3月 - 副業額 - MouseMove </summary>
-    public DelegateCommand March_TotalSideBusiness_MouseMove { get; set; }
+    public DelegateCommand March_TotalSideBusiness_MouseMove { get; private set; }
 
     #endregion
 
@@ -339,7 +335,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 4月 - 支給額計 - MouseMove </summary>
-    public DelegateCommand April_TotalSalary_MouseMove { get; set; }
+    public DelegateCommand April_TotalSalary_MouseMove { get; private set; }
 
     /// <summary> 4月 - 差引支給額 - Text </summary>
     public int April_TotalDeductedSalary_Text
@@ -349,7 +345,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 4月 - 差引支給額 - MouseMove </summary>
-    public DelegateCommand April_TotalDeductedSalary_MouseMove { get; set; }
+    public DelegateCommand April_TotalDeductedSalary_MouseMove { get; private set; }
 
     /// <summary> 4月 - 副業額 - Text </summary>
     public int April_TotalSideBusiness_Text
@@ -359,7 +355,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 4月 - 副業額 - MouseMove </summary>
-    public DelegateCommand April_TotalSideBusiness_MouseMove { get; set; }
+    public DelegateCommand April_TotalSideBusiness_MouseMove { get; private set; }
 
     #endregion
 
@@ -373,7 +369,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 5月 - 支給額計 - MouseMove </summary>
-    public DelegateCommand May_TotalSalary_MouseMove { get; set; }
+    public DelegateCommand May_TotalSalary_MouseMove { get; private set; }
 
     /// <summary> 5月 - 差引支給額 - Text </summary>
     public int May_TotalDeductedSalary_Text
@@ -383,7 +379,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 5月 - 差引支給額 - MouseMove </summary>
-    public DelegateCommand May_TotalDeductedSalary_MouseMove { get; set; }
+    public DelegateCommand May_TotalDeductedSalary_MouseMove { get; private set; }
 
     /// <summary> 5月 - 副業額 - Text </summary>
     public int May_TotalSideBusiness_Text
@@ -393,7 +389,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 5月 - 副業額 - MouseMove </summary>
-    public DelegateCommand May_TotalSideBusiness_MouseMove { get; set; }
+    public DelegateCommand May_TotalSideBusiness_MouseMove { get; private set; }
 
     #endregion
 
@@ -407,7 +403,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 6月 - 支給額計 - MouseMove </summary>
-    public DelegateCommand June_TotalSalary_MouseMove { get; set; }
+    public DelegateCommand June_TotalSalary_MouseMove { get; private set; }
 
     /// <summary> 6月 - 支給額計 - Text </summary>
     public int June_TotalDeductedSalary_Text
@@ -417,7 +413,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 6月 - 差引支給額 - MouseMove </summary>
-    public DelegateCommand June_TotalDeductedSalary_MouseMove { get; set; }
+    public DelegateCommand June_TotalDeductedSalary_MouseMove { get; private set; }
 
     /// <summary> 6月 - 副業額 - Text </summary>
     public int June_TotalSideBusiness_Text
@@ -427,7 +423,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 6月 - 副業額 - MouseMove </summary>
-    public DelegateCommand June_TotalSideBusiness_MouseMove { get; set; }
+    public DelegateCommand June_TotalSideBusiness_MouseMove { get; private set; }
 
     #endregion
 
@@ -441,7 +437,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 7月 - 支給額計 - MouseMove </summary>
-    public DelegateCommand July_TotalSalary_MouseMove { get; set; }
+    public DelegateCommand July_TotalSalary_MouseMove { get; private set; }
 
     /// <summary> 7月 - 差引支給額 - Text </summary>
     public int July_TotalDeductedSalary_Text
@@ -451,7 +447,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 7月 - 差引支給額 - MouseMove </summary>
-    public DelegateCommand July_TotalDeductedSalary_MouseMove { get; set; }
+    public DelegateCommand July_TotalDeductedSalary_MouseMove { get; private set; }
 
     /// <summary> 7月 - 副業額 - Text </summary>
     public int July_TotalSideBusiness_Text
@@ -461,7 +457,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 7月 - 副業額 - MouseMove </summary>
-    public DelegateCommand July_TotalSideBusiness_MouseMove { get; set; }
+    public DelegateCommand July_TotalSideBusiness_MouseMove { get; private set; }
 
     #endregion
 
@@ -475,7 +471,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 8月 - 支給額計 - MouseMove </summary>
-    public DelegateCommand August_TotalSalary_MouseMove { get; set; }
+    public DelegateCommand August_TotalSalary_MouseMove { get; private set; }
 
     /// <summary> 8月 - 差引支給額 - Text </summary>
     public int August_TotalDeductedSalary_Text
@@ -485,7 +481,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 8月 - 差引支給額 - MouseMove </summary>
-    public DelegateCommand August_TotalDeductedSalary_MouseMove { get; set; }
+    public DelegateCommand August_TotalDeductedSalary_MouseMove { get; private set; }
 
     /// <summary> 8月 - 副業額 - Text </summary>
     public int August_TotalSideBusiness_Text
@@ -495,7 +491,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 8月 - 副業額 - MouseMove </summary>
-    public DelegateCommand August_TotalSideBusiness_MouseMove { get; set; }
+    public DelegateCommand August_TotalSideBusiness_MouseMove { get; private set; }
 
     #endregion
 
@@ -509,7 +505,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 9月 - 支給額計 - MouseMove </summary>
-    public DelegateCommand September_TotalSalary_MouseMove { get; set; }
+    public DelegateCommand September_TotalSalary_MouseMove { get; private set; }
 
     /// <summary> 9月 - 差引支給額 - Text </summary>
     public int September_TotalDeductedSalary_Text
@@ -519,7 +515,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 9月 - 差引支給額 - MouseMove </summary>
-    public DelegateCommand September_TotalDeductedSalary_MouseMove { get; set; }
+    public DelegateCommand September_TotalDeductedSalary_MouseMove { get; private set; }
 
     /// <summary> 9月 - 副業額 - Text </summary>
     public int September_TotalSideBusiness_Text
@@ -529,7 +525,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 9月 - 副業額 - MouseMove </summary>
-    public DelegateCommand September_TotalSideBusiness_MouseMove { get; set; }
+    public DelegateCommand September_TotalSideBusiness_MouseMove { get; private set; }
 
     #endregion
 
@@ -543,7 +539,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 10月 - 支給額計 - MouseMove </summary>
-    public DelegateCommand October_TotalSalary_MouseMove { get; set; }
+    public DelegateCommand October_TotalSalary_MouseMove { get; private set; }
 
     /// <summary> 10月 - 差引支給額 - Text </summary>
     public int October_TotalDeductedSalary_Text
@@ -553,7 +549,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 10月 - 差引支給額 - MouseMove </summary>
-    public DelegateCommand October_TotalDeductedSalary_MouseMove { get; set; }
+    public DelegateCommand October_TotalDeductedSalary_MouseMove { get; private set; }
 
     /// <summary> 10月 - 副業額 - Text </summary>
     public int October_TotalSideBusiness_Text
@@ -563,7 +559,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 10月 - 副業額 - MouseMove </summary>
-    public DelegateCommand October_TotalSideBusiness_MouseMove { get; set; }
+    public DelegateCommand October_TotalSideBusiness_MouseMove { get; private set; }
 
     #endregion
 
@@ -577,7 +573,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 10月 - 支給額計 - MouseMove </summary>
-    public DelegateCommand November_TotalSalary_MouseMove { get; set; }
+    public DelegateCommand November_TotalSalary_MouseMove { get; private set; }
 
     /// <summary> 11月 - 差引支給額 - Text </summary>
     public int November_TotalDeductedSalary_Text
@@ -587,7 +583,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 11月 - 差引支給額 - MouseMove </summary>
-    public DelegateCommand November_TotalDeductedSalary_MouseMove { get; set; }
+    public DelegateCommand November_TotalDeductedSalary_MouseMove { get; private set; }
 
     /// <summary> 11月 - 副業額 - Text </summary>
     public int November_TotalSideBusiness_Text
@@ -597,7 +593,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 11月 - 副業額 - MouseMove </summary>
-    public DelegateCommand November_TotalSideBusiness_MouseMove { get; set; }
+    public DelegateCommand November_TotalSideBusiness_MouseMove { get; private set; }
 
     #endregion
 
@@ -611,7 +607,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 12月 - 支給額計 - MouseMove </summary>
-    public DelegateCommand December_TotalSalary_MouseMove { get; set; }
+    public DelegateCommand December_TotalSalary_MouseMove { get; private set; }
 
     /// <summary> 12月 - 支給額計 - Text </summary>
     public int December_TotalDeductedSalary_Text
@@ -621,7 +617,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 12月 - 差引支給額 - MouseMove </summary>
-    public DelegateCommand December_TotalDeductedSalary_MouseMove { get; set; }
+    public DelegateCommand December_TotalDeductedSalary_MouseMove { get; private set; }
 
     /// <summary> 12月 - 副業額 - Text </summary>
     public int December_TotalSideBusiness_Text
@@ -631,7 +627,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 12月 - 副業額 - MouseMove </summary>
-    public DelegateCommand December_TotalSideBusiness_MouseMove { get; set; }
+    public DelegateCommand December_TotalSideBusiness_MouseMove { get; private set; }
 
     #endregion
 
@@ -645,7 +641,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 合計 - 支給額計 - MouseMove </summary>
-    public DelegateCommand Sum_TotalSalary_MouseMove { get; set; }
+    public DelegateCommand Sum_TotalSalary_MouseMove { get; private set; }
 
     /// <summary> 合計 - 差引支給額 - Text </summary>
     public int TotalDeductedSalary_Sum_Text
@@ -655,7 +651,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 合計 - 差引支給額 - MouseMove </summary>
-    public DelegateCommand Sum_TotalDeductedSalary_MouseMove { get; set; }
+    public DelegateCommand Sum_TotalDeductedSalary_MouseMove { get; private set; }
 
     /// <summary> 合計 - 副業額 - Text </summary>
     public int TotalSideBusiness_Sum_Text
@@ -665,7 +661,7 @@ public class AnnualChartViewModel : BindableBase
     }
 
     /// <summary> 合計 - 副業額 - MouseMove </summary>
-    public DelegateCommand Sum_TotalSideBusiness_MouseMove { get; set; }
+    public DelegateCommand Sum_TotalSideBusiness_MouseMove { get; private set; }
 
     #endregion
 }

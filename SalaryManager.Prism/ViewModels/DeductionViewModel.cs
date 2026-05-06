@@ -1,13 +1,9 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using SalaryManager.Prism.Models;
-
-namespace SalaryManager.Prism.ViewModels;
+﻿namespace SalaryManager.Prism.ViewModels;
 
 /// <summary>
 /// ViewModel - 控除額
 /// </summary>
-public class DeductionViewModel : BindableBase
+public class DeductionViewModel : ViewModelBase<DeductionModel>
 {
     public DeductionViewModel()
     {
@@ -21,7 +17,7 @@ public class DeductionViewModel : BindableBase
         this.BindEvents();
     }
 
-    protected void BindEvents()
+    protected override void BindEvents()
     {
         var entity = this.Model.Entity_LastYear;
 
@@ -65,7 +61,7 @@ public class DeductionViewModel : BindableBase
     }
 
     /// <summary> Model - 控除額 </summary>
-    protected DeductionModel Model { get; } 
+    protected override DeductionModel Model { get; } 
         = DeductionModel.GetInstance(new DeductionSQLite());
 
     /// <summary> Model - 支給額 </summary>
@@ -104,7 +100,7 @@ public class DeductionViewModel : BindableBase
     #region 初期状態
 
     /// <summary> 初期状態 - MouseLeave </summary>
-    public DelegateCommand Default_MouseLeave { get; set; }
+    public DelegateCommand Default_MouseLeave { get; private set; }
 
     #endregion
 
@@ -135,10 +131,10 @@ public class DeductionViewModel : BindableBase
     }
 
     /// <summary> 介護保険 - MouseLeave </summary>
-    public DelegateCommand NursingInsurance_MouseMove { get; set; }
+    public DelegateCommand NursingInsurance_MouseMove { get; private set; }
 
     /// <summary> 介護保険 - TextChanged </summary>
-    public DelegateCommand NursingInsurance_TextChanged { get; set; }
+    public DelegateCommand NursingInsurance_TextChanged { get; private set; }
 
     #endregion
 
@@ -152,10 +148,10 @@ public class DeductionViewModel : BindableBase
     }
 
     /// <summary> 厚生年金 - MouseMove </summary>
-    public DelegateCommand WelfareAnnuity_MouseMove { get; set; }
+    public DelegateCommand WelfareAnnuity_MouseMove { get; private set; }
 
     /// <summary> 厚生年金 - TextChanged </summary>
-    public DelegateCommand WelfareAnnuity_TextChanged { get; set; }
+    public DelegateCommand WelfareAnnuity_TextChanged { get; private set; }
 
     #endregion
 
@@ -186,10 +182,10 @@ public class DeductionViewModel : BindableBase
     }
 
     /// <summary> 所得税 - MouseMove </summary>
-    public DelegateCommand IncomeTax_MouseMove { get; set; }
+    public DelegateCommand IncomeTax_MouseMove { get; private set; }
 
     /// <summary> 所得税 - TextChanged </summary>
-    public DelegateCommand IncomeTax_TextChanged { get; set; }
+    public DelegateCommand IncomeTax_TextChanged { get; private set; }
 
     #endregion
 
@@ -203,10 +199,10 @@ public class DeductionViewModel : BindableBase
     }
 
     /// <summary> 市町村税 - MouseMove </summary>
-    public DelegateCommand MunicipalTax_MouseMove { get; set; }
+    public DelegateCommand MunicipalTax_MouseMove { get; private set; }
 
     /// <summary> 市町村税 - TextChanged </summary>
-    public DelegateCommand MunicipalTax_TextChanged { get; set; }
+    public DelegateCommand MunicipalTax_TextChanged { get; private set; }
 
     #endregion
 
@@ -261,7 +257,7 @@ public class DeductionViewModel : BindableBase
     }
 
     /// <summary> 控除額計 - MouseMove </summary>
-    public DelegateCommand TotalDeduct_MouseMove { get; set; }
+    public DelegateCommand TotalDeduct_MouseMove { get; private set; }
 
     #endregion
 

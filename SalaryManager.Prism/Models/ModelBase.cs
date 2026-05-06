@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SalaryManager.Prism.Models;
+﻿namespace SalaryManager.Prism.Models;
 
 /// <summary>
 /// Model - 基底

@@ -1,31 +1,27 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using SalaryManager.Prism.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿namespace SalaryManager.Prism.ViewModels;
 
-namespace SalaryManager.Prism.ViewModels;
-
-public class WorkPlaceViewModel : BindableBase
+/// <summary>
+/// ViewModel - 勤務備考
+/// </summary>
+public class WorkPlaceViewModel : ViewModelBase<WorkPlaceModel>
 {
     public WorkPlaceViewModel()
     {
-        this.Model.ViewModel = this;
-        this.WorkingReference.WorkPlace = this;
-        this.MainWindow.WorkPlace = this;
+        this.Model.ViewModel               = this;
+        this.WorkingReference.WorkPlace    = this;
+        this.MainWindow.WorkPlace          = this;
         this.Allowance.ViewModel_WorkPlace = this;
 
         this.Model.Initialize();
     }
 
-    protected void BindEvents()
+    protected override void BindEvents()
     {
         throw new NotImplementedException();
     }
 
     /// <summary> Model </summary>
-    protected WorkPlaceModel Model { get; }
+    protected override WorkPlaceModel Model { get; }
         = WorkPlaceModel.GetInstance();
 
     /// <summary> Model - 勤怠備考 </summary>
