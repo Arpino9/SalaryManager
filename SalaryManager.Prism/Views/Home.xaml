@@ -1,0 +1,152 @@
+﻿<UserControl x:Class="SalaryManager.Prism.Views.Home"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:ViewModels="clr-namespace:SalaryManager.Prism.ViewModels"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             Height="450" Width="800">
+    <UserControl.DataContext>
+        <ViewModels:HomeViewModel/>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <ListView ItemsSource="{Binding Homes_ItemSource}" 
+              SelectedIndex="{Binding Homes_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+              ScrollViewer.HorizontalScrollBarVisibility="Auto">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="SelectionChanged">
+                    <behaviors:InvokeCommandAction Command="{Binding Homes_SelectionChanged}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding DisplayName}">
+                        <GridViewColumnHeader Content="名称" />
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding PostCode}">
+                        <GridViewColumnHeader Content="郵便番号"/>
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding Address}">
+                        <GridViewColumnHeader Content="住所"/>
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding Remarks}">
+                        <GridViewColumnHeader Content="備考"/>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Label Content="名称" 
+               Background="AliceBlue"/>
+            <TextBox Grid.Column="1" 
+                 Grid.ColumnSpan="2" 
+                 Text="{Binding DisplayName_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Label Content="郵便番号" 
+               Grid.Row="3" 
+               Background="AliceBlue"/>
+            <TextBox Grid.Column="1" 
+                 Grid.Row="3" Text="{Binding PostCode_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+            <Label Content="在住期間" 
+               Grid.Row="1" 
+               Grid.RowSpan="2"
+               Background="AliceBlue"/>
+            <DatePicker Grid.Row="1" 
+                    Grid.Column="1" 
+                    SelectedDate="{Binding LivingStart_SelectedDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Content="～" 
+               Grid.Row="1" 
+               Grid.Column="2" 
+               HorizontalAlignment="Center" 
+               VerticalAlignment="Center"
+               Background="AliceBlue"/>
+            <DatePicker Grid.Row="1" 
+                    Grid.Column="3" 
+                    SelectedDate="{Binding LivingEnd_SelectedDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <CheckBox Content="在住中"
+                  Grid.Column="1"
+                  Grid.Row="2"
+                  VerticalAlignment="Center"
+                  IsChecked="{Binding IsLiving_IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <behaviors:Interaction.Triggers>
+                    <behaviors:EventTrigger EventName="Checked">
+                        <behaviors:InvokeCommandAction Command="{Binding IsLiving_Checked}" />
+                    </behaviors:EventTrigger>
+                </behaviors:Interaction.Triggers>
+            </CheckBox>
+
+            <Label Content="住所" 
+               Grid.Row="4" 
+               Background="AliceBlue"/>
+            <TextBox Grid.Column="1" 
+                 Grid.ColumnSpan="3"
+                 Grid.Row="4" Text="{Binding Address_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+            <Label Content="住所 (Google)" 
+               Grid.Row="5" 
+               Background="AliceBlue"/>
+            <TextBox Grid.Column="1"
+                 Grid.ColumnSpan="3" 
+                 Grid.Row="5" 
+                 Text="{Binding Address_Google_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <behaviors:Interaction.Triggers>
+                    <behaviors:EventTrigger EventName="TextChanged">
+                        <behaviors:InvokeCommandAction Command="{Binding Address_Google_TextChanged}" />
+                    </behaviors:EventTrigger>
+                </behaviors:Interaction.Triggers>
+            </TextBox>
+
+            <Label Content="備考" 
+               Grid.Row="6" 
+               Background="AliceBlue"/>
+            <TextBox Grid.Column="1"
+                 Grid.Row="6" 
+                 Grid.ColumnSpan="3" 
+                 Text="{Binding Remarks_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+            <Button Content="追加" 
+                Grid.Row="7"
+                Command="{Binding Add_Command}"
+                IsEnabled="{Binding Add_IsEnabled}"/>
+            <Button Content="更新" 
+                Grid.Row="7"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Command="{Binding Update_Command}"
+                IsEnabled="{Binding Update_IsEnabled}"/>
+            <Button Content="削除" 
+                Grid.Column="3" 
+                Grid.Row="7"
+                Command="{Binding Delete_Command}"
+                IsEnabled="{Binding Delete_IsEnabled}"/>
+        </Grid>
+    </Grid>
+</UserControl>

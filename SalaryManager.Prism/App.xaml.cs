@@ -19,5 +19,6 @@ public partial class App
         containerRegistry.RegisterForNavigation<Prism.Views.Career>();
         containerRegistry.RegisterForNavigation<Prism.Views.Company>();
         containerRegistry.RegisterForNavigation<Prism.Views.Holiday>();
+        containerRegistry.RegisterForNavigation<Prism.Views.Home>();
     }
 }

@@ -36,11 +36,11 @@ public class MainWindowViewModel : BindableBase
         this.Window_Activated = new DelegateCommand(this.Window_Activated_Execute);
 
         // メニュー - 編集
-        this.EditCompany_Command      = new DelegateCommand(this.EditCompany);
-        this.EditCareer_Command       = new DelegateCommand(this.EditCareer);
+        this.EditCompany_Command      = new DelegateCommand(() => _dialogService.ShowDialog(nameof(Prism.Views.Company), null, null));
+        this.EditCareer_Command       = new DelegateCommand(() => _dialogService.ShowDialog(nameof(Prism.Views.Career), null, null));
         this.EditWorkingPlace_Command = new DelegateCommand(this.Model.EditWorkingPlace);
-        this.EditHome_Command         = new DelegateCommand(this.Model.EditHome);
-        this.EditHoliday_Command      = new DelegateCommand(this.EditHoliday);
+        this.EditHome_Command         = new DelegateCommand(() => _dialogService.ShowDialog(nameof(Prism.Views.Home), null, null));
+        this.EditHoliday_Command      = new DelegateCommand(() => _dialogService.ShowDialog(nameof(Prism.Views.Holiday), null, null));
         this.EditFileStorage_Command  = new DelegateCommand(this.Model.EditFileSotrage);
         this.EditOption_Command       = new DelegateCommand(this.Model.EditOption);
 
@@ -125,14 +125,8 @@ public class MainWindowViewModel : BindableBase
     /// <summary> 会社マスタ - Command  </summary>
     public DelegateCommand EditCompany_Command { get; set; }
 
-    /// <summary> 会社マスタを開く </summary>
-    private void EditCompany() => _dialogService.ShowDialog(nameof(Prism.Views.Company), null, null);
-
     /// <summary> 経歴マスタ - Command </summary>
     public DelegateCommand EditCareer_Command { get; set; }
-
-    /// <summary> 経歴マスタを開く </summary>
-    private void EditCareer() => _dialogService.ShowDialog(nameof(Prism.Views.Career), null, null);
 
     /// <summary> 就業時間マスタ - Command </summary>
     public DelegateCommand EditWorkingPlace_Command { get; set; }
@@ -142,8 +136,6 @@ public class MainWindowViewModel : BindableBase
 
     /// <summary> 祝日マスタ - Command </summary>
     public DelegateCommand EditHoliday_Command { get; set; }
-
-    private void EditHoliday() => _dialogService.ShowDialog(nameof(Prism.Views.Holiday), null, null);
 
     /// <summary> 添付ファイル - Command </summary>
     public DelegateCommand EditFileStorage_Command { get; set; }
