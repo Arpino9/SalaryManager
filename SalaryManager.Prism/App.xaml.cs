@@ -22,5 +22,6 @@ public partial class App
         containerRegistry.RegisterForNavigation<Prism.Views.Home>();
         containerRegistry.RegisterForNavigation<Prism.Views.FileStorage>();
         containerRegistry.RegisterForNavigation<Prism.Views.WorkingPlace>();
+        containerRegistry.RegisterForNavigation<Prism.Views.Option>();
     }
 }

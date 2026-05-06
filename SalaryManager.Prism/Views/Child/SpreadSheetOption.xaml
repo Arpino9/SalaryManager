@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="SalaryManager.Prism.Views.Child.SpreadSheetOption"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"             
+             xmlns:ViewModels="clr-namespace:SalaryManager.Prism.ViewModels"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             Height="550" Width="800">
+    <UserControl.DataContext>
+        <ViewModels:SpreadSheetOptionViewModel/>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Label Content="認証ファイルの保存先パス"/>
+        <TextBox Grid.Column="1" 
+             Text="{Binding SelectPrivateKey_Text.Value}" 
+             IsEnabled="False" />
+        <Button Content="開く" 
+            Grid.Column="2"                 
+            Command="{Binding SelectPrivateKey_Command}"/>
+
+        <Label Content="認証シートID" 
+           Grid.Row="1"/>
+        <TextBox Grid.Column="1" 
+             Grid.Row="1"
+             Text="{Binding SheetId_Text}" />
+    </Grid>
+</UserControl>

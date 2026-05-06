@@ -38,7 +38,12 @@ public class MainWindowViewModel : ViewModelBase<MainWindowModel>
         this.EditHome_Command         = new DelegateCommand(() => _dialogService.ShowDialog(nameof(Prism.Views.Home), null, null));
         this.EditHoliday_Command      = new DelegateCommand(() => _dialogService.ShowDialog(nameof(Prism.Views.Holiday), null, null));
         this.EditFileStorage_Command  = new DelegateCommand(() => _dialogService.ShowDialog(nameof(Prism.Views.FileStorage), null, null));
-        this.EditOption_Command       = new DelegateCommand(this.Model.EditOption);
+
+        this.EditOption_Command       = new DelegateCommand(() => 
+        {
+            var career = new Prism.Views.Option();
+            career.Show();
+        });
 
         // 読込
         this.ReadDefaultPayslip_Command = new DelegateCommand(this.Model.ReadDefaultPayslip);

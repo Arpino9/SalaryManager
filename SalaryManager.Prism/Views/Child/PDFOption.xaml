@@ -1,0 +1,33 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Behavior="clr-namespace:SalaryManager.Prism.Behavior"
+             xmlns:prism="http://prismlibrary.com/"             
+             xmlns:ViewModels="clr-namespace:SalaryManager.Prism.ViewModels" x:Class="SalaryManager.Prism.Views.Child.PDFOption"             
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             Height="550" Width="800">
+    <UserControl.DataContext>
+        <ViewModels:PDFOptionViewModel/>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Label Content="PDFのパスワード"/>
+
+        <PasswordBox Behavior:PasswordBinding.Password="{Binding Password_Text}" 
+                 Grid.Column="1" PasswordChar="{Binding Password_PasswordChar}" />
+    </Grid>
+</UserControl>

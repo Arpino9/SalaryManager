@@ -110,28 +110,6 @@ public sealed class MainWindowModel : ModelBase<MainWindowViewModel>
 
     #endregion
 
-    #region メニュー - 編集
-
-    /// <summary>
-    /// 就業時間マスタを開く
-    /// </summary>
-    internal void EditWorkingPlace()
-    {
-        /*var workingPlace = new Window.WorkingPlace();
-        workingPlace.Show();*/
-    }
-
-    /// <summary>
-    /// オプション画面を開く
-    /// </summary>
-    internal void EditOption()
-    {
-        var career = new Option();
-        career.Show();
-    }
-
-    #endregion
-
     #region メニュー - 読込
 
     /// <summary>
