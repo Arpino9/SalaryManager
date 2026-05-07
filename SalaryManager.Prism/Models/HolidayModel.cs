@@ -52,12 +52,12 @@ public sealed class HolidayModel : ModelBase<HolidayViewModel>, IEditableMaster
     public void EnableControlButton()
     {
         var date = this.ViewModel.Date_SelectedDate;
-        var name = this.ViewModel.Name_Text;
 
-        var hasHoliday = this.ViewModel.Holidays_ItemSource.Where(x => x.Date.Year == date.Year &&
+        var hasHoliday = this.ViewModel.Holidays_ItemSource.Where(x => x.Date.Year  == date.Year &&
                                                                        x.Date.Month == date.Month &&
-                                                                       x.Date.Day == date.Day &&
-                                                                       x.Name == name);
+                                                                       x.Date.Day   == date.Day &&
+                                                                       x.Name       == this.ViewModel.Name_Text &&
+                                                                       x.Remarks    == this.ViewModel.Remarks_Text);
 
         // 追加ボタン
         this.ViewModel.Add_IsEnabled = hasHoliday.IsEmpty();

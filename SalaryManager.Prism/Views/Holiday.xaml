@@ -116,7 +116,13 @@
                Background="AliceBlue"/>
             <TextBox Grid.Column="1"
                  Grid.Row="3" 
-                 Grid.ColumnSpan="2" Text="{Binding Remarks_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                 Grid.ColumnSpan="2" Text="{Binding Remarks_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                <behaviors:Interaction.Triggers>
+                    <behaviors:EventTrigger EventName="TextChanged">
+                        <behaviors:InvokeCommandAction Command="{Binding Name_TextChanged}" />
+                    </behaviors:EventTrigger>
+                </behaviors:Interaction.Triggers>
+            </TextBox>
 
             <Button Content="追加" 
                 Grid.Row="4"
