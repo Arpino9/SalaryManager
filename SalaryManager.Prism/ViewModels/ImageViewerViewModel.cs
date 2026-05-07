@@ -1,5 +1,8 @@
 ﻿namespace SalaryManager.Prism.ViewModels;
 
+/// <summary>
+/// ViewModel - 添付ファイル
+/// </summary>
 public class ImageViewerViewModel : ViewModelBase<FileStorageModel>
 {
     public ImageViewerViewModel()

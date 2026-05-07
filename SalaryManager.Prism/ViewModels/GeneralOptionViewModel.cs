@@ -1,5 +1,8 @@
 ﻿namespace SalaryManager.Prism.ViewModels;
 
+/// <summary>
+/// ViewModel - オプション
+/// </summary>
 public class GeneralOptionViewModel : ViewModelBase<OptionModel>, IDialogAware
 {
     public GeneralOptionViewModel()

@@ -4,7 +4,7 @@ using Message = SalaryManager.Domain.Modules.Logics.Message;
 namespace SalaryManager.Prism.Models;
 
 /// <summary>
-/// ViewModel - 添付ファイル
+/// Model - 添付ファイル
 /// </summary>
 public sealed class FileStorageModel : ModelBase<FileStorageViewModel>, IEditableMaster
 {

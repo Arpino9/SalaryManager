@@ -34,7 +34,13 @@ public class MainWindowViewModel : ViewModelBase<MainWindowModel>
     protected override void BindEvents()
     {
         // 画面遷移時
-        this.Window_Activated = new DelegateCommand(this.Window_Activated_Execute);
+        this.Window_Activated = new DelegateCommand(() =>
+        {
+            this.Model.Window_Activated();
+            this.Header.Window_Activated();
+            this.WorkPlace.Window_Activated();
+            this.AnnualChart.Window_Activated();
+        });
 
         // メニュー - 編集
         this.EditCompany_Command      = new DelegateCommand(() => _dialogService.ShowDialog(nameof(Prism.Views.Company), null, null));
@@ -62,17 +68,13 @@ public class MainWindowViewModel : ViewModelBase<MainWindowModel>
         this.OutputSpreadSheet_Command = new DelegateCommand(this.Model.OutputSpreadSheet);
 
         // 保存
-        this.SavePayslip_Command        = new DelegateCommand(this.SavePayslip_Command_Execute);
+        this.SavePayslip_Command        = new DelegateCommand(() =>
+        {
+            this.Model.SavePayslip();
+            this.AnnualChart.Initialize();
+        });
         this.SaveDefaultPayslip_Command = new DelegateCommand(this.Header.SetDefaultPayslip);
         this.SaveDBBackup_Command       = new DelegateCommand(this.Model.SaveDBBackup);
-    }
-
-    private void Window_Activated_Execute()
-    {
-        this.Model.Window_Activated();
-        this.Header.Window_Activated();
-        this.WorkPlace.Window_Activated();
-        this.AnnualChart.Window_Activated();
     }
 
     /// <summary> Model - ヘッダー </summary>
@@ -98,7 +100,11 @@ public class MainWindowViewModel : ViewModelBase<MainWindowModel>
     #region Window
 
     /// <summary> Window - Background </summary>
-    public SolidColorBrush Window_Background { get; set; }
+    public SolidColorBrush Window_Background
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    }
 
     /// <summary> Window - FontFamily </summary>
     public FontFamily Window_FontFamily
@@ -188,15 +194,6 @@ public class MainWindowViewModel : ViewModelBase<MainWindowModel>
 
     /// <summary> DBのバックアップを作成する - Command </summary>
     public DelegateCommand SaveDBBackup_Command { get; private set; }
-
-    /// <summary>
-    /// 保存ボタンの実行
-    /// </summary>
-    private void SavePayslip_Command_Execute()
-    {
-        this.Model.SavePayslip();
-        this.AnnualChart.Initialize();
-    }
 
     #endregion
 

@@ -1,12 +1,8 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using Reactive.Bindings;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿namespace SalaryManager.Prism.ViewModels;
 
-namespace SalaryManager.Prism.ViewModels;
-
+/// <summary>
+/// ViewModel - オプション(スプレッドシート)
+/// </summary>
 public class SpreadSheetOptionViewModel : ViewModelBase<OptionModel>
 {
     public SpreadSheetOptionViewModel()

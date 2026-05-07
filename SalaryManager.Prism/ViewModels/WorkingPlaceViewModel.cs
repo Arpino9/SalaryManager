@@ -1,6 +1,4 @@
-﻿using Reactive.Bindings;
-
-namespace SalaryManager.Prism.ViewModels;
+﻿namespace SalaryManager.Prism.ViewModels;
 
 /// <summary>
 /// Moldel - 職歴

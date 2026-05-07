@@ -3,7 +3,7 @@
 namespace SalaryManager.Prism.Models;
 
 /// <summary>
-/// Model - オプション(PDF)
+/// Model - オプション
 /// </summary>
 public sealed class OptionModel : ModelBase<GeneralOptionViewModel>
 {

@@ -1,11 +1,8 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿namespace SalaryManager.Prism.ViewModels;
 
-namespace SalaryManager.Prism.ViewModels;
-
+/// <summary>
+/// ViewModel - スピンボタン(ダミー)
+/// </summary>
 public class NumericUpDownViewModel : BindableBase
 {
     public NumericUpDownViewModel()
