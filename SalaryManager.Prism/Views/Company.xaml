@@ -164,5 +164,7 @@
                 Command="{Binding Delete_Command}"
                 IsEnabled="{Binding Delete_IsEnabled}"/>
         </Grid>
+
+        <ContentControl prism:RegionManager.RegionName="CompanyRegion" />
     </Grid>
 </UserControl>

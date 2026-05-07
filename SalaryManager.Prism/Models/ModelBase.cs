@@ -10,6 +10,15 @@ public abstract class ModelBase<T> where T : class
     internal abstract T ViewModel { get; set; }
 
     /// <summary>
+    /// MetroWindow
+    /// </summary>
+    protected MahApps.Metro.Controls.MetroWindow MetroWindow =>
+        System.Windows.Application.Current.Windows
+            .OfType<MahApps.Metro.Controls.MetroWindow>()
+            .FirstOrDefault(w => w.IsActive)
+        ?? System.Windows.Application.Current.MainWindow as MahApps.Metro.Controls.MetroWindow;
+
+    /// <summary>
     /// SixLabors.Fonts.FontFamily を System.Windows.Media.FontFamily に変換
     /// </summary>
     /// <param name="sixLaborsFontFamily">SixLabors.Fonts.FontFamily</param>

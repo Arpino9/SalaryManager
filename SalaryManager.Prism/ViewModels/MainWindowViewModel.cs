@@ -46,7 +46,11 @@ public class MainWindowViewModel : ViewModelBase<MainWindowModel>
         this.EditCompany_Command      = new DelegateCommand(() => _dialogService.ShowDialog(nameof(Prism.Views.Company), null, null));
         this.EditCareer_Command       = new DelegateCommand(() => _dialogService.ShowDialog(nameof(Prism.Views.Career), null, null));
         this.EditWorkingPlace_Command = new DelegateCommand(() => _dialogService.ShowDialog(nameof(Prism.Views.WorkingPlace), null, null));
-        this.EditHome_Command         = new DelegateCommand(() => _dialogService.ShowDialog(nameof(Prism.Views.Home), null, null));
+        this.EditHome_Command         = new DelegateCommand(() =>
+        {
+            var home = new Prism.Views.Home();
+            home.Show();
+        });
         this.EditHoliday_Command      = new DelegateCommand(() => _dialogService.ShowDialog(nameof(Prism.Views.Holiday), null, null));
         this.EditFileStorage_Command  = new DelegateCommand(() => _dialogService.ShowDialog(nameof(Prism.Views.FileStorage), null, null));
 

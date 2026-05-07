@@ -105,5 +105,7 @@
             Grid.Column="2"
             Command="{Binding Delete_Command}"
             IsEnabled="{Binding Delete_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <ContentControl prism:RegionManager.RegionName="FileStrageRegion" />
     </Grid>
 </UserControl>

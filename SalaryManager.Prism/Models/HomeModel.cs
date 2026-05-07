@@ -48,7 +48,7 @@ public sealed class HomeModel : ModelBase<HomeViewModel>, IEditableMaster
     public void Window_Activated()
     {
         this.ViewModel.Window_FontFamily = base.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
-        this.ViewModel.Window_FontSize = XMLLoader.FetchFontSize();
+        this.ViewModel.Window_FontSize   = XMLLoader.FetchFontSize();
         this.ViewModel.Window_Background = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
     }
 
@@ -213,9 +213,14 @@ public sealed class HomeModel : ModelBase<HomeViewModel>, IEditableMaster
     /// <summary>
     /// 追加
     /// </summary>
-    public void Add()
+    public async void Add()
     {
-        if (!Message.ShowConfirmingMessage($"入力された自宅情報を追加しますか？", this.ViewModel.Title))
+        var result = await this.MetroWindow.ShowMessageAsync(
+                                this.ViewModel.Title,
+                                "入力された自宅情報を追加しますか？",
+                                MessageDialogStyle.AffirmativeAndNegative);
+
+        if (result != MessageDialogResult.Affirmative)
         {
             // キャンセル
             return;
@@ -240,9 +245,14 @@ public sealed class HomeModel : ModelBase<HomeViewModel>, IEditableMaster
     /// <summary>
     /// 更新
     /// </summary>
-    public void Update()
+    public async void Update()
     {
-        if (!Message.ShowConfirmingMessage($"選択中の自宅情報を更新しますか？", this.ViewModel.Title))
+        var result = await this.MetroWindow.ShowMessageAsync(
+                                this.ViewModel.Title,
+                                "選択中の自宅情報を更新しますか？",
+                                MessageDialogStyle.AffirmativeAndNegative);
+
+        if (result != MessageDialogResult.Affirmative)
         {
             // キャンセル
             return;
@@ -273,7 +283,7 @@ public sealed class HomeModel : ModelBase<HomeViewModel>, IEditableMaster
     /// <summary>
     /// 削除
     /// </summary>
-    public void Delete()
+    public async void Delete()
     {
         if (this.ViewModel.Homes_SelectedIndex.IsUnSelected() ||
             !this.ViewModel.Homes_ItemSource.Any())
@@ -281,7 +291,12 @@ public sealed class HomeModel : ModelBase<HomeViewModel>, IEditableMaster
             return;
         }
 
-        if (!Message.ShowConfirmingMessage($"選択中の職歴を削除しますか？", this.ViewModel.Title))
+        var result = await this.MetroWindow.ShowMessageAsync(
+                                this.ViewModel.Title,
+                                "選択中の職歴を削除しますか？",
+                                MessageDialogStyle.AffirmativeAndNegative);
+
+        if (result != MessageDialogResult.Affirmative)
         {
             // キャンセル
             return;

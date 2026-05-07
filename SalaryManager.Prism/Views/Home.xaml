@@ -1,14 +1,15 @@
-﻿<UserControl x:Class="SalaryManager.Prism.Views.Home"
+﻿<Controls:MetroWindow x:Class="SalaryManager.Prism.Views.Home"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:ViewModels="clr-namespace:SalaryManager.Prism.ViewModels"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              prism:ViewModelLocator.AutoWireViewModel="True"
              Height="450" Width="800">
-    <UserControl.DataContext>
+    <Controls:MetroWindow.DataContext>
         <ViewModels:HomeViewModel/>
-    </UserControl.DataContext>
+    </Controls:MetroWindow.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100" />
@@ -148,5 +149,7 @@
                 Command="{Binding Delete_Command}"
                 IsEnabled="{Binding Delete_IsEnabled}"/>
         </Grid>
+
+        <ContentControl prism:RegionManager.RegionName="HomeRegion" />
     </Grid>
-</UserControl>
+</Controls:MetroWindow>

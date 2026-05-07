@@ -132,5 +132,7 @@
                 Command="{Binding Delete_Command}"
                 IsEnabled="{Binding Delete_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
+
+        <ContentControl prism:RegionManager.RegionName="HolidayRegion" />
     </Grid>
 </UserControl>

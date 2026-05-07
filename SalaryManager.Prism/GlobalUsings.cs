@@ -52,7 +52,12 @@ global using Prism.Commands;
 global using Prism.Mvvm;
 global using Prism.Services.Dialogs;
 
+//-------------------------------------------------------
 // Unity
 global using Unity.Injection;
 
+// MahApps
+global using MahApps.Metro.Controls.Dialogs;
+
+// SixLabors
 global using SixLabors.ImageSharp.Formats.Png;
