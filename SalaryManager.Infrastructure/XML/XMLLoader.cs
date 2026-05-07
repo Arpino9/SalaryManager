@@ -1,6 +1,8 @@
 ﻿using SalaryManager.Domain.Modules.Helpers;
 using SixLabors.Fonts;
+using System.Reflection;
 using FontFamily = SixLabors.Fonts.FontFamily;
+using FormatException = SalaryManager.Domain.Exceptions.FormatException;
 
 namespace SalaryManager.Infrastructure.XML;
 
@@ -16,6 +18,9 @@ namespace SalaryManager.Infrastructure.XML;
 /// </remarks>
 public static class XMLLoader
 {
+    private static readonly log4net.ILog _logger =
+      log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
     static XMLLoader()
     {
         XMLLoader.Deserialize();
@@ -41,6 +46,12 @@ public static class XMLLoader
     public static string FetchSQLitePath()
     {
         XMLLoader.Deserialize();
+
+        if (_tag?.SQLitePath is null)
+        {
+            throw new FileReaderException("SQLiteのパスの取得に失敗しました。XMLファイルのSQLitePathタグを確認してください。");
+        }
+
         return _tag?.SQLitePath ?? FilePath.GetSQLiteDefaultPath(); ;
     }
 
@@ -51,6 +62,12 @@ public static class XMLLoader
     public static string FetchExcelTemplatePath()
     {
         XMLLoader.Deserialize();
+
+        if (_tag?.ExcelTemplatePath is null)
+        {
+            throw new FileReaderException("Excelテンプレートのパスの取得に失敗しました。XMLファイルのExcelTemplatePathタグを確認してください。");
+        }
+
         return _tag?.ExcelTemplatePath ?? FilePath.GetExcelTempleteDefaultPath();
     }
 
@@ -61,6 +78,12 @@ public static class XMLLoader
     public static string FetchFontFamilyText()
     {
         XMLLoader.Deserialize();
+
+        if (_tag?.FontFamily is null)
+        {
+            throw new FileReaderException("フォントファミリの取得に失敗しました。XMLファイルのFontFamilyタグを確認してください。");
+        }
+
         return _tag?.FontFamily ?? Shared.FontFamily;
     }
 
@@ -72,6 +95,13 @@ public static class XMLLoader
     {
         // デフォルトフォント名
         string defaultFontName = Shared.FontFamily;
+
+        if (string.IsNullOrEmpty(defaultFontName))
+        {
+            _logger.Error("デフォルトのフォント名が設定されていません。XMLファイルのFontFamilyタグを確認してください。");
+            return new FontFamily();
+        }
+
         string fontName = XMLLoader.FetchFontFamilyText();
 
         // フォント名が空の場合はデフォルトを使用
@@ -96,6 +126,12 @@ public static class XMLLoader
     public static System.Drawing.Color FetchBackgroundColor()
     {
         XMLLoader.Deserialize();
+
+        if (_tag?.BackgroundColor_ColorCode is null)
+        {
+            throw new FileReaderException("背景色の取得に失敗しました。XMLファイルのBackgroundColor_ColorCodeタグを確認してください。");
+        }
+
         if (_tag?.BackgroundColor_ColorCode is null)
         {
             return SystemColors.ControlLight;
@@ -126,6 +162,12 @@ public static class XMLLoader
     public static decimal FetchFontSize()
     {
         XMLLoader.Deserialize();
+
+        if (_tag?.FontSize is null)
+        {
+            throw new FileReaderException("フォントサイズの取得に失敗しました。XMLファイルのFontSizeタグを確認してください。");
+        }
+
         return _tag?.FontSize ?? decimal.Parse(Shared.FontSize);
     }
 
@@ -139,6 +181,12 @@ public static class XMLLoader
     public static System.Drawing.Color FetchBackgroundColorBrush()
     {
         XMLLoader.Deserialize();
+
+        if (_tag?.FontSize is null)
+        {
+            throw new FileReaderException("背景色の取得に失敗しました。XMLファイルのBackgroundColor_ColorCodeタグを確認してください。");
+        }
+
         if (_tag?.BackgroundColor_ColorCode is null)
         {
             return Default;
@@ -169,6 +217,12 @@ public static class XMLLoader
     public static bool FetchShowDefaultPayslip()
     {
         XMLLoader.Deserialize();
+
+        if (_tag?.ShowDefaultPayslip is null)
+        {
+            throw new FileReaderException("デフォルト明細判定の取得に失敗しました。XMLファイルのShowDefaultPayslipタグを確認してください。");
+        }
+
         return _tag?.ShowDefaultPayslip ?? bool.Parse(Shared.ShowDefaultPayslip);
     }
 
@@ -179,13 +233,19 @@ public static class XMLLoader
     public static string FetchHowToSaveImage() 
     {
         XMLLoader.Deserialize();
+
+        if (_tag?.HowToSaveImage is null)
+        {
+            throw new FileReaderException("画像の保存方法の取得に失敗しました。XMLファイルのHowToSaveImageタグを確認してください。");
+        }
+
         return _tag?.HowToSaveImage;
     }
 
     /// <summary>
     /// 画像の格納フォルダパスを取得する
     /// </summary>
-    /// <returns>画像の格納フォルダパ</returns>
+    /// <returns>画像の格納フォルダパス</returns>
     public static string FetchImageFolder()
     {
         XMLLoader.Deserialize();
@@ -199,6 +259,12 @@ public static class XMLLoader
     public static string FetchPrivateKeyPath_SpreadSheet()
     {
         XMLLoader.Deserialize();
+
+        if (_tag?.PrivateKeyPath_SpreadSheet is null)
+        {
+            throw new FileReaderException("認証ファイルのパスの取得に失敗しました。XMLファイルのPrivateKeyPath_SpreadSheetタグを確認してください。");
+        }
+
         return _tag?.PrivateKeyPath_SpreadSheet ?? string.Empty;
     }
 
@@ -209,6 +275,12 @@ public static class XMLLoader
     public static string FetchPrivateKeyPath_Calendar()
     {
         XMLLoader.Deserialize();
+
+        if (_tag?.PrivateKeyPath_Calendar is null)
+        {
+            throw new FileReaderException("認証ファイルのパスの取得に失敗しました。XMLファイルのPrivateKeyPath_Calendarタグを確認してください。");
+        }
+
         return _tag?.PrivateKeyPath_Calendar ?? string.Empty;
     }
 
@@ -219,6 +291,12 @@ public static class XMLLoader
     public static string FetchCalendarId()
     {
         XMLLoader.Deserialize();
+
+        if (_tag?.CalendarId is null)
+        {
+            throw new FileReaderException("カレンダーIDの取得に失敗しました。XMLファイルのCalendarIdタグを確認してください。");
+        }
+
         return _tag?.CalendarId ?? string.Empty;
     }
 
@@ -229,6 +307,12 @@ public static class XMLLoader
     public static string FetchSheetId()
     {
         XMLLoader.Deserialize();
+
+        if (_tag?.SheetId is null)
+        {
+            throw new FileReaderException("シートIDの取得に失敗しました。XMLファイルのSheetIdタグを確認してください。");
+        }
+
         return _tag?.SheetId ?? string.Empty;
     }
 
@@ -239,6 +323,12 @@ public static class XMLLoader
     public static string FetchPDFPassword()
     {
         XMLLoader.Deserialize();
+
+        if (_tag?.PDFPassword is null)
+        {
+            throw new FileReaderException("PDFのパスワードの取得に失敗しました。XMLファイルのPDFPasswordタグを確認してください。");
+        }
+
         return _tag?.PDFPassword ?? string.Empty;
     }
 }

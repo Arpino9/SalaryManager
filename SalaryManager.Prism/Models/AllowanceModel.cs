@@ -1,4 +1,5 @@
 ﻿using SalaryManager.Prism.ViewModels;
+using System.Reflection;
 
 namespace SalaryManager.Prism.Models;
 
@@ -7,6 +8,8 @@ namespace SalaryManager.Prism.Models;
 /// </summary>
 public sealed class AllowanceModel : ModelBase<AllowanceViewModel>, IParallellyEditable
 {
+    private static readonly log4net.ILog _logger =
+      log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
     #region Get Instance
 
@@ -73,9 +76,16 @@ public sealed class AllowanceModel : ModelBase<AllowanceViewModel>, IParallellyE
 
     public void Window_Activated()
     {
-        this.ViewModel.Window_FontFamily = base.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
-        this.ViewModel.Window_FontSize   = XMLLoader.FetchFontSize();
-        this.ViewModel.Window_Background = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
+        try
+        {
+            this.ViewModel.Window_FontFamily = base.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
+            this.ViewModel.Window_FontSize   = XMLLoader.FetchFontSize();
+            this.ViewModel.Window_Background = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
+        } 
+        catch (FileReaderException ex)
+        {
+            _logger.Error("XMLの読み込みに失敗しました。", ex);
+        }
     }
 
     /// <summary>

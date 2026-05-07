@@ -1,4 +1,5 @@
-﻿using Message = SalaryManager.Domain.Modules.Logics.Message;
+﻿using System.Reflection;
+using Message = SalaryManager.Domain.Modules.Logics.Message;
 
 namespace SalaryManager.Prism.Models;
 
@@ -7,6 +8,9 @@ namespace SalaryManager.Prism.Models;
 /// </summary>
 public sealed class HeaderModel : ModelBase<HeaderViewModel>, IViewable
 {
+    private static readonly log4net.ILog _logger =
+      log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
     #region Get Instance
 
     private static HeaderModel model = null;
@@ -73,7 +77,14 @@ public sealed class HeaderModel : ModelBase<HeaderViewModel>, IViewable
     /// </summary>
     public void Window_Activated()
     {
-        this.ViewModel.Window_Background = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
+        try
+        {
+            this.ViewModel.Window_Background = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
+        } 
+        catch (FileReaderException ex)
+        {
+            _logger.Error("XMLの読み込みに失敗しました。", ex);
+        }
     }
 
     /// <summary>

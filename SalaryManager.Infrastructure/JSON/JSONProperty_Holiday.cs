@@ -7,7 +7,7 @@ public record class JSONProperty_Holiday
 {
     /// <summary> 休祝日の日付 </summary>
     [JsonProperty("date")]
-    public DateOnly Date { get; set; }
+    public DateTime Date { get; set; }
 
     /// <summary> 休祝日の名前 </summary>
     [JsonProperty("name")]
