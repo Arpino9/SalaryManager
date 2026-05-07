@@ -1,11 +1,4 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using Reactive.Bindings;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace SalaryManager.Prism.ViewModels;
+﻿namespace SalaryManager.Prism.ViewModels;
 
 public class ImageViewerViewModel : ViewModelBase<FileStorageModel>
 {
@@ -22,14 +15,6 @@ public class ImageViewerViewModel : ViewModelBase<FileStorageModel>
     /// <summary> Model - 添付ファイル管理 </summary>
     protected override FileStorageModel Model { get; }
         = FileStorageModel.GetInstance(new FileStorageSQLite());
-
-    #region Window
-
-    /// <summary> Window - Title </summary>
-    public ReactiveProperty<string> Window_Title { get; }
-        = new ReactiveProperty<string>("イメージビューワー");
-
-    #endregion
 
     #region 画像
 

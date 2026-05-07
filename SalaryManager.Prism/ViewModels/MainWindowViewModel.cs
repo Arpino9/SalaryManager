@@ -12,6 +12,11 @@ public class MainWindowViewModel : ViewModelBase<MainWindowModel>
         set { SetProperty(ref field, value); }
     } = Shared.SystemName;
 
+    public MainWindowViewModel()
+    {
+        
+    }
+
     private IDialogService _dialogService;
 
     public MainWindowViewModel(IDialogService dialogService)
@@ -198,10 +203,18 @@ public class MainWindowViewModel : ViewModelBase<MainWindowModel>
     #region 金額の比較用
 
     /// <summary> 金額の比較用 - Content </summary>
-    public string PriceUpdown_Content { get; set; } = string.Empty;
+    public string PriceUpdown_Content
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    } = string.Empty;
 
     /// <summary> 金額の比較用 - Foreground </summary>
-    public SolidColorBrush PriceUpdown_Foreground { get; set; } = new SolidColorBrush();
+    public SolidColorBrush PriceUpdown_Foreground
+    {
+        get { return field; }
+        set { SetProperty(ref field, value); }
+    } = new SolidColorBrush();
 
     #endregion
 }

@@ -4,6 +4,13 @@
                     xmlns:local="clr-namespace:SalaryManager.Prism"
                     xmlns:prism="http://prismlibrary.com/" >   
     <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/light.blue.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
         <!-- ラベル -->
         <Style TargetType="Label" x:Key="PayslipItemLabel_Style">
             <Setter Property="HorizontalAlignment" Value="Left" />
@@ -60,5 +67,6 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </local:PrismAppBase>

@@ -390,16 +390,8 @@ public sealed class MainWindowModel : ModelBase<MainWindowViewModel>
             return;
         }
 
-        if (difference > 0)
-        {
-            this.ViewModel.PriceUpdown_Foreground = new SolidColorBrush(Colors.Blue);
-            this.ViewModel.PriceUpdown_Content = $"+{difference.ToString()}";
-        }
-        else
-        {
-            this.ViewModel.PriceUpdown_Foreground = new SolidColorBrush(Colors.Red);
-            this.ViewModel.PriceUpdown_Content = difference.ToString();
-        }
+        this.ViewModel.PriceUpdown_Foreground = (difference > 0) ? new SolidColorBrush(Colors.Blue) : new SolidColorBrush(Colors.Red);
+        this.ViewModel.PriceUpdown_Content    = difference.ToString();
     }
 
     #endregion
