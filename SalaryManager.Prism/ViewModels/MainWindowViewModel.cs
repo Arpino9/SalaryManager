@@ -14,14 +14,6 @@ public class MainWindowViewModel : ViewModelBase<MainWindowModel>
 
     public MainWindowViewModel()
     {
-        
-    }
-
-    private IDialogService _dialogService;
-
-    public MainWindowViewModel(IDialogService dialogService)
-    {
-        _dialogService = dialogService;
         this.Model.ViewModel = this;
         this.Header.MainWindow = this;
         this.WorkingReference.MainWindow = this;
@@ -43,22 +35,13 @@ public class MainWindowViewModel : ViewModelBase<MainWindowModel>
         });
 
         // メニュー - 編集
-        this.EditCompany_Command      = new DelegateCommand(() => _dialogService.ShowDialog(nameof(Prism.Views.Company), null, null));
-        this.EditCareer_Command       = new DelegateCommand(() => _dialogService.ShowDialog(nameof(Prism.Views.Career), null, null));
-        this.EditWorkingPlace_Command = new DelegateCommand(() => _dialogService.ShowDialog(nameof(Prism.Views.WorkingPlace), null, null));
-        this.EditHome_Command         = new DelegateCommand(() =>
-        {
-            var home = new Prism.Views.Home();
-            home.Show();
-        });
-        this.EditHoliday_Command      = new DelegateCommand(() => _dialogService.ShowDialog(nameof(Prism.Views.Holiday), null, null));
-        this.EditFileStorage_Command  = new DelegateCommand(() => _dialogService.ShowDialog(nameof(Prism.Views.FileStorage), null, null));
-
-        this.EditOption_Command       = new DelegateCommand(() => 
-        {
-            var career = new Prism.Views.Option();
-            career.Show();
-        });
+        this.EditCompany_Command      = new DelegateCommand(() => new Prism.Views.Company().Show());
+        this.EditCareer_Command       = new DelegateCommand(() => new Prism.Views.Career().Show());
+        this.EditWorkingPlace_Command = new DelegateCommand(() => new Prism.Views.WorkingPlace().Show());
+        this.EditHome_Command         = new DelegateCommand(() => new Prism.Views.Home().Show());
+        this.EditHoliday_Command      = new DelegateCommand(() => new Prism.Views.Holiday().Show());
+        this.EditFileStorage_Command  = new DelegateCommand(() => new Prism.Views.FileStorage().Show());
+        this.EditOption_Command       = new DelegateCommand(() => new Prism.Views.Option().Show());
 
         // 読込
         this.ReadDefaultPayslip_Command = new DelegateCommand(this.Model.ReadDefaultPayslip);

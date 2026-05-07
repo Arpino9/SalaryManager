@@ -29,19 +29,19 @@ public class HomeViewModel : ViewModelBase<HomeModel>, IDialogAware
 
         this.Add_Command = new DelegateCommand(() => 
         {
-            this.Model.Add();
+            this.Model.AddAsync();
             this.Model.Reload();
         });
 
         this.Update_Command = new DelegateCommand(() =>
         {
-            this.Model.Update();
+            this.Model.UpdateAsync();
             this.Model.Reload();
         });
         
         this.Delete_Command = new DelegateCommand(() =>
         {
-            this.Model.Delete();
+            this.Model.DeleteAsync();
             this.Model.Reload();
         });
     }

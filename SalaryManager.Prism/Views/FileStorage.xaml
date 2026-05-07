@@ -1,14 +1,15 @@
-﻿<UserControl x:Class="SalaryManager.Prism.Views.FileStorage"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:prism="http://prismlibrary.com/"             
-             xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:ViewModels="clr-namespace:SalaryManager.Prism.ViewModels"
-             prism:ViewModelLocator.AutoWireViewModel="True"
-             Height="450" Width="800">
-    <UserControl.DataContext>
+﻿<Controls:MetroWindow x:Class="SalaryManager.Prism.Views.FileStorage"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:prism="http://prismlibrary.com/"             
+                      xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:ViewModels="clr-namespace:SalaryManager.Prism.ViewModels"
+                      prism:ViewModelLocator.AutoWireViewModel="True"
+                      Height="450" Width="800">
+    <Controls:MetroWindow.DataContext>
         <ViewModels:FileStorageViewModel/>
-    </UserControl.DataContext>
+    </Controls:MetroWindow.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -108,4 +109,4 @@
 
         <ContentControl prism:RegionManager.RegionName="FileStrageRegion" />
     </Grid>
-</UserControl>
+</Controls:MetroWindow>

@@ -28,7 +28,7 @@ public class CompanyViewModel : ViewModelBase<CompanyModel>, IDialogAware
         // 追加
         this.Add_Command = new DelegateCommand(() =>
         {
-            this.Model.Add();
+            this.Model.AddAsync();
             this.Model.AddtionalUpdate();
             this.Model.Reload();
         });
@@ -36,7 +36,7 @@ public class CompanyViewModel : ViewModelBase<CompanyModel>, IDialogAware
         // 更新
         this.Update_Command = new DelegateCommand(() =>
         {
-            this.Model.Update();
+            this.Model.UpdateAsync();
             this.Model.AddtionalUpdate();
             this.Model.Reload();
         });
@@ -44,7 +44,7 @@ public class CompanyViewModel : ViewModelBase<CompanyModel>, IDialogAware
         // 削除
         this.Delete_Command = new DelegateCommand(() =>
         {
-            this.Model.Delete();
+            this.Model.DeleteAsync();
             this.Model.Reload();
         });
 

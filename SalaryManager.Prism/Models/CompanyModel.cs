@@ -298,9 +298,14 @@ public sealed class CompanyModel : ModelBase<CompanyViewModel>, IEditableMaster
     /// <summary>
     /// 追加
     /// </summary>
-    public void Add()
+    public async void AddAsync()
     {
-        if (!Message.ShowConfirmingMessage($"入力された会社情報を追加しますか？", this.ViewModel.Title))
+        var result = await base.MetroWindow.ShowMessageAsync(
+                                this.ViewModel.Title,
+                                "入力された会社情報を追加しますか？",
+                                MessageDialogStyle.AffirmativeAndNegative);
+
+        if (result != MessageDialogResult.Affirmative)
         {
             // キャンセル
             return;
@@ -345,9 +350,14 @@ public sealed class CompanyModel : ModelBase<CompanyViewModel>, IEditableMaster
     /// <summary>
     /// 更新
     /// </summary>
-    public void Update()
+    public async void UpdateAsync()
     {
-        if (!Message.ShowConfirmingMessage($"選択中の会社情報を更新しますか？", this.ViewModel.Title))
+        var result = await base.MetroWindow.ShowMessageAsync(
+                                this.ViewModel.Title,
+                                "選択中の会社情報を更新しますか？",
+                                MessageDialogStyle.AffirmativeAndNegative);
+
+        if (result != MessageDialogResult.Affirmative)
         {
             // キャンセル
             return;
@@ -384,7 +394,7 @@ public sealed class CompanyModel : ModelBase<CompanyViewModel>, IEditableMaster
     /// <summary>
     /// 削除
     /// </summary>
-    public void Delete()
+    public async void DeleteAsync()
     {
         if (this.ViewModel.Companies_SelectedIndex.IsUnSelected() ||
             this.ViewModel.Companies_ItemSource.IsEmpty())
@@ -392,7 +402,12 @@ public sealed class CompanyModel : ModelBase<CompanyViewModel>, IEditableMaster
             return;
         }
 
-        if (!Message.ShowConfirmingMessage($"選択中の会社情報を削除しますか？", this.ViewModel.Title))
+        var result = await base.MetroWindow.ShowMessageAsync(
+                                this.ViewModel.Title,
+                                "選択中の会社情報を削除しますか？",
+                                MessageDialogStyle.AffirmativeAndNegative);
+
+        if (result != MessageDialogResult.Affirmative)
         {
             // キャンセル
             return;

@@ -213,9 +213,9 @@ public sealed class HomeModel : ModelBase<HomeViewModel>, IEditableMaster
     /// <summary>
     /// 追加
     /// </summary>
-    public async void Add()
+    public async void AddAsync()
     {
-        var result = await this.MetroWindow.ShowMessageAsync(
+        var result = await base.MetroWindow.ShowMessageAsync(
                                 this.ViewModel.Title,
                                 "入力された自宅情報を追加しますか？",
                                 MessageDialogStyle.AffirmativeAndNegative);
@@ -245,9 +245,9 @@ public sealed class HomeModel : ModelBase<HomeViewModel>, IEditableMaster
     /// <summary>
     /// 更新
     /// </summary>
-    public async void Update()
+    public async void UpdateAsync()
     {
-        var result = await this.MetroWindow.ShowMessageAsync(
+        var result = await base.MetroWindow.ShowMessageAsync(
                                 this.ViewModel.Title,
                                 "選択中の自宅情報を更新しますか？",
                                 MessageDialogStyle.AffirmativeAndNegative);
@@ -283,7 +283,7 @@ public sealed class HomeModel : ModelBase<HomeViewModel>, IEditableMaster
     /// <summary>
     /// 削除
     /// </summary>
-    public async void Delete()
+    public async void DeleteAsync()
     {
         if (this.ViewModel.Homes_SelectedIndex.IsUnSelected() ||
             !this.ViewModel.Homes_ItemSource.Any())
@@ -291,7 +291,7 @@ public sealed class HomeModel : ModelBase<HomeViewModel>, IEditableMaster
             return;
         }
 
-        var result = await this.MetroWindow.ShowMessageAsync(
+        var result = await base.MetroWindow.ShowMessageAsync(
                                 this.ViewModel.Title,
                                 "選択中の職歴を削除しますか？",
                                 MessageDialogStyle.AffirmativeAndNegative);

@@ -28,19 +28,19 @@ public class HolidayViewModel : ViewModelBase<HolidayModel>, IDialogAware
 
         // 追加
         this.Add_Command = new DelegateCommand(() => {
-            this.Model.Add();
+            this.Model.AddAsync();
             this.Model.Reload();
         });
 
         // 更新
         this.Update_Command = new DelegateCommand(() => {
-            this.Model.Update();
+            this.Model.UpdateAsync();
             this.Model.Reload();
         });
 
         // 削除
         this.Delete_Command = new DelegateCommand(() => {
-            this.Model.Delete();
+            this.Model.DeleteAsync();
             this.Model.Reload();
         });
     }

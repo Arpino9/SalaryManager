@@ -5,7 +5,7 @@ namespace SalaryManager.Prism.Views;
 /// <summary>
 /// Interaction logic for Career.xaml
 /// </summary>
-public partial class Career : System.Windows.Controls.UserControl
+public partial class Career : MahApps.Metro.Controls.MetroWindow
 {
     public Career()
     {

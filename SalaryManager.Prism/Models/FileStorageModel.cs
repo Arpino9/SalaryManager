@@ -89,7 +89,7 @@ public sealed class FileStorageModel : ModelBase<FileStorageViewModel>, IEditabl
     public void Window_Activated()
     {
         this.ViewModel.Window_FontFamily = base.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
-        this.ViewModel.Window_FontSize = XMLLoader.FetchFontSize();
+        this.ViewModel.Window_FontSize   = XMLLoader.FetchFontSize();
         this.ViewModel.Window_Background = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
     }
 
@@ -137,7 +137,7 @@ public sealed class FileStorageModel : ModelBase<FileStorageViewModel>, IEditabl
 
         // タイトル
         this.ViewModel.Title_IsEnabled = selectedSaveImage;
-        this.ViewModel.Title_Text = entity.Title;
+        this.ViewModel.Title_Text      = entity.Title;
         // ファイル名
         this.ViewModel.FileName_Text = entity.FileName;
         // 備考
@@ -170,7 +170,7 @@ public sealed class FileStorageModel : ModelBase<FileStorageViewModel>, IEditabl
         if (extension.IsPDF)
         {
             // PDF
-            if (this.ConvertPDFToPNG(path))
+            if (this.ConvertPDFToPNGAsync(path).Result)
             {
                 // 追加ボタン
                 this.ViewModel.Add_IsEnabled = true;
@@ -205,7 +205,8 @@ public sealed class FileStorageModel : ModelBase<FileStorageViewModel>, IEditabl
 
         if (Directory.Exists(folderPath) == false)
         {
-            Message.ShowErrorMessage("フォルダが存在しません。設定画面から画像ファイルの格納先を指定してください。", this.ViewModel.Title);
+            base.MetroWindow.ShowMessageAsync(this.ViewModel.Title, 
+                                              "フォルダが存在しません。設定画面から画像ファイルの格納先を指定してください。");
             return;
         }
 
@@ -332,7 +333,7 @@ public sealed class FileStorageModel : ModelBase<FileStorageViewModel>, IEditabl
     /// <remarks>
     /// 一時的にPNGを出力し、リスト追加後に削除している。
     /// </remarks>
-    private bool ConvertPDFToPNG(string path)
+    private async Task<bool> ConvertPDFToPNGAsync(string path)
     {
         var pngPaths = this.PDFConverter.ConvertPDFIntoImage(path);
 
@@ -353,7 +354,11 @@ public sealed class FileStorageModel : ModelBase<FileStorageViewModel>, IEditabl
         else
         {
             // 複数枚
-            if (Message.ShowConfirmingMessage("PDFが複数枚選択されています。全て追加しますか？\n(「いいえ」で中断)", this.ViewModel.Title) == false)
+            var result = await base.MetroWindow.ShowMessageAsync(this.ViewModel.Title,
+                                                                 "PDFが複数枚選択されています。全て追加しますか？\n(「いいえ」で中断)",
+                                                                 MessageDialogStyle.AffirmativeAndNegative);
+
+            if (result != MessageDialogResult.Affirmative)
             {
                 return false;
             }
@@ -401,9 +406,14 @@ public sealed class FileStorageModel : ModelBase<FileStorageViewModel>, IEditabl
     /// <summary>
     /// 追加
     /// </summary>
-    public void Add()
+    public async void AddAsync()
     {
-        if (!Message.ShowConfirmingMessage($"画像情報を追加しますか？", this.ViewModel.Title))
+        var result = await base.MetroWindow.ShowMessageAsync(
+                this.ViewModel.Title,
+                "画像情報を追加しますか？",
+                MessageDialogStyle.AffirmativeAndNegative);
+
+        if (result != MessageDialogResult.Affirmative)
         {
             // キャンセル
             return;
@@ -411,7 +421,7 @@ public sealed class FileStorageModel : ModelBase<FileStorageViewModel>, IEditabl
 
         if (string.IsNullOrEmpty(this.ViewModel.Title_Text))
         {
-            Message.ShowErrorMessage("タイトルは入力必須です", this.ViewModel.Title);
+            await base.MetroWindow.ShowMessageAsync(this.ViewModel.Title, "タイトルは入力必須です");
             return;
         }
 
@@ -570,9 +580,14 @@ public sealed class FileStorageModel : ModelBase<FileStorageViewModel>, IEditabl
     /// <summary>
     /// 更新
     /// </summary>
-    public void Update()
+    public async void UpdateAsync()
     {
-        if (!Message.ShowConfirmingMessage("画像情報を更新しますか？", this.ViewModel.Title))
+        var result = await base.MetroWindow.ShowMessageAsync(
+                this.ViewModel.Title,
+                "画像情報を更新しますか？",
+                MessageDialogStyle.AffirmativeAndNegative);
+
+        if (result != MessageDialogResult.Affirmative)
         {
             // キャンセル
             return;
@@ -580,7 +595,7 @@ public sealed class FileStorageModel : ModelBase<FileStorageViewModel>, IEditabl
 
         if (string.IsNullOrEmpty(this.ViewModel.Title_Text))
         {
-            Message.ShowErrorMessage("タイトルは入力必須です", this.ViewModel.Title);
+            await base.MetroWindow.ShowMessageAsync(this.ViewModel.Title, "タイトルは入力必須です");
             return;
         }
 
@@ -607,9 +622,13 @@ public sealed class FileStorageModel : ModelBase<FileStorageViewModel>, IEditabl
     /// <summary>
     /// 削除
     /// </summary>
-    public void Delete()
+    public async void DeleteAsync()
     {
-        if (!Message.ShowConfirmingMessage("画像情報を削除しますか？", this.ViewModel.Title))
+        var result = await base.MetroWindow.ShowMessageAsync(this.ViewModel.Title,
+                                                             "画像情報を削除しますか？",
+                                                             MessageDialogStyle.AffirmativeAndNegative);
+
+        if (result != MessageDialogResult.Affirmative)
         {
             // キャンセル
             return;
