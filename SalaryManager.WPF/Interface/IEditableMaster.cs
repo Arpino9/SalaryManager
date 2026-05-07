@@ -10,15 +10,15 @@ public interface IEditableMaster : IViewableMaster
     /// <summary> 
     /// 追加 
     /// </summary>
-    void Add();
+    void AddAsync();
 
     /// <summary> 
     /// 更新 
     /// </summary>
-    void Update();
+    void UpdateAsync();
 
     /// <summary> 
     /// 削除
     /// </summary>
-    void Delete();
+    void DeleteAsync();
 }

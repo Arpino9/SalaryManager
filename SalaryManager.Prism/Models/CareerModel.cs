@@ -307,6 +307,8 @@ public sealed class CareerModel : ModelBase<CareerViewModel>, IEditableMaster
             this.ViewModel.Careers_ItemSource.Add(entity);
             this.Save();
         }
+
+        this.Reload();
     }
 
     /// <summary>
@@ -375,6 +377,8 @@ public sealed class CareerModel : ModelBase<CareerViewModel>, IEditableMaster
 
             this.Save();
         }
+
+        this.Reload();
     }
 
     /// <summary>
@@ -409,6 +413,8 @@ public sealed class CareerModel : ModelBase<CareerViewModel>, IEditableMaster
 
             this.EnableControlButton();
         }
+
+        this.Reload();
     }
 
     /// <summary>

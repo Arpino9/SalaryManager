@@ -131,7 +131,7 @@
             <ComboBox Grid.Column="1" 
                   ItemsSource="{Binding WorkingStatus_ItemSource}" 
                   SelectedIndex="{Binding WorkingStatus_SelectedIndex}"
-                  Text="{Binding WorkingStatus_Text.Value}"/>
+                  Text="{Binding WorkingStatus_Text}"/>
 
             <Label Content="会社名" 
                Grid.Row="1" 
