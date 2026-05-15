@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.5.11709.299 stable
+VisualStudioVersion = 18.5.11709.299
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SalaryManager.Domain", "SalaryManager.Domain\SalaryManager.Domain.csproj", "{03C4F951-1B96-4911-A26E-E8547AE1E310}"
 EndProject
@@ -9,14 +9,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SalaryManager.Infrastructur
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SalaryManager.WPF", "SalaryManager.WPF\SalaryManager.WPF.csproj", "{19EE1FCF-EC40-4EC5-A3C3-A58D61A41DFE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SalaryManagerTest", "SalaryManager.Test\SalaryManagerTest.csproj", "{4DD941A5-81DB-4D83-B59D-F57CC5F9463C}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5354AD97-D391-4B59-9D4F-97424C11A732}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalaryManager.Prism", "SalaryManager.Prism\SalaryManager.Prism.csproj", "{27E9EDAB-B37A-4F48-B442-D0FEF47D6897}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalaryManagerTest", "SalaryManagerTest\SalaryManagerTest.csproj", "{95388E07-841C-4549-8A2D-0CF62BB94AF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,14 +50,6 @@ Global
 		{19EE1FCF-EC40-4EC5-A3C3-A58D61A41DFE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{19EE1FCF-EC40-4EC5-A3C3-A58D61A41DFE}.Release|x86.ActiveCfg = Release|Any CPU
 		{19EE1FCF-EC40-4EC5-A3C3-A58D61A41DFE}.Release|x86.Build.0 = Release|Any CPU
-		{4DD941A5-81DB-4D83-B59D-F57CC5F9463C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4DD941A5-81DB-4D83-B59D-F57CC5F9463C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4DD941A5-81DB-4D83-B59D-F57CC5F9463C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{4DD941A5-81DB-4D83-B59D-F57CC5F9463C}.Debug|x86.Build.0 = Debug|Any CPU
-		{4DD941A5-81DB-4D83-B59D-F57CC5F9463C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4DD941A5-81DB-4D83-B59D-F57CC5F9463C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4DD941A5-81DB-4D83-B59D-F57CC5F9463C}.Release|x86.ActiveCfg = Release|Any CPU
-		{4DD941A5-81DB-4D83-B59D-F57CC5F9463C}.Release|x86.Build.0 = Release|Any CPU
 		{27E9EDAB-B37A-4F48-B442-D0FEF47D6897}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{27E9EDAB-B37A-4F48-B442-D0FEF47D6897}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27E9EDAB-B37A-4F48-B442-D0FEF47D6897}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -66,6 +58,14 @@ Global
 		{27E9EDAB-B37A-4F48-B442-D0FEF47D6897}.Release|Any CPU.Build.0 = Release|Any CPU
 		{27E9EDAB-B37A-4F48-B442-D0FEF47D6897}.Release|x86.ActiveCfg = Release|Any CPU
 		{27E9EDAB-B37A-4F48-B442-D0FEF47D6897}.Release|x86.Build.0 = Release|Any CPU
+		{95388E07-841C-4549-8A2D-0CF62BB94AF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95388E07-841C-4549-8A2D-0CF62BB94AF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95388E07-841C-4549-8A2D-0CF62BB94AF0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{95388E07-841C-4549-8A2D-0CF62BB94AF0}.Debug|x86.Build.0 = Debug|Any CPU
+		{95388E07-841C-4549-8A2D-0CF62BB94AF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95388E07-841C-4549-8A2D-0CF62BB94AF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95388E07-841C-4549-8A2D-0CF62BB94AF0}.Release|x86.ActiveCfg = Release|Any CPU
+		{95388E07-841C-4549-8A2D-0CF62BB94AF0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
