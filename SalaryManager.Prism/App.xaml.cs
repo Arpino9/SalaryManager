@@ -16,12 +16,13 @@ public partial class App
 
     protected override void RegisterTypes(IContainerRegistry containerRegistry)
     {
-        containerRegistry.RegisterForNavigation<Prism.Views.Career>();
-        containerRegistry.RegisterForNavigation<Prism.Views.Company>();
-        containerRegistry.RegisterForNavigation<Prism.Views.Holiday>();
-        containerRegistry.RegisterForNavigation<Prism.Views.Home>();
-        containerRegistry.RegisterForNavigation<Prism.Views.FileStorage>();
-        containerRegistry.RegisterForNavigation<Prism.Views.WorkingPlace>();
-        containerRegistry.RegisterForNavigation<Prism.Views.Option>();
+        containerRegistry.RegisterDialogWindow<Prism.Views.MetroDialogWindow>();
+        containerRegistry.RegisterDialog<Prism.Views.Career, Prism.ViewModels.CareerViewModel>();
+        containerRegistry.RegisterDialog<Prism.Views.Company, Prism.ViewModels.CompanyViewModel>();
+        containerRegistry.RegisterDialog<Prism.Views.Holiday, Prism.ViewModels.HolidayViewModel>();
+        containerRegistry.RegisterDialog<Prism.Views.Home, Prism.ViewModels.HomeViewModel>();
+        containerRegistry.RegisterDialog<Prism.Views.FileStorage, Prism.ViewModels.FileStorageViewModel>();
+        containerRegistry.RegisterDialog<Prism.Views.WorkingPlace, Prism.ViewModels.WorkingPlaceViewModel>();
+        containerRegistry.RegisterDialog<Prism.Views.Option, Prism.ViewModels.OptionViewModel>();
     }
 }

@@ -1,18 +1,13 @@
-﻿<Controls:MetroWindow x:Class="SalaryManager.Prism.Views.Career"
-                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                      xmlns:prism="http://prismlibrary.com/"
-                      xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
-                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-                      xmlns:ViewModels="clr-namespace:SalaryManager.Prism.ViewModels"
-                      prism:ViewModelLocator.AutoWireViewModel="True"
-                      prism:Dialog.WindowStyle="{StaticResource CareerWindowStyle}"
-                      FontFamily="{Binding Window_FontFamily}"
-                      Background="{Binding Window_Background}"
-                      FontSize="{Binding Window_FontSize}">
-    <Controls:MetroWindow.DataContext>
-        <ViewModels:CareerViewModel/>
-    </Controls:MetroWindow.DataContext>
+<UserControl x:Class="SalaryManager.Prism.Views.Career"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             prism:Dialog.WindowStyle="{StaticResource CareerWindowStyle}"
+             FontFamily="{Binding Window_FontFamily}"
+             Background="{Binding Window_Background}"
+             FontSize="{Binding Window_FontSize}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100" />
@@ -20,7 +15,7 @@
         </Grid.RowDefinitions>
 
         <ListView ItemsSource="{Binding Careers_ItemSource}"
-              SelectedIndex="{Binding Careers_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+              SelectedIndex="{Binding Careers_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
               ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="SelectionChanged">
@@ -126,19 +121,19 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <Label Content="雇用形態" 
+            <Label Content="雇用形態"
                Background="AliceBlue"/>
-            <ComboBox Grid.Column="1" 
-                  ItemsSource="{Binding WorkingStatus_ItemSource}" 
+            <ComboBox Grid.Column="1"
+                  ItemsSource="{Binding WorkingStatus_ItemSource}"
                   SelectedIndex="{Binding WorkingStatus_SelectedIndex}"
                   Text="{Binding WorkingStatus_Text}"/>
 
-            <Label Content="会社名" 
-               Grid.Row="1" 
+            <Label Content="会社名"
+               Grid.Row="1"
                Background="AliceBlue"/>
-            <TextBox Grid.Column="1" 
-                 Grid.Row="1" 
-                 Grid.ColumnSpan="4" 
+            <TextBox Grid.Column="1"
+                 Grid.Row="1"
+                 Grid.ColumnSpan="4"
                  Text="{Binding CompanyName_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <behaviors:Interaction.Triggers>
                     <behaviors:EventTrigger EventName="TextChanged">
@@ -147,26 +142,26 @@
                 </behaviors:Interaction.Triggers>
             </TextBox>
 
-            <Label Content="勤務期間" 
-               Grid.Row="2" 
+            <Label Content="勤務期間"
+               Grid.Row="2"
                Grid.RowSpan="2"
                Background="AliceBlue"/>
-            <DatePicker Grid.Column="1" 
-                    Grid.Row="2" 
+            <DatePicker Grid.Column="1"
+                    Grid.Row="2"
                     SelectedDate="{Binding WorkingStart_SelectedDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Label Content="～" 
-               Grid.Column="2" 
+            <Label Content="～"
+               Grid.Column="2"
                Grid.Row="2"
                Grid.RowSpan="2"
                HorizontalAlignment="Center"
                VerticalAlignment="Center" />
             <DatePicker
-                    Grid.Column="3" 
-                    Grid.Row="2" 
-                    SelectedDate="{Binding WorkingEnd_SelectedDate}" 
+                    Grid.Column="3"
+                    Grid.Row="2"
+                    SelectedDate="{Binding WorkingEnd_SelectedDate}"
                     IsEnabled="{Binding WorkingEnd_IsEnabled}" />
-            <CheckBox Content="就業中" 
-                  Grid.Column="3" 
+            <CheckBox Content="就業中"
+                  Grid.Column="3"
                   Grid.Row="3"
                   IsChecked="{Binding Working_IsChecked}">
                 <behaviors:Interaction.Triggers>
@@ -180,18 +175,18 @@
                 </behaviors:Interaction.Triggers>
             </CheckBox>
 
-            <Label Content="社員番号" 
-               Grid.Row="4" 
+            <Label Content="社員番号"
+               Grid.Row="4"
                Background="AliceBlue"/>
-            <TextBox Grid.Column="1" 
-                 Grid.Row="4" 
-                 Grid.ColumnSpan="3" 
+            <TextBox Grid.Column="1"
+                 Grid.Row="4"
+                 Grid.ColumnSpan="3"
                  Text="{Binding EmployeeNumber_Text}" />
 
-            <Label Content="手当" 
-               Grid.Row="5" 
+            <Label Content="手当"
+               Grid.Row="5"
                Background="AliceBlue"/>
-            <ScrollViewer Grid.Column="1" 
+            <ScrollViewer Grid.Column="1"
                       Grid.Row="5"
                       Width="150">
                 <StackPanel>
@@ -213,31 +208,29 @@
                 </StackPanel>
             </ScrollViewer>
 
-            <Label Content="備考" 
-               Grid.Row="6" 
+            <Label Content="備考"
+               Grid.Row="6"
                Background="AliceBlue"/>
-            <TextBox Grid.Column="1" 
+            <TextBox Grid.Column="1"
                  Grid.ColumnSpan="3"
                  Grid.Row="6"
                  Text="{Binding Remarks_Text}"/>
 
-            <Button Content="追加" 
-                Grid.Row="7" 
+            <Button Content="追加"
+                Grid.Row="7"
                 Command="{Binding Add_Command}"
                 IsEnabled="{Binding Add_IsEnabled}" />
-            <Button Content="更新" 
+            <Button Content="更新"
                 Grid.Row="7"
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
                 Command="{Binding Update_Command}"
                 IsEnabled="{Binding Update_IsEnabled}"/>
-            <Button Content="削除" 
-                Grid.Column="3" 
-                Grid.Row="7" 
-                Command="{Binding Delete_Command}" 
+            <Button Content="削除"
+                Grid.Column="3"
+                Grid.Row="7"
+                Command="{Binding Delete_Command}"
                 IsEnabled="{Binding Delete_IsEnabled}"/>
         </Grid>
-
-        <ContentControl prism:RegionManager.RegionName="CareerRegion" />
     </Grid>
-</Controls:MetroWindow>
+</UserControl>

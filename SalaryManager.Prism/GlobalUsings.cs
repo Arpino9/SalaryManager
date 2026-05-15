@@ -18,6 +18,7 @@ global using System.Windows.Forms;
 global using System.Windows.Media;
 global using System.Windows.Input;
 global using System.Windows.Media.Imaging;
+global using System.Reflection;
 
 // Domain層
 global using SalaryManager.Domain;

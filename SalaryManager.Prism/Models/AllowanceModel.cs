@@ -1,7 +1,4 @@
-﻿using SalaryManager.Prism.ViewModels;
-using System.Reflection;
-
-namespace SalaryManager.Prism.Models;
+﻿namespace SalaryManager.Prism.Models;
 
 /// <summary>
 /// Model - 支給額

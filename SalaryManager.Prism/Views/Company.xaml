@@ -1,18 +1,17 @@
-﻿<Controls:MetroWindow x:Class="SalaryManager.Prism.Views.Company"
-                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                      xmlns:prism="http://prismlibrary.com/"             
-                      xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
-                      xmlns:ViewModels="clr-namespace:SalaryManager.Prism.ViewModels"
-                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-                      prism:ViewModelLocator.AutoWireViewModel="True"
-                      Height="450" Width="800"
-                      Background="{Binding Window_Background}"
-                      FontFamily="{Binding Window_FontFamily}" 
-                      FontSize="{Binding Window_FontSize}">
-    <Controls:MetroWindow.DataContext>
+﻿<UserControl x:Class="SalaryManager.Prism.Views.Company"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"             
+             xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:ViewModels="clr-namespace:SalaryManager.Prism.ViewModels"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             Background="{Binding Window_Background}"
+             FontFamily="{Binding Window_FontFamily}" 
+             FontSize="{Binding Window_FontSize}">
+    <UserControl.DataContext>
         <ViewModels:CompanyViewModel/>
-    </Controls:MetroWindow.DataContext>
+    </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100" />
@@ -168,4 +167,4 @@
 
         <ContentControl prism:RegionManager.RegionName="CompanyRegion" />
     </Grid>
-</Controls:MetroWindow>
+</UserControl>
