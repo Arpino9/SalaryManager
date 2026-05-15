@@ -17,6 +17,24 @@ public class DeductionViewModel : ViewModelBase<DeductionModel>
         this.BindEvents();
     }
 
+    private IDeductionRepository _deductionRepository;
+
+    /// <summary>
+    /// 単体テスト用のコンストラクタ
+    /// </summary>
+    /// <param name="deductionRepository">Repository - 控除額</param>
+    public DeductionViewModel(IDeductionRepository deductionRepository)
+    {
+        _deductionRepository = deductionRepository;
+        DeductionModel.GetInstance(_deductionRepository);
+
+        this.MainWindow.Deduction          = this.Model;
+        this.Allowance.ViewModel_Deduction = this;
+        this.Model.ViewModel               = this;
+
+        this.Model.Clear();
+    }
+
     protected override void BindEvents()
     {
         var entity = this.Model.Entity_LastYear;

@@ -15,6 +15,23 @@ public class SideBusinessViewModel : ViewModelBase<SideBusinessModel>
         this.BindEvents();
     }
 
+    private ISideBusinessRepository _sideBusinessRepository;
+
+    /// <summary>
+    /// 単体テスト用のコンストラクタ
+    /// </summary>
+    /// <param name="sideBusinessRepository">Repository - 副業</param>
+    public SideBusinessViewModel(ISideBusinessRepository sideBusinessRepository)
+    {
+        _sideBusinessRepository = sideBusinessRepository;
+        SideBusinessModel.GetInstance(_sideBusinessRepository);
+
+        this.MainWindow.SideBusiness = this.Model;
+        this.Model.ViewModel         = this;
+
+        this.Model.Clear();
+    }
+
     protected override void BindEvents()
     {
         var entity = this.Model.Entity_LastYear;

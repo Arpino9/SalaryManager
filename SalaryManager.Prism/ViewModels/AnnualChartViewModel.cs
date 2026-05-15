@@ -15,6 +15,19 @@ public class AnnualChartViewModel : ViewModelBase<AnnualChartModel>
         this.BindEvents();
     }
 
+    /// <summary>
+    /// 単体テスト用のコンストラクタ
+    /// </summary>
+    /// <remarks>
+    /// Initialize() を呼ばず DB / XML アクセスを回避する。
+    /// </remarks>
+    public AnnualChartViewModel(bool isTest)
+    {
+        this.Model.ViewModel        = this;
+        this.MainWindow.AnnualChart = this;
+        this.Model.Clear();
+    }
+
     protected override void BindEvents()
     {
         // 項目共通

@@ -17,6 +17,24 @@ public class AllowanceViewModel : ViewModelBase<AllowanceModel>
         this.BindEvents();
     }
 
+    private IAllowanceRepository _allowanceRepository;
+
+    /// <summary>
+    /// 単体テスト用のコンストラクタ
+    /// </summary>
+    /// <param name="allowanceRepository">Repository - 支給額</param>
+    public AllowanceViewModel(IAllowanceRepository allowanceRepository)
+    {
+        _allowanceRepository = allowanceRepository;
+        AllowanceModel.GetInstance(_allowanceRepository);
+
+        this.MainWindow.Allowance      = this.Model;
+        this.Model_Deduction.Allowance = this.Model;
+        this.Model.ViewModel           = this;
+
+        this.Model.Clear();
+    }
+
     protected override void BindEvents()
     {
         var entity = this.Model.Entity_LastYear;

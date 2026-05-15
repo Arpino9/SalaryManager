@@ -14,6 +14,19 @@ public class CareerViewModel : ViewModelBase<CareerModel>, IDialogAware
         this.BindEvents();
     }
 
+    private ICareerRepository _careerRepository;
+
+    /// <summary>
+    /// 単体テスト用のコンストラクタ
+    /// </summary>
+    /// <param name="repository">Repository - 職歴</param>
+    public CareerViewModel(ICareerRepository repository)
+    {
+        _careerRepository = repository;
+        CareerModel.GetInstance(_careerRepository);
+        this.Model.ViewModel = this;
+    }
+
     public event Action<IDialogResult> RequestClose;
 
     protected  override void BindEvents()

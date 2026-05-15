@@ -15,6 +15,23 @@ public class WorkingReferenceViewModel : ViewModelBase<WorkingReferenceModel>
         this.BindEvents();
     }
 
+    private IWorkingReferencesRepository _workingReferencesRepository;
+
+    /// <summary>
+    /// 単体テスト用のコンストラクタ
+    /// </summary>
+    /// <param name="workingReferencesRepository">Repository - 勤務備考</param>
+    public WorkingReferenceViewModel(IWorkingReferencesRepository workingReferencesRepository)
+    {
+        _workingReferencesRepository = workingReferencesRepository;
+        WorkingReferenceModel.GetInstance(_workingReferencesRepository);
+
+        this.MainWindow.WorkingReference = this.Model;
+        this.Model.ViewModel             = this;
+
+        this.Model.Clear();
+    }
+
     protected override void BindEvents()
     {
         var entity = this.Model.Entity_LastYear;

@@ -15,6 +15,15 @@ public class WorkPlaceViewModel : ViewModelBase<WorkPlaceModel>
         this.Model.Initialize();
     }
 
+    /// <summary>
+    /// 単体テスト用のコンストラクタ
+    /// </summary>
+    /// <param name="forTest">テスト用フラグ（true のみ）</param>
+    public WorkPlaceViewModel(bool forTest)
+    {
+        this.Model.ViewModel = this;
+    }
+
     protected override void BindEvents()
     {
         throw new NotImplementedException();

@@ -22,6 +22,28 @@ public class HeaderViewModel : ViewModelBase<HeaderModel>
         this.Model.Initialize();
     }
 
+    private IHeaderRepository _headerRepository;
+
+    /// <summary>
+    /// 単体テスト用のコンストラクタ
+    /// </summary>
+    /// <param name="headerRepository">Repository - ヘッダー</param>
+    public HeaderViewModel(IHeaderRepository headerRepository)
+    {
+        _headerRepository = headerRepository;
+        HeaderModel.GetInstance(_headerRepository);
+
+        this.MainWindow.Header = this.Model;
+
+        this.Model.ViewModel         = this;
+        this.Allowance.Header        = this;
+        this.Deduction.Header        = this;
+        this.WorkingReference.Header = this;
+        this.SideBusiness.Header     = this;
+        this.WorkPlace.Header        = this;
+        this.AnnualCharts.Header     = this;
+    }
+
     protected override void BindEvents()
     {
         // ←(戻る)
