@@ -205,8 +205,7 @@ public sealed class FileStorageModel : ModelBase<FileStorageViewModel>, IEditabl
 
         if (Directory.Exists(folderPath) == false)
         {
-            base.MetroWindow.ShowMessageAsync(this.ViewModel.Title, 
-                                              "フォルダが存在しません。設定画面から画像ファイルの格納先を指定してください。");
+            base.ShowMessageAsync(this.ViewModel.Title, "フォルダが存在しません。設定画面から画像ファイルの格納先を指定してください。");
             return;
         }
 
@@ -354,9 +353,7 @@ public sealed class FileStorageModel : ModelBase<FileStorageViewModel>, IEditabl
         else
         {
             // 複数枚
-            var result = await base.MetroWindow.ShowMessageAsync(this.ViewModel.Title,
-                                                                 "PDFが複数枚選択されています。全て追加しますか？\n(「いいえ」で中断)",
-                                                                 MessageDialogStyle.AffirmativeAndNegative);
+            var result = await base.ShowConfirmMsgAsync(this.ViewModel.Title, "PDFが複数枚選択されています。全て追加しますか？\n(「いいえ」で中断)");
 
             if (result != MessageDialogResult.Affirmative)
             {
@@ -408,10 +405,7 @@ public sealed class FileStorageModel : ModelBase<FileStorageViewModel>, IEditabl
     /// </summary>
     public async void AddAsync()
     {
-        var result = await base.MetroWindow.ShowMessageAsync(
-                this.ViewModel.Title,
-                "画像情報を追加しますか？",
-                MessageDialogStyle.AffirmativeAndNegative);
+        var result = await base.ShowConfirmMsgAsync(this.ViewModel.Title, "画像情報を追加しますか？");
 
         if (result != MessageDialogResult.Affirmative)
         {
@@ -421,7 +415,7 @@ public sealed class FileStorageModel : ModelBase<FileStorageViewModel>, IEditabl
 
         if (string.IsNullOrEmpty(this.ViewModel.Title_Text))
         {
-            await base.MetroWindow.ShowMessageAsync(this.ViewModel.Title, "タイトルは入力必須です");
+            await base.ShowMessageAsync(this.ViewModel.Title, "タイトルは入力必須です");
             return;
         }
 
@@ -582,10 +576,7 @@ public sealed class FileStorageModel : ModelBase<FileStorageViewModel>, IEditabl
     /// </summary>
     public async void UpdateAsync()
     {
-        var result = await base.MetroWindow.ShowMessageAsync(
-                this.ViewModel.Title,
-                "画像情報を更新しますか？",
-                MessageDialogStyle.AffirmativeAndNegative);
+        var result = await base.ShowConfirmMsgAsync(this.ViewModel.Title, "画像情報を更新しますか？");
 
         if (result != MessageDialogResult.Affirmative)
         {
@@ -595,7 +586,7 @@ public sealed class FileStorageModel : ModelBase<FileStorageViewModel>, IEditabl
 
         if (string.IsNullOrEmpty(this.ViewModel.Title_Text))
         {
-            await base.MetroWindow.ShowMessageAsync(this.ViewModel.Title, "タイトルは入力必須です");
+            await base.ShowMessageAsync(this.ViewModel.Title, "タイトルは入力必須です");
             return;
         }
 
@@ -624,9 +615,7 @@ public sealed class FileStorageModel : ModelBase<FileStorageViewModel>, IEditabl
     /// </summary>
     public async void DeleteAsync()
     {
-        var result = await base.MetroWindow.ShowMessageAsync(this.ViewModel.Title,
-                                                             "画像情報を削除しますか？",
-                                                             MessageDialogStyle.AffirmativeAndNegative);
+        var result = await base.ShowConfirmMsgAsync(this.ViewModel.Title, "画像情報を削除しますか？");
 
         if (result != MessageDialogResult.Affirmative)
         {

@@ -12,7 +12,7 @@ public abstract class ModelBase<T> where T : class
     /// <summary>
     /// MetroWindow
     /// </summary>
-    protected MahApps.Metro.Controls.MetroWindow MetroWindow =>
+    private MahApps.Metro.Controls.MetroWindow MetroWindow =>
         System.Windows.Application.Current.Windows
             .OfType<MahApps.Metro.Controls.MetroWindow>()
             .FirstOrDefault(w => w.IsActive)
@@ -39,6 +39,24 @@ public abstract class ModelBase<T> where T : class
             return new FontFamily("Segoe UI");
         }
     }
+
+    /// <summary>
+    /// 確認メッセージ表示
+    /// </summary>
+    /// <param name="title">タイトル</param>
+    /// <param name="message">メッセージ</param>
+    /// <returns>選択結果</returns>
+    protected Task<MessageDialogResult> ShowConfirmMsgAsync(string title, string message)
+        => this.MetroWindow.ShowMessageAsync(title, message, MessageDialogStyle.AffirmativeAndNegative);
+
+    /// <summary>
+    /// メッセージ表示
+    /// </summary>
+    /// <param name="title">タイトル</param>
+    /// <param name="message">メッセージ</param>
+    /// <returns>void</returns>
+    protected Task ShowMessageAsync(string title, string message)
+        => this.MetroWindow.ShowMessageAsync(title, message);
 
     /// <summary>
     /// System.Drawing.Color を SolidColorBrush に変換

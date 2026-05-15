@@ -214,10 +214,7 @@ public sealed class HolidayModel : ModelBase<HolidayViewModel>, IEditableMaster
     /// </summary>
     public async void AddAsync()
     {
-        var result = await base.MetroWindow.ShowMessageAsync(
-                                this.ViewModel.Title,
-                                "入力された祝日を追加しますか？",
-                                MessageDialogStyle.AffirmativeAndNegative);
+        var result = await base.ShowConfirmMsgAsync(this.ViewModel.Title, "入力された祝日を追加しますか？");
 
         if (result != MessageDialogResult.Affirmative)
         {
@@ -241,10 +238,7 @@ public sealed class HolidayModel : ModelBase<HolidayViewModel>, IEditableMaster
     /// </summary>
     public async void UpdateAsync()
     {
-        var result = await base.MetroWindow.ShowMessageAsync(
-                                this.ViewModel.Title,
-                                "選択中の祝日を更新しますか？",
-                                MessageDialogStyle.AffirmativeAndNegative);
+        var result = await base.ShowConfirmMsgAsync(this.ViewModel.Title, "選択中の祝日を更新しますか？");
 
         if (result != MessageDialogResult.Affirmative)
         {
@@ -272,10 +266,7 @@ public sealed class HolidayModel : ModelBase<HolidayViewModel>, IEditableMaster
             return;
         }
 
-        var result = await base.MetroWindow.ShowMessageAsync(
-                                this.ViewModel.Title,
-                                "選択中の祝日を削除しますか？",
-                                MessageDialogStyle.AffirmativeAndNegative);
+        var result = await base.ShowConfirmMsgAsync(this.ViewModel.Title, "選択中の祝日を削除しますか？");
 
         if (result != MessageDialogResult.Affirmative)
         {
