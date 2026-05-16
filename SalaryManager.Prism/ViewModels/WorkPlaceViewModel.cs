@@ -45,31 +45,6 @@ public class WorkPlaceViewModel : ViewModelBase<WorkPlaceModel>
     public AllowanceModel Allowance { get; set; }
         = AllowanceModel.GetInstance(new AllowanceSQLite());
 
-    #region Window
-
-    /// <summary> Window - FontFamily </summary>
-    public FontFamily Window_FontFamily
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    /// <summary> Window - FontSize </summary>
-    public decimal Window_FontSize
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    /// <summary> 背景色 - Background </summary>
-    public SolidColorBrush Window_Background
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    #endregion
-
     #region 所属会社名
 
     /// <summary> 所属会社名 - Foreground </summary>

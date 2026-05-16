@@ -73,31 +73,6 @@ public class CompanyViewModel : ViewModelBase<CompanyModel>, IDialogAware
         
     }
 
-    #region Window
-
-    /// <summary> Window - FontFamily </summary>
-    public FontFamily Window_FontFamily
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    /// <summary> Window - FontSize </summary>
-    public decimal Window_FontSize
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    /// <summary> Window - Background </summary>
-    public Brush Window_Background
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    #endregion
-
     #region 会社一覧
 
     /// <summary> 会社一覧 - ItemSource </summary>

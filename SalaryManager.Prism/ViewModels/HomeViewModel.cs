@@ -56,41 +56,16 @@ public class HomeViewModel : ViewModelBase<HomeModel>, IDialogAware
 
     public void OnDialogClosed()
     {
-        //throw new NotImplementedException();
+        
     }
 
     public void OnDialogOpened(IDialogParameters parameters)
     {
-        //throw new NotImplementedException();
+        
     }
 
     /// <summary> Model - 自宅 </summary>
     protected override HomeModel Model { get; } = HomeModel.GetInstance(new HomeSQLite());
-
-    #region Window
-
-    /// <summary> Window - FontFamily </summary>
-    public FontFamily Window_FontFamily
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    /// <summary> Window - FontSize </summary>
-    public decimal Window_FontSize
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    /// <summary> Window - Background </summary>
-    public Brush Window_Background
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    #endregion
 
     #region 自宅一覧
 

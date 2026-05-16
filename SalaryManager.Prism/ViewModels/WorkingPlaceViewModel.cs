@@ -75,31 +75,6 @@ public class WorkingPlaceViewModel : ViewModelBase<WorkingPlaceModel>, IDialogAw
     protected override WorkingPlaceModel Model { get; }
         = WorkingPlaceModel.GetInstance(new WorkingPlaceSQLite());
 
-    #region Window
-
-    /// <summary> Window - Title </summary>
-    public FontFamily Window_FontFamily
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    /// <summary> Window - FontSize </summary>
-    public decimal Window_FontSize
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    /// <summary> Window - Background </summary>
-    public SolidColorBrush Window_Background
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    #endregion
-
     #region 就業場所一覧
 
     /// <summary> 就業場所一覧 - ItemSource </summary>

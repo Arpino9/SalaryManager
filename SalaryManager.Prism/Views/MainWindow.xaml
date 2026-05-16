@@ -8,7 +8,7 @@
                     xmlns:ViewModels="clr-namespace:SalaryManager.Prism.ViewModels"
                     prism:ViewModelLocator.AutoWireViewModel="True"
                     WindowStartupLocation="CenterScreen"
-                    Title="{Binding Window_Title}" Height="550" Width="700" >
+                    Title="{Binding Title}" Height="550" Width="700" >
     <behaviors:Interaction.Triggers>
         <behaviors:EventTrigger EventName="Activated">
             <behaviors:InvokeCommandAction Command="{Binding Window_Activated}" />

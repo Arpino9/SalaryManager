@@ -59,32 +59,6 @@ public class FileStorageViewModel : ViewModelBase<FileStorageModel>, IDialogAwar
     protected override FileStorageModel Model { get; }
         = FileStorageModel.GetInstance(new FileStorageSQLite());
 
-
-    #region Window
-
-    /// <summary> Window - FontFamily </summary>
-    public FontFamily Window_FontFamily
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    /// <summary> Window - FontSize </summary>
-    public decimal Window_FontSize
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    /// <summary> Window - Background </summary>
-    public Brush Window_Background
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    #endregion
-
     #region 添付ファイル一覧
 
     /// <summary> 添付ファイル一覧 - ItemSource </summary>

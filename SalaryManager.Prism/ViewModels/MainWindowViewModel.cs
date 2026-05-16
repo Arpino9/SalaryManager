@@ -5,14 +5,6 @@
 /// </summary>
 public class MainWindowViewModel : ViewModelBase<MainWindowModel>
 {
-
-    /// <summary> タイトル </summary>
-    public string Title
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    } = Shared.SystemName;
-
     public MainWindowViewModel()
     {
         this.Model.ViewModel = this;
@@ -34,7 +26,7 @@ public class MainWindowViewModel : ViewModelBase<MainWindowModel>
     protected override void BindEvents()
     {
         // 画面遷移時
-        this.Window_Activated = new DelegateCommand(() =>
+        base.Window_Activated = new DelegateCommand(() =>
         {
             this.Model.Window_Activated();
             this.Header.Window_Activated();
@@ -91,41 +83,6 @@ public class MainWindowViewModel : ViewModelBase<MainWindowModel>
     /// <summary> Model - 勤怠備考 </summary>
     private WorkingReferenceModel WorkingReference { get; set; }
         = WorkingReferenceModel.GetInstance(new WorkingReferenceSQLite());
-
-    #region Window
-
-    /// <summary> Window - Background </summary>
-    public SolidColorBrush Window_Background
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    /// <summary> Window - FontFamily </summary>
-    public FontFamily Window_FontFamily
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    /// <summary> Window - FontSize </summary>
-    public decimal Window_FontSize
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    /// <summary> Window - Title </summary>
-    public string Window_Title
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    } = Shared.SystemName;
-
-    /// <summary> Window - Activated </summary>
-    public DelegateCommand Window_Activated { get; set; }
-
-    #endregion
 
     #region メニュー - 編集
 

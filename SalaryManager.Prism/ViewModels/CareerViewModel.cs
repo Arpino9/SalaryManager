@@ -31,7 +31,7 @@ public class CareerViewModel : ViewModelBase<CareerModel>, IDialogAware
 
     protected  override void BindEvents()
     {
-        this.Window_Activated = new DelegateCommand(() => this.Model.Window_Activated());
+        base.Window_Activated = new DelegateCommand(() => this.Model.Window_Activated());
 
         // 就業中
         this.Working_Checked = new DelegateCommand(() => this.Model.IsWorking_Checked());
@@ -68,34 +68,6 @@ public class CareerViewModel : ViewModelBase<CareerModel>, IDialogAware
 
     /// <summary> Model - 経歴 </summary>
     protected override CareerModel Model { get; } = CareerModel.GetInstance(new CareerSQLite());
-
-    #region Window
-
-    /// <summary> Window - FontFamily </summary>
-    public FontFamily Window_FontFamily
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    /// <summary> Window - FontSize </summary>
-    public decimal Window_FontSize
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    /// <summary> Window - Background </summary>
-    public Brush Window_Background
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    /// <summary> Window - Activated </summary>
-    public DelegateCommand Window_Activated { get; private set; }
-
-    #endregion
 
     #region 職歴一覧
 

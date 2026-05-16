@@ -4,10 +4,18 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
              prism:ViewModelLocator.AutoWireViewModel="True"
-             prism:Dialog.WindowStyle="{StaticResource CareerWindowStyle}"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              FontFamily="{Binding Window_FontFamily}"
              Background="{Binding Window_Background}"
              FontSize="{Binding Window_FontSize}">
+
+    <prism:Dialog.WindowStyle>
+        <Style TargetType="Controls:MetroWindow">
+            <Setter Property="ResizeMode" Value="{Binding Window_ResizeMode}"/>
+            <Setter Property="SizeToContent" Value="WidthAndHeight"/>
+        </Style>
+    </prism:Dialog.WindowStyle>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100" />

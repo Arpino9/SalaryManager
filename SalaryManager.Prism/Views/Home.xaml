@@ -9,6 +9,14 @@
     <UserControl.DataContext>
         <ViewModels:HomeViewModel/>
     </UserControl.DataContext>
+
+    <prism:Dialog.WindowStyle>
+        <Style TargetType="Controls:MetroWindow">
+            <Setter Property="ResizeMode" Value="{Binding Window_ResizeMode}"/>
+            <Setter Property="SizeToContent" Value="WidthAndHeight"/>
+        </Style>
+    </prism:Dialog.WindowStyle>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100" />

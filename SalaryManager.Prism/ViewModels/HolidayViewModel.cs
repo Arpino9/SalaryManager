@@ -68,31 +68,6 @@ public class HolidayViewModel : ViewModelBase<HolidayModel>, IDialogAware
     /// <summary> Model - 自宅 </summary>
     protected override HolidayModel Model { get; } = new HolidayModel();
 
-    #region Window
-
-    /// <summary> Window - FontFamily </summary>
-    public FontFamily Window_FontFamily
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    /// <summary> Window - FontSize </summary>
-    public decimal Window_FontSize
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    /// <summary> Window - Background </summary>
-    public Brush Window_Background
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    #endregion
-
     #region 祝日一覧
 
     /// <summary> 祝日一覧 - ItemSource </summary>
