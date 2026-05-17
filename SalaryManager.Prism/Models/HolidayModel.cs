@@ -50,12 +50,15 @@ public sealed class HolidayModel : ModelBase<HolidayViewModel>, IEditableMaster
                                                                        x.Name       == this.ViewModel.Name_Text &&
                                                                        x.Remarks    == this.ViewModel.Remarks_Text);
 
-        // 追加ボタン
-        this.ViewModel.Add_IsEnabled = hasHoliday.IsEmpty();
-        // 更新ボタン
-        this.ViewModel.Update_IsEnabled = hasHoliday.IsEmpty();
-        // 削除ボタン
-        this.ViewModel.Delete_IsEnabled = true;
+        var selected = this.ViewModel.Holidays_SelectedIndex >= 0
+                       && this.ViewModel.Holidays_SelectedIndex < this.ViewModel.Holidays_ItemSource.Count;
+
+        // 追加
+        this.ViewModel.Add_IsEnabled    = hasHoliday.IsEmpty();
+        // 更新
+        this.ViewModel.Update_IsEnabled = selected && hasHoliday.IsEmpty();
+        // 削除
+        this.ViewModel.Delete_IsEnabled = selected;
     }
 
     /// <summary>
