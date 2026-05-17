@@ -44,9 +44,6 @@ public sealed class WorkingReferenceModel : ModelBase<WorkingReferenceViewModel>
     /// <summary> ViewModel - 勤務先 </summary>
     internal WorkPlaceViewModel WorkPlace { get; set; }
 
-    /// <summary> Model - ヘッダー </summary>
-    private Model_Header Model_Header { get; set; } = Model_Header.GetInstance(new HeaderSQLite());
-
     /// <summary> Entity - 勤務備考 </summary>
     public WorkingReferencesEntity Entity { get; set; }
 
