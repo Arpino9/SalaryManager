@@ -1,5 +1,6 @@
 ﻿using MahApps.Metro.Controls;
 using System.Windows.Controls;
+using Button = System.Windows.Controls.Button;
 
 namespace SalaryManager.Prism.Views;
 
