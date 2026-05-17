@@ -27,16 +27,13 @@ public class ViewModel_Holiday : ViewModelBase<Model_Holiday>
         this.Holidays_SelectionChanged.Subscribe(_ => Model.ListView_SelectionChanged());
 
         // 追加
-        this.Add_Command.Subscribe(_ => Model.Add());
-        this.Add_Command.Subscribe(_ => Model.Reload());
+        this.Add_Command.Subscribe(_ => Model.AddAsync());
         
         // 更新
-        this.Update_Command.Subscribe(_ => Model.Update());
-        this.Update_Command.Subscribe(_ => Model.Reload());
+        this.Update_Command.Subscribe(_ => Model.UpdateAsync());
         
         // 削除
-        this.Delete_Command.Subscribe(_ => Model.Delete());
-        this.Delete_Command.Subscribe(_ => Model.Reload());
+        this.Delete_Command.Subscribe(_ => Model.DeleteAsync());
     }
 
     /// <summary> Model - 自宅 </summary>
