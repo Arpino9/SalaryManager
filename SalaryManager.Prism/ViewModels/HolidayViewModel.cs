@@ -37,7 +37,6 @@ public class HolidayViewModel : ViewModelBase<HolidayModel>, IDialogAware
 
         // 削除
         this.Delete_Command = new DelegateCommand(() => this.Model.DeleteAsync());
-        });
     }
 
     /// <summary> タイトル </summary>

@@ -93,7 +93,7 @@ public sealed class HolidayModel : ModelBase<HolidayViewModel>, IEditableMaster
     }
 
     /// <summary>
-    /// 会社休日 - Checked
+    /// Enable - 会社名
     /// </summary>
     public void EnableCompanyNameComboBox()
     {
@@ -101,7 +101,15 @@ public sealed class HolidayModel : ModelBase<HolidayViewModel>, IEditableMaster
 
         this.ViewModel.CompanyName_IsEnabled = isChecked;
 
-        this.ViewModel.Name_Text = "会社休日";
+        if (isChecked)
+        {
+            this.ViewModel.Name_Text = "会社休日";
+        }
+        else
+        {
+            this.ViewModel.CompanyName_Text = string.Empty;
+        }
+
         this.ViewModel.Name_IsEnabled = (isChecked == false);
     }
 
