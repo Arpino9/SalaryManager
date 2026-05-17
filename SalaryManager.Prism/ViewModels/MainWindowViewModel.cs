@@ -11,8 +11,6 @@ public class MainWindowViewModel : ViewModelBase<MainWindowModel>
         this.Header.MainWindow = this;
         this.WorkingReference.MainWindow = this;
 
-        base.Window_Activated();
-
         this.Model.Initialize();
 
         this.BindEvents();

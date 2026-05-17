@@ -8,7 +8,6 @@ public class GeneralOptionViewModel : ViewModelBase<OptionModel>, IDialogAware
     public GeneralOptionViewModel()
     {
         this.Model.ViewModel = this;
-        base.Window_Activated();
 
         this.Model.Initialize_General();
 

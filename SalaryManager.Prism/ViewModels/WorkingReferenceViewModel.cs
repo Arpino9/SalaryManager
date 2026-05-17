@@ -10,8 +10,6 @@ public class WorkingReferenceViewModel : ViewModelBase<WorkingReferenceModel>
         this.MainWindow.WorkingReference = this.Model;
         this.Model.ViewModel = this;
 
-        base.Window_Activated();
-
         this.Model.Initialize();
 
         this.BindEvents();

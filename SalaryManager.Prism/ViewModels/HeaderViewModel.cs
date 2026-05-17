@@ -19,8 +19,6 @@ public class HeaderViewModel : ViewModelBase<HeaderModel>
 
         this.BindEvents();
 
-        base.Window_Activated();
-
         this.Model.Initialize();
     }
 

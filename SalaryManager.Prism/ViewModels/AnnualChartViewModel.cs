@@ -10,8 +10,6 @@ public class AnnualChartViewModel : ViewModelBase<AnnualChartModel>
         this.Model.ViewModel = this;
         this.MainWindow.AnnualChart = this;
 
-        base.Window_Activated();
-
         this.Model.Initialize();
 
         this.BindEvents();

@@ -13,8 +13,6 @@ public class AllowanceViewModel : ViewModelBase<AllowanceModel>
 
         this.Model.ViewModel = this;
 
-        base.Window_Activated();
-
         this.Model.Initialize();
 
         this.BindEvents();

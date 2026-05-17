@@ -5,6 +5,11 @@
 /// </summary>
 public abstract class ViewModelBase<M> : BindableBase where M : class
 {
+    protected ViewModelBase()
+    {
+        this.Window_Activated();
+    }
+
     private static readonly log4net.ILog _logger =
      log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -80,7 +85,7 @@ public abstract class ViewModelBase<M> : BindableBase where M : class
     /// <summary>
     /// 画面起動時の処理
     /// </summary>
-    protected void Window_Activated()
+    private void Window_Activated()
     {
         try
         {

@@ -9,8 +9,6 @@ public class CareerViewModel : ViewModelBase<CareerModel>, IDialogAware
     {
         this.Model.ViewModel = this;
 
-        base.Window_Activated();
-
         this.Model.Initialize();
 
         this.BindEvents();

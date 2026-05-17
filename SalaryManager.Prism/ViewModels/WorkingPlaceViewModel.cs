@@ -9,8 +9,6 @@ public class WorkingPlaceViewModel : ViewModelBase<WorkingPlaceModel>, IDialogAw
     {
         this.Model.ViewModel = this;
 
-        base.Window_Activated();
-
         this.Model.Initialize();
 
         this.BindEvents();

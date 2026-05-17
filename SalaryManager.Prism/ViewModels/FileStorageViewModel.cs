@@ -9,8 +9,6 @@ public class FileStorageViewModel : ViewModelBase<FileStorageModel>, IDialogAwar
     {
         this.Model.ViewModel = this;
 
-        base.Window_Activated();
-
         this.Model.Initialize();
 
         this.BindEvents();

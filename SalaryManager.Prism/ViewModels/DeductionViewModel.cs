@@ -13,8 +13,6 @@ public class DeductionViewModel : ViewModelBase<DeductionModel>
 
         this.Model.ViewModel = this;
 
-        base.Window_Activated();
-
         this.Model.Initialize();
 
         this.BindEvents();
