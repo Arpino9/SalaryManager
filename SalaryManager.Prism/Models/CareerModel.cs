@@ -42,18 +42,8 @@ public sealed class CareerModel : ModelBase<CareerViewModel>, IEditableMaster
     /// </remarks>
     public void Initialize()
     {
-        this.Window_Activated();
-
         this.Reload();
-
         this.ListView_SelectionChanged();
-    }
-
-    public void Window_Activated()
-    {
-        this.ViewModel.Window_FontFamily = base.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
-        this.ViewModel.Window_FontSize   = XMLLoader.FetchFontSize();
-        this.ViewModel.Window_Background = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
     }
 
     /// <summary>

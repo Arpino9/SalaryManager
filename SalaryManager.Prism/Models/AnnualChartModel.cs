@@ -5,6 +5,9 @@
 /// </summary>
 public sealed class AnnualChartModel : ModelBase<AnnualChartViewModel>, IViewable
 {
+    private static readonly log4net.ILog _logger =
+      log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
     #region Get Instance
 
     private static AnnualChartModel model = null;
@@ -40,8 +43,6 @@ public sealed class AnnualChartModel : ModelBase<AnnualChartViewModel>, IViewabl
     /// </remarks>
     public void Initialize()
     {
-        this.Window_Activated();
-
         if (this.Header.Year_Text.ToString().Length != 4)
         {
             // 対象日付が不正
@@ -61,16 +62,6 @@ public sealed class AnnualChartModel : ModelBase<AnnualChartViewModel>, IViewabl
         this.Reload();
 
         this.Recalculate();
-    }
-
-    /// <summary>
-    /// 画面起動時の処理
-    /// </summary>
-    public void Window_Activated()
-    {
-        if (this.ViewModel is null) return;
-
-        this.ViewModel.Window_Background = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
     }
 
     /// <summary>

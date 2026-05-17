@@ -49,8 +49,6 @@ public sealed class WorkPlaceModel : ModelBase<WorkPlaceViewModel>, IParallellyE
     /// </remarks>
     public void Initialize()
     {
-        this.Window_Activated();
-
         this.Reload();
 
         var showDefaultPayslip = XMLLoader.FetchShowDefaultPayslip();
@@ -60,14 +58,6 @@ public sealed class WorkPlaceModel : ModelBase<WorkPlaceViewModel>, IParallellyE
             // デフォルト明細
             this.Entity = WorkingReferences.FetchDefault();
         }
-    }
-
-    /// <summary>
-    /// 画面起動時の処理
-    /// </summary>
-    public void Window_Activated()
-    {
-        this.ViewModel.Window_Background = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
     }
 
     /// <summary>
@@ -193,7 +183,5 @@ public sealed class WorkPlaceModel : ModelBase<WorkPlaceViewModel>, IParallellyE
     /// <exception cref="NotImplementedException">未実装例外</exception>
     [Obsolete("保存先は勤怠備考テーブルなので実装していない。")]
     public void Save(ITransactionRepository transaction, int id, DateOnly yearMonth)
-    {
-        throw new NotImplementedException();
-    }
+        => throw new NotImplementedException();
 }

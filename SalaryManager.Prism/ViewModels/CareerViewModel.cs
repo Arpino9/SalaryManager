@@ -9,6 +9,8 @@ public class CareerViewModel : ViewModelBase<CareerModel>, IDialogAware
     {
         this.Model.ViewModel = this;
 
+        base.Window_Activated();
+
         this.Model.Initialize();
 
         this.BindEvents();
@@ -31,8 +33,6 @@ public class CareerViewModel : ViewModelBase<CareerModel>, IDialogAware
 
     protected  override void BindEvents()
     {
-        base.Window_Activated = new DelegateCommand(() => this.Model.Window_Activated());
-
         // 就業中
         this.Working_Checked = new DelegateCommand(() => this.Model.IsWorking_Checked());
         // 会社名

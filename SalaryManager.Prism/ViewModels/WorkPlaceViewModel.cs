@@ -12,6 +12,8 @@ public class WorkPlaceViewModel : ViewModelBase<WorkPlaceModel>
         this.MainWindow.WorkPlace          = this;
         this.Allowance.ViewModel_WorkPlace = this;
 
+        base.Window_Activated();
+
         this.Model.Initialize();
     }
 

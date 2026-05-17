@@ -19,6 +19,8 @@ public class HeaderViewModel : ViewModelBase<HeaderModel>
 
         this.BindEvents();
 
+        base.Window_Activated();
+
         this.Model.Initialize();
     }
 
@@ -119,17 +121,6 @@ public class HeaderViewModel : ViewModelBase<HeaderModel>
         this.WorkPlace.Reload();
         this.AnnualCharts.Initialize();
     }
-
-    #region 背景色
-
-    /// <summary> 背景色 - Background </summary>
-    public SolidColorBrush Window_Background
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    #endregion
 
     #region 年
 

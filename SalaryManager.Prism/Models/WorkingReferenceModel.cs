@@ -61,8 +61,6 @@ public sealed class WorkingReferenceModel : ModelBase<WorkingReferenceViewModel>
     /// </remarks>
     public void Initialize()
     {
-        this.Window_Activated();
-
         this.Reload();
 
         var showDefaultPayslip = XMLLoader.FetchShowDefaultPayslip();
@@ -72,13 +70,6 @@ public sealed class WorkingReferenceModel : ModelBase<WorkingReferenceViewModel>
             // デフォルト明細
             this.Entity = WorkingReferences.FetchDefault();
         }
-    }
-
-    public void Window_Activated()
-    {
-        this.ViewModel.Window_FontFamily = base.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
-        this.ViewModel.Window_FontSize   = XMLLoader.FetchFontSize();
-        this.ViewModel.Window_Background = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
     }
 
     /// <summary>

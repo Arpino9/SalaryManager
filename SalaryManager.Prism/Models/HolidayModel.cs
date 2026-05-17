@@ -21,8 +21,6 @@ public sealed class HolidayModel : ModelBase<HolidayViewModel>, IEditableMaster
 
     public void Initialize()
     {
-        this.Window_Activated();
-
         this.Reload();
 
         Companies.Create(new CompanySQLite());
@@ -37,13 +35,6 @@ public sealed class HolidayModel : ModelBase<HolidayViewModel>, IEditableMaster
         this.ViewModel.CompanyName_SelectedIndex = 0;
 
         this.ListView_SelectionChanged();
-    }
-
-    public void Window_Activated()
-    {
-        this.ViewModel.Window_FontFamily = base.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
-        this.ViewModel.Window_FontSize   = XMLLoader.FetchFontSize();
-        this.ViewModel.Window_Background = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
     }
 
     /// <summary>

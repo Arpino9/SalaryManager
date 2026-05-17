@@ -10,6 +10,9 @@ public class SideBusinessViewModel : ViewModelBase<SideBusinessModel>
         this.MainWindow.SideBusiness = this.Model;
 
         this.Model.ViewModel = this;
+
+        base.Window_Activated();
+
         this.Model.Initialize();
 
         this.BindEvents();
@@ -56,31 +59,6 @@ public class SideBusinessViewModel : ViewModelBase<SideBusinessModel>
     /// <summary> Model - メイン画面 </summary>
     public MainWindowModel MainWindow { get; set; }
         = MainWindowModel.GetInstance();
-
-    #region Window
-
-    /// <summary> Window - FontFamily </summary>
-    public FontFamily Window_FontFamily
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    /// <summary> Window - FontSize </summary>
-    public decimal Window_FontSize
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    /// <summary> Window - Background </summary>
-    public Brush Window_Background
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    #endregion
 
     #region Mouse Leave
 

@@ -67,7 +67,6 @@ public sealed class MainWindowModel : ModelBase<MainWindowViewModel>
     internal async void Initialize()
     {
         this.InitializeSQLite();
-        this.Window_Activated();
     }
 
     /// <summary>
@@ -96,16 +95,6 @@ public sealed class MainWindowModel : ModelBase<MainWindowViewModel>
             var sqlite = $"{FilePath.GetSolutionPath()}\\SQLite\\x86\\{dllName}";
             File.Copy(sqlite, $"{sqlite86Directory}\\{dllName}");
         }
-    }
-
-    /// <summary>
-    /// 画面起動時の処理
-    /// </summary>
-    internal void Window_Activated()
-    {
-        this.ViewModel.Window_FontFamily = base.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
-        this.ViewModel.Window_FontSize   = XMLLoader.FetchFontSize();
-        this.ViewModel.Window_Background = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
     }
 
     #endregion

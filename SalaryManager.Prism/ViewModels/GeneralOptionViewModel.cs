@@ -8,6 +8,8 @@ public class GeneralOptionViewModel : ViewModelBase<OptionModel>, IDialogAware
     public GeneralOptionViewModel()
     {
         this.Model.ViewModel = this;
+        base.Window_Activated();
+
         this.Model.Initialize_General();
 
         this.BindEvents();
@@ -66,17 +68,6 @@ public class GeneralOptionViewModel : ViewModelBase<OptionModel>, IDialogAware
 
     /// <summary> Model - オプション </summary>
     protected override OptionModel Model { get; } = OptionModel.GetInstance();
-
-    #region Window
-
-    /// <summary> Window - FontFamily </summary>
-    public FontFamily Window_FontFamily
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    #endregion
 
     #region SQLite
 

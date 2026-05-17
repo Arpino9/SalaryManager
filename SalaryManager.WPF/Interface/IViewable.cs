@@ -14,11 +14,6 @@ public interface IViewable
     void Initialize();
 
     /// <summary>
-    /// 画面起動時の処理
-    /// </summary>
-    void Window_Activated();
-
-    /// <summary>
     /// クリア
     /// </summary>
     void Clear();

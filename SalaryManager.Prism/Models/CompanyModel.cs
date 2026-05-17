@@ -41,8 +41,6 @@ public sealed class CompanyModel : ModelBase<CompanyViewModel>, IEditableMaster
     /// </remarks>
     public void Initialize()
     {
-        this.Window_Activated();
-
         this.Reload();
 
         this.ListView_SelectionChanged();
@@ -58,13 +56,6 @@ public sealed class CompanyModel : ModelBase<CompanyViewModel>, IEditableMaster
 
         var entity = this.ViewModel.Companies_ItemSource[this.ViewModel.Companies_SelectedIndex];
         this.ViewModel.BusinessCategory_Middle_Text = entity.BusinessCategory.MiddleName;
-    }
-
-    public void Window_Activated()
-    {
-        this.ViewModel.Window_FontFamily = base.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
-        this.ViewModel.Window_FontSize = XMLLoader.FetchFontSize();
-        this.ViewModel.Window_Background = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
     }
 
     /// <summary>

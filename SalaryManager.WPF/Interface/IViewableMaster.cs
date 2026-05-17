@@ -14,11 +14,6 @@ public interface IViewableMaster
     void Initialize();
 
     /// <summary>
-    /// 画面起動時の処理
-    /// </summary>
-    void Window_Activated();
-
-    /// <summary>
     /// ListView - SelectionChanged
     /// </summary>
     void ListView_SelectionChanged();

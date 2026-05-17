@@ -5,9 +5,6 @@
 /// </summary>
 public sealed class AllowanceModel : ModelBase<AllowanceViewModel>, IParallellyEditable
 {
-    private static readonly log4net.ILog _logger =
-      log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
     #region Get Instance
 
     private static AllowanceModel model = null;
@@ -58,8 +55,6 @@ public sealed class AllowanceModel : ModelBase<AllowanceViewModel>, IParallellyE
     /// </remarks>
     public void Initialize()
     {
-        this.Window_Activated();
-
         this.Reload();
 
         var showDefaultPayslip = XMLLoader.FetchShowDefaultPayslip();
@@ -68,20 +63,6 @@ public sealed class AllowanceModel : ModelBase<AllowanceViewModel>, IParallellyE
         {
             // デフォルト明細
             this.Entity = Allowances.FetchDefault();
-        }
-    }
-
-    public void Window_Activated()
-    {
-        try
-        {
-            this.ViewModel.Window_FontFamily = base.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
-            this.ViewModel.Window_FontSize   = XMLLoader.FetchFontSize();
-            this.ViewModel.Window_Background = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
-        } 
-        catch (FileReaderException ex)
-        {
-            _logger.Error("XMLの読み込みに失敗しました。", ex);
         }
     }
 

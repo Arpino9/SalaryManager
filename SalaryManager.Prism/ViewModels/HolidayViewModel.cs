@@ -10,6 +10,9 @@ public class HolidayViewModel : ViewModelBase<HolidayModel>, IDialogAware
         this.Model.ViewModel = this;
 
         this.BindEvents();
+
+        base.Window_Activated();
+
         this.Model.Initialize();
     }
 

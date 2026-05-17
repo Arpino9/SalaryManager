@@ -5,6 +5,9 @@
 /// </summary>
 public abstract class ViewModelBase<M> : BindableBase where M : class
 {
+    private static readonly log4net.ILog _logger =
+     log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
     /// <summary> Model </summary>
     protected abstract M Model { get; }
 
@@ -72,9 +75,60 @@ public abstract class ViewModelBase<M> : BindableBase where M : class
         set { SetProperty(ref field, value); }
     } = Shared.SystemName;
 
-    /// <summary> Window - Activated </summary>
-    public DelegateCommand Window_Activated { get; set; }
-
     #endregion
 
+    /// <summary>
+    /// 画面起動時の処理
+    /// </summary>
+    protected void Window_Activated()
+    {
+        try
+        {
+            this.Window_FontFamily = this.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
+            this.Window_FontSize   = XMLLoader.FetchFontSize();
+            this.Window_Background = this.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
+        }
+        catch (Exception ex)
+        {
+            _logger.Error("XMLの読み込みに失敗しました。", ex);
+        }   
+    }
+
+    /// <summary>
+    /// SixLabors.Fonts.FontFamily を System.Windows.Media.FontFamily に変換
+    /// </summary>
+    /// <param name="sixLaborsFontFamily">SixLabors.Fonts.FontFamily</param>
+    /// <returns>System.Windows.Media.FontFamily</returns>
+    /// <remarks>
+    /// フォント名を取得し、WPF の FontFamily を作成する。
+    /// フォントが見つからない場合はデフォルトフォントを返す。
+    /// </remarks>
+    private FontFamily ConvertToWpfFontFamily(SixLabors.Fonts.FontFamily sixLaborsFontFamily)
+    {
+        string fontName = sixLaborsFontFamily.Name;
+
+        try
+        {
+            return new FontFamily(fontName);
+        }
+        catch (ArgumentException)
+        {
+            return new FontFamily("Segoe UI");
+        }
+    }
+
+    /// <summary>
+    /// System.Drawing.Color を SolidColorBrush に変換
+    /// </summary>
+    /// <param name="drawingColor">System.Drawing.Color</param>
+    /// <returns>SolidColorBrush</returns>
+    public SolidColorBrush ConvertToBrush(System.Drawing.Color drawingColor)
+    {
+        return new SolidColorBrush(Color.FromArgb(
+            drawingColor.A, // Alpha
+            drawingColor.R, // Red
+            drawingColor.G, // Green
+            drawingColor.B  // Blue
+        ));
+    }
 }

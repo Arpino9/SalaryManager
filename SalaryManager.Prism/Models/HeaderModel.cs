@@ -64,27 +64,10 @@ public sealed class HeaderModel : ModelBase<HeaderViewModel>, IViewable
     /// </remarks>
     public void Initialize()
     {
-        this.Window_Activated();
-
         this.ViewModel.Year_Text  = DateTime.Today.Year;
         this.ViewModel.Month_Text = DateTime.Today.Month;
 
         this.Reload();
-    }
-
-    /// <summary>
-    /// 画面起動時の処理
-    /// </summary>
-    public void Window_Activated()
-    {
-        try
-        {
-            this.ViewModel.Window_Background = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
-        } 
-        catch (FileReaderException ex)
-        {
-            _logger.Error("XMLの読み込みに失敗しました。", ex);
-        }
     }
 
     /// <summary>

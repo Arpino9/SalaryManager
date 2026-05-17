@@ -48,8 +48,6 @@ public sealed class SideBusinessModel : ModelBase<SideBusinessViewModel>, IParal
     /// </remarks>
     public void Initialize()
     {
-        this.Window_Activated();
-
         this.Reload();
 
         var showDefaultPayslip = XMLLoader.FetchShowDefaultPayslip();
@@ -59,13 +57,6 @@ public sealed class SideBusinessModel : ModelBase<SideBusinessViewModel>, IParal
             // デフォルト明細
             this.Entity = SideBusinesses.FetchDefault();
         }
-    }
-
-    public void Window_Activated()
-    {
-        this.ViewModel.Window_FontFamily = base.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
-        this.ViewModel.Window_FontSize = XMLLoader.FetchFontSize();
-        this.ViewModel.Window_Background = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
     }
 
     /// <summary>

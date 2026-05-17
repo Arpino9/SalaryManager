@@ -11,6 +11,8 @@ public class MainWindowViewModel : ViewModelBase<MainWindowModel>
         this.Header.MainWindow = this;
         this.WorkingReference.MainWindow = this;
 
+        base.Window_Activated();
+
         this.Model.Initialize();
 
         this.BindEvents();
@@ -25,15 +27,6 @@ public class MainWindowViewModel : ViewModelBase<MainWindowModel>
 
     protected override void BindEvents()
     {
-        // 画面遷移時
-        base.Window_Activated = new DelegateCommand(() =>
-        {
-            this.Model.Window_Activated();
-            this.Header.Window_Activated();
-            this.WorkPlace.Window_Activated();
-            this.AnnualChart.Window_Activated();
-        });
-
         // メニュー - 編集
         this.EditCompany_Command      = new DelegateCommand(() => _dialogService.ShowDialog(nameof(Prism.Views.Company)));
         this.EditCareer_Command       = new DelegateCommand(() => _dialogService.ShowDialog(nameof(Prism.Views.Career)));

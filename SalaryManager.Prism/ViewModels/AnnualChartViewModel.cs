@@ -10,6 +10,8 @@ public class AnnualChartViewModel : ViewModelBase<AnnualChartModel>
         this.Model.ViewModel = this;
         this.MainWindow.AnnualChart = this;
 
+        base.Window_Activated();
+
         this.Model.Initialize();
 
         this.BindEvents();
@@ -210,17 +212,6 @@ public class AnnualChartViewModel : ViewModelBase<AnnualChartModel>
     /// <summary> Model - メイン画面 </summary>
     public MainWindowModel MainWindow { get; set; }
         = MainWindowModel.GetInstance();
-
-    #region 背景色
-
-    /// <summary> 背景色 - Background </summary>
-    public SolidColorBrush Window_Background
-    {
-        get { return field; }
-        set { SetProperty(ref field, value); }
-    }
-
-    #endregion
 
     #region 対象日付
 

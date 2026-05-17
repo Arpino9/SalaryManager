@@ -47,8 +47,6 @@ public class WorkingPlaceModel : ModelBase<WorkingPlaceViewModel>
     /// </remarks>
     public void Initialize()
     {
-        this.Window_Activated();
-
         this.Reload();
 
         Companies.Create(new CompanySQLite());
@@ -68,13 +66,6 @@ public class WorkingPlaceModel : ModelBase<WorkingPlaceViewModel>
         this.ViewModel.WorkingPlaces_SelectedIndex = 0;
 
         this.ListView_SelectionChanged();
-    }
-
-    public void Window_Activated()
-    {
-        this.ViewModel.Window_FontFamily = base.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
-        this.ViewModel.Window_FontSize = XMLLoader.FetchFontSize();
-        this.ViewModel.Window_Background = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
     }
 
     /// <summary>

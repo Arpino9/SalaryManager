@@ -39,9 +39,6 @@ public sealed class DeductionModel : ModelBase<DeductionViewModel>, IParallellyE
     /// <summary> ViewModel - 支給額 </summary>
     internal AllowanceModel Allowance { get; set; }
 
-    /// <summary> Model - ヘッダー </summary>
-    private HeaderModel Model_Header { get; set; }
-
     /// <summary> Entity - 控除額 </summary>
     public DeductionEntity Entity { get; set; }
 
@@ -56,8 +53,6 @@ public sealed class DeductionModel : ModelBase<DeductionViewModel>, IParallellyE
     /// </remarks>
     public void Initialize()
     {
-        this.Window_Activated();
-
         this.Reload();
 
         var showDefaultPayslip = XMLLoader.FetchShowDefaultPayslip();
@@ -67,13 +62,6 @@ public sealed class DeductionModel : ModelBase<DeductionViewModel>, IParallellyE
             // デフォルト明細
             this.Entity = Deductions.FetchDefault();
         }
-    }
-
-    public void Window_Activated()
-    {
-        this.ViewModel.Window_FontFamily = base.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
-        this.ViewModel.Window_FontSize   = XMLLoader.FetchFontSize();
-        this.ViewModel.Window_Background = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
     }
 
     /// <summary>

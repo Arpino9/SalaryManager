@@ -10,6 +10,7 @@ public class CompanyViewModel : ViewModelBase<CompanyModel>, IDialogAware
         this.Model.ViewModel = this;
 
         this.BindEvents();
+        base.Window_Activated();
 
         this.Model.Initialize();
     }
