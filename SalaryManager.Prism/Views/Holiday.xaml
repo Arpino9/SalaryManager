@@ -135,7 +135,7 @@
                  Grid.ColumnSpan="2" Text="{Binding Remarks_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
                 <behaviors:Interaction.Triggers>
                     <behaviors:EventTrigger EventName="TextChanged">
-                        <behaviors:InvokeCommandAction Command="{Binding Name_TextChanged}" />
+                        <behaviors:InvokeCommandAction Command="{Binding Remarks_TextChanged}" />
                     </behaviors:EventTrigger>
                 </behaviors:Interaction.Triggers>
             </TextBox>
