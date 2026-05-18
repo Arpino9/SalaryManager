@@ -21,8 +21,6 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
 
     public void Initialize()
     {
-        this.Window_Activated();
-
         this.Reload();
 
         Companies.Create(new CompanySQLite());
@@ -37,13 +35,6 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
         this.ViewModel.CompanyName_SelectedIndex.Value = 0;
 
         this.ListView_SelectionChanged();
-    }
-
-    public void Window_Activated()
-    {
-        this.ViewModel.Window_FontFamily.Value = base.ConvertToWpfFontFamily(XMLLoader.FetchFontFamily());
-        this.ViewModel.Window_FontSize.Value   = XMLLoader.FetchFontSize();
-        this.ViewModel.Window_Background.Value = base.ConvertToBrush(XMLLoader.FetchBackgroundColorBrush());
     }
 
     /// <summary>
@@ -211,7 +202,7 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
     /// <summary>
     /// 追加
     /// </summary>
-    public void Add()
+    public async Task AddAsync()
     {
         if (!Message.ShowConfirmingMessage($"入力された祝日を追加しますか？", this.ViewModel.Window_Title.Value))
         {
@@ -233,7 +224,7 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
     /// <summary>
     /// 更新
     /// </summary>
-    public void Update()
+    public async Task UpdateAsync()
     {
         if (!Message.ShowConfirmingMessage($"選択中の祝日を更新しますか？", this.ViewModel.Window_Title.Value))
         {
@@ -253,7 +244,7 @@ public class Model_Holiday : ModelBase<ViewModel_Holiday>, IEditableMaster
     /// <summary>
     /// 削除
     /// </summary>
-    public void Delete()
+    public async Task DeleteAsync()
     {
         if (this.ViewModel.Holidays_SelectedIndex.Value.IsUnSelected() ||
             this.ViewModel.Holidays_ItemSource.IsEmpty())

@@ -288,7 +288,7 @@ public class Model_Career : ModelBase<ViewModel_Career>, IEditableMaster
     /// <summary>
     /// 追加
     /// </summary>
-    public void Add()
+    public async Task AddAsync()
     {
         if (!Message.ShowConfirmingMessage($"入力された職歴を追加しますか？", this.ViewModel.Window_Title.Value))
         {
@@ -350,7 +350,7 @@ public class Model_Career : ModelBase<ViewModel_Career>, IEditableMaster
     /// <summary>
     /// 更新
     /// </summary>
-    public void Update()
+    public async Task UpdateAsync()
     {
         if (!Message.ShowConfirmingMessage($"選択中の職歴を更新しますか？", this.ViewModel.Window_Title.Value))
         {
@@ -372,7 +372,7 @@ public class Model_Career : ModelBase<ViewModel_Career>, IEditableMaster
     /// <summary>
     /// 削除
     /// </summary>
-    public void Delete()
+    public async Task DeleteAsync()
     {
         if (this.ViewModel.Careers_SelectedIndex.Value.IsUnSelected() ||
             this.ViewModel.Careers_ItemSource.IsEmpty()) 

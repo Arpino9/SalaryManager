@@ -1,4 +1,5 @@
-﻿using Message = SalaryManager.Domain.Modules.Logics.Message;
+﻿using MahApps.Metro.Controls.Dialogs;
+using Message = SalaryManager.Domain.Modules.Logics.Message;
 
 namespace SalaryManager.WPF.Models;
 
@@ -213,7 +214,7 @@ public class Model_Home : ModelBase<ViewModel_Home>, IEditableMaster
     /// <summary>
     /// 追加
     /// </summary>
-    public void Add()
+    public async Task AddAsync()
     {
         if (!Message.ShowConfirmingMessage($"入力された自宅情報を追加しますか？", this.ViewModel.Window_Title.Value))
         {
@@ -240,7 +241,7 @@ public class Model_Home : ModelBase<ViewModel_Home>, IEditableMaster
     /// <summary>
     /// 更新
     /// </summary>
-    public void Update()
+    public async Task UpdateAsync()
     {
         if (!Message.ShowConfirmingMessage($"選択中の自宅情報を更新しますか？", this.ViewModel.Window_Title.Value))
         {
@@ -273,7 +274,7 @@ public class Model_Home : ModelBase<ViewModel_Home>, IEditableMaster
     /// <summary>
     /// 削除
     /// </summary>
-    public void Delete()
+    public async Task DeleteAsync()
     {
         if (this.ViewModel.Homes_SelectedIndex.Value.IsUnSelected() ||
             !this.ViewModel.Homes_ItemSource.Any())

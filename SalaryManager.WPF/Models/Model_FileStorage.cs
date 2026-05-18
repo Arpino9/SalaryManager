@@ -403,7 +403,7 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 追加
         /// </summary>
-        public void Add()
+        public async Task AddAsync()
         {
             if (!Message.ShowConfirmingMessage($"画像情報を追加しますか？", this.ViewModel.Window_Title.Value))
             {
@@ -572,7 +572,7 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 更新
         /// </summary>
-        public void Update()
+        public async Task UpdateAsync()
         {
             if (!Message.ShowConfirmingMessage("画像情報を更新しますか？", this.ViewModel.Window_Title.Value))
             {
@@ -609,7 +609,7 @@ namespace SalaryManager.WPF.Models
         /// <summary>
         /// 削除
         /// </summary>
-        public void Delete()
+        public async Task DeleteAsync()
         {
             if (!Message.ShowConfirmingMessage("画像情報を削除しますか？", this.ViewModel.Window_Title.Value))
             {

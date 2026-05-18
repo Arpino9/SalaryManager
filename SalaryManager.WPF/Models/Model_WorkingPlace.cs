@@ -339,7 +339,7 @@ public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>, IEditableMa
     /// <summary>
     /// 追加
     /// </summary>
-    public void Add()
+    public async Task AddAsync()
     {
         if (!Message.ShowConfirmingMessage($"入力された就業場所を追加しますか？", this.ViewModel.Window_Title.Value))
         {
@@ -393,7 +393,7 @@ public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>, IEditableMa
     /// <summary>
     /// 更新
     /// </summary>
-    public void Update()
+    public async Task UpdateAsync()
     {
         if (!Message.ShowConfirmingMessage($"選択中の職歴を更新しますか？", this.ViewModel.Window_Title.Value))
         {
@@ -415,7 +415,7 @@ public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>, IEditableMa
     /// <summary>
     /// 削除
     /// </summary>
-    public void Delete()
+    public async Task DeleteAsync()
     {
         if (this.ViewModel.WorkingPlaces_SelectedIndex.Value.IsUnSelected() ||
             this.ViewModel.WorkingPlaces_ItemSource.IsEmpty())

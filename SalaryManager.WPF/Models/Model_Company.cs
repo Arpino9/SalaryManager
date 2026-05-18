@@ -298,7 +298,7 @@ public class Model_Company : ModelBase<ViewModel_Company>, IEditableMaster
     /// <summary>
     /// 追加
     /// </summary>
-    public void Add()
+    public async Task AddAsync()
     {
         if (!Message.ShowConfirmingMessage($"入力された会社情報を追加しますか？", this.ViewModel.Window_Title.Value))
         {
@@ -345,7 +345,7 @@ public class Model_Company : ModelBase<ViewModel_Company>, IEditableMaster
     /// <summary>
     /// 更新
     /// </summary>
-    public void Update()
+    public async Task UpdateAsync()
     {
         if (!Message.ShowConfirmingMessage($"選択中の会社情報を更新しますか？", this.ViewModel.Window_Title.Value))
         {
@@ -384,7 +384,7 @@ public class Model_Company : ModelBase<ViewModel_Company>, IEditableMaster
     /// <summary>
     /// 削除
     /// </summary>
-    public void Delete()
+    public async Task DeleteAsync()
     {
         if (this.ViewModel.Companies_SelectedIndex.Value.IsUnSelected() ||
             this.ViewModel.Companies_ItemSource.IsEmpty())

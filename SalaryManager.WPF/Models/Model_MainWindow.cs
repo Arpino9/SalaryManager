@@ -1,4 +1,5 @@
-﻿using Message = SalaryManager.Domain.Modules.Logics.Message;
+﻿using MahApps.Metro.Controls.Dialogs;
+using Message = SalaryManager.Domain.Modules.Logics.Message;
 
 namespace SalaryManager.WPF.Models;
 
@@ -441,6 +442,8 @@ public class Model_MainWindow : ModelBase<ViewModel_MainWindow>
     /// </remarks>
     public void ComparePrice(double? thisYearPrice, double? lastYearPrice)
     {
+        
+
         if (thisYearPrice is null ||
             lastYearPrice is null)
         {
