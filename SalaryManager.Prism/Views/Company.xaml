@@ -16,6 +16,7 @@
     
     <prism:Dialog.WindowStyle>
         <Style TargetType="Controls:MetroWindow">
+            <Setter Property="prism:Dialog.WindowStartupLocation" Value="CenterScreen" />
             <Setter Property="ResizeMode" Value="{Binding Window_ResizeMode}"/>
             <Setter Property="SizeToContent" Value="WidthAndHeight"/>
         </Style>

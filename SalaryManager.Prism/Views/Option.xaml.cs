@@ -22,12 +22,6 @@ public partial class Option : System.Windows.Controls.UserControl
     {
         if (Window.GetWindow(this) is not MetroWindow metro) return;
 
-        metro.ContentRendered += (_, _) =>
-        {
-            metro.Left = (SystemParameters.PrimaryScreenWidth - metro.ActualWidth) / 2;
-            metro.Top = (SystemParameters.PrimaryScreenHeight - metro.ActualHeight) / 2;
-        };
-
         // タイトルバー子コントロールが Handled にする前に捕捉するためトンネリングイベントを使用
         metro.PreviewMouseLeftButtonDown += this.OnTitleBarDrag;
     }
