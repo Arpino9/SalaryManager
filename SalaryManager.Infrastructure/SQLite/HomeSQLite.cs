@@ -26,8 +26,8 @@ FROM Home";
                 return new HomeEntity(
                             Convert.ToInt32(reader["ID"]),
                             Convert.ToString(reader["DisplayName"]),
-                            DateOnly.FromDateTime(Convert.ToDateTime(reader["LivingStart"])),
-                            DateOnly.FromDateTime(Convert.ToDateTime(reader["LivingEnd"])),
+                            Convert.ToDateTime(reader["LivingStart"]),
+                            Convert.ToDateTime(reader["LivingEnd"]),
                             Convert.ToBoolean(reader["IsLiving"]),
                             Convert.ToString(reader["PostCode"]),
                             Convert.ToString(reader["Address"]),
@@ -64,8 +64,8 @@ Where ID = @ID";
                 return new HomeEntity(
                             Convert.ToInt32(reader["ID"]),
                             Convert.ToString(reader["DisplayName"]),
-                            DateOnly.FromDateTime(Convert.ToDateTime(reader["LivingStart"])),
-                            DateOnly.FromDateTime(Convert.ToDateTime(reader["LivingEnd"])),
+                            Convert.ToDateTime(reader["LivingStart"]),
+                            Convert.ToDateTime(reader["LivingEnd"]),
                             Convert.ToBoolean(reader["IsLiving"]),
                             Convert.ToString(reader["PostCode"]),
                             Convert.ToString(reader["Address"]),
@@ -118,8 +118,8 @@ where ID = @ID
         {
             new SQLiteParameter("ID",             entity.ID),
             new SQLiteParameter("DisplayName",    entity.DisplayName),
-            new SQLiteParameter("LivingStart",    entity.LivingStart.ConvertToSQLiteDate()),
-            new SQLiteParameter("LivingEnd",      entity.LivingEnd.ConvertToSQLiteDate()),
+            new SQLiteParameter("LivingStart",    entity.LivingStart?.ConvertToSQLiteDate()),
+            new SQLiteParameter("LivingEnd",      entity.LivingEnd?.ConvertToSQLiteDate()),
             new SQLiteParameter("IsLiving",       entity.IsLiving),
             new SQLiteParameter("PostCode",       entity.PostCode),
             new SQLiteParameter("Address",        entity.Address),

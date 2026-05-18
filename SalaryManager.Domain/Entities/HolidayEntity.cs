@@ -8,13 +8,13 @@
 /// <param name="companyName">会社名</param>
 /// <param name="remarks">備考</param>
 public sealed class HolidayEntity(
-    DateOnly date, 
+    DateTime date, 
     string name, 
     string companyName, 
     string remarks)
 {
     /// <summary> 日付 </summary>
-    public DateOnly Date => date;
+    public DateTime Date => date;
 
     /// <summary> 祝日名 </summary>
     public string Name => name;
