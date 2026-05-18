@@ -50,7 +50,7 @@ public sealed class HomeModel : ModelBase<HomeViewModel>, IEditableMaster
     {
         if (this.ViewModel.IsLiving_IsChecked)
         {
-            this.ViewModel.LivingEnd_SelectedDate = DateUtils.Today;
+            this.ViewModel.LivingEnd_SelectedDate = DateTime.Today;
         }
     }
 
@@ -63,8 +63,8 @@ public sealed class HomeModel : ModelBase<HomeViewModel>, IEditableMaster
         this.ViewModel.Address_Text = string.Empty;
 
         // 在住期間
-        this.ViewModel.LivingStart_SelectedDate = DateUtils.Today;
-        this.ViewModel.LivingEnd_SelectedDate = DateUtils.Today;
+        this.ViewModel.LivingStart_SelectedDate = DateTime.Today;
+        this.ViewModel.LivingEnd_SelectedDate = DateTime.Today;
         this.ViewModel.IsLiving_IsChecked = false;
 
         // 備考

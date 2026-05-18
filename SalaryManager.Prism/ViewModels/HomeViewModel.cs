@@ -114,14 +114,14 @@ public class HomeViewModel : ViewModelBase<HomeModel>, IDialogAware
     #region 在住期間
 
     /// <summary> 在住期間 - 開始日 - Text </summary>
-    public DateOnly LivingStart_SelectedDate
+    public DateTime? LivingStart_SelectedDate
     {
         get { return field; }
         set { SetProperty(ref field, value); }
     }
 
     /// <summary> 在住期間 - 終了日 - Text </summary>
-    public DateOnly LivingEnd_SelectedDate
+    public DateTime? LivingEnd_SelectedDate
     {
         get { return field; }
         set { SetProperty(ref field, value); }

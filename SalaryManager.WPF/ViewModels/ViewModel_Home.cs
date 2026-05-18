@@ -94,12 +94,12 @@ public class ViewModel_Home : ViewModelBase<Model_Home>
     #region 在住期間
 
     /// <summary> 在住期間 - 開始日 - Text </summary>
-    public ReactiveProperty<DateOnly> LivingStart_SelectedDate { get; set; }
-        = new ReactiveProperty<DateOnly>();
+    public ReactiveProperty<DateTime?> LivingStart_SelectedDate { get; set; }
+        = new ReactiveProperty<DateTime?>();
 
     /// <summary> 在住期間 - 終了日 - Text </summary>
-    public ReactiveProperty<DateOnly> LivingEnd_SelectedDate { get; set; }
-        = new ReactiveProperty<DateOnly>();
+    public ReactiveProperty<DateTime?> LivingEnd_SelectedDate { get; set; }
+        = new ReactiveProperty<DateTime?>();
 
     #endregion
 
