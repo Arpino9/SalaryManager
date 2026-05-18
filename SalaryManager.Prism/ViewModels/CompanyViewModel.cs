@@ -26,25 +26,25 @@ public class CompanyViewModel : ViewModelBase<CompanyModel>, IDialogAware
         this.BusinessCategory_Large_SelectionChanged = new DelegateCommand(() => this.Model.BusinessCategory_Large_SelectionChanged());
 
         // 追加
-        this.Add_Command = new DelegateCommand(() =>
+        this.Add_Command = new DelegateCommand(async () =>
         {
-            this.Model.AddAsync();
+            await this.Model.AddAsync();
             this.Model.AddtionalUpdate();
             this.Model.Reload();
         });
 
         // 更新
-        this.Update_Command = new DelegateCommand(() =>
+        this.Update_Command = new DelegateCommand(async () =>
         {
-            this.Model.UpdateAsync();
+            await this.Model.UpdateAsync();
             this.Model.AddtionalUpdate();
             this.Model.Reload();
         });
 
         // 削除
-        this.Delete_Command = new DelegateCommand(() =>
+        this.Delete_Command = new DelegateCommand(async () =>
         {
-            this.Model.DeleteAsync();
+            await this.Model.DeleteAsync();
             this.Model.Reload();
         });
 

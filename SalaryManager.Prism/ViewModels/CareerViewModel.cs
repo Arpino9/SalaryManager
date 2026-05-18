@@ -39,11 +39,11 @@ public class CareerViewModel : ViewModelBase<CareerModel>, IDialogAware
         this.Careers_SelectionChanged = new DelegateCommand(() => this.Model.ListView_SelectionChanged());
 
         // 追加
-        this.Add_Command = new DelegateCommand(() => this.Model.AddAsync());
+        this.Add_Command = new DelegateCommand(async () => await this.Model.AddAsync());
         // 更新
-        this.Update_Command = new DelegateCommand(() => this.Model.UpdateAsync());
+        this.Update_Command = new DelegateCommand(async () => await this.Model.UpdateAsync());
         // 削除
-        this.Delete_Command = new DelegateCommand(() => this.Model.DeleteAsync());
+        this.Delete_Command = new DelegateCommand(async () => await this.Model.DeleteAsync());
     }
 
     /// <summary> タイトル </summary>

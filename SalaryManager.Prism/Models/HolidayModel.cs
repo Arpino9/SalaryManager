@@ -174,8 +174,6 @@ public sealed class HolidayModel : ModelBase<HolidayViewModel>, IEditableMaster
             return;
         }
 
-        var list = new List<HolidayEntity>();
-
         this.ViewModel.Holidays_ItemSource.Clear();
 
         foreach (var holiday in holidays.OrderByDescending(x => x.Date))

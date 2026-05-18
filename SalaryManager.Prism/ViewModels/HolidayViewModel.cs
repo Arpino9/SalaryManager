@@ -9,9 +9,9 @@ public class HolidayViewModel : ViewModelBase<HolidayModel>, IDialogAware
     {
         this.Model.ViewModel = this;
 
-        this.BindEvents();
-
         this.Model.Initialize();
+
+        this.BindEvents();
     }
 
     public event Action<IDialogResult> RequestClose;
@@ -31,13 +31,13 @@ public class HolidayViewModel : ViewModelBase<HolidayModel>, IDialogAware
         this.Holidays_SelectionChanged = new DelegateCommand(() => this.Model.ListView_SelectionChanged());
 
         // 追加
-        this.Add_Command = new DelegateCommand(() => this.Model.AddAsync());
+        this.Add_Command = new DelegateCommand(async () => await this.Model.AddAsync());
 
         // 更新
-        this.Update_Command = new DelegateCommand(() => this.Model.UpdateAsync());
+        this.Update_Command = new DelegateCommand(async () => await this.Model.UpdateAsync());
 
         // 削除
-        this.Delete_Command = new DelegateCommand(() => this.Model.DeleteAsync());
+        this.Delete_Command = new DelegateCommand(async () => await this.Model.DeleteAsync());
     }
 
     /// <summary> タイトル </summary>

@@ -30,11 +30,11 @@ public class FileStorageViewModel : ViewModelBase<FileStorageModel>, IDialogAwar
         this.OpenImageViewer_Command = new DelegateCommand(() => this.Model.OpenImageViewer());
 
         // 追加
-        this.Add_Command = new DelegateCommand(() => this.Model.AddAsync());
+        this.Add_Command = new DelegateCommand(async () => await this.Model.AddAsync());
         // 更新
-        this.Update_Command = new DelegateCommand(() => this.Model.UpdateAsync());
+        this.Update_Command = new DelegateCommand(async () => await this.Model.UpdateAsync());
         // 削除
-        this.Delete_Command = new DelegateCommand(() => this.Model.DeleteAsync());
+        this.Delete_Command = new DelegateCommand(async () => await this.Model.DeleteAsync());
     }
 
     /// <summar> タイトル </summary>

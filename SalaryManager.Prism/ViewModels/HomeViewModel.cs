@@ -28,23 +28,9 @@ public class HomeViewModel : ViewModelBase<HomeModel>, IDialogAware
         this.Address_TextChanged        = new DelegateCommand(() => this.Model.EnableAddButton());
         this.Address_Google_TextChanged = new DelegateCommand(() => this.Model.EnableAddButton());
 
-        this.Add_Command = new DelegateCommand(() => 
-        {
-            this.Model.AddAsync();
-            this.Model.Reload();
-        });
-
-        this.Update_Command = new DelegateCommand(() =>
-        {
-            this.Model.UpdateAsync();
-            this.Model.Reload();
-        });
-        
-        this.Delete_Command = new DelegateCommand(() =>
-        {
-            this.Model.DeleteAsync();
-            this.Model.Reload();
-        });
+        this.Add_Command    = new DelegateCommand(async () => await this.Model.AddAsync());
+        this.Update_Command = new DelegateCommand(async () => await this.Model.UpdateAsync());        
+        this.Delete_Command = new DelegateCommand(async () => await this.Model.DeleteAsync());
     }
 
     /// <summary> タイトル </summary>
