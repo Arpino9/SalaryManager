@@ -25,7 +25,8 @@ public class HolidayViewModel : ViewModelBase<HolidayModel>, IDialogAware
         // 備考
         this.Remarks_TextChanged = new DelegateCommand(() => this.Model.EnableControlButton());
         // 会社休日
-        this.CompanyHoliday_Checked = new DelegateCommand(() => this.Model.EnableCompanyNameComboBox());
+        this.CompanyHoliday_Checked       = new DelegateCommand(() => this.Model.EnableCompanyNameComboBox());
+        this.CompanyName_SelectionChecked = new DelegateCommand<object[]>((items) => this.Model.CompanyName_SelectionChecked(items));
         // 祝日一覧
         this.Holidays_SelectionChanged = new DelegateCommand(() => this.Model.ListView_SelectionChanged());
 
@@ -155,6 +156,9 @@ public class HolidayViewModel : ViewModelBase<HolidayModel>, IDialogAware
         get { return field; }
         set { SetProperty(ref field, value); }
     }
+
+    /// <summary> 会社休日 - Checked </summary>
+    public DelegateCommand<object[]> CompanyName_SelectionChecked { get; private set; }
 
     #endregion
 

@@ -116,7 +116,16 @@
                   DisplayMemberPath="CompanyName"
                   SelectedIndex="{Binding CompanyName_SelectedIndex,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   Text="{Binding CompanyName_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  IsEnabled="{Binding CompanyName_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                  IsEnabled="{Binding CompanyName_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <behaviors:Interaction.Triggers>
+                    <behaviors:EventTrigger EventName="SelectionChanged">
+                        <behaviors:InvokeCommandAction Command="{Binding CompanyName_SelectionChecked}" />
+                        <prism:InvokeCommandAction 
+	                           Command="{Binding CompanyName_SelectionChecked}"
+	                           TriggerParameterPath="AddedItems" />
+                    </behaviors:EventTrigger>
+                </behaviors:Interaction.Triggers>
+            </ComboBox>
 
             <Label Content="備考" 
                Grid.Row="3" 

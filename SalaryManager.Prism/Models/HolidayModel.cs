@@ -38,17 +38,49 @@ public sealed class HolidayModel : ModelBase<HolidayViewModel>, IEditableMaster
     }
 
     /// <summary>
+    /// 会社名の変更時イベント
+    /// </summary>
+    /// <param name="items">変更後の項目</param>
+    /// <remarks>
+    /// ComboBoxのSelectionChangedイベントが発生した際に、
+    /// ViewModelの会社名が更新されない問題を修正するためのメソッド。
+    /// </remarks>
+    public void CompanyName_SelectionChecked(object[] items)
+    {
+        if (items == null)
+        {
+            return;
+        }
+
+        foreach (var item in items)
+        {
+            if (item is not CompanyEntity company)
+            {
+                continue;
+            }
+
+            if (company.CompanyName != this.ViewModel.CompanyName_Text)
+            {
+                this.ViewModel.CompanyName_Text = company.CompanyName;
+            }
+        }
+
+        this.EnableControlButton();
+    }
+
+    /// <summary>
     /// Enable - 操作ボタン
     /// </summary>
     public void EnableControlButton()
     {
         var date = this.ViewModel.Date_SelectedDate;
 
-        var hasHoliday = this.ViewModel.Holidays_ItemSource.Where(x => x.Date.Year  == date.Year &&
-                                                                       x.Date.Month == date.Month &&
-                                                                       x.Date.Day   == date.Day &&
-                                                                       x.Name       == this.ViewModel.Name_Text &&
-                                                                       x.Remarks    == this.ViewModel.Remarks_Text);
+        var hasHoliday = this.ViewModel.Holidays_ItemSource.Where(x => x.Date.Year   == date.Year &&
+                                                                       x.Date.Month  == date.Month &&
+                                                                       x.Date.Day    == date.Day &&
+                                                                       x.Name        == this.ViewModel.Name_Text &&
+                                                                       x.CompanyName == this.ViewModel.CompanyName_Text &&
+                                                                       x.Remarks     == this.ViewModel.Remarks_Text);
 
         var selected = this.ViewModel.Holidays_SelectedIndex >= 0
                        && this.ViewModel.Holidays_SelectedIndex < this.ViewModel.Holidays_ItemSource.Count;
