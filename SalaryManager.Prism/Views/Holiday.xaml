@@ -5,11 +5,12 @@
              xmlns:prism="http://prismlibrary.com/"             
              xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-             prism:ViewModelLocator.AutoWireViewModel="True">
-    <UserControl.DataContext>
-        <ViewModels:HolidayViewModel/>
-    </UserControl.DataContext>
-
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             d:DataContext="{d:DesignInstance Type=ViewModels:HolidayViewModel}"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             FontFamily="{Binding Window_FontFamily}"
+             Background="{Binding Window_Background}"
+             FontSize="{Binding Window_FontSize}">
     <prism:Dialog.WindowStyle>
         <Style TargetType="Controls:MetroWindow">
             <Setter Property="ResizeMode" Value="{Binding Window_ResizeMode}"/>
@@ -24,8 +25,8 @@
         </Grid.RowDefinitions>
 
         <ListView ItemsSource="{Binding Holidays_ItemSource}" 
-              SelectedIndex="{Binding Holidays_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-              ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                  SelectedIndex="{Binding Holidays_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="SelectionChanged">
                     <behaviors:InvokeCommandAction Command="{Binding Holidays_SelectionChanged}" />

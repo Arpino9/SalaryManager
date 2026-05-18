@@ -4,15 +4,13 @@
              xmlns:prism="http://prismlibrary.com/"             
              xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:ViewModels="clr-namespace:SalaryManager.Prism.ViewModels"
-             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             d:DataContext="{d:DesignInstance Type=ViewModels:CompanyViewModel}"
              prism:ViewModelLocator.AutoWireViewModel="True"
              Background="{Binding Window_Background}"
              FontFamily="{Binding Window_FontFamily}" 
              FontSize="{Binding Window_FontSize}">
-    <UserControl.DataContext>
-        <ViewModels:CompanyViewModel/>
-    </UserControl.DataContext>
-
     <prism:Dialog.WindowStyle>
         <Style TargetType="Controls:MetroWindow">
             <Setter Property="ResizeMode" Value="{Binding Window_ResizeMode}"/>

@@ -5,11 +5,12 @@
              xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:ViewModels="clr-namespace:SalaryManager.Prism.ViewModels"
-             prism:ViewModelLocator.AutoWireViewModel="True">
-    <UserControl.DataContext>
-        <ViewModels:FileStorageViewModel/>
-    </UserControl.DataContext>
-
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             d:DataContext="{d:DesignInstance Type=ViewModels:FileStorageViewModel}"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             FontFamily="{Binding Window_FontFamily}"
+             Background="{Binding Window_Background}"
+             FontSize="{Binding Window_FontSize}">
     <prism:Dialog.WindowStyle>
         <Style TargetType="Controls:MetroWindow">
             <Setter Property="ResizeMode" Value="{Binding Window_ResizeMode}"/>
