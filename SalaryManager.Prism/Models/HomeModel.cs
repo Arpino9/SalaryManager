@@ -226,7 +226,7 @@ public sealed class HomeModel : ModelBase<HomeViewModel>, IEditableMaster
             this.ViewModel.Homes_ItemSource.Add(entity);
             this.Save();
 
-            this.ViewModel.Homes_SelectedIndex = this.ViewModel.Homes_ItemSource.Count;
+            this.ViewModel.Homes_SelectedIndex = this.ViewModel.Homes_ItemSource.Count - 1;
         }
     }
 
