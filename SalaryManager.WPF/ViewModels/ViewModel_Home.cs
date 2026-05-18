@@ -27,11 +27,11 @@ public class ViewModel_Home : ViewModelBase<Model_Home>
         // 住所
         this.Address_Google_TextChanged.Subscribe(_ => this.Model.EnableAddButton());
 
-        this.Add_Command.Subscribe(_ => this.Model.Add());
+        this.Add_Command.Subscribe(_ => this.Model.AddAsync());
         this.Add_Command.Subscribe(_ => this.Model.Reload());
-        this.Update_Command.Subscribe(_ => this.Model.Update());
+        this.Update_Command.Subscribe(_ => this.Model.UpdateAsync());
         this.Update_Command.Subscribe(_ => this.Model.Reload());
-        this.Delete_Command.Subscribe(_ => this.Model.Delete());
+        this.Delete_Command.Subscribe(_ => this.Model.DeleteAsync());
         this.Delete_Command.Subscribe(_ => this.Model.Reload());
     }
 

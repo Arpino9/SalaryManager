@@ -394,7 +394,7 @@ public sealed class FileStorageModel : ModelBase<FileStorageViewModel>, IEditabl
     /// <summary>
     /// 追加
     /// </summary>
-    public async void AddAsync()
+    public async Task AddAsync()
     {
         var result = await base.ShowConfirmMsgAsync(this.ViewModel.Title, "画像情報を追加しますか？");
 
@@ -565,7 +565,7 @@ public sealed class FileStorageModel : ModelBase<FileStorageViewModel>, IEditabl
     /// <summary>
     /// 更新
     /// </summary>
-    public async void UpdateAsync()
+    public async Task UpdateAsync()
     {
         var result = await base.ShowConfirmMsgAsync(this.ViewModel.Title, "画像情報を更新しますか？");
 
@@ -604,7 +604,7 @@ public sealed class FileStorageModel : ModelBase<FileStorageViewModel>, IEditabl
     /// <summary>
     /// 削除
     /// </summary>
-    public async void DeleteAsync()
+    public async Task DeleteAsync()
     {
         var result = await base.ShowConfirmMsgAsync(this.ViewModel.Title, "画像情報を削除しますか？");
 

@@ -204,7 +204,7 @@ public sealed class HomeModel : ModelBase<HomeViewModel>, IEditableMaster
     /// <summary>
     /// 追加
     /// </summary>
-    public async void AddAsync()
+    public async Task AddAsync()
     {
         var result = await base.ShowConfirmMsgAsync(this.ViewModel.Title, "入力された自宅情報を追加しますか？");
 
@@ -233,7 +233,7 @@ public sealed class HomeModel : ModelBase<HomeViewModel>, IEditableMaster
     /// <summary>
     /// 更新
     /// </summary>
-    public async void UpdateAsync()
+    public async Task UpdateAsync()
     {
         var result = await base.ShowConfirmMsgAsync(this.ViewModel.Title, "選択中の自宅情報を更新しますか？");
 
@@ -268,7 +268,7 @@ public sealed class HomeModel : ModelBase<HomeViewModel>, IEditableMaster
     /// <summary>
     /// 削除
     /// </summary>
-    public async void DeleteAsync()
+    public async Task DeleteAsync()
     {
         if (this.ViewModel.Homes_SelectedIndex.IsUnSelected() ||
             !this.ViewModel.Homes_ItemSource.Any())

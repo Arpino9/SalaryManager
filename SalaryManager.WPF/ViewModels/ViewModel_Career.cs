@@ -28,15 +28,15 @@ public class ViewModel_Career : ViewModelBase<Model_Career>
         this.Careers_SelectionChanged.Subscribe(_ => this.Model.ListView_SelectionChanged());
 
         // 追加
-        this.Add_Command.Subscribe(_ => this.Model.Add());
+        this.Add_Command.Subscribe(_ => this.Model.AddAsync());
         this.Add_Command.Subscribe(_ => this.Model.Reload());
         
         // 更新
-        this.Update_Command.Subscribe(_ => this.Model.Update());
+        this.Update_Command.Subscribe(_ => this.Model.UpdateAsync());
         this.Update_Command.Subscribe(_ => this.Model.Reload());
 
         // 削除
-        this.Delete_Command.Subscribe(_ => this.Model.Delete());
+        this.Delete_Command.Subscribe(_ => this.Model.DeleteAsync());
         this.Delete_Command.Subscribe(_ => this.Model.Reload());
     }
 

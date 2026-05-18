@@ -289,7 +289,7 @@ public sealed class CompanyModel : ModelBase<CompanyViewModel>, IEditableMaster
     /// <summary>
     /// 追加
     /// </summary>
-    public async void AddAsync()
+    public async Task AddAsync()
     {
         var result = await base.ShowConfirmMsgAsync(this.ViewModel.Title, "入力された会社情報を追加しますか？");
 
@@ -338,7 +338,7 @@ public sealed class CompanyModel : ModelBase<CompanyViewModel>, IEditableMaster
     /// <summary>
     /// 更新
     /// </summary>
-    public async void UpdateAsync()
+    public async Task UpdateAsync()
     {
         var result = await base.ShowConfirmMsgAsync(this.ViewModel.Title, "選択中の会社情報を更新しますか？");
 
@@ -379,7 +379,7 @@ public sealed class CompanyModel : ModelBase<CompanyViewModel>, IEditableMaster
     /// <summary>
     /// 削除
     /// </summary>
-    public async void DeleteAsync()
+    public async Task DeleteAsync()
     {
         if (this.ViewModel.Companies_SelectedIndex.IsUnSelected() ||
             this.ViewModel.Companies_ItemSource.IsEmpty())

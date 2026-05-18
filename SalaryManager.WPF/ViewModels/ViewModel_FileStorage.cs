@@ -30,11 +30,11 @@ public class ViewModel_FileStorage : ViewModelBase<Model_FileStorage>
         this.OpenImageViewer_Command.Subscribe(_ => this.Model.OpenImageViewer());
 
         // 追加
-        this.Add_Command.Subscribe(_ => this.Model.Add());
+        this.Add_Command.Subscribe(_ => this.Model.AddAsync());
         // 更新
-        this.Update_Command.Subscribe(_ => this.Model.Update());
+        this.Update_Command.Subscribe(_ => this.Model.UpdateAsync());
         // 削除
-        this.Delete_Command.Subscribe(_ => this.Model.Delete());
+        this.Delete_Command.Subscribe(_ => this.Model.DeleteAsync());
     }
 
     /// <summary> Model - 支給額 </summary>

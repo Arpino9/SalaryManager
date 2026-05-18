@@ -1,16 +1,19 @@
 ﻿<UserControl x:Class="SalaryManager.Prism.Views.Company"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:prism="http://prismlibrary.com/"             
              xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:ViewModels="clr-namespace:SalaryManager.Prism.ViewModels"
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              d:DataContext="{d:DesignInstance Type=ViewModels:CompanyViewModel}"
              prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d"
              Background="{Binding Window_Background}"
              FontFamily="{Binding Window_FontFamily}" 
              FontSize="{Binding Window_FontSize}">
+    
     <prism:Dialog.WindowStyle>
         <Style TargetType="Controls:MetroWindow">
             <Setter Property="ResizeMode" Value="{Binding Window_ResizeMode}"/>

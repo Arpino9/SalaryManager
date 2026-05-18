@@ -248,7 +248,7 @@ public sealed class HolidayModel : ModelBase<HolidayViewModel>, IEditableMaster
     /// <summary>
     /// 追加
     /// </summary>
-    public async void AddAsync()
+    public async Task AddAsync()
     {
         var result = await base.ShowConfirmMsgAsync(this.ViewModel.Title, "入力された祝日を追加しますか？");
 
@@ -272,7 +272,7 @@ public sealed class HolidayModel : ModelBase<HolidayViewModel>, IEditableMaster
     /// <summary>
     /// 更新
     /// </summary>
-    public async void UpdateAsync()
+    public async Task UpdateAsync()
     {
         var result = await base.ShowConfirmMsgAsync(this.ViewModel.Title, "選択中の祝日を更新しますか？");
 
@@ -294,7 +294,7 @@ public sealed class HolidayModel : ModelBase<HolidayViewModel>, IEditableMaster
     /// <summary>
     /// 削除
     /// </summary>
-    public async void DeleteAsync()
+    public async Task DeleteAsync()
     {
         if (this.ViewModel.Holidays_SelectedIndex.IsUnSelected() ||
             this.ViewModel.Holidays_ItemSource.IsEmpty())

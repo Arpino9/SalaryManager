@@ -26,17 +26,17 @@ public class ViewModel_Company : ViewModelBase<Model_Company>
         this.BusinessCategory_Large_SelectionChanged.Subscribe(_ => this.Model.BusinessCategory_Large_SelectionChanged());
 
         // 追加
-        this.Add_Command.Subscribe(_ => this.Model.Add());
+        this.Add_Command.Subscribe(_ => this.Model.AddAsync());
         this.Add_Command.Subscribe(_ => this.Model.AddtionalUpdate());
         this.Add_Command.Subscribe(_ => this.Model.Reload());
 
         // 更新
-        this.Update_Command.Subscribe(_ => this.Model.Update());
+        this.Update_Command.Subscribe(_ => this.Model.UpdateAsync());
         this.Update_Command.Subscribe(_ => this.Model.AddtionalUpdate());
         this.Update_Command.Subscribe(_ => this.Model.Reload());
 
         // 削除
-        this.Delete_Command.Subscribe(_ => this.Model.Delete());
+        this.Delete_Command.Subscribe(_ => this.Model.DeleteAsync());
         this.Delete_Command.Subscribe(_ => this.Model.Reload());
 
         // 会社一覧
