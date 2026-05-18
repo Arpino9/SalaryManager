@@ -11,7 +11,7 @@ public sealed class HolidayEntity(
     DateTime date, 
     string name, 
     string companyName, 
-    string remarks)
+    string remarks) : IEntity
 {
     /// <summary> 日付 </summary>
     public DateTime Date => date;

@@ -29,7 +29,7 @@ public sealed class WorkingReferencesEntity(
     double paidVacation,
     double workingHours,
     string workingPlace,
-    string remarks)
+    string remarks) : IEntity
 {
     /// <summary> ID </summary>
     public int ID => id;

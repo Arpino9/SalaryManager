@@ -13,7 +13,7 @@ public sealed class CalendarEventEntity(
     DateTime startDate,
     DateTime endDate,
     string place,
-    string description)
+    string description) : IEntity
 {
     /// <summary>
     /// Constructor

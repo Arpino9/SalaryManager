@@ -39,7 +39,7 @@ public sealed class AllowanceValueEntity(
     double spareAllowance,
     string remarks,
     double totalSalary,
-    double totalDeductedSalary)
+    double totalDeductedSalary) : IEntity
 {
     /// <summary> ID </summary>
     public int ID => id;

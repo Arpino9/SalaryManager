@@ -17,7 +17,7 @@ public class CompanyEntity(
     string postCode,
     string address,
     string address_Google,
-    string remarks)
+    string remarks) : IEntity
 {
     /// <summary> ID </summary>
     public int ID => id;

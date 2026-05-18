@@ -1,4 +1,6 @@
-﻿namespace SalaryManager.Domain.Entities;
+﻿using System.Windows.Controls;
+
+namespace SalaryManager.Domain.Entities;
 
 /// <summary>
 /// Entity - 手当有無
@@ -33,7 +35,7 @@ public sealed class AllowanceExistenceEntity(
     bool prepaidRetirement,
     bool dependency,
     bool executive,
-    bool special)
+    bool special) : IEntity
 {
     /// <summary> 皆勤手当 </summary>
     public AlternativeValue PerfectAttendance => new AlternativeValue(perfectAttendance);

@@ -42,10 +42,10 @@ public sealed class AllowanceModel : ModelBase<AllowanceViewModel>, IParallellyE
     internal WorkPlaceViewModel ViewModel_WorkPlace { get; set; }
 
     /// <summary> Entity - 支給額 </summary>
-    public AllowanceValueEntity Entity { get; set; }
+    internal AllowanceValueEntity Entity { get; set; }
 
     /// <summary> Entity - 支給額 (昨年度) </summary>
-    public AllowanceValueEntity Entity_LastYear { get; set; }
+    internal AllowanceValueEntity Entity_LastYear { get; set; }
 
     /// <summary>
     /// 初期化

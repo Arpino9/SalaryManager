@@ -17,7 +17,7 @@ public sealed class FileStorageEntity(
     byte[] image,
     string remarks,
     DateOnly createDate,
-    DateOnly updateDate)
+    DateOnly updateDate) : IEntity
 {
     /// <summary> ID </summary>
     public int ID => id;

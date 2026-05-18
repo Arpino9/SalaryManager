@@ -27,7 +27,7 @@ public sealed class DeductionEntity(
     double friendshipAssociation,
     double yearEndTaxAdjustment,
     string remarks,
-    double totalDeduct)
+    double totalDeduct) : IEntity
 {
     /// <summary> ID </summary>
     public int ID => id;

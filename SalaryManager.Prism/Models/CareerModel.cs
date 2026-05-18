@@ -5,7 +5,7 @@ namespace SalaryManager.Prism.Models;
 /// <summary>
 /// Model - 経歴
 /// </summary>
-public sealed class CareerModel : ModelBase<CareerViewModel>, IEditableMaster
+public sealed class CareerModel : SalaryManager.Prism.Models.ModelBase<CareerViewModel>, IEditableMaster
 {
     #region Get Instance
 

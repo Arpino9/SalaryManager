@@ -15,7 +15,7 @@ public sealed class SideBusinessEntity(
     double sideBusiness,
     double perquisite,
     double other,
-    string remarks)
+    string remarks) : IEntity
 {
     /// <summary> ID </summary>
     public int ID => id;

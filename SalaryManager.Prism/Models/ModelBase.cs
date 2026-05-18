@@ -3,11 +3,11 @@
 /// <summary>
 /// Model - 基底
 /// </summary>
-/// <typeparam name="T">ViewModel</typeparam>
-public abstract class ModelBase<T> where T : class
+/// <typeparam name="VM">ViewModel</typeparam>
+public abstract class ModelBase<VM> where VM : class 
 {
     /// <summary> ViewModel </summary>
-    internal abstract T ViewModel { get; set; }
+    internal abstract VM ViewModel { get; set; }
 
     /// <summary>
     /// MetroWindow

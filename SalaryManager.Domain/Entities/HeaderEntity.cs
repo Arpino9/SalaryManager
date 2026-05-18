@@ -13,7 +13,7 @@ public sealed class HeaderEntity(
     DateOnly yearMonth,
     bool isDefault,
     DateTime createDate,
-    DateTime upDateDate)
+    DateTime upDateDate) : IEntity
 {
     /// <summary> ID </summary>
     public int ID { get; set; } = id;

@@ -13,7 +13,7 @@ public class AnnualChartEntity(
     DateTime yearMonth,
     int totalSalary,
     int totalDeductedSalary,
-    int totalSideBusiness)
+    int totalSideBusiness) : IEntity
 {
     /// <summary> ID </summary>
     public int Id => id;

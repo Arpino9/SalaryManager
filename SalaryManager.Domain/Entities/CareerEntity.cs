@@ -19,7 +19,7 @@ public sealed class CareerEntity(
     DateTime workingStartDate,
     DateTime workingEndDate,
     AllowanceExistenceEntity allowanceExistence,
-    string remarks)
+    string remarks) : IEntity
 {
     /// <summary> ID </summary>
     public int ID => id;

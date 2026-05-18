@@ -35,7 +35,7 @@ public sealed class WorkingPlaceEntity(
     TimeOnly lunchEndTime,
     TimeOnly breakStartTime,
     TimeOnly breakEndTime,
-    string remarks)
+    string remarks) : IEntity
 {
     /// <summary>
     /// Constructor

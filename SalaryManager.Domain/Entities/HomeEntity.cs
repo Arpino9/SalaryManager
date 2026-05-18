@@ -21,7 +21,7 @@ public sealed class HomeEntity(
     string postCode,
     string address,
     string address_google,
-    string remarks)
+    string remarks) : IEntity
 {
     /// <summary> ID </summary>
     public int ID => id;
