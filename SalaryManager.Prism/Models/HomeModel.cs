@@ -286,7 +286,7 @@ public sealed class HomeModel : ModelBase<HomeViewModel>, IEditableMaster
 
         using (var cursor = new CursorWaiting())
         {
-            _repository.Delete(this.ViewModel.Homes_SelectedIndex + 1);
+            _repository.Delete(this.ViewModel.Homes_ItemSource[this.ViewModel.Homes_SelectedIndex].ID);
 
             this.ViewModel.Homes_ItemSource.RemoveAt(this.ViewModel.Homes_SelectedIndex);
         }
