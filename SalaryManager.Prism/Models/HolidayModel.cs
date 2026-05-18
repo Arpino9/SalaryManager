@@ -49,6 +49,7 @@ public sealed class HolidayModel : ModelBase<HolidayViewModel>, IEditableMaster
     {
         if (items == null)
         {
+            // 未選択
             return;
         }
 
@@ -56,7 +57,8 @@ public sealed class HolidayModel : ModelBase<HolidayViewModel>, IEditableMaster
         {
             if (item is not CompanyEntity company)
             {
-                continue;
+                // キャスト失敗(基本的にありえないはず)
+                return;
             }
 
             if (company.CompanyName != this.ViewModel.CompanyName_Text)

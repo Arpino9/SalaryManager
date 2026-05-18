@@ -26,7 +26,7 @@ public class HolidayViewModel : ViewModelBase<HolidayModel>, IDialogAware
         this.Remarks_TextChanged = new DelegateCommand(() => this.Model.EnableControlButton());
         // 会社休日
         this.CompanyHoliday_Checked       = new DelegateCommand(() => this.Model.EnableCompanyNameComboBox());
-        this.CompanyName_SelectionChecked = new DelegateCommand<object[]>((items) => this.Model.CompanyName_SelectionChecked(items));
+        this.CompanyName_SelectionChecked = new DelegateCommand<object[]>((object[] items) => this.Model.CompanyName_SelectionChecked(items));
         // 祝日一覧
         this.Holidays_SelectionChanged = new DelegateCommand(() => this.Model.ListView_SelectionChanged());
 
