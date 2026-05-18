@@ -122,7 +122,8 @@ public class Model_Home : ModelBase<ViewModel_Home>, IEditableMaster
     /// </summary>
     public void EnableAddButton()
     {
-        var inputted = !string.IsNullOrEmpty(this.ViewModel.Address_Text.Value);
+        var inputted = !string.IsNullOrEmpty(this.ViewModel.Address_Text.Value) ||
+                       !string.IsNullOrEmpty(this.ViewModel.Address_Google_Text.Value);
 
         this.ViewModel.Add_IsEnabled.Value = inputted;
     }

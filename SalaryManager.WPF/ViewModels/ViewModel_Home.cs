@@ -25,6 +25,7 @@ public class ViewModel_Home : ViewModelBase<Model_Home>
         this.IsLiving_Checked.Subscribe(_ => this.Model.IsLiving_Checked());
 
         // 住所
+        this.Address_TextChanged.Subscribe(_ => this.Model.EnableAddButton());
         this.Address_Google_TextChanged.Subscribe(_ => this.Model.EnableAddButton());
 
         this.Add_Command.Subscribe(_ => this.Model.AddAsync());
@@ -119,6 +120,10 @@ public class ViewModel_Home : ViewModelBase<Model_Home>
     /// <summary> 住所 - Text </summary>
     public ReactiveProperty<string> Address_Text { get; set; }
         = new ReactiveProperty<string>();
+
+    /// <summary> 住所 (Google) - TextChanged </summary>
+    public ReactiveProperty<bool> Address_TextChanged { get; set; }
+        = new ReactiveProperty<bool>();
 
     /// <summary> 住所 (Google) - Text </summary>
     public ReactiveProperty<string> Address_Google_Text { get; set; }

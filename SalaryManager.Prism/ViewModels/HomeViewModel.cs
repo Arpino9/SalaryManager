@@ -25,6 +25,7 @@ public class HomeViewModel : ViewModelBase<HomeModel>, IDialogAware
         this.IsLiving_Checked = new DelegateCommand(() => this.Model.IsLiving_Checked());
 
         // 住所
+        this.Address_TextChanged        = new DelegateCommand(() => this.Model.EnableAddButton());
         this.Address_Google_TextChanged = new DelegateCommand(() => this.Model.EnableAddButton());
 
         this.Add_Command = new DelegateCommand(() => 
@@ -150,6 +151,9 @@ public class HomeViewModel : ViewModelBase<HomeModel>, IDialogAware
         get { return field; }
         set { SetProperty(ref field, value); }
     }
+
+    /// <summary> 住所 (Google) - TextChanged </summary>
+    public DelegateCommand Address_TextChanged { get; private set; }
 
     /// <summary> 住所 (Google) - Text </summary>
     public string Address_Google_Text
