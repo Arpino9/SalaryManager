@@ -14,6 +14,13 @@ public class CompanyViewModel : ViewModelBase<CompanyModel>, IDialogAware
         this.Model.Initialize();
     }
 
+    /// <summary>単体テスト用のコンストラクタ</summary>
+    /// <param name="repository">Repository - 会社</param>
+    public CompanyViewModel(ICompanyRepository repository)
+    {
+        this.Model.ViewModel = this;
+    }
+
     public event Action<IDialogResult> RequestClose;
 
     protected override void BindEvents()
