@@ -1,5 +1,7 @@
-﻿using Prism.Ioc;
+﻿using log4net.Config;
+using Prism.Ioc;
 using SalaryManager.Prism.Views;
+using System.IO;
 using System.Windows;
 
 namespace SalaryManager.Prism;
@@ -9,6 +11,13 @@ namespace SalaryManager.Prism;
 /// </summary>
 public partial class App
 {
+    protected override void OnStartup(StartupEventArgs e)
+    {
+        var configFile = new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log4net.config"));
+        XmlConfigurator.Configure(configFile);
+        base.OnStartup(e);
+    }
+
     protected override Window CreateShell()
     {
         return Container.Resolve<MainWindow>();

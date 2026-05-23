@@ -36,19 +36,16 @@ public class HomeViewModel : ViewModelBase<HomeModel>, IDialogAware
     /// <summary> タイトル </summary>
     public string Title => "自宅マスタ";
 
-    public bool CanCloseDialog()
-    {
-        return true;
-    }
+    public bool CanCloseDialog() => true;
 
     public void OnDialogClosed()
     {
-        
+        Invoker.AddCommand(new ReturnCommand(Title));
     }
 
     public void OnDialogOpened(IDialogParameters parameters)
     {
-        
+        Invoker.AddCommand(new ProceedCommand(Title));
     }
 
     /// <summary> Model - 自宅 </summary>

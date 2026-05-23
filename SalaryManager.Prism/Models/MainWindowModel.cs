@@ -66,6 +66,7 @@ public sealed class MainWindowModel : ModelBase<MainWindowViewModel>
     /// </summary>
     internal async void Initialize()
     {
+        Task.Run(() => Invoker.ExecuteCommands());
         this.InitializeSQLite();
     }
 

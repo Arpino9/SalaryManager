@@ -40,19 +40,16 @@ public class FileStorageViewModel : ViewModelBase<FileStorageModel>, IDialogAwar
     /// <summar> タイトル </summary>
     public string Title => "添付ファイル管理";
 
-    public bool CanCloseDialog()
-    {
-        return true;
-    }
+    public bool CanCloseDialog() => true;
 
     public void OnDialogClosed()
     {
-        
+        Invoker.AddCommand(new ReturnCommand(Title));
     }
 
     public void OnDialogOpened(IDialogParameters parameters)
     {
-        
+        Invoker.AddCommand(new ProceedCommand(Title));
     }
 
     /// <summary> Model - 支給額 </summary>

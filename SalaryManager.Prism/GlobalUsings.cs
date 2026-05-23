@@ -25,6 +25,7 @@ global using SalaryManager.Domain;
 global using SalaryManager.Domain.Entities;
 global using SalaryManager.Domain.Exceptions;
 global using SalaryManager.Domain.Modules.Logics;
+global using SalaryManager.Domain.Modules.Logics.LogCommand;
 global using SalaryManager.Domain.Modules.Helpers;
 global using SalaryManager.Domain.Repositories;
 global using SalaryManager.Domain.StaticValues;
