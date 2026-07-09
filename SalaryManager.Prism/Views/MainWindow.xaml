@@ -9,6 +9,9 @@
                     prism:ViewModelLocator.AutoWireViewModel="True"
                     WindowStartupLocation="CenterScreen"
                     Title="{Binding Title}" Height="550" Width="700" >
+    <Controls:MetroWindow.DataContext>
+        <ViewModels:MainWindowViewModel/>
+    </Controls:MetroWindow.DataContext>
     <behaviors:Interaction.Triggers>
         <behaviors:EventTrigger EventName="Activated">
             <behaviors:InvokeCommandAction Command="{Binding Window_Activated}" />

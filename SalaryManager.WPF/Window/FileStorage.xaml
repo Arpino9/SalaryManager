@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SalaryManager.WPF.Window"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" x:Class="SalaryManager.WPF.Window.FileStorage"
         mc:Ignorable="d"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
@@ -34,6 +35,7 @@
         </Grid.RowDefinitions>
         <ListView Grid.ColumnSpan="3" 
                   ItemsSource="{Binding AttachedFile_ItemSource}" 
+                  Style="{DynamicResource MahApps.Styles.ListView}"
                   SelectedIndex="{Binding AttachedFile_SelectedIndex.Value}">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="SelectionChanged">
@@ -63,54 +65,83 @@
             </ListView.View>
         </ListView>
 
-        <Button Content="ファイルを開く" 
-                Grid.Row="1" 
+        <Button Grid.Row="1" 
                 Grid.Column="1" 
                 Command="{Binding SelectFile_Command}" 
-                IsEnabled="{Binding SelectFile_IsEnabled.Value}"/>
-        
-        <Image Grid.Column="1" Grid.Row="2" Source="{Binding FileImage_Image.Value}"/>
-        <Button Content="画像を拡大表示する" 
-                Grid.Column="2" 
-                Grid.Row="2" 
-                Command="{Binding OpenImageViewer_Command}"
-                IsEnabled="{Binding OpenImageViewer_IsEnabled.Value}"/>
+                Style="{DynamicResource MahApps.Styles.Button}"
+                IsEnabled="{Binding SelectFile_IsEnabled.Value}">
+            <StackPanel Orientation="Horizontal">
+                <iconPacks:PackIconMaterial Kind="OpenInApp" Width="16" Height="16" Margin="0,0,5,0"/>
+                <TextBlock Text="ファイルを開く"/>
+            </StackPanel>
+        </Button>
 
-        <Label Grid.Row="3" Content="タイトル"/>
+        <Image Grid.Column="1" Grid.Row="2" Source="{Binding FileImage_Image.Value}"/>
+        <Button Grid.Column="2" 
+                Grid.Row="2" 
+                Style="{DynamicResource MahApps.Styles.Button}"
+                Command="{Binding OpenImageViewer_Command}"
+                IsEnabled="{Binding OpenImageViewer_IsEnabled.Value}">
+            <StackPanel Orientation="Horizontal">
+                <iconPacks:PackIconMaterial Kind="ExpandAll" Width="16" Height="16" Margin="0,0,5,0"/>
+                <TextBlock Text="画像を拡大表示する"/>
+            </StackPanel>
+        </Button>
+
+        <Label Grid.Row="3" Content="タイトル" Style="{DynamicResource MahApps.Styles.Label}"/>
         <TextBox Grid.Column="1" 
                  Grid.Row="3" 
                  IsEnabled="{Binding Title_IsEnabled.Value}"
+                 Style="{DynamicResource MahApps.Styles.TextBox}"
                  Text="{Binding Title_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-        <Label Grid.Row="4" Content="ファイル名"/>
+        <Label Grid.Row="4" Content="ファイル名" Style="{DynamicResource MahApps.Styles.Label}"/>
         <TextBox Grid.Column="1" 
                  Grid.Row="4" 
                  IsEnabled="False"
+                 Style="{DynamicResource MahApps.Styles.TextBox}"
                  Text="{Binding FileName_Text.Value}" >
         </TextBox>
 
-        <Label Content="備考" 
+        <Label Content="備考"
+               Style="{DynamicResource MahApps.Styles.Label}"
                Grid.Row="5" />
         <TextBox Grid.Column="1" 
                  Grid.Row="5" 
+                 Style="{DynamicResource MahApps.Styles.TextBox}"
                  IsEnabled="{Binding Remarks_IsEnabled.Value}"
                  Text="{Binding Remarks_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-        <Button Content="追加" 
-                Grid.Row="6" 
+        <Button Grid.Row="6" 
                 Command="{Binding Add_Command}"
-                IsEnabled="{Binding Add_IsEnabled.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        
-        <Button Content="変更" 
-                Grid.Row="6" 
+                Style="{DynamicResource MahApps.Styles.Button}"
+                IsEnabled="{Binding Add_IsEnabled.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <StackPanel Orientation="Horizontal">
+                <iconPacks:PackIconMaterial Kind="ArrowExpandUp" Width="16" Height="16" Margin="0,0,5,0"/>
+                <TextBlock Text="追加"/>
+            </StackPanel>
+        </Button>
+
+        <Button Grid.Row="6" 
                 Grid.Column="1" 
                 Command="{Binding Update_Command}"
-                IsEnabled="{Binding Update_IsEnabled.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                Style="{DynamicResource MahApps.Styles.Button}"
+                IsEnabled="{Binding Update_IsEnabled.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <StackPanel Orientation="Horizontal">
+                <iconPacks:PackIconMaterial Kind="ArrowExpandUp" Width="16" Height="16" Margin="0,0,5,0"/>
+                <TextBlock Text="更新"/>
+            </StackPanel>
+        </Button>
 
-        <Button Content="削除" 
-                Grid.Row="6" 
+        <Button Grid.Row="6" 
                 Grid.Column="2"
                 Command="{Binding Delete_Command}"
-                IsEnabled="{Binding Delete_IsEnabled.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                Style="{DynamicResource MahApps.Styles.Button}"
+                IsEnabled="{Binding Delete_IsEnabled.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <StackPanel Orientation="Horizontal">
+                <iconPacks:PackIconMaterial Kind="ArrowExpandUp" Width="16" Height="16" Margin="0,0,5,0"/>
+                <TextBlock Text="削除"/>
+            </StackPanel>
+        </Button>
     </Grid>
 </Controls:MetroWindow>

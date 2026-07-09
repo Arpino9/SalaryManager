@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Behavior="clr-namespace:SalaryManager.Prism.Behavior"
              xmlns:prism="http://prismlibrary.com/"             
-             xmlns:ViewModels="clr-namespace:SalaryManager.Prism.ViewModels" x:Class="SalaryManager.Prism.Views.Child.PDFOption"             
+             xmlns:ViewModels="clr-namespace:SalaryManager.Prism.ViewModels" 
+             x:Class="SalaryManager.Prism.Views.Child.PDFOption"             
              prism:ViewModelLocator.AutoWireViewModel="True"
              Height="550" Width="800">
     <UserControl.DataContext>

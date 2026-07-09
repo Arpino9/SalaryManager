@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SalaryManager.WPF.UserControls"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" 
@@ -23,102 +24,102 @@
 
     <Controls:MetroWindow.LeftWindowCommands>
         <Controls:WindowCommands>
-            <Menu>
-                <MenuItem Header="編集">
-                    <MenuItem Header="会社マスタ" Command="{Binding EditCompany_Command}">
+            <Menu Style="{DynamicResource MahApps.Styles.Menu}">
+                <MenuItem Header="編集" Style="{DynamicResource MahApps.Styles.MenuItem}">
+                    <MenuItem Header="会社マスタ" Command="{Binding EditCompany_Command}" Style="{DynamicResource MahApps.Styles.MenuItem}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="会社マスタを開きます。"/>
                         </ToolTipService.ToolTip>
                     </MenuItem>
 
-                    <MenuItem Header="経歴マスタ" Command="{Binding EditCareer_Command}">
+                    <MenuItem Header="経歴マスタ" Command="{Binding EditCareer_Command}" Style="{DynamicResource MahApps.Styles.MenuItem}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="経歴マスタを開きます。"/>
                         </ToolTipService.ToolTip>
                     </MenuItem>
 
-                    <MenuItem Header="勤務マスタ" Command="{Binding EditWorkingPlace_Command}">
+                    <MenuItem Header="勤務マスタ" Command="{Binding EditWorkingPlace_Command}" Style="{DynamicResource MahApps.Styles.MenuItem}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="勤務マスタを開きます。"/>
                         </ToolTipService.ToolTip>
                     </MenuItem>
 
-                    <MenuItem Header="自宅マスタ" Command="{Binding EditHome_Command}">
+                    <MenuItem Header="自宅マスタ" Command="{Binding EditHome_Command}" Style="{DynamicResource MahApps.Styles.MenuItem}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="自宅マスタを開きます。"/>
                         </ToolTipService.ToolTip>
                     </MenuItem>
 
-                    <MenuItem Header="祝日マスタ" Command="{Binding EditHoliday_Command}">
+                    <MenuItem Header="祝日マスタ" Command="{Binding EditHoliday_Command}" Style="{DynamicResource MahApps.Styles.MenuItem}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="自宅マスタを開きます。"/>
                         </ToolTipService.ToolTip>
                     </MenuItem>
 
 
-                    <MenuItem Header="添付ファイル" Command="{Binding EditFileStorage_Command}">
+                    <MenuItem Header="添付ファイル" Command="{Binding EditFileStorage_Command}" Style="{DynamicResource MahApps.Styles.MenuItem}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="添付ファイル登録画面を開きます。"/>
                         </ToolTipService.ToolTip>
                     </MenuItem>
 
-                    <MenuItem Header="オプション" Command="{Binding EditOption_Command}">
+                    <MenuItem Header="オプション" Command="{Binding EditOption_Command}" Style="{DynamicResource MahApps.Styles.MenuItem}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="アプリケーション設定画面を開きます。"/>
                         </ToolTipService.ToolTip>
                     </MenuItem>
                 </MenuItem>
 
-                <MenuItem Header="読込">
-                    <MenuItem Header="デフォルト明細を取得" Command="{Binding ReadDefaultPayslip_Command}">
+                <MenuItem Header="読込" Style="{DynamicResource MahApps.Styles.MenuItem}">
+                    <MenuItem Header="デフォルト明細を取得" Command="{Binding ReadDefaultPayslip_Command}" Style="{DynamicResource MahApps.Styles.MenuItem}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="登録されているデフォルト明細を取得します。"/>
                         </ToolTipService.ToolTip>
                     </MenuItem>
 
-                    <MenuItem Header="CSV読込" Command="{Binding ReadCSV_Command}">
+                    <MenuItem Header="CSV読込" Command="{Binding ReadCSV_Command}" Style="{DynamicResource MahApps.Styles.MenuItem}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="CSVを読み込みます。仮作成。"/>
                         </ToolTipService.ToolTip>
                     </MenuItem>
                 </MenuItem>
 
-                <MenuItem Header="表示">
-                    <MenuItem Header="今月の明細" Command="{Binding ShowCurrentPayslip_Command}">
+                <MenuItem Header="表示" Style="{DynamicResource MahApps.Styles.MenuItem}">
+                    <MenuItem Header="今月の明細" Command="{Binding ShowCurrentPayslip_Command}" Style="{DynamicResource MahApps.Styles.MenuItem}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="今月の明細を表示します。"/>
                         </ToolTipService.ToolTip>
                     </MenuItem>
                 </MenuItem>
 
-                <MenuItem Header="出力">
-                    <MenuItem Header="Excel" Command="{Binding OutputExcel_Command}">
+                <MenuItem Header="出力" Style="{DynamicResource MahApps.Styles.MenuItem}">
+                    <MenuItem Header="Excel" Command="{Binding OutputExcel_Command}" Style="{DynamicResource MahApps.Styles.MenuItem}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="configファイルに指定された保存先にExcel出力します。"/>
                         </ToolTipService.ToolTip>
                     </MenuItem>
 
-                    <MenuItem Header="スプレッドシート" Command="{Binding OutputSpreadSheet_Command}">
+                    <MenuItem Header="スプレッドシート" Command="{Binding OutputSpreadSheet_Command}" Style="{DynamicResource MahApps.Styles.MenuItem}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="configファイルに指定された保存先にスプレッドシート出力します。"/>
                         </ToolTipService.ToolTip>
                     </MenuItem>
                 </MenuItem>
 
-                <MenuItem Header="保存">
-                    <MenuItem Header="給与明細" Command="{Binding SavePayslip_Command}">
+                <MenuItem Header="保存" Style="{DynamicResource MahApps.Styles.MenuItem}">
+                    <MenuItem Header="給与明細" Command="{Binding SavePayslip_Command}" Style="{DynamicResource MahApps.Styles.MenuItem}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="入力された給与明細を保存します。"/>
                         </ToolTipService.ToolTip>
                     </MenuItem>
 
-                    <MenuItem Header="デフォルト明細" Command="{Binding SetDefault_Command}">
+                    <MenuItem Header="デフォルト明細" Command="{Binding SetDefault_Command}" Style="{DynamicResource MahApps.Styles.MenuItem}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="選択された給与明細をデフォルト明細に登録します。"/>
                         </ToolTipService.ToolTip>
                     </MenuItem>
 
-                    <MenuItem Header="DBのバックアップを作成する" Command="{Binding SaveDBBackup_Command}">
+                    <MenuItem Header="DBのバックアップを作成する" Command="{Binding SaveDBBackup_Command}" Style="{DynamicResource MahApps.Styles.MenuItem}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="SQLiteのバックアップを作成します。"/>
                         </ToolTipService.ToolTip>
@@ -127,6 +128,14 @@
             </Menu>
         </Controls:WindowCommands>
     </Controls:MetroWindow.LeftWindowCommands>
+
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button ToolTip="保存" Command="{Binding SavePayslip_Command}">
+                <iconPacks:PackIconMaterial Kind="File"/>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
 
     <Window.DataContext>
         <ViewModels:ViewModel_MainWindow/>

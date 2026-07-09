@@ -21,10 +21,12 @@
         </Grid.ColumnDefinitions>
 
         <Button Content="←" 
-            Command="{Binding Return_Command, Mode=OneWay}"/>
+            Command="{Binding Return_Command, Mode=OneWay}"
+            Style="{DynamicResource MahApps.Styles.Button.Calendar.Previous}"/>
         <TextBox Grid.Column="1" 
              Grid.Row="1" Text="{Binding Year_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-             TextAlignment="Right">
+             TextAlignment="Right"
+             Style="{DynamicResource MahApps.Styles.TextBox}">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="TextChanged">
                     <behaviors:InvokeCommandAction Command="{Binding Year_TextChanged}" />
@@ -36,7 +38,8 @@
 
         <TextBox Grid.Column="3" 
              Text="{Binding Month_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-             TextAlignment="Right">
+             TextAlignment="Right"
+             Style="{DynamicResource MahApps.Styles.TextBox}">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="TextChanged">
                     <behaviors:InvokeCommandAction Command="{Binding Month_TextChanged}" />
@@ -48,6 +51,7 @@
 
         <Button Content="→" 
             Grid.Column="5" 
-            Command="{Binding Proceed_Command, Mode=OneWay}" />
+            Command="{Binding Proceed_Command, Mode=OneWay}" 
+            Style="{DynamicResource MahApps.Styles.Button.Calendar.Next}"/>
     </Grid>
 </UserControl>

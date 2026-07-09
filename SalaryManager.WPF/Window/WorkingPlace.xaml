@@ -4,9 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SalaryManager.WPF.Window"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" x:Class="SalaryManager.WPF.Window.WorkingPlace"
+        xmlns:ViewModels="clr-namespace:SalaryManager.WPF.ViewModels" 
+        x:Class="SalaryManager.WPF.Window.WorkingPlace"
         mc:Ignorable="d"
         Background="{Binding Window_Background.Value}"
         Title="{Binding Window_Title.Value, Mode=OneWay}" Height="450" Width="600">
@@ -22,6 +24,7 @@
         </Grid.RowDefinitions>
 
         <ListView ItemsSource="{Binding WorkingPlaces_ItemSource}" 
+                  Style="{DynamicResource MahApps.Styles.ListView}"
                   SelectedIndex="{Binding WorkingPlaces_SelectedIndex.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="SelectionChanged">
@@ -79,9 +82,11 @@
             </Grid.RowDefinitions>
 
             <Label Content="派遣元会社名" 
+                   Style="{DynamicResource MahApps.Styles.Label}"
                    Background="AliceBlue"/>
             <ComboBox Grid.Column="1" 
                       Grid.ColumnSpan="7" 
+                      Style="{DynamicResource MahApps.Styles.ComboBox}"
                       ItemsSource="{Binding CompanyName_ItemSource,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding DispatchingCompanyName_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       Text="{Binding DispatchingCompanyName_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -94,10 +99,12 @@
 
             <Label Content="派遣先会社名" 
                    Grid.Row="1" 
+                   Style="{DynamicResource MahApps.Styles.Label}"
                    Background="AliceBlue"/>
             <ComboBox Grid.Column="1" 
                       Grid.Row="1"
                       Grid.ColumnSpan="7" 
+                      Style="{DynamicResource MahApps.Styles.ComboBox}"
                       ItemsSource="{Binding CompanyName_ItemSource,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding DispatchedCompanyName_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       Text="{Binding DispatchedCompanyName_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -110,10 +117,12 @@
 
             <Label Content="就業場所 (名称)" 
                    Grid.Row="2" 
+                   Style="{DynamicResource MahApps.Styles.Label}"
                    Background="AliceBlue"/>
             <ComboBox Grid.Column="1" 
                      Grid.Row="2" 
                      Grid.ColumnSpan="7" 
+                     Style="{DynamicResource MahApps.Styles.ComboBox}"
                      ItemsSource="{Binding WorkingPlace_ItemSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      SelectedItem="{Binding WorkingPlace_Name_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      Text="{Binding WorkingPlace_Name_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -126,10 +135,12 @@
 
             <Label Content="就業場所 (住所)" 
                    Grid.Row="3" 
+                   Style="{DynamicResource MahApps.Styles.Label}"
                    Background="AliceBlue"/>
             <TextBox Grid.Column="1" 
                      Grid.Row="3" 
                      Grid.ColumnSpan="7" 
+                     Style="{DynamicResource MahApps.Styles.TextBox}"
                      Text="{Binding WorkingPlace_Address_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                      IsReadOnly="True" 
                      Background="#d3d3d3">
@@ -142,29 +153,35 @@
 
             <Label Content="勤務日付" 
                    Grid.Row="4" 
+                   Style="{DynamicResource MahApps.Styles.Label}"
                    Background="AliceBlue"/>
             <DatePicker Grid.Row="4" 
                         Grid.Column="1" 
+                        Style="{DynamicResource MahApps.Styles.DatePicker}"
                         SelectedDate="{Binding WorkingStart_SelectedDate.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="～" 
                    Grid.Column="2" 
                    Grid.Row="4" 
+                   Style="{DynamicResource MahApps.Styles.Label}"
                    HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
                    Background="AliceBlue"/>
             <DatePicker Grid.Row="4" 
                         Grid.Column="3" 
+                        Style="{DynamicResource MahApps.Styles.DatePicker}"
                         SelectedDate="{Binding WorkingEnd_SelectedDate.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <CheckBox Content="待機"
                       Grid.Column="5" 
                       Grid.Row="4" 
+                      Style="{DynamicResource MahApps.Styles.CheckBox}"
                       IsChecked="{Binding IsWaiting_IsChacked.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                       Visibility="{Binding IsWaiting_Visibility.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <CheckBox Content="就業中"
                       Grid.Column="7" 
                       Grid.Row="4" 
+                      Style="{DynamicResource MahApps.Styles.CheckBox}"
                       IsChecked="{Binding IsWorking_IsChacked.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <behaviors:Interaction.Triggers>
                     <behaviors:EventTrigger EventName="Checked">
@@ -175,130 +192,171 @@
 
             <Label Content="労働時間" 
                    Grid.Row="5" 
+                   Style="{DynamicResource MahApps.Styles.Label}"
                    Background="AliceBlue"/>
             <TextBox Grid.Column="1" 
                      Grid.Row="5" 
+                     Style="{DynamicResource MahApps.Styles.TextBox}"
                      Text="{Binding WorkingTime_Start_Hour_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="：" 
                    Grid.Column="2" 
                    Grid.Row="5" 
                    HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
+                   Style="{DynamicResource MahApps.Styles.Label}"
                    Background="AliceBlue"/>
             <TextBox Grid.Column="3" 
                      Grid.Row="5" 
+                     Style="{DynamicResource MahApps.Styles.TextBox}"
                      Text="{Binding WorkingTime_Start_Minute_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="～" 
                    Grid.Column="4" 
                    Grid.Row="5" 
                    HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
+                   Style="{DynamicResource MahApps.Styles.Label}"
                    Background="AliceBlue"/>
             <TextBox Grid.Column="5" 
                      Grid.Row="5" 
+                     Style="{DynamicResource MahApps.Styles.TextBox}"
                      Text="{Binding WorkingTime_End_Hour_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="：" 
                    Grid.Column="6" 
                    Grid.Row="5" 
                    HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
+                   Style="{DynamicResource MahApps.Styles.Label}"
                    Background="AliceBlue"/>
             <TextBox Grid.Column="7" 
                      Grid.Row="5" 
+                     Style="{DynamicResource MahApps.Styles.TextBox}"
                      Text="{Binding WorkingTime_End_Minute_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Label Content="昼休憩" 
                    Grid.Row="6" 
+                   Style="{DynamicResource MahApps.Styles.Label}"
                    Background="AliceBlue"/>
             <TextBox Grid.Column="1" 
                      Grid.Row="6" 
+                     Style="{DynamicResource MahApps.Styles.TextBox}"
                      Text="{Binding LunchTime_Start_Hour_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="：" 
                    Grid.Column="2" 
                    Grid.Row="6" 
+                   Style="{DynamicResource MahApps.Styles.Label}"
                    HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
                    Background="AliceBlue"/>
             <TextBox Grid.Column="3" 
                      Grid.Row="6" 
+                     Style="{DynamicResource MahApps.Styles.TextBox}"
                      Text="{Binding LunchTime_Start_Minute_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="～" 
                    Grid.Column="4" 
                    Grid.Row="6" 
                    HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
+                   Style="{DynamicResource MahApps.Styles.Label}"
                    Background="AliceBlue"/>
             <TextBox Grid.Column="5" 
                      Grid.Row="6" 
+                     Style="{DynamicResource MahApps.Styles.TextBox}"
                      Text="{Binding LunchTime_End_Hour_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="：" 
                    Grid.Column="6" 
                    Grid.Row="6" 
+                   Style="{DynamicResource MahApps.Styles.Label}"
                    HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
                    Background="AliceBlue"/>
             <TextBox Grid.Column="7" 
                      Grid.Row="6" 
+                     Style="{DynamicResource MahApps.Styles.TextBox}"
                      Text="{Binding LunchTime_End_Minute_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Label Content="休憩" 
                    Grid.Row="7" 
+                   Style="{DynamicResource MahApps.Styles.Label}"
                    Background="AliceBlue"/>
             <TextBox Grid.Column="1" 
                      Grid.Row="7" 
+                     Style="{DynamicResource MahApps.Styles.TextBox}"
                      Text="{Binding BreakTime_Start_Hour_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="：" 
                    Grid.Column="2" 
                    Grid.Row="7" 
+                   Style="{DynamicResource MahApps.Styles.Label}"
                    HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
                    Background="AliceBlue"/>
             <TextBox Grid.Column="3" 
                      Grid.Row="7" 
+                     Style="{DynamicResource MahApps.Styles.TextBox}"
                      Text="{Binding BreakTime_Start_Minute_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="～" 
                    Grid.Column="4" 
                    Grid.Row="7" 
+                   Style="{DynamicResource MahApps.Styles.Label}"
                    HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
                    Background="AliceBlue"/>
             <TextBox Grid.Column="5" 
                      Grid.Row="7" 
+                     Style="{DynamicResource MahApps.Styles.TextBox}"
                      Text="{Binding BreakTime_End_Hour_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="：" 
                    Grid.Column="6" 
                    Grid.Row="7" 
+                   Style="{DynamicResource MahApps.Styles.Label}"
                    HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
                    Background="AliceBlue"/>
             <TextBox Grid.Column="7" 
                      Grid.Row="7" 
+                     Style="{DynamicResource MahApps.Styles.TextBox}"
                      Text="{Binding BreakTime_End_Minute_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Label Content="備考" 
                    Grid.Row="8" 
+                   Style="{DynamicResource MahApps.Styles.Label}"
                    Background="AliceBlue"/>
             <TextBox Grid.Column="1" 
                      Grid.Row="8" 
                      Grid.ColumnSpan="7" 
+                     Style="{DynamicResource MahApps.Styles.TextBox}"
                      Text="{Binding Remarks_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <Button Content="追加" 
-                    Grid.Row="9" 
+            <Button Grid.Row="9" 
                     Grid.ColumnSpan="3" 
+                    Style="{DynamicResource MahApps.Styles.Button}"
                     Command="{Binding Add_Command}"
-                    IsEnabled="{Binding Add_IsEnabled.Value}" />
-            <Button Content="更新"
-                    Grid.Column="3"
+                    IsEnabled="{Binding Add_IsEnabled.Value}">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconMaterial Kind="ArrowExpandUp" Width="16" Height="16" Margin="0,0,5,0"/>
+                    <TextBlock Text="追加"/>
+                </StackPanel>
+            </Button>
+            <Button Grid.Column="3"
                     Grid.Row="9" 
                     Grid.ColumnSpan="3" 
+                    Style="{DynamicResource MahApps.Styles.Button}"
                     Command="{Binding Update_Command}"
-                    IsEnabled="{Binding Update_IsEnabled.Value}" />
-            <Button Content="削除"
-                    Grid.Column="6" 
+                    IsEnabled="{Binding Update_IsEnabled.Value}">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconMaterial Kind="Autorenew" Width="16" Height="16" Margin="0,0,5,0"/>
+                    <TextBlock Text="更新"/>
+                </StackPanel>
+            </Button>
+            <Button Grid.Column="6" 
                     Grid.Row="9" 
                     Grid.ColumnSpan="2" 
+                    Style="{DynamicResource MahApps.Styles.Button}"
                     Command="{Binding Delete_Command}"
-                    IsEnabled="{Binding Delete_IsEnabled.Value}" />
+                    IsEnabled="{Binding Delete_IsEnabled.Value}">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconMaterial Kind="TrashCan" Width="16" Height="16" Margin="0,0,5,0"/>
+                    <TextBlock Text="削除"/>
+                </StackPanel>
+            </Button>
         </Grid>
     </Grid>
 </Controls:MetroWindow>

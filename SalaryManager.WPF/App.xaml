@@ -4,56 +4,62 @@
              xmlns:local="clr-namespace:SalaryManager.WPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <!-- ラベル -->
-        <Style TargetType="Label" x:Key="PayslipItemLabel_Style">
-            <Setter Property="HorizontalAlignment" Value="Left" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+            </ResourceDictionary.MergedDictionaries>
 
-        <!-- 数値入力 -->
-        <Style TargetType="TextBox" x:Key="PayslipItemNumeric_Style">
-            <Setter Property="Margin" Value="5" />
-            <Setter Property="TextAlignment" Value="Right" />
+            <!-- ラベル -->
+            <Style TargetType="Label" x:Key="PayslipItemLabel_Style">
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
 
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="LightYellow"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+            <!-- 数値入力 -->
+            <Style TargetType="TextBox" x:Key="PayslipItemNumeric_Style">
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="TextAlignment" Value="Right" />
 
-        <Style TargetType="TextBox" x:Key="AnnualChartItemNumeric_Style">
-            <Setter Property="Margin" Value="3" />
-            <Setter Property="TextAlignment" Value="Right" />
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="LightYellow"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
 
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="LightYellow"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+            <Style TargetType="TextBox" x:Key="AnnualChartItemNumeric_Style">
+                <Setter Property="Margin" Value="3" />
+                <Setter Property="TextAlignment" Value="Right" />
 
-        <!-- 文字入力 -->
-        <Style TargetType="TextBox" x:Key="PayslipItemCharacter_Style">
-            <Setter Property="Margin" Value="5" />
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="LightYellow"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
 
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="LightYellow"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+            <!-- 文字入力 -->
+            <Style TargetType="TextBox" x:Key="PayslipItemCharacter_Style">
+                <Setter Property="Margin" Value="5" />
 
-        <Style TargetType="TextBox" x:Key="WorkSchedule_Style">
-            <Setter Property="IsReadOnly" Value="True" />
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="LightYellow"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
 
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="Blue"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+            <Style TargetType="TextBox" x:Key="WorkSchedule_Style">
+                <Setter Property="IsReadOnly" Value="True" />
 
-
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="Blue"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
