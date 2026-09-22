@@ -31,6 +31,8 @@ public class ViewModel_WorkingPlace : ViewModelBase<Model_WorkingPlace>
         // 経歴一覧
         this.WorkingPlaces_SelectionChanged.Subscribe(_ => this.Model.ListView_SelectionChanged());
 
+        this.OpenProjects_Command.Subscribe(_ => this.Model.OpenProjectsAsync());
+
         // 追加
         this.Add_Command.Subscribe(_ => this.Model.AddAsync());
         this.Add_Command.Subscribe(_ => this.Model.Reload());
@@ -229,6 +231,14 @@ public class ViewModel_WorkingPlace : ViewModelBase<Model_WorkingPlace>
     /// <summary> 休憩終了 - 分 - Text </summary>
     public ReactiveProperty<int> BreakTime_End_Minute_Text { get; set; }
         = new ReactiveProperty<int>();
+
+    #endregion
+
+    #region プロジェクト一覧を開く
+
+    /// <summary> プロジェクト一覧を開く - Command </summary>
+    public ReactiveCommand OpenProjects_Command { get; private set; }
+        = new ReactiveCommand();
 
     #endregion
 

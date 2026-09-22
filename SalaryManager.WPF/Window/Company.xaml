@@ -116,6 +116,7 @@
                      Grid.Row="2" 
                      Grid.ColumnSpan="2" 
                      Style="{DynamicResource MahApps.Styles.TextBox}"
+                     Controls:TextBoxHelper.ClearTextButton="True"
                      Text="{Binding CompanyName_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <behaviors:Interaction.Triggers>
                     <behaviors:EventTrigger EventName="TextChanged">
@@ -124,13 +125,15 @@
                 </behaviors:Interaction.Triggers>
             </TextBox>
 
-            <Label Content="郵便番号(ex 「〒000-0000」)" 
+            <Label Content="郵便番号" 
                    Grid.Row="3" 
                    Grid.RowSpan="2"
                    Style="{DynamicResource MahApps.Styles.Label}"
                    Background="AliceBlue"/>
             <TextBox Grid.Column="1" 
                      Grid.Row="3" 
+                     Controls:TextBoxHelper.Watermark="〒000-0000"
+                     Controls:TextBoxHelper.ClearTextButton="True"
                      Style="{DynamicResource MahApps.Styles.TextBox}"
                      Text="{Binding PostCode_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
@@ -142,6 +145,7 @@
                      Grid.Row="4" 
                      Grid.ColumnSpan="2" 
                      Style="{DynamicResource MahApps.Styles.TextBox}"
+                     Controls:TextBoxHelper.ClearTextButton="True"
                      Text="{Binding Address_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
             <Label Content="住所(Googleカレンダー取得用)" 
@@ -152,6 +156,7 @@
                      Grid.Row="5" 
                      Grid.ColumnSpan="2" 
                      Style="{DynamicResource MahApps.Styles.TextBox}"
+                     Controls:TextBoxHelper.ClearTextButton="True"
                      Text="{Binding Address_Google_Text.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <behaviors:Interaction.Triggers>
                     <behaviors:EventTrigger EventName="TextChanged">

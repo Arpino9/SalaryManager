@@ -1,4 +1,6 @@
-﻿namespace SalaryManager.WPF.ViewModels;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SalaryManager.WPF.ViewModels;
 
 /// <summary>
 /// ViewModel - 副業
@@ -43,9 +45,15 @@ public class ViewModel_SideBusiness : ViewModelBase<Model_SideBusiness>
 
     #region Window
 
+    public class IntValidationAttribute : ValidationAttribute
+    {
+        public override bool IsValid(object value)
+            => int.TryParse(value.ToString(), out var _);
+    }
+
     /// <summary> Window - FontFamily </summary>
     public ReactiveProperty<FontFamily> Window_FontFamily { get; set; }
-        = new ReactiveProperty<FontFamily>();
+    = new ReactiveProperty<FontFamily>();
 
     /// <summary> Window - FontSize </summary>
     public ReactiveProperty<decimal> Window_FontSize { get; set; }

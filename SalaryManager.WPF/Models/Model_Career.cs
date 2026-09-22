@@ -91,6 +91,7 @@ public class Model_Career : ModelBase<ViewModel_Career>, IEditableMaster
             return;
         }
 
+
         var entity = this.ViewModel.Careers_ItemSource[this.ViewModel.Careers_SelectedIndex.Value];
         // 雇用形態
         this.ViewModel.WorkingStatus_Text.Value        = entity.WorkingStatus;

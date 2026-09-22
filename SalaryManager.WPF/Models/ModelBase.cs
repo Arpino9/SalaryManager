@@ -1,4 +1,6 @@
-﻿namespace SalaryManager.WPF.Models;
+﻿using MahApps.Metro.Controls.Dialogs;
+
+namespace SalaryManager.WPF.Models;
 
 /// <summary>
 /// Model - 基底
@@ -8,6 +10,33 @@ public abstract class ModelBase<T> where T : class
 {
     /// <summary> ViewModel </summary>
     internal abstract T ViewModel { get; set; }
+
+    /// <summary>
+    /// MetroWindow
+    /// </summary>
+    private MahApps.Metro.Controls.MetroWindow MetroWindow =>
+        System.Windows.Application.Current.Windows
+            .OfType<MahApps.Metro.Controls.MetroWindow>()
+            .FirstOrDefault(w => w.IsActive)
+        ?? System.Windows.Application.Current.MainWindow as MahApps.Metro.Controls.MetroWindow;
+
+    /// <summary>
+    /// 確認メッセージ表示
+    /// </summary>
+    /// <param name="title">タイトル</param>
+    /// <param name="message">メッセージ</param>
+    /// <returns>選択結果</returns>
+    protected Task<MessageDialogResult> ShowConfirmMsgAsync(string title, string message)
+        => this.MetroWindow.ShowMessageAsync(title, message, MessageDialogStyle.AffirmativeAndNegative);
+
+    /// <summary>
+    /// メッセージ表示
+    /// </summary>
+    /// <param name="title">タイトル</param>
+    /// <param name="message">メッセージ</param>
+    /// <returns>void</returns>
+    protected Task ShowMessageAsync(string title, string message)
+        => this.MetroWindow.ShowMessageAsync(title, message);
 
     /// <summary>
     /// SixLabors.Fonts.FontFamily を System.Windows.Media.FontFamily に変換

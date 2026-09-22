@@ -35,6 +35,8 @@ public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>, IEditableMa
     /// <summary> ViewModel - 職歴 </summary>
     internal override ViewModel_WorkingPlace ViewModel { get; set; }
 
+    internal static string SelectedCompanyName { get; set; }
+
     /// <summary>
     /// 初期化
     /// </summary>
@@ -123,6 +125,7 @@ public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>, IEditableMa
         // 派遣元会社名
         this.ViewModel.DispatchingCompanyName_Text.Value = entity.DispatchingCompany.Text;
         this.ViewModel.DispatchedCompanyName_Text.Value  = entity.DispatchedCompany.Text;
+        Model_WorkingPlace.SelectedCompanyName = entity.DispatchedCompany.Text;
         // 会社名
         this.ViewModel.WorkingPlace_Name_Text.Value = entity.WorkingPlace_Name.Text;
 
@@ -289,6 +292,7 @@ public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>, IEditableMa
 
         // 会社名
         this.ViewModel.WorkingPlace_Name_Text.Value = default(string);
+        Model_WorkingPlace.SelectedCompanyName = default(string);
         // 住所
         this.ViewModel.WorkingPlace_Address_Text.Value      = default(string);
 
@@ -334,6 +338,12 @@ public class Model_WorkingPlace : ModelBase<ViewModel_WorkingPlace>, IEditableMa
         this.ViewModel.Update_IsEnabled.Value = false;
         // 削除ボタン
         this.ViewModel.Delete_IsEnabled.Value = false;
+    }
+
+    public async Task OpenProjectsAsync()
+    {
+        var project = new Project();
+        project.Show();
     }
 
     /// <summary>
