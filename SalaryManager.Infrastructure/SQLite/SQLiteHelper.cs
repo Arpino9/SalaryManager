@@ -197,7 +197,15 @@ public class SQLiteHelper
             if (command.ExecuteNonQuery() < 1)
             {
                 command.CommandText = insert;
-                command.ExecuteNonQuery();
+
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Insert文の実行に失敗しました。{Environment.NewLine}{ex.Message}");
+                }
             }
         }
     }

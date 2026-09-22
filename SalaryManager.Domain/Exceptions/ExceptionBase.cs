@@ -1,4 +1,6 @@
-﻿namespace SalaryManager.Domain.Exceptions;
+﻿using System.Data;
+
+namespace SalaryManager.Domain.Exceptions;
 
 /// <summary>
 /// ユーザ定義例外
@@ -10,6 +12,8 @@ public abstract class ExceptionBase : Exception
 {
     private static readonly log4net.ILog _logger =
       log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
+    public static object WriteMode = 0;
 
     /// <summary>
     /// コンストラクタ
@@ -74,13 +78,17 @@ public abstract class ExceptionBase : Exception
         switch (logType)
         {
             case LogType.Error:
-                System.Windows.MessageBox.Show(
-                    message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                if (WriteMode.Equals(1))
+                {
+                    System.Windows.MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
                 _logger.Error(message); break;
 
             case LogType.Fatal:
-                System.Windows.MessageBox.Show(
-                    message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                if (WriteMode.Equals(1))
+                {
+                    System.Windows.MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
                 _logger.Fatal(message); break;
         }
 
@@ -105,13 +113,19 @@ public abstract class ExceptionBase : Exception
         switch (logType)
         {
             case LogType.Error:
-                System.Windows.MessageBox.Show(
-                    ex.ToString(), title, MessageBoxButton.OK, MessageBoxImage.Error);
+                if (WriteMode.Equals(1))
+                {
+                    System.Windows.MessageBox.Show(ex.ToString(), title, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                    
                 _logger.Error(title, ex); break;
 
             case LogType.Fatal:
-                System.Windows.MessageBox.Show(
-                    ex.ToString(), title, MessageBoxButton.OK, MessageBoxImage.Error);
+                if (WriteMode.Equals(1))
+                {
+                    System.Windows.MessageBox.Show(ex.ToString(), title, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                    
                 _logger.Fatal(title, ex); break;
         }
 
