@@ -27,6 +27,7 @@ public class ViewModel_MainWindow : ViewModelBase<Model_MainWindow>
         this.Window_Activated.Subscribe(_ => this.AnnualChart.Window_Activated());
 
         // メニュー - 編集
+        this.ViewExperiencedSkill_Command.Subscribe(_ => this.Model.ViewExperiencedSkill());
         this.EditCompany_Command.Subscribe(_ => this.Model.EditCompany());
         this.EditCareer_Command.Subscribe(_ => this.Model.EditCareer());
         this.EditWorkingPlace_Command.Subscribe(_ => this.Model.EditWorkingPlace());
@@ -98,6 +99,10 @@ public class ViewModel_MainWindow : ViewModelBase<Model_MainWindow>
     #endregion
 
     #region メニュー - 編集
+
+    /// <summary> 保有スキル - Command  </summary>
+    public ReactiveCommand ViewExperiencedSkill_Command { get; private set; }
+        = new ReactiveCommand();
 
     /// <summary> 会社マスタ - Command  </summary>
     public ReactiveCommand EditCompany_Command { get; private set; }

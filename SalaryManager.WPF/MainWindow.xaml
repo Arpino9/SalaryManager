@@ -26,6 +26,12 @@
         <Controls:WindowCommands>
             <Menu Style="{DynamicResource MahApps.Styles.Menu}">
                 <MenuItem Header="編集" Style="{DynamicResource MahApps.Styles.MenuItem}">
+                    <MenuItem Header="保有スキル" Command="{Binding ViewExperiencedSkill_Command}" Style="{DynamicResource MahApps.Styles.MenuItem}">
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="保有スキル一覧を開きます。"/>
+                        </ToolTipService.ToolTip>
+                    </MenuItem>
+
                     <MenuItem Header="会社マスタ" Command="{Binding EditCompany_Command}" Style="{DynamicResource MahApps.Styles.MenuItem}">
                         <ToolTipService.ToolTip>
                             <ToolTip Content="会社マスタを開きます。"/>

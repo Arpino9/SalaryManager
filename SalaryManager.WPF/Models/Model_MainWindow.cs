@@ -114,6 +114,15 @@ public class Model_MainWindow : ModelBase<ViewModel_MainWindow>
     #region メニュー - 編集
 
     /// <summary>
+    /// 保有スキル一覧を開く
+    /// </summary>
+    internal void ViewExperiencedSkill()
+    {
+        var experiencedskill = new ExperiencedSkill();
+        experiencedskill.Show();
+    }
+
+    /// <summary>
     /// 会社マスタを開く
     /// </summary>
     internal void EditCompany()
