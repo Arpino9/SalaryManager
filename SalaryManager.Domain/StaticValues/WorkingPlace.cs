@@ -62,12 +62,12 @@ public static class WorkingPlace
     /// </summary>
     /// <returns>就業場所</returns>
     public static IReadOnlyList<WorkingPlaceEntity> FetchByAscending()
-        => _entities.OrderBy(x => x.ID).ToList().AsReadOnly();
+        => _entities.OrderBy(x => x.WorkingStart).ToList().AsReadOnly();
 
     /// <summary>
     /// 降順で取得する
     /// </summary>
     /// <returns>就業場所</returns>
     public static IReadOnlyList<WorkingPlaceEntity> FetchByDescending()
-        => _entities.OrderByDescending(x => x.ID).ToList().AsReadOnly();
+        => _entities.OrderByDescending(x => x.WorkingStart).ToList().AsReadOnly();
 }

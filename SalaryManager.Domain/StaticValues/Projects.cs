@@ -34,7 +34,7 @@ public static class Projects
     /// <param name="companyName">会社名</param>
     /// <returns>プロジェクト一覧</returns>
     public static IReadOnlyList<ProjectEntity> FetchByDescending(string companyName)
-        => _entities.Where(x => x.CompanyName == companyName).OrderByDescending(x => x.ID).ToList();
+        => _entities.Where(x => x.CompanyName == companyName).OrderByDescending(x => x.StartDate.Value).ToList();
 
     /// <summary>
     /// プロジェクトの合計数を取得
