@@ -1,6 +1,4 @@
-﻿using System.Configuration;
-
-namespace SalaryManager.Domain;
+﻿namespace SalaryManager.Domain;
 
 /// <summary>
 /// Shared

@@ -8,7 +8,7 @@
 /// <param name="endDate">終了日時</param>
 /// <param name="place">場所</param>
 /// <param name="description">説明</param>
-public sealed class CalendarEventEntity(
+public sealed record class CalendarEventEntity(
     string title,
     DateTime startDate,
     DateTime endDate,

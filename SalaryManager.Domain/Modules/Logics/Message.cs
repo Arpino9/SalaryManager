@@ -1,6 +1,4 @@
-﻿using System.Windows.Forms;
-
-namespace SalaryManager.Domain.Modules.Logics;
+﻿namespace SalaryManager.Domain.Modules.Logics;
 
 /// <summary>
 /// Utility - ダイアログメッセージ

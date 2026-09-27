@@ -8,8 +8,8 @@
 /// <param name="dispatchedCompany"></param>
 /// <param name="workingPlace"></param>
 /// <param name="workingAddress"></param>
-/// <param name="WorkingStart"></param>
-/// <param name="WorkingEnd"></param>
+/// <param name="workingStart"></param>
+/// <param name="workingEnd"></param>
 /// <param name="isWaiting"></param>
 /// <param name="isWorking"></param>
 /// <param name="workingStartTime"></param>
@@ -19,7 +19,7 @@
 /// <param name="breakStartTime"></param>
 /// <param name="breakEndTime"></param>
 /// <param name="remarks"></param>
-public sealed class WorkingPlaceEntity(
+public sealed record class WorkingPlaceEntity(
     int id,
     string dispatchingCompany,
     string dispatchedCompany,
@@ -35,7 +35,7 @@ public sealed class WorkingPlaceEntity(
     TimeOnly lunchEndTime,
     TimeOnly breakStartTime,
     TimeOnly breakEndTime,
-    string remarks) : IEntity
+    string remarks) : ITableEntity
 {
     /// <summary>
     /// Constructor
@@ -94,31 +94,44 @@ public sealed class WorkingPlaceEntity(
     }
 
     /// <summary> ID </summary>
+    [Column("ID")]
     public int ID => id;
 
     /// <summary> 派遣元会社 </summary>
+    [Column("DispatchingCompany")]
     public CompanyNameValue DispatchingCompany => new CompanyNameValue(dispatchingCompany);
 
     /// <summary> 派遣先会社 </summary>
+    [Column("DispatchedCompany")]
     public CompanyNameValue DispatchedCompany => new CompanyNameValue(dispatchedCompany);
 
     /// <summary> 就業先(名称) </summary>
+    [Column("WorkingPlace")]
     public CompanyNameValue WorkingPlace_Name => new CompanyNameValue(workingPlace);
 
     /// <summary> 就業先(住所) </summary>
+    [Column("WorkingAddress")]
     public string WorkingPlace_Address => workingAddress;
 
     /// <summary> 勤務開始 </summary>
+    [Column("WorkingStart")]
     public DateOnly WorkingStart => workingStart;
 
     /// <summary> 勤務終了 </summary>
+    [Column("WorkingEnd")]
     public DateOnly WorkingEnd => this.IsWorking ? DateUtils.Today : workingEnd;
 
     /// <summary> 待機中か </summary>
+    [Column("IsWaiting")]
     public bool IsWaiting => isWaiting;
 
     /// <summary> 就業中か </summary>
+    [Column("IsWorking")]
     public bool IsWorking => isWorking;
+
+    /// <summary> 備考 </summary>
+    [Column("Remarks")]
+    public string Remarks => remarks;
 
     /// <summary> 労働時間 </summary>
     /// <remarks> (始業時刻, 終業時刻) </remarks>
@@ -137,9 +150,6 @@ public sealed class WorkingPlaceEntity(
     public (TimeSpan Start, TimeSpan End) BreakTime => 
         (new TimeSpan(breakStartTime.Hour, breakStartTime.Minute, 0),
          new TimeSpan(breakEndTime.Hour,   breakEndTime.Minute, 0));
-
-    /// <summary> 備考 </summary>
-    public string Remarks => remarks;
 
     /// <summary> 名目労働時間 </summary>
     public TimeSpan NominalWorkTimeSpan

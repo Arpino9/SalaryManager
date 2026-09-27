@@ -1,5 +1,8 @@
 ﻿namespace SalaryManager.Domain.StaticValues;
 
+/// <summary>
+/// Static Values - プロジェクト一覧
+/// </summary>
 public static class Projects
 {
     private static List<ProjectEntity> _entities = new List<ProjectEntity>();

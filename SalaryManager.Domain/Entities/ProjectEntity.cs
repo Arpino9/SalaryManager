@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace SalaryManager.Domain.Entities;
+﻿namespace SalaryManager.Domain.Entities;
 
 /// <summary>
 /// Entity - プロジェクト
@@ -28,7 +26,8 @@ namespace SalaryManager.Domain.Entities;
 /// <param name="assignedPhrase_Other">その他</param>
 /// <param name="contents">内容</param>
 /// <param name="remarks">備考</param>
-public class ProjectEntity(
+[Table("Project")]
+public sealed record class ProjectEntity(
     int id,
     string companyName,
     string projectName,
@@ -51,97 +50,97 @@ public class ProjectEntity(
     bool assignedPhrase_OperationTest,
     bool assignedPhrase_Other,
     string contents,
-    string remarks)
+    string remarks) : ITableEntity
 {
     /// <summary> ID </summary>
     [Column("ID")]
-    public int ID { get; } = id;
+    public int ID => id;
     
     /// <summary> 会社名 </summary>
     [Column("CompanyName")]
-    public string CompanyName { get; } = companyName;
+    public string CompanyName => companyName;
     
     /// <summary> プロジェクト名 </summary>
     [Column("ProjectName")]
-    public string ProjectName { get; } = projectName;
+    public string ProjectName => projectName;
 
     /// <summary> 開始日 </summary>
     [Column("StartDate")]
-    public WorkingDateValue StartDate { get; } = new WorkingDateValue(startDate);
+    public WorkingDateValue StartDate => new WorkingDateValue(startDate);
     
     /// <summary> 終了日 </summary>
     [Column("EndDate")]
-    public WorkingDateValue EndDate { get; } = new WorkingDateValue(endDate);
+    public WorkingDateValue EndDate => new WorkingDateValue(endDate);
     
     /// <summary> システム名 </summary>
     [Column("SystemName")]
-    public string SystemName { get; } = systemName;
+    public string SystemName => systemName;
     
     /// <summary> 言語 </summary>
     [Column("Language")]
-    public string Language { get; } = language;
+    public string Language => language;
     
     /// <summary> データベース </summary>
     [Column("Database")]
-    public string Database { get; } = database;
+    public string Database => database;
 
     /// <summary> 開発支援ツール </summary>
     [Column("DevelopmentSupportingTool")]
-    public string DevelopmentSupportingTool { get; } = developmenSupportingTool;
+    public string DevelopmentSupportingTool => developmenSupportingTool;
     
     /// <summary> その他ツール </summary>
     [Column("OtherTools")]
-    public string OtherTools { get; } = otherTools;
+    public string OtherTools => otherTools;
     
     /// <summary> 役割 </summary>
     [Column("Role")]
-    public string Role { get; } = role;
+    public string Role => role;
 
     /// <summary> メンバー </summary>
     [Column("Member")]
-    public string Member { get; } = member;
+    public string Member => member;
 
     /// <summary> 担当工程 - 要件定義 </summary>
     [Column("AssignedPhrase_RequireDefinition")]
-    public AlternativeValue AssignedPhrase_RequireDefinition { get; } = new AlternativeValue(assignedPhrase_RequireDefinition);
+    public AlternativeValue AssignedPhrase_RequireDefinition => new AlternativeValue(assignedPhrase_RequireDefinition);
 
     /// <summary> 担当工程 - 基本設計 </summary>
     [Column("AssignedPhrase_BasicDesign")]
-    public AlternativeValue AssignedPhrase_BasicDesign { get; } = new AlternativeValue(assignedPhrase_BasicDesign);
+    public AlternativeValue AssignedPhrase_BasicDesign => new AlternativeValue(assignedPhrase_BasicDesign);
 
     /// <summary> 担当工程 - 詳細設計 </summary>
     [Column("AssignedPhrase_DetailDesign")]
-    public AlternativeValue AssignedPhrase_DetailDesign { get; } = new AlternativeValue(assignedPhrase_DetailDesign);
+    public AlternativeValue AssignedPhrase_DetailDesign => new AlternativeValue(assignedPhrase_DetailDesign);
 
     /// <summary> 担当工程 - 開発 </summary>
     [Column("AssignedPhrase_Development")]
-    public AlternativeValue AssignedPhrase_Development { get; } = new AlternativeValue(assignedPhrase_Development);
+    public AlternativeValue AssignedPhrase_Development => new AlternativeValue(assignedPhrase_Development);
 
     /// <summary> 担当工程 - 単体テスト </summary>
     [Column("AssignedPhrase_UnitTest")]
-    public AlternativeValue AssignedPhrase_UnitTest { get; } = new AlternativeValue(assignedPhrase_UnitTest);
+    public AlternativeValue AssignedPhrase_UnitTest => new AlternativeValue(assignedPhrase_UnitTest);
 
     /// <summary> 担当工程 - 統合テスト </summary>
     [Column("AssignedPhrase_IntegrationTest")]
-    public AlternativeValue AssignedPhrase_IntegrationTest { get; } = new AlternativeValue(assignedPhrase_IntegrationTest);
+    public AlternativeValue AssignedPhrase_IntegrationTest => new AlternativeValue(assignedPhrase_IntegrationTest);
 
     /// <summary> 担当工程 - システムテスト </summary>
     [Column("AssignedPhrase_SystemTest")]
-    public AlternativeValue AssignedPhrase_SystemTest { get; } = new AlternativeValue(assignedPhrase_SystemTest);
+    public AlternativeValue AssignedPhrase_SystemTest => new AlternativeValue(assignedPhrase_SystemTest);
     
     /// <summary> 担当工程 - 運用テスト </summary>
     [Column("AssignedPhrase_OperationTest")]
-    public AlternativeValue AssignedPhrase_OperationTest { get; } = new AlternativeValue(assignedPhrase_OperationTest);
+    public AlternativeValue AssignedPhrase_OperationTest => new AlternativeValue(assignedPhrase_OperationTest);
     
     /// <summary> 担当工程 - その他 </summary>
     [Column("AssignedPhrase_Other")]
-    public AlternativeValue AssignedPhrase_Other { get; } = new AlternativeValue(assignedPhrase_Other);
+    public AlternativeValue AssignedPhrase_Other => new AlternativeValue(assignedPhrase_Other);
 
     /// <summary> 業務内容 </summary>
     [Column("Contents")]
-    public string Contents { get; } = contents;
+    public string Contents => contents;
     
     /// <summary> 備考 </summary>
     [Column("Remarks")]
-    public string Remarks { get; } = remarks;
+    public string Remarks => remarks;
 }

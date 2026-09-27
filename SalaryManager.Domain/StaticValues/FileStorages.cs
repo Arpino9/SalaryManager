@@ -1,6 +1,4 @@
-﻿using Microsoft.Data.Sqlite;
-
-namespace SalaryManager.Domain.StaticValues;
+﻿namespace SalaryManager.Domain.StaticValues;
 
 /// <summary>
 /// Static Values - 添付ファイル

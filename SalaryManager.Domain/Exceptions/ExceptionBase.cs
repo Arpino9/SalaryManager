@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-namespace SalaryManager.Domain.Exceptions;
+﻿namespace SalaryManager.Domain.Exceptions;
 
 /// <summary>
 /// ユーザ定義例外

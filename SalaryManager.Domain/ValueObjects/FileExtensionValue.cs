@@ -1,10 +1,4 @@
-﻿using SixLabors.ImageSharp.Formats.Gif;
-using SixLabors.ImageSharp.Formats.Jpeg;
-using SixLabors.ImageSharp.Formats.Png;
-using SixLabors.ImageSharp.Formats.Tiff;
-using SixLabors.ImageSharp.Formats;
-
-namespace SalaryManager.Domain.ValueObjects;
+﻿namespace SalaryManager.Domain.ValueObjects;
 
 /// <summary>
 /// Value Object - ファイル拡張子
@@ -12,22 +6,22 @@ namespace SalaryManager.Domain.ValueObjects;
 public sealed record class FileExtensionValue
 {
     /// <summary> JPG形式 </summary>
-    private static readonly FileExtensionValue JPG = new FileExtensionValue("jpg");
+    private static readonly FileExtensionValue JPG = new("jpg");
 
     /// <summary> GIF形式 </summary>
-    private static readonly FileExtensionValue GIF = new FileExtensionValue("gif");
+    private static readonly FileExtensionValue GIF = new("gif");
 
     /// <summary> PNG形式 </summary>
-    private static readonly FileExtensionValue PNG = new FileExtensionValue("png");
+    private static readonly FileExtensionValue PNG = new("png");
 
     /// <summary> TIFF形式 </summary>
-    private static readonly FileExtensionValue TIFF = new FileExtensionValue("tiff");
+    private static readonly FileExtensionValue TIFF = new("tiff");
 
     /// <summary> PDF形式 </summary>
-    private static readonly FileExtensionValue PDF = new FileExtensionValue("pdf");
+    private static readonly FileExtensionValue PDF = new("pdf");
 
     /// <summary> EXIF形式 </summary>
-    private static readonly FileExtensionValue Exif = new FileExtensionValue("exif");
+    private static readonly FileExtensionValue Exif = new("exif");
 
     public FileExtensionValue(string path)
     {

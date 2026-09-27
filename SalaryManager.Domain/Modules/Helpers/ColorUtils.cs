@@ -1,4 +1,6 @@
-﻿namespace SalaryManager.Domain.Modules.Helpers;
+﻿using Color = System.Drawing.Color;
+
+namespace SalaryManager.Domain.Modules.Helpers;
 
 /// <summary>
 /// Utility - 色情報
