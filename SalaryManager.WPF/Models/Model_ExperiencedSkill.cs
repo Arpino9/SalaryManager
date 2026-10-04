@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Bibliography;
+﻿using Aspose.Pdf.AI;
+using DocumentFormat.OpenXml.Bibliography;
 using System.Data.Entity;
 
 namespace SalaryManager.WPF.Models;
@@ -43,6 +44,17 @@ public class Model_ExperiencedSkill : ModelBase<ViewModel_ExperiencedSkill>, IVi
     public void Initialize()
     {
         Projects.Create(_repository);
+
+        this.ViewModel.ExperiencedPhrases_ItemSource.Clear();
+
+        this.SetAssignedPhrases(Projects.FetchAssignedPhrase_RequireDefinition(), "要件定義");
+        this.SetAssignedPhrases(Projects.FetchAssignedPhrase_BasicDesign(), "基本設計");
+        this.SetAssignedPhrases(Projects.FetchAssignedPhrase_DetailDesign(), "詳細設計");
+        this.SetAssignedPhrases(Projects.FetchAssignedPhrase_Development(), "開発");
+        this.SetAssignedPhrases(Projects.FetchAssignedPhrase_UnitTest(), "単体テスト");
+        this.SetAssignedPhrases(Projects.FetchAssignedPhrase_IntegrationTest(), "統合テスト");
+        this.SetAssignedPhrases(Projects.FetchAssignedPhrase_SystemTest(), "システムテスト");
+        this.SetAssignedPhrases(Projects.FetchAssignedPhrase_OperationTest(), "運用テスト");
 
         this.ViewModel.ExperiencedLanguages_ItemSource.Clear();
 
@@ -98,6 +110,26 @@ public class Model_ExperiencedSkill : ModelBase<ViewModel_ExperiencedSkill>, IVi
             {
                 this.ViewModel.ExperiencedOtherTools_ItemSource.Add(new ExperiencedOtherTools(tool.Tool, $"{tool.Year}年以上"));
             }
+        }
+    }
+
+    public void SetAssignedPhrases(IReadOnlyList<ProjectEntity> projects, string phrase)
+    {
+        var years = Math.Round((this.FetchExperienceDays(projects) / 365.0), MidpointRounding.AwayFromZero);
+
+        if (years == 0)
+        {
+            this.ViewModel.ExperiencedPhrases_ItemSource.Add(new ExperiencedPhrase(phrase, "経験なし"));
+            return;
+        }
+
+        if (years <= 0)
+        {
+            this.ViewModel.ExperiencedPhrases_ItemSource.Add(new ExperiencedPhrase(phrase, "1年未満"));
+        }
+        else
+        {
+            this.ViewModel.ExperiencedPhrases_ItemSource.Add(new ExperiencedPhrase(phrase, $"{years}年以上"));
         }
     }
 

@@ -21,12 +21,31 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Grid>
+        <Grid Grid.Row="0" Height="150">
+            <ListView ItemsSource="{Binding ExperiencedPhrases_ItemSource}" 
+              Style="{DynamicResource MahApps.Styles.ListView}"
+              SelectedIndex="{Binding ExperiencedPhrases_SelectedIndex.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+              ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Phrase}">
+                            <GridViewColumnHeader Content="工程" />
+                        </GridViewColumn>
+
+                        <GridViewColumn DisplayMemberBinding="{Binding Year}">
+                            <GridViewColumnHeader Content="経験年数" />
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+
+        <Grid Grid.Row="1" Height="150">
             <ListView ItemsSource="{Binding ExperiencedLanguages_ItemSource}" 
                       Style="{DynamicResource MahApps.Styles.ListView}"
-                      Height="150"
                       SelectedIndex="{Binding ExperiencedLanguages_SelectedIndex.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       ScrollViewer.HorizontalScrollBarVisibility="Auto">
                 <ListView.View>
@@ -43,7 +62,7 @@
             </ListView>
         </Grid>
 
-        <Grid Grid.Row="1" Height="150">
+        <Grid Grid.Row="2" Height="150">
             <ListView ItemsSource="{Binding ExperiencedDatabases_ItemSource}" 
                       Style="{DynamicResource MahApps.Styles.ListView}"
                       SelectedIndex="{Binding ExperiencedDatabases_SelectedIndex.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -62,7 +81,7 @@
             </ListView>
         </Grid>
 
-        <Grid Grid.Row="2" Height="150">
+        <Grid Grid.Row="3" Height="150">
             <ListView ItemsSource="{Binding ExperiencedDevelopmentSupportingTools_ItemSource}" 
                       Style="{DynamicResource MahApps.Styles.ListView}"
                       SelectedIndex="{Binding ExperiencedDevelopmentSupportingTools_SelectedIndex.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -81,7 +100,7 @@
             </ListView>
         </Grid>
 
-        <Grid Grid.Row="3" Height="150">
+        <Grid Grid.Row="4" Height="150">
             <ListView ItemsSource="{Binding ExperiencedOtherTools_ItemSource}" 
               Style="{DynamicResource MahApps.Styles.ListView}"
               SelectedIndex="{Binding ExperiencedOtherTools_SelectedIndex.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

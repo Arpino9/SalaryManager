@@ -14,12 +14,9 @@ public static class CalendarReader
     /// <summary> Googleカレンダーのイベント </summary>
     private static List<CalendarEventEntity> CalendarEvents = new List<CalendarEventEntity>();
 
-    /// <summary> 取得判定用 </summary>
-    public static Executing Loading { get; set; }
-
     public static void Dummy()
     {
-        using (Loading = new Executing())
+        using (var loading = new Executor())
         {
             try
             {
@@ -89,7 +86,7 @@ public static class CalendarReader
     /// </summary>
     public static void Read()
     {
-        using (Loading = new Executing())
+        using (var loading = new Executor())
         {
             CalendarEvents.Clear();
 

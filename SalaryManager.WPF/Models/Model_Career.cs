@@ -330,6 +330,7 @@ public class Model_Career : ModelBase<ViewModel_Career>, IEditableMaster
         AllowanceExistenceEntity CreateAllowanceExistenceEntity()
         {
             return new AllowanceExistenceEntity(
+                id,
                 this.ViewModel.PerfectAttendanceAllowance_IsChecked.Value,
                 this.ViewModel.EducationAllowance_IsChecked.Value,
                 this.ViewModel.ElectricityAllowance_IsChecked.Value,

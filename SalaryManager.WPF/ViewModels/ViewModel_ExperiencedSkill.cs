@@ -49,6 +49,18 @@ public class ViewModel_ExperiencedSkill : ViewModelBase<Model_ExperiencedSkill>
 
     #endregion
 
+    #region 工程
+
+    /// <summary> 工程 - ItemSource </summary>
+    public ReactiveCollection<ExperiencedPhrase> ExperiencedPhrases_ItemSource { get; set; }
+        = new ReactiveCollection<ExperiencedPhrase>();
+
+    /// <summary> 工程 - SelectedIndex </summary>
+    public ReactiveProperty<int> ExperiencedPhrases_SelectedIndex { get; set; }
+        = new ReactiveProperty<int>();
+
+    #endregion
+
     #region 言語
 
     /// <summary> 言語 - ItemSource </summary>
@@ -97,6 +109,12 @@ public class ViewModel_ExperiencedSkill : ViewModelBase<Model_ExperiencedSkill>
 
     #endregion
 
+}
+
+public class ExperiencedPhrase(string phrase, string year)
+{
+    public string Phrase { get; set; } = phrase;
+    public string Year { get; set; } = year;
 }
 
 public class ExperiencedLanguages(string lauguage, string year)

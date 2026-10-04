@@ -37,6 +37,7 @@ FROM Career";
             reader =>
             {
                 var allowance = new AllowanceExistenceEntity(
+                    Convert.ToInt32(reader["ID"]),
                     Convert.ToBoolean(reader["PerfectAttendance"]),
                     Convert.ToBoolean(reader["Education"]),
                     Convert.ToBoolean(reader["Electricity"]),
@@ -109,6 +110,7 @@ Where ID = @ID";
             reader =>
             {
                 var allowance = new AllowanceExistenceEntity(
+                    Convert.ToInt32(reader["ID"]),
                     Convert.ToBoolean(reader["PerfectAttendance"]),
                     Convert.ToBoolean(reader["Education"]),
                     Convert.ToBoolean(reader["Electricity"]),
